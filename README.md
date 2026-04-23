@@ -1,16 +1,17 @@
-# Geographic Bias in LLMs: A Multi-Country, Multi-Language Benchmark for Policy Research
+# Geographic Bias Across the LLM Ecosystem: A Multi-Country, Multi-Tier Audit for Global South Policy Research
 
-**Research project in progress** — investigating systematic geographic bias in Large Language Models and its consequences for applied policy research in the Global South.
+**Research project in progress** — auditing geographic factual bias across the LLM tiers actually accessible to Global South researchers (regional, open, accessible-frontier, frontier-premium) and its consequences for applied policy research.
 
 **Target journal:** *Patterns* (Cell Press, IF 7.4, Q1)
 **Institution:** Programa de Pós-Graduação em Planejamento Urbano e Ambiental, UTFPR
-**Status:** Methodology locked, pre-registration ready, awaiting execution (Stage 5 of 10)
+**Status:** Design v2 locked (multi-tier audit, R$ 200 budget-aware); ready for pilot execution
+**Canonical proposal:** [`docs/proposta_consolidada_v2.md`](docs/proposta_consolidada_v2.md)
 
 ---
 
 ## Research question
 
-Do LLMs exhibit systematic factual bias when supporting applied research about countries in the Global South — and if so, what role do (i) prompt language, (ii) regional model training, and (iii) training-corpus representation play in explaining the bias?
+Across the LLM ecosystem actually accessible to Global South researchers — regional, open, accessible-frontier, and frontier-premium — where are the geographic gaps, and which tier best serves applied policy research?
 
 ## Hypotheses
 
@@ -19,13 +20,16 @@ Do LLMs exhibit systematic factual bias when supporting applied research about c
 - **H3a/b:** Regional LLMs (Sabiá-3) either close the gap for their target country (H3a) or displace it onto other linguistically-related countries (H3b).
 - **H4:** Training-corpus token representation (Common Crawl) correlates with country-level accuracy, mediating the Global South effect.
 
-## Design summary
+## Design summary (v2 — multi-tier audit)
 
 - **15 countries** stratified along three theoretically-grounded axes (UNCTAD, Joshi et al. 2020, World Bank income groups).
-- **6 LLMs** spanning frontier proprietary, open-source global, regional, and scale-matched control categories.
-- **~450 prompts** in 3 domains (public policy, socioeconomic, environmental) × 5 task types, authored by a panel of 10+ Global South experts.
+- **6 LLMs across two tiers:**
+  - **Tier A (accessible, 15-country full scope):** Claude Sonnet 4.6, Gemini 2.5 Pro, Llama 4 70B, Sabiá-3, Qwen 3 32B
+  - **Tier B (frontier ceiling, 6-country subset):** Claude Opus 4.7
+- **~600 prompts** in 3 domains (public policy, socioeconomic, environmental) × 5 task types, authored by a panel of 10+ Global South experts.
 - **4+ languages** in a sparse factorial matrix.
 - **Pre-registered SAP** with GLMM, Bayesian robustness, and mediation analysis.
+- **Budget:** R$ 200 on-budget (Sabiá-3, Llama, Qwen) + existing Anthropic/Gemini credits off-budget.
 
 ## Repository structure
 
@@ -60,12 +64,23 @@ Full pipeline validates in synthetic mode without API calls. Real execution requ
 | 2b | Country stratification | ✅ | `docs/etapa2b_selecao_paises.md` |
 | 3 | Methodological design | ✅ | `docs/etapa3_metodologia.md` |
 | 4 | Statistical Analysis Plan | ✅ | `docs/etapa4_sap.md` |
-| 5 | Empirical execution | 🔄 | `docs/etapa5_proposta_execucao.md` |
-| 6 | Article writing | ⏳ | — |
+| 5 | Empirical execution (v1 spec) | 🗃️ superseded | `docs/etapa5_proposta_execucao.md` |
+| **5** | **Consolidated proposal (v2)** | ✅ | **`docs/proposta_consolidada_v2.md`** |
+| 5.1 | Pilot Calibration Study | ⏳ next | `data/pilot_202604/` |
+| 5.2 | OSF pre-registration | ⏳ | `preregistration/` |
+| 5.3 | Confirmatory execution | ⏳ | `data/raw/llm_responses/` |
+| 6 | Article writing | 🔄 draft v1 | `latex/main.tex` |
 | 7 | Publication strategy | ⏳ | — |
 | 8 | Language revision | ⏳ | — |
 | 9 | Final formatting | ⏳ | — |
 | 10 | Internal review board | ⏳ | — |
+
+## Budget
+
+- **On-budget API spend:** R$ 200 (Sabiá-3 via Maritaca + Llama 4 via Groq + Qwen 3 via Together)
+- **Off-budget credits (existing):** Anthropic (Sonnet + Opus) + Google (Gemini 2.5 Pro)
+- **Projected execution cost:** ~R$ 30 on-budget + ~R$ 525 off-budget equivalent
+- **Buffer:** R$ 170 for contingencies (re-runs, extra models, expanded pilot)
 
 ## Licensing
 
