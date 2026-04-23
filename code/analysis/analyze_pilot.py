@@ -45,8 +45,17 @@ def load_prompts() -> dict:
 
 
 def load_responses() -> list:
+    """Load responses from the active responses/ directory only.
+
+    IMPORTANT for credibility: explicitly excludes files tagged _DEPRECATED.
+    Archived/superseded runs (e.g. deprecated GPT-5 empty-response pilot)
+    remain in data/pilot_202604/responses_*_archive/ for audit trail but
+    are NEVER loaded into analysis.
+    """
     responses = []
     for f_path in sorted(RESPONSES_DIR.glob("run_*.jsonl")):
+        if "_DEPRECATED" in f_path.name:
+            continue
         with open(f_path) as f:
             for line in f:
                 if line.strip():

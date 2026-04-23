@@ -211,9 +211,18 @@ def _call_openai_compatible(
         "messages": [{"role": "user", "content": prompt}],
         "max_tokens": max_tokens,
     }
-    # Some OpenAI reasoning models reject temperature != 1; let default apply.
-    # For non-reasoning / cross-provider compat, always include temperature.
     body["temperature"] = temperature
+    # GPT-5 family: reasoning models consume large reasoning_tokens before output.
+    # Pilot 1 showed default (medium) reasoning can consume 512+ tokens leaving
+    # no room for actual output at max_tokens=800.
+    # Fix: use reasoning_effort="minimal" for deterministic factual tasks
+    # and switch to max_completion_tokens with larger budget.
+    if api_model_string.startswith("gpt-5") or api_model_string.startswith("o1") or api_model_string.startswith("o3"):
+        body.pop("max_tokens", None)
+        body["max_completion_tokens"] = max(max_tokens, 2000)
+        body["reasoning_effort"] = "minimal"
+        # GPT-5 family may reject temperature != 1
+        body["temperature"] = 1.0
     status, resp = _http_post(
         f"{base_url}/chat/completions",
         headers={"Authorization": f"Bearer {api_key}"},
