@@ -149,8 +149,11 @@ LLMS: tuple[LLM, ...] = (
         "Local Ollama M4; BR-PT tuned open — H3 regional hypothesis"),
 
     # -----------------------------------------------------------------
-    # Tier D — Closed accessible (2 models, full scope)
+    # Tier D — Closed accessible (3 models, full scope)
     # -----------------------------------------------------------------
+    LLM("claude_haiku",  "D_closed_accessible", "anthropic_paid", "closed", "anthropic",
+        "claude-haiku-4-5", 0.0, True,
+        "Anthropic closed accessible tier; paid via US$ 10 budget"),
     LLM("gemini_flash",  "D_closed_accessible", "gemini_free",   "closed", "google",
         "gemini-2.5-flash", 0.0, True,
         "Google closed accessible tier; free API"),
@@ -173,8 +176,8 @@ LLMS: tuple[LLM, ...] = (
         "Reserve ~US$ 10 Anthropic — activate ONLY if reviewer requests multi-vendor closed frontier"),
 )
 
-assert len(LLMS) == 14
-assert sum(1 for m in LLMS if m.full_scope) == 13
+assert len(LLMS) == 15
+assert sum(1 for m in LLMS if m.full_scope) == 14
 assert sum(1 for m in LLMS if m.openness == "open") == 10
 
 
