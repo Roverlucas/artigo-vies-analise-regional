@@ -1,9 +1,9 @@
 {
-  "run_id": "pilot_20260423T190753Z",
+  "run_id": "pilot_20260423T195001Z",
   "pilot_version": "v3.3",
-  "timestamp_start_utc": "2026-04-23T19:07:53.265662+00:00",
+  "timestamp_start_utc": "2026-04-23T19:50:01.151433+00:00",
   "timestamp_end_utc": null,
-  "git_commit": "a4e6628338e28d776aa9f50cd0020384ef57d6ae",
+  "git_commit": "41c0ab6015634a4fa455618be6dad9eb83475bc6",
   "git_dirty": true,
   "python_version": "3.14.3 (main, Feb  3 2026, 15:32:20) [Clang 17.0.0 (clang-1700.6.3.2)]",
   "platform": "macOS-15.7.3-arm64-arm-64bit-Mach-O",
@@ -11,17 +11,19 @@
   "models_requested": [
     "claude_haiku",
     "gpt5_mini",
-    "gemini_flash"
+    "gemini_flash",
+    "llama4_scout",
+    "command_rp"
   ],
   "n_reps": 2,
-  "n_prompts": 40,
-  "n_calls_planned": 240,
-  "prompts_file_sha256": "8a9889443b0646fc713e3bff82183af924671d0bf70bae129659e6f016c546ff",
+  "n_prompts": 70,
+  "n_calls_planned": 700,
+  "prompts_file_sha256": "cf1a7939045b330dc86d8ebae0dc92adb753b31242b5f9008b9129d68421fb75",
   "config": {
     "temperature": 0.3,
     "max_tokens_response": 800,
     "max_retries": 3,
     "api_timeout_seconds": 60
   },
-  "dry_run": true
+  "dry_run": false
 }

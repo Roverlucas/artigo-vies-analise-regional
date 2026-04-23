@@ -313,13 +313,24 @@ def _call_gemini(model, prompt, temperature, max_tokens):
     if not key:
         raise RuntimeError("GEMINI_API_KEY missing")
     t0 = time.time()
+    # Gemini 2.5 Flash uses "thinking tokens" internally before output;
+    # requires max_tokens multiplier to leave budget for both.
+    # Documented behavior from Pilot 1.0 where ~30 output tokens was typical
+    # with max_tokens=800 because thinking consumed the rest.
+    gen_config = {
+        "temperature": temperature,
+        "maxOutputTokens": max(max_tokens, 2500),  # ensure thinking + output budget
+    }
+    # Try to disable thinking for deterministic factual tasks (when supported)
+    if "2.5" in model.api_model_string:
+        gen_config["thinkingConfig"] = {"thinkingBudget": 0}  # disables thinking
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model.api_model_string}:generateContent?key={key}"
     status, resp = _http_post(
         url,
         headers={},
         body={
             "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {"temperature": temperature, "maxOutputTokens": max_tokens},
+            "generationConfig": gen_config,
         },
     )
     latency_ms = int((time.time() - t0) * 1000)
