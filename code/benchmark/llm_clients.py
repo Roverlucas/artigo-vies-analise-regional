@@ -132,6 +132,10 @@ def _http_post(url: str, headers: dict, body: dict, timeout: int = 90) -> tuple[
     data = json.dumps(body).encode("utf-8")
     req = urllib.request.Request(url, data=data, method="POST")
     req.add_header("Content-Type", "application/json")
+    # User-Agent header: without this, Cloudflare-protected APIs (Groq, others)
+    # return 403 on Python urllib default UA.
+    req.add_header("User-Agent", "artigo-vies-analise-regional/v3.3 (research benchmark)")
+    req.add_header("Accept", "application/json")
     for k, v in headers.items():
         req.add_header(k, v)
     try:
@@ -517,7 +521,10 @@ def call_llm(
 def passes_quality_gate(response: LLMResponse) -> tuple[bool, str]:
     if response.api_error:
         return False, f"api_error: {response.api_error}"
-    if response.finish_reason not in ("stop", "end_turn", "STOP", "length"):
+    # Accept all common "clean finish" tokens across providers
+    ok_finish = {"stop", "end_turn", "STOP", "length", "COMPLETE", "complete",
+                 "MAX_TOKENS", "max_tokens"}
+    if response.finish_reason not in ok_finish:
         return False, f"finish_reason={response.finish_reason}"
     if response.response_tokens < 5 and len(response.response_text) < 20:
         return False, "response too short"

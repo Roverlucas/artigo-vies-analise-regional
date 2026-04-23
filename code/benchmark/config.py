@@ -109,41 +109,44 @@ LLMS: tuple[LLM, ...] = (
     # -----------------------------------------------------------------
     # Tier A — Open-weight frontier (5 models, full scope)
     # -----------------------------------------------------------------
-    LLM("llama4_70b",    "A_open_frontier", "groq_free",        "open", "meta",
-        "llama-4-70b-instruct", 70.0, True,
-        "Open frontier; multilingual pretraining"),
-    LLM("qwen3_72b",     "A_open_frontier", "openrouter_free",  "open", "alibaba",
-        "qwen/qwen3-72b-instruct", 72.0, True,
-        "Open frontier; strong multilingual especially low-resource Asian"),
+    LLM("llama4_scout",  "A_open_frontier", "groq_free",        "open", "meta",
+        "meta-llama/llama-4-scout-17b-16e-instruct", 17.0, True,
+        "Llama 4 Scout 17B MoE (16 experts, ~109B total params) via Groq; multilingual"),
+    LLM("llama33_70b",   "A_open_frontier", "groq_free",        "open", "meta",
+        "llama-3.3-70b-versatile", 70.0, True,
+        "Llama 3.3 70B via Groq; dense frontier, multilingual; complements Llama 4 Scout"),
+    LLM("qwen3_80b_a3b", "A_open_frontier", "deepinfra_free",   "open", "alibaba",
+        "Qwen/Qwen3-Next-80B-A3B-Instruct", 80.0, True,
+        "Qwen 3 Next 80B A3B (MoE, 3B active) via DeepInfra; open frontier multilingual 2025 (OpenRouter free tier was rate-limited upstream)"),
     LLM("deepseek_v3",   "A_open_frontier", "deepseek_paid",    "open", "deepseek",
         "deepseek-chat", 671.0, True,
-        "Open-weight MoE frontier SOTA; mixed EN/CN training"),
-    LLM("mixtral_8x22b", "A_open_frontier", "groq_free",        "open", "mistral",
-        "mixtral-8x22b-instruct", 141.0, True,
-        "Open frontier EU; multilingual European focus"),
+        "DeepSeek-V3 671B MoE frontier SOTA via DeepSeek API ($1.99 credit)"),
+    LLM("gpt_oss_120b",  "A_open_frontier", "groq_free",        "open", "openai",
+        "openai/gpt-oss-120b", 120.0, True,
+        "OpenAI gpt-oss-120B open-weight via Groq; novel vendor option for open frontier"),
     LLM("command_rp",    "A_open_frontier", "cohere_trial",     "open", "cohere",
         "command-r-plus-08-2024", 104.0, True,
-        "Open frontier; RAG-tuned + explicitly multilingual"),
+        "Command R+ 104B via Cohere trial API; multilingual-tuned, RAG-optimized"),
 
     # -----------------------------------------------------------------
     # Tier B — Open-weight mid (3 models, full scope)
     # -----------------------------------------------------------------
-    LLM("gemma3_27b",    "B_open_mid",      "groq_free",        "open", "google",
-        "gemma-3-27b-it", 27.0, True,
-        "Open mid-tier; multilingual"),
+    LLM("qwen3_32b",     "B_open_mid",      "groq_free",        "open", "alibaba",
+        "qwen/qwen3-32b", 32.0, True,
+        "Qwen 3 32B via Groq; multilingual mid-tier (replaces Gemma 3 27B not yet on Groq)"),
     LLM("qwen3_14b",     "B_open_mid",      "ollama_local",     "open", "alibaba",
         "qwen3:14b", 14.0, True,
-        "Local Ollama M4; multilingual strong"),
+        "Qwen 3 14B local Ollama M4; multilingual"),
     LLM("phi4_14b",      "B_open_mid",      "ollama_local",     "open", "microsoft",
         "phi4:14b", 14.0, True,
-        "Local Ollama M4; heavy English pretraining (control for multilingual effects)"),
+        "Phi-4 14B local Ollama M4; heavy English pretraining (control for multilingual effects)"),
 
     # -----------------------------------------------------------------
     # Tier C — Open-weight small/regional (2 models, full scope)
     # -----------------------------------------------------------------
-    LLM("llama4_8b",     "C_open_small",    "ollama_local",     "open", "meta",
-        "llama4:8b", 8.0, True,
-        "Local Ollama M4; accessibility floor"),
+    LLM("llama31_8b",    "C_open_small",    "groq_free",        "open", "meta",
+        "llama-3.1-8b-instant", 8.0, True,
+        "Llama 3.1 8B via Groq (fast inference); accessibility floor. Note: Llama 4 8B not yet on Groq."),
     LLM("lince_mistral", "C_open_small",    "ollama_local",     "open", "pucrs",
         "lince-mistral-7b", 7.0, True,
         "Local Ollama M4; BR-PT tuned open — H3 regional hypothesis"),
@@ -176,9 +179,9 @@ LLMS: tuple[LLM, ...] = (
         "Reserve ~US$ 10 Anthropic — activate ONLY if reviewer requests multi-vendor closed frontier"),
 )
 
-assert len(LLMS) == 15
-assert sum(1 for m in LLMS if m.full_scope) == 14
-assert sum(1 for m in LLMS if m.openness == "open") == 10
+assert len(LLMS) == 16
+assert sum(1 for m in LLMS if m.full_scope) == 15
+assert sum(1 for m in LLMS if m.openness == "open") == 11
 
 
 # =========================================================================
