@@ -1,3 +1,5 @@
+> **⚠️ SUPERSEDED — este documento foi substituído por `proposta_consolidada_v3.md` (v3.3 — Full-Spectrum Audit) em 2026-04-23. Mantido para rastreabilidade histórica.**
+
 # Proposta Consolidada v2 — Multi-Tier Audit de LLMs em Pesquisa de Políticas do Sul Global
 
 **Versão:** 2.0 (supersede `etapa5_proposta_execucao.md`)

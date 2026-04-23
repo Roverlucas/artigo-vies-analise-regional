@@ -17,7 +17,8 @@
 | 3 | Design Metodológico | `methodological-design` | ✅ Concluída | `docs/etapa3_metodologia.md` | 2026-04-23 |
 | 4 | Validação Estatística | `validacao-metodologica` | ✅ Concluída | `docs/etapa4_sap.md` | 2026-04-23 |
 | 5 (v1) | Proposta Execução — especificação inicial | `phd-senior-scientist` | 🗃️ Superseded | `docs/etapa5_proposta_execucao.md` | 2026-04-23 |
-| **5 (v2)** | **Proposta Consolidada — multi-tier audit + R$ 200 budget** | `academic-chief (Sage)` | ✅ **Concluída** | **`docs/proposta_consolidada_v2.md`** | 2026-04-23 |
+| 5 (v2) | Proposta Consolidada — multi-tier audit + R$ 200 | `academic-chief (Sage)` | 🗃️ Superseded | `docs/proposta_consolidada_v2.md` | 2026-04-23 |
+| **5 (v3.3)** | **Proposta Full-Spectrum Audit — 14 modelos, 5 tiers, open-science-first** | `academic-chief (Sage)` | ✅ **Concluída** | **`docs/proposta_consolidada_v3.md`** | 2026-04-23 |
 | 5.1 | Pilot Calibration Study (4 países × 3 modelos × 1.440 calls) | `experiment-runner (Forge)` | ⏳ Aguardando gates | `data/pilot_202604/` | — |
 | 5.2 | OSF Pre-Registration | `submission-engineer (Atlas)` | ⏳ Depende 5.1 | `preregistration/osf_registration_v1.md` | — |
 | 5.3 | Execução Confirmatória (15 países × 6 modelos × 16.200 calls) | `experiment-runner (Forge)` | ⏳ Depende 5.2 | `data/raw/llm_responses/` | — |
@@ -32,20 +33,19 @@
 
 ## Decisões Consolidadas
 
-### Escopo do artigo (v2)
-- **Reframe narrativo:** de "frontier comparison" para "multi-tier ecosystem audit" — quais LLMs pesquisadores do Sul Global de fato podem usar, e como eles se comportam.
-- **4 hipóteses** formalizadas (H1-H4), inalteradas em formulação.
-- **15 países** com justificativa teórica em 3 eixos (UNCTAD + Joshi + World Bank):
-  - **América Latina (4):** Brasil, México, Argentina, Peru
-  - **África (4):** Nigéria, África do Sul, Quênia, Egito
-  - **Ásia Sul Global (4):** Índia, Indonésia, Bangladesh, Filipinas
-  - **Norte Global controle (3):** EUA, Alemanha, Japão
-- **6 LLMs em dois tiers:**
-  - **Tier A (acessível, escopo completo):** Claude Sonnet 4.6, Gemini 2.5 Pro, Llama 4 70B, Sabiá-3, Qwen 3 32B
-  - **Tier B (frontier ceiling, subset de 6 países):** Claude Opus 4.7
-  - **Excluídos:** GPT-5 (quota OpenAI exausta — aplicar Researcher Access); DeepSeek-V3 (add-on opcional)
-- **4 línguas:** EN, PT, ES, HI, SW *(matriz esparsa — nem todo país em todas)*.
-- **3 domínios factuais:** políticas públicas, realidade socioeconômica, contexto ambiental.
+### Escopo do artigo (v3.3 — canônico)
+- **Reframe narrativo:** *"Full-Spectrum Open-Weight Audit"* — primeiro benchmark Q1 cobrindo espectro 7B open → 671B MoE → closed SOTA em desenho único.
+- **5 hipóteses** (H1-H4 originais + H5 open-vs-closed novo em v3).
+- **15 países** (estratificação UNCTAD × Joshi × WB inalterada).
+- **14 LLMs em 5 tiers:**
+  - **Tier A (open frontier, 5):** Llama 4 70B, Qwen 3 72B, DeepSeek-V3 (671B MoE), Mixtral 8×22B, Command R+ 104B
+  - **Tier B (open mid, 3):** Gemma 3 27B, Qwen 3 14B, Phi-4 14B
+  - **Tier C (open small/regional, 2):** Llama 4 8B, **Lince-Mistral 7B** (PUCRS, H3 regional)
+  - **Tier D (closed acessível, 2):** Gemini 2.5 Flash, GPT-5-mini
+  - **Tier E (closed frontier SOTA, 1):** GPT-5
+  - **Reserve (1):** Claude Opus 4.7 (só se reviewer pedir)
+- **780 prompts** em matriz esparsa de 4+ línguas × 3 domínios × 5 tarefas.
+- **2 replicações** por call (reduzido de 5 para caber em US$ 15 OpenAI).
 - **Painel validação:** 2-3 especialistas por região via rede PPGSAU/UTFPR.
 - **Pré-registro OSF** obrigatório antes da coleta confirmatória.
 
@@ -54,11 +54,13 @@
 - Framework teórico: Coloniality of Knowledge (Mohamed et al., 2020) + Data Feminism (D'Ignazio & Klein, 2020).
 - Paradigma: post-positivista com lente crítica.
 
-### Orçamento (v2)
-- **On-budget:** R$ 200 para Sabiá-3 (Maritaca) + Llama 4 (Groq) + Qwen 3 (Together)
-- **Off-budget:** créditos existentes Anthropic (Sonnet + Opus subset) + Google (Gemini 2.5 Pro)
-- **Projeção de uso:** ~R$ 30 on-budget; buffer R$ 170 para contingências
-- **Custo off-budget equivalente:** ~R$ 525 (coberto por créditos disponíveis)
+### Orçamento (v3.3)
+- **Gasto planejado:** ~US$ 16 ≈ R$ 85 (OpenAI GPT-5 + GPT-5-mini + DeepSeek-V3)
+- **Free tiers:** Groq, OpenRouter/DeepInfra, Cohere, Gemini (6 modelos sem custo)
+- **Local Ollama (M4 24GB):** 4 modelos rodando localmente (zero API cost)
+- **Reserva estratégica:** US$ 10 Anthropic (Opus se reviewer pedir) + R$ 200 cash + buffers ≈ **R$ 255**
+- **Total commitment máximo:** US$ 15 novo (OpenAI top-up) + 0 do R$ 200 cash
+- **Ratio reserva/gasto:** 3× — permite resposta robusta a qualquer demanda de reviewer
 
 ### Estratégia editorial (v2 revisada)
 1. **Submissão primária:** *Patterns* (Cell Press, IF 7,4) — escopo perfeito para "multi-tier audit" + AI ethics + policy
@@ -68,14 +70,15 @@
 5. **Paralelo:** Data paper em *Scientific Data* (Nature)
 6. **Probabilidade calibrada:** 25-32% em Patterns; 75-80% cumulativo em ≤3 tentativas
 
-### Probabilidade de aceite calibrada
+### Probabilidade de aceite calibrada (v3.3)
 | Cenário | Probabilidade Patterns |
 |---|:-:|
-| 🟢 Forte (H1 d≥0,5, H3 claro) | 30-38% |
-| 🟡 Esperado (H1 d 0,3-0,5) | 22-26% |
-| 🔴 Fraco (H1 null) | 8-14% |
-| **Prior ponderado** | **22-28%** |
-| **Com todas as alavancas** | **30-38%** |
+| 🟢 Forte (H1 d≥0,5, H3 claro, H5 open frontier competitivo) | 38-48% |
+| 🟡 Esperado (H1 d 0,3-0,5, H2-H5 mistos) | 30-38% |
+| 🔴 Fraco (H1 null) | 12-18% |
+| **Prior ponderado** | **32-40%** |
+| **Com todas as alavancas** | **40-50%** |
+| **Cumulativo em ≤3 tentativas Q1/Q2** | **85-90%** |
 
 ### Licenciamento do repositório
 - **Texto, documentação, dados:** CC-BY-4.0
@@ -92,16 +95,21 @@
 
 ---
 
-## Gates de ativação para Fase 5.1 (Pilot)
+## Gates de ativação para Fase 5.1 (Pilot) — v3.3
 
 Antes de disparar o pilot:
 
 1. ✅ Repositório GitHub sincronizado
-2. ⏳ Saldo Anthropic API (mínimo US$ 80 para Sonnet + Opus subset)
-3. ⏳ Saldo Gemini API (mínimo US$ 25)
-4. ⏳ Conta Maritaca (Sabiá-3) criada + R$ 25 carregados
-5. ⏳ Contas Groq + Together (gratuito inicial suficiente)
-6. ⏳ Autoria pelo pesquisador dos 40 prompts piloto (EN)
+2. ⏳ **OpenAI: adicionar US$ 10** (total US$ 15) — usuário em andamento
+3. ✅ Anthropic US$ 10 confirmado (permanece em reserva)
+4. ✅ Gemini free tier funciona
+5. ✅ DeepSeek US$ 1,99 confirmado
+6. ⏳ **Groq account** (console.groq.com — free signup)
+7. ⏳ **OpenRouter account** (openrouter.ai — free signup)
+8. ⏳ **Cohere account + trial key** (cohere.com/api)
+9. ⏳ **DeepInfra account** (deepinfra.com — free signup)
+10. ⏳ **Ollama update + pull**: `ollama pull qwen3:14b phi4 llama4:8b lince-mistral`
+11. ⏳ **40 prompts piloto em EN** (autoria Lucas)
 
 ---
 
@@ -109,3 +117,4 @@ Antes de disparar o pilot:
 
 - **2026-04-23:** Pipeline iniciado; Etapas 1 e 2 concluídas; decisão de acumular todos os artefatos em `/home/claude/artigo_llm_bias/` até finalização para empacotamento em ZIP no encerramento.
 - **2026-04-23 (later):** Projeto migrado para `/Users/lucasrover/artigo-vies-analise-regional/` e sincronizado com GitHub. Proposta consolidada v2 criada com reframe narrativo ("multi-tier ecosystem audit"), desenho amostral em Tier A/B, orçamento R$ 200 on-budget + créditos existentes off-budget. Etapa 5 v1 marcada como superseded. Orquestrador Sage (academic-chief) ativo.
+- **2026-04-23 (evening):** Verificação real de APIs confirmou Anthropic/OpenAI/Gemini/DeepSeek/Perplexity todas funcionais. Saldos: Anthropic US$ 10, OpenAI US$ 5, DeepSeek US$ 1,99. Proposta reescrita como v3.3 (*Full-Spectrum Open-Weight Audit*) com 14 modelos em 5 tiers, narrativa open-science-first, H5 nova (open frontier vs closed frontier), budget planejado US$ 15 OpenAI + DeepSeek + free tiers + local Ollama. R$ 200 cash + US$ 10 Anthropic mantidos como reserva estratégica (~R$ 255 total). v2 marcada como superseded. Probabilidade calibrada subiu para 32-40% prior / 40-50% com alavancas.

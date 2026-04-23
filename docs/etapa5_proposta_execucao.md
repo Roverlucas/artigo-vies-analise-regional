@@ -1,3 +1,5 @@
+> **⚠️ SUPERSEDED — este documento (v1 da execução) foi substituído por `proposta_consolidada_v3.md` (v3.3 — Full-Spectrum Audit) em 2026-04-23. Mantido para rastreabilidade histórica.**
+
 # Etapa 5 — Proposta de Execução Empírica
 
 **Project:** Geographic bias in LLMs and its impact on Global South policy research
