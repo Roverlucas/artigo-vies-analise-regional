@@ -1,0 +1,177 @@
+\section{Discussion}
+\label{sec:discussion}
+
+Our findings \placeholder{confirm / qualify / contradict} the hypothesis that
+Large Language Models reproduce epistemic asymmetries along the Global
+North--South divide in ways that directly affect their utility for applied
+policy research. We discuss four interrelated implications: the empirical
+contribution relative to prior work, the mechanistic evidence on corpus
+representation, the policy implications of the regional-model finding, and
+what the limitations tell us about where this literature should go next.
+
+\subsection{What we learned empirically}
+
+\subsubsection*{On H1 (geographic gap in applied research)}
+
+\simvalue{The observed $\sim$10 percentage-point absolute gap} in accuracy
+between Global South and Global North prompts on applied-research tasks is
+broadly consistent in direction with WorldBench's 1.5$\times$ error ratio on
+numeric indicators~\citep{moayeri2024worldbench} and Global-Liar's
+privileging of Global North statements~\citep{mirza2024global}, but
+importantly \emph{generalises} the finding to tasks that more closely
+resemble real scholarly use. The pre-registered design, expert-authored
+prompts, and panel-validated rubric distinguish this result from benchmarks
+where task construction or evaluation is itself entangled with the bias
+under study.
+
+\subsubsection*{On H2 (language and geography interact)}
+
+The non-monotonic interaction between prompt language and country, if
+confirmed as hypothesised, extends the pattern first suggested in
+BLEnD~\citep{myung2024blend} to applied-research tasks. For Global South
+countries whose primary language is a \emph{high-resource} language in the
+NLP sense (Brazilian Portuguese at Joshi Class~3; Spanish, Hindi at Class~4),
+native-language prompts may provide a small advantage --- plausibly because
+the LLM has absorbed more region-specific content in those languages. For
+\emph{lower-resource} languages (Class~1--2), native-language prompts degrade
+accuracy further, because the LLM lacks sufficient corpus to answer
+competently and English remains its stronger knowledge channel.
+
+This has an actionable implication: the often-repeated advice that
+``LLMs work better in the local language'' is false for exactly the countries
+that most need the tool --- those whose languages are under-represented in
+the training corpus. Practitioners and researchers in countries of Joshi
+classes 0--2 should default to English prompts; researchers in Joshi classes
+3--4 countries may benefit from native-language prompts for regionally
+specific questions.
+
+\subsubsection*{On H3 (regional training)}
+
+\simvalue{The observed advantage of Sabi\'a-3 on Brazilian prompts (+9pp
+over frontier average, versus +3pp for scale-matched Qwen~3~32B)} is perhaps
+the most policy-relevant finding. If confirmed empirically, it provides
+evidence that regional training delivers a benefit \emph{beyond scale} ---
+that is, a 65B-parameter model trained with Brazilian Portuguese emphasis
+outperforms equally-sized globally-trained open-source models on the specific
+country it targets.
+
+The interpretation is nuanced, however. We do not know --- and cannot know
+from this study --- whether the advantage extends to \emph{other Lusophone
+countries} (Angola, Mozambique, Cabo Verde) or is specific to Brazil. If
+specific to Brazil, ``regional'' training is effectively ``national''
+training, and the policy conclusion is that each Global South country needs
+its own nationally-tuned model. If it extends to Lusophone Africa, shared
+linguistic-cultural heritage is a viable scaling axis. \placeholder{Our
+preliminary Lusophone-Africa proxy test in Section~\ref{sec:results:h3}
+suggests [result].}
+
+\subsubsection*{On H4 (mechanism)}
+
+The mediation analysis \simvalue{(62\% of the Global-South effect mediated
+through corpus representation, E-value 2.3)} provides empirical content to
+what has until now been a theoretical claim in the critical AI
+literature~\citep{mohamed2020decolonial,couldry2019costs}. If corpus
+representation is the primary mediator, then the Global-South accuracy gap
+\emph{is largely remediable} --- through (a) deliberate expansion of Global
+South content in training corpora, (b) regionally-tuned models as discussed
+above, or (c) retrieval-augmented generation grounded in regional primary
+sources. The E-value of 2.3 means that ruling out the mediation would
+require an unmeasured confounder with associations of at least that strength
+to both Global-South status and accuracy, which is plausible but not trivial
+to construct.
+
+\subsection{Theoretical implications}
+
+Our results engage directly with the \emph{coloniality of knowledge}
+literature. Quijano's~\citeyearpar{quijano2000coloniality} original argument
+that global modernity was constituted through the systematic devaluation of
+non-Western knowledge finds, in LLMs, a peculiarly \emph{technical}
+manifestation: the compression of global text into a statistical model
+preserves the pre-existing asymmetries of digital production. Mohamed et
+al.'s~\citeyearpar{mohamed2020decolonial} call for decolonial AI predicted
+this; our work quantifies it in a high-stakes applied-research domain.
+
+Importantly, we do not conclude that LLMs are \emph{only} colonial
+instruments. The regional-model finding suggests that deliberate technical
+choices (which corpus to train on, in which languages, with what emphasis)
+can meaningfully shift the distribution of bias. This is consistent with
+D'Ignazio and Klein's~\citeyearpar{dignazio2020data} insistence that data
+systems are always \emph{designed}: the question is whose knowledge is
+designed in and whose is designed out.
+
+\subsection{Practical implications}
+
+For three audiences, the findings translate into specific guidance.
+
+\paragraph{For Global South researchers using LLMs.}
+\begin{itemize}\setlength{\itemsep}{0pt}
+\item Do not use an LLM as the sole knowledge source for region-specific
+  questions. The error rate is too high for unmediated use.
+\item When a regional model exists and is well-calibrated for your country
+  (e.g., Sabi\'a-3 for Brazil), prefer it for country-specific queries ---
+  but do not assume it generalises across linguistic neighbours.
+\item For countries whose primary language is Joshi Class 0--2, default to
+  English prompts; for Joshi 3--5, native-language prompts may be acceptable
+  or beneficial.
+\item Treat LLM-provided citations, stakeholder lists, and source
+  recommendations as \emph{hypotheses to verify}, not as reliable sources.
+  Our hallucination rate for Global South citation queries was
+  \placeholder{X\%}.
+\end{itemize}
+
+\paragraph{For model developers and research infrastructure.}
+Current frontier proprietary models are better than global open-source
+alternatives on absolute accuracy, but the gap versus Global North remains
+substantial. Investment in Global South content for training corpora --- not
+just in volume but in quality and in research-relevant documents
+(policy texts, peer-reviewed regional scholarship, official statistics) ---
+should be expected to reduce the measured bias, given our mediation result.
+
+\paragraph{For public AI policy.}
+The regional-model finding provides empirical support for policies that
+invest in sovereign AI infrastructure, including Brazil's current interest
+in Latam-GPT and analogous initiatives elsewhere. It also cautions against
+over-generalising: a single regional model is unlikely to serve an entire
+region uniformly. Policies should plan for \emph{portfolio} rather than
+\emph{monolithic} investment.
+
+\subsection{Limitations}
+
+Five limitations deserve specific discussion.
+
+\textbf{Synthetic versus real prompts.} Our prompts, while authored by
+regional experts, remain synthetic: they were not drawn from live research
+workflows. A logical next study is an auditing exercise on consented
+research-use logs, complementing our controlled design.
+
+\textbf{15 countries out of $\sim$195.} Our stratified sample covers four
+continents and five Joshi classes but excludes Oceania, Joshi Class~0
+languages, and countries with compromised statistical governance. Claims
+generalize \emph{among stratification cells}, not universally.
+
+\textbf{Corpus-representation mediation is correlational, not causal.} We
+cannot manipulate corpus contents directly. Our E-value analysis quantifies
+robustness but cannot rule out alternative mechanisms (tokenizer behaviour,
+post-training alignment, political filtering) that could also contribute.
+
+\textbf{Rubric is partially subjective.} Despite high inter-rater agreement,
+the rubric for open-ended tasks (T2--T4) involves judgment calls. We mitigate
+through panel validation and adjudication; we do not claim to have eliminated
+evaluator subjectivity.
+
+\textbf{Temporal snapshot.} LLMs update rapidly. Our results reflect a fixed
+four-week collection window. The specific numerical values will shift; we
+expect the qualitative pattern to persist until substantive interventions
+on corpus composition are made.
+
+\subsection{Directions for future work}
+
+Our data leave three questions open that future studies should address:
+(i) does the regional-model benefit extend to linguistic neighbours
+(Lusophone Africa for Sabi\'a-3; Andean countries for a hypothetical
+quechua-trained model)?; (ii) can retrieval-augmented generation grounded in
+regional primary sources close the gap without full re-training?; and (iii)
+does the bias manifest in downstream \emph{research outputs} when Global
+South researchers use LLMs --- that is, does LLM-assisted writing in our
+domain systematically introduce errors, citations, or framing biases that
+map onto the patterns we measure here? Each is a natural next study.

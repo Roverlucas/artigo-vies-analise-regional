@@ -1,0 +1,84 @@
+\section{Related Work}
+\label{sec:related}
+
+The literature on LLM bias consolidated in three overlapping waves that we
+summarize below, identifying how our contribution differs from each.
+
+\subsection{Wave 1 (2024): Discovery of factual geographic bias}
+
+\citet{manvi2024llm} established that frontier LLMs carry systematic biases
+against regions of lower socioeconomic conditions, demonstrating Spearman
+correlations up to 0.70 between model-generated ratings of attractiveness,
+morality, and intelligence and per-capita income. While compelling, the
+outcome space (subjective ratings) leaves unclear whether the same bias
+manifests in objective factual recall.
+
+\citet{moayeri2024worldbench} introduced WorldBench, quantifying factual recall
+against World Bank indicators across 20 LLMs and 11 indicators, documenting
+1.5$\times$ higher absolute relative error for Sub-Saharan Africa versus North
+America. WorldBench also pioneered automatic detection of citation hallucination
+(models citing the World Bank while producing false statistics). Its design,
+however, is bounded by the macro-economic indicator space; questions asked of
+LLMs in applied policy research are typically more complex than ``what is the
+GDP per capita of country $X$''.
+
+\citet{mirza2024global} (Global-Liar) extended the question to temporal
+stability, showing that newer GPT-4 versions do not monotonically improve and
+that privileging of Global North statements is stable across versions. Their
+contribution is temporal and across-version, not cross-model or cross-language.
+
+Collectively, Wave 1 established that the phenomenon \emph{exists} and is
+\emph{measurable}, but none of these studies addressed applied research use,
+cross-model comparison including regional alternatives, or mechanistic
+explanation.
+
+\subsection{Wave 2 (2025): Multilingual and cultural extensions}
+
+\citet{myung2024blend} (BLEnD) introduced 52k question-answer pairs covering 16
+countries and 13 languages in everyday cultural knowledge. Their central
+finding --- that LLMs perform better in native languages of high-resource
+cultures but worse in native languages of low-resource ones --- motivates our
+H2. Yet BLEnD's design conflates cultural-knowledge accuracy with research-use
+accuracy, and its country selection is not stratified theoretically.
+
+Regional benchmarks proliferated: BRoverbs~\citep{broverbs2025} for Brazilian
+proverbs, TiEBe~\citep{almeida2025tiebe} for regional historical events,
+ALBA~\citep{alba2026} and AMALIA~\citep{amalia2026} for European Portuguese.
+These document concrete failures in culturally grounded tasks but do not
+address applied-research usage, and each is limited to one or two languages.
+
+\subsection{Wave 3 (2026): Alignment and mitigation}
+
+\citet{opuszko2026unraveling} investigated whether reasoning models
+(o1, DeepSeek-R1) reduce geographic bias, finding that reasoning helps in
+aggregate but does not eliminate regional disparities. \citet{kerche2026silicon}
+proposed a place-based typology of LLM biases, framing ours within a broader
+sociotechnical landscape. These contributions are theoretical-conceptual; our
+work provides empirical complementarity.
+
+\subsection{LLMs in policy and research use}
+
+A parallel literature examines LLM use in specific policy and research
+contexts. \citet{he2025policymaking} evaluated LLM policy recommendations for
+homelessness across four cities (Barcelona, Johannesburg, South Bend, and one
+other), finding ``context-blind rigidity'' where LLMs apply stable internal
+heuristics insufficiently calibrated to local sociopolitical realities. Their
+work validates that the bias matters for policy; we generalize to a broader set
+of countries, domains, and model categories with a pre-registered design.
+
+In health specifically, \citet{kozlakidis2026medical} argue that LLM
+hallucinations in clinical contexts pose acute challenges in regulatory
+environments with limited technical capacity, highlighting that
+``language and cultural mismatch between globally trained models and local
+practice increases the risk of errors'' --- the mechanism our H2 tests
+formally.
+
+\subsection{Positioning of the present work}
+
+Our design differs from prior work in four concrete ways: (i) applied-research
+task design rather than numeric recall or cultural knowledge; (ii) country
+selection stratified on three independent theoretical axes rather than
+regional convenience; (iii) regional-model inclusion with pre-specified
+contrasts rather than frontier-only comparison; (iv) explicit mediation test
+of corpus-representation mechanism with sensitivity analysis. No prior study
+combines these four elements.

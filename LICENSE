@@ -1,0 +1,48 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Copyright (c) 2026 Lucas [Surname] and contributors
+
+This work is licensed under the Creative Commons Attribution 4.0
+International License. To view a copy of this license, visit:
+https://creativecommons.org/licenses/by/4.0/
+
+You are free to:
+  - Share — copy and redistribute the material in any medium or format
+  - Adapt — remix, transform, and build upon the material
+  for any purpose, even commercially.
+
+Under the following terms:
+  - Attribution — You must give appropriate credit, provide a link to
+    the license, and indicate if changes were made. You may do so in any
+    reasonable manner, but not in any way that suggests the licensor
+    endorses you or your use.
+
+No additional restrictions — You may not apply legal terms or
+technological measures that legally restrict others from doing anything
+the license permits.
+
+=============================================================================
+SCOPE OF THIS LICENSE
+=============================================================================
+
+This CC-BY-4.0 license applies to:
+  - All documentation in docs/
+  - All LaTeX source files in latex/
+  - All prompt sets in data/raw/prompts/
+  - All ground-truth catalog entries in data/ground_truth/
+  - All figures and tables
+
+Source code in the code/ directory is released under a separate license
+(MIT License) — see code/LICENSE for details.
+
+Third-party data sources referenced in data/ground_truth/SOURCES_CATALOG.md
+retain their original licenses as specified by the respective providers.
+
+=============================================================================
+SUGGESTED CITATION
+=============================================================================
+
+Lucas [Surname], Yara Tadano, and Expert Panel Authors (2026).
+"Geographic Epistemic Asymmetries in LLM-Assisted Policy Research:
+A 15-Country, 6-Model, 4-Language Benchmark."
+https://github.com/Roverlucas/artigo-vies-analise-regional

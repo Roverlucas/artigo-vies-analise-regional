@@ -1,0 +1,112 @@
+\section{Introduction}
+\label{sec:intro}
+
+Large language models (LLMs) have moved from research curiosity to infrastructure
+of scholarly work in under five years. Applied researchers — particularly those
+working on public-policy questions — increasingly draft literature syntheses,
+characterize institutional landscapes, identify stakeholders, and search for
+primary sources with LLM assistance~\citep{messeri2024science,bail2024llm}. This
+shift has happened faster than our ability to audit the tools it depends on.
+
+Accumulating evidence shows that LLMs systematically under-represent knowledge
+about the Global South. \citet{moayeri2024worldbench} documented 1.5$\times$
+higher factual error rates for Sub-Saharan African countries versus North
+American countries across 20 models and 11 World Bank indicators.
+\citet{manvi2024llm} showed that LLM zero-shot ratings on subjective topics
+(attractiveness, morality, intelligence) correlate strongly with income level
+($\rho$ up to 0.70 against socioeconomic conditions).
+\citet{mirza2024global} demonstrated that GPT-4 systematically privileges
+statements about the Global North over the Global South in factual verification
+tasks. These are important findings, but they share three limitations that
+leave the central question for applied research unanswered.
+
+\paragraph{Gap 1: benchmarks test the wrong tasks.} Existing evaluations use
+numeric recall (WorldBench), subjective ratings (Manvi et al.), fact-checking
+of journalistic claims (Global-Liar), or everyday cultural knowledge
+(BLEnD~\citep{myung2024blend}). None tests the tasks that Global South
+researchers actually delegate to LLMs: characterizing socio-environmental
+context, synthesizing existing public-policy frameworks, identifying
+institutional stakeholders, recommending primary sources. The practical
+significance of geographic bias depends on its manifestation in these applied
+settings, not in trivia.
+
+\paragraph{Gap 2: language and geography are confounded.} BLEnD reports
+non-monotonic effects of prompt language on accuracy, but its design --- 16
+countries $\times$ 13 languages in everyday knowledge --- does not allow
+isolation of the interaction. No study to date has performed a controlled
+factorial test of language $\times$ country at the country level in a domain
+relevant to applied research.
+
+\paragraph{Gap 3: regional models are proposed as remedies, never tested as
+such.} The release of regionally-trained LLMs (Sabi\'a-3 for Brazilian
+Portuguese~\citep{almeida2025portuguese}; Latam-GPT for Spanish; AMALIA for
+European Portuguese) has been accompanied by advocacy for ``sovereign AI''
+investment. Whether these models close the Global-South performance gap or
+merely displace it to neighbouring countries with shared linguistic heritage
+(e.g., Angola, Mozambique for Portuguese; Peru's Indigenous populations for
+Spanish) has never been empirically tested. The policy implications of these
+two scenarios diverge sharply.
+
+\paragraph{Gap 4: the mechanism is asserted, not tested.}
+Underrepresentation in the training corpus is the dominant explanation for
+geographic bias in the NLP literature~\citep{joshi2020state,bender2021stochastic}.
+Yet no study has directly tested whether corpus-representation proxies
+(Common Crawl token shares, Wikipedia pageviews by language) correlate
+quantitatively with geographic accuracy gaps, while controlling for plausible
+confounders such as GDP and digital infrastructure.
+
+\subsection*{Contributions of this work}
+
+We present the first pre-registered benchmark designed explicitly for these
+four gaps. Our contributions are:
+
+\begin{enumerate}\setlength{\itemsep}{2pt}
+\item \textbf{Applied-research task suite.} We construct a suite of prompts
+  authored by a multi-regional panel of domain experts (N~$\geq$~10 across
+  Latin America, Africa, and Asia), covering three task types (direct factual
+  recall, open characterization, source recommendation) across three research
+  domains (public policy, socioeconomic reality, environmental context). Prompts
+  simulate real tasks that Global South researchers delegate to LLMs.
+\item \textbf{Theoretically-triangulated country sampling.} We select 15
+  countries stratified along three independent axes: UNCTAD North/South
+  classification (operationalising coloniality~\citep{mohamed2020decolonial}),
+  Joshi et al.\ (2020) six-class linguistic-resource taxonomy, and World Bank
+  income groups. This allows us to disentangle geographic, linguistic, and
+  economic contributions to the bias for the first time.
+\item \textbf{Head-to-head regional vs.\ frontier comparison.} We include
+  Sabi\'a-3 (regionally trained on Brazilian Portuguese) alongside frontier
+  proprietary (GPT-5, Claude Opus 4.7, Gemini 2.5 Pro) and open-source global
+  (Llama~4, Qwen~3) models, testing pre-specified contrasts for whether
+  regional training closes the gap or displaces it.
+\item \textbf{Mechanistic test with sensitivity analysis.} We test the
+  corpus-representation mediation hypothesis using log Common Crawl token
+  shares and Wikipedia pageviews, with explicit DAG formalisation, E-value
+  sensitivity analysis~\citep{vanderweele2017evalue}, and controls for GDP
+  and digital infrastructure.
+\item \textbf{Open resources.} All prompts (after panel validation), ground
+  truth source documents, LLM responses, code, and figures are released under
+  CC-BY-4.0 and MIT licenses, with a permanent Zenodo DOI and a companion
+  Data Paper submitted to \textit{Scientific Data}.
+\end{enumerate}
+
+\subsection*{Theoretical framing}
+
+We interpret our findings within the \emph{coloniality of knowledge}
+framework~\citep{quijano2000coloniality,mohamed2020decolonial} and its recent
+articulation for AI systems~\citep{couldry2019costs,kerche2026silicon}.
+LLMs are not neutral tools; they are compressed statistical summaries of
+corpora that were themselves produced under conditions of uneven digital
+infrastructure, uneven publication access, and uneven political-economic
+power. When those compressed summaries are then used by Global South
+researchers to study their own societies, the resulting research risks
+inheriting the biases of the corpus~\citep{dignazio2020data}. This positions
+our empirical work as a test of one link in a theorised reproduction cycle
+(training-corpus asymmetry $\to$ LLM knowledge asymmetry $\to$ research output
+asymmetry), rather than as a narrow benchmark.
+
+The paper proceeds as follows. Section~\ref{sec:related} positions our work
+relative to the literature. Section~\ref{sec:methods} presents the
+pre-registered design. Section~\ref{sec:results} reports the empirical
+findings. Section~\ref{sec:discussion} interprets them through both statistical
+and critical lenses and considers practical implications. Section~\ref{sec:conclusion}
+closes.

@@ -1,0 +1,16 @@
+country_iso3,continent,unctad,income_group,joshi_class,n_observations
+ARG,LatAm,south,upper_middle,4,1800
+BGD,AsiaSouth,south,lower_middle,3,1800
+BRA,LatAm,south,upper_middle,3,1800
+DEU,GlobalNorth,north,high,4,1800
+EGY,Africa,south,lower_middle,4,1800
+IDN,AsiaSouth,south,upper_middle,3,1800
+IND,AsiaSouth,south,lower_middle,4,1800
+JPN,GlobalNorth,north,high,4,1800
+KEN,Africa,south,lower_middle,1,1800
+MEX,LatAm,south,upper_middle,4,1800
+NGA,Africa,south,lower_middle,1,900
+PER,LatAm,south,upper_middle,4,1800
+PHL,AsiaSouth,south,lower_middle,2,900
+USA,GlobalNorth,north,high,5,900
+ZAF,Africa,south,upper_middle,1,900

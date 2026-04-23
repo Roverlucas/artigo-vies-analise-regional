@@ -1,0 +1,5 @@
+term,estimate,std_error,ci95_low,ci95_high,z_value,p_value
+is_south:is_native_int,0.5382,,,,,
+is_south:joshi_high,0.7463,3044918876346.512,-5967931333484.588,5967931333486.08,0.0,1.0
+is_native_int:joshi_high,0.4649,,,,,
+is_south:is_native_int:joshi_high,-0.5095,,,,,

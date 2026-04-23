@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+title: "Geographic Epistemic Asymmetries in LLM-Assisted Policy Research"
+message: "If you use this work, please cite it using the metadata below."
+type: software
+authors:
+  - given-names: Lucas
+    family-names: "[Surname]"
+    affiliation: "Programa de Pós-Graduação em Planejamento Urbano e Ambiental, UTFPR"
+    orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"
+  - given-names: Yara
+    family-names: Tadano
+    affiliation: "Programa de Pós-Graduação em Planejamento Urbano e Ambiental, UTFPR"
+    orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"
+    role: Supervisor
+repository-code: "https://github.com/Roverlucas/artigo-vies-analise-regional"
+abstract: >-
+  A pre-registered, multi-country, multi-model benchmark quantifying
+  geographic bias in Large Language Models when used for applied research
+  on public policy, socioeconomic reality, and environmental context in
+  the Global South. Covers 15 countries (stratified via UNCTAD, Joshi et
+  al. 2020, World Bank classifications), 6 LLMs (frontier proprietary,
+  open-source global, regional), and a sparse factorial matrix of prompt
+  languages. All prompts, ground-truth references, code, and responses
+  are openly released.
+keywords:
+  - large language models
+  - geographic bias
+  - Global South
+  - epistemic justice
+  - policy research
+  - benchmark
+  - multilingual NLP
+  - coloniality of knowledge
+license: CC-BY-4.0
+license-url: "https://creativecommons.org/licenses/by/4.0/"
+version: "0.1.0-draft"
+date-released: "2026-04-23"

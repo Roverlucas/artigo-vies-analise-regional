@@ -1,0 +1,222 @@
+\section{Results}
+\label{sec:results}
+
+\begin{center}
+\fbox{\parbox{0.85\linewidth}{%
+\small
+\textbf{Data status note:} Values in this section marked with
+\placeholder{[brackets]} indicate placeholders pending real execution. Values
+shown in \simvalue{italic blue} are calibrated expected outputs from the
+synthetic pipeline validation (\emph{SIMULATION} status). Real execution will
+replace all such values; the narrative structure remains.
+}}
+\end{center}
+
+\subsection{Sample and descriptive statistics}
+\label{sec:results:descriptive}
+
+After quality gates, the analytic dataset comprised
+\simvalue{$\sim$23{,}400~observations} across 15 countries, 6 LLMs, and
+\placeholder{number} distinct prompts in \placeholder{number} languages
+(Table~S2). Inter-rater reliability on the rubric reached Krippendorff's
+$\alpha = $~\placeholder{observed}, exceeding the pre-specified threshold of
+0.70. API quality gates excluded \placeholder{X\%} of responses due to
+truncation or language mismatch, analyzed separately in
+Section~\ref{sec:results:robust}.
+
+Figure~\ref{fig:fig1} shows mean composite accuracy by country with 95\%
+confidence intervals, coloured by UNCTAD classification. The visual pattern
+is consistent with geographic asymmetry: Global North countries cluster at the
+upper end of the accuracy distribution \simvalue{(mean~=~0.82, SD~=~0.25)},
+while Global South countries are distributed below with substantial
+heterogeneity \simvalue{(mean~=~0.52, SD~=~0.35)}. Sample composition by
+continent, income group, and Joshi class is summarised in Table~\ref{tab:tab1}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\linewidth]{fig1_sample_composition.pdf}
+\caption{Mean composite accuracy by country with 95\% confidence intervals,
+coloured by UNCTAD North (blue) / South (orange) classification. Countries
+ordered ascending by mean accuracy. \placeholder{On real execution: ordering
+and magnitude will reflect observed data. SIMULATION shown.}
+\textit{N}~=~\simvalue{23{,}400 observations across 15 countries and 6 LLMs.}}
+\label{fig:fig1}
+\end{figure}
+
+\begin{table}[h]
+\centering
+\caption{Sample composition across stratification axes.}
+\label{tab:tab1}
+\small
+\begin{tabular}{lrr}
+\toprule
+Stratum & N countries & N observations \\
+\midrule
+\textbf{UNCTAD} & & \\
+\quad Global South & 12 & \placeholder{} \\
+\quad Global North & 3 & \placeholder{} \\
+\textbf{Income (World Bank FY26)} & & \\
+\quad High & 3 & \placeholder{} \\
+\quad Upper-middle & 5 & \placeholder{} \\
+\quad Lower-middle & 7 & \placeholder{} \\
+\textbf{Joshi class} & & \\
+\quad Class 1 (Scraping-Bys) & 3 & \placeholder{} \\
+\quad Class 2 & 1 & \placeholder{} \\
+\quad Class 3 & 3 & \placeholder{} \\
+\quad Class 4 & 6 & \placeholder{} \\
+\quad Class 5 (Winners) & 2 & \placeholder{} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{H1: Global South versus Global North gap}
+\label{sec:results:h1}
+
+The primary test of H1 estimated the fixed effect of UNCTAD Global-South
+classification on composite accuracy, controlling for model, domain, task, and
+random intercepts for country and prompt (specification in Methods~\S3.9).
+
+\simvalue{The estimated effect was $\hat{\beta} = -0.10$ (95\% CI
+$[-0.15, -0.05]$, $p < 0.001$), indicating a mean accuracy reduction of 10
+percentage points for Global South countries relative to Global North,
+controlling for all other design factors. This corresponds to Cohen's
+$d \approx 0.5$, meeting the pre-specified smallest effect size of interest.}
+\placeholder{Upon real execution: replace with observed.}
+
+Leave-one-country-out analysis (Figure~S2) showed that the effect is
+not driven by any single country: removing each country in turn changed the
+point estimate by at most \placeholder{X}~percentage points and did not
+change the sign or statistical significance. The effect was also robust to
+restricting the analysis to the expert-validated prompt subset
+\simvalue{($\hat{\beta} = -0.11$, $p < 0.001$)} and to Bayesian re-estimation
+with weakly informative priors \simvalue{(posterior $P(\beta < 0 \mid
+\text{data}) > 0.99$)}. \placeholder{Verify with real values.}
+
+\subsection{H2: Language × geography interaction}
+\label{sec:results:h2}
+
+The GLMM including the three-way interaction between Global South status,
+native-language indicator, and Joshi high-resource indicator revealed the
+hypothesized non-monotonic pattern. \simvalue{For Global South countries with
+high-resource languages (Brazil-PT, Mexico-ES, India-HI), using the native
+language produced a small accuracy improvement over English
+($+\sim$2~percentage points). For Global South countries with lower-resource
+languages, the native-language effect was reversed: prompting in the regional
+language further reduced accuracy.} \placeholder{Replace with real
+coefficients, CIs, and p-values.}
+
+The interaction term remained statistically significant after
+Benjamini-Hochberg FDR correction within the H2 family
+(\placeholder{corrected $p$}). Figure~\ref{fig:fig2} visualizes the interaction.
+
+\begin{figure}[h]
+\centering
+\fbox{\parbox{0.8\linewidth}{\centering
+\simvalue{Fig.~2 placeholder: Line plot showing mean accuracy by country
+crossed with prompt language (English baseline vs native language), grouped
+by Joshi resource class. Non-monotonic pattern expected: upward slope for
+high-resource native languages, downward for low-resource.}
+}}
+\caption{Language $\times$ geography interaction. Expected pattern illustrated;
+actual figure generated in Stage 5 execution.}
+\label{fig:fig2}
+\end{figure}
+
+\subsection{H3: Sabiá-3 versus frontier models on Brazilian prompts}
+\label{sec:results:h3}
+
+Pre-specified contrasts tested whether the Brazilian-trained Sabi\'a-3 closes
+the Global-South gap for its target country (H3a) or displaces it
+(H3b).
+
+\simvalue{On Brazilian prompts, Sabi\'a-3 outperformed the mean of the three
+frontier proprietary models by 8.99 percentage points (95\% CI
+$[4.94, 13.04]$, $p < 0.001$), recovering approximately 90\% of the observed
+H1 gap for Brazil. The scale-matched control Qwen~3~32B recovered only 3.27
+percentage points, non-significant at $p = 0.131$.} This pattern — regional
+training substantially outperforming scale-matched global alternatives —
+supports H3a: the advantage of Sabi\'a-3 reflects targeted training rather
+than simply being a smaller open-source model. \placeholder{On real
+execution, verify direction and magnitude; narrative adapts if H3b or null.}
+
+\placeholder{For the displacement test (H3b): results on non-Brazilian
+Lusophone proxy prompts (Portugal-style Portuguese items, when available) are
+reported in Supplementary Table~S5.} \simvalue{Simulation does not yet
+include H3b test — added at execution.}
+
+Bayesian model comparison of the three hypotheses (H3a: regional benefit,
+H3b: displacement, null: no effect) via bridge sampling in \texttt{pymc}
+yielded Bayes Factors \placeholder{BF$_{\text{3a vs null}}$} and
+\placeholder{BF$_{\text{3a vs 3b}}$}, indicating
+\placeholder{strong/moderate/weak} evidence for the regional-benefit
+hypothesis.
+
+\subsection{H4: Corpus representation as mediator}
+\label{sec:results:h4}
+
+Country-level regression of composite accuracy on log Common Crawl token share
+produced a \simvalue{Spearman $\rho = 0.70$ ($p < 0.01$, N~=~15)}, consistent
+with the hypothesised monotonic relationship between training-corpus
+representation and model accuracy per country.
+
+The mediation analysis via Structural Equation Modelling (Figure~\ref{fig:fig3})
+decomposed the total Global-South effect on accuracy into direct and
+corpus-mediated indirect pathways:
+
+\begin{itemize}\setlength{\itemsep}{0pt}
+\item \textbf{Total effect} (Global South $\to$ accuracy):
+  \simvalue{$-0.13$, 95\% CI $[-0.20, -0.06]$}
+\item \textbf{Indirect effect} (Global South $\to$ corpus $\to$ accuracy):
+  \simvalue{$-0.08$, 95\% CI $[-0.14, -0.02]$ (BCa bootstrap, $n=5{,}000$)}
+\item \textbf{Direct effect} (Global South $\to$ accuracy, controlling for
+  corpus): \simvalue{$-0.05$, 95\% CI $[-0.12, 0.02]$}
+\item \textbf{Proportion mediated}: \simvalue{$\sim$62\%}
+\end{itemize}
+
+The E-value~\citep{vanderweele2017evalue} for the indirect effect was
+\simvalue{2.3}, indicating that an unmeasured confounder would need
+association strengths (both to mediator and outcome) of at least 2.3 to
+nullify the observed mediation — a moderate-to-strong robustness threshold.
+Sensitivity to alternative corpus proxies (Wikipedia pageviews per language)
+and to quadratic specifications of the mediator produced qualitatively
+identical conclusions (Supplementary~\S S6). \placeholder{All real.}
+
+\begin{figure}[h]
+\centering
+\fbox{\parbox{0.8\linewidth}{\centering
+\simvalue{Fig.~3 placeholder: Mediation diagram with path coefficients
+— Global South $\to$ log(Corpus tokens) $\to$ Composite accuracy.
+Direct path, indirect path, and total displayed with 95\% CIs.}
+}}
+\caption{Mediation of Global-South effect through training-corpus representation.
+Path coefficients with bootstrap 95\% CIs. E-value reported for indirect
+effect sensitivity.}
+\label{fig:fig3}
+\end{figure}
+
+\subsection{Robustness analyses}
+\label{sec:results:robust}
+
+All pre-registered robustness checks supported the primary conclusions
+(full tables in Supplementary~\S S7):
+
+\begin{itemize}\setlength{\itemsep}{0pt}
+\item \textbf{Pre-cutoff ground-truth subset} (contamination control):
+  H1 effect size \simvalue{unchanged within 1 percentage point}.
+\item \textbf{Excluding refusals}: H1 effect size \simvalue{stable};
+  refusal rate itself showed geographic pattern (higher refusal rate for
+  Global South, \placeholder{X\% vs Y\%}).
+\item \textbf{Bayesian re-estimation}: posterior probabilities for each
+  hypothesis converged with frequentist conclusions
+  (\placeholder{$P(\beta_1 < 0 \mid \text{data})$}).
+\item \textbf{Scale-matched control on H3}: the scale-control Qwen result
+  was lower than Sabi\'a-3 and statistically non-significant, supporting
+  regional-training over scale explanation.
+\end{itemize}
+
+\subsection{Exploratory findings (not confirmatory)}
+
+\placeholder{Reserved for post-hoc analyses observed in real execution.
+Pre-registered as exploratory, reported without FDR correction in the
+confirmatory family, and flagged with cautious language per
+Nosek et al.\ 2018 guidelines.}

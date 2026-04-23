@@ -1,0 +1,95 @@
+# ============================================================
+# Python
+# ============================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ============================================================
+# LaTeX
+# ============================================================
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.nav
+*.snm
+*.vrb
+*.xdv
+*.bcf
+*.run.xml
+
+# Keep main.pdf for quick preview but ignore section-level PDFs
+latex/sections/*.pdf
+
+# ============================================================
+# Data — opt-in policy
+# ============================================================
+# Never commit raw LLM responses (large, potentially sensitive to API TOS)
+data/raw/llm_responses/*.jsonl
+data/raw/llm_responses/*.parquet
+# Keep synthetic examples but not real runs
+!data/raw/llm_responses/.gitkeep
+
+# Large processed data — commit only small reference samples
+data/processed/*_large.parquet
+
+# ============================================================
+# Secrets and credentials
+# ============================================================
+.env
+.env.local
+*.pem
+*.key
+secrets/
+credentials.json
+.openai_api_key
+.anthropic_api_key
+.google_api_key
+.maritaca_api_key
+
+# ============================================================
+# OS
+# ============================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ============================================================
+# IDE
+# ============================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/

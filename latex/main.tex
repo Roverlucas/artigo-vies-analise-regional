@@ -1,0 +1,144 @@
+% ============================================================
+% Geographic Epistemic Asymmetries in LLM-Assisted Policy Research
+% A 15-Country, 6-Model Benchmark
+% ============================================================
+% Working draft — pre-submission version
+% Target journal: Patterns (Cell Press)
+% Format: generic minimalist (adapted to Cell Press template at Stage 9)
+% ============================================================
+
+\documentclass[11pt,a4paper]{article}
+
+% -- Essential packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+
+% -- Layout
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{lineno}
+\linenumbers
+
+% -- Math and symbols
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+
+% -- Graphics and tables
+\usepackage{graphicx}
+\graphicspath{{../figures/}}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+
+% -- References
+\usepackage[numbers,square,comma,sort&compress]{natbib}
+\bibliographystyle{unsrtnat}
+
+% -- Hyperlinks (load late)
+\usepackage[colorlinks=true,
+            linkcolor=blue!50!black,
+            citecolor=blue!50!black,
+            urlcolor=blue!50!black]{hyperref}
+
+% -- Custom commands
+\newcommand{\placeholder}[1]{\textcolor{red!80!black}{\textbf{[#1]}}}
+\newcommand{\simvalue}[1]{\textcolor{blue!60!black}{\textit{#1}}}
+
+% ============================================================
+% METADATA
+% ============================================================
+
+\title{Geographic Epistemic Asymmetries in LLM-Assisted Policy Research:\\
+A 15-Country, 6-Model, 4-Language Benchmark}
+
+\author{
+  Lucas \placeholder{Surname}$^{1,*}$ \\
+  \placeholder{Expert panel co-authors}$^{2-N}$ \\
+  Yara Tadano$^{1}$ \\
+  \\
+  \small $^1$ Programa de P\'os-Gradua\c{c}\~ao em Planejamento Urbano e Ambiental,\\
+  \small Universidade Tecnol\'ogica Federal do Paran\'a, Brazil\\
+  \small $^2$--$^N$ \placeholder{Affiliations of panel experts}\\
+  \small $^*$ Corresponding author: \placeholder{email}
+}
+
+\date{\today}
+
+% ============================================================
+% DOCUMENT
+% ============================================================
+
+\begin{document}
+
+\maketitle
+
+% Abstract — to be refined after Results are in
+\input{sections/00_abstract}
+
+\noindent\textbf{Keywords:} large language models; geographic bias; Global South;
+epistemic justice; policy research; benchmark; multilingual NLP
+
+\vspace{1em}
+
+% Body
+\input{sections/01_introduction}
+\input{sections/02_related_work}
+\input{sections/03_methods}
+\input{sections/04_results}
+\input{sections/05_discussion}
+\input{sections/06_conclusion}
+
+% ============================================================
+% BACK MATTER
+% ============================================================
+
+\section*{Data and code availability}
+
+All code, prompts, ground-truth references, and (upon real execution) anonymised
+LLM responses will be publicly available at
+\href{https://github.com/Roverlucas/artigo-vies-analise-regional}{github.com/Roverlucas/artigo-vies-analise-regional}
+under MIT (code) and CC-BY-4.0 (data/prompts/documentation) licenses. A permanent
+Zenodo snapshot will be minted at submission. The analysis pipeline is
+reproducible end-to-end via \texttt{python code/run\_all.py}.
+
+\section*{Pre-registration}
+
+The full statistical analysis plan was pre-registered at the Open Science
+Framework at \placeholder{OSF DOI}. All confirmatory analyses reported here
+follow the pre-registered specifications; exploratory analyses are labeled
+explicitly and corrected separately.
+
+\section*{Acknowledgements}
+
+This work was supported by \placeholder{funding sources}. We thank the expert
+panel (listed above as co-authors) for their role in authoring prompts and
+validating rubric criteria. We acknowledge research credit programs from
+OpenAI, Anthropic, and Google for partial support of API costs.
+
+\section*{Author contributions}
+
+Following CRediT taxonomy:
+\begin{itemize}\setlength{\itemsep}{0pt}
+\item \textbf{Conceptualization, methodology, software, writing~--~original draft:}
+  L.\placeholder{Surname}
+\item \textbf{Supervision, writing~--~review \& editing:} Y.\ Tadano
+\item \textbf{Investigation (prompt authoring, rubric validation):} expert panel
+\item \textbf{Formal analysis:} L.\placeholder{Surname}
+\item \textbf{Data curation:} L.\placeholder{Surname}, expert panel
+\item \textbf{Resources:} Y.\ Tadano, \placeholder{institutional funders}
+\end{itemize}
+
+\section*{Declaration of interests}
+
+The authors declare no competing interests.
+
+% Bibliography
+\bibliography{references}
+
+\end{document}

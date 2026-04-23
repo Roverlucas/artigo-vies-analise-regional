@@ -1,0 +1,47 @@
+# ============================================================
+# Core dependencies
+# ============================================================
+numpy>=1.26,<3.0
+pandas>=2.0,<3.0
+pyarrow>=14.0,<21.0
+scipy>=1.11,<2.0
+
+# ============================================================
+# Statistics and inference
+# ============================================================
+statsmodels>=0.14,<1.0
+pymer4>=0.8,<1.0         # Wrapper around lme4 via rpy2
+rpy2>=3.5,<4.0            # Python-R bridge
+pymc>=5.0,<6.0
+bambi>=0.13,<1.0          # High-level Bayesian regression
+semopy>=2.3,<3.0          # SEM for mediation
+krippendorff>=0.8,<1.0
+miceforest>=5.7,<6.0      # Multiple imputation
+
+# ============================================================
+# Visualization
+# ============================================================
+matplotlib>=3.8,<4.0
+seaborn>=0.13,<1.0
+
+# ============================================================
+# LLM provider SDKs (install as needed in execution stage)
+# ============================================================
+# Uncomment and pin when running real experiments:
+# openai>=1.30
+# anthropic>=0.25
+# google-generativeai>=0.7
+# maritaca-ai>=1.0
+
+# ============================================================
+# Development and reproducibility
+# ============================================================
+snakemake>=8.0,<9.0       # Pipeline orchestration
+pytest>=8.0,<9.0
+ruff>=0.6,<1.0            # Linter + formatter
+
+# ============================================================
+# Notebooks (optional)
+# ============================================================
+jupyter>=1.0,<2.0
+ipykernel>=6.0,<7.0

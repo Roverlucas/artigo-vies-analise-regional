@@ -1,0 +1,2 @@
+term,estimate,std_error,ci95_low,ci95_high,z_value,p_value
+is_south,-0.3305,29718.2888,-58247.1062,58246.4452,-0.0,1.0
