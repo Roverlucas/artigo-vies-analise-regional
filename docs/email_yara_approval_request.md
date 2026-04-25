@@ -1,18 +1,18 @@
 # Email Template — Aprovação de Pivot Estratégico + Inclusão do Coorientador
 
 **Status:** Rascunho para Lucas enviar
-**Para:** Profa. Dra. Yara de Souza Tadano (orientadora)
-**Cc:** Prof. Dr. Eduardo Tadeu Bacalhau (coorientador)
+**Para:** Dra. Yara de Souza Tadano <yaratadano@utfpr.edu.br>
+**Cc:** Dr. Eduardo Tadeu Bacalhau <bacalhau@ufpr.br>
 **Idioma:** português acadêmico formal
 **Comprimento alvo:** ~400 palavras
-**Anexos sugeridos:** `pilot_findings_v2.md`, `proposta_consolidada_v3.md` (v3.4), `sap_v2_pilot_recalibrated.md`
+**Anexos sugeridos:** `osf_prereg_draft.pdf`, `proposta_consolidada_v3.md` (v3.4), `pilot_findings_v2.md`
 
 ---
 
 **Assunto:** Pedido de aprovação — pivot estratégico no artigo de viés em LLMs (pré-registro OSF) + inclusão do Prof. Dr. Eduardo Tadeu Bacalhau como coorientador
 
-**Para:** Profa. Dra. Yara de Souza Tadano
-**Cc:** Prof. Dr. Eduardo Tadeu Bacalhau
+**Para:** Dra. Yara de Souza Tadano (yaratadano@utfpr.edu.br)
+**Cc:** Dr. Eduardo Tadeu Bacalhau (bacalhau@ufpr.br)
 
 ---
 
@@ -40,9 +40,9 @@ A probabilidade de aceite em *Patterns* sobe estimadamente de 32-40% (v3.3 com H
 
 Como combinamos, formalizo nesta mensagem a inclusão do **Prof. Dr. Eduardo Tadeu Bacalhau como coautor** do artigo, junto com a Profa. Yara. Ambos compartilharão os papéis CRediT de **validação metodológica, supervisão, revisão de resultados e revisão da escrita**. A ordem de assinatura no manuscrito será:
 
-1. Lucas Rover (primeiro autor, autor correspondente)
-2. Prof. Dr. Eduardo Tadeu Bacalhau (autor intermediário)
-3. Profa. Dra. Yara de Souza Tadano (autora sênior)
+1. Lucas Rover (UTFPR, autor correspondente)
+2. Dr. Eduardo Tadeu Bacalhau (UFPR)
+3. Dra. Yara de Souza Tadano (UTFPR)
 
 Caso ambos concordem com o pivot estratégico abaixo, peço a confirmação por esta resposta de email — isso autoriza o depósito do pré-registro no OSF com os três como co-registrants.
 

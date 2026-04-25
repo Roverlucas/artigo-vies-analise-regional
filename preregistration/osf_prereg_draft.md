@@ -19,9 +19,9 @@
 
 ### 1.2 Authors
 
-1. **Lucas Rover** (PPGSAU/UTFPR) — corresponding author
-2. **Prof. Dr. Eduardo Tadeu Bacalhau** (PPGSAU/UTFPR)
-3. **Profa. Dra. Yara de Souza Tadano** (PPGSAU/UTFPR)
+1. **Lucas Rover** — Federal University of Technology — Paraná (UTFPR), Brazil — `lucasrover@alunos.utfpr.edu.br` — *corresponding author*
+2. **Dr. Eduardo Tadeu Bacalhau** — Federal University of Paraná (UFPR), Brazil — `bacalhau@ufpr.br`
+3. **Dra. Yara de Souza Tadano** — Federal University of Technology — Paraná (UTFPR), Brazil — `yaratadano@utfpr.edu.br`
 
 ### 1.3 Research Questions
 
@@ -292,11 +292,11 @@ None. No financial relationships with any LLM vendor. Funding: UTFPR/PPGSAU inst
 
 ### 7.4 Author Contributions (CRediT taxonomy)
 
-- **Lucas Rover:** Conceptualization, Methodology, Software, Data Curation, Formal Analysis, Investigation, Visualization, Writing — Original Draft, Project Administration.
-- **Prof. Dr. Eduardo Tadeu Bacalhau:** Validation, Supervision, Writing — Review & Editing.
-- **Profa. Dra. Yara de Souza Tadano:** Validation, Supervision, Writing — Review & Editing, Funding Acquisition.
+- **Lucas Rover** (UTFPR): Conceptualization, Methodology, Software, Data Curation, Formal Analysis, Investigation, Visualization, Writing — Original Draft, Project Administration.
+- **Dr. Eduardo Tadeu Bacalhau** (UFPR): Validation, Supervision, Writing — Review & Editing.
+- **Dra. Yara de Souza Tadano** (UTFPR): Validation, Supervision, Writing — Review & Editing, Funding Acquisition.
 
-Validation, supervision, and final manuscript review are shared by Prof. Dr. Eduardo Tadeu Bacalhau and Profa. Dra. Yara de Souza Tadano.
+Validation, supervision, and final manuscript review are shared by Dr. Eduardo Tadeu Bacalhau (UFPR) and Dra. Yara de Souza Tadano (UTFPR).
 
 ---
 

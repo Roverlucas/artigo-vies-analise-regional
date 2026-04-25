@@ -2,12 +2,12 @@
 
 **Projeto:** Viés geográfico-factual em LLMs e seu impacto na pesquisa científica do Sul Global
 **Journal-alvo definitivo:** Patterns (Cell Press, IF 7,4, Q1)
-**Autores (ordem de assinatura):**
-1. Lucas Rover (PPGSAU/UTFPR)
-2. Prof. Dr. Eduardo Tadeu Bacalhau (PPGSAU/UTFPR)
-3. Profa. Dra. Yara de Souza Tadano (PPGSAU/UTFPR)
+**Autores (ordem de assinatura) e afiliações:**
+1. Lucas Rover (UTFPR, lucasrover@alunos.utfpr.edu.br) — autor correspondente
+2. Dr. Eduardo Tadeu Bacalhau (UFPR, bacalhau@ufpr.br)
+3. Dra. Yara de Souza Tadano (UTFPR, yaratadano@utfpr.edu.br)
 
-Papéis compartilhados (ETB + YT): validação metodológica, supervisão, revisão de resultados, revisão da escrita.
+Papéis compartilhados (Eduardo + Yara): validação metodológica, supervisão, revisão de resultados, revisão da escrita.
 **Início do pipeline:** 2026-04-23
 
 ---

@@ -103,14 +103,14 @@ Full pipeline validates in synthetic mode without API calls. Real execution requ
 
 ## Contact
 
-Lucas Rover — PPGSAU/UTFPR — `lucasrover@alunos.utfpr.edu.br`
+Corresponding author: **Lucas Rover** — UTFPR — `lucasrover@alunos.utfpr.edu.br`
 
-**Authors (signature order):**
-1. Lucas Rover
-2. Prof. Dr. Eduardo Tadeu Bacalhau
-3. Profa. Dra. Yara de Souza Tadano
+**Authors (signature order) and affiliations:**
+1. **Lucas Rover** — Federal University of Technology — Paraná (UTFPR), Brazil — `lucasrover@alunos.utfpr.edu.br`
+2. **Dr. Eduardo Tadeu Bacalhau** — Federal University of Paraná (UFPR), Brazil — `bacalhau@ufpr.br`
+3. **Dra. Yara de Souza Tadano** — Federal University of Technology — Paraná (UTFPR), Brazil — `yaratadano@utfpr.edu.br`
 
-All three authors at PPGSAU/UTFPR. Validation, supervision, and writing review are shared by Prof. Dr. Eduardo Tadeu Bacalhau and Profa. Dra. Yara de Souza Tadano.
+Validation, supervision, and writing review are shared by Dr. Eduardo Tadeu Bacalhau (UFPR) and Dra. Yara de Souza Tadano (UTFPR).
 
 ## Citation
 
