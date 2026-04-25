@@ -4,9 +4,9 @@
 **Data:** 2026-04-25
 **Target journal:** *Patterns* (Cell Press, IF 7.4, Q1)
 **Autores (ordem de assinatura):**
-1. Lucas Rover (PPGSAU/UTFPR) — primeiro autor, autor correspondente
-2. Prof. Dr. Eduardo Tadeu Bacalhau (PPGSAU/UTFPR) — autor intermediário
-3. Profa. Dra. Yara Tadano (PPGSAU/UTFPR) — autora sênior
+1. Lucas Rover (PPGSAU/UTFPR)
+2. Prof. Dr. Eduardo Tadeu Bacalhau (PPGSAU/UTFPR)
+3. Profa. Dra. Yara de Souza Tadano (PPGSAU/UTFPR)
 
 **Papéis compartilhados (ETB + YT):** validação metodológica, supervisão, revisão de resultados, revisão da escrita.
 **Orquestração:** Academic Squad (Synkra AIOS) — Sage (academic-chief)
@@ -438,5 +438,5 @@ Antes de disparar Fase 1 (Pilot):
 ---
 
 **Autor:** Lucas Rover (pesquisador) + orquestração Academic Squad AIOS (metodológica)
-**Supervisora:** Profa. Dra. Yara Tadano (PPGSAU/UTFPR)
+**Supervisora:** Profa. Dra. Yara de Souza Tadano (PPGSAU/UTFPR)
 **Licença deste documento:** CC-BY-4.0

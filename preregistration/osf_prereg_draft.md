@@ -9,10 +9,6 @@
 
 ---
 
-> **Instructions for Lucas:** This document contains answers for each OSF Standard pre-registration question. After the pilot completes and we calibrate variance components in `data/pilot_202604/analysis/pilot_findings.md`, I will update §2.3 (power analysis) and §5.3 (analytic model specification) with the final numbers. Then you'll create the Registration on OSF and copy-paste each answer into the corresponding field.
-
----
-
 ## Section 1 — Study Information
 
 ### 1.1 Title
@@ -23,9 +19,9 @@
 
 ### 1.2 Authors
 
-- **Lucas Rover** (PPGSAU/UTFPR) — first author, corresponding author
-- **Prof. Dr. Eduardo Tadeu Bacalhau** (PPGSAU/UTFPR) — middle author
-- **Profa. Dra. Yara Tadano** (PPGSAU/UTFPR) — senior author
+1. **Lucas Rover** (PPGSAU/UTFPR) — corresponding author
+2. **Prof. Dr. Eduardo Tadeu Bacalhau** (PPGSAU/UTFPR)
+3. **Profa. Dra. Yara de Souza Tadano** (PPGSAU/UTFPR)
 
 ### 1.3 Research Questions
 
@@ -296,11 +292,11 @@ None. No financial relationships with any LLM vendor. Funding: UTFPR/PPGSAU inst
 
 ### 7.4 Author Contributions (CRediT taxonomy)
 
-- **LR (Lucas Rover):** Conceptualization, Methodology, Software, Data Curation, Formal Analysis, Investigation, Visualization, Writing — Original Draft, Project Administration.
-- **ETB (Eduardo Tadeu Bacalhau):** Validation, Supervision, Writing — Review & Editing.
-- **YT (Yara Tadano):** Validation, Supervision, Writing — Review & Editing, Funding Acquisition.
+- **Lucas Rover:** Conceptualization, Methodology, Software, Data Curation, Formal Analysis, Investigation, Visualization, Writing — Original Draft, Project Administration.
+- **Prof. Dr. Eduardo Tadeu Bacalhau:** Validation, Supervision, Writing — Review & Editing.
+- **Profa. Dra. Yara de Souza Tadano:** Validation, Supervision, Writing — Review & Editing, Funding Acquisition.
 
-All three authors share methodological validation responsibility, results review, and final manuscript review. ETB and YT share supervision; YT is senior author with funding acquisition.
+Validation, supervision, and final manuscript review are shared by Prof. Dr. Eduardo Tadeu Bacalhau and Profa. Dra. Yara de Souza Tadano.
 
 ---
 

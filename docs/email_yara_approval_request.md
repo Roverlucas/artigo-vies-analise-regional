@@ -1,7 +1,7 @@
 # Email Template — Aprovação de Pivot Estratégico + Inclusão do Coorientador
 
 **Status:** Rascunho para Lucas enviar
-**Para:** Profa. Dra. Yara Tadano (orientadora)
+**Para:** Profa. Dra. Yara de Souza Tadano (orientadora)
 **Cc:** Prof. Dr. Eduardo Tadeu Bacalhau (coorientador)
 **Idioma:** português acadêmico formal
 **Comprimento alvo:** ~400 palavras
@@ -11,7 +11,7 @@
 
 **Assunto:** Pedido de aprovação — pivot estratégico no artigo de viés em LLMs (pré-registro OSF) + inclusão do Prof. Dr. Eduardo Tadeu Bacalhau como coorientador
 
-**Para:** Profa. Dra. Yara Tadano
+**Para:** Profa. Dra. Yara de Souza Tadano
 **Cc:** Prof. Dr. Eduardo Tadeu Bacalhau
 
 ---
@@ -42,7 +42,7 @@ Como combinamos, formalizo nesta mensagem a inclusão do **Prof. Dr. Eduardo Tad
 
 1. Lucas Rover (primeiro autor, autor correspondente)
 2. Prof. Dr. Eduardo Tadeu Bacalhau (autor intermediário)
-3. Profa. Dra. Yara Tadano (autora sênior)
+3. Profa. Dra. Yara de Souza Tadano (autora sênior)
 
 Caso ambos concordem com o pivot estratégico abaixo, peço a confirmação por esta resposta de email — isso autoriza o depósito do pré-registro no OSF com os três como co-registrants.
 
