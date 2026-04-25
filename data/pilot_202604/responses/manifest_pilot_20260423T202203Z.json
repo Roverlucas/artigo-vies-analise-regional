@@ -2,7 +2,7 @@
   "run_id": "pilot_20260423T202203Z",
   "pilot_version": "v3.3",
   "timestamp_start_utc": "2026-04-23T20:22:03.545908+00:00",
-  "timestamp_end_utc": null,
+  "timestamp_end_utc": "2026-04-23T21:28:25.536098+00:00",
   "git_commit": "d0264c878f536cd640fd60bebda23cee58af0711",
   "git_dirty": true,
   "python_version": "3.14.3 (main, Feb  3 2026, 15:32:20) [Clang 17.0.0 (clang-1700.6.3.2)]",
@@ -25,5 +25,10 @@
     "max_retries": 3,
     "api_timeout_seconds": 60
   },
-  "dry_run": false
+  "dry_run": false,
+  "elapsed_seconds": 3981,
+  "calls_successful": 700,
+  "calls_failed": 0,
+  "total_prompt_tokens": 63438,
+  "total_response_tokens": 212730
 }
