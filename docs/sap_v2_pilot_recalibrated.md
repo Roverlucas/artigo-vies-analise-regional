@@ -2,7 +2,7 @@
 
 **Project:** The Open-Weight Penalty: Frontier Open Models Underperform Closed-Accessible Models in Global South Applied Research
 **Target journal:** *Patterns* (Cell Press)
-**Authors:** Lucas Rover (PPGSAU/UTFPR); supervisor Profa. Dra. Yara Tadano (PPGSAU/UTFPR); co-supervisor Prof. Dr. Eduardo Tadeu Bacalhau (PPGSAU/UTFPR)
+**Authors:** Lucas Rover (first author, corresponding); Prof. Dr. Eduardo Tadeu Bacalhau (middle author); Profa. Dra. Yara Tadano (senior author) — all three at PPGSAU/UTFPR. Methodological validation, supervision, results review, and writing review are shared by ETB and YT.
 **SAP version:** 2.0 (recalibrated post-Pilot 2.0)
 **OSF deposit timing:** prior to confirmatory data collection
 **Date:** 2026-04-25

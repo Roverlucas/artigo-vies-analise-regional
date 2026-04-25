@@ -104,8 +104,12 @@ Full pipeline validates in synthetic mode without API calls. Real execution requ
 ## Contact
 
 Lucas [surname] — PPGSAU/UTFPR — [contact]
-Supervisor: Profa. Dra. Yara Tadano
-Co-Supervisor: Prof. Dr. Eduardo Tadeu Bacalhau
+Authors (signature order):
+1. Lucas Rover — first author, corresponding
+2. Prof. Dr. Eduardo Tadeu Bacalhau — middle author
+3. Profa. Dra. Yara Tadano — senior author
+
+All three authors at PPGSAU/UTFPR. ETB and YT share validation, supervision, and writing review.
 
 ## Citation
 

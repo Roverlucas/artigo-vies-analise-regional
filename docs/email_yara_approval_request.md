@@ -36,9 +36,15 @@ Elevar **H5 de secundária para co-primária com H1**, reposicionando o paper pa
 
 A probabilidade de aceite em *Patterns* sobe estimadamente de 32-40% (v3.3 com H1 puro) para 38-50% (v3.4 com H5 elevada).
 
-## Coorientação — Prof. Eduardo
+## Coautoria — Prof. Eduardo
 
-Como combinamos previamente, formalizo nesta mensagem a inclusão do Prof. Dr. Eduardo Tadeu Bacalhau como **coorientador** do projeto. O nome dele já consta no manuscrito em LaTeX, na lista de autores do pré-registro OSF, e no Statistical Analysis Plan, todos os documentos disponíveis no repositório do projeto. Caso o Prof. Eduardo concorde com o pivot estratégico abaixo, peço também sua confirmação por esta resposta de email.
+Como combinamos, formalizo nesta mensagem a inclusão do **Prof. Dr. Eduardo Tadeu Bacalhau como coautor** do artigo, junto com a Profa. Yara. Ambos compartilharão os papéis CRediT de **validação metodológica, supervisão, revisão de resultados e revisão da escrita**. A ordem de assinatura no manuscrito será:
+
+1. Lucas Rover (primeiro autor, autor correspondente)
+2. Prof. Dr. Eduardo Tadeu Bacalhau (autor intermediário)
+3. Profa. Dra. Yara Tadano (autora sênior)
+
+Caso ambos concordem com o pivot estratégico abaixo, peço a confirmação por esta resposta de email — isso autoriza o depósito do pré-registro no OSF com os três como co-registrants.
 
 ## Pedido específico
 

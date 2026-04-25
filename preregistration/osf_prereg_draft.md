@@ -23,9 +23,9 @@
 
 ### 1.2 Authors
 
-- **Lucas Rover** (PPGSAU/UTFPR) — first author, corresponding
-- **Yara Tadano** (Supervisor, PPGSAU/UTFPR)
-- **Eduardo Tadeu Bacalhau** (Co-Supervisor, PPGSAU/UTFPR)
+- **Lucas Rover** (PPGSAU/UTFPR) — first author, corresponding author
+- **Prof. Dr. Eduardo Tadeu Bacalhau** (PPGSAU/UTFPR) — middle author
+- **Profa. Dra. Yara Tadano** (PPGSAU/UTFPR) — senior author
 
 ### 1.3 Research Questions
 
@@ -296,9 +296,11 @@ None. No financial relationships with any LLM vendor. Funding: UTFPR/PPGSAU inst
 
 ### 7.4 Author Contributions (CRediT taxonomy)
 
-- **LR (Lucas Rover):** Conceptualization, Methodology, Software, Data Curation, Formal Analysis, Investigation, Visualization, Writing — Original Draft.
-- **YT (Yara Tadano):** Supervision, Methodology Review, Resources, Writing — Review & Editing.
-- **ETB (Eduardo Tadeu Bacalhau):** Co-Supervision, Methodology Review, Writing — Review & Editing.
+- **LR (Lucas Rover):** Conceptualization, Methodology, Software, Data Curation, Formal Analysis, Investigation, Visualization, Writing — Original Draft, Project Administration.
+- **ETB (Eduardo Tadeu Bacalhau):** Validation, Supervision, Writing — Review & Editing.
+- **YT (Yara Tadano):** Validation, Supervision, Writing — Review & Editing, Funding Acquisition.
+
+All three authors share methodological validation responsibility, results review, and final manuscript review. ETB and YT share supervision; YT is senior author with funding acquisition.
 
 ---
 
