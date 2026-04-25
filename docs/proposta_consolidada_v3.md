@@ -3,7 +3,9 @@
 **Versão:** 3.4 (supersede v3.3 — pivot estratégico pós-pilot 2.0)
 **Data:** 2026-04-25
 **Target journal:** *Patterns* (Cell Press, IF 7.4, Q1)
-**Pesquisador:** Lucas Rover (PPGSAU/UTFPR) — orientação Profa. Dra. Yara Tadano
+**Pesquisador:** Lucas Rover (PPGSAU/UTFPR)
+**Orientação:** Profa. Dra. Yara Tadano (PPGSAU/UTFPR)
+**Co-orientação:** Prof. Dr. Eduardo Tadeu Bacalhau (PPGSAU/UTFPR)
 **Orquestração:** Academic Squad (Synkra AIOS) — Sage (academic-chief)
 **Status:** pivot estratégico baseado em achado inesperado do pilot 2.0
 **Mudança em v3.4:** H5 (open-weight penalty) elevada de secundária para **co-primária** com H1, baseado em achado pilot 2.0 de gap 12,5pp entre Tier A open e Tier D closed accessible

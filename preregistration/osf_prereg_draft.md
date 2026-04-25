@@ -23,7 +23,9 @@
 
 ### 1.2 Authors
 
-Lucas Rover (PPGSAU/UTFPR); Yara Tadano (Supervisor, PPGSAU/UTFPR)
+- **Lucas Rover** (PPGSAU/UTFPR) — first author, corresponding
+- **Yara Tadano** (Supervisor, PPGSAU/UTFPR)
+- **Eduardo Tadeu Bacalhau** (Co-Supervisor, PPGSAU/UTFPR)
 
 ### 1.3 Research Questions
 
@@ -292,10 +294,11 @@ Any post-registration deviations from this pre-registration will be documented i
 
 None. No financial relationships with any LLM vendor. Funding: UTFPR/PPGSAU institutional support.
 
-### 7.4 Author Contributions
+### 7.4 Author Contributions (CRediT taxonomy)
 
-- **LR (Lucas Rover):** Conceptualization, Methodology, Data Curation, Formal Analysis, Writing.
-- **YT (Yara Tadano):** Supervision, Methodology Review, Writing – Review & Editing.
+- **LR (Lucas Rover):** Conceptualization, Methodology, Software, Data Curation, Formal Analysis, Investigation, Visualization, Writing — Original Draft.
+- **YT (Yara Tadano):** Supervision, Methodology Review, Resources, Writing — Review & Editing.
+- **ETB (Eduardo Tadeu Bacalhau):** Co-Supervision, Methodology Review, Writing — Review & Editing.
 
 ---
 

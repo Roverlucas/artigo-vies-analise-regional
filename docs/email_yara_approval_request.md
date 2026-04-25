@@ -1,19 +1,24 @@
-# Email Template — Aprovação de Pivot Estratégico para Profa. Yara
+# Email Template — Aprovação de Pivot Estratégico + Inclusão do Coorientador
 
 **Status:** Rascunho para Lucas enviar
+**Para:** Profa. Dra. Yara Tadano (orientadora)
+**Cc:** Prof. Dr. Eduardo Tadeu Bacalhau (coorientador)
 **Idioma:** português acadêmico formal
-**Comprimento alvo:** ~350 palavras
-**Anexos sugeridos:** `pilot_findings_v2.md`, `proposta_consolidada_v3.md` (v3.4)
+**Comprimento alvo:** ~400 palavras
+**Anexos sugeridos:** `pilot_findings_v2.md`, `proposta_consolidada_v3.md` (v3.4), `sap_v2_pilot_recalibrated.md`
 
 ---
 
-**Assunto:** Pedido de aprovação — pivot estratégico no artigo de viés em LLMs (pré-registro OSF)
+**Assunto:** Pedido de aprovação — pivot estratégico no artigo de viés em LLMs (pré-registro OSF) + inclusão do Prof. Dr. Eduardo Tadeu Bacalhau como coorientador
+
+**Para:** Profa. Dra. Yara Tadano
+**Cc:** Prof. Dr. Eduardo Tadeu Bacalhau
 
 ---
 
-Profa. Yara,
+Profa. Yara, Prof. Eduardo,
 
-Espero que esteja bem. Escrevo para pedir sua aprovação de um **pivot estratégico** no projeto do artigo sobre viés em LLMs antes do depósito do pré-registro no OSF.
+Espero que estejam bem. Escrevo para pedir aprovação de um **pivot estratégico** no projeto do artigo sobre viés em LLMs antes do depósito do pré-registro no OSF, e para formalizar a **inclusão do Prof. Eduardo como coorientador** do projeto.
 
 ## Contexto
 
@@ -31,26 +36,32 @@ Elevar **H5 de secundária para co-primária com H1**, reposicionando o paper pa
 
 A probabilidade de aceite em *Patterns* sobe estimadamente de 32-40% (v3.3 com H1 puro) para 38-50% (v3.4 com H5 elevada).
 
+## Coorientação — Prof. Eduardo
+
+Como combinamos previamente, formalizo nesta mensagem a inclusão do Prof. Dr. Eduardo Tadeu Bacalhau como **coorientador** do projeto. O nome dele já consta no manuscrito em LaTeX, na lista de autores do pré-registro OSF, e no Statistical Analysis Plan, todos os documentos disponíveis no repositório do projeto. Caso o Prof. Eduardo concorde com o pivot estratégico abaixo, peço também sua confirmação por esta resposta de email.
+
 ## Pedido específico
 
-Preciso de sua **aprovação por email** desta versão revisada antes de depositar o pré-registro no OSF (proteção contra HARKing). A versão completa está no documento anexo `proposta_consolidada_v3.md` (v3.4) e o SAP recalibrado em `sap_v2_pilot_recalibrated.md`.
+Preciso de **aprovação por email da Profa. Yara e do Prof. Eduardo** desta versão revisada antes de depositar o pré-registro no OSF (proteção contra HARKing). A versão completa está no documento anexo `proposta_consolidada_v3.md` (v3.4) e o SAP recalibrado em `sap_v2_pilot_recalibrated.md`.
 
-Posso agendar **15 minutos** essa semana para discutir, ou se preferir um simples "*aprovado conforme proposto*" por email já basta para eu prosseguir.
+Posso agendar **15 minutos** essa semana para discutir, ou se preferirem um simples "*aprovado conforme proposto*" por email já basta para eu prosseguir.
 
 Cronograma se aprovado:
-- D+1: depósito OSF
+- D+1: depósito OSF (com os três como co-registrants)
 - D+2 a D+14: execução confirmatória (10.500 calls)
 - D+15 a D+22: redação + auditoria
 - D+23 a D+25: submissão *Patterns*
 
-Agradeço o feedback.
+Agradeço o feedback de ambos.
 
 Abraços,
-Lucas
+Lucas Rover
 
 ---
 
-**Notas para Lucas:**
+**Notas para Lucas (não enviar):**
 - Anexar `pilot_findings_v2.md` e `proposta_consolidada_v3.md`
-- Se Yara responder com edits, atualizar OSF draft antes de depositar
+- Cc: Prof. Eduardo Tadeu Bacalhau (confirmar email institucional dele)
+- Se Yara/Eduardo responderem com edits, atualizar OSF draft antes de depositar
 - Se aprovação demorar > 3 dias úteis, considerar reunião curta para destravar
+- No depósito OSF, adicionar Yara e Eduardo como co-contributors com permissão "Read+Write"

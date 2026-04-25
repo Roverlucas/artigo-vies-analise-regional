@@ -2,7 +2,9 @@
 
 **Projeto:** Viés geográfico-factual em LLMs e seu impacto na pesquisa científica do Sul Global
 **Journal-alvo definitivo:** Patterns (Cell Press, IF 7,4, Q1)
-**Pesquisador:** Lucas (PPGSAU/UTFPR), orientação Prof. Dra. Yara Tadano
+**Pesquisador:** Lucas Rover (PPGSAU/UTFPR)
+**Orientação:** Profa. Dra. Yara Tadano (PPGSAU/UTFPR)
+**Coorientação:** Prof. Dr. Eduardo Tadeu Bacalhau (PPGSAU/UTFPR)
 **Início do pipeline:** 2026-04-23
 
 ---
