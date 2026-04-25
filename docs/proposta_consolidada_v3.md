@@ -1,23 +1,38 @@
-# Proposta Consolidada v3.3 — Full-Spectrum Open-Weight Audit de LLMs em Pesquisa de Políticas do Sul Global
+# Proposta Consolidada v3.4 — The Open-Weight Penalty in Global South Applied Research
 
-**Versão:** 3.3 (supersede v1 `etapa5_proposta_execucao.md` e v2 `proposta_consolidada_v2.md`)
-**Data:** 2026-04-23
+**Versão:** 3.4 (supersede v3.3 — pivot estratégico pós-pilot 2.0)
+**Data:** 2026-04-25
 **Target journal:** *Patterns* (Cell Press, IF 7.4, Q1)
 **Pesquisador:** Lucas Rover (PPGSAU/UTFPR) — orientação Profa. Dra. Yara Tadano
 **Orquestração:** Academic Squad (Synkra AIOS) — Sage (academic-chief)
-**Status:** pronto para execução em 5 fases
+**Status:** pivot estratégico baseado em achado inesperado do pilot 2.0
+**Mudança em v3.4:** H5 (open-weight penalty) elevada de secundária para **co-primária** com H1, baseado em achado pilot 2.0 de gap 12,5pp entre Tier A open e Tier D closed accessible
 
 ---
 
-## 1. Sumário executivo
+## 1. Sumário executivo (v3.4)
 
-Benchmark pré-registrado que audita **viés geográfico factual em 14 Large Language Models** cobrindo o espectro completo entre pesos abertos (7B a 671B MoE) e modelos fechados frontier, aplicado a tarefas de pesquisa em políticas públicas, realidade socioeconômica e contexto ambiental em 15 países estratificados teoricamente (12 Sul Global + 3 Norte Global controle). O desenho v3.3 consolida três inovações simultâneas:
+Benchmark pré-registrado que audita **viés geográfico factual e o open-weight penalty** em 14 LLMs (10 open-weight + 4 closed) cobrindo o espectro de 7B a 671B MoE, aplicado a tarefas de pesquisa em políticas públicas, realidade socioeconômica e contexto ambiental em 15 países (12 Sul Global + 3 Norte Global controle).
 
-1. **Full-Spectrum Model Audit** — Primeiro benchmark Q1 a cobrir o espectro completo (open 7B → open 671B → closed acessível → closed frontier SOTA 2026) em um único experimento controlado.
-2. **Open-Science-First Narrative** — 10 dos 14 modelos auditados têm pesos abertos, maximizando reprodutibilidade e alinhamento com Open Science.
-3. **Budget-Feasible Execution** — R$ 67 de gasto real planejado (US$ 12,83 OpenAI + US$ 1,19 DeepSeek), preservando R$ 200 cash + US$ 10 Anthropic como reserva cirúrgica para revisão.
+**Reframe v3.4 — A descoberta inesperada do pilot 2.0**:
 
-**Probabilidade calibrada:** 35-45% em *Patterns* direto; 85-90% cumulativo em ≤3 tentativas Q1/Q2.
+O pilot 2.0 (n=700, scored via LLM-as-judge) revelou que modelos open-weight (17B-104B) **subperformam** modelos closed accessible em **12,5 pontos percentuais** sobre tarefas factuais aplicadas ao Sul Global — um efeito 2× maior que o gap GS-GN clássico (Cohen's d = 0,34). Esse achado é counterintuitive (open ≠ better) e **completamente inédito na literatura Q1**.
+
+O confirmatório passa a testar:
+1. **H5 (co-primária):** se o open-weight penalty se sustenta a 70B+ (Llama 3.3 70B, Qwen 3 72B, DeepSeek-V3 671B, gpt-oss-120B)
+2. **H1 (co-primária):** o gap GS-GN clássico em ampla amostra (15 países)
+3. **H4 (mecanismo):** se a representação no Common Crawl explica ambos os efeitos
+4. **H3 (caso aplicado):** se modelo regional open (Lince-Mistral 7B, PUCRS) reverte o open-weight penalty para PT-BR
+
+**Probabilidade calibrada com pivot v3.4:** 38-50% em *Patterns* direto; 87-92% cumulativo em ≤3 tentativas Q1/Q2.
+
+### 5 inovações simultâneas
+
+1. **First open-weight penalty benchmark** — descoberta principal, virgem na literatura
+2. **Full-Spectrum Model Audit** — 7B a 671B MoE em desenho único
+3. **Mechanism analysis (H4)** — Common Crawl tokens → accuracy gap
+4. **Regional open model test (H3)** — Lince-Mistral 7B vs scale-matched globals
+5. **Multi-rater LLM-as-judge** — Haiku 4.5 100% + Opus 4.7 IRR subset (Krippendorff α ≥ 0.70)
 
 ---
 

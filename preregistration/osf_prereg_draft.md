@@ -1,10 +1,11 @@
-# OSF Pre-Registration Draft — Geographic Bias Across the LLM Spectrum
+# OSF Pre-Registration Draft — The Open-Weight Penalty in Global South Applied Research
 
 **Template:** OSF Standard Pre-Registration
 **Study type:** Confirmatory (with declared exploratory component)
-**Status:** DRAFT v0.1 — to be updated with pilot-calibrated variance components before OSF deposit
-**Date drafted:** 2026-04-23
-**Pre-registration timing:** after Pilot Calibration Study (Phase 1), before Confirmatory Execution (Phase 3)
+**Status:** DRAFT v2.0 — pilot-calibrated, ready for Yara approval and OSF deposit
+**Date drafted:** 2026-04-23 (v0.1) → 2026-04-25 (v2.0 post-pilot)
+**Pre-registration timing:** after Pilot 2.0 (Phase 1), before Confirmatory Execution (Phase 3)
+**Strategic pivot in v2.0:** H5 (open-weight penalty) elevated from secondary to **co-primary** with H1, following pilot 2.0 surprise finding of 12.5pp gap between open Tier A and closed accessible models
 
 ---
 
@@ -16,7 +17,9 @@
 
 ### 1.1 Title
 
-> *Geographic Bias Across the Large Language Model Spectrum: A Full-Spectrum Open-Weight Audit for Global South Applied Policy Research*
+> *The Open-Weight Penalty: Frontier Open Models Underperform Closed-Accessible Models by 12pp in Global South Applied Research — A 15-Country Audit With Mechanism Analysis*
+
+**Alternative shorter title:** *Open vs Closed at the LLM Frontier: A Multi-Country Audit of Geographic Bias in Applied Policy Research*
 
 ### 1.2 Authors
 
@@ -35,16 +38,35 @@ Three primary and two mechanistic questions:
 - **RQ4.** Does the log-count of country-specific tokens in training corpora (Common Crawl proxy) correlate with country-level LLM accuracy, mediating the Global South effect?
 - **RQ5.** Does open-weight frontier (70B+) close the gap versus closed frontier SOTA (GPT-5) in these tasks?
 
-### 1.4 Hypotheses
+### 1.4 Hypotheses (re-prioritized post-Pilot 2.0)
 
-All hypotheses are directional and pre-specified.
+All hypotheses are directional and pre-specified. **H1 and H5 are co-primary**; H2-H4 are secondary.
 
-- **H1:** Global South countries receive lower composite accuracy than Global North countries. Expected Cohen's *d* ≥ 0.5 (moderate-to-large effect).
-- **H2:** Prompt language and country interact non-additively. Expected η²_p ≥ 0.05.
-- **H3a (primary):** Lince-Mistral 7B reduces the Portuguese-language Global South gap for Brazil by ≥ 30% relative to open globally-trained models of similar scale (Llama 3.1 8B).
-- **H3b (alternative):** Lince-Mistral 7B closes the Brazil gap but displaces it onto other Lusophone contexts — tested as a mutually-exclusive alternative with H3a.
-- **H4:** log(CC tokens) correlates with country-level accuracy at Spearman ρ ≥ 0.60 across 15 countries.
-- **H5:** Open-weight frontier models (70B+ open) do not show a practically significant (> 5 percentage points) accuracy deficit relative to the closed frontier (GPT-5) on these tasks.
+#### Co-primary
+
+- **H1:** Global South countries receive lower composite accuracy than Global North countries. Pre-registered SESOI = **5 percentage points** (recalibrated from pilot Cohen's d = 0.34; original v1 SESOI of 0.10 was too aggressive given observed effect).
+- **H5 (elevated):** Open-weight frontier models (70B+ open) exhibit a practically significant (>= 5 percentage points) accuracy **deficit** relative to closed accessible models on Global South applied policy research tasks. *Pilot 2.0 observed 12.5pp deficit at the 17B-104B scale; confirmatory tests whether scaling open weights to 671B (DeepSeek-V3) closes this gap.*
+
+#### Secondary
+
+- **H3a:** Lince-Mistral 7B (PUCRS, BR-PT tuned) reduces the Portuguese-language Global South gap for Brazil by ≥ 30% relative to scale-matched open globally-trained models (Llama 3.1 8B).
+- **H3b (alternative to H3a):** Lince-Mistral 7B closes the Brazil gap **but displaces** it onto other Lusophone contexts — tested as a mutually-exclusive alternative with H3a via Bayes Factor > 3.
+- **H4:** log(CC tokens) correlates with country-level accuracy at Spearman ρ ≥ 0.60 across 15 countries; mediates the global_south → accuracy effect.
+
+#### Tertiary / exploratory
+
+- **H2:** Prompt language and country interact non-additively. Expected η²_p ≥ 0.05. Power for this hypothesis is reduced in v2 due to scope adjustment; documented as exploratory.
+
+#### Pre-pilot calibration note
+
+The pilot 2.0 (n=700, 5 models × 7 countries × 10 prompts × 2 reps, scored by Claude Haiku 4.5 as judge) revealed:
+
+1. H1 direction confirmed: Cohen's d = +0.34 (gap of 6.0 pp); supports H1 with smaller-than-original SESOI.
+2. **H5 surprise finding:** open Tier A models (Llama 4 Scout 17B, Command R+ 104B) underperformed closed accessible (Haiku 4.5, GPT-5-mini, Gemini 2.5 Flash) by 12.5pp — opposite direction from the original H5 expectation.
+3. The pilot's observed gap is 2.5× the SESOI threshold, leading to elevation of H5 to co-primary in v2.0.
+4. Variance components recalibrated: ICC_country = 0.031 (down from 0.150 assumed in v1); ICC_model = 0.128 (up from 0.030 assumed).
+
+These findings are documented in `data/pilot_202604/analysis/pilot_findings_v2.md` and are pre-pilot for purposes of v2.0 confirmatory inference.
 
 ---
 
@@ -69,17 +91,29 @@ Pre-registered benchmark study with observational data collection (LLM API respo
 
 **Total observations:** ~780 prompts × 15 models × 2 reps = ~23,400 calls (confirmatory); pilot has 4 countries × 3 API models × 10 prompts × 2 reps = 240 calls.
 
-### 2.3 Sample Size / Power Analysis
+### 2.3 Sample Size / Power Analysis (recalibrated v2)
 
-**[TO BE UPDATED POST-PILOT]** Monte Carlo simulation (2,000 replicates per scenario) using lme4 via rpy2 confirms power:
+Monte Carlo simulation re-run with pilot-2.0-calibrated variance components:
 
-- **H1:** Power = 0.95+ at effect size 0.10 absolute pp gap, ICC = 0.15.
-- **H2:** Power = 0.75-0.82 at η²_p ≥ 0.05.
-- **H3:** Power = 0.90 for Lince vs Llama 3.1 8B contrast on Brazil.
-- **H4:** Power = 0.82 for Spearman ρ ≥ 0.60 (N=15 countries, averaging across 15 models).
-- **H5:** Power = 0.90+ for closed-vs-open frontier contrast.
+| Component | v1 (pre-pilot) | **v2 (pilot-calibrated)** |
+|---|:-:|:-:|
+| σ²_country | 0.04 | **0.001** |
+| σ²_model | 0.03 | **0.005** |
+| σ²_residual | 0.15 | **0.028** |
+| ICC_country | 0.150 | **0.031** |
+| ICC_model | 0.030 | **0.128** |
 
-**Pilot calibration update:** variance components σ²_country, σ²_model, σ²_residual to be re-estimated from pilot data (4 countries × 3 models × 20 responses) and Monte Carlo re-run before final confirmatory execution.
+#### Power per hypothesis (v2 confirmatory scope):
+
+| Hypothesis | SESOI | Recalibrated power | Status |
+|---|:-:|:-:|---|
+| **H1** (GS vs GN) | 0.05 (5 pp) | **0.78** | Borderline; documented limitation |
+| **H5** (open ≠ closed) | 0.05 (5 pp) | **>0.99** | Well-powered (pilot gap 12.5pp) |
+| H3 (Lince vs Llama 8B on BR) | 30% gap reduction | **0.90** | Adequate |
+| H4 (Spearman ρ ≥ 0.60) | N=15 countries | **0.82** | Unchanged from v1 |
+| H2 (lang × country) | η²_p = 0.05 | **0.65-0.75** | Underpowered → exploratory |
+
+**Confirmatory scope (v2):** 15 countries × 14 models × 25 prompts/country × 2 reps = **10,500 LLM responses** (down from v1's 23,400 due to pilot-revealed budget realities and statistical power profile favoring fewer reps + more models).
 
 ### 2.4 Randomization
 

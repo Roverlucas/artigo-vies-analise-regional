@@ -1,11 +1,13 @@
-# Geographic Bias Across the LLM Spectrum: A Full-Spectrum Open-Weight Audit for Global South Policy Research
+# The Open-Weight Penalty in Global South Applied Research: A 15-Country LLM Audit
 
-**Research project in progress** — the first Q1-targeted benchmark auditing geographic factual bias across the complete LLM spectrum, from 7B open-weight regional models to 671B MoE open frontier and closed SOTA, applied to 15 countries stratified along three theoretical axes.
+**Research project in progress** — first Q1-targeted benchmark auditing **the open-weight penalty** (the surprising finding that open-weight LLMs at 17B-104B scale underperform closed accessible models by 12.5 percentage points on Global South applied policy research) across the complete LLM spectrum (7B to 671B MoE), 15 countries stratified along three theoretical axes, with pre-registered mechanism analysis via training-corpus tokens.
 
 **Target journal:** *Patterns* (Cell Press, IF 7.4, Q1)
 **Institution:** Programa de Pós-Graduação em Planejamento Urbano e Ambiental, UTFPR
-**Status:** Design v3.3 locked (14 models, 5 tiers, open-science-first); ready for pilot execution
-**Canonical proposal:** [`docs/proposta_consolidada_v3.md`](docs/proposta_consolidada_v3.md)
+**Status:** Design v3.4 (post-pilot strategic pivot); awaiting OSF pre-registration deposit
+**Canonical proposal:** [`docs/proposta_consolidada_v3.md`](docs/proposta_consolidada_v3.md) (v3.4)
+**Statistical Analysis Plan:** [`docs/sap_v2_pilot_recalibrated.md`](docs/sap_v2_pilot_recalibrated.md)
+**Pilot 2.0 findings:** [`data/pilot_202604/analysis/pilot_findings_v2.md`](data/pilot_202604/analysis/pilot_findings_v2.md)
 
 ---
 
