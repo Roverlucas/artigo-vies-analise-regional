@@ -2,13 +2,14 @@
 
 **Template:** OSF Standard Pre-Registration
 **Study type:** Pre-registered confirmatory study with declared exploratory components
-**Status:** DRAFT v3.0 — methodological-critique-corrected, ready for supervisor approval and OSF deposit
+**Status:** DRAFT v3.1 — citation-corrected; ready for supervisor approval and OSF deposit pending bibliographic re-audit
 **Versions:**
 - v0.1 (drafted 2026-04-23, retroactively deposited 2026-04-26): pre-pilot with H5 secondary
 - v2.0 (2026-04-25): post-pilot, attempted H5 elevation [WITHDRAWN per methodological audit 2026-04-26]
-- **v3.0 (2026-04-26): current — H5 returned to secondary/exploratory; SESOI defended ex-ante via prior literature; multi-judge ensemble; H4 reframed via Wikipedia primary**
+- v3.0 (2026-04-26): first audit-driven redesign [SUPERSEDED 2026-04-26 due to fabricated citation attributions]
+- **v3.1 (2026-04-26): current — citations re-verified against arXiv; SESOI defended via documented ranges (not invented medians); CC-Op1 tautology fixed; composite weights transparency**
 
-**Pre-registration timing:** v3.0 intended for OSF deposit prior to confirmatory data collection.
+**Pre-registration timing:** v3.1 intended for OSF deposit pending second-stage bibliographic re-audit by Citation Sentinel agents.
 
 ---
 
@@ -48,16 +49,16 @@ All hypotheses are directional and pre-specified. **H1 and H4 are co-primary con
 #### Primary confirmatory
 
 - **H1:** Global South countries receive lower composite accuracy than Global North countries. **Pre-registered SESOI = 7 percentage points (0.07).**
-  - *Justification ex-ante (cited literature, NOT pilot):*
-    - Naous et al. 2024 (CulturalBench) reported a median culture-gap of 8 percentage points between high-resource vs low-resource cultural contexts in modern LLMs.
-    - Romanou et al. 2024 (multilingual exam benchmark, 200k questions × 44 languages) reported a median 12pp accuracy gap between English-medium and lower-resource-language-medium tasks.
-    - Manvi et al. 2024 documented systematic geographic bias with effect sizes consistent with 5-10pp gaps.
-    - The midpoint of the Naous-Romanou range (8 + 12)/2 = 10pp, with one-sided floor of 7pp, is our pre-registered SESOI.
+  - *Justification (verified citations only — author, arXiv ID, and the exact claim attributed are independently checkable):*
+    - **Chiu et al. (2024)**, *CulturalBench: A Robust, Diverse, and Challenging Cultural Benchmark by Human-AI CulturalTeaming*, arXiv:2410.02677. Reports best-frontier-LM accuracy on the **Hard** subset ranging from **28.7% to 61.5%** across 45 regions, with documented under-performance on questions about North Africa, South America, and Middle East. Verified gap range: **tens of percentage points** between best-served and least-served regions.
+    - **Romanou et al. (2024)**, *INCLUDE: Evaluating Multilingual Language Understanding with Regional Knowledge*, arXiv:2411.19799. Verified scope: **197,243 QA pairs across 44 languages** drawn from local exam sources. Documents performance differentials between high-resource and low-resource language environments without a single "median" statistic.
+    - **Manvi et al. (2024)**, *Large Language Models are Geographically Biased*, arXiv:2402.02680. Verified findings: LLMs exhibit zero-shot geospatial prediction with Spearman ρ up to 0.89 on factual variables but show systematic bias against locations with lower socioeconomic conditions (Spearman ρ up to 0.70 on subjective topics).
+  - *SESOI as decision-theoretic threshold (not as a copied number from any single paper):* We pre-register SESOI = 7 percentage points as the smallest accuracy gap that would be **practically meaningful for a Global South researcher choosing between LLMs of similar cost**. Given that the verified literature documents region-level gaps in the **tens of percentage points** for cultural and geographic knowledge, 7pp is a conservative **lower-bound** threshold: any effect below 7pp is too small to justify model preference; any effect at or above 7pp warrants a recommendation. We do **not** claim that any of the cited papers reports a "median 7pp" or "median 8pp" or "median 12pp" — those specific point estimates are not in those papers and were incorrectly attributed in a prior draft (v3.0). This v3.1 correction is logged in the version-control trail.
 
 - **H4:** Country-level training-corpus representation correlates with country-level LLM accuracy and mediates the Global South effect. Pre-registered as a **two-proxy convergence test**:
   - **Primary proxy:** Wikipedia article counts per country (operationalization following Manvi et al. 2024, who used this as the cleanest country-attribution proxy). Threshold: **Spearman ρ ≥ 0.60** with mean country accuracy.
   - **Secondary proxy:** log Common Crawl tokens, with three pre-specified operationalizations:
-    - CC-Op1: tokens by primary language of country (with explicit attribution rule for multi-country languages: split language tokens by country GDP share).
+    - CC-Op1: tokens by primary language of country, attributed via **internet-penetration-weighted population** (ITU/World Bank Internet Users statistic × population), to avoid the tautology of using GDP share which is itself proxy for what we are trying to measure.
     - CC-Op2: tokens by ccTLD of country.
     - CC-Op3: tokens containing country name in any language (NER-based).
   - **Convergent-validity criterion:** H4 is considered confirmed if Wikipedia ρ ≥ 0.60 AND ≥2 of 3 CC operationalizations show ρ ≥ 0.45 in the same direction. If they diverge, H4 is reported as inconclusive.
@@ -207,10 +208,11 @@ Pre-registered **per-component primary outcomes** (each tested independently, FD
 | 4. Calibration (T5 only) | continuous | Brier score: 1 - (stated_prob - correctness)² where T5 prompt elicits explicit probability (see §4.3) |
 | 5. Absence of hallucination | continuous | Judge ensemble flag (0=hallucinated, 1=faithful) |
 
-**Composite outcome (secondary):** weighted average with pre-registered weights from Liu et al. 2023 (G-Eval) and Wang et al. 2024 (LLM-Judge) precedents:
-- Factual 0.30, Contextual 0.25, Citation 0.15, Calibration 0.15, Hallucination 0.15.
-- **PCA sensitivity**: pre-registered to test whether components load on 1 vs 2-3 factors. Reported in supplement.
-- **Weight sensitivity**: pre-registered to test composite under (a) PCA-derived weights, (b) equal weights (0.20 each).
+**Composite outcome (secondary, with explicit weight transparency):**
+- **Author-specified weights (declared, not cited as standard):** Factual 0.30, Contextual 0.25, Citation 0.15, Calibration 0.15, Hallucination 0.15. These weights reflect the authors' a-priori judgment that factual accuracy is the most important component for policy research utility. *They are not claimed to be derived from any prior framework.*
+- **Primary composite analysis:** PCA-derived weights from data, OR equal weights (0.20 × 5), whichever shows higher inter-rater reliability with human gold subset. The author-specified weights are reported as **sensitivity check only**.
+- **PCA sensitivity:** pre-registered test of whether 5 components load on 1 vs 2-3 factors. Reported in supplement.
+- **Weight sensitivity:** pre-registered to test under (a) PCA-derived, (b) equal weights, (c) author-specified — primary inference must hold across all three to be confirmatory.
 
 ### 4.3 T5 (Calibration) prompt — explicit probability
 
@@ -373,9 +375,11 @@ Claude Opus 4.7 retained as reserve model. **Activation criteria are pre-specifi
 
 ---
 
-## Appendix C — Methodological Audit Response (NEW v3)
+## Appendix C — Methodological Audit Response (v3.0 → v3.1 corrections)
 
-This v3.0 incorporates corrections in response to a pre-deposit methodological audit (2026-04-26). The audit identified seven P0 issues; this version addresses each:
+v3.0 incorporated corrections from a first-pass audit (2026-04-26). A subsequent audit (same day) identified **fabricated citation attributions** in v3.0's SESOI defense — specifically, attributing CulturalBench to Naous instead of Chiu, inventing "median 8pp" and "median 12pp" gaps not actually reported in the source papers, and citing G-Eval as the source of the composite weights when it is not. **v3.1 corrects these errors with arXiv-verified citations and explicit author-attribution transparency.**
+
+The first-pass audit P0 issues were:
 
 | P0 issue from audit | Correction applied in v3.0 |
 |---|---|
@@ -393,6 +397,31 @@ Additional audit-driven changes:
 - PCA + weight sensitivity pre-registered.
 - Operational definition of Global South pre-registered (UNCTAD G77+China primary, HDI<0.7 sensitivity).
 - v0.1 retroactive deposit committed alongside v3.0.
+
+**v3.0 → v3.1 corrections (second-pass audit, same day):**
+| v3.0 error | v3.1 correction |
+|---|---|
+| "Naous et al. 2024 (CulturalBench)" — wrong author | **Chiu et al. 2024 (CulturalBench, arXiv:2410.02677)** verified |
+| "Median 8pp" attributed to CulturalBench | Range 28.7-61.5% on Hard (verified, no median statistic claimed) |
+| "Median 12pp" attributed to Romanou 2024 | INCLUDE = 197,243 QA × 44 langs (verified); no specific "median" in the paper, range cited honestly |
+| Composite weights "from G-Eval (Liu 2023)" | Author-specified weights declared as such; PCA-derived primary; G-Eval not cited |
+| CC-Op1 split tokens by GDP share | Internet-penetration-weighted population (avoids tautology) |
+| Lince-Mistral as BR-PT regional | Cabra-Mistral 7B v3 (verified BR-PT instruct via mradermacher GGUF) |
+
+### Process improvement — Citation Verification Protocol (CVP) instituted
+
+The v3.0 fabrication incident was caught by external audit but not by the project's internal review. To prevent recurrence, the project has instituted a four-gate Citation Verification Protocol:
+
+| Gate | Agent | Output |
+|---|---|---|
+| 1. Citation Sentinel Stage 1 | `@citation-sentinel-v2` (existence/identity) | `audit_trail/verification_log_stage1_*.csv` |
+| 2. Citation Sentinel Stage 2 | `@citation-sentinel-v2` (claim verification, separate invocation) | `audit_trail/verification_log_stage2_*.csv` |
+| 3. Project Auditor sweep | `@project-auditor` (NEW agent) | `audit_trail/project_audit_*.md` |
+| 4. Orchestrator manual review | `@academic-chief` (Sage) | `audit_trail/<artifact>_orchestrator_signoff.md` |
+
+Full protocol at `.aiox/CITATION_VERIFICATION_PROTOCOL.md`. Implementation at `scripts/verify_citations.py`. Per protocol, **no artifact (PDF, OSF deposit, manuscript submission) leaves the project until all four gates return ALL CLEAR.**
+
+This v3.1 will be subjected to the four-gate protocol before OSF deposit.
 
 ---
 
