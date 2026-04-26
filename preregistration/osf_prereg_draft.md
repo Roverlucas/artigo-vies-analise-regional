@@ -427,11 +427,12 @@ This v3.1 will be subjected to the four-gate protocol before OSF deposit.
 
 ## Section 8 — Pre-Registration Audit Trail (immutable)
 
-| Version | Date drafted | Date deposited | Status | Hash (commit) |
+| Version | Date drafted | Date deposited | Status | Git commit hash |
 |---|---|---|---|---|
-| v0.1 | 2026-04-23 | 2026-04-26 (retroactive) | Original draft | TBD on commit |
-| v2.0 | 2026-04-25 | 2026-04-25 (proposed but withdrawn) | Withdrawn 2026-04-26 per audit | TBD |
-| **v3.0** | **2026-04-26** | **2026-04-26 (intended)** | **Current — for OSF deposit** | TBD |
+| v0.1 | 2026-04-23 | 2026-04-26 (retroactive) | Original draft | `2b7cbdc` (initial PT translation), `4d493ac` (clean form) |
+| v2.0 | 2026-04-25 | 2026-04-25 (proposed but withdrawn) | Withdrawn 2026-04-26 per audit | `08e7cc2` |
+| v3.0 | 2026-04-26 | 2026-04-26 (proposed but withdrawn) | Withdrawn same day per second-pass audit (fabricated citations) | `ace46ee` |
+| **v3.1** | **2026-04-26** | **2026-04-26 (intended)** | **Current — for OSF deposit after CVP gate completion** | `9ff508d` (and current HEAD) |
 
 Cross-references and changelogs maintained in OSF Project component "version-history".
 

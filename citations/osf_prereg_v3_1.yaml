@@ -1,0 +1,52 @@
+# Verified citations for OSF Pre-Registration v3.1
+# Used as input to scripts/verify_citations.py
+# Each entry: arxiv ID + cited authors + year + title + claims attributed in document
+
+- key: chiu2024culturalbench
+  arxiv: "2410.02677"
+  authors:
+    - "Yu Ying Chiu"
+    - "Liwei Jiang"
+    - "Bill Yuchen Lin"
+  year: 2024
+  title: "CulturalBench: A Robust, Diverse, and Challenging Cultural Benchmark by Human-AI CulturalTeaming"
+  claims:
+    - "Reports best-frontier-LM accuracy on the Hard subset ranging from 28.7% to 61.5% across 45 regions."
+    - "Documented under-performance on questions about North Africa, South America, and Middle East."
+    - "1,696 human-written and human-verified questions covering 45 global regions."
+
+- key: romanou2024include
+  arxiv: "2411.19799"
+  authors:
+    - "Angelika Romanou"
+    - "Negar Foroutan"
+    - "Anna Sotnikova"
+  year: 2024
+  title: "INCLUDE: Evaluating Multilingual Language Understanding with Regional Knowledge"
+  claims:
+    - "Constructs an evaluation suite of 197,243 QA pairs from local exam sources to measure capabilities of multilingual LLMs."
+    - "Comprehensive knowledge- and reasoning-centric benchmark across 44 written languages."
+
+- key: manvi2024geographic
+  arxiv: "2402.02680"
+  authors:
+    - "Rohin Manvi"
+    - "Samar Khanna"
+    - "Marshall Burke"
+  year: 2024
+  title: "Large Language Models are Geographically Biased"
+  claims:
+    - "LLMs exhibit zero-shot geospatial prediction with Spearman rho up to 0.89 for factual variables."
+    - "Bias against locations with lower socioeconomic conditions on subjective topics with Spearman rho up to 0.70."
+
+- key: naous2023beer
+  arxiv: "2305.14456"
+  authors:
+    - "Tarek Naous"
+    - "Michael J. Ryan"
+    - "Alan Ritter"
+  year: 2023
+  title: "Having Beer after Prayer? Measuring Cultural Bias in Large Language Models"
+  claims:
+    - "Multilingual and Arabic monolingual LMs exhibit bias towards entities associated with Western culture."
+    - "Introduces CAMeL framework for measuring cultural bias."
