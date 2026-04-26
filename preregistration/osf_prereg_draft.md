@@ -42,7 +42,7 @@ All hypotheses are directional and pre-specified. **H1 and H4 are co-primary con
 
 - **H1 (primary test):** At the **country level of aggregation** (mean composite accuracy per country), accuracy increases monotonically with country-level Joshi linguistic-resource class (1–5 ordinal) AND with HDI quartile. We pre-register **Spearman ρ ≥ 0.55 (one-sided test, α = 0.05)** as the primary statistical claim. The hypothesis is directional (positive correlation), so the test is one-sided.
 - **H1 non-monotonicity check (mandatory):** Spearman ρ is robust to outliers but does not detect U-shaped or non-monotonic relationships. We pre-register a **Mann-Kendall trend test** as a complementary monotonicity check; if Mann-Kendall rejects monotonicity, a loess-smoothed scatterplot of country mean accuracy vs Joshi/HDI is added to the supplement and the H1 conclusion is reported with non-monotonicity caveat.
-- **H1 supporting analysis (response-level GLMM, NOT primary):** A response-level GLMM is fitted as a supporting check using a **Mundlak specification** to avoid between-cluster confounding (group-mean centering of country-level covariates plus random country intercept). This GLMM is reported alongside H1-primary; if the two analyses disagree, the country-level Spearman is the canonical primary inference.
+- **H1 supporting analysis (response-level GLMM, NOT a gradient test):** A response-level GLMM is fitted **without** between-country covariates as fixed effects, used solely for **variance-component partitioning** (estimating ICC_country, ICC_model, residual). Country-level covariates (`joshi_class`, `hdi`) are strictly between-country and have no within-country variation; including them as fixed effects in a model with `(1|country)` would induce between/within-cluster confounding and would not yield interpretable gradient estimates. Mundlak group-mean centering is therefore not applicable. The canonical primary test for the gradient is exclusively the country-level Spearman ρ.
 - **H1 binary contrast (sensitivity):** UNCTAD G77+China dummy contrast reported as sensitivity only.
 - **H4 (mechanism, primary):** Country-level training-corpus representation correlates with country-level accuracy AND partially explains the country-level gradient after adjusting for HDI and GDP per capita as observable confounders. Pre-registered as a **two-proxy convergence test** with single primary statistical method:
   - **Primary proxy:** Wikipedia article counts per country. Threshold: **partial Spearman ρ ≥ 0.55 (one-sided)** with country-level mean accuracy after partialing out HDI and log GDP per capita.
@@ -60,11 +60,11 @@ All hypotheses are directional and pre-specified. **H1 and H4 are co-primary con
 - **H3a / H3b (mutually exclusive alternatives):** Cabra-Mistral 7B v3 (BR-Portuguese instruction-tuned open-weight) either:
   - **H3a:** reduces the Portuguese-language Brazil composite-accuracy gap by ≥ 30% relative to scale-matched Llama 3.1 8B; OR
   - **H3b:** closes the Brazil gap but displaces it onto the Portuguese-language sub-comparison for Portugal-specific or Lusophone-African content (where data permit).
-  - **Multi-model robustness check (revised v5):** in addition to Cabra-Mistral, we pre-register **Sabiá-3 (Maritaca, closed-source)** and **Bode 7B (Garcia et al., open-weight Portuguese fine-tune)** as secondary BR-PT models for H3 sensitivity. ~30 prompts × 2 reps × 2 additional models = 120 supplementary calls. H3 inference is reported as robust only if direction agrees across ≥ 2 of 3 BR-PT models.
+  - **Multi-model robustness check:** in addition to Cabra-Mistral, we pre-register **Sabiá-3 (Maritaca, closed-source)** and **Bode 7B (Garcia et al., open-weight Portuguese fine-tune)** as secondary BR-PT models for H3 sensitivity. ~30 prompts × 2 reps × 2 additional models = 120 supplementary calls. H3 inference is reported as robust only if direction agrees across ≥ 2 of 3 BR-PT models.
   - **Pre-registered priors and reporting:**
     - Primary report: Bayes Factor for `cabra > llama-3.1-8b` (PT subset) under default Cauchy(0, 0.707) prior.
     - Sensitivity priors reported separately (NOT requiring agreement): Cauchy(0, 0.354) (skeptical), Normal(0, 1) (weakly informative).
-    - **Reporting rule (revised v5):** report each Bayes Factor under each prior separately, plus a Bayesian model-averaged BF using equal weights across priors. The decision rule is **gradational**, not binary:
+    - **Reporting rule:** report each Bayes Factor under each prior separately, plus a Bayesian model-averaged BF using equal weights across priors. The decision rule is **gradational**, not binary:
       - Default-prior BF ≥ 10 AND model-averaged BF ≥ 5 → H3a/H3b confirmed.
       - Default-prior BF ≥ 3 AND model-averaged BF ≥ 3 → reported as suggestive evidence.
       - Default-prior BF in [1/3, 3] → reported as inconclusive.
@@ -106,7 +106,7 @@ Pre-registered confirmatory benchmark study with observational data collection (
 | Prompt language | English (all countries) + 1 native language for 7 stratified countries | Within-country |
 | Replication | 2 per (model, prompt) pair | Within-prompt |
 
-**Confirmatory scope:** 15 countries × 14 models × 30 prompts × 2 reps = **12,600 LLM responses**. Each response is scored by a 3-judge LLM ensemble plus a stratified subset of 800 responses (~6.3%) by 3 human annotators (2 external blind + 1 internal).
+**Confirmatory scope:** 15 countries × 14 models × 30 prompts × 2 reps = **12,600 LLM responses** (primary). Plus a sensitivity-only sub-collection of **~120 additional calls** for Sabiá-3 (Maritaca) and Bode 7B (Garcia et al.) restricted to the H3 BR-specific subset (Brazil × Portuguese-language prompts × 2 reps × 2 models). These two BR-PT models are NOT part of the 14 primary confirmatory models; they enter the analysis only for H3 sensitivity (multi-model robustness check). Each response is scored by a 3-judge LLM ensemble plus a stratified subset of 800 responses (~6.3%) by 3 human annotators (2 external + 1 adversarial; see §5.4).
 
 ### 2.3 Sample size and power
 
@@ -124,13 +124,18 @@ We use the conservative priors (not the calibration point estimates) for all pow
 
 | Hypothesis | Test | Threshold | Power (conservative) |
 |---|---|:-:|:-:|
-| H1 (Spearman ρ along Joshi/HDI gradient) | Continuous correlation | ρ ≥ 0.55 | **0.86** |
-| H1 sensitivity (binary GS/GN) | GLMM | 7 pp absolute gap | 0.81 |
-| H4 (Wikipedia + CC convergence) | Spearman + E-value | ρ ≥ 0.55 | **0.83** |
+| **H1 canonical (country-level Spearman, n=15)** | One-sided correlation | ρ ≥ 0.55 | **0.65–0.72** |
+| H1 supporting (response-level GLMM variance partitioning) | n/a (variance only) | n/a | n/a |
+| H1 sensitivity (binary GS/GN, country-level Mann-Whitney) | one-sided | 7 pp absolute gap | 0.74 |
+| **H4 canonical (partial Spearman, n=15, country-level)** | One-sided correlation | ρ ≥ 0.55 | **0.61–0.68** |
 | H3 (Cabra vs Llama 3.1 8B on BR) | Bayes Factor | BF ≥ 10 | 0.85 |
 | H2 (lang × country, exploratory) | Interaction | η²_p ≥ 0.05 | 0.65–0.75 |
 
-**Power simulation reports** (mandatory in supplement): convergence rate of GLMM fitting routine, false-positive rate under null, fallback to Bayesian GLMM with weakly informative priors if Laplace approximation fails (singular fit threshold pre-registered: random-effect variance ≤ 1e-6).
+**Honest power disclosure:** with n=15 country-level observations and Spearman ρ ≥ 0.55 one-sided α=0.05, canonical H1 and H4 are powered at 0.61–0.72. This is below the conventional 0.80 floor and is a structural limitation of country-level confirmatory inference at this sample size. The study reports effect-size estimates with 95% CI as the primary inferential output; the underpowered tests carry the limitation explicitly.
+
+**Family-wise power for F1 (10 H1 tests + 4 H4 tests = 14 total Bonferroni-Holm):** under correlation-among-tests scenarios (low/mid/high), family-wise power is reported in the supplement.
+
+**Power simulation reports** (mandatory in supplement): GLMM convergence rate; false-positive rate under null; if singular-fit warnings appear in >5% of Monte Carlo replicates, fallback to Bayesian GLMM with weakly informative priors (HalfStudentT(3, 0, 0.1)) is reported as primary, frequentist as sensitivity.
 
 ### 2.4 Randomization
 
@@ -201,6 +206,8 @@ LLM responses to factual prompts about countries are likely to reflect a mixture
 
 2. **Post-cutoff sub-analysis (mandatory):** prompts that target facts dated **after** each model's cutoff are pre-identified per model. The H1 + H4 analyses are repeated on this subset as a sensitivity check. If the country gradient persists on post-cutoff facts, the result is interpreted as evidence of generalization-stage bias; if it disappears, the gap is interpreted as recall-stage bias.
 
+   **Power heterogeneity disclosure:** post-cutoff prompt counts vary by model (recent-cutoff models have fewer post-cutoff facts available). Pre-registered minimum threshold: **≥ 5 post-cutoff prompts per model** for inclusion in the sub-analysis; models with fewer post-cutoff prompts are dropped from this sensitivity check and the limitation is reported. Sub-analysis power is acknowledged as heterogeneous across models and the conclusion is interpreted with this caveat.
+
 3. **Disclosed confounding of H1 and H4:** as noted in §1.4, H1 and H4 may both index the same underlying mechanism (country representation in training corpus). The pre-registration explicitly does NOT claim that H4 provides an independent mechanistic test of H1. The two are partitioning analyses of a shared gradient, not orthogonal hypotheses.
 
 4. **Prompt confidentiality before deposit:** the 30 × 15 prompts are NOT released in the public repository before confirmatory data collection completes. Prompts are stored in a private repository or OSF restricted-access component until completion, to prevent inadvertent inclusion in any model's training corpus during the collection window. Public release accompanies confirmatory data deposit.
@@ -233,7 +240,7 @@ LLM responses to factual prompts about countries are likely to reflect a mixture
 
 A composite score is computed as a weighted average. **Primary inference uses equal weights** (0.20 × 5 components). Two sensitivity analyses are pre-registered:
 
-- **PCA-derived weights:** weights from the first principal component of the 5-component matrix. Reported as sensitivity only; if PCA loadings concentrate on a single component (>0.6 share), the composite is reported as effectively unidimensional with caveat.
+- **PCA-derived weights (pilot-based to avoid double-dipping):** weights from the first principal component of the 5-component matrix are estimated using the **calibration pilot data** (n=700 responses), pre-coleta of confirmatory data. The pilot-derived loadings are then applied as fixed weights to the confirmatory sample. This avoids the circularity of within-sample PCA.
 - **Author-specified weights** (declared, not from any cited framework): factual 0.30, contextual 0.25, citation 0.15, calibration 0.15, hallucination 0.15. Reported as sensitivity to test prior-author-judgment robustness.
 
 A primary inferential conclusion is robust only if it holds across all three weighting schemes.
@@ -281,38 +288,51 @@ Full prompt templates and ground-truth rules are in `data/pilot_202604/prompts_t
 
 ### 5.2 Per-hypothesis specifications
 
-#### H1 (continuous primary)
+#### H1 (canonical primary: country-level Spearman)
+
+The H1 canonical primary test is at the **country level of aggregation** (one observation per country, n=15):
 
 ```
-component_score ~ joshi_class + (1 | country) + (1 | model) + (1 | prompt)
-```
-And separately:
-```
-component_score ~ hdi + (1 | country) + (1 | model) + (1 | prompt)
-```
-
-Run per-component (5 outcomes × 2 gradients = 10 models). Test for monotonic gradient via Spearman ρ on country-level means; pre-registered ρ ≥ 0.55. FDR correction within H1 family across the 10 tests (Bonferroni-Holm).
-
-**Sensitivity tests:**
-- Binary `global_south` indicator (UNCTAD G77+China).
-- `country:model` interaction as random slope: `+ (1 + global_south | model)` to allow model-specific country effects.
-
-#### H4 (mechanism, primary)
-
-Country-level aggregation, then ecological correlation + mediation analysis:
-
-```
-country_mean_accuracy ~ log(wikipedia_articles) + hdi + log(gdp_per_capita)
+For each component k ∈ {factual, contextual, citation, calibration, hallucination}:
+  country_mean_score_k = mean(score_k) over all (model, prompt, rep) within country
+  Test: Spearman ρ(country_mean_score_k, joshi_class) ≥ 0.55, one-sided, α = 0.05
+  Test: Spearman ρ(country_mean_score_k, hdi) ≥ 0.55, one-sided, α = 0.05
 ```
 
-Direct effect of `wikipedia_articles` controlling for HDI and GDP estimated via partial Spearman correlation. Ecological mediation reported as:
-- Total effect: country-level association of `joshi_class` with accuracy.
-- Indirect effect: portion mediated by `log(wikipedia_articles)` (conditional partial-correlation product).
-- E-value sensitivity (VanderWeele 2017): for each estimate, reported alongside is the strength of unmeasured-confounder association required to fully explain the effect. Effects with E-value < 1.5 are flagged as fragile.
+This yields 5 components × 2 gradients = 10 primary H1 tests, corrected within-family by Bonferroni-Holm. Power for Spearman ρ ≥ 0.55 at n=15, one-sided α=0.05 is approximately **0.65–0.72** (analytic estimate; Monte Carlo refinement in supplement).
 
-The mediation interpretation is **explicitly ecological correlational**, not causal. The pre-registration does not claim causal mediation.
+**Mandatory non-monotonicity check:** Mann-Kendall trend test reported alongside each Spearman ρ. If Mann-Kendall rejects monotonicity, a loess-smoothed scatterplot of country mean score vs gradient is added to the supplement and the H1 conclusion is reported with non-monotonicity caveat.
 
-For the secondary CC operationalizations (Op1, Op2, Op3), Spearman ρ reported with FDR correction within the H4 family.
+**Supporting analysis (variance partitioning, NOT a gradient test):** a response-level GLMM is fitted **without** between-country covariates (no `joshi_class`, no `hdi` as fixed effects), used solely to estimate variance components and ICC for power calibration:
+
+```
+component_score ~ 1 + (1 | country) + (1 | model) + (1 | prompt)
+```
+
+This GLMM is for variance partitioning only. Inference about the country gradient is exclusively via the country-level Spearman tests. Mundlak group-mean centering is not applicable here because `joshi_class` and `hdi` are strictly between-country (no within-country variation), which is precisely why the canonical primary test is country-level.
+
+**Sensitivity tests for H1:**
+- Binary `global_south` indicator (UNCTAD G77+China) on country-level means via Mann-Whitney U test.
+- Per-component canonical Spearman re-run with HDI-quartile-stratified country subsets.
+
+#### H4 (mechanism, primary): partial Spearman correlation at country level
+
+Country-level aggregation, then partial Spearman correlation as the **single primary statistical method**:
+
+```
+For Wikipedia (primary proxy):
+  Test: partial-Spearman ρ(country_mean_accuracy, log(wikipedia_articles) | hdi, log(gdp_per_capita)) ≥ 0.55, one-sided, α = 0.05
+For each Common Crawl operationalization (CC-Op1, CC-Op2, CC-Op3):
+  Test: partial-Spearman ρ(country_mean_accuracy, log(cc_tokens_op_k) | hdi, log(gdp_per_capita)) ≥ 0.40, one-sided
+```
+
+H4 supported if Wikipedia partial-ρ ≥ 0.55 AND ≥2 of 3 CC operationalizations show partial-ρ ≥ 0.40 in the same direction.
+
+**Conventional mediation testing (Sobel, SEM with bootstrap) is NOT pre-registered as confirmatory.** With n=15 country-level observations, conventional mediation is severely underpowered. A linear regression `country_mean_accuracy ~ log(wikipedia_articles) + hdi + log(gdp_per_capita)` and an SEM with bootstrap BCa CIs are reported in the supplement as supporting analyses; they are NOT the inferential primary.
+
+The analysis is reported as **ecological partial correlation, not causal mediation**. We explicitly do NOT claim that Wikipedia coverage causes accuracy; the inference is that countries with greater corpus representation tend to have greater LLM accuracy after controlling for HDI and GDP per capita.
+
+**E-value sensitivity (VanderWeele 2017):** for each partial-Spearman that meets threshold, the equivalent E-value is reported using standardized risk-ratio conversion. E-value tiers: < 1.5 fragile; 1.5–2.0 moderate; ≥ 2.0 robust. The E-value translation for continuous outcomes via standardized RR conversion is acknowledged as a less-established practice than for binary outcomes; results are reported with this caveat.
 
 #### H3 (Bayesian contrast, secondary)
 
@@ -370,27 +390,35 @@ Reports the apparent tier effect alongside its decomposition into mediated paths
 
 **Human gold subset (n=800, ~6.3% of sample):** stratified by 5 task types × 5 country quintiles × 32 responses each.
 
-- **Annotators (revised v5 protocol — explicitly external):**
+- **Annotators:**
   - **2 external cooperative annotators** recruited from Brazilian doctoral programs **outside UTFPR/PPGSAU** (target institutions: USP, UFMG, UFRGS, UFPR — graduate programs in Computer Science, Linguistics, Statistics, or Public Policy). Recruitment via formal listserv invitation with study compensation; selection criteria pre-registered (graduate-level qualification, no prior collaboration with study authors).
   - **1 external adversarial annotator** recruited with explicit instruction to "look for evidence against the hypothesis that Global South countries receive lower accuracy" — this is an asymmetric prompt to counter confirmation bias.
   - **1 internal annotator (Lucas Rover)** — kept for cross-validation only, NOT counted as a "blind" annotator.
 
-- **Blinding protocol (revised v5):**
+- **Blinding protocol:**
   - Annotators receive a **neutral study title**: "Evaluating Language Model Factuality on Public Information." They do NOT receive the words "Global South", "geographic bias", or "Open-Weight Penalty".
-  - Model identities are **stripped and paraphrase-preserving-anonymized**: each response is re-rendered preserving facts but normalizing stylistic markers (sentence length, formality, idiosyncratic phrasings); annotators see only "Model A / B / C / ..." labels.
-  - Country identities for each prompt are similarly **partially anonymized**: country names appear in the prompts but the response display does not aggregate by country in the annotation interface.
+  - Model identities are **labeled-only anonymized via stylistic normalization** (NOT paraphrased to preserve construct validity of citation, calibration, and other content-sensitive components). Stylistic normalization removes: "As an AI…" preambles, vendor-specific salutations, markdown formatting variations. **Original response content (URLs, numerical estimates, factual claims) is preserved verbatim.** Annotators see only "Model A / B / C / …" labels. Paraphrasing was considered and rejected because it would alter what is being measured (Citation quality and Calibration error are content-level outcomes that paraphrasing would corrupt).
+  - The annotation interface does not aggregate by country, but country names remain visible in the prompts to enable factual evaluation.
 
-- **Bias check protocol (revised v5):**
+- **Bias check protocol:**
   - Cohen's κ computed pairwise:
     - (a) κ_external-cooperative-1 vs κ_external-cooperative-2 (baseline inter-rater)
     - (b) κ_adversarial vs κ_external-cooperative (mean) (test for asymmetric prompting effect)
     - (c) κ_internal vs κ_external-cooperative (mean) (test for social-proximity bias)
     - (d) κ_LLM-ensemble vs κ_external-cooperative (mean) (test for LLM-judge alignment with humans)
 
-- **Confirmation-bias signals (revised v5, multiple):**
-  - **Signal 1:** if κ_(c) − κ_(a) > 0.10, internal annotation is biased toward inflation; primary analysis re-run with only external cooperative annotators.
-  - **Signal 2:** if κ_(b) is substantially lower than κ_(a) (delta > 0.15), annotation outcome is asymmetrically sensitive to prompt framing; conclusion reported with caveat.
-  - **Signal 3:** if all three κ values are < 0.55 across all three pairs, the annotation construct itself is unreliable for the task; outcome reported with construct-validity warning.
+- **Confirmation-bias signals (with dual interpretation):**
+  - **Signal 1 (asymmetric divergence):** if `|κ_(c) − κ_(a)| > 0.10`, divergence reported with **dual interpretation**:
+    - κ_(c) < κ_(a) → signal of internal-annotator bias; primary re-run dropping internal annotation.
+    - κ_(c) > κ_(a) → signal of external annotator heterogeneity; primary re-run with external pair only and additional external recruitment if budget permits.
+  - **Signal 2 (adversarial vs cooperative gap):** if `κ_(b)` is substantially lower than `κ_(a)` (delta > 0.15), annotation outcome is asymmetrically sensitive to prompt framing; conclusion reported with caveat.
+  - **Signal 3 (construct unreliability):** if all three κ values are < 0.55, annotation construct itself unreliable; outcome reported with construct-validity warning and affected task dropped from primary.
+
+- **Adversarial annotator interpretation:** with a single adversarial annotator, the comparison vs cooperative is **qualitative-directional, not inferential** — interpreted as a direction signal (does the apparent finding survive a hostile reading?), not as a quantitative bias estimate.
+
+- **Annotator compensation and selection criteria:**
+  - **Compensation:** R$ 200 per annotator (≈ US$ 38) for the 800-response task, paid via institutional research-funds protocol after task completion. Pre-registered to avoid coercion-bias accusations.
+  - **Selection criteria:** graduate-level qualification; affiliation OUTSIDE UTFPR/PPGSAU; no prior co-authorship with study authors; no shared advisor; no shared lab affiliation in the past 3 years.
 
 ### 5.5 Outlier handling and exclusion (pre-specified)
 
@@ -449,7 +477,7 @@ The following are pre-registered as exploratory:
 
 ### 7.2 Open data / code
 
-- **Pre-deposit privacy (revised v5):** the 30 × 15 confirmatory prompts are NOT released in the public repository before confirmatory data collection completes. They are stored in a private OSF restricted-access component until the collection window closes, to prevent inadvertent inclusion in any model's training corpus during the collection window. This is a recognized recommendation for benchmark evaluations.
+- **Pre-deposit privacy:** the 30 × 15 confirmatory prompts are NOT released in the public repository before confirmatory data collection completes. They are stored in a private OSF restricted-access component until the collection window closes, to prevent inadvertent inclusion in any model's training corpus during the collection window. This is a recognized recommendation for benchmark evaluations.
 - **Public release accompanies confirmatory data deposit:**
   - Confirmatory raw responses (~12,600): Zenodo deposit with DOI, CC-BY-4.0, released within 60 days of confirmatory completion.
   - LLM judge scores (3 judges × 12,600 = 37,800): Zenodo.
@@ -459,7 +487,7 @@ The following are pre-registered as exploratory:
 
 ### 7.3 Conflicts of interest
 
-No financial relationships with any LLM vendor. **Compute credits disclosure (revised v5):** the project receives compute credits from Anthropic, OpenAI, and DeepSeek, used solely to execute model inference for confirmatory data collection. **Vendors had no input into study design, analysis, or interpretation. The reserve model (Appendix B) is selected from a vendor that does NOT provide compute credits to the project, to avoid optical bias.**
+No financial relationships with any LLM vendor. **Compute credits disclosure:** the project receives compute credits from Anthropic, OpenAI, and DeepSeek, used solely to execute model inference for confirmatory data collection. **Vendors had no input into study design, analysis, or interpretation. The reserve model (Appendix B) is selected from a vendor that does NOT provide compute credits to the project, to avoid optical bias.**
 
 ### 7.4 Author contributions (CRediT taxonomy)
 
@@ -493,7 +521,7 @@ A calibration pilot (n=700: 5 models × 7 countries × 10 prompts × 2 reps; LLM
 
 ## Appendix B — Reserve Model Policy
 
-**Reserve model (revised v5): Gemini 2.5 Pro (Google)**, not Claude Opus 4.7. The reserve model is selected to be a frontier-tier model that is **NOT** the vendor providing the project's compute credits, to avoid an optical bias toward the budget-providing vendor. Gemini 2.5 Pro is held as reserve and **not executed in primary confirmatory data collection**.
+**Reserve model: Gemini 2.5 Pro (Google)**, not Claude Opus 4.7. The reserve model is selected to be a frontier-tier model that is **NOT** the vendor providing the project's compute credits, to avoid an optical bias toward the budget-providing vendor. Gemini 2.5 Pro is held as reserve and **not executed in primary confirmatory data collection**.
 
 - Activation triggered ONLY by an explicit reviewer request ("please run an additional closed-frontier vendor model from a non-budget-providing vendor").
 - If activated: subset of 4 countries × 25 prompts × 2 reps = 200 calls.
