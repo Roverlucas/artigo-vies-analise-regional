@@ -1,0 +1,9 @@
+key,arxiv,doi,author_match,year_match,title_match,status,note
+chiu2024culturalbench,2410.02677,,True,True,True,OK,"API title: CulturalBench: A Robust, Diverse, and Challenging Cultural Benchmark by Human-AI"
+romanou2024include,2411.19799,,True,True,True,OK,API title: INCLUDE: Evaluating Multilingual Language Understanding with Regional Knowledge
+manvi2024geographic,2402.02680,,True,True,True,OK,API title: Large Language Models are Geographically Biased
+naous2023beer,2305.14456,,True,True,True,OK,API title: Having Beer after Prayer? Measuring Cultural Bias in Large Language Models
+khondaker2023gptaraeval,2305.14976,,True,True,True,OK,API title: GPTAraEval: A Comprehensive Evaluation of ChatGPT on Arabic NLP
+ustun2024aya,2402.07827,,True,True,True,OK,API title: Aya Model: An Instruction Finetuned Open-Access Multilingual Language Model
+blodgett2020language,2005.14050,,True,True,True,OK,"API title: Language (Technology) is Power: A Critical Survey of ""Bias"" in NLP"
+vanderweele2017evalue,,10.7326/M16-2607,True,True,True,OK,API title: Sensitivity Analysis in Observational Research: Introducing the E-Value

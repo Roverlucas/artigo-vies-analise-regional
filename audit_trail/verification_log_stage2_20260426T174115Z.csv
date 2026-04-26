@@ -1,0 +1,9 @@
+key,claim,match_type,status,note
+chiu2024culturalbench,Reports best-frontier-LM accuracy on the Hard subset ranging from 28.7% to 61.5% across 45 regions.,NUMERICAL,OK,"nums_in_claim=['28.7', '61.5', '45'], text_match=True"
+romanou2024include,"Constructs an evaluation suite of 197,243 QA pairs from local exam sources to measure capabilities of multilingual LLMs.",NUMERICAL,OK,"nums_in_claim=['197', '243'], text_match=True"
+manvi2024geographic,LLMs exhibit zero-shot geospatial prediction with Spearman rho up to 0.89 for factual variables.,NUMERICAL,OK,"nums_in_claim=['0.89'], text_match=True"
+naous2023beer,Multilingual and Arabic monolingual LMs exhibit bias towards entities associated with Western culture.,PARAPHRASE,OK,"nums_in_claim=[], text_match=True"
+khondaker2023gptaraeval,Comprehensive evaluation of ChatGPT on Arabic NLP tasks.,PARAPHRASE,OK,"nums_in_claim=[], text_match=True"
+ustun2024aya,Massively multilingual open-access language model with instruction tuning across 101 languages.,NUMERICAL,OK,"nums_in_claim=['101'], text_match=True"
+blodgett2020language,Critical survey of how bias is conceptualized in NLP fairness research.,PARAPHRASE,OK,"nums_in_claim=[], text_match=True"
+vanderweele2017evalue,Sensitivity analysis in observational research introducing the E-value.,PARAPHRASE,OK,"nums_in_claim=[], text_match=True"
