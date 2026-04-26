@@ -1,0 +1,10 @@
+key,claim,match_type,status,note
+chiu2024culturalbench,Reports best-frontier-LM accuracy on the Hard subset ranging from 28.7% to 61.5% across 45 regions.,NUMERICAL,OK,"nums_in_claim=['28.7', '61.5', '45'], text_match=True"
+chiu2024culturalbench,"Documented under-performance on questions about North Africa, South America, and Middle East.",PARAPHRASE,OK,"nums_in_claim=[], text_match=True"
+chiu2024culturalbench,"1,696 human-written and human-verified questions covering 45 global regions.",NUMERICAL,OK,"nums_in_claim=['1', '696', '45'], text_match=True"
+romanou2024include,"Constructs an evaluation suite of 197,243 QA pairs from local exam sources to measure capabilities of multilingual LLMs.",NUMERICAL,OK,"nums_in_claim=['197', '243'], text_match=True"
+romanou2024include,Comprehensive knowledge- and reasoning-centric benchmark across 44 written languages.,NUMERICAL,OK,"nums_in_claim=['44'], text_match=True"
+manvi2024geographic,LLMs exhibit zero-shot geospatial prediction with Spearman rho up to 0.89 for factual variables.,NUMERICAL,OK,"nums_in_claim=['0.89'], text_match=True"
+manvi2024geographic,Bias against locations with lower socioeconomic conditions on subjective topics with Spearman rho up to 0.70.,NUMERICAL,OK,"nums_in_claim=['0.70'], text_match=True"
+naous2023beer,Multilingual and Arabic monolingual LMs exhibit bias towards entities associated with Western culture.,PARAPHRASE,OK,"nums_in_claim=[], text_match=True"
+naous2023beer,Introduces CAMeL framework for measuring cultural bias.,PARAPHRASE,OK,"nums_in_claim=[], text_match=True"
