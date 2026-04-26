@@ -1,10 +1,10 @@
-# The Open-Weight Penalty in Global South Applied Research: A 15-Country LLM Audit
+# Geographic and Tier-Related Performance Gaps in LLMs for Global South Applied Policy Research
 
-**Research project in progress** — first Q1-targeted benchmark auditing **the open-weight penalty** (the surprising finding that open-weight LLMs at 17B-104B scale underperform closed accessible models by 12.5 percentage points on Global South applied policy research) across the complete LLM spectrum (7B to 671B MoE), 15 countries stratified along three theoretical axes, with pre-registered mechanism analysis via training-corpus tokens.
+**Research project in progress** — pre-registered audit of LLM geographic bias and tier-related performance gaps across 15 stratified countries, with two-proxy mechanism analysis (Wikipedia primary, Common Crawl secondary), 3-judge LLM ensemble + human gold validation. Following methodological audit (2026-04-26), study reframed from "open-weight penalty" headline to honest geographic + scale-stratified analysis.
 
 **Target journal:** *Patterns* (Cell Press, IF 7.4, Q1)
 **Institution:** Programa de Pós-Graduação em Planejamento Urbano e Ambiental, UTFPR
-**Status:** Design v3.4 (post-pilot strategic pivot); awaiting OSF pre-registration deposit
+**Status:** Pre-registration v3.0 (post-methodological-audit); ready for supervisor approval and OSF deposit
 **Canonical proposal:** [`docs/proposta_consolidada_v3.md`](docs/proposta_consolidada_v3.md) (v3.4)
 **Statistical Analysis Plan:** [`docs/sap_v2_pilot_recalibrated.md`](docs/sap_v2_pilot_recalibrated.md)
 **Pilot 2.0 findings:** [`data/pilot_202604/analysis/pilot_findings_v2.md`](data/pilot_202604/analysis/pilot_findings_v2.md)

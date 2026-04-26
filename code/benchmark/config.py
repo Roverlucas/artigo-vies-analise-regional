@@ -138,8 +138,8 @@ LLMS: tuple[LLM, ...] = (
         "qwen3:14b", 14.0, True,
         "Qwen 3 14B local Ollama M4; multilingual"),
     LLM("phi4_14b",      "B_open_mid",      "ollama_local",     "open", "microsoft",
-        "phi4:14b", 14.0, True,
-        "Phi-4 14B local Ollama M4; heavy English pretraining (control for multilingual effects)"),
+        "phi4", 14.7, True,
+        "Phi-4 14B (Ollama tag 'phi4'); heavy English pretraining (control for multilingual effects)"),
 
     # -----------------------------------------------------------------
     # Tier C — Open-weight small/regional (2 models, full scope)
@@ -147,9 +147,12 @@ LLMS: tuple[LLM, ...] = (
     LLM("llama31_8b",    "C_open_small",    "groq_free",        "open", "meta",
         "llama-3.1-8b-instant", 8.0, True,
         "Llama 3.1 8B via Groq (fast inference); accessibility floor. Note: Llama 4 8B not yet on Groq."),
-    LLM("lince_mistral", "C_open_small",    "ollama_local",     "open", "pucrs",
-        "lince-mistral-7b", 7.0, True,
-        "Local Ollama M4; BR-PT tuned open — H3 regional hypothesis"),
+    LLM("sabia_7b",      "C_open_small",    "ollama_local",     "open", "maritaca",
+        "sabia-7b", 7.0, True,
+        "Sabiá 7B (Maritaca, BR-PT pre-trained) — open-weight regional model for H3. "
+        "GGUF from TheBloke/sabia-7B-GGUF, served via local Ollama Modelfile. "
+        "Note: replaces Lince-Mistral (which is Spanish, Clibrain) — Sabiá is the "
+        "actual BR-PT regional open model with same lineage as Maritaca's closed Sabiá-3."),
 
     # -----------------------------------------------------------------
     # Tier D — Closed accessible (3 models, full scope)

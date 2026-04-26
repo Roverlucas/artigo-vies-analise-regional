@@ -1,6 +1,6 @@
 # Progresso do Projeto
 
-**Projeto:** Viés geográfico-factual em LLMs e seu impacto na pesquisa científica do Sul Global
+**Projeto:** Geographic and Tier-Related Performance Gaps in LLMs for Global South Applied Policy Research (v3.0 pós-auditoria metodológica)
 **Journal-alvo definitivo:** Patterns (Cell Press, IF 7,4, Q1)
 **Autores (ordem de assinatura) e afiliações:**
 1. Lucas Rover (UTFPR, lucasrover@alunos.utfpr.edu.br) — autor correspondente

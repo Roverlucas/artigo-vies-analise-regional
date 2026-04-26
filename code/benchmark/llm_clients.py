@@ -408,15 +408,21 @@ def _call_cohere(model, prompt, temperature, max_tokens):
 
 def _call_ollama_local(model, prompt, temperature, max_tokens):
     t0 = time.time()
+    body = {
+        "model": model.api_model_string,
+        "messages": [{"role": "user", "content": prompt}],
+        "stream": False,
+        "options": {"temperature": temperature, "num_predict": max_tokens},
+    }
+    # Qwen 3 family generates "thinking" tokens before output (like GPT-5/Gemini 2.5).
+    # For deterministic factual tasks, disable thinking via Ollama's `think` parameter.
+    api = (model.api_model_string or "").lower()
+    if api.startswith("qwen3") or api.startswith("qwen-3") or "qwq" in api:
+        body["think"] = False
     status, resp = _http_post(
         "http://localhost:11434/api/chat",
         headers={},
-        body={
-            "model": model.api_model_string,
-            "messages": [{"role": "user", "content": prompt}],
-            "stream": False,
-            "options": {"temperature": temperature, "num_predict": max_tokens},
-        },
+        body=body,
         timeout=600,
     )
     latency_ms = int((time.time() - t0) * 1000)
