@@ -223,6 +223,12 @@ def _call_openai_compatible(
         body["reasoning_effort"] = "minimal"
         # GPT-5 family may reject temperature != 1
         body["temperature"] = 1.0
+
+    # Qwen 3 family on OpenAI-compatible endpoints (Groq, OpenRouter): supports
+    # `reasoning_effort` parameter; without it, the model emits <think>...</think>
+    # tokens that consume the output budget. Setting "none" disables thinking.
+    if "qwen3" in api_model_string.lower() or "qwen-3" in api_model_string.lower() or "qwq" in api_model_string.lower():
+        body["reasoning_effort"] = "none"
     status, resp = _http_post(
         f"{base_url}/chat/completions",
         headers={"Authorization": f"Bearer {api_key}"},
