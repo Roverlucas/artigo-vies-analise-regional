@@ -116,8 +116,8 @@ LLMS: tuple[LLM, ...] = (
         "llama-3.3-70b-versatile", 70.0, True,
         "Llama 3.3 70B via Groq; dense frontier, multilingual; complements Llama 4 Scout"),
     LLM("qwen3_80b_a3b", "A_open_frontier", "deepinfra_free",   "open", "alibaba",
-        "Qwen/Qwen3-Next-80B-A3B-Instruct", 80.0, True,
-        "Qwen 3 Next 80B A3B (MoE, 3B active) via DeepInfra; open frontier multilingual 2025 (OpenRouter free tier was rate-limited upstream)"),
+        "Qwen/Qwen3-Next-80B-A3B-Instruct", 80.0, False,
+        "Qwen 3 Next 80B A3B (MoE, 3B active) — DROPPED from confirmatory full-scope: DeepInfra requires positive balance; OpenRouter free tier rate-limited. Available as exploratory if budget added."),
     LLM("deepseek_v3",   "A_open_frontier", "deepseek_paid",    "open", "deepseek",
         "deepseek-chat", 671.0, True,
         "DeepSeek-V3 671B MoE frontier SOTA via DeepSeek API ($1.99 credit)"),
@@ -147,12 +147,12 @@ LLMS: tuple[LLM, ...] = (
     LLM("llama31_8b",    "C_open_small",    "groq_free",        "open", "meta",
         "llama-3.1-8b-instant", 8.0, True,
         "Llama 3.1 8B via Groq (fast inference); accessibility floor. Note: Llama 4 8B not yet on Groq."),
-    LLM("sabia_7b",      "C_open_small",    "ollama_local",     "open", "maritaca",
-        "sabia-7b", 7.0, True,
-        "Sabiá 7B (Maritaca, BR-PT pre-trained) — open-weight regional model for H3. "
-        "GGUF from TheBloke/sabia-7B-GGUF, served via local Ollama Modelfile. "
-        "Note: replaces Lince-Mistral (which is Spanish, Clibrain) — Sabiá is the "
-        "actual BR-PT regional open model with same lineage as Maritaca's closed Sabiá-3."),
+    LLM("cabra_mistral_7b", "C_open_small", "ollama_local",     "open", "botbot-ai",
+        "cabra-mistral-7b", 7.0, True,
+        "Cabra-Mistral 7B v3 (BR-PT instruction-tuned Mistral fine-tune by botbot-ai) — "
+        "open-weight regional model for H3. GGUF from mradermacher/CabraMistral-v3-7b-32k-GGUF, "
+        "served via local Ollama Modelfile. Replaces sabia_7b (base model, completion-only) "
+        "and Lince-Mistral (Spanish, not BR-PT). Cabra is the BR-PT instruct model for H3 primary."),
 
     # -----------------------------------------------------------------
     # Tier D — Closed accessible (3 models, full scope)
@@ -177,13 +177,13 @@ LLMS: tuple[LLM, ...] = (
     # -----------------------------------------------------------------
     # RESERVE — not executed unless reviewer requests
     # -----------------------------------------------------------------
-    LLM("claude_opus",   "reserve",             "anthropic_paid", "closed", "anthropic",
-        "claude-opus-4-7", 0.0, False,
-        "Reserve ~US$ 10 Anthropic — activate ONLY if reviewer requests multi-vendor closed frontier"),
+    LLM("gemini_2_5_pro", "reserve",            "gemini_free",    "closed", "google",
+        "gemini-2.5-pro", 0.0, False,
+        "Reserve model (post-audit revision): Gemini 2.5 Pro — frontier-tier closed model from a vendor that does NOT provide compute credits to the project, to avoid optical bias toward budget-providing vendor (Anthropic). Activated ONLY by explicit reviewer request per Appendix B."),
 )
 
 assert len(LLMS) == 16
-assert sum(1 for m in LLMS if m.full_scope) == 15
+assert sum(1 for m in LLMS if m.full_scope) == 14
 assert sum(1 for m in LLMS if m.openness == "open") == 11
 
 
