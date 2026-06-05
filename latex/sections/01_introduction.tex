@@ -1,112 +1,144 @@
 \section{Introduction}
 \label{sec:intro}
 
-Large language models (LLMs) have moved from research curiosity to infrastructure
-of scholarly work in under five years. Applied researchers — particularly those
-working on public-policy questions — increasingly draft literature syntheses,
-characterize institutional landscapes, identify stakeholders, and search for
-primary sources with LLM assistance~\citep{messeri2024science,bail2024llm}. This
-shift has happened faster than our ability to audit the tools it depends on.
+Large language models (LLMs) have moved from research curiosity to working
+infrastructure of public administration in under five years. Environmental
+agencies, municipal secretariats, and applied policy analysts increasingly
+draft technical syntheses, translate regulatory norms, locate official
+monitoring data, and characterize institutional frameworks with LLM
+assistance~\citep{messeri2024science,bail2024llm}. Air pollution policy is a
+domain where this adoption carries direct stakes for public health. Fine
+particulate matter (PM\textsubscript{2.5}) is among the leading environmental
+risk factors for premature mortality worldwide, and the burden falls
+disproportionately on the Global South~\citep{gbd2019risk}. When a public
+environmental manager in S\~ao Paulo, Lagos, or Jakarta asks an LLM about an
+ambient air quality standard, an attainment deadline, or the epidemiological
+evidence behind an intervention, an inaccurate answer is not a benign error.
+It can propagate into a regulatory brief, a procurement decision, or an
+emergency response during a pollution episode.
 
-Accumulating evidence shows that LLMs systematically under-represent knowledge
-about the Global South. \citet{moayeri2024worldbench} documented 1.5$\times$
-higher factual error rates for Sub-Saharan African countries versus North
-American countries across 20 models and 11 World Bank indicators.
-\citet{manvi2024llm} showed that LLM zero-shot ratings on subjective topics
-(attractiveness, morality, intelligence) correlate strongly with income level
+The question this paper addresses is whether LLMs serve Global South air
+pollution policy as reliably as they serve the Global North, and whether the
+way a query is framed changes the answer. Two recent strands of evidence make
+this question urgent rather than hypothetical.
+
+\paragraph{Geographic factual bias is real and measurable.}
+\citet{moayeri2024worldbench} documented 1.5$\times$ higher factual error rates
+for Sub-Saharan African countries versus North American countries across 20
+models and 11 World Bank indicators. \citet{manvi2024llm} showed that LLM
+zero-shot ratings on subjective topics correlate strongly with income level
 ($\rho$ up to 0.70 against socioeconomic conditions).
-\citet{mirza2024global} demonstrated that GPT-4 systematically privileges
-statements about the Global North over the Global South in factual verification
-tasks. These are important findings, but they share three limitations that
-leave the central question for applied research unanswered.
+\citet{mirza2024global} found that GPT-4 systematically privileges statements
+about the Global North over the Global South in factual verification tasks.
+These results establish the phenomenon, but none of them targets a single
+high-stakes applied domain with verifiable official ground truth, and none
+asks whether the bias can be modulated by prompt framing.
 
-\paragraph{Gap 1: benchmarks test the wrong tasks.} Existing evaluations use
-numeric recall (WorldBench), subjective ratings (Manvi et al.), fact-checking
-of journalistic claims (Global-Liar), or everyday cultural knowledge
-(BLEnD~\citep{myung2024blend}). None tests the tasks that Global South
-researchers actually delegate to LLMs: characterizing socio-environmental
-context, synthesizing existing public-policy frameworks, identifying
-institutional stakeholders, recommending primary sources. The practical
-significance of geographic bias depends on its manifestation in these applied
-settings, not in trivia.
+\paragraph{Linguistic and corpus asymmetry is structural.}
+\citet{joshi2020state} mapped a six-class hierarchy of linguistic resource
+availability in NLP, showing that the languages of most Global South countries
+sit in the under-served lower classes. Under-representation in the training
+corpus is the dominant explanation for downstream geographic
+bias~\citep{bender2021stochastic}. This asymmetry is not incidental; it
+reproduces longstanding patterns of uneven digital and epistemic
+infrastructure that decolonial scholarship has analysed for AI
+systems~\citep{mohamed2020decolonial}.
 
-\paragraph{Gap 2: language and geography are confounded.} BLEnD reports
-non-monotonic effects of prompt language on accuracy, but its design --- 16
-countries $\times$ 13 languages in everyday knowledge --- does not allow
-isolation of the interaction. No study to date has performed a controlled
-factorial test of language $\times$ country at the country level in a domain
-relevant to applied research.
+We identify three gaps that current work leaves open for a domain like air
+pollution policy.
 
-\paragraph{Gap 3: regional models are proposed as remedies, never tested as
-such.} The release of regionally-trained LLMs (Sabi\'a-3 for Brazilian
-Portuguese~\citep{almeida2025portuguese}; Latam-GPT for Spanish; AMALIA for
-European Portuguese) has been accompanied by advocacy for ``sovereign AI''
-investment. Whether these models close the Global-South performance gap or
-merely displace it to neighbouring countries with shared linguistic heritage
-(e.g., Angola, Mozambique for Portuguese; Peru's Indigenous populations for
-Spanish) has never been empirically tested. The policy implications of these
-two scenarios diverge sharply.
+\paragraph{Gap 1: no benchmark targets air pollution policy with official
+ground truth.} Existing evaluations use numeric World Bank recall (WorldBench),
+subjective ratings (Manvi et al.), journalistic fact-checking (Global-Liar), or
+everyday cultural knowledge (BLEnD~\citep{myung2024blend}). None measures the
+recall and synthesis tasks a public environmental manager actually delegates to
+an LLM: stating a binding ambient standard, retrieving an officially measured
+concentration, summarizing the health-burden evidence, identifying the legal
+instruments and executing agencies, or recommending an operational response.
+These tasks anchor to authoritative sources (national environmental councils,
+state monitoring agencies, the World Health Organization, the Global Burden of
+Disease estimates), which makes accuracy verifiable in a way that trivia
+benchmarks are not.
 
-\paragraph{Gap 4: the mechanism is asserted, not tested.}
-Underrepresentation in the training corpus is the dominant explanation for
-geographic bias in the NLP literature~\citep{joshi2020state,bender2021stochastic}.
-Yet no study has directly tested whether corpus-representation proxies
-(Common Crawl token shares, Wikipedia pageviews by language) correlate
-quantitatively with geographic accuracy gaps, while controlling for plausible
-confounders such as GDP and digital infrastructure.
+\paragraph{Gap 2: persona framing is unexamined as an experimental lever.}
+Practitioners routinely prefix queries with a role (``As a municipal
+environmental secretary, \dots''), and persona or role conditioning is widely
+used in deployed prompting workflows. Whether adopting the persona of a public
+environmental manager \emph{reduces} the Global South accuracy gap (by steering
+the model toward policy-relevant, regulation-compliant responses) or
+\emph{amplifies} it (by inviting confident fabrication of regulatory specifics
+the model never learned) has not been tested in a pre-registered design. We
+treat persona as a within-subject experimental factor rather than an
+uncontrolled confound.
+
+\paragraph{Gap 3: the corpus-representation mechanism is asserted, not
+tested for this domain.} The link between corpus representation and accuracy is
+assumed but rarely measured against confounders. We test whether
+country-level corpus-representation proxies (Wikipedia article counts as
+primary, Common Crawl shares as secondary) correlate with air pollution policy
+accuracy after adjusting for Human Development Index and GDP per capita.
 
 \subsection*{Contributions of this work}
 
-We present the first pre-registered benchmark designed explicitly for these
-four gaps. Our contributions are:
+We present a pre-registered benchmark designed for these gaps, with hypotheses,
+sampling, and analysis plan deposited at OSF before confirmatory data
+collection~\citep{nosek2018preregistration}. Our contributions are:
 
 \begin{enumerate}\setlength{\itemsep}{2pt}
-\item \textbf{Applied-research task suite.} We construct a suite of prompts
-  authored by a multi-regional panel of domain experts (N~$\geq$~10 across
-  Latin America, Africa, and Asia), covering three task types (direct factual
-  recall, open characterization, source recommendation) across three research
-  domains (public policy, socioeconomic reality, environmental context). Prompts
-  simulate real tasks that Global South researchers delegate to LLMs.
+\item \textbf{An air pollution policy task suite with verifiable ground truth.}
+  We construct five task types mapped to real decision activities of a public
+  environmental manager: recall of binding ambient standards and emission
+  limits (T1), retrieval of officially measured local concentrations (T2),
+  synthesis of epidemiological health-burden evidence (T3), identification of
+  policy instruments and executing agencies (T4), and rubric-scored applied
+  recommendation for an operational scenario (T5). Each task anchors to
+  official national or international sources, and every reference in the ground
+  truth is verified against a resolvable DOI or URL before entering the dataset.
+\item \textbf{Persona prompting as a pre-registered experimental factor.} We
+  manipulate persona within subject (neutral query vs.\ public environmental
+  manager) and test, as a co-primary confirmatory hypothesis (H6), whether the
+  persona condition reduces the Global South accuracy gap. We pre-specify both
+  the reduction direction (Norm-Compliance hypothesis) and the amplification
+  direction (Persona-Vacuum hypothesis), reporting whichever the data support.
 \item \textbf{Theoretically-triangulated country sampling.} We select 15
-  countries stratified along three independent axes: UNCTAD North/South
+  countries stratified along independent axes: UNCTAD North/South
   classification (operationalising coloniality~\citep{mohamed2020decolonial}),
-  Joshi et al.\ (2020) six-class linguistic-resource taxonomy, and World Bank
-  income groups. This allows us to disentangle geographic, linguistic, and
-  economic contributions to the bias for the first time.
-\item \textbf{Head-to-head regional vs.\ frontier comparison.} We include
-  Sabi\'a-3 (regionally trained on Brazilian Portuguese) alongside frontier
-  proprietary (GPT-5, Claude Opus 4.7, Gemini 2.5 Pro) and open-source global
-  (Llama~4, Qwen~3) models, testing pre-specified contrasts for whether
-  regional training closes the gap or displaces it.
+  the Joshi et al.\ six-class linguistic-resource
+  taxonomy~\citep{joshi2020state}, and Human Development and income indicators.
+  This separates geographic, linguistic, and economic contributions to the bias.
 \item \textbf{Mechanistic test with sensitivity analysis.} We test the
-  corpus-representation mediation hypothesis using log Common Crawl token
-  shares and Wikipedia pageviews, with explicit DAG formalisation, E-value
-  sensitivity analysis~\citep{vanderweele2017evalue}, and controls for GDP
-  and digital infrastructure.
-\item \textbf{Open resources.} All prompts (after panel validation), ground
-  truth source documents, LLM responses, code, and figures are released under
-  CC-BY-4.0 and MIT licenses, with a permanent Zenodo DOI and a companion
-  Data Paper submitted to \textit{Scientific Data}.
+  corpus-representation hypothesis (H4) using country-level Wikipedia and
+  Common Crawl proxies, with partial-correlation controls for HDI and log GDP
+  per capita and an E-value sensitivity threshold~\citep{vanderweele2017evalue}.
+\item \textbf{Regional-model probe.} We include a Brazilian-Portuguese
+  instruction-tuned open-weight model (Cabra-Mistral 7B v3) to test, as a
+  secondary confirmatory hypothesis (H3), whether regional tuning narrows the
+  Portuguese-language gap for Brazil on air pollution policy tasks.
+\item \textbf{Open resources.} All prompts (after validation), ground truth
+  source documents, LLM responses, code, and figures are released under
+  CC-BY-4.0 and MIT licenses with a permanent DOI.
 \end{enumerate}
 
 \subsection*{Theoretical framing}
 
 We interpret our findings within the \emph{coloniality of knowledge}
-framework~\citep{quijano2000coloniality,mohamed2020decolonial} and its recent
-articulation for AI systems~\citep{couldry2019costs,kerche2026silicon}.
-LLMs are not neutral tools; they are compressed statistical summaries of
-corpora that were themselves produced under conditions of uneven digital
-infrastructure, uneven publication access, and uneven political-economic
-power. When those compressed summaries are then used by Global South
-researchers to study their own societies, the resulting research risks
-inheriting the biases of the corpus~\citep{dignazio2020data}. This positions
-our empirical work as a test of one link in a theorised reproduction cycle
-(training-corpus asymmetry $\to$ LLM knowledge asymmetry $\to$ research output
-asymmetry), rather than as a narrow benchmark.
+framework~\citep{quijano2000coloniality,mohamed2020decolonial} and its data and
+infrastructural articulations~\citep{couldry2019costs,dignazio2020data}. LLMs
+are compressed statistical summaries of corpora produced under conditions of
+uneven digital infrastructure and uneven publication access. The languages and
+regions that Joshi et al.\ place in the under-served classes are precisely
+those where air pollution kills the most people~\citep{gbd2019risk,joshi2020state}.
+When a Global South environmental manager consults a model trained largely on
+Global North text to govern a local air quality problem, the resulting decision
+risks inheriting the asymmetries of the corpus. This positions our empirical
+work as a test of one link in a theorised reproduction cycle
+(training-corpus asymmetry $\to$ LLM knowledge asymmetry $\to$ policy decision
+asymmetry), and the persona manipulation as a test of whether prompt framing can
+interrupt that link.
 
 The paper proceeds as follows. Section~\ref{sec:related} positions our work
 relative to the literature. Section~\ref{sec:methods} presents the
 pre-registered design. Section~\ref{sec:results} reports the empirical
 findings. Section~\ref{sec:discussion} interprets them through both statistical
-and critical lenses and considers practical implications. Section~\ref{sec:conclusion}
-closes.
+and critical lenses and considers practical implications for air pollution
+governance. Section~\ref{sec:conclusion} closes.

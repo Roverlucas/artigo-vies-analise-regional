@@ -1,84 +1,113 @@
 \section{Related Work}
 \label{sec:related}
 
-The literature on LLM bias consolidated in three overlapping waves that we
-summarize below, identifying how our contribution differs from each.
+We organize prior work along four threads: the discovery and measurement of
+geographic factual bias, multilingual and cultural extensions, alignment and
+mitigation attempts, and LLM use in policy and health decision contexts. For
+each we state how the air pollution policy focus and the persona manipulation
+of the present study extend the thread.
 
-\subsection{Wave 1 (2024): Discovery of factual geographic bias}
+\subsection{Geographic factual bias}
 
 \citet{manvi2024llm} established that frontier LLMs carry systematic biases
-against regions of lower socioeconomic conditions, demonstrating Spearman
-correlations up to 0.70 between model-generated ratings of attractiveness,
-morality, and intelligence and per-capita income. While compelling, the
-outcome space (subjective ratings) leaves unclear whether the same bias
-manifests in objective factual recall.
+against regions of lower socioeconomic conditions, with Spearman correlations
+up to 0.70 between model-generated ratings of attractiveness, morality, and
+intelligence and per-capita income. The outcome space (subjective ratings)
+leaves open whether the same bias appears in objective recall of regulatory and
+epidemiological facts, which is what air pollution policy requires.
 
 \citet{moayeri2024worldbench} introduced WorldBench, quantifying factual recall
-against World Bank indicators across 20 LLMs and 11 indicators, documenting
+against World Bank indicators across 20 LLMs and 11 indicators and documenting
 1.5$\times$ higher absolute relative error for Sub-Saharan Africa versus North
-America. WorldBench also pioneered automatic detection of citation hallucination
-(models citing the World Bank while producing false statistics). Its design,
-however, is bounded by the macro-economic indicator space; questions asked of
-LLMs in applied policy research are typically more complex than ``what is the
-GDP per capita of country $X$''.
+America. WorldBench also pioneered automatic detection of citation hallucination,
+where models cite the World Bank while producing false statistics. The design is
+bounded by the macro-economic indicator space; an environmental manager asks
+narrower, source-specific questions (a national ambient standard, an attainment
+phase deadline, a city-year measured concentration) whose ground truth lives in
+environmental councils and monitoring agencies rather than in a single
+aggregated database.
 
 \citet{mirza2024global} (Global-Liar) extended the question to temporal
 stability, showing that newer GPT-4 versions do not monotonically improve and
-that privileging of Global North statements is stable across versions. Their
-contribution is temporal and across-version, not cross-model or cross-language.
+that the privileging of Global North statements persists across versions. Their
+contribution is temporal and within-model rather than cross-model,
+cross-language, or domain-specific.
 
-Collectively, Wave 1 established that the phenomenon \emph{exists} and is
-\emph{measurable}, but none of these studies addressed applied research use,
-cross-model comparison including regional alternatives, or mechanistic
-explanation.
+These studies establish that the phenomenon exists and is measurable. None
+isolates a single applied domain with verifiable official ground truth, and none
+treats prompt framing as a manipulable factor.
 
-\subsection{Wave 2 (2025): Multilingual and cultural extensions}
+\subsection{Multilingual and cultural extensions}
 
-\citet{myung2024blend} (BLEnD) introduced 52k question-answer pairs covering 16
-countries and 13 languages in everyday cultural knowledge. Their central
-finding --- that LLMs perform better in native languages of high-resource
-cultures but worse in native languages of low-resource ones --- motivates our
-H2. Yet BLEnD's design conflates cultural-knowledge accuracy with research-use
-accuracy, and its country selection is not stratified theoretically.
+\citet{myung2024blend} (BLEnD) introduced question-answer pairs covering 16
+countries and 13 languages in everyday cultural knowledge. Their finding that
+LLMs perform better in the native languages of high-resource cultures but worse
+in those of low-resource ones motivates our exploratory language hypothesis (H2)
+and connects directly to the resource hierarchy of \citet{joshi2020state}. Yet
+BLEnD measures cultural-knowledge accuracy, not the accuracy of regulatory and
+health-policy recall, and its country selection is not stratified theoretically.
 
 Regional benchmarks proliferated: BRoverbs~\citep{broverbs2025} for Brazilian
-proverbs, TiEBe~\citep{almeida2025tiebe} for regional historical events,
+proverbs, TiEBe~\citep{almeida2025tiebe} for regional historical events, and
 ALBA~\citep{alba2026} and AMALIA~\citep{amalia2026} for European Portuguese.
-These document concrete failures in culturally grounded tasks but do not
-address applied-research usage, and each is limited to one or two languages.
+These document concrete failures in culturally grounded tasks but do not address
+applied policy use, and each is limited to one or two languages. Work on
+Portuguese corpus construction~\citep{almeida2025portuguese} underscores how
+Common Crawl snapshots under-represent Lusophone content, the corpus asymmetry
+our H4 tests.
 
-\subsection{Wave 3 (2026): Alignment and mitigation}
+\subsection{Alignment and mitigation}
 
-\citet{opuszko2026unraveling} investigated whether reasoning models
-(o1, DeepSeek-R1) reduce geographic bias, finding that reasoning helps in
-aggregate but does not eliminate regional disparities. \citet{kerche2026silicon}
-proposed a place-based typology of LLM biases, framing ours within a broader
-sociotechnical landscape. These contributions are theoretical-conceptual; our
-work provides empirical complementarity.
+\citet{opuszko2026unraveling} investigated whether reasoning models reduce
+geographic bias, finding that reasoning helps in aggregate but does not
+eliminate regional disparities. \citet{kerche2026silicon} proposed a
+place-based typology of LLM biases, situating geographic bias within a broader
+sociotechnical landscape. These contributions are conceptual and aggregate; we
+add a domain-specific, pre-registered empirical test and introduce persona as a
+candidate mitigation lever rather than a fixed property of the model.
 
-\subsection{LLMs in policy and research use}
+\subsection{LLMs in policy and health decision contexts}
 
-A parallel literature examines LLM use in specific policy and research
-contexts. \citet{he2025policymaking} evaluated LLM policy recommendations for
-homelessness across four cities (Barcelona, Johannesburg, South Bend, and one
-other), finding ``context-blind rigidity'' where LLMs apply stable internal
-heuristics insufficiently calibrated to local sociopolitical realities. Their
-work validates that the bias matters for policy; we generalize to a broader set
-of countries, domains, and model categories with a pre-registered design.
+A parallel literature examines LLM use in specific policy settings.
+\citet{he2025policymaking} evaluated LLM policy recommendations for homelessness
+across four cities (including Barcelona, Johannesburg, and South Bend), finding
+``context-blind rigidity'' in which models apply stable internal heuristics
+poorly calibrated to local realities and align more closely with Global North
+experts. Their result shows the bias matters for policy in a single domain and a
+single task type (recommendation). We generalize to a regulatory and health
+domain with five task types spanning recall, synthesis, and recommendation, and
+we add the persona manipulation absent from their design.
 
 In health specifically, \citet{kozlakidis2026medical} argue that LLM
-hallucinations in clinical contexts pose acute challenges in regulatory
-environments with limited technical capacity, highlighting that
-``language and cultural mismatch between globally trained models and local
-practice increases the risk of errors'' --- the mechanism our H2 tests
-formally.
+hallucinations carry acute risk in regulatory environments with limited
+technical capacity, noting that language and cultural mismatch between globally
+trained models and local practice increases error. Air pollution policy sits at
+the intersection of this risk and the mortality burden documented by the Global
+Burden of Disease estimates~\citep{gbd2019risk}, which makes accurate retrieval
+of standards and health evidence a public-health concern rather than a
+benchmarking abstraction.
+
+\subsection{Persona and role conditioning}
+
+Role or persona conditioning is a common practice in deployed prompting, and a
+growing body of work reports that assigning an expert role can shift model
+outputs in either direction depending on task and domain. The evidence on
+whether persona conditioning improves factual reliability in high-stakes,
+knowledge-intensive domains is mixed and, to our knowledge, untested for
+geographic equity. % [CITATION NEEDED: a peer-reviewed study quantifying the effect of expert-persona prompting on factual accuracy across domains, with a resolvable DOI]
+We therefore pre-register persona as an experimental factor and test both the
+Norm-Compliance hypothesis (persona reduces the gap) and the Persona-Vacuum
+hypothesis (persona amplifies it).
 
 \subsection{Positioning of the present work}
 
-Our design differs from prior work in four concrete ways: (i) applied-research
-task design rather than numeric recall or cultural knowledge; (ii) country
-selection stratified on three independent theoretical axes rather than
-regional convenience; (iii) regional-model inclusion with pre-specified
-contrasts rather than frontier-only comparison; (iv) explicit mediation test
-of corpus-representation mechanism with sensitivity analysis. No prior study
-combines these four elements.
+Our design differs from prior work in four concrete ways: (i) a single
+high-stakes applied domain (air pollution policy) with verifiable official
+ground truth, rather than numeric trivia or cultural knowledge; (ii) persona as
+a pre-registered within-subject experimental factor, rather than an
+uncontrolled framing choice; (iii) theory-driven country sampling on
+independent axes (UNCTAD coloniality, Joshi linguistic resource, development),
+rather than regional convenience; and (iv) an explicit corpus-representation
+mechanism test with sensitivity analysis. No prior study combines a regulated
+public-health domain, a persona manipulation, and a pre-registered
+mechanism test.

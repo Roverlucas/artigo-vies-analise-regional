@@ -3,16 +3,24 @@
 
 \subsection{Research design}
 
-We conducted a pre-registered, factorial, multi-site benchmark experiment to
-quantify geographic bias in six frontier and regional Large Language Models
-across tasks representative of applied policy research in Global South
-contexts. The design crossed 15 countries (stratified along three theoretically-
-grounded axes), 6 LLMs, a sparse matrix of 4+ languages, 3 research domains,
-and 5 task types, yielding approximately \simvalue{$\sim$23{,}400 unique
-prompt-response pairs} after five stochastic replications per prompt-model pair.
-The pre-registration was deposited at the Open Science Framework
-(\placeholder{OSF DOI}) prior to any principal data collection and locked the
-primary models, exclusion criteria, and multiple-comparison corrections.
+We conducted a pre-registered, factorial, multi-country benchmark experiment to
+quantify geographic and persona-modulated bias in 14 large language models on
+air pollution policy tasks relevant to public environmental management. The
+design crossed 15 countries (stratified along three theoretically grounded
+axes), 14 LLMs spanning five access tiers, one theory-driven domain (air
+pollution policy), 5 task types, and 2 persona conditions (neutral versus
+public environmental manager), with 2 stochastic replications per
+prompt-model-persona cell. The core stimulus set comprises approximately 600
+unique prompts (40 per country across the five tasks and a sparse multilingual
+matrix), yielding 33{,}600 model responses
+($600 \times 14 \times 2 \text{ personas} \times 2 \text{ reps}$). The
+pre-registration was deposited at the Open Science Framework
+(\placeholder{OSF DOI}) prior to confirmatory data collection and locked the
+hypotheses, primary models, persona protocol, exclusion criteria, and
+multiple-comparison corrections. A Brazil-only collection executed under an
+earlier three-domain design is reclassified as an extended pilot and is
+reported separately; it informed prompt calibration but contributes no
+confirmatory observations.
 
 \subsection{Country selection}
 
@@ -27,154 +35,267 @@ provided an orthogonal stratification dimension~\citep{joshi2020state}. Third,
 \textbf{World Bank income groups (FY26)}~\citep{worldbank2025classification}
 captured economic position independently of the previous two axes.
 
-The final sample of 15 countries — Brazil, Mexico, Argentina, Peru (Latin
+The final sample of 15 countries --- Brazil, Mexico, Argentina, Peru (Latin
 America); Nigeria, South Africa, Kenya, Egypt (Africa); India, Indonesia,
 Bangladesh, the Philippines (Asia); and the United States, Germany, Japan
-(Global North control) — covers four world regions, five Joshi classes
-(1 through 5), and four World Bank income groups. Countries with compromised
-statistical governance (e.g., active conflict) or without adequate public
-ground-truth documentation were excluded; Oceania and Joshi Class~0 languages
-were not represented given feasibility constraints and are acknowledged as
-scope limitations.
+(Global North reference) --- covers four world regions, five Joshi classes
+(1 through 5), and four World Bank income groups. The twelve Global South
+countries also vary in domestic air quality governance maturity, which is
+relevant to ground-truth availability (Section~\ref{sec:groundtruth}).
+Countries with compromised statistical governance (e.g., active conflict) or
+without a publicly retrievable national ambient air quality standard were
+excluded; Oceania and Joshi Class~0 languages were not represented given
+feasibility constraints and are acknowledged as scope limitations.
+
+\subsection{Country covariates}
+\label{sec:covariates}
+
+For each country we compiled five covariates used in the gradient and
+mechanism tests. \textbf{Human Development Index (HDI)} and \textbf{GDP per
+capita} index developmental position. \textbf{Joshi class} indexes linguistic
+representation in NLP corpora~\citep{joshi2020state}. Two corpus-representation
+proxies index training-data presence: \textbf{Wikipedia article and pageview
+counts} per relevant language (primary proxy for H4) and \textbf{Common Crawl}
+token volume per country, the latter operationalized three ways (country-code
+top-level domain aggregation, language share, and language~$\times$~country
+intersection) to support a convergent-validity criterion. HDI and GDP enter the
+mechanism analysis as adjustment covariates; the corpus proxies are the
+exposures of interest. All covariate values, sources, and access dates are
+versioned in the OSF deposit.
 
 \subsection{Model selection}
 
-Six LLMs were benchmarked, representing three architectural categories.
-\textbf{Three frontier proprietary models} --- GPT-5 (OpenAI), Claude Opus 4.7
-(Anthropic), and Gemini 2.5 Pro (Google) --- were accessed via their official
-APIs using the identical model version string throughout the collection window.
-\textbf{Two open-weight globally-trained models} --- Llama 4 (70B) and Qwen 3
-(32B) --- served as contrasts in architecture and training-data provenance,
-with Qwen 3 functioning specifically as a scale-matched control for the
-regional model. \textbf{One regionally-trained model} --- Sabi\'a-3 (Maritaca
-AI), trained with substantial Brazilian Portuguese
-emphasis~\citep{almeida2025portuguese} --- was included to test whether
-regional training closes or reshapes the Global South performance gap.
+Fourteen LLMs were benchmarked across five access tiers, spanning roughly two
+orders of magnitude in parameter count and four training-data geographies
+(United States, China, Europe, Brazil). \textbf{Tier A (open-weight frontier,
+5 models)} comprised large open-weight systems accessed via free inference
+endpoints. \textbf{Tier B (open-weight mid, 3 models)} and \textbf{Tier C
+(open-weight small/regional, 2 models)} were run locally via Ollama under
+pinned model tags; Tier C includes a Brazilian-Portuguese instruction-tuned
+open model (Cabra-Mistral~7B~v3) used for the regional-model test (H3) against
+a scale-matched globally trained open model. \textbf{Tier D (closed
+accessible, 2 models)} and \textbf{Tier E (closed frontier, 1 model)} were
+accessed via official APIs. Each model was queried with an identical version
+string or pinned tag throughout the collection window; tags and, where
+available, weight hashes are recorded in the OSF deposit to guard against
+mid-collection model updates. The complete model roster with vendor, parameter
+count, access route, and execution backend is provided in Supplementary
+Table~S1.
+
+\subsection{Domain and task taxonomy}
+\label{sec:tasks}
+
+The single domain is \textbf{air pollution policy}, chosen because it anchors
+to officially published, verifiable ground truth (national ambient air quality
+standards, environmental-agency monitoring data, federal control programs) and
+maps to concrete decision activities of a public environmental manager. Five
+task types operationalize the domain:
+
+\begin{itemize}
+  \item \textbf{T1 --- Technical standard.} Recall of binding ambient air
+        quality standards, emission limits, or regulatory thresholds (for
+        example, the annual mean PM\textsubscript{2.5} standard in force in the
+        country).
+  \item \textbf{T2 --- Local factual datum.} Recall of officially measured air
+        quality data for a specified city or region and year, as reported by
+        the national or subnational environmental agency.
+  \item \textbf{T3 --- Health-evidence synthesis.} Synthesis of peer-reviewed
+        epidemiological evidence on the air pollution health burden for the
+        country, scored against a rubric rather than a single value.
+  \item \textbf{T4 --- Policy instruments.} Identification of policy programs,
+        executing agencies, and legal instruments for air pollution control in
+        force in the country.
+  \item \textbf{T5 --- Applied recommendation.} Rubric-scored applied
+        recommendation for a defined operational scenario (for example,
+        short-term response to a high-concentration episode under thermal
+        inversion).
+\end{itemize}
+
+T1, T2, and T4 admit verifiable ground truth and carry the primary accuracy
+signal; T3 and T5 are rubric-scored open-generation tasks. The country-by-task
+mapping of official source classes, equivalence criteria, and verifiability
+status is specified in the ground-truth registry (Section~\ref{sec:groundtruth}).
+
+\subsection{Persona manipulation}
+\label{sec:persona}
+
+Persona is a within-prompt factor with two levels. The \textbf{neutral}
+condition presents the query as a plain information request. The
+\textbf{public\_manager\_env} condition prepends a fixed role frame
+identifying the requester as a municipal or regional environmental management
+official, holding the substantive question identical across conditions. A
+single role-frame template is applied uniformly across countries and tasks
+(translated where the prompt language is non-English), so that any
+between-condition difference is attributable to the persona frame rather than
+to question wording. Persona order within each prompt-model cell is randomized,
+and a manipulation check verifies that the role frame is acknowledged in the
+response. The exact wording, translation procedure, and manipulation-check
+coding are pre-registered and reproduced in Supplementary Material. Persona is
+the basis of hypothesis H6, which tests whether the role frame reduces (or
+amplifies) the country-level accuracy gradient.
 
 \subsection{Prompt construction and validation}
 
-A panel of \simvalue{2--3 domain experts per Global South region} was recruited
-via the Graduate Program in Urban and Environmental Planning (PPGSAU/UTFPR), the
-Latin American Council of Social Sciences (CLACSO), and the Council for the
-Development of Social Science Research in Africa (CODESRIA), under a
-collaboration protocol that included co-authorship and ethical approval
-(Plataforma Brasil, \placeholder{CEP protocol number}). Experts constructed
-prompts in three research domains --- (1) public policy and institutions,
-(2) socioeconomic reality and demography, and (3) regional environmental
-context --- across five task types: (T1) direct factual recall with verifiable
-ground truth; (T2) descriptive characterisation through open-ended generation;
-(T3) institutional stakeholder identification; (T4) primary-source
-recommendation; and (T5) confidence calibration.
+Prompts were authored for the air pollution policy domain by the research team
+with domain supervision (PPGSAU/UTFPR) and validated against the ground-truth
+registry before entering the confirmatory stimulus set. A pilot subset was
+first validated for inter-rater agreement using Krippendorff's $\alpha$, with a
+threshold of $\alpha \geq 0.70$ required before scaling the design. All prompts
+were authored in English and, for a stratified subset of countries, additionally
+in a relevant native language (sparse multilingual matrix; Supplementary
+Table~S2); native-language prompts were translated and back-translated by
+native-speaker translators, and any prompt whose back-translation produced a
+semantic shift was rewritten or excluded. Following the Brazil pilot validation,
+every factual claim in a ground-truth entry was required to resolve to an
+official source URL or a peer-reviewed DOI before the corresponding prompt was
+admitted, enforcing the project Citation Verification Protocol at the
+ground-truth generation stage rather than only at the manuscript stage.
 
-A pilot of 50 prompts was first validated for inter-rater agreement using
-Krippendorff's $\alpha$, with a threshold of $\alpha \geq 0.70$ required
-before proceeding to the final 450-prompt set. All prompts were authored in
-English, then translated and back-translated by native-speaker professional
-translators; any prompt whose back-translation produced semantic shift was
-rewritten or excluded.
+\subsection{Ground truth and the ground-truth registry}
+\label{sec:groundtruth}
 
-\subsection{Ground truth}
-
-Ground truth for factual tasks was extracted from official government sources
-(ministries, national statistics agencies, environmental agencies) and
-peer-reviewed regional reports, with at least two independent sources per
-prompt when available. A comprehensive catalog of 72+ sources across the 15
-countries is provided as Supplementary Material. Extraction used custom
-Python pipelines with OCR for scanned PDFs, and all sources were versioned by
-access date, URL, and SHA-256 hash of the retrieved document to ensure
-reproducibility. Where ground truth could plausibly have been seen by the
-LLMs during training, a sensitivity subset was constructed using documents
-dated after each model's training cutoff.
+Ground truth for the verifiable tasks (T1, T2, T4) was drawn from official
+sources of record: national air quality standards and the agencies that issue
+them (T1), environmental-agency monitoring reports (T2), and federal policy
+programs with their executing agencies and legal instruments (T4). For T3, the
+reference is a curated set of peer-reviewed epidemiological studies with
+resolvable DOIs rather than a single number. Because the validity of the
+geographic gradient (H1) and the persona effect (H6) depends on ground truth
+being equally available and equally verifiable across all 15 countries, we
+constructed a per-country ground-truth registry that, for each
+(country, task) pair, records the class of equivalent official source, the
+resolvable URL, the gold value or rubric key, the reference date, the human
+validator, and a validation flag. The registry design, cross-country
+equivalence criteria, and the explicit separation of an AI knowledge gap from a
+ground-truth-availability gap are documented in
+\texttt{docs/ground\_truth\_registry\_design.md} and summarized in
+Supplementary Material. Entries are versioned by access date, source URL, and a
+SHA-256 hash of the retrieved document. Where ground truth could plausibly have
+appeared in training data, a sensitivity subset is constructed from documents
+dated after each model's training cutoff. Entries whose official source is
+unavailable or non-equivalent for a country are flagged and excluded from the
+primary accuracy comparison for the affected (country, task) cell, so that
+missing ground truth is never scored as a model error.
 
 \subsection{Data collection}
 
-API calls were executed at temperature~0.3 with deterministic seeds where
-available, with five replications per prompt-model combination to estimate
-stochastic variability. Collection occurred within a fixed four-week window to
-minimize model-update confounds. All responses were stored alongside complete
-request metadata (model version string, timestamp, token counts, finish
-reason) in an immutable storage layer with SHA-256 checksums. Response quality
-gates excluded truncated responses (\texttt{finish\_reason $\neq$ stop}) and
-responses in languages divergent from the request; both were analyzed
-separately as secondary outcomes.
+API and local calls were executed at temperature~0.3 with deterministic seeds
+where available, with 2 replications per prompt-model-persona combination to
+estimate stochastic variability within the budget. Collection occurred within a
+fixed window to minimize model-update confounds, with pinned tags and version
+strings recorded per call. All responses were stored alongside complete request
+metadata (model version string or tag, timestamp, token counts, finish reason,
+persona condition) in an immutable storage layer with SHA-256 checksums.
+Response quality gates excluded truncated responses
+(\texttt{finish\_reason $\neq$ stop}) and responses in a language divergent from
+the request; both were retained and analyzed separately as secondary outcomes.
 
 \subsection{Measures}
 
-The primary composite outcome variable combined five subcomponents with
-pre-registered weights (see Supplementary Table~S1): (i) binary factual
-accuracy against ground truth (for T1 tasks, weight 0.30); (ii) contextual
-completeness scored against a pre-validated five-item rubric (for T2--T4
-tasks, 0--5, weight 0.25); (iii) citation quality verified via DOI and source
-check (0--5, weight 0.15); (iv) calibration error via Brier score (T5 tasks,
-0--1, weight 0.15); and (v) absence of hallucination, coded binarily by human
-raters (weight 0.15). Two independent raters, blinded to model identity,
-evaluated each response using an Airtable-hosted rubric; inter-rater
-disagreements were adjudicated by a third senior rater. Final Krippendorff's
-$\alpha$ across raters reached \placeholder{observed value}.
+Scoring used a three-judge LLM-as-judge ensemble with a human gold layer.
+Each response was independently scored by three judge models against the
+ground-truth registry entry (for T1, T2, T4) or the validated rubric (for T3,
+T5); the ensemble score is the majority or mean across judges, and inter-judge
+agreement is reported via Krippendorff's $\alpha$ (target $\alpha \geq 0.70$).
+A blinded human gold subset, scored by domain-trained raters and adjudicated by
+a senior rater on disagreement, calibrates and audits the ensemble; judge-human
+agreement is reported as a validity check, and judges are not treated as
+authoritative where they diverge systematically from the human gold layer.
 
-\subsection{Corpus representation proxies}
-
-For the mechanism test (H4), we extracted token counts per country from
-Common Crawl (\placeholder{snapshot identifier locked in OSF}), aggregating
-by country-code top-level domain as a lower-bound proxy, combined with
-Wikipedia pageviews per language via the Wikimedia REST API. These proxies are
-imperfect but constitute the standard measures used in prior
-work~\citep{joshi2020state,almeida2025portuguese}; their limitations are
-discussed in Section~\ref{sec:discussion}.
+The primary composite outcome combines the five pre-registered subcomponents
+(see Supplementary Table~S3), each normalized to $[0,1]$: (i) factual accuracy
+against the registry entry (binary T1; partial credit T2--T4); (ii) contextual
+completeness scored against a pre-validated rubric (T3, T4, $0$--$5$); (iii)
+citation quality verified via DOI and official-source check; (iv) hallucination
+absence, coded binarily ($0$~hallucinated, $1$~faithful); and (v) applied
+validity, the rubric score for the operational recommendation in T5. Primary
+inference uses equal weights; two pre-registered sensitivity weightings (a
+PCA-derived set estimated on the BRA extended pilot and an author-specified set:
+factual~0.30, contextual~0.25, citation~0.15, hallucination~0.15,
+applied~0.15) are reported, and a conclusion is treated as robust only if it
+holds across all three. The composite is computed per (country, model, persona) cell
+to support the H6 difference-in-differences test.
 
 \subsection{Analytical strategy}
 
-Primary analyses used Generalized Linear Mixed Models (GLMMs) with random
-intercepts for country, model, and domain, implemented in Python via
-\texttt{pymer4}~\citep{pymer4} which interfaces R's
-\texttt{lme4}~\citep{bates2015lme4} through \texttt{rpy2}. For Gaussian
-composite outcomes, \texttt{lmer} with REML estimation was used; for binary
-outcomes (factual accuracy, hallucination), \texttt{glmer} with binomial
-family and logit link was used. Hypothesis H1 was tested via the fixed effect
-of country Global-South status on the composite outcome; H2 via the country
-$\times$ language interaction term; H3 via pre-specified contrasts comparing
-Sabi\'a-3 performance on Brazilian prompts against frontier-model average,
-and Sabi\'a-3 performance on non-Brazilian Lusophone prompts to detect
-displacement versus closure; H4 via country-level ecological regression of
-composite accuracy on log(corpus tokens), followed by mediation analysis
-using \texttt{semopy}~\citep{semopy} with bootstrap confidence intervals
-(5{,}000 replicates).
+The three primary confirmatory tests are pre-registered as a single family
+(F1) and corrected together with the Bonferroni-Holm procedure. Secondary
+confirmatory tests (F2) are reported unadjusted within family, and declared
+exploratory tests (F3) use Benjamini-Hochberg FDR at
+$q=0.10$~\citep{benjamini1995fdr}.
 
-All hypothesis tests used two-sided $\alpha = 0.05$ with Benjamini-Hochberg
-FDR correction within each hypothesis family~\citep{benjamini1995fdr}. Monte
-Carlo power analysis based on 2{,}000 simulated replicates per configuration
-confirmed $>$95\% power for H1 at the design point (SESOI = 10 percentage
-points, N = 15 countries), $\sim$85\% for H2 interaction,
-and $\sim$77\% for H4 at $\rho = 0.60$ (the binding constraint; acknowledged
-as a limitation).
+\textbf{H1 (geographic gradient, primary).} Country-level mean composite
+accuracy (n=15) is regressed on the Joshi/HDI gradient via Spearman $\rho$,
+pre-registered one-sided with threshold $\rho \geq 0.55$ at $\alpha=0.05$, with
+a Mann-Kendall trend test as a mandatory non-monotonicity complement and a
+Global South dummy as a sensitivity contrast.
 
-Robustness analyses, all pre-registered, included: (i) leave-one-country-out
-re-estimation; (ii) restriction to the expert-validated prompt subset;
-(iii) Bayesian re-estimation with weakly informative priors via
-\texttt{pymc}~\citep{pymc} to provide decision-theoretic posterior
-probabilities; (iv) separate analysis excluding prompts with potential
-training-data contamination. For the mediation analysis (H4), an E-value
-sensitivity analysis~\citep{vanderweele2017evalue} quantified the strength of
-unmeasured confounding required to nullify observed indirect effects.
+\textbf{H4 (corpus-representation mechanism, primary).} Country-level partial
+Spearman $\rho$ relates corpus representation to accuracy after adjusting for
+HDI and log GDP per capita, using Wikipedia counts as the primary proxy
+($\rho \geq 0.55$) and requiring convergence across at least two of three
+Common Crawl operationalizations ($\rho \geq 0.40$). An E-value sensitivity
+analysis~\citep{vanderweele2017evalue} quantifies the unmeasured confounding
+required to nullify the association (threshold 2.0).
+
+\textbf{H6 (persona effect, primary).} The persona effect is tested as a
+country-level difference-in-differences on the composite outcome:
+$\Delta_{\mathrm{GS}} = \overline{\text{persona}}_{\mathrm{GS}} -
+\overline{\text{neutral}}_{\mathrm{GS}}$ and
+$\Delta_{\mathrm{GN}} = \overline{\text{persona}}_{\mathrm{GN}} -
+\overline{\text{neutral}}_{\mathrm{GN}}$, with H6 statistic
+$\Delta_{\mathrm{GS}} - \Delta_{\mathrm{GN}}$. H6 is supported (one-sided,
+$\alpha=0.05$) if the persona condition reduces the Global South gap by at
+least $0.05$ on the $[0,1]$ composite (equivalently, 5 percentage points of
+absolute accuracy). Inference uses a country-level permutation test
+(5{,}000 permutations) reported alongside a parametric paired test; the
+two-sided test is reported as a secondary check because persona amplification
+is theoretically possible and is reported transparently if observed.
+
+\textbf{H3 (regional model, secondary).} A pre-registered one-sided contrast in
+a generalized linear mixed model compares Cabra-Mistral~7B~v3 on Brazilian
+Portuguese prompts against a scale-matched globally trained open model, with an
+exploratory companion contrast on other Lusophone contexts to distinguish gap
+closure from gap displacement.
+
+\textbf{H2 and H5 (exploratory).} The prompt-language~$\times$~country
+interaction (H2) and the open-frontier versus closed-frontier contrast (H5) are
+reported descriptively, with formal tests under F3 correction where applied.
+
+Cross-cutting mixed-model analyses use Generalized Linear Mixed Models with
+random intercepts for country and model, implemented via
+\texttt{pymer4}~\citep{pymer4} interfacing R's
+\texttt{lme4}~\citep{bates2015lme4}: \texttt{lmer} with REML for the Gaussian
+composite and \texttt{glmer} with a binomial family and logit link for binary
+outcomes. Where a mediation decomposition is reported for H4, it uses
+\texttt{semopy}~\citep{semopy} with 5{,}000 bootstrap replicates. Robustness
+analyses, all pre-registered, include leave-one-country-out re-estimation,
+restriction to the human-gold-validated subset, Bayesian re-estimation with
+weakly informative priors via \texttt{pymc}~\citep{pymc}, and a separate
+analysis excluding prompts flagged for potential training-data contamination.
+A Monte Carlo power simulation (10{,}000 iterations under pilot-informed effect
+sizes) confirms family-wise power for the primary trio under Bonferroni-Holm;
+the within-subject persona design yields a minimum detectable gap reduction of
+approximately 2--3 percentage points, so the 5-point H6 threshold is
+well-powered. Power details are reported in Supplementary Material.
 
 \subsection{Pre-registration and open science}
 
-The full protocol --- including prompts v1-final with hash, rubric, GLMM
-specifications, multiple-comparison corrections, and exclusion criteria ---
-was deposited at OSF prior to principal data collection. The analytic dataset,
-after quality gates but before models were fit, was frozen and hashed; the
-hash was committed to the OSF registry. All code, prompts, ground-truth
-references, and anonymised response data are publicly available under
-CC-BY-4.0 (data and prompts) and MIT License (code) at Zenodo with permanent
-DOIs~\citep{zenodo2026dataset}, and a companion Data Paper is prepared for
-\textit{Scientific Data}.
+The full protocol --- hypotheses, prompts with hashes, the ground-truth
+registry, the persona template, scoring rubrics, GLMM and DiD specifications,
+multiple-comparison corrections, and exclusion criteria --- was deposited at
+OSF prior to confirmatory data collection. The analytic dataset, after quality
+gates but before model fitting, was frozen and hashed, with the hash committed
+to the OSF registry. All code, prompts, ground-truth references, and anonymized
+response data are released under CC-BY-4.0 (data and prompts) and the MIT
+License (code) at Zenodo with permanent DOIs~\citep{zenodo2026dataset}; a
+companion Data Paper is prepared for \textit{Scientific Data}.
 
 \subsection{Ethical considerations}
 
-The expert-panel protocol received approval from UTFPR's Research Ethics
-Committee via Plataforma Brasil (\placeholder{protocol}). Experts provided
-informed consent and are acknowledged as co-authors when meeting ICMJE
-criteria. No personal data from end-users of LLMs was collected. LLM API
-terms of service were reviewed and respected; responses are redistributed
-solely for research under fair-use and reproducibility provisions and
-excluded from any commercial application.
+No personal data from end-users of LLMs were collected. The study analyzes
+model outputs to publicly relevant policy questions; domain experts who
+contribute to ground-truth validation are acknowledged as co-authors when they
+meet ICMJE criteria. LLM provider terms of service were reviewed and respected,
+and responses are redistributed solely for research under fair-use and
+reproducibility provisions, excluded from any commercial application.
