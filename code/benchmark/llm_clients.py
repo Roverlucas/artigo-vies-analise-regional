@@ -558,6 +558,8 @@ def passes_quality_gate(response: LLMResponse) -> tuple[bool, str]:
                  "MAX_TOKENS", "max_tokens"}
     if response.finish_reason not in ok_finish:
         return False, f"finish_reason={response.finish_reason}"
+    if len((response.response_text or "").strip()) == 0:
+        return False, "empty response"
     if response.response_tokens < 5 and len(response.response_text) < 20:
         return False, "response too short"
     return True, "ok"

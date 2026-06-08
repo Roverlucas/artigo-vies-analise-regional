@@ -67,7 +67,7 @@ used in deployed prompting workflows. Whether adopting the persona of a public
 environmental manager \emph{reduces} the Global South accuracy gap (by steering
 the model toward policy-relevant, regulation-compliant responses) or
 \emph{amplifies} it (by inviting confident fabrication of regulatory specifics
-the model never learned) has not been tested in a pre-registered design. We
+the model never learned) has not been tested in a pre-specified design. We
 treat persona as a within-subject experimental factor rather than an
 uncontrolled confound.
 
@@ -80,8 +80,8 @@ accuracy after adjusting for Human Development Index and GDP per capita.
 
 \subsection*{Contributions of this work}
 
-We present a pre-registered benchmark designed for these gaps, with hypotheses,
-sampling, and analysis plan deposited at OSF before confirmatory data
+We present a study protocol for a benchmark designed for these gaps, with
+hypotheses, sampling, and analysis plan pre-specified before confirmatory data
 collection~\citep{nosek2018preregistration}. Our contributions are:
 
 \begin{enumerate}\setlength{\itemsep}{2pt}
@@ -94,7 +94,7 @@ collection~\citep{nosek2018preregistration}. Our contributions are:
   recommendation for an operational scenario (T5). Each task anchors to
   official national or international sources, and every reference in the ground
   truth is verified against a resolvable DOI or URL before entering the dataset.
-\item \textbf{Persona prompting as a pre-registered experimental factor.} We
+\item \textbf{Persona prompting as a pre-specified experimental factor.} We
   manipulate persona within subject (neutral query vs.\ public environmental
   manager) and test, as a co-primary confirmatory hypothesis (H6), whether the
   persona condition reduces the Global South accuracy gap. We pre-specify both
@@ -114,9 +114,9 @@ collection~\citep{nosek2018preregistration}. Our contributions are:
   instruction-tuned open-weight model (Cabra-Mistral 7B v3) to test, as a
   secondary confirmatory hypothesis (H3), whether regional tuning narrows the
   Portuguese-language gap for Brazil on air pollution policy tasks.
-\item \textbf{Open resources.} All prompts (after validation), ground truth
-  source documents, LLM responses, code, and figures are released under
-  CC-BY-4.0 and MIT licenses with a permanent DOI.
+\item \textbf{Open resources.} The full protocol, prompts (after validation),
+  ground-truth source documents, analysis code, and figures will be released on
+  publication under CC-BY-4.0 and MIT licenses.
 \end{enumerate}
 
 \subsection*{Theoretical framing}
@@ -138,7 +138,7 @@ interrupt that link.
 
 The paper proceeds as follows. Section~\ref{sec:related} positions our work
 relative to the literature. Section~\ref{sec:methods} presents the
-pre-registered design. Section~\ref{sec:results} reports the empirical
+pre-specified design. Section~\ref{sec:results} reports the empirical
 findings. Section~\ref{sec:discussion} interprets them through both statistical
 and critical lenses and considers practical implications for air pollution
 governance. Section~\ref{sec:conclusion} closes.

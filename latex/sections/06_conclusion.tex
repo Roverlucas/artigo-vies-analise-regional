@@ -1,43 +1,43 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-Large language models are becoming scholarly infrastructure. Their
-geographic bias — now consistently documented across numeric recall, cultural
-knowledge, and journalistic fact-checking — also manifests in exactly the
-applied-research tasks that Global South scholars increasingly delegate to
-them. Through a pre-registered benchmark covering 15 theoretically-stratified
-countries, six LLMs spanning frontier proprietary, open-source global, and
-regionally-trained categories, four prompt languages, three research domains,
-and a multi-regional expert panel, we \placeholder{confirm/qualify/contradict}
-the hypothesis that this bias is both (i) substantial in magnitude and (ii)
-substantially mediated by training-corpus representation.
+Large language models are becoming working infrastructure for air pollution
+policy, a domain where an inaccurate answer about a binding standard, a measured
+concentration, or an operational response carries direct public-health stakes in
+the Global South, where the PM\textsubscript{2.5} mortality burden is
+heaviest~\citep{gbd2019risk,requia2024shortterm}. This paper contributes a
+pre-specified study protocol for measuring geographic and persona-modulated bias
+in that domain, together with a pilot that exercises the protocol end-to-end.
 
-Three contributions distinguish this work. First, we extend the measurement
-of LLM bias from trivia and cultural knowledge to the specific domain of
-applied policy research, producing the first benchmark in which task design
-reflects real scholarly use. Second, we demonstrate that regional training
-\simvalue{(Sabi\'a-3)} delivers a benefit beyond scale for the country it
-targets, while leaving open the empirical question of whether the benefit
-generalises across linguistically-related countries. Third, we provide
-empirical content to the coloniality-of-knowledge framework by quantifying
-the proportion of geographic bias mediated through corpus representation
-\simvalue{($\sim$62\%, E-value 2.3)}.
+The pilot is exploratory and small: 7 countries, 5 models, neutral prompts, and
+a single automated judge. Within those bounds it is encouraging for the
+protocol. The pipeline runs end-to-end, the air pollution policy tasks
+discriminate across countries and task types, and the Global South accuracy gap
+appears in the expected direction at about 6 percentage points, a magnitude
+worth powering a confirmatory study for. The pilot also returns a contrary
+signal on the open-versus-closed model contrast, plausibly because the open arm
+used a model smaller than the confirmatory target, which the larger study is
+designed to test cleanly.
 
-The practical implications are specific and actionable. For Global South
-researchers: LLMs should not be sole sources for country-specific questions;
-regional models should be preferred when available and well-calibrated for
-the country in question; prompt language should be chosen based on the
-target country's Joshi resource class. For developers and policymakers:
-investment in corpus quality, not just volume, is a viable and empirically-
-supported path to reducing bias; sovereign AI initiatives deserve empirical
-attention rather than presumption of either their efficacy or their
-limitations.
+We do not claim a confirmed result. The pilot did not manipulate persona, used
+English-only prompts, relied on a single judge that overlaps the evaluated
+models, and drew on single-author prompts for non-Brazilian countries. The
+persona question (H6) is open, and the persona literature gives us reason to
+expect no free accuracy gain and a concrete risk of amplified fabrication for
+under-represented countries~\citep{zheng2024helpful,mollick2025personas}, which
+is why we test both the norm-compliance and persona-vacuum directions in the
+confirmatory design rather than assuming a persona helps.
 
-Most consequentially, our results point to a quiet form of epistemic
-reproduction. LLMs trained on corpora produced under existing digital and
-publication asymmetries, then used by Global South researchers to write
-about their own societies, risk propagating those asymmetries into new
-research. Interrupting that cycle requires not only better models but
-deliberate choices about which knowledge the tools are trained to represent.
-The data, code, and prompts accompanying this paper are released openly in
-support of exactly those choices.
+The contribution here is a defensible foundation: a domain benchmark with
+verifiable official ground truth, a persona manipulation specified as a
+controlled experimental factor, theory-driven country sampling, and a pilot that
+demonstrates feasibility and a plausible direction. The confirmatory study will
+execute the full protocol across all 15 countries with persona, multilingual
+prompts, expert-validated stimuli, frontier-scale open models, and
+non-overlapping multi-rater scoring. We interpret the programme within the
+coloniality-of-knowledge framework~\citep{mohamed2020decolonial}: the languages
+and regions under-served in training corpora~\citep{joshi2020state} are the same
+ones where air pollution kills the most people, and whether prompt framing
+interrupts or aggravates that asymmetry is the question the larger study is built
+to answer. The protocol, pilot data, code, and prompts are released openly to
+support that study.

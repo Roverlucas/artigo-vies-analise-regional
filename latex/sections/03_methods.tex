@@ -3,24 +3,22 @@
 
 \subsection{Research design}
 
-We conducted a pre-registered, factorial, multi-country benchmark experiment to
+We specify a pre-specified, factorial, multi-country benchmark experiment to
 quantify geographic and persona-modulated bias in 14 large language models on
 air pollution policy tasks relevant to public environmental management. The
-design crossed 15 countries (stratified along three theoretically grounded
+design crosses 15 countries (stratified along three theoretically grounded
 axes), 14 LLMs spanning five access tiers, one theory-driven domain (air
 pollution policy), 5 task types, and 2 persona conditions (neutral versus
 public environmental manager), with 2 stochastic replications per
 prompt-model-persona cell. The core stimulus set comprises approximately 600
 unique prompts (40 per country across the five tasks and a sparse multilingual
-matrix), yielding 33{,}600 model responses
-($600 \times 14 \times 2 \text{ personas} \times 2 \text{ reps}$). The
-pre-registration was deposited at the Open Science Framework
-(\placeholder{OSF DOI}) prior to confirmatory data collection and locked the
-hypotheses, primary models, persona protocol, exclusion criteria, and
-multiple-comparison corrections. A Brazil-only collection executed under an
-earlier three-domain design is reclassified as an extended pilot and is
-reported separately; it informed prompt calibration but contributes no
-confirmatory observations.
+matrix), targeting 33{,}600 model responses
+($600 \times 14 \times 2 \text{ personas} \times 2 \text{ reps}$). The study
+protocol fixes, in advance of confirmatory data collection, the hypotheses,
+primary models, persona protocol, exclusion criteria, and multiple-comparison
+corrections. A Brazil-only collection executed under an earlier three-domain
+design is reclassified as an extended pilot and is reported separately; it
+informed prompt calibration but contributes no confirmatory observations.
 
 \subsection{Country selection}
 
@@ -61,7 +59,7 @@ top-level domain aggregation, language share, and language~$\times$~country
 intersection) to support a convergent-validity criterion. HDI and GDP enter the
 mechanism analysis as adjustment covariates; the corpus proxies are the
 exposures of interest. All covariate values, sources, and access dates are
-versioned in the OSF deposit.
+versioned in the protocol release.
 
 \subsection{Model selection}
 
@@ -77,7 +75,7 @@ a scale-matched globally trained open model. \textbf{Tier D (closed
 accessible, 2 models)} and \textbf{Tier E (closed frontier, 1 model)} were
 accessed via official APIs. Each model was queried with an identical version
 string or pinned tag throughout the collection window; tags and, where
-available, weight hashes are recorded in the OSF deposit to guard against
+available, weight hashes are recorded in the protocol release to guard against
 mid-collection model updates. The complete model roster with vendor, parameter
 count, access route, and execution backend is provided in Supplementary
 Table~S1.
@@ -130,7 +128,7 @@ between-condition difference is attributable to the persona frame rather than
 to question wording. Persona order within each prompt-model cell is randomized,
 and a manipulation check verifies that the role frame is acknowledged in the
 response. The exact wording, translation procedure, and manipulation-check
-coding are pre-registered and reproduced in Supplementary Material. Persona is
+coding are pre-specified and reproduced in Supplementary Material. Persona is
 the basis of hypothesis H6, which tests whether the role frame reduces (or
 amplifies) the country-level accuracy gradient.
 
@@ -185,7 +183,7 @@ estimate stochastic variability within the budget. Collection occurred within a
 fixed window to minimize model-update confounds, with pinned tags and version
 strings recorded per call. All responses were stored alongside complete request
 metadata (model version string or tag, timestamp, token counts, finish reason,
-persona condition) in an immutable storage layer with SHA-256 checksums.
+persona condition) in a versioned storage layer with SHA-256 checksums.
 Response quality gates excluded truncated responses
 (\texttt{finish\_reason $\neq$ stop}) and responses in a language divergent from
 the request; both were retained and analyzed separately as secondary outcomes.
@@ -202,14 +200,14 @@ a senior rater on disagreement, calibrates and audits the ensemble; judge-human
 agreement is reported as a validity check, and judges are not treated as
 authoritative where they diverge systematically from the human gold layer.
 
-The primary composite outcome combines the five pre-registered subcomponents
+The primary composite outcome combines the five pre-specified subcomponents
 (see Supplementary Table~S3), each normalized to $[0,1]$: (i) factual accuracy
 against the registry entry (binary T1; partial credit T2--T4); (ii) contextual
 completeness scored against a pre-validated rubric (T3, T4, $0$--$5$); (iii)
 citation quality verified via DOI and official-source check; (iv) hallucination
 absence, coded binarily ($0$~hallucinated, $1$~faithful); and (v) applied
 validity, the rubric score for the operational recommendation in T5. Primary
-inference uses equal weights; two pre-registered sensitivity weightings (a
+inference uses equal weights; two pre-specified sensitivity weightings (a
 PCA-derived set estimated on the BRA extended pilot and an author-specified set:
 factual~0.30, contextual~0.25, citation~0.15, hallucination~0.15,
 applied~0.15) are reported, and a conclusion is treated as robust only if it
@@ -218,7 +216,7 @@ to support the H6 difference-in-differences test.
 
 \subsection{Analytical strategy}
 
-The three primary confirmatory tests are pre-registered as a single family
+The three primary confirmatory tests are pre-specified as a single family
 (F1) and corrected together with the Bonferroni-Holm procedure. Secondary
 confirmatory tests (F2) are reported unadjusted within family, and declared
 exploratory tests (F3) use Benjamini-Hochberg FDR at
@@ -226,7 +224,7 @@ $q=0.10$~\citep{benjamini1995fdr}.
 
 \textbf{H1 (geographic gradient, primary).} Country-level mean composite
 accuracy (n=15) is regressed on the Joshi/HDI gradient via Spearman $\rho$,
-pre-registered one-sided with threshold $\rho \geq 0.55$ at $\alpha=0.05$, with
+pre-specified one-sided with threshold $\rho \geq 0.55$ at $\alpha=0.05$, with
 a Mann-Kendall trend test as a mandatory non-monotonicity complement and a
 Global South dummy as a sensitivity contrast.
 
@@ -252,7 +250,7 @@ absolute accuracy). Inference uses a country-level permutation test
 two-sided test is reported as a secondary check because persona amplification
 is theoretically possible and is reported transparently if observed.
 
-\textbf{H3 (regional model, secondary).} A pre-registered one-sided contrast in
+\textbf{H3 (regional model, secondary).} A pre-specified one-sided contrast in
 a generalized linear mixed model compares Cabra-Mistral~7B~v3 on Brazilian
 Portuguese prompts against a scale-matched globally trained open model, with an
 exploratory companion contrast on other Lusophone contexts to distinguish gap
@@ -269,7 +267,7 @@ random intercepts for country and model, implemented via
 composite and \texttt{glmer} with a binomial family and logit link for binary
 outcomes. Where a mediation decomposition is reported for H4, it uses
 \texttt{semopy}~\citep{semopy} with 5{,}000 bootstrap replicates. Robustness
-analyses, all pre-registered, include leave-one-country-out re-estimation,
+analyses, all pre-specified, include leave-one-country-out re-estimation,
 restriction to the human-gold-validated subset, Bayesian re-estimation with
 weakly informative priors via \texttt{pymc}~\citep{pymc}, and a separate
 analysis excluding prompts flagged for potential training-data contamination.
@@ -279,17 +277,18 @@ the within-subject persona design yields a minimum detectable gap reduction of
 approximately 2--3 percentage points, so the 5-point H6 threshold is
 well-powered. Power details are reported in Supplementary Material.
 
-\subsection{Pre-registration and open science}
+\subsection{Study protocol and open science}
 
 The full protocol --- hypotheses, prompts with hashes, the ground-truth
 registry, the persona template, scoring rubrics, GLMM and DiD specifications,
-multiple-comparison corrections, and exclusion criteria --- was deposited at
-OSF prior to confirmatory data collection. The analytic dataset, after quality
-gates but before model fitting, was frozen and hashed, with the hash committed
-to the OSF registry. All code, prompts, ground-truth references, and anonymized
-response data are released under CC-BY-4.0 (data and prompts) and the MIT
-License (code) at Zenodo with permanent DOIs~\citep{zenodo2026dataset}; a
-companion Data Paper is prepared for \textit{Scientific Data}.
+multiple-comparison corrections, and exclusion criteria --- is pre-specified in
+advance of confirmatory data collection. The analytic dataset, after quality
+gates but before model fitting, is frozen and hashed so that the confirmatory
+analysis can be audited against the locked specification. The full protocol,
+prompts, ground-truth references, analysis code, and anonymized response data
+will be released on publication under CC-BY-4.0 (data and prompts) and the MIT
+License (code)~\citep{zenodo2026dataset}; a companion Data Paper is prepared for
+\textit{Scientific Data}.
 
 \subsection{Ethical considerations}
 

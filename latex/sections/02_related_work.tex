@@ -63,7 +63,7 @@ geographic bias, finding that reasoning helps in aggregate but does not
 eliminate regional disparities. \citet{kerche2026silicon} proposed a
 place-based typology of LLM biases, situating geographic bias within a broader
 sociotechnical landscape. These contributions are conceptual and aggregate; we
-add a domain-specific, pre-registered empirical test and introduce persona as a
+add a domain-specific, pre-specified empirical test and introduce persona as a
 candidate mitigation lever rather than a fixed property of the model.
 
 \subsection{LLMs in policy and health decision contexts}
@@ -91,11 +91,16 @@ benchmarking abstraction.
 
 Role or persona conditioning is a common practice in deployed prompting, and a
 growing body of work reports that assigning an expert role can shift model
-outputs in either direction depending on task and domain. The evidence on
-whether persona conditioning improves factual reliability in high-stakes,
-knowledge-intensive domains is mixed and, to our knowledge, untested for
-geographic equity. % [CITATION NEEDED: a peer-reviewed study quantifying the effect of expert-persona prompting on factual accuracy across domains, with a resolvable DOI]
-We therefore pre-register persona as an experimental factor and test both the
+outputs in either direction depending on task and domain. Systematic evidence is
+sobering: across four LLM families and 2{,}410 factual questions, adding expert
+personas to system prompts did not improve accuracy over a no-persona control,
+and across 162 roles it slightly \emph{reduced} accuracy on
+average~\citep{zheng2024helpful}; an independent replication likewise finds that
+expert personas do not improve factual accuracy~\citep{mollick2025personas}.
+Whether persona conditioning helps or harms factual reliability in high-stakes,
+knowledge-intensive domains is therefore unsettled and, to our knowledge,
+untested for geographic equity. We therefore treat persona as a pre-specified
+experimental factor and test both the
 Norm-Compliance hypothesis (persona reduces the gap) and the Persona-Vacuum
 hypothesis (persona amplifies it).
 
@@ -104,10 +109,10 @@ hypothesis (persona amplifies it).
 Our design differs from prior work in four concrete ways: (i) a single
 high-stakes applied domain (air pollution policy) with verifiable official
 ground truth, rather than numeric trivia or cultural knowledge; (ii) persona as
-a pre-registered within-subject experimental factor, rather than an
+a pre-specified within-subject experimental factor, rather than an
 uncontrolled framing choice; (iii) theory-driven country sampling on
 independent axes (UNCTAD coloniality, Joshi linguistic resource, development),
 rather than regional convenience; and (iv) an explicit corpus-representation
 mechanism test with sensitivity analysis. No prior study combines a regulated
-public-health domain, a persona manipulation, and a pre-registered
+public-health domain, a persona manipulation, and a pre-specified
 mechanism test.
