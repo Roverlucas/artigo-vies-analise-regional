@@ -110,6 +110,8 @@ def main():
 
     t0 = time.time()
     ok = fail = 0
+    consecutive_fail = 0
+    ABORT_AFTER = 10  # stop if the judge API is systematically failing (credit/rate)
     with open(judge_output, "a", encoding="utf-8") as out:
         for i, (r, p) in enumerate(work, 1):
             pid = r.get("prompt_id") or r.get("pilot_id")
@@ -121,6 +123,20 @@ def main():
                     task_id=r.get("task") or p.get("task", "T1"),
                     judge_model_id=args.judge_model,
                 )
+                # judge_response returns fallback zeros + JUDGE_API_ERROR on api failure;
+                # treat that as a real failure, do NOT persist garbage scores.
+                rationale = str(scores.get("rationale", ""))
+                if scores.get("error") or "JUDGE_API_ERROR" in rationale:
+                    fail += 1
+                    consecutive_fail += 1
+                    if consecutive_fail <= 3 or consecutive_fail % 50 == 0:
+                        print(f"  [{i}/{len(work)}] {r['model_id']} {pid} JUDGE_ERROR: {rationale[:100]}")
+                    if consecutive_fail >= ABORT_AFTER:
+                        print(f"ABORTING: {consecutive_fail} consecutive judge API errors "
+                              f"(likely credit/rate). Fix the judge and re-run (resumable).")
+                        break
+                    continue
+                consecutive_fail = 0
                 rec = {
                     "model_id": r["model_id"],
                     "prompt_id": pid,
@@ -135,10 +151,14 @@ def main():
                 ok += 1
             except Exception as e:
                 fail += 1
+                consecutive_fail += 1
                 print(f"  [{i}/{len(work)}] {r['model_id']} {pid} FAILED: {str(e)[:120]}")
+                if consecutive_fail >= ABORT_AFTER:
+                    print(f"ABORTING: {consecutive_fail} consecutive failures.")
+                    break
             if i % 25 == 0:
                 dt = time.time() - t0
-                print(f"  [{i}/{len(work)}] ok={ok} fail={fail} ({dt:.0f}s, {dt/i:.1f}s/judg)")
+                print(f"  [{i}/{len(work)}] ok={ok} fail={fail} ({dt:.0f}s, {dt/max(i,1):.1f}s/judg)")
 
     print(f"DONE. ok={ok} fail={fail} in {time.time()-t0:.0f}s")
 
