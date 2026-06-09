@@ -180,9 +180,17 @@ LLMS: tuple[LLM, ...] = (
     LLM("gemini_2_5_pro", "reserve",            "gemini_free",    "closed", "google",
         "gemini-2.5-pro", 0.0, False,
         "Reserve model (post-audit revision): Gemini 2.5 Pro — frontier-tier closed model from a vendor that does NOT provide compute credits to the project, to avoid optical bias toward budget-providing vendor (Anthropic). Activated ONLY by explicit reviewer request per Appendix B."),
+
+    # -----------------------------------------------------------------
+    # JUDGE-ONLY — not evaluated (full_scope=False); used solely as an
+    # out-of-sample LLM-as-judge for inter-rater reliability.
+    # -----------------------------------------------------------------
+    LLM("claude_sonnet", "judge_only",           "anthropic_paid", "closed", "anthropic",
+        "claude-sonnet-4-6", 0.0, False,
+        "Out-of-sample judge (NOT among the 14 evaluated models): Claude Sonnet 4.6. Used only to re-score a stratified sample for inter-judge agreement vs. the primary gpt5_mini judge, neutralizing the judge-target overlap caveat."),
 )
 
-assert len(LLMS) == 16
+assert len(LLMS) == 17
 assert sum(1 for m in LLMS if m.full_scope) == 14
 assert sum(1 for m in LLMS if m.openness == "open") == 11
 
