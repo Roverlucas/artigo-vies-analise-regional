@@ -4,16 +4,118 @@
 \begin{center}
 \fbox{\parbox{0.88\linewidth}{%
 \small
-\textbf{Status note.} This section reports \emph{pilot evidence only}. The
-confirmatory study across 15 countries and the persona manipulation are
-planned, not yet executed. The results below come from an exploratory Pilot~2.0
-collection (7 countries, 5 models, English-only prompts, no persona factor)
-scored by a single LLM judge. They are reported to demonstrate pipeline
-viability and to calibrate the pre-specified analysis plan, not to test the
-confirmatory hypotheses. No 15-country estimates are presented anywhere in this
-section.
+\textbf{Status note.} This section reports two exploratory collections, not the
+full 15-country confirmatory study, which remains planned. (i) A \emph{Brazil
+confirmatory collection} exercises all 14 models and the persona factor on the
+air pollution policy task set, yielding 2{,}024 LLM-as-judge scores. (ii) An
+earlier multi-country \emph{Pilot~2.0} (7 countries, 5 models, English-only, no
+persona) provides the only cross-country signal. Neither tests the geographic
+gradient across 15 countries. All estimates are directional. The judge is
+GPT-5-mini, which also appears in the evaluated set (a self-evaluation overlap
+removed in the final confirmatory design by a non-overlapping judge); two
+paid judges (Claude Haiku, Gemini Flash) were exhausted mid-run, so a single
+non-ensemble judge was used here.
 }}
 \end{center}
+
+\subsection{Brazil confirmatory collection (14 models)}
+\label{sec:results:bra}
+
+The Brazil collection scores all 14 models across the five task types under both
+persona conditions, with two stochastic replications, producing 2{,}024 valid
+LLM-as-judge composites on the $[0,1]$ scale. It does not test the geographic
+gradient (a single country), but it is the first run at full model coverage and
+with the persona factor active.
+
+\paragraph{Accuracy by model.} Table~\ref{tab:bra-model} orders the 14 models by
+mean composite. The spread is wide (0.41 points), from DeepSeek-V3 at 0.713 to
+the Brazilian-Portuguese regional model Cabra-Mistral~7B at 0.299. Frontier
+systems (DeepSeek-V3, Gemini~2.5 Flash, GPT-5, GPT-5-mini, Claude Haiku) occupy
+the top band; small open-weight models occupy the bottom. The result bearing on
+H3 is striking and counter-directional: the regional Brazilian model is the
+\emph{worst} performer on Brazilian air pollution policy, not the best. Regional
+instruction tuning at the 7B scale does not buy domain accuracy here; it is
+dominated by scale and by frontier training. This is a single-country, secondary
+signal, but it directly contradicts the optimistic framing of H3a.
+
+\begin{table}[h]
+\centering
+\caption{Brazil confirmatory composite accuracy by model (GPT-5-mini judge,
+$[0,1]$ scale).}
+\label{tab:bra-model}
+\small
+\begin{tabular}{lrr}
+\toprule
+Model & Mean & SD \\
+\midrule
+DeepSeek-V3        & 0.713 & 0.214 \\
+Gemini~2.5 Flash   & 0.682 & 0.234 \\
+GPT-5              & 0.678 & 0.252 \\
+GPT-5-mini         & 0.665 & 0.251 \\
+Claude Haiku~4.5   & 0.652 & 0.189 \\
+GPT-OSS 120B       & 0.574 & 0.244 \\
+Llama~3.3 70B      & 0.540 & 0.213 \\
+Llama~4 Scout      & 0.529 & 0.218 \\
+Command~R+         & 0.528 & 0.238 \\
+Qwen3 32B          & 0.523 & 0.235 \\
+Phi-4 14B          & 0.494 & 0.230 \\
+Qwen3 14B          & 0.479 & 0.241 \\
+Llama~3.1 8B       & 0.429 & 0.206 \\
+Cabra-Mistral~7B   & 0.299 & 0.190 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Accuracy by task and the regulatory-cutoff effect.}
+Table~\ref{tab:bra-task} shows T1 (technical-standard recall) as the hardest task
+by a wide margin (mean 0.369), below the open recommendation task T5 (0.489) and
+well below the data and policy tasks (T2--T4, 0.60--0.67). The T1 result has a
+concrete mechanism. Brazil's binding annual PM\textsubscript{2.5} standard moved
+from the CONAMA Resolution 491/2018 framework to Resolution 506/2024 (the PI-2
+stage in force in 2026). On the subset of T1 prompts scored against the
+\emph{updated} 506/2024 ground truth, mean accuracy falls to roughly 0.16: models
+overwhelmingly recall the superseded standard. Regulatory knowledge with a recent
+cutoff is exactly where these systems fail, which is both a measurement caution
+(ground truth must track the regulation in force) and a substantive finding for
+public-sector use.
+
+\begin{table}[h]
+\centering
+\caption{Brazil confirmatory composite accuracy by task type.}
+\label{tab:bra-task}
+\small
+\begin{tabular}{lrr}
+\toprule
+Task & Mean & SD \\
+\midrule
+T1 (technical standard)      & 0.369 & 0.250 \\
+T2 (local factual datum)     & 0.667 & 0.187 \\
+T3 (health-evidence synth.)  & 0.622 & 0.184 \\
+T4 (policy instruments)      & 0.601 & 0.226 \\
+T5 (applied recommendation)  & 0.489 & 0.272 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Persona effect (H6), paired within Brazil.} On the matched
+neutral/persona prompt pairs (the same items asked under both framings, 118 pairs
+across models and tasks), the public-environmental-manager persona moves mean
+composite from 0.438 (neutral) to 0.446 (persona), a negligible $+0.8$ percentage
+points. The per-task differences are small and mixed (T1 $-1.3$, T2 $+5.1$, T3
+$-1.8$, T4 $+4.2$, T5 $-1.9$ pp). The persona frame neither narrows nor widens
+accuracy materially in Brazil, consistent with evidence that expert personas do
+not reliably improve factual accuracy \citep{zheng2024helpful,mollick2025personas}.
+We caution that this is a within-country marginal contrast on a small paired
+sample, not the country-level difference-in-differences of H6, which requires the
+Global North/South contrast of the confirmatory study.
+
+\paragraph{Open versus closed access (H5).} Grouping by access type, the
+closed-accessible models average 0.666 against 0.513 for open-weight models, a
+$+15.3$ percentage-point closed advantage. As in the pilot, this runs against H5;
+unlike the pilot, the Brazil run includes larger Tier~A open models (Llama~3.3
+70B, DeepSeek-V3), so the gap is less attributable to scale alone, though
+DeepSeek-V3 itself leads all models. H5 remains exploratory and is interpreted
+descriptively.
 
 \subsection{Pilot design and scope}
 \label{sec:results:pilot}
@@ -191,28 +293,34 @@ Residual        & 0.0278 & 0.841 \\
 \label{sec:results:h6}
 
 The persona manipulation (Section~\ref{sec:persona}) was \emph{not} exercised in
-Pilot~2.0. All pilot prompts used the neutral framing, so there are no pilot data
-bearing on H6. The difference-in-differences test of whether a public
-environmental-manager role frame narrows the geographic gap will be collected and
-analysed only in the confirmatory study. We flag here that prior work finds
-persona or role prompts do not reliably improve task accuracy
-\citep{zheng2024helpful,mollick2025personas}, which makes H6 a genuinely open
-question rather than a foregone conclusion; the pilot offers no evidence either
-way.
+Pilot~2.0; all pilot prompts used the neutral framing. The persona factor was,
+however, active in the Brazil confirmatory collection, where its paired
+within-country effect on accuracy was negligible ($+0.8$ pp;
+Section~\ref{sec:results:bra}), consistent with evidence that expert personas do
+not reliably improve factual accuracy \citep{zheng2024helpful,mollick2025personas}.
+The country-level difference-in-differences test of whether a public
+environmental-manager frame narrows the \emph{geographic} gap still requires the
+Global North/South contrast of the 15-country confirmatory study; the
+single-country Brazil signal bears on whether persona changes accuracy at all,
+not on whether it modulates the geographic gradient.
 
 \subsection{Summary of pilot evidence}
 \label{sec:results:summary}
 
-The pilot demonstrates that the collection, scoring, and analysis pipeline runs
-end to end and produces interpretable composite scores across models, countries,
-and tasks. Two directional signals emerge: a 6.0-point Global North advantage
-consistent with H1, and a 12.5-point closed-model advantage that runs against
-H5 but is confounded by the small open model used. The variance decomposition
-points to model identity and residual variation dominating country effects at
-this scale. None of these signals are confirmatory. The geographic asymmetry on
-air pollution policy questions has direct relevance for environmental management
-in the Global South, where the disease burden is large
-\citep{gbd2019risk,requia2024shortterm} and where linguistic and corpus
-under-representation \citep{joshi2020state,mohamed2020decolonial} plausibly
+Across both collections the pipeline runs end to end and produces interpretable
+composite scores across models, countries, tasks, and persona conditions. Four
+signals emerge. From the Brazil confirmatory run: the regional Brazilian model is
+the weakest of the 14, contradicting the optimistic H3a framing; technical-standard
+recall (T1) is the hardest task and collapses against the updated CONAMA 506/2024
+ground truth, isolating a regulatory-cutoff failure mode; and the persona frame
+has a negligible paired effect on accuracy ($+0.8$ pp), in line with prior work.
+From the multi-country pilot: a 6.0-point Global North advantage consistent with
+H1, and a closed-model advantage (12.5 pp in the pilot, 15.3 pp in Brazil) that
+runs against H5. None of these signals are confirmatory, and the central
+geographic test (H1) and persona-by-geography test (H6) both await the 15-country
+collection. The geographic asymmetry on air pollution policy questions has direct
+relevance for environmental management in the Global South, where the disease
+burden is large \citep{gbd2019risk,requia2024shortterm} and where linguistic and
+corpus under-representation \citep{joshi2020state,mohamed2020decolonial} plausibly
 shapes model knowledge; quantifying it rigorously is the task of the planned
-15-country confirmatory study, not of this pilot.
+15-country confirmatory study.
