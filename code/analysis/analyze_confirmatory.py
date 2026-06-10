@@ -119,7 +119,7 @@ def main():
               f"- closed-accessible mean: **{cmm:.3f}** (n={len(cm)})",
               f"- Gap: **{(cmm-omm)*100:+.1f} pp**"]
 
-    L.append("\n---\n_Single-country runs skip H1/ICC. Judge = claude_haiku (self-evaluation caveat).\n")
+    L.append("\n---\n_Single-country runs skip H1/ICC. Judge = gpt5_mini; out-of-sample inter-judge ICC reported separately.\n")
     ANALYSIS.mkdir(parents=True, exist_ok=True)
     out = ANALYSIS / "confirmatory_findings.md"
     out.write_text("\n".join(L))

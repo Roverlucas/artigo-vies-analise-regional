@@ -4,323 +4,201 @@
 \begin{center}
 \fbox{\parbox{0.88\linewidth}{%
 \small
-\textbf{Status note.} This section reports two exploratory collections, not the
-full 15-country confirmatory study, which remains planned. (i) A \emph{Brazil
-confirmatory collection} exercises all 14 models and the persona factor on the
-air pollution policy task set, yielding 2{,}024 LLM-as-judge scores. (ii) An
-earlier multi-country \emph{Pilot~2.0} (7 countries, 5 models, English-only, no
-persona) provides the only cross-country signal. Neither tests the geographic
-gradient across 15 countries. All estimates are directional. The judge is
-GPT-5-mini, which also appears in the evaluated set (a self-evaluation overlap
-removed in the final confirmatory design by a non-overlapping judge); two
-paid judges (Claude Haiku, Gemini Flash) were exhausted mid-run, so a single
-non-ensemble judge was used here.
+\textbf{Status note.} This section reports a \emph{confirmatory-partial}
+collection: 13 of the 14 planned models (Gemini~2.5 Flash excluded for lack of
+vendor credit; GPT-OSS~120B at $\sim$83\% coverage due to provider rate limits)
+across all 15 countries, 5 tasks, and the two persona conditions, in English,
+scored by a single LLM judge (GPT-5-mini) with an out-of-sample inter-judge
+reliability check. Responses total 4{,}633 composite scores. Two design elements
+of the pre-specified protocol are \emph{not} yet satisfied and bound
+interpretation: (i) the country ground truth for the 14 non-Brazil countries was
+LLM-and-web constructed with the technical-standard task (T1) verified against
+official sources for 8/15 countries and the remainder flagged for domain-expert
+validation; (ii) the multilingual matrix (hypothesis H2) and the corpus-mechanism
+test (H4) were not collected/analysed here. Estimates are therefore directional
+confirmatory signals, reported with effect sizes rather than as final
+hypothesis-test verdicts.
 }}
 \end{center}
 
-\subsection{Brazil confirmatory collection (14 models)}
-\label{sec:results:bra}
+\subsection{Sample and judging}
+\label{sec:results:sample}
 
-The Brazil collection scores all 14 models across the five task types under both
-persona conditions, with two stochastic replications, producing 2{,}024 valid
-LLM-as-judge composites on the $[0,1]$ scale. It does not test the geographic
-gradient (a single country), but it is the first run at full model coverage and
-with the persona factor active.
+The confirmatory set comprises the 150 air-pollution-policy prompts (15 countries
+$\times$ 5 tasks $\times$ 2 personas) with two replications per model. After
+excluding empty responses, the analysed corpus is 4{,}633 judge-scored responses
+on the $[0,1]$ composite. The primary judge is GPT-5-mini. Because GPT-5-mini is
+itself among the evaluated tier, an out-of-sample judge (Claude Sonnet~4.6, not
+in the 14-model set) re-scored a stratified sample of 750 responses; agreement is
+strong (Spearman $\rho = 0.87$, ICC(2,1) $= 0.82$, Pearson $r = 0.86$, mean
+absolute difference $0.11$), which neutralizes the judge--target overlap for the
+reported composites (Section~\ref{sec:results:reliability}).
 
-\paragraph{Accuracy by model.} Table~\ref{tab:bra-model} orders the 14 models by
-mean composite. The spread is wide (0.41 points), from DeepSeek-V3 at 0.713 to
-the Brazilian-Portuguese regional model Cabra-Mistral~7B at 0.299. Frontier
-systems (DeepSeek-V3, Gemini~2.5 Flash, GPT-5, GPT-5-mini, Claude Haiku) occupy
-the top band; small open-weight models occupy the bottom. The result bearing on
-H3 is striking and counter-directional: the regional Brazilian model is the
-\emph{worst} performer on Brazilian air pollution policy, not the best. Regional
-instruction tuning at the 7B scale does not buy domain accuracy here; it is
-dominated by scale and by frontier training. This is a single-country, secondary
-signal, but it directly contradicts the optimistic framing of H3a.
+\subsection{Accuracy by model}
+\label{sec:results:model}
+
+Table~\ref{tab:conf-model} orders the 13 models by mean composite. Frontier
+systems (GPT-5, DeepSeek-V3, GPT-5-mini) lead; small open-weight models trail. The
+result bearing on H3 replicates the pilot and the Brazil collection: the
+Brazilian-Portuguese regional model Cabra-Mistral~7B is the \emph{weakest} of all
+13 (0.308), contradicting the optimistic H3a framing that a regional model buys
+domain accuracy. Scale and frontier training dominate regional instruction tuning
+at the 7B level.
 
 \begin{table}[h]
 \centering
-\caption{Brazil confirmatory composite accuracy by model (GPT-5-mini judge,
-$[0,1]$ scale).}
-\label{tab:bra-model}
+\caption{Confirmatory composite accuracy by model across 15 countries
+(GPT-5-mini judge, $[0,1]$). $N$ = scored responses.}
+\label{tab:conf-model}
 \small
 \begin{tabular}{lrr}
 \toprule
-Model & Mean & SD \\
+Model & $N$ & Mean \\
 \midrule
-DeepSeek-V3        & 0.713 & 0.214 \\
-Gemini~2.5 Flash   & 0.682 & 0.234 \\
-GPT-5              & 0.678 & 0.252 \\
-GPT-5-mini         & 0.665 & 0.251 \\
-Claude Haiku~4.5   & 0.652 & 0.189 \\
-GPT-OSS 120B       & 0.574 & 0.244 \\
-Llama~3.3 70B      & 0.540 & 0.213 \\
-Llama~4 Scout      & 0.529 & 0.218 \\
-Command~R+         & 0.528 & 0.238 \\
-Qwen3 32B          & 0.523 & 0.235 \\
-Phi-4 14B          & 0.494 & 0.230 \\
-Qwen3 14B          & 0.479 & 0.241 \\
-Llama~3.1 8B       & 0.429 & 0.206 \\
-Cabra-Mistral~7B   & 0.299 & 0.190 \\
+GPT-5            & 580 & 0.641 \\
+DeepSeek-V3      & 300 & 0.622 \\
+GPT-5-mini       & 578 & 0.621 \\
+Claude Haiku~4.5 & 290 & 0.568 \\
+Qwen3 32B        & 300 & 0.523 \\
+GPT-OSS 120B     & 237 & 0.485 \\
+Llama~3.3 70B    & 274 & 0.482 \\
+Command~R+       & 300 & 0.481 \\
+Phi-4 14B        & 300 & 0.460 \\
+Llama~4 Scout    & 300 & 0.449 \\
+Qwen3 14B        & 300 & 0.446 \\
+Llama~3.1 8B     & 577 & 0.409 \\
+Cabra-Mistral~7B & 297 & 0.308 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\paragraph{Accuracy by task and the regulatory-cutoff effect.}
-Table~\ref{tab:bra-task} shows T1 (technical-standard recall) as the hardest task
-by a wide margin (mean 0.369), below the open recommendation task T5 (0.489) and
-well below the data and policy tasks (T2--T4, 0.60--0.67). The T1 result has a
-concrete mechanism. Brazil's binding annual PM\textsubscript{2.5} standard moved
-from the CONAMA Resolution 491/2018 framework to Resolution 506/2024 (the PI-2
-stage in force in 2026). On the subset of T1 prompts scored against the
-\emph{updated} 506/2024 ground truth, mean accuracy falls to roughly 0.16: models
-overwhelmingly recall the superseded standard. Regulatory knowledge with a recent
-cutoff is exactly where these systems fail, which is both a measurement caution
-(ground truth must track the regulation in force) and a substantive finding for
-public-sector use.
-
-\begin{table}[h]
-\centering
-\caption{Brazil confirmatory composite accuracy by task type.}
-\label{tab:bra-task}
-\small
-\begin{tabular}{lrr}
-\toprule
-Task & Mean & SD \\
-\midrule
-T1 (technical standard)      & 0.369 & 0.250 \\
-T2 (local factual datum)     & 0.667 & 0.187 \\
-T3 (health-evidence synth.)  & 0.622 & 0.184 \\
-T4 (policy instruments)      & 0.601 & 0.226 \\
-T5 (applied recommendation)  & 0.489 & 0.272 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\paragraph{Persona effect (H6), paired within Brazil.} On the matched
-neutral/persona prompt pairs (the same items asked under both framings, 118 pairs
-across models and tasks), the public-environmental-manager persona moves mean
-composite from 0.438 (neutral) to 0.446 (persona), a negligible $+0.8$ percentage
-points. The per-task differences are small and mixed (T1 $-1.3$, T2 $+5.1$, T3
-$-1.8$, T4 $+4.2$, T5 $-1.9$ pp). The persona frame neither narrows nor widens
-accuracy materially in Brazil, consistent with evidence that expert personas do
-not reliably improve factual accuracy \citep{zheng2024helpful,mollick2025personas}.
-We caution that this is a within-country marginal contrast on a small paired
-sample, not the country-level difference-in-differences of H6, which requires the
-Global North/South contrast of the confirmatory study.
-
-\paragraph{Open versus closed access (H5).} Grouping by access type, the
-closed-accessible models average 0.666 against 0.513 for open-weight models, a
-$+15.3$ percentage-point closed advantage. As in the pilot, this runs against H5;
-unlike the pilot, the Brazil run includes larger Tier~A open models (Llama~3.3
-70B, DeepSeek-V3), so the gap is less attributable to scale alone, though
-DeepSeek-V3 itself leads all models. H5 remains exploratory and is interpreted
-descriptively.
-
-\subsection{Pilot design and scope}
-\label{sec:results:pilot}
-
-The Pilot~2.0 collection exercised the full scoring and analysis pipeline on a
-reduced design: 7 countries (two Global North, five Global South), 5 of the
-planned models, and English-language prompts across the five task types of
-Section~\ref{sec:tasks}. Responses were scored by a single LLM judge (Claude
-Haiku~4.5 under the G-Eval framework), yielding 700 judge scores on the
-$[0,1]$ composite. This single-judge, single-language, small-$N$ configuration
-is a deliberate feasibility exercise; the confirmatory protocol replaces it with
-a multi-judge ensemble plus a human gold layer (Section~\ref{sec:methods}),
-adds the persona factor, and scales to 15 countries. Because country-level cells
-contain few observations, all pilot estimates are read as directional signals
-rather than tests.
-
-The composite by model is summarized in Table~\ref{tab:pilot-model}. Scores
-span a 0.17-point range, from 0.668 for GPT-5-mini to 0.498 for Command~R+.
-The two closed accessible API models (GPT-5-mini, Claude Haiku) and the closed
-mid-tier Gemini Flash occupy the upper band, while the two open-weight models in
-the pilot (Llama~4 Scout and Command~R+) fall below. We note that the judge
-model (Claude Haiku~4.5) also appears in the evaluated set, a self-evaluation
-overlap removed in the confirmatory design by using a non-overlapping judge.
-
-\begin{table}[h]
-\centering
-\caption{Pilot composite accuracy by model (single-judge G-Eval, $[0,1]$
-scale). $N=140$ judge scores per model.}
-\label{tab:pilot-model}
-\small
-\begin{tabular}{lrr}
-\toprule
-Model & Mean & SD \\
-\midrule
-GPT-5-mini      & 0.668 & 0.173 \\
-Claude Haiku    & 0.646 & 0.141 \\
-Gemini Flash    & 0.614 & 0.197 \\
-Llama~4 Scout   & 0.536 & 0.156 \\
-Command~R+      & 0.498 & 0.180 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Composite accuracy by country}
-\label{sec:results:country}
-
-Table~\ref{tab:pilot-country} reports the pilot composite by country, with
-UNCTAD tier. The two Global North countries (USA, Germany) rank highest, and the
-five Global South countries fall below, though the country-level ordering is
-noisy given the small per-country sample ($N=100$ judge scores each).
-Indonesia, the highest-scoring Global South country, sits close to Germany,
-while Nigeria is lowest. This ordering is consistent in direction with the
-geographic gradient motivating the study, but the overlap between tiers and the
-small $N$ caution against country-level interpretation at the pilot stage.
-
-\begin{table}[h]
-\centering
-\caption{Pilot composite accuracy by country with UNCTAD tier (GN = Global
-North, GS = Global South). $N=100$ judge scores per country.}
-\label{tab:pilot-country}
-\small
-\begin{tabular}{llrr}
-\toprule
-Country & Tier & Mean & SD \\
-\midrule
-United States & GN & 0.647 & 0.168 \\
-Germany       & GN & 0.625 & 0.179 \\
-Indonesia     & GS & 0.606 & 0.169 \\
-Peru          & GS & 0.580 & 0.173 \\
-India         & GS & 0.574 & 0.183 \\
-Brazil        & GS & 0.565 & 0.203 \\
-Nigeria       & GS & 0.551 & 0.182 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Composite accuracy by task}
+\subsection{Accuracy by task: the factual-recall floor}
 \label{sec:results:task}
 
-Table~\ref{tab:pilot-task} shows that difficulty varies sharply across the five
-task types. The two hardest tasks are T1 (technical standard recall, mean 0.507)
-and T5 (applied recommendation, mean 0.499), both with the widest dispersion.
-The pattern is plausible. T1 requires recalling the specific binding ambient air
-quality value in force, which in the Brazilian case has shifted with the
-transition from the prior CONAMA Resolution 491/2018 framework to CONAMA
-Resolution 506/2024 (the currently applicable PI-2 stage); recalling the precise
-standard in force is exactly the kind of moving, jurisdiction-specific target
-that strains model knowledge. T5 demands an open applied recommendation scored
-against a rubric. The middle tasks T2 through T4 score higher and more tightly,
-consistent with their more constrained answer spaces.
+Difficulty is sharply task-dependent (Table~\ref{tab:conf-task}). The two
+hardest tasks are \textbf{T1 (technical-standard recall, 0.319)} and \textbf{T2
+(local measured datum, 0.316)} --- precisely the tasks that require retrieving a
+specific binding value (a national annual PM\textsubscript{2.5} standard; a
+city-year concentration). The open recommendation task (T5) scores highest
+(0.805) because its rubric rewards plausible, well-structured policy advice that
+does not hinge on a single fact. The pattern is the core empirical finding:
+LLMs are weakest exactly where applied environmental management needs them most
+--- recalling the precise regulatory threshold or measured value in force.
 
 \begin{table}[h]
 \centering
-\caption{Pilot composite accuracy by task type (see
-Section~\ref{sec:tasks}). $N=140$ judge scores per task.}
-\label{tab:pilot-task}
+\caption{Confirmatory composite accuracy by task type.}
+\label{tab:conf-task}
 \small
 \begin{tabular}{lrr}
 \toprule
-Task & Mean & SD \\
+Task & $N$ & Mean \\
 \midrule
-T1 (technical standard)      & 0.507 & 0.207 \\
-T2 (local factual datum)     & 0.624 & 0.090 \\
-T3 (health-evidence synth.)  & 0.677 & 0.072 \\
-T4 (policy instruments)      & 0.655 & 0.173 \\
-T5 (applied recommendation)  & 0.499 & 0.229 \\
+T5 (applied recommendation)  & 922 & 0.805 \\
+T3 (health-evidence synth.)  & 933 & 0.577 \\
+T4 (policy instruments)      & 906 & 0.540 \\
+T1 (technical standard)      & 935 & 0.319 \\
+T2 (local factual datum)     & 937 & 0.316 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{Pilot signal for H1 (geographic gradient)}
+\subsection{H1 --- the geographic gradient}
 \label{sec:results:h1}
 
-Aggregating the five Global South countries against the two Global North
-countries gives a Global South mean of 0.575 ($n=500$) versus a Global North
-mean of 0.636 ($n=200$). The gap (Global North minus Global South) is
-$+0.060$, or 6.0 percentage points, with a pooled SD of 0.180. The
-corresponding pilot Cohen's $d$ is $+0.34$, a small-to-moderate effect. The
-direction is consistent with H1: Global North outperforms Global South on this
-air pollution policy task set. We treat this as a directional signal only. The
-pilot is not powered for a country-level test, the prompts were English-only,
-and the confirmatory study will estimate the gradient across 15 countries with
-the multi-judge scoring and the formal Spearman and Mann-Kendall tests
-pre-specified in Section~\ref{sec:methods}. The magnitude here informs the power
-calibration rather than confirming the hypothesis.
-
-\subsection{Pilot signal for H5 (open versus closed access)}
-\label{sec:results:h5}
-
-Grouping the pilot models by access type gives an open-frontier mean (Llama~4
-Scout and Command~R+) of 0.517 ($n=280$) and a closed-accessible mean (Claude
-Haiku, GPT-5-mini, Gemini Flash) of 0.643 ($n=420$). The gap is $+0.125$, or
-12.5 percentage points, favouring the closed models. This is \emph{not}
-consistent with H5 as framed: the open-weight models did not match the closed
-models, and the gap well exceeds the 5-point threshold of interest. One caveat
-is decisive for interpretation. The pilot used Llama~4 Scout at the 17B scale,
-substantially smaller than the planned Tier~A open-weight frontier target
-(70B-class and above). The open-versus-closed contrast in the pilot therefore
-partly reflects a scale difference, not access type alone. The confirmatory
-design includes larger Tier~A open models, which is the appropriate test of H5.
-
-\subsection{Variance components}
-\label{sec:results:variance}
-
-A random-effects decomposition of the pilot composite (Table~\ref{tab:pilot-icc})
-partitions variance across country, model, and residual sources. The
-between-country intraclass correlation is small (ICC$_{\text{country}} = 0.031$),
-the between-model component is larger (ICC$_{\text{model}} = 0.128$), and the
-bulk of variance is residual within-cell (0.841). In the pilot, model identity
-accounts for more variance than country of question, and most variation sits at
-the individual-response level. These components feed directly into the Monte
-Carlo power calibration of the pre-specified analysis plan
-(Section~\ref{sec:methods}); the small country ICC in particular indicates that
-detecting the geographic gradient will require the full 15-country sample and
-the planned replication structure.
+Aggregating the twelve Global South countries against the three Global North
+countries gives a Global South mean of \textbf{0.497} ($n=3{,}692$) versus a
+Global North mean of \textbf{0.562} ($n=941$): a gap of \textbf{+6.5 percentage
+points} (Global North minus Global South), Cohen's $d = +0.25$. The direction is
+consistent with H1 and replicates the pilot signal (+6.0 pp, $d=0.34$) at full
+15-country scale, now with the persona factor active. The effect is small. The
+country-level ordering (Table~\ref{tab:conf-country}) is also informative and
+non-deterministic: India (0.632) tops all countries and Indonesia (0.539, both
+Global South) sit above Germany (0.531, Global North), while Argentina and Brazil
+anchor the bottom --- partly because their ground truth is the most demanding
+(Argentina lacks a single binding federal standard; Brazil's standard moved to
+CONAMA~506/2024). The gradient is real in aggregate but not a clean North-over-South
+ranking.
 
 \begin{table}[h]
 \centering
-\caption{Pilot variance components for the composite outcome. Total variance
-0.0330.}
-\label{tab:pilot-icc}
+\caption{Confirmatory composite accuracy by country (tier: GN = Global North,
+GS = Global South).}
+\label{tab:conf-country}
 \small
-\begin{tabular}{lrr}
+\begin{tabular}{llr@{\qquad}llr}
 \toprule
-Component & Variance & ICC \\
+Country & Tier & Mean & Country & Tier & Mean \\
 \midrule
-Between-country & 0.0010 & 0.031 \\
-Between-model   & 0.0042 & 0.128 \\
-Residual        & 0.0278 & 0.841 \\
+India        & GS & 0.632 & Peru         & GS & 0.490 \\
+Japan        & GN & 0.584 & Kenya        & GS & 0.480 \\
+United States& GN & 0.574 & Egypt        & GS & 0.461 \\
+Indonesia    & GS & 0.539 & Nigeria      & GS & 0.459 \\
+Germany      & GN & 0.531 & Brazil       & GS & 0.443 \\
+South Africa & GS & 0.512 & Argentina    & GS & 0.441 \\
+Bangladesh   & GS & 0.501 & & & \\
+Philippines  & GS & 0.496 & & & \\
+Mexico       & GS & 0.492 & & & \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{H6 (persona): not tested in the pilot}
+\subsection{H6 --- persona does not narrow the geographic gap}
 \label{sec:results:h6}
 
-The persona manipulation (Section~\ref{sec:persona}) was \emph{not} exercised in
-Pilot~2.0; all pilot prompts used the neutral framing. The persona factor was,
-however, active in the Brazil confirmatory collection, where its paired
-within-country effect on accuracy was negligible ($+0.8$ pp;
-Section~\ref{sec:results:bra}), consistent with evidence that expert personas do
-not reliably improve factual accuracy \citep{zheng2024helpful,mollick2025personas}.
-The country-level difference-in-differences test of whether a public
-environmental-manager frame narrows the \emph{geographic} gap still requires the
-Global North/South contrast of the 15-country confirmatory study; the
-single-country Brazil signal bears on whether persona changes accuracy at all,
-not on whether it modulates the geographic gradient.
+The persona factor was fully crossed in this collection, so H6 can be tested as a
+difference-in-differences. The public-environmental-manager frame moves Global
+South accuracy by $\Delta_{\mathrm{GS}} = -0.1$ pp and Global North accuracy by
+$\Delta_{\mathrm{GN}} = -0.8$ pp, giving a DiD of $\Delta_{\mathrm{GS}} -
+\Delta_{\mathrm{GN}} = \textbf{+0.6 pp}$ --- far below the pre-specified 5 pp
+threshold for support. The geographic gap is essentially unchanged by persona:
++6.8 pp under the neutral frame versus +6.2 pp under the manager frame.
+\textbf{H6 is not supported}: presenting the query as coming from a public
+environmental manager neither narrows nor amplifies the Global South disadvantage.
+This is consistent with evidence that expert personas do not reliably improve
+factual accuracy~\citep{zheng2024helpful,mollick2025personas}, and it answers the
+study's central applied question in the negative --- prompt framing is not a fix
+for geographic bias.
 
-\subsection{Summary of pilot evidence}
+\subsection{H5 --- open versus closed-accessible}
+\label{sec:results:h5}
+
+Grouping by access type, closed-accessible models average 0.604 ($n=868$) against
+0.461 for open-weight models ($n=3{,}185$), a +14.3 pp closed advantage. As in the
+pilot, this runs against H5; here the open arm includes larger Tier~A models
+(Llama~3.3 70B, DeepSeek-V3), so the gap is less attributable to scale alone,
+although DeepSeek-V3 itself ranks second overall. H5 is interpreted descriptively.
+
+\subsection{Inter-judge reliability}
+\label{sec:results:reliability}
+
+To address the judge--target overlap (GPT-5-mini is in the evaluated set), an
+out-of-sample judge (Claude Sonnet~4.6) re-scored a stratified random sample of
+750 responses spanning all countries, tasks, and personas. Agreement on the
+composite is strong: Pearson $r = 0.861$, Spearman $\rho = 0.874$, ICC(2,1)
+absolute agreement $= 0.824$, mean absolute difference $0.112$. An ICC above 0.80
+indicates good-to-excellent reliability and supports treating the GPT-5-mini
+composites as judge-independent for the effects reported here. The final
+confirmatory analysis will replace the single judge with the pre-specified
+multi-judge ensemble plus a human gold layer.
+
+\subsection{Summary}
 \label{sec:results:summary}
 
-Across both collections the pipeline runs end to end and produces interpretable
-composite scores across models, countries, tasks, and persona conditions. Four
-signals emerge. From the Brazil confirmatory run: the regional Brazilian model is
-the weakest of the 14, contradicting the optimistic H3a framing; technical-standard
-recall (T1) is the hardest task and collapses against the updated CONAMA 506/2024
-ground truth, isolating a regulatory-cutoff failure mode; and the persona frame
-has a negligible paired effect on accuracy ($+0.8$ pp), in line with prior work.
-From the multi-country pilot: a 6.0-point Global North advantage consistent with
-H1, and a closed-model advantage (12.5 pp in the pilot, 15.3 pp in Brazil) that
-runs against H5. None of these signals are confirmatory, and the central
-geographic test (H1) and persona-by-geography test (H6) both await the 15-country
-collection. The geographic asymmetry on air pollution policy questions has direct
-relevance for environmental management in the Global South, where the disease
-burden is large \citep{gbd2019risk,requia2024shortterm} and where linguistic and
-corpus under-representation \citep{joshi2020state,mohamed2020decolonial} plausibly
-shapes model knowledge; quantifying it rigorously is the task of the planned
-15-country confirmatory study.
+Four findings hold across the 15-country confirmatory collection. (1) A small but
+consistent geographic gradient (+6.5 pp Global North advantage, $d=0.25$),
+replicating the pilot. (2) Persona prompting does not narrow that gap (DiD +0.6 pp),
+answering the applied question negatively. (3) The regional Brazilian model is the
+weakest of all 13, contradicting H3a. (4) The failure concentrates in
+technical-standard and local-datum recall (T1, T2 $\approx$ 0.32), the
+regulatory-cutoff failure mode isolated in the Brazil collection and now general
+across countries. Inter-judge reliability is strong (ICC 0.82). These signals are
+robust to the judge but remain bounded by the open items in the status note ---
+expert-validated ground truth for all 15 countries, the corpus-mechanism test
+(H4), the multilingual matrix (H2), and the pre-specified formal tests with
+multiplicity control --- which are the work of the final confirmatory analysis.
+The geographic asymmetry on air pollution policy carries direct relevance for
+environmental management in the Global South, where the disease burden is
+large~\citep{gbd2019risk,requia2024shortterm} and corpus
+under-representation~\citep{joshi2020state,mohamed2020decolonial} plausibly shapes
+what these models know.
