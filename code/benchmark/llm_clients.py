@@ -229,6 +229,13 @@ def _call_openai_compatible(
     # tokens that consume the output budget. Setting "none" disables thinking.
     if "qwen3" in api_model_string.lower() or "qwen-3" in api_model_string.lower() or "qwq" in api_model_string.lower():
         body["reasoning_effort"] = "none"
+
+    # GPT-OSS (OpenAI open-weight, harmony format) on Groq: emits reasoning tokens
+    # that consume the 800-token budget, leaving an empty final channel
+    # (finish_reason="length", empty text). Cap reasoning low and widen the budget.
+    if "gpt-oss" in api_model_string.lower():
+        body["reasoning_effort"] = "low"
+        body["max_tokens"] = max(max_tokens, 2500)
     status, resp = _http_post(
         f"{base_url}/chat/completions",
         headers={"Authorization": f"Bearer {api_key}"},
