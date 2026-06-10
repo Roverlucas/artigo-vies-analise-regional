@@ -89,6 +89,10 @@ def main():
         if len((r.get("response_text") or "").strip()) < 10:
             continue
         pid = r.get("prompt_id") or r.get("pilot_id")
+        # v7 study uses only the air-pollution-policy prompts (prompt_id has '_AP_');
+        # legacy BRA_C* (old 3-domain scope) are excluded from confirmatory analysis.
+        if "_AP_" not in (pid or ""):
+            continue
         if pid not in gt:
             continue
         if countries and gt[pid].get("country_iso3") not in countries:
