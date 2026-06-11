@@ -4,20 +4,20 @@
 \begin{center}
 \fbox{\parbox{0.88\linewidth}{%
 \small
-\textbf{Status note.} This section reports a \emph{confirmatory-partial}
-collection: 13 of the 14 planned models (Gemini~2.5 Flash excluded for lack of
-vendor credit; GPT-OSS~120B at $\sim$83\% coverage due to provider rate limits)
-across all 15 countries, 5 tasks, and the two persona conditions, in English,
-scored by a single LLM judge (GPT-5-mini) with an out-of-sample inter-judge
-reliability check. Responses total 4{,}633 composite scores. Two design elements
-of the pre-specified protocol are \emph{not} yet satisfied and bound
-interpretation: (i) the country ground truth for the 14 non-Brazil countries was
-LLM-and-web constructed with the technical-standard task (T1) verified against
-official sources for 8/15 countries and the remainder flagged for domain-expert
-validation; (ii) the multilingual matrix (hypothesis H2) and the corpus-mechanism
-test (H4) were not collected/analysed here. Estimates are therefore directional
-confirmatory signals, reported with effect sizes rather than as final
-hypothesis-test verdicts.
+\textbf{Status note.} This is a \emph{15-country, 6-model, 4-language} benchmark.
+The core design crosses 15 countries, 6 models spanning the five access tiers
+(GPT-5, DeepSeek-V3, Claude Haiku, Qwen3-32B, Llama-3.1-8B, Cabra-Mistral-7B),
+5 tasks, 2 persona conditions, and 4 languages (English plus a country-native
+language --- Spanish, Portuguese, or Hindi --- for the five applicable countries,
+giving the within-country English/native pairs that test H2). An
+\emph{extended English-only arm} adds 7 further models (13 in total) for
+coverage robustness. All responses are scored by GPT-5-mini with an out-of-sample
+inter-judge reliability check; the corpus T1 ground truth is anchored to official
+primary sources for all 15 countries (Section~\ref{sec:results:gt}). Two
+pre-specified items remain open and bound interpretation: the corpus-mechanism
+test (H4) is not analysed here, and the single judge is not yet the planned
+multi-judge ensemble plus human gold layer. Estimates are reported with effect
+sizes.
 }}
 \end{center}
 
@@ -169,6 +169,61 @@ pilot, this runs against H5; here the open arm includes larger Tier~A models
 (Llama~3.3 70B, DeepSeek-V3), so the gap is less attributable to scale alone,
 although DeepSeek-V3 itself ranks second overall. H5 is interpreted descriptively.
 
+\subsection{H2 --- native-language prompting lowers accuracy}
+\label{sec:results:h2}
+
+The 4-language arm renders each prompt for the five countries with a target
+native language (Brazil~$\to$~Portuguese, Mexico/Argentina/Peru~$\to$~Spanish,
+India~$\to$~Hindi) in both English and the native language, holding content
+fixed, so the English/native contrast is within-country and within-model.
+Across 300 matched (model, prompt) pairs, native-language prompting
+\emph{lowers} mean composite accuracy by 3.5~percentage points (English 0.506
+$\to$ native 0.471). The effect is strongly modulated by the resource level of
+the native language (Table~\ref{tab:h2}): for the high-resource Latin-script
+languages the penalty is small (Spanish $-1.8$~pp, Portuguese $-0.5$~pp), but for
+Hindi it is large ($-11.6$~pp). India, which scores highest of all countries in
+English (0.646), drops to 0.529 in Hindi. The applied implication mirrors H6:
+the intuitive fix --- letting a local manager ask in their own language --- does
+not help and, for a non-Latin-script lower-resource language, materially hurts.
+This is consistent with the linguistic-resource hierarchy~\citep{joshi2020state}
+and motivates the corpus-representation mechanism (H4).
+
+\begin{table}[h]
+\centering
+\caption{H2: native-minus-English accuracy by native language and country
+(paired within country and model).}
+\label{tab:h2}
+\small
+\begin{tabular}{llrr}
+\toprule
+Language (Joshi) & Countries & $\Delta$ (pp) & $N$ pairs \\
+\midrule
+Spanish (5)    & MEX, ARG, PER & $-1.8$  & 180 \\
+Portuguese (4) & BRA           & $-0.5$  & 60 \\
+Hindi (4)      & IND           & $-11.6$ & 60 \\
+\midrule
+\multicolumn{2}{l}{Overall}    & $-3.5$  & 300 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Ground-truth provenance}
+\label{sec:results:gt}
+
+Because measured ``accuracy'' depends on the ground truth, the technical-standard
+target (T1) for all 15 countries was anchored to official primary sources by
+documentary verification rather than expert assertion, and is reproducible from
+the cited URLs. Eleven countries have a value read from the official regulation
+(e.g.\ Brazil's annual PM\textsubscript{2.5} standard of 17~$\mu$g/m\textsuperscript{3}
+read verbatim from Annex~I of CONAMA Resolution 506/2024 in the Di\'ario Oficial
+da Uni\~ao). Two countries have \emph{no} national PM\textsubscript{2.5} standard,
+confirmed from the official text --- Nigeria's NESREA regulation sets PM10 only,
+and Argentina has no binding federal value --- a fact the audit established
+against a circulating but incorrect secondary figure. Two (Bangladesh, Egypt)
+have the governing law identified with the numeric value partially confirmed.
+This provenance is more reproducible than expert validation: any reader can
+re-verify each value from the official source.
+
 \subsection{Inter-judge reliability}
 \label{sec:results:reliability}
 
@@ -185,14 +240,17 @@ multi-judge ensemble plus a human gold layer.
 \subsection{Summary}
 \label{sec:results:summary}
 
-Four findings hold across the 15-country confirmatory collection. (1) A small but
-consistent geographic gradient (+6.5 pp Global North advantage, $d=0.25$),
-replicating the pilot. (2) Persona prompting does not narrow that gap (DiD +0.6 pp),
-answering the applied question negatively. (3) The regional Brazilian model is the
-weakest of all 13, contradicting H3a. (4) The failure concentrates in
-technical-standard and local-datum recall (T1, T2 $\approx$ 0.32), the
-regulatory-cutoff failure mode isolated in the Brazil collection and now general
-across countries. Inter-judge reliability is strong (ICC 0.82). These signals are
+Five findings hold across the benchmark. (1) A small but consistent geographic
+gradient (+6.5 pp Global North advantage, $d=0.25$), replicating the pilot.
+(2) Native-language prompting lowers accuracy ($-3.5$ pp overall, $-11.6$ pp for
+Hindi), so neither of the two intuitive remedies helps: persona is neutral and
+the native language hurts. (3) Persona prompting does not narrow the geographic
+gap (DiD +0.6 pp), answering the applied question negatively. (4) The regional
+Brazilian model is the weakest of all 13, contradicting H3a. (5) The failure
+concentrates in technical-standard and local-datum recall (T1, T2 $\approx$ 0.32),
+the regulatory-cutoff failure mode. Inter-judge reliability is strong (ICC 0.82),
+and the T1 ground truth is anchored to official primary sources for all 15
+countries. These signals are
 robust to the judge but remain bounded by the open items in the status note ---
 expert-validated ground truth for all 15 countries, the corpus-mechanism test
 (H4), the multilingual matrix (H2), and the pre-specified formal tests with

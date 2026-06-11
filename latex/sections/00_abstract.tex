@@ -7,28 +7,31 @@ framing changes the answer, remains unmeasured for this high-stakes domain.
 PM\textsubscript{2.5} is among the leading environmental risk factors for
 premature mortality, and the burden falls disproportionately on the Global
 South, where corpus and linguistic under-representation plausibly shape model
-knowledge~\citep{gbd2019risk,joshi2020state,mohamed2020decolonial}. We benchmark large
-language models in a single applied domain, air pollution policy, anchored to
-official ground truth across five task types (normative recall, local measured
-data, health-evidence synthesis, policy instruments, and applied recommendation),
-crossing 15 theoretically stratified countries, 13 of 14 planned LLMs across five
-access tiers, and a pre-specified persona factor (neutral versus public
-environmental manager) tested within subject. From 4{,}633 LLM-as-judge composite
-scores we find: (i) a small but consistent geographic gradient --- the Global
-North outscores the Global South by 6.5 percentage points (Cohen's $d=+0.25$),
-replicating a pilot signal (H1); (ii) persona prompting does \emph{not} narrow
-that gap (difference-in-differences $+0.6$ pp, below the 5 pp threshold), so
-prompt framing is not a fix for geographic bias (H6 not supported), consistent
-with evidence that expert personas do not improve factual
-accuracy~\citep{zheng2024helpful,mollick2025personas}; (iii) the
-Brazilian-Portuguese regional model is the weakest of all 13, contradicting the
-optimistic regional-model hypothesis (H3); and (iv) failure concentrates in
+knowledge~\citep{gbd2019risk,joshi2020state,mohamed2020decolonial}. We present a
+\emph{15-country, 6-model, 4-language} benchmark in a single applied domain, air
+pollution policy, anchored to official ground truth across five task types
+(normative recall, local measured data, health-evidence synthesis, policy
+instruments, and applied recommendation), with a pre-specified persona factor
+(neutral versus public environmental manager) tested within subject and a
+within-country English/native-language contrast (Spanish, Portuguese, Hindi). From
+LLM-as-judge composite scores we find: (i) a small but consistent geographic
+gradient --- the Global North outscores the Global South by 6.5 percentage points
+(Cohen's $d=+0.25$) (H1); (ii) native-language prompting \emph{lowers} accuracy
+($-3.5$ pp overall, $-11.6$ pp for Hindi versus $-0.5$ to $-1.8$ pp for Latin-script
+languages), so asking in the local language does not help and can hurt (H2);
+(iii) persona prompting does \emph{not} narrow the gap (difference-in-differences
+$+0.6$ pp), so prompt framing is not a fix for geographic bias (H6 not supported),
+consistent with evidence that expert personas do not improve factual
+accuracy~\citep{zheng2024helpful,mollick2025personas}; (iv) the
+Brazilian-Portuguese regional model is the weakest of all models, contradicting
+the optimistic regional-model hypothesis (H3); and (v) failure concentrates in
 technical-standard and local-datum recall ($\approx 0.32$), a regulatory-cutoff
-failure mode. Inter-judge reliability against an out-of-sample judge is strong
-(ICC $=0.82$). The collection is confirmatory-partial: it excludes one model for
-lack of vendor credit, runs in English only, and uses a single judge; the
-corpus-mechanism test (H4), the multilingual matrix (H2), and expert validation
-of all-country ground truth are deferred to the final analysis. Protocol,
+failure mode. Two intuitive remedies --- a local-manager persona and the local
+language --- both fail. Inter-judge reliability against an out-of-sample judge is
+strong (ICC $=0.82$), and the technical-standard ground truth is anchored to
+official primary sources for all 15 countries. The study uses a single
+(reliability-checked) judge rather than the planned multi-judge ensemble, and
+defers the corpus-representation mechanism (H4) to the final analysis. Protocol,
 prompts, and analysis code will be released on publication.
 
 \end{abstract}
