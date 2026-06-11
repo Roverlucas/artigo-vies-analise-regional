@@ -41,9 +41,10 @@ Table~\ref{tab:conf-model} orders the 13 models by mean composite. Frontier
 systems (GPT-5, DeepSeek-V3, GPT-5-mini) lead; small open-weight models trail. The
 result bearing on H3 replicates the pilot and the Brazil collection: the
 Brazilian-Portuguese regional model Cabra-Mistral~7B is the \emph{weakest} of all
-13 (0.308), contradicting the optimistic H3a framing that a regional model buys
-domain accuracy. Scale and frontier training dominate regional instruction tuning
-at the 7B level.
+13 (0.308 versus 0.524 for the rest; Mann-Whitney $p<10^{-300}$, Cliff's
+$\delta=-0.48$), contradicting the optimistic H3a framing that a regional model
+buys domain accuracy. Scale and frontier training dominate regional instruction
+tuning at the 7B level.
 
 \begin{table}[h]
 \centering
@@ -81,7 +82,10 @@ hardest tasks are \textbf{T1 (technical-standard recall, 0.319)} and \textbf{T2
 specific binding value (a national annual PM\textsubscript{2.5} standard; a
 city-year concentration). The open recommendation task (T5) scores highest
 (0.805) because its rubric rewards plausible, well-structured policy advice that
-does not hinge on a single fact. The pattern is the core empirical finding:
+does not hinge on a single fact. The two factual-recall tasks (T1, T2, pooled
+mean 0.317) score far below the synthesis and recommendation tasks (T3--T5,
+0.641); the difference is large and unambiguous (Mann-Whitney $p<10^{-300}$,
+Cliff's $\delta=-0.69$). This is the most robust finding in the study:
 LLMs are weakest exactly where applied environmental management needs them most
 --- recalling the precise regulatory threshold or measured value in force.
 
@@ -103,22 +107,26 @@ T2 (local factual datum)     & 937 & 0.316 \\
 \end{tabular}
 \end{table}
 
-\subsection{H1 --- the geographic gradient}
+\subsection{H1 --- a tier gap, but not a development gradient}
 \label{sec:results:h1}
 
-Aggregating the twelve Global South countries against the three Global North
-countries gives a Global South mean of \textbf{0.497} ($n=3{,}692$) versus a
-Global North mean of \textbf{0.562} ($n=941$): a gap of \textbf{+6.5 percentage
-points} (Global North minus Global South), Cohen's $d = +0.25$. The direction is
-consistent with H1 and replicates the pilot signal (+6.0 pp, $d=0.34$) at full
-15-country scale, now with the persona factor active. The effect is small. The
-country-level ordering (Table~\ref{tab:conf-country}) is also informative and
-non-deterministic: India (0.632) tops all countries and Indonesia (0.539, both
-Global South) sit above Germany (0.531, Global North), while Argentina and Brazil
-anchor the bottom --- partly because their ground truth is the most demanding
-(Argentina lacks a single binding federal standard; Brazil's standard moved to
-CONAMA~506/2024). The gradient is real in aggregate but not a clean North-over-South
-ranking.
+H1 was pre-specified in two parts, and the data separate them cleanly. The
+\textbf{tier gap} holds: the three Global North countries average 0.562 against
+0.497 for the twelve Global South countries, a gap of \textbf{+6.7 percentage
+points} whose 95\% bootstrap confidence interval over countries is
+$[+2.7, +10.3]$~pp and \emph{excludes zero} (Cohen's $d=+0.25$), replicating the
+pilot. But the \textbf{monotonic gradient} the protocol pre-specified ---
+accuracy increasing with the linguistic-resource and development axes --- does
+\emph{not} hold: country-level Spearman correlations are essentially null for HDI
+($\rho=+0.16$, $p=0.29$) and for Joshi class ($\rho=-0.01$), and the Mann-Kendall
+trend by HDI is non-significant ($p=0.69$). The country ordering
+(Table~\ref{tab:conf-country}) shows why: India (0.632) tops all countries and
+Indonesia (0.539, both Global South) outscore Germany (0.531, Global North),
+while Argentina and Brazil --- both relatively high-HDI Global South ---
+anchor the bottom. The geographic disadvantage is therefore real at the tier
+level but is \emph{not} a smooth function of national development or linguistic
+resource: it is a binary North/South gap layered over large, axis-orthogonal
+country heterogeneity.
 
 \begin{table}[h]
 \centering
@@ -143,6 +151,22 @@ Mexico       & GS & 0.492 & & & \\
 \end{tabular}
 \end{table}
 
+\subsection{H4 --- corpus representation is not the mechanism}
+\label{sec:results:h4}
+
+The pre-specified mechanism for the geographic gap was training-corpus
+representation, proxied at the country level by the article count of the
+dominant official language's Wikipedia (Wikimedia, 2026), with HDI (UNDP HDR
+2023--24) as the developmental control. The association is null: Spearman
+$\rho(\text{accuracy}, \log\text{Wikipedia}) = +0.14$ ($p=0.63$), and the partial
+correlation controlling for HDI is $+0.17$ ($p=0.55$). \textbf{H4 is not
+supported}: at the country level, neither corpus size nor development accounts
+for the accuracy differences. The gap is not explained by the obvious resource
+mechanisms, which sharpens rather than weakens the result --- the geographic
+disadvantage is not simply ``less data for poorer or less-online countries.''
+We treat this proxy as coarse (it does not separate countries that share an
+official language) and revisit a finer per-country corpus measure as future work.
+
 \subsection{H6 --- persona does not narrow the geographic gap}
 \label{sec:results:h6}
 
@@ -151,8 +175,9 @@ difference-in-differences. The public-environmental-manager frame moves Global
 South accuracy by $\Delta_{\mathrm{GS}} = -0.1$ pp and Global North accuracy by
 $\Delta_{\mathrm{GN}} = -0.8$ pp, giving a DiD of $\Delta_{\mathrm{GS}} -
 \Delta_{\mathrm{GN}} = \textbf{+0.6 pp}$ --- far below the pre-specified 5 pp
-threshold for support. The geographic gap is essentially unchanged by persona:
-+6.8 pp under the neutral frame versus +6.2 pp under the manager frame.
+threshold, and a country-level permutation test (5{,}000 permutations of the
+tier label) gives $p=0.24$. The geographic gap is essentially unchanged by
+persona: +6.8 pp under the neutral frame versus +6.2 pp under the manager frame.
 \textbf{H6 is not supported}: presenting the query as coming from a public
 environmental manager neither narrows nor amplifies the Global South disadvantage.
 This is consistent with evidence that expert personas do not reliably improve
@@ -176,12 +201,14 @@ The 4-language arm renders each prompt for the five countries with a target
 native language (Brazil~$\to$~Portuguese, Mexico/Argentina/Peru~$\to$~Spanish,
 India~$\to$~Hindi) in both English and the native language, holding content
 fixed, so the English/native contrast is within-country and within-model.
-Across 300 matched (model, prompt) pairs, native-language prompting
+Across the matched (model, prompt) pairs, native-language prompting
 \emph{lowers} mean composite accuracy by 3.5~percentage points (English 0.506
-$\to$ native 0.471). The effect is strongly modulated by the resource level of
-the native language (Table~\ref{tab:h2}): for the high-resource Latin-script
-languages the penalty is small (Spanish $-1.8$~pp, Portuguese $-0.5$~pp), but for
-Hindi it is large ($-11.6$~pp). India, which scores highest of all countries in
+$\to$ native 0.471; Wilcoxon signed-rank $p=5\times10^{-4}$). The effect is
+strongly modulated by the resource level of the native language
+(Table~\ref{tab:h2}): for the high-resource Latin-script languages the penalty is
+small and not individually significant (Spanish $-1.8$~pp, $p=0.07$; Portuguese
+$-0.5$~pp, $p=0.87$), but for Hindi it is large and highly significant
+($-11.6$~pp, $p=1.7\times10^{-4}$). India, which scores highest of all countries in
 English (0.646), drops to 0.529 in Hindi. The applied implication mirrors H6:
 the intuitive fix --- letting a local manager ask in their own language --- does
 not help and, for a non-Latin-script lower-resource language, materially hurts.
@@ -240,23 +267,28 @@ multi-judge ensemble plus a human gold layer.
 \subsection{Summary}
 \label{sec:results:summary}
 
-Five findings hold across the benchmark. (1) A small but consistent geographic
-gradient (+6.5 pp Global North advantage, $d=0.25$), replicating the pilot.
-(2) Native-language prompting lowers accuracy ($-3.5$ pp overall, $-11.6$ pp for
-Hindi), so neither of the two intuitive remedies helps: persona is neutral and
-the native language hurts. (3) Persona prompting does not narrow the geographic
-gap (DiD +0.6 pp), answering the applied question negatively. (4) The regional
-Brazilian model is the weakest of all 13, contradicting H3a. (5) The failure
-concentrates in technical-standard and local-datum recall (T1, T2 $\approx$ 0.32),
-the regulatory-cutoff failure mode. Inter-judge reliability is strong (ICC 0.82),
-and the T1 ground truth is anchored to official primary sources for all 15
-countries. These signals are
-robust to the judge but remain bounded by the open items in the status note ---
-expert-validated ground truth for all 15 countries, the corpus-mechanism test
-(H4), the multilingual matrix (H2), and the pre-specified formal tests with
-multiplicity control --- which are the work of the final confirmatory analysis.
-The geographic asymmetry on air pollution policy carries direct relevance for
-environmental management in the Global South, where the disease burden is
-large~\citep{gbd2019risk,requia2024shortterm} and corpus
-under-representation~\citep{joshi2020state,mohamed2020decolonial} plausibly shapes
-what these models know.
+The formal tests draw a clean line between what is supported and what is not.
+\textbf{Supported, with effect sizes:} a Global North/South \emph{tier} gap
+(+6.7 pp, bootstrap 95\% CI $[+2.7,+10.3]$, excludes zero); a native-language
+\emph{penalty} (overall $p=5\times10^{-4}$, Hindi $p=1.7\times10^{-4}$); a
+technical-/local-recall \emph{floor} (T1+T2 vs others, $p<10^{-300}$,
+$\delta=-0.69$); and the regional model as the \emph{worst} performer
+($p<10^{-300}$, $\delta=-0.48$). \textbf{Not supported (informative nulls):} the
+geographic effect is \emph{not} a monotonic gradient in development or linguistic
+resource (Spearman vs HDI $\rho=0.16$, vs Joshi $\rho=-0.01$); corpus
+representation is \emph{not} the mechanism (partial $\rho=0.17$, $p=0.55$); and
+persona does \emph{not} narrow the gap (permutation $p=0.24$). Under Bonferroni-Holm
+across the primary family $\{$H1-gradient, H4, H6$\}$, none of the
+gradient/mechanism tests reach significance. The story is therefore disciplined
+and non-obvious: the geographic disadvantage is real but modest and \emph{not}
+explained by the usual development or corpus accounts; the dominant, robust harms
+are \emph{linguistic} (native-language prompting, worst for Hindi) and
+\emph{task-specific} (factual recall of the regulation or datum in force); and all
+three intuitive remedies --- a local-manager persona, the local language, and a
+regional model --- fail. The remaining open item is the multi-judge ensemble plus
+human gold layer; ground truth is anchored to official primary sources for all 15
+countries, and reliability against an out-of-sample judge is strong (ICC 0.82).
+This matters for environmental management in the Global South, where the disease
+burden is large~\citep{gbd2019risk,requia2024shortterm} and where exactly the
+hardest tasks --- recalling the binding standard or measured value --- are the
+ones a manager most needs~\citep{joshi2020state,mohamed2020decolonial}.

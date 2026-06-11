@@ -14,20 +14,25 @@ pollution policy, anchored to official ground truth across five task types
 instruments, and applied recommendation), with a pre-specified persona factor
 (neutral versus public environmental manager) tested within subject and a
 within-country English/native-language contrast (Spanish, Portuguese, Hindi). From
-LLM-as-judge composite scores we find: (i) a small but consistent geographic
-gradient --- the Global North outscores the Global South by 6.5 percentage points
-(Cohen's $d=+0.25$) (H1); (ii) native-language prompting \emph{lowers} accuracy
-($-3.5$ pp overall, $-11.6$ pp for Hindi versus $-0.5$ to $-1.8$ pp for Latin-script
-languages), so asking in the local language does not help and can hurt (H2);
-(iii) persona prompting does \emph{not} narrow the gap (difference-in-differences
-$+0.6$ pp), so prompt framing is not a fix for geographic bias (H6 not supported),
-consistent with evidence that expert personas do not improve factual
-accuracy~\citep{zheng2024helpful,mollick2025personas}; (iv) the
-Brazilian-Portuguese regional model is the weakest of all models, contradicting
-the optimistic regional-model hypothesis (H3); and (v) failure concentrates in
-technical-standard and local-datum recall ($\approx 0.32$), a regulatory-cutoff
-failure mode. Two intuitive remedies --- a local-manager persona and the local
-language --- both fail. Inter-judge reliability against an out-of-sample judge is
+LLM-as-judge composite scores we find: (i) a Global North/South \emph{tier} gap
+(+6.7 pp; bootstrap 95\% CI excludes zero) that is \emph{not} a monotonic gradient
+in development or linguistic resource (Spearman vs HDI/Joshi null) and is
+\emph{not} explained by corpus representation (H1 tier yes; gradient and H4 no);
+(ii) native-language prompting \emph{lowers} accuracy ($-3.5$ pp overall, Wilcoxon
+$p=5\times10^{-4}$; $-11.6$ pp for Hindi, $p=1.7\times10^{-4}$, versus a small
+non-significant penalty for Latin-script languages), so asking in the local
+language does not help and can hurt (H2); (iii) the failure concentrates in
+technical-standard and local-datum recall (T1, T2 $\approx 0.32$ vs 0.64 for other
+tasks; $\delta=-0.69$), a regulatory-cutoff floor; (iv) the Brazilian-Portuguese
+regional model is the weakest of all models ($\delta=-0.48$), contradicting the
+optimistic regional-model hypothesis (H3); and (v) persona prompting does
+\emph{not} narrow the gap (permutation $p=0.24$; H6 not supported), consistent with
+evidence that expert personas do not improve factual
+accuracy~\citep{zheng2024helpful,mollick2025personas}. The geographic disadvantage
+is thus real but modest and unexplained by the usual development/corpus accounts;
+the dominant robust harms are linguistic and task-specific; and all three
+intuitive remedies --- a local-manager persona, the local language, and a regional
+model --- fail. Inter-judge reliability against an out-of-sample judge is
 strong (ICC $=0.82$), and the technical-standard ground truth is anchored to
 official primary sources for all 15 countries. The study uses a single
 (reliability-checked) judge rather than the planned multi-judge ensemble, and
