@@ -345,7 +345,12 @@ def _call_gemini(model, prompt, temperature, max_tokens):
     }
     # Try to disable thinking for deterministic factual tasks (when supported)
     if "2.5" in model.api_model_string:
-        gen_config["thinkingConfig"] = {"thinkingBudget": 0}  # disables thinking
+        if "pro" in model.api_model_string:
+            # Gemini 2.5 Pro only works in thinking mode; give a small budget + room for output
+            gen_config["thinkingConfig"] = {"thinkingBudget": 1024}
+            gen_config["maxOutputTokens"] = max(max_tokens, 4000)
+        else:
+            gen_config["thinkingConfig"] = {"thinkingBudget": 0}  # flash: disable thinking
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model.api_model_string}:generateContent?key={key}"
     status, resp = _http_post(
         url,
