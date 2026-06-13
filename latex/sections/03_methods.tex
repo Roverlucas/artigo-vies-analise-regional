@@ -262,9 +262,10 @@ diversity so that intra-vendor correlation does not inflate apparent agreement; 
 fifth judge (Llama~3.3~70B, Meta) corroborates on the subset it covered, and a
 sixth candidate (Command~R+, Cohere) was attempted but excluded when its provider
 quota was exhausted mid-run. Reliability is reported three ways: Krippendorff's
-$\alpha$ (interval), the single-judge ICC(2,1), and, as the operative quantity,
-the \textbf{ICC(2,$k$) reliability of the panel mean}, which by the
-Spearman-Brown relation is high even when individual judges agree only
+$\alpha$ (an inter-rater agreement coefficient, $1$ = perfect, $0$ = chance), the
+single-judge ICC(2,1) (intraclass correlation for one rater, two-way random
+effects), and, as the operative quantity, the \textbf{ICC(2,$k$) reliability of
+the panel mean}, which by the Spearman-Brown relation is high even when individual judges agree only
 moderately. We report agreement transparently, including the most discordant
 judge: any systematic leniency offset cancels in the between-group contrasts that
 carry every reported effect (tier gap, language penalty, task floor), so
@@ -290,15 +291,17 @@ to support the H6 difference-in-differences test.
 \subsection{Analytical strategy}
 
 The three primary confirmatory tests are pre-specified as a single family
-(F1) and corrected together with the Bonferroni-Holm procedure. Secondary
+(F1) and corrected together with the Bonferroni-Holm procedure (a step-down
+family-wise correction for multiple comparisons). Secondary
 confirmatory tests (F2) are reported unadjusted within family, and declared
 exploratory tests (F3) use Benjamini-Hochberg FDR at
 $q=0.10$~\citep{benjamini1995fdr}.
 
 \textbf{H1 (geographic gradient, primary).} Country-level mean composite
-accuracy (n=15) is regressed on the Joshi/HDI gradient via Spearman $\rho$,
-pre-specified one-sided with threshold $\rho \geq 0.55$ at $\alpha=0.05$, with
-a Mann-Kendall trend test as a mandatory non-monotonicity complement and a
+accuracy (n=15) is regressed on the Joshi/HDI gradient via Spearman $\rho$
+(rank correlation), pre-specified one-sided with threshold $\rho \geq 0.55$ at
+$\alpha=0.05$, with a Mann-Kendall test (a non-parametric monotonic-trend test)
+as a mandatory non-monotonicity complement and a
 Global South dummy as a sensitivity contrast.
 
 \textbf{H4 (corpus-representation mechanism, primary).} Country-level partial

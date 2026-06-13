@@ -39,7 +39,8 @@ Table~\ref{tab:conf-model} orders the 14 models by mean composite. Frontier
 systems (GPT-5, GPT-5-mini, DeepSeek-V3) lead; small open-weight models trail. The
 result bearing on H3 is unambiguous: the Brazilian-Portuguese regional model
 Cabra-Mistral~7B is the \emph{weakest} of all models (0.320 versus 0.543 for the
-rest; Mann-Whitney $p\approx 0$, Cliff's $\delta=-0.51$), contradicting the
+rest; Mann-Whitney $p\approx 0$, Cliff's $\delta=-0.51$, a non-parametric effect size
+in $[-1,1]$), contradicting the
 optimistic H3 framing that a regional model buys domain accuracy. Scale and
 frontier training dominate regional instruction tuning at the 7B level.
 
@@ -374,6 +375,15 @@ consistent with --- not contrary to --- the country-coverage account: it is amon
 the most extensively documented countries in encyclopedic and multilingual
 sources, exactly the condition under which the coverage signal predicts higher
 accuracy, which is why it scores highest in English despite its development level.
+
+\textbf{Metric robustness.} The composite blends five subcomponents, so one might
+worry it dilutes or manufactures the effects. Restricting to the single most
+objective subcomponent --- factual accuracy against the registry value, ignoring
+completeness, calibration, and style --- \emph{strengthens} every headline result:
+the tier gap widens to $+10.7$~pp (versus $+6.2$ on the composite), and the
+factual-recall floor deepens (T1+T2 factual accuracy $0.25$ versus $0.71$ for
+T3--T5). The composite is therefore conservative; the geographic and task effects
+are not artifacts of mixing subcomponents.
 
 \subsection{Summary}
 \label{sec:results:summary}

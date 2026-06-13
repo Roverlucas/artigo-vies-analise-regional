@@ -126,7 +126,14 @@ which is what makes the single-judge composite defensible here.
 \textbf{No human gold layer.} Ground truth is anchored to official primary sources
 by documentary audit, not independent human scoring. This is highly reproducible
 (every value re-verifiable from a cited URL) but does not capture expert judgement
-on the rubric-scored tasks (T3, T5).
+on the rubric-scored tasks (T3, T5). Two features partly mitigate the concern that
+the scores reflect the judge rather than the responses: the four-vendor judge panel
+(ICC$(2,4)=0.89$), and the fact that restricting to objective factual accuracy
+strengthens rather than weakens the effects (Section~\ref{sec:results:robust}), so
+the headline gaps are not an artifact of a permissive composite. A blinded
+human-expert validation of a stratified response sample, scored against the same
+rubric with reported human-judge agreement, remains the natural next step and is
+deferred to the co-author panel.
 
 \textbf{Post-registration expansion.} The 25-country result is an extension
 decided after the registered analysis; we report it alongside the $n=15$ values
