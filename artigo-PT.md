@@ -75,6 +75,8 @@ Organizamos o trabalho prévio em quatro fios: a descoberta e medição do viés
 
 **Seleção de modelos.** Catorze LLMs em cinco *tiers* de acesso, abrangendo ~duas ordens de magnitude em contagem de parâmetros e quatro geografias de dados de treino. Tier C inclui um modelo aberto ajustado para português brasileiro (Cabra-Mistral 7B v3) para o teste de modelo regional (H3) contra um modelo aberto treinado globalmente, pareado em escala.
 
+**Unidade de análise.** Comparamos *modelos conforme servidos* através de um stack de acesso fixo (API oficial do fornecedor para modelos fechados; um endpoint de inferência fixado para modelos de peso aberto), não pesos idealizados isolados. Infraestrutura do provedor, configuração de serving e camada de API são parte do que cada rótulo denota, e uma lacuna residual poderia em princípio refletir o stack e não os pesos. Mantemos isso constante fixando version strings/tags e a configuração de máximo determinismo disponível por provedor numa janela de coleta fixa, e tratamos "modelo" como abreviação desse stack-de-modelo-servido; separar pesos de infraestrutura é uma questão à parte que não pretendemos resolver.
+
 **Taxonomia de domínio e tarefas.** Cinco tipos de tarefa: T1 padrão técnico; T2 dado factual local; T3 síntese de evidência em saúde; T4 instrumentos de política; T5 recomendação aplicada. T1, T2 e T4 admitem ground truth verificável e carregam o sinal de acurácia primário; T3 e T5 são pontuados por rubrica.
 
 **Manipulação de persona.** Fator intra-prompt com dois níveis: **neutro** (pedido de informação simples) e **public_manager_env** (um quadro fixo de papel identificando o solicitante como gestor ambiental municipal/regional), mantendo a pergunta substantiva idêntica. Base da hipótese H6.
@@ -175,6 +177,20 @@ Nas células (modelo, prompt) pareadas, o prompt no idioma nativo **reduz** a ac
 
 O alvo de padrão técnico (T1) para todos os 25 países foi ancorado em fontes oficiais primárias por verificação documental. A maioria tem valor lido da regulação oficial (ex.: o padrão anual de PM₂.₅ do Brasil de 17 µg/m³, lido literalmente do Anexo I da Resolução CONAMA 506/2024 no Diário Oficial da União; os 25 µg/m³ da Colômbia, lidos da Tabela 1 da Resolución 2254/2017). Três países **não** têm padrão nacional de PM₂.₅, confirmado do texto oficial — a NESREA da Nigéria fixa só PM10, a Argentina não tem valor federal vinculante, e a Angola não tem legislação nacional de qualidade do ar. Essa proveniência é mais reproduzível que validação por especialista: qualquer leitor pode reverificar cada valor na fonte oficial.
 
+### Modos de falha qualitativos
+
+Para tornar os números concretos, o Quadro 1 mostra três falhas representativas extraídas **literalmente** dos logs de resposta.
+
+**Quadro 1 — Modos de falha representativos (verbatim, levemente truncados)**
+
+| Modo de falha | Exemplo |
+|---|---|
+| **Fabricar um padrão inexistente** (país sem norma nacional de PM₂.₅) | Para a **Angola** (sem padrão nacional), o Gemini 2.5 Flash afirmou um padrão anual de "25 µg/m³" numa réplica e "15 µg/m³" noutra; o GPT-5 afirmou "15 µg/m³" para a **Nigéria**, que regula apenas PM₁₀ (NESREA). Uma resposta fiel se recusaria a declarar um valor que não existe. |
+| **Errar o valor vinculante** (piso T1) | Para o **Brasil** (padrão anual oficial 17 µg/m³, CONAMA 506/2024), a resposta modal dos modelos foi 15 µg/m³ (42 respostas), com 10, 20 e 25 também comuns; o valor oficial quase nunca foi retornado. |
+| **Degradação no idioma nativo** (H2) | Para a **Índia** (padrão anual 40 µg/m³), o GPT-OSS 120B retornou o valor correto em inglês mas uma resposta **vazia** à mesma pergunta em hindi. |
+
+O primeiro modo é o mais consequente para os casos sem padrão (Angola, Nigéria, Argentina): em vez de se absterem, os modelos inventam um corte regulatório plausível e divergem entre réplicas e entre modelos sobre o valor inventado — exatamente o comportamento que um gestor público não consegue detectar sem a fonte oficial.
+
 ### Confiabilidade entre juízes
 
 Uma amostra fixa estratificada de 131 respostas foi repontuada por um painel de fornecedores diversos: GPT-5-mini (OpenAI), Claude Sonnet 4.6 (Anthropic), Gemini 2.5 Pro (Google) e DeepSeek-V3 (DeepSeek). α de Krippendorff = 0,667; ICC(2,1) de juiz único = 0,672; e — quantidade operativa — a confiabilidade da **média do painel**, ICC(2,4) = **0,891**, alta pela relação de Spearman-Brown mesmo com juízes individuais concordando apenas moderadamente. A concordância par-a-par é mais forte entre GPT-5-mini, Claude e DeepSeek (Pearson 0,82–0,86) e menor para o Gemini, sistematicamente mais brando (0,61–0,63); como todos os efeitos são contrastes entre grupos, esse desvio de brandura cancela. Um quinto juiz (Llama 3.3 70B, Meta) corroborou no subconjunto coberto (Pearson 0,51–0,60; ICC(2,5) de cinco juízes = 0,86), mas, sendo um juiz 70B mais ruidoso, *baixou* ligeiramente o α do painel — confirmando empiricamente que quatro juízes fortes são preferíveis a cinco com um mais fraco. Um sexto candidato (Command R+) foi excluído quando sua cota de provedor esgotou.
@@ -182,6 +198,21 @@ Uma amostra fixa estratificada de 131 respostas foi repontuada por um painel de 
 ### Robustez do gradiente de desenvolvimento
 
 Testamos duas ameaças diretamente. **Extensão de faixa.** A preocupação é que adicionar dez países — sete do Norte — fabrique o gradiente esticando o preditor IDH. Não fabrica: os dez caem **dentro** da faixa de IDH já abrangida pelos quinze originais ([0,548, 0,950], da Nigéria à Alemanha), então a extensão aumenta a **densidade**, não a faixa, e a estimativa de Spearman é idêntica no conjunto restrito à faixa (ρ=0,512, p=0,009). **Observações influentes.** A reestimação *leave-one-country-out* dá uma faixa do gradiente IDH de ρ∈[+0,48, +0,66] entre todas as 25 remoções, então nenhum país único o dirige; notavelmente, remover a Índia — o país do Sul Global de maior escore e maior contraexemplo ao gradiente — *eleva* a correlação para ρ=0,66. A Índia, portanto, não sustenta o gradiente, mas o atenua; o mesmo exercício deixa estáveis a lacuna de tier ([+5,8, +7,1] pp) e a correlação exploratória de sitelinks ([+0,50, +0,63]). Lemos a Índia como consistente com — não contrária a — a conta de cobertura-do-país: está entre os países mais documentados em fontes enciclopédicas e multilíngues, exatamente a condição sob a qual o sinal de cobertura prediz maior acurácia.
+
+**Robustez da métrica.** O composto combina cinco subcomponentes, então poderia diluir ou fabricar os efeitos. Restringir ao subcomponente mais objetivo — acurácia factual contra o valor do registro, ignorando completude, calibração e estilo — **fortalece** todo resultado principal: a lacuna de *tier* amplia para **+10,7 pp** (vs +6,2 no composto), e o piso de recall factual se aprofunda (acurácia factual T1+T2 = 0,25 vs 0,71 para T3–T5). O composto é, portanto, **conservador**; os efeitos geográficos e de tarefa não são artefatos da mistura de subcomponentes.
+
+### Mapa de hipóteses, achados, mecanismos e status
+
+| Hipótese | Achado | Mecanismo candidato | Status da evidência |
+|---|---|---|---|
+| H1 (lacuna de tier) | +6,2 pp, IC exclui zero | desenvolvimento (tier) | Sustentado |
+| H1 (gradiente) | ρ=0,51 com IDH (n=25) | desenvolvimento (IDH) | Sustentado; abaixo do limiar pré-reg 0,55 |
+| H2 (idioma) | −2,1 pp; hindi −7,8 | tamanho do corpus-do-idioma | Efeito sustentado; mecanismo descritivo (n=3) |
+| H3 (modelo regional) | δ=−0,51 | escala > ajuste regional | Sustentado |
+| H4 (mecanismo geográfico) | sitelinks ρ=0,54 | cobertura-do-país | Exploratório (atenua com IDH) |
+| H4 (pré-registrado) | tamanho Wikipédia nulo | tamanho do corpus-do-idioma | Não sustentado |
+| H5 (aberto/fechado) | +14,1 pp fechado | tipo de acesso / escala | Descritivo |
+| H6 (persona) | DiD +0,4 pp | — | Não sustentado |
 
 ### Síntese
 
@@ -203,7 +234,7 @@ Propusemo-nos a medir se os LLMs respondem a questões de política de poluiçã
 
 **Por que o domínio importa.** O material particulado fino está entre os principais fatores de risco para mortalidade prematura, e o ônus recai sobre o Sul Global; o GBD atribui da ordem de cinquenta mil mortes/ano só no Brasil à exposição a PM₂.₅. O alinhamento é a parte preocupante: as regiões nas classes inferiores da hierarquia de recursos e com cobertura enciclopédica mais rala são onde a poluição do ar mais mata, então o modelo é menos confiável exatamente onde as consequências são maiores.
 
-**Limitações.** (1) **Juiz primário único** — todos os efeitos usam o composto do GPT-5-mini; endereçamos a sobreposição juiz-alvo com painel de quatro fornecedores (ICC(2,4)=0,89), mas não fazemos média de juízes, e a concordância individual é só moderada (α=0,67). (2) **Sem camada de padrão-ouro humano** — o ground truth é uma auditoria documental de passada única. (3) **Expansão post-registration** — o resultado de 25 países é extensão decidida após a análise registrada; reportamo-lo ao lado dos valores de n=15. (4) **Covariáveis grosseiras e três idiomas nativos** — o mecanismo de corpus-do-idioma para H2 repousa em apenas três idiomas e é descritivo. (5) **Domínio único** — todos os efeitos vêm de um domínio aplicado (política de poluição do ar) e uma família de proxies (Wikimedia); confinamos a linguagem mecanística e de "alavanca tratável" a este domínio, não ao viés geográfico de LLMs em geral; replicação cross-domínio é o passo natural.
+**Limitações.** (1) **Juiz primário único** — todos os efeitos usam o composto do GPT-5-mini; endereçamos a sobreposição juiz-alvo com painel de quatro fornecedores (ICC(2,4)=0,89), mas não fazemos média de juízes, e a concordância individual é só moderada (α=0,67). (2) **Sem camada de padrão-ouro humano** — o ground truth é uma auditoria documental de passada única; duas características mitigam parcialmente a preocupação de que os escores reflitam o juiz, e não as respostas (o painel de quatro fornecedores, ICC(2,4)=0,89, e o fato de que restringir à acurácia factual objetiva *fortalece* os efeitos), mas uma validação humana cega de uma amostra estratificada permanece o próximo passo, deferida ao painel de coautores. (3) **Expansão post-registration** — o resultado de 25 países é extensão decidida após a análise registrada; reportamo-lo ao lado dos valores de n=15. (4) **Covariáveis grosseiras e três idiomas nativos** — o mecanismo de corpus-do-idioma para H2 repousa em apenas três idiomas e é descritivo. (5) **Domínio único** — todos os efeitos vêm de um domínio aplicado (política de poluição do ar) e uma família de proxies (Wikimedia); confinamos a linguagem mecanística e de "alavanca tratável" a este domínio, não ao viés geográfico de LLMs em geral; replicação cross-domínio é o passo natural.
 
 **Implicações.** Para agências do Sul Global, a orientação operacional é concreta: tratar saídas de LLMs sobre padrões vinculantes e dados medidos como rascunhos a verificar contra a gazeta oficial; não supor que uma consulta no idioma local ou um modelo pequeno ajustado regionalmente melhore a acurácia; e não confiar no enquadramento de papel para fechar a lacuna. Para desenvolvedores de modelos, o resultado de cobertura-do-país aponta uma alavanca tratável distinta do volume bruto de corpus. Para a comunidade de medição, a reversão de n=15 para n=25 é uma cautela de que gradientes de viés geográfico são facilmente subpoderados.
 
