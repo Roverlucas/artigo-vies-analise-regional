@@ -1,42 +1,46 @@
 \begin{abstract}
 
-Public environmental managers increasingly delegate air pollution policy
-questions to large language models (LLMs), yet whether these systems answer as
-reliably for the Global South as for the Global North, and whether prompt
-framing changes the answer, remains unmeasured for this high-stakes domain.
-PM\textsubscript{2.5} is among the leading environmental risk factors for
-premature mortality, and the burden falls disproportionately on the Global
-South, where corpus and linguistic under-representation plausibly shape model
-knowledge~\citep{gbd2019risk,joshi2020state,mohamed2020decolonial}. We present a
-\emph{15-country, 6-model, 4-language} benchmark in a single applied domain, air
-pollution policy, anchored to official ground truth across five task types
-(normative recall, local measured data, health-evidence synthesis, policy
-instruments, and applied recommendation), with a pre-specified persona factor
-(neutral versus public environmental manager) tested within subject and a
-within-country English/native-language contrast (Spanish, Portuguese, Hindi). From
-LLM-as-judge composite scores we find: (i) a Global North/South \emph{tier} gap
-(+6.7 pp; bootstrap 95\% CI excludes zero) that is \emph{not} a monotonic gradient
-in development or linguistic resource (Spearman vs HDI/Joshi null) and is
-\emph{not} explained by corpus representation (H1 tier yes; gradient and H4 no);
-(ii) native-language prompting \emph{lowers} accuracy ($-3.5$ pp overall, Wilcoxon
-$p=5\times10^{-4}$; $-11.6$ pp for Hindi, $p=1.7\times10^{-4}$, versus a small
-non-significant penalty for Latin-script languages), so asking in the local
-language does not help and can hurt (H2); (iii) the failure concentrates in
-technical-standard and local-datum recall (T1, T2 $\approx 0.32$ vs 0.64 for other
-tasks; $\delta=-0.69$), a regulatory-cutoff floor; (iv) the Brazilian-Portuguese
-regional model is the weakest of all models ($\delta=-0.48$), contradicting the
-optimistic regional-model hypothesis (H3); and (v) persona prompting does
-\emph{not} narrow the gap (permutation $p=0.24$; H6 not supported), consistent with
-evidence that expert personas do not improve factual
-accuracy~\citep{zheng2024helpful,mollick2025personas}. The geographic disadvantage
-is thus real but modest and unexplained by the usual development/corpus accounts;
-the dominant robust harms are linguistic and task-specific; and all three
-intuitive remedies --- a local-manager persona, the local language, and a regional
-model --- fail. Inter-judge reliability against an out-of-sample judge is
-strong (ICC $=0.82$), and the technical-standard ground truth is anchored to
-official primary sources for all 15 countries. The study uses a single
-(reliability-checked) judge rather than the planned multi-judge ensemble, and
-defers the corpus-representation mechanism (H4) to the final analysis. Protocol,
-prompts, and analysis code will be released on publication.
+Public environmental managers in the Global South increasingly ask large language
+models (LLMs) about binding air-quality standards, measured concentrations, and
+health evidence --- a domain where a wrong answer can shape a regulatory brief or
+an emergency response. Whether these systems serve the Global South as reliably as
+the Global North, and whether prompt framing changes the answer, has not been
+measured for an applied policy domain with verifiable ground truth.
+PM\textsubscript{2.5} is the leading environmental risk factor for
+premature mortality, and its burden falls disproportionately on the Global
+South~\citep{gbd2019risk,who2021aqg,joshi2020state,mohamed2020decolonial}. We benchmark
+\textbf{25 countries, 14 LLMs, four languages, and five task types} (normative
+recall, local measured data, health-evidence synthesis, policy instruments, and
+applied recommendation) in air pollution policy, against official ground truth,
+with a within-subject persona factor (neutral versus public environmental manager)
+and a within-country English/native-language contrast. The design was
+pre-registered for 15 countries; we then extended it post hoc to 25 (seven more
+Global North, three more Global South) to gain power, reporting every effect
+alongside its pre-registered 15-country value.
+
+From LLM-as-judge composite scores we find a Global North/South \textbf{tier} gap
+of $+6.2$~pp (bootstrap 95\% CI $[+3.7,+8.6]$). A development gradient appears in
+the 25-country sample (Spearman $\rho=0.51$ with HDI, $p=0.004$; Mann-Kendall
+$p=0.018$; leave-one-out robust). It was undetectable at the pre-registered $n=15$
+($\rho=0.14$) and sits below our pre-registered $0.55$ effect-size threshold, and
+it tracks development, not linguistic-resource class (Joshi null). Three harms are
+robust. Native-language prompting \emph{lowers} accuracy ($-2.1$~pp overall,
+$p=2\times10^{-3}$; $-7.8$~pp for Hindi), so the local language does not help and
+can hurt. Accuracy collapses on technical-standard and local-datum recall (T1, T2
+$\approx 0.37$ vs $0.64$ elsewhere; $\delta=-0.64$), a regulatory-cutoff floor.
+And the Brazilian-Portuguese regional model is the weakest of all
+($\delta=-0.51$). Three intuitive fixes therefore fail together: neither a
+local-manager persona (permutation $p=0.26$), nor the local language, nor a
+regional model closes the gap. On mechanism, the pre-registered corpus proxy
+(Wikipedia size) is null; a country-coverage proxy (Wikidata sitelinks) correlates
+with accuracy ($\rho=0.54$, $p=0.005$, surviving multiplicity correction) but
+attenuates to non-significance after adjusting for development ($p=0.13$), so we
+report country coverage as a \emph{suggestive, exploratory} channel --- better than
+language-corpus size, as expected for a gap measured in English --- not as an
+established mechanism. Reliability across a four-vendor judge panel is strong (ICC
+of the panel mean $=0.89$), and ground truth is anchored to official primary
+sources for all 25 countries; the study uses one panel-validated primary judge and
+a documentary ground-truth audit without a human-gold layer. Protocol, prompts,
+and analysis code will be released on publication.
 
 \end{abstract}

@@ -1,186 +1,161 @@
 \section{Discussion}
 \label{sec:discussion}
 
-This paper contributes a study protocol and a pilot. The protocol pre-specifies
-a benchmark for air pollution policy with verifiable official ground truth, a
-persona manipulation as a within-subject experimental factor, and a planned
-confirmatory study across 15 theoretically stratified countries. The pilot
-exercises that protocol end-to-end on a reduced configuration (7 countries, 5
-models, neutral prompts only, single automated judge) to validate the pipeline
-and to produce a first directional signal. We read the pilot as evidence about
-\emph{feasibility and plausible direction}, not as a test of any hypothesis.
-The numbers below are exploratory, the inference is noisy, and the confirmatory
-study is what will decide the questions we pose. We organise the discussion
-around the pilot signal, the persona hypothesis and why it is worth testing,
-the public-health stakes that motivate the domain, the limitations that bound
-what the pilot can say, and the confirmatory study these results are designed
-to inform.
+We set out to measure whether LLMs answer air pollution policy questions as
+reliably for the Global South as for the Global North, whether prompt framing
+changes the answer, and what mechanism drives any gap. The benchmark --- 25
+countries, 14 models, four languages, five tasks, two personas, scored by a
+panel-validated judge against official ground truth --- returns a disciplined and
+partly counter-intuitive picture. A geographic disadvantage exists and, with
+adequate power, resolves into a genuine development gradient; but its mechanism is
+country representation rather than language-corpus size, the dominant harms are
+linguistic and task-specific, and every intuitive remedy fails. We organise the
+discussion around the gradient and its mechanism, the robust harms, the three
+failed remedies, the public-health stakes, the limitations that bound the claims,
+and what follows for practice.
 
-\subsection{Reading the pilot signal}
+\subsection{The geographic gap is a development gradient --- visible only at power}
 
-\subsubsection*{The geographic gap (H1) appears, in the expected direction}
+At the pre-registered $n=15$, the North/South \emph{tier} gap was real
+($+6.7$~pp, CI excludes zero) but the \emph{gradient} was undetectable
+(Spearman vs HDI $\rho=0.14$, $p=0.31$). Extending the sample to 25 countries ---
+adding seven high-HDI Global North references that thicken the high-development
+end of the sample (without widening its range; Section~\ref{sec:results:robust}) ---
+the gradient resolves into significance ($\rho=0.51$ with HDI, $p=0.004$;
+Mann-Kendall $p=0.018$), the one primary-family test that rejects its null under
+Bonferroni-Holm. We are deliberately transparent that this is a
+post-registration extension and that $\rho=0.51$ falls just short of the
+pre-specified $0.55$ effect-size threshold: the honest statement is that the
+gradient is significant but of moderate magnitude, and that it was underpowered,
+not absent, in the registered design. This is itself a methodological lesson for
+the field --- geographic-bias gradients across a handful of countries are easy to
+miss at small $n$, and the $n=15$ null would have been the wrong conclusion.
 
-In the pilot, mean composite accuracy was higher for the two Global North
-countries (0.636, $n=200$) than for the five Global South countries (0.575,
-$n=500$), an absolute gap of about 6 percentage points (pilot Cohen's
-$d \approx 0.34$, pooled SD 0.180). The direction matches H1 and is consistent
-with the broader literature on geographic factual bias: WorldBench's elevated
-error ratio for Sub-Saharan Africa versus North
-America~\citep{moayeri2024worldbench} and Global-Liar's privileging of Global
-North statements~\citep{mirza2024global}. That the pattern surfaces in an
-applied air pollution policy task suite, rather than in numeric trivia or
-journalistic fact-checking, is the feasibility result we sought: the tasks
-discriminate, the ground truth anchors, and the pipeline returns a signal
-pointed the way the theory predicts.
+Crucially, the gradient is in \emph{development} (HDI), not in linguistic-resource
+class (Joshi $\rho=-0.06$), and it coexists with large country-specific
+heterogeneity: India tops all 25 countries despite being Global South, and Germany
+is the lowest-scoring Global North country. The disadvantage is a development
+gradient layered over substantial idiosyncrasy, not a clean ranking, which is why
+the tier contrast and the gradient are complementary rather than redundant
+descriptions.
 
-We do not over-read the magnitude. Six points is small-to-moderate, the
-between-country variance in the pilot was modest (ICC$_{\text{country}}
-\approx 0.03$), and with only seven countries and a single judge the
-country-level estimates are noisy. A 6-point pilot gap is compatible with a
-range of confirmatory outcomes, including a null. The pilot's role is to show
-that the effect is large enough to be worth powering for, and the observed
-variance components feed directly into the confirmatory power analysis.
+\subsection{A suggestive mechanism: country coverage over language-corpus size}
 
-\subsubsection*{The open-versus-closed contrast (H5) ran against expectation}
+Our pre-registered mechanism test fails: the Wikipedia-size proxy is null
+(partial $\rho=0.04$), so H4 as registered is not supported. Exploring further, we
+find a more promising lead. Because the gap is measured \emph{in English}, with
+the query language held constant, a residual North/South difference cannot be an
+effect of how much text exists in a country's language; and the candidate that
+\emph{does} track accuracy is how broadly the corpus represents the country ---
+Wikidata sitelinks correlate at $\rho=0.54$ ($p=0.005$, surviving multiplicity
+correction across three coverage proxies). We are deliberately cautious about this
+result: the association \emph{attenuates to non-significance after adjusting for
+development} (partial $\rho=0.32$, $p=0.13$), so country coverage and HDI are
+entangled and the present design cannot establish that coverage \emph{causes} the
+gap. We therefore offer the country-coverage-over-language-size contrast as a
+\emph{suggestive, testable refinement} of the ``less data for under-represented
+regions'' intuition --- one that the India case illustrates (its very high
+multilingual encyclopedic coverage accompanies its top English score) and that the
+leave-one-out analysis shows is not driven by any single country --- rather than as
+an established mechanism. If it replicates under a design that can separate
+coverage from development, it would reframe mitigation toward how comprehensively
+a country is described in widely-mirrored sources rather than the size of its
+language's web corpus.
 
-The pilot's H5 signal points the other way from what the protocol entertained.
-Closed accessible models (Claude Haiku, GPT-5-mini, Gemini Flash; mean 0.643)
-outscored open frontier models (Llama 4 Scout, Command R+; mean 0.517) by
-about 12.5 percentage points, well beyond the 5-point band the protocol treats
-as practical equivalence. We flag this as a contrary signal and resist
-explaining it away, but two features of the pilot configuration bear directly
-on it. The open arm was represented by Llama 4 Scout at 17B parameters, smaller
-than the 70B-and-above frontier open models the confirmatory study targets, so
-the contrast partly reflects model scale rather than the open-versus-closed
-property of interest. H5 is also an exploratory hypothesis in the protocol,
-reported descriptively rather than as a powered confirmatory test. The honest
-reading is that the pilot does not support a parity claim for open models at
-this scale, and the confirmatory study, with larger open models in the arm,
-will provide the cleaner contrast.
+\subsection{The robust harms are linguistic and task-specific}
 
-\subsubsection*{Task-level behaviour is informative for the protocol}
+Two findings are large, significant, and stable across both samples. First, the
+\textbf{factual-recall floor}: the two tasks that require a specific binding value
+--- the national standard (T1) and a measured city-year concentration (T2) ---
+score around 0.37, far below synthesis and recommendation (0.64; $\delta=-0.64$).
+The floor sits precisely on the binding values a manager most needs to trust.
+Second, the \textbf{native-language penalty}: asking in the local language lowers
+accuracy ($-2.1$~pp overall, $p=0.002$), trivially for high-resource Spanish but
+materially for Hindi ($-7.8$~pp). The penalty tracks language-corpus size across
+the three native languages, the mechanism the resource hierarchy
+predicts~\citep{joshi2020state,xue2021mt5}. Together these say the practical risk
+is concentrated, not diffuse: a manager retrieving a regulatory cutoff, especially
+in a lower-resource language, is in the worst cell of the design.
 
-Composite accuracy varied substantially across the five task types in the
-pilot, with the normative-recall task (T1, mean 0.507) and the applied
-recommendation task (T5, mean 0.499) hardest, and the health-evidence synthesis
-task (T3, mean 0.677) easiest. T1 anchors to the binding ambient standard,
-which in Brazil sits inside an active regulatory transition: CONAMA Resolution
-506/2024 supersedes the 491/2018 framework and brings the interim targets into
-force on a defined schedule. A model that has absorbed the older framework but
-not the transition will recall a superseded value, which is precisely the kind
-of high-stakes, time-sensitive error a normative task is built to surface. The
-low T1 score is consistent with that mechanism, though the pilot cannot
-attribute it, and it confirms that the normative task discriminates as intended.
+\subsection{Three intuitive remedies, all failing}
 
-\subsection{Why test persona (H6)}
-
-The protocol's co-primary hypothesis, H6, asks whether adopting the persona of
-a public environmental manager changes the Global South accuracy gap. The pilot
-did not manipulate persona; all pilot prompts were neutral. H6 is therefore a
-question the confirmatory study will answer, and the case for asking it rests
-on a tension in the evidence.
-
-Practitioners prefix queries with roles routinely (``As a municipal
-environmental secretary, \ldots''), on the intuition that a role frame steers
-the model toward policy-relevant, norm-compliant answers. The accuracy
-literature does not support that intuition. Across four model families and
-2{,}410 factual questions, adding expert personas to system prompts did not
-improve accuracy over a no-persona control, and averaged across 162 roles it
-slightly reduced it~\citep{zheng2024helpful}; an independent analysis reaches
-the same conclusion that expert personas do not improve factual
-accuracy~\citep{mollick2025personas}. If that result holds in our domain, the
-naive expectation that a persona ``helps'' is wrong, and the open question
-becomes which way it fails.
-
-We pre-specify both directions. Under the \emph{Norm-Compliance} hypothesis, the
-manager persona narrows the Global South gap by cueing the model toward the
-regulatory register where official standards and agencies live. Under the
-\emph{Persona-Vacuum} hypothesis, the persona widens the gap by inviting
-confident fabrication of regulatory specifics the model never learned for
-under-represented countries, converting an honest ``I don't know'' into a
-fluent but wrong attainment deadline or agency name. The persona literature
-gives us no reason to expect a free accuracy gain and a concrete reason to
-worry about the second failure mode, which is exactly why persona belongs in
-the design as a controlled factor rather than an uncontrolled habit of
-practice. Treating it as an experimental lever lets the confirmatory study
-report whichever direction the data support, with the amplification direction
-reported transparently if it appears.
+The applied contribution is largely negative. \textbf{The
+local-manager persona} does not narrow the gap (DiD $+0.4$~pp, permutation
+$p=0.26$); presenting the query as coming from a public environmental manager
+changes nothing, consistent with evidence that expert personas do not improve
+factual accuracy~\citep{zheng2024helpful,mollick2025personas}. \textbf{The local
+language} does not help and can hurt (H2). \textbf{The regional model} ---
+Brazilian-Portuguese Cabra-Mistral~7B --- is the \emph{worst} performer of all 14
+($\delta=-0.51$), so reaching for a locally tuned small model trades away the
+scale and frontier training that actually carry domain accuracy. Practitioners
+routinely deploy all three of these as fixes; none survives contact with the data.
+The honest message for Global South environmental agencies is that none of the
+cheap prompt- or model-level workarounds substitutes for verifying the binding
+value against the official source.
 
 \subsection{Why the domain matters}
 
-The stakes are not benchmarking abstractions. Fine particulate matter is among
-the leading environmental risk factors for premature mortality, and the burden
-falls disproportionately on the Global South; the Global Burden of Disease
-estimates attribute on the order of fifty thousand deaths per year in Brazil
-alone to PM\textsubscript{2.5} exposure~\citep{gbd2019risk}, and short-term
-exposure continues to drive measurable mortality and morbidity in Brazilian
-cities~\citep{requia2024shortterm}. When a public environmental manager in a
-Global South city delegates a normative lookup, a measured-concentration
-retrieval, or an operational recommendation to an LLM, an inaccurate answer can
-propagate into a regulatory brief or an emergency response during a pollution
-episode. A geographic gap of even a few points in this setting is consequential
-in a way it is not for cultural trivia, because the under-served languages and
-regions that sit in the lower classes of the Joshi resource
-hierarchy~\citep{joshi2020state} are also where air pollution kills the most
-people. That alignment between corpus under-representation and mortality burden
-is the link the protocol is built to probe, and it is what makes the
-confirmatory study worth running carefully rather than quickly.
+The stakes are not benchmarking abstractions. Fine particulate matter is among the
+leading environmental risk factors for premature mortality, and the burden falls
+disproportionately on the Global South; the Global Burden of Disease attributes on
+the order of fifty thousand deaths per year in Brazil alone to
+PM\textsubscript{2.5} exposure~\citep{gbd2019risk}, and short-term exposure
+continues to drive measurable mortality in Brazilian
+cities~\citep{requia2024shortterm}. When a manager delegates a normative lookup or
+an episode recommendation to an LLM, an inaccurate answer can propagate into a
+regulatory brief or an emergency response. The alignment is the worrying part:
+the regions in the lower classes of the resource hierarchy~\citep{joshi2020state}
+and with thinner encyclopedic coverage are also where air pollution kills the most
+people, so the model is least reliable exactly where the consequences are
+greatest. We read the whole pattern within the coloniality-of-knowledge
+framework~\citep{mohamed2020decolonial}: LLMs are compressed summaries of corpora
+produced under uneven digital and publication access, and the development gradient,
+the country-coverage mechanism, and the language penalty are three measurable
+links from corpus asymmetry to knowledge asymmetry.
 
 \subsection{Limitations}
 
-The pilot's limitations are substantial and define the boundary between what we
-observed and what we can claim.
+\textbf{Single primary judge.} All effects use the GPT-5-mini composite. We
+address the judge--target overlap with a four-vendor panel on a fixed sample
+(panel-mean ICC$(2,4)=0.89$), but we do not average judges for the primary score,
+and individual-judge agreement is only moderate ($\alpha=0.67$); a more lenient
+fifth judge lowered $\alpha$, underscoring residual judge sensitivity. Because all
+reported effects are between-group contrasts, a judge's leniency offset cancels,
+which is what makes the single-judge composite defensible here.
 
-\textbf{Single automated judge.} Pilot scoring used one LLM judge (Claude Haiku
-4.5) under a G-Eval rubric. A single judge yields no inter-rater reliability
-estimate, and the judge model is itself in the evaluated sample, raising a
-self-evaluation concern that the pilot documents but cannot resolve. The
-confirmatory study uses a non-overlapping judge and a second rater (or human
-panel) with a pre-specified agreement threshold.
+\textbf{No human gold layer.} Ground truth is anchored to official primary sources
+by documentary audit, not independent human scoring. This is highly reproducible
+(every value re-verifiable from a cited URL) but does not capture expert judgement
+on the rubric-scored tasks (T3, T5).
 
-\textbf{No persona condition.} The pilot ran neutral prompts only. The
-co-primary persona hypothesis (H6) is therefore untested here; the pilot speaks
-to feasibility and to H1/H5 direction, not to persona effects.
+\textbf{Post-registration expansion.} The 25-country result is an extension
+decided after the registered analysis; we report it alongside the $n=15$ values
+and treat it as a power-and-robustness check, but a confirmatory replication at
+$n=25$ would strengthen the gradient claim, which currently sits just under the
+pre-specified effect-size threshold.
 
-\textbf{No multilingual prompts.} All pilot prompts were in English. The
-language $\times$ geography interaction (H2), which is where the resource
-hierarchy is expected to bite hardest, is not exercised in the pilot.
+\textbf{Coarse covariates and three native languages.} The corpus proxies are
+public and reproducible but coarse; the language-corpus mechanism for H2 rests on
+only three native languages and is reported descriptively; and Oceania-native and
+Joshi Class~0 languages remain out of scope.
 
-\textbf{Seven countries, single-author non-Brazilian prompts.} The pilot covers
-7 of the 15 protocol countries. Prompts for non-Brazilian countries were
-authored by a single author without the regional expert-panel validation the
-protocol requires, so cross-country comparisons are provisional and the
-country-level estimates are noisy at this $N$.
+\textbf{Single domain.} All effects come from one applied domain (air pollution
+policy) and one family of corpus proxies (Wikimedia). The development gradient and
+the country-coverage signal may not transfer to other policy domains with
+different documentation patterns, and we confine the mechanistic and
+``tractable-lever'' language to this domain rather than to LLM geographic bias in
+general; cross-domain replication is the natural next step.
 
-\textbf{Reduced open-model arm.} The open arm used Llama 4 Scout at 17B, smaller
-than the frontier open models (70B and above) the protocol specifies. The H5
-contrast is consequently confounded with scale and should not be read as a
-verdict on open models in general.
+\subsection{Implications}
 
-These are limitations of the pilot, not of the protocol. Each is addressed by
-the confirmatory configuration: multi-rater scoring with a non-overlapping
-judge, the full persona manipulation, a sparse multilingual matrix, expert-panel
-prompt validation across all 15 countries, and frontier-scale open models in
-the open arm.
-
-\subsection{Toward the confirmatory study}
-
-The pilot does its job: it shows the pipeline runs end-to-end, the air pollution
-policy tasks discriminate, the H1 gap appears in the expected direction at a
-magnitude worth powering for, and the variance components needed to finalise the
-power analysis are now in hand. It also surfaces a contrary H5 signal that the
-confirmatory design, with larger open models, is positioned to test cleanly. The
-planned confirmatory study executes the pre-specified protocol in full: 15
-countries stratified on UNCTAD North/South classification, the Joshi
-linguistic-resource taxonomy~\citep{joshi2020state}, and development indicators;
-the persona manipulation as a within-subject factor for the co-primary H6 test;
-a non-overlapping judge with inter-rater reliability; and the corpus-representation
-mechanism test with E-value sensitivity. We interpret the whole programme within
-the coloniality-of-knowledge framework~\citep{mohamed2020decolonial}: LLMs are
-compressed summaries of corpora produced under uneven digital and publication
-access, and the confirmatory study tests one link in a theorised reproduction
-cycle, from training-corpus asymmetry to LLM knowledge asymmetry to policy
-decision asymmetry, while the persona manipulation tests whether prompt framing
-interrupts or aggravates that link. Until the confirmatory data are collected,
-the appropriate conclusion is a methodological one: the design is feasible, the
-direction is plausible, and the questions are worth the larger study.
+For environmental agencies in the Global South the operational guidance is
+concrete: treat LLM outputs on binding standards and measured data as drafts to be
+checked against the official gazette, do not assume a local-language query or a
+regionally tuned small model improves accuracy, and do not rely on role framing to
+close the gap. For model developers, the country-coverage result points to a
+tractable lever --- breadth of encyclopedic representation --- distinct from raw
+language-corpus volume. For the measurement community, the $n=15$-to-$n=25$
+reversal is a caution that geographic-bias gradients are easily underpowered.
+These are the links the study set out to probe, and the data turn each from a
+plausible worry into a measured effect with an official-source-anchored ground
+truth.

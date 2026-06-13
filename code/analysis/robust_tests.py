@@ -18,6 +18,13 @@ ROOT = Path(__file__).parent.parent.parent
 SCORES = ROOT / "data" / "confirmatory_PRIVATE" / "analysis" / "judge_scores_confirmatory.jsonl"
 GS = {"BRA","MEX","ARG","PER","NGA","ZAF","KEN","EGY","IND","IDN","BGD","PHL"}
 GN = {"USA","DEU","JPN"}
+# Post-registration expansion (10 new countries)
+GS_EXT = {"COL","CHL","AGO"}
+GN_EXT = {"UK","CAN","AUS","KOR","FRA","ITA","PRT"}
+import sys as _sys
+if "--n25" in _sys.argv:
+    GS = GS | GS_EXT
+    GN = GN | GN_EXT
 
 
 def load():

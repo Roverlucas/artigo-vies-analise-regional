@@ -5,39 +5,41 @@ Large language models are becoming working infrastructure for air pollution
 policy, a domain where an inaccurate answer about a binding standard, a measured
 concentration, or an operational response carries direct public-health stakes in
 the Global South, where the PM\textsubscript{2.5} mortality burden is
-heaviest~\citep{gbd2019risk,requia2024shortterm}. This paper contributes a
-pre-specified study protocol for measuring geographic and persona-modulated bias
-in that domain, together with a pilot that exercises the protocol end-to-end.
+heaviest~\citep{gbd2019risk,requia2024shortterm}. We measured geographic and
+persona-modulated bias in that domain with a 25-country, 14-model, four-language
+benchmark, scored by a panel-validated judge against ground truth anchored to
+official primary sources for every country.
 
-The pilot is exploratory and small: 7 countries, 5 models, neutral prompts, and
-a single automated judge. Within those bounds it is encouraging for the
-protocol. The pipeline runs end-to-end, the air pollution policy tasks
-discriminate across countries and task types, and the Global South accuracy gap
-appears in the expected direction at about 6 percentage points, a magnitude
-worth powering a confirmatory study for. The pilot also returns a contrary
-signal on the open-versus-closed model contrast, plausibly because the open arm
-used a model smaller than the confirmatory target, which the larger study is
-designed to test cleanly.
+The geographic disadvantage is real and, given adequate power, resolves into a
+significant development gradient (Spearman $\rho=0.51$ with HDI at $n=25$, having
+been undetectable at the pre-registered $n=15$, robust to leave-one-out but below
+our pre-registered effect-size threshold), alongside a stable $+6.2$~pp
+North/South tier gap. The mechanism is harder to pin down: the pre-registered
+corpus proxy is null, and a country-coverage proxy correlates with accuracy
+($\rho=0.54$) but does not survive adjustment for development, so we report country
+representation --- not language-corpus size --- as a \emph{suggestive} lead
+coherent with a gap measured in English, not as an established mechanism. The dominant harms are linguistic (native-language
+prompting lowers accuracy, worst for Hindi) and task-specific (a sharp
+factual-recall floor on standards and measured data, $\delta=-0.64$). And the
+three intuitive remedies all fail: a local-manager persona does not narrow the gap
+($p=0.26$), the local language does not help and can hurt, and the
+Brazilian-Portuguese regional model is the weakest of all systems
+($\delta=-0.51$).
 
-We do not claim a confirmed result. The pilot did not manipulate persona, used
-English-only prompts, relied on a single judge that overlaps the evaluated
-models, and drew on single-author prompts for non-Brazilian countries. The
-persona question (H6) is open, and the persona literature gives us reason to
-expect no free accuracy gain and a concrete risk of amplified fabrication for
-under-represented countries~\citep{zheng2024helpful,mollick2025personas}, which
-is why we test both the norm-compliance and persona-vacuum directions in the
-confirmatory design rather than assuming a persona helps.
-
-The contribution here is a defensible foundation: a domain benchmark with
-verifiable official ground truth, a persona manipulation specified as a
-controlled experimental factor, theory-driven country sampling, and a pilot that
-demonstrates feasibility and a plausible direction. The confirmatory study will
-execute the full protocol across all 15 countries with persona, multilingual
-prompts, expert-validated stimuli, frontier-scale open models, and
-non-overlapping multi-rater scoring. We interpret the programme within the
-coloniality-of-knowledge framework~\citep{mohamed2020decolonial}: the languages
-and regions under-served in training corpora~\citep{joshi2020state} are the same
-ones where air pollution kills the most people, and whether prompt framing
-interrupts or aggravates that asymmetry is the question the larger study is built
-to answer. The protocol, pilot data, code, and prompts are released openly to
-support that study.
+The honest message for Global South environmental agencies is therefore concrete
+and largely cautionary: LLM outputs on binding standards and measured data should
+be treated as drafts checked against the official gazette, and none of the cheap
+prompt- or model-level workarounds --- role framing, the local language, a
+regionally tuned small model --- substitutes for that verification. For model
+developers, the country-coverage result identifies a tractable lever distinct from
+raw corpus volume. We read the pattern within the coloniality-of-knowledge
+framework~\citep{mohamed2020decolonial}: the regions under-served in training
+corpora~\citep{joshi2020state} are the same ones where air pollution kills the
+most people, and this study turns two of those links --- a development gradient and
+a language penalty --- from plausible worries into measured effects, while
+localizing a third (country coverage) only suggestively. We also report a methodological caution: the
+$n=15$-to-$n=25$ reversal shows geographic-bias gradients are easily underpowered,
+and we flag the expansion as a post-registration extension whose gradient sits
+just under our pre-specified effect-size threshold. Protocol, prompts,
+official-source ground-truth registry, analysis code, and anonymized response data
+are released openly.

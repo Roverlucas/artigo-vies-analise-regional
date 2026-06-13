@@ -19,6 +19,9 @@ ROOT = Path(__file__).parent.parent.parent
 SCORES = ROOT / "data" / "confirmatory_PRIVATE" / "analysis" / "judge_scores_confirmatory.jsonl"
 GS = {"BRA","MEX","ARG","PER","NGA","ZAF","KEN","EGY","IND","IDN","BGD","PHL"}
 GN = {"USA","DEU","JPN"}
+# Post-registration expansion (10 new countries). GS: COL, CHL, AGO. GN: rest.
+GS_EXT = {"COL","CHL","AGO"}
+GN_EXT = {"UK","CAN","AUS","KOR","FRA","ITA","PRT"}
 
 # Official covariates (HDI: UNDP HDR23-24; Wiki: Wikimedia, millions of articles; Joshi: dominant official lang)
 COV = {
@@ -26,6 +29,12 @@ COV = {
  "BRA":(0.760,1.17,4),"MEX":(0.781,2.12,5),"ARG":(0.849,2.12,5),"PER":(0.762,2.12,5),
  "IND":(0.644,7.19,5),"IDN":(0.713,0.78,3),"EGY":(0.728,1.32,5),"BGD":(0.670,0.19,3),
  "NGA":(0.548,7.19,5),"ZAF":(0.717,7.19,5),"KEN":(0.601,7.19,5),"PHL":(0.710,7.19,5),
+}
+# Expansion covariates (HDI: UNDP HDR23-24 2022; Wiki: language-edition millions; Joshi class)
+COV_EXT = {
+ "UK":(0.940,7.19,5),"CAN":(0.935,7.19,5),"AUS":(0.946,7.19,5),
+ "FRA":(0.910,2.60,5),"ITA":(0.906,1.88,4),"KOR":(0.929,0.68,4),
+ "COL":(0.758,2.12,5),"CHL":(0.860,2.12,5),"PRT":(0.874,1.17,4),"AGO":(0.591,1.17,4),
 }
 
 
@@ -93,19 +102,23 @@ def mann_kendall(y):
     return S,Z,p
 
 def main():
+    import sys
+    use25 = "--n25" in sys.argv
+    cov = {**COV, **COV_EXT} if use25 else dict(COV)
+    gs = (GS | GS_EXT) if use25 else set(GS)
     rows=[json.loads(l) for l in open(SCORES) if l.strip()]
     rows=[r for r in rows if 'composite' in r and not r.get('error') and 'JUDGE_API_ERROR' not in str(r.get('rationale',''))]
     # English-only for country-level (exclude native _pt/_es/_hi)
     eng=[r for r in rows if '_AP_' in (r.get('prompt_id') or '') and not (r.get('prompt_id') or '').endswith(('_pt','_es','_hi'))]
     acc={}
-    for c in COV:
+    for c in cov:
         v=[r['composite'] for r in eng if r.get('country_iso3')==c]
         if v: acc[c]=statistics.mean(v)
-    countries=[c for c in COV if c in acc]
+    countries=[c for c in cov if c in acc]
     A=[acc[c] for c in countries]
-    HDI=[COV[c][0] for c in countries]
-    WIKI=[math.log(COV[c][1]) for c in countries]
-    JOSHI=[COV[c][2] for c in countries]
+    HDI=[cov[c][0] for c in countries]
+    WIKI=[math.log(cov[c][1]) for c in countries]
+    JOSHI=[cov[c][2] for c in countries]
     n=len(countries)
 
     print(f"=== FORMAL TESTS (country-level, n={n}, English prompts) ===\n")
@@ -135,7 +148,7 @@ def main():
         neu=[r['composite'] for r in eng if r.get('country_iso3')==c and r.get('persona')=='neutral']
         per=[r['composite'] for r in eng if r.get('country_iso3')==c and r.get('persona')=='public_manager_env']
         if neu and per:
-            DA.append(statistics.mean(per)-statistics.mean(neu)); lab.append(c in GS)
+            DA.append(statistics.mean(per)-statistics.mean(neu)); lab.append(c in gs)
     obs=did(lab)
     rnd=random.Random(42); ge=0; N=5000
     for _ in range(N):

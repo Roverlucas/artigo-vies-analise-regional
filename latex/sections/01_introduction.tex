@@ -2,14 +2,17 @@
 \label{sec:intro}
 
 Large language models (LLMs) have moved from research curiosity to working
-infrastructure of public administration in under five years. Environmental
-agencies, municipal secretariats, and applied policy analysts increasingly
-draft technical syntheses, translate regulatory norms, locate official
-monitoring data, and characterize institutional frameworks with LLM
-assistance~\citep{messeri2024science,bail2024llm}. Air pollution policy is a
-domain where this adoption carries direct stakes for public health. Fine
-particulate matter (PM\textsubscript{2.5}) is among the leading environmental
-risk factors for premature mortality worldwide, and the burden falls
+infrastructure of public administration in under five years: an OECD survey of
+core government functions documents generative-AI adoption across policymaking
+and public-service delivery, including deployments that help public-administration
+staff search regulations and draft technical summaries~\citep{oecd2024governing}.
+Environmental agencies, municipal secretariats, and applied policy analysts
+increasingly draft technical syntheses, translate regulatory norms, locate
+official monitoring data, and characterize institutional frameworks with such
+assistance. Air pollution policy is a domain where this adoption carries direct
+stakes for public health. Fine particulate matter (PM\textsubscript{2.5}) is the
+leading environmental risk factor for premature mortality
+worldwide~\citep{gbd2019risk,who2021aqg}, and the burden falls
 disproportionately on the Global South~\citep{gbd2019risk}. When a public
 environmental manager in S\~ao Paulo, Lagos, or Jakarta asks an LLM about an
 ambient air quality standard, an attainment deadline, or the epidemiological
@@ -62,8 +65,9 @@ benchmarks are not.
 
 \paragraph{Gap 2: persona framing is unexamined as an experimental lever.}
 Practitioners routinely prefix queries with a role (``As a municipal
-environmental secretary, \dots''), and persona or role conditioning is widely
-used in deployed prompting workflows. Whether adopting the persona of a public
+environmental secretary, \dots''), and persona or role conditioning is a
+documented prompt pattern in deployed prompting
+workflows~\citep{white2023prompt}. Whether adopting the persona of a public
 environmental manager \emph{reduces} the Global South accuracy gap (by steering
 the model toward policy-relevant, regulation-compliant responses) or
 \emph{amplifies} it (by inviting confident fabrication of regulatory specifics
@@ -73,16 +77,21 @@ uncontrolled confound.
 
 \paragraph{Gap 3: the corpus-representation mechanism is asserted, not
 tested for this domain.} The link between corpus representation and accuracy is
-assumed but rarely measured against confounders. We test whether
-country-level corpus-representation proxies (Wikipedia article counts as
-primary, Common Crawl shares as secondary) correlate with air pollution policy
-accuracy after adjusting for Human Development Index and GDP per capita.
+assumed but rarely measured against confounders, and rarely separated into its
+two channels. We distinguish \emph{language-corpus} size (how much text exists in
+a country's language: mC4 token volume~\citep{xue2021mt5}, OSCAR
+size~\citep{abadji2022oscar}, Joshi class) from \emph{country-coverage} breadth
+(how broadly the corpus is about a country: Wikipedia and Wikidata coverage), and
+test which predicts air pollution policy accuracy after adjusting for Human
+Development Index --- a distinction that matters because the geographic gap is
+measured in English.
 
 \subsection*{Contributions of this work}
 
-We present a study protocol for a benchmark designed for these gaps, with
-hypotheses, sampling, and analysis plan pre-specified before confirmatory data
-collection~\citep{nosek2018preregistration}. Our contributions are:
+We present a benchmark designed for these gaps, with hypotheses, sampling, and
+analysis plan pre-specified before data
+collection~\citep{nosek2018preregistration}, executed across 15 countries and
+then extended to 25. Our contributions are:
 
 \begin{enumerate}\setlength{\itemsep}{2pt}
 \item \textbf{An air pollution policy task suite with verifiable ground truth.}
@@ -104,12 +113,17 @@ collection~\citep{nosek2018preregistration}. Our contributions are:
   countries stratified along independent axes: UNCTAD North/South
   classification (operationalising coloniality~\citep{mohamed2020decolonial}),
   the Joshi et al.\ six-class linguistic-resource
-  taxonomy~\citep{joshi2020state}, and Human Development and income indicators.
-  This separates geographic, linguistic, and economic contributions to the bias.
-\item \textbf{Mechanistic test with sensitivity analysis.} We test the
-  corpus-representation hypothesis (H4) using country-level Wikipedia and
-  Common Crawl proxies, with partial-correlation controls for HDI and log GDP
-  per capita and an E-value sensitivity threshold~\citep{vanderweele2017evalue}.
+  taxonomy~\citep{joshi2020state}, and Human Development and income indicators,
+  later extended to 25 to gain power for the gradient and mechanism tests. This
+  separates geographic, linguistic, and economic contributions to the bias, and
+  shows --- as a methodological by-product --- that the development gradient is
+  underpowered at $n=15$ but significant at $n=25$.
+\item \textbf{Mechanistic test separating the two corpus channels.} We test the
+  corpus-representation hypothesis (H4) using both language-corpus and
+  country-coverage proxies, with partial-correlation controls for HDI. The
+  pre-registered language-size proxy is null; a country-coverage proxy is a
+  suggestive but development-entangled lead, which we report as exploratory rather
+  than as an established mechanism.
 \item \textbf{Regional-model probe.} We include a Brazilian-Portuguese
   instruction-tuned open-weight model (Cabra-Mistral 7B v3) to test, as a
   secondary confirmatory hypothesis (H3), whether regional tuning narrows the
