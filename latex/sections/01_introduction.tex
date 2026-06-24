@@ -91,7 +91,12 @@ measured in English.
 We present a benchmark designed for these gaps, with hypotheses, sampling, and
 analysis plan pre-specified before data
 collection~\citep{nosek2018preregistration}, executed across 15 countries and
-then extended to 25. Our contributions are:
+then extended to 25. Throughout, our unit of analysis is the model \emph{as
+served} --- a stack of model weights, vendor, and serving infrastructure reached
+through a pinned API or inference endpoint --- rather than an idealized set of
+weights, because a public manager interacts with the served stack and any
+measured gap is a property of that stack (Section~\ref{sec:methods}). Our
+contributions are:
 
 \begin{enumerate}\setlength{\itemsep}{2pt}
 \item \textbf{An air pollution policy task suite with verifiable ground truth.}

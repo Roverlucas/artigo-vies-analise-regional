@@ -70,7 +70,7 @@ Two findings are large, significant, and stable across both samples. First, the
 score around 0.37, far below synthesis and recommendation (0.64; $\delta=-0.64$).
 The floor sits precisely on the binding values a manager most needs to trust.
 Second, the \textbf{native-language penalty}: asking in the local language lowers
-accuracy ($-2.1$~pp overall, $p=0.002$), trivially for high-resource Spanish but
+accuracy ($-2.1$~pp overall, $p=0.002$), negligibly for high-resource Spanish but
 materially for Hindi ($-7.8$~pp). The penalty tracks language-corpus size across
 the three native languages, the mechanism the resource hierarchy
 predicts~\citep{joshi2020state,xue2021mt5}. Together these say the practical risk
@@ -152,6 +152,16 @@ the country-coverage signal may not transfer to other policy domains with
 different documentation patterns, and we confine the mechanistic and
 ``tractable-lever'' language to this domain rather than to LLM geographic bias in
 general; cross-domain replication is the natural next step.
+
+\textbf{Served-model stack as the unit of analysis.} Each model is evaluated as
+served through a fixed access stack (vendor API or pinned inference endpoint), so
+provider infrastructure, serving configuration, and API layer are part of what
+each label denotes. We hold the stack constant within the collection window, but a
+residual geographic gap could in principle reflect the stack rather than the
+weights; disentangling weights from infrastructure --- as a controlled
+quasi-isolation design could --- is beyond this study's scope, and we report the
+gap as a property of the served stack a public manager actually queries, not of
+idealized weights.
 
 \subsection{Implications}
 

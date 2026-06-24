@@ -1,0 +1,11 @@
+{
+  "judge_model": "gpt-5-mini-2025-08-07",
+  "n_total": 9251,
+  "n_english": 7580,
+  "n_native": 1671,
+  "n_models": 14,
+  "n_countries": 25,
+  "n_ground_truth": 25,
+  "acquisition_first": "2026-04-26T18:34:41",
+  "acquisition_last": "2026-06-12T02:41:47"
+}

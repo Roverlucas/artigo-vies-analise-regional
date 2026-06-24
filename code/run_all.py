@@ -40,7 +40,25 @@ def main():
                     help="Run with real API calls (requires keys)")
     ap.add_argument("--quick-power", action="store_true",
                     help="Quick power analysis (n_iter=50); full=2000")
+    ap.add_argument("--confirmatory", action="store_true",
+                    help="Reproduce the real 25-country confirmatory results from "
+                         "committed judge scores, regenerate Supplementary tables, "
+                         "and run the integrity QA gate.")
     args = ap.parse_args()
+
+    if args.confirmatory:
+        # Confirmatory reproducibility: real committed data -> tables -> QA gate.
+        py = sys.executable  # robust across environments where "python" is absent
+        step("C1. Formal tests (primary family, n=25)",
+             [py, "analysis/formal_tests.py", "--n25"])
+        step("C2. Robust secondary tests (n=25)",
+             [py, "analysis/robust_tests.py", "--n25"])
+        step("C3. Regenerate Supplementary tables",
+             [py, "analysis/make_supplement_tables.py"])
+        step("C4. Reproducible QA gate (recompute every headline number)",
+             [py, "analysis/qa_reproduce_claims.py"])
+        print("\n[Confirmatory reproduction complete — QA gate passed]")
+        return
 
     # Step 1: Generate synthetic prompts (always)
     step("1. Generate prompts",

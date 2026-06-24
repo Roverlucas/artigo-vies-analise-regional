@@ -3,44 +3,49 @@
 Public environmental managers in the Global South increasingly ask large language
 models (LLMs) about binding air-quality standards, measured concentrations, and
 health evidence --- a domain where a wrong answer can shape a regulatory brief or
-an emergency response. Whether these systems serve the Global South as reliably as
-the Global North, and whether prompt framing changes the answer, has not been
-measured for an applied policy domain with verifiable ground truth.
-PM\textsubscript{2.5} is the leading environmental risk factor for
-premature mortality, and its burden falls disproportionately on the Global
-South~\citep{gbd2019risk,who2021aqg,joshi2020state,mohamed2020decolonial}. We benchmark
-\textbf{25 countries, 14 LLMs, four languages, and five task types} (normative
-recall, local measured data, health-evidence synthesis, policy instruments, and
-applied recommendation) in air pollution policy, against official ground truth,
-with a within-subject persona factor (neutral versus public environmental manager)
-and a within-country English/native-language contrast. The design was
-pre-registered for 15 countries; we then extended it post hoc to 25 (seven more
-Global North, three more Global South) to gain power, reporting every effect
-alongside its pre-registered 15-country value.
+an emergency response. PM\textsubscript{2.5} is the leading environmental risk
+factor for premature mortality, and its burden falls disproportionately on the
+Global South~\citep{gbd2019risk,who2021aqg,joshi2020state,mohamed2020decolonial}.
+Whether these systems serve the Global South as reliably as the Global North, and
+whether prompt framing changes the answer, has not been measured for an applied
+policy domain with verifiable ground truth.
 
-From LLM-as-judge composite scores we find a Global North/South \textbf{tier} gap
-of $+6.2$~pp (bootstrap 95\% CI $[+3.7,+8.6]$). A development gradient appears in
-the 25-country sample (Spearman $\rho=0.51$ with HDI, $p=0.004$; Mann-Kendall
-$p=0.018$; leave-one-out robust). It was undetectable at the pre-registered $n=15$
-($\rho=0.14$) and sits below our pre-registered $0.55$ effect-size threshold, and
-it tracks development, not linguistic-resource class (Joshi null). Three harms are
-robust. Native-language prompting \emph{lowers} accuracy ($-2.1$~pp overall,
-$p=2\times10^{-3}$; $-7.8$~pp for Hindi), so the local language does not help and
-can hurt. Accuracy collapses on technical-standard and local-datum recall (T1, T2
-$\approx 0.37$ vs $0.64$ elsewhere; $\delta=-0.64$), a regulatory-cutoff floor.
-And the Brazilian-Portuguese regional model is the weakest of all
+We benchmark \textbf{25 countries, 14 LLMs, four languages, and five task types}
+(normative recall, local measured data, health-evidence synthesis, policy
+instruments, and applied recommendation) against official ground truth. We
+evaluate each model \emph{as served} through a fixed access stack (vendor API or
+pinned inference endpoint), with a within-subject persona factor (neutral versus
+public environmental manager) and a within-country English/native-language
+contrast. The design was pre-registered for 15 countries and then extended post
+hoc to 25 (seven more Global North, three more Global South) to gain power; every
+effect is reported alongside its pre-registered 15-country value.
+
+Three harms are robust. A Global North/South \textbf{tier} gap of $+6.2$~pp
+(bootstrap 95\% CI $[+3.7,+8.6]$, excludes zero) resolves, at $n=25$, into a
+\textbf{development gradient} (Spearman $\rho=0.51$ with HDI, $p=0.004$;
+Mann-Kendall $p=0.018$; leave-one-out robust) that was undetectable at the
+pre-registered $n=15$ ($\rho=0.14$), sits just below our pre-registered $0.55$
+effect-size threshold, and tracks development, \emph{not} linguistic-resource
+class (Joshi null). \textbf{Native-language prompting lowers accuracy}
+($-2.1$~pp overall, $p=2\times10^{-3}$; $-7.8$~pp for Hindi), so the local
+language does not help and can hurt. \textbf{Accuracy collapses on
+technical-standard and local-datum recall} (T1, T2 $\approx 0.37$ vs $0.64$
+elsewhere; Cliff's $\delta=-0.64$), a regulatory-cutoff floor; and the
+Brazilian-Portuguese \textbf{regional model is the weakest of all}
 ($\delta=-0.51$). Three intuitive fixes therefore fail together: neither a
 local-manager persona (permutation $p=0.26$), nor the local language, nor a
-regional model closes the gap. On mechanism, the pre-registered corpus proxy
-(Wikipedia size) is null; a country-coverage proxy (Wikidata sitelinks) correlates
-with accuracy ($\rho=0.54$, $p=0.005$, surviving multiplicity correction) but
-attenuates to non-significance after adjusting for development ($p=0.13$), so we
-report country coverage as a \emph{suggestive, exploratory} channel --- better than
+regional model closes the gap.
+
+On mechanism, the pre-registered corpus proxy (Wikipedia size) is null; a
+country-coverage proxy (Wikidata sitelinks) correlates with accuracy
+($\rho=0.54$, $p=0.005$, surviving multiplicity correction) but attenuates to
+non-significance after adjusting for development ($p=0.13$). We therefore report
+country coverage as a \emph{suggestive, exploratory} channel --- better than
 language-corpus size, as expected for a gap measured in English --- not as an
-established mechanism. Reliability across a four-vendor judge panel is strong (ICC
-of the panel mean $=0.89$), and ground truth is anchored to official primary
-sources for all 25 countries; the study uses one panel-validated primary judge and
-a documentary ground-truth audit without a human-gold layer. Protocol, prompts,
-and analysis code will be released on publication.
+established mechanism. Reliability across a four-vendor judge panel is strong
+(panel-mean ICC$(2,4)=0.89$), and ground truth is anchored to official primary
+sources for all 25 countries; the study uses one panel-validated primary judge
+and a documentary ground-truth audit without a human-gold layer. Protocol,
+prompts, and analysis code will be released on publication.
 
 \end{abstract}

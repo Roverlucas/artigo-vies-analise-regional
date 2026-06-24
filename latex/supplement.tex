@@ -1,0 +1,392 @@
+% ============================================================
+% SUPPLEMENTARY INFORMATION
+% Geographic and Linguistic Bias in LLMs for Air Pollution Policy
+% A 25-Country, 14-Model, 4-Language, 5-Task Benchmark
+% ============================================================
+% Reproducibility note: every data-driven table in this document is regenerated
+% from the raw confirmatory artifacts by code/analysis/make_supplement_tables.py
+% (inputs under data/confirmatory_PRIVATE/). Numbers are never hand-entered.
+% ============================================================
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}\onehalfspacing
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{caption}\captionsetup{font=small,labelfont=bf}
+\usepackage[numbers,square,comma,sort&compress]{natbib}
+\bibliographystyle{unsrtnat}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+
+% Number all floats, equations, sections with an "S" prefix.
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\captionsetup{labelsep=period}
+
+\title{Supplementary Information\\[0.3em]
+\large Geographic and Linguistic Bias in LLMs for Air Pollution Policy:\\
+A 25-Country, 14-Model, 4-Language, 5-Task Benchmark}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\noindent\textbf{Reproducibility.} Every data-driven table below
+(Tables~\ref{tab:s-roster}--\ref{tab:s-groundtruth}) is regenerated from the raw
+confirmatory artifacts by \texttt{code/analysis/make\_supplement\_tables.py}; no
+value is hand-entered. The primary judge for all reported composites is
+\texttt{gpt-5-mini-2025-08-07}. The analysed confirmatory corpus comprises 9{,}251
+judge-scored responses (7{,}580 English-prompt; 1{,}671 native-language) over 25
+countries and 14 deployment stacks. All inputs, the scoring code, the
+ground-truth registry, and the anonymised responses will be released on
+publication under CC-BY-4.0 (data/prompts) and MIT (code).
+
+\tableofcontents
+
+% ============================================================
+\section{Pre-registration, design, and country selection}
+% ============================================================
+
+The hypotheses, primary models, persona protocol, exclusion criteria,
+multiple-comparison corrections, and the country sampling frame were specified in
+advance of confirmatory data collection. The pre-registered design covers
+\textbf{15 countries}; the sample was subsequently extended, \emph{post
+registration}, to \textbf{25 countries} to gain power for the development gradient
+(H1) and the corpus-mechanism tests (H4) and to multiply the within-country
+language pairs (H2). Throughout the manuscript and this supplement, every effect
+computed on the 25-country sample is reported alongside its pre-registered
+15-country value, and no pre-registered conclusion is revised on the basis of the
+extension alone (Section~\ref{sec:s-stats}).
+
+Countries were selected by theoretical sampling triangulated across three
+independent classifications: the UNCTAD Global North/South classification
+(operationalising the coloniality-of-knowledge framing), the Joshi et al.\ (2020)
+six-class linguistic-resource taxonomy~\citep{joshi2020state}, and World Bank
+income groups. The pre-registered 15 (Set ``P'' in Table~\ref{tab:s-cov-country})
+span four world regions, five Joshi classes, and four income groups; the 10
+extension countries (Set ``E'') comprise seven additional Global North references
+(United Kingdom, Canada, Australia, South Korea, France, Italy, Portugal) chosen
+to thicken the high-development end of the gradient, and three additional Global
+South native-language-pair countries (Colombia, Chile, Angola). The full design
+rationale is in \texttt{docs/supplement/s1\_design\_rationale.md}.
+
+% ============================================================
+\section{Deployment-stack roster and serving configuration}
+% ============================================================
+
+\paragraph{Unit of analysis.} We evaluate each model \emph{as served} through a
+fixed access stack --- the tuple of model weights, vendor, serving infrastructure,
+and API/endpoint layer --- rather than idealized weights in isolation, because a
+public manager interacts with the served stack and any measured gap is a property
+of that stack. Table~\ref{tab:s-roster} lists the 14 stacks with their exact
+API/tag strings and execution venues.
+
+\input{supplement/tables/tab_s_roster}
+
+\paragraph{Determinism and seed handling.} All stacks were queried at
+temperature~0.3 with the maximum-determinism configuration each provider
+documents, not an identical parameter surface, because the surfaces differ. Seed
+support is heterogeneous: locally served stacks (Ollama) honour a fixed seed;
+OpenAI exposes an advisory seed; Anthropic's Messages API exposes no seed
+parameter; and for the remaining hosted endpoints a seed is either advisory or
+not exposed. For every call we record the requested seed and a
+\texttt{seed\_status} field (\texttt{sent}, \texttt{logged-only}, or
+\texttt{not-supported}) in the released run metadata, so that the determinism
+actually achieved is auditable rather than assumed. Two stochastic replications
+per (prompt, model, persona) cell estimate within-cell variability.
+
+\paragraph{Acquisition window.} Served-model behaviour can drift as vendors update
+infrastructure, so the reported accuracies are point-in-time estimates relative to
+the collection window. The pinned tag, version string, and acquisition timestamp
+are recorded for every call. Confirmatory collection ran from
+\textbf{2026-04-26 to 2026-06-12} (UTC), spanning the pilot, the pre-registered
+15-country collection, and the post-registration extension to 25 countries.
+Table~\ref{tab:s-acquisition} gives the first and last non-error call timestamp
+per provider together with the official API documentation consulted; the full
+per-call timestamps are released with the dataset.
+
+\input{supplement/tables/tab_s_acquisition}
+
+% ============================================================
+\section{Coverage}
+% ============================================================
+
+Per-cell coverage is not uniform across the roster: free and rate-limited
+endpoints returned fewer admissible responses than the metered APIs, and one
+candidate (Gemini~2.5~Flash on early native batches) and a sixth judge
+(Command~R+) hit provider quotas. We report realized coverage rather than
+silently dropping under-covered cells. Table~\ref{tab:s-cov-task} gives the
+model~$\times$~task English-prompt matrix (column totals equal the by-task counts
+in the main text); Table~\ref{tab:s-cov-country} gives per-country English,
+native, and total counts with tier and pre-registration set; Table~\ref{tab:s-native}
+lists the native-language pairs used for H2. The complete
+model~$\times$~country~$\times$~task coverage CSV, with the quota or exclusion
+reason for every shortfall, is included in the release.
+
+\input{supplement/tables/tab_s_cov_task}
+\input{supplement/tables/tab_s_cov_country}
+\input{supplement/tables/tab_s_native}
+
+% ============================================================
+\section{Country covariates}
+% ============================================================
+
+Table~\ref{tab:s-covariates} reports the developmental and corpus-representation
+covariates used in the mechanism analysis (H4). \textbf{Language-corpus} measures
+(Joshi class; mC4/OSCAR sizes reported in the main text) index how much text
+exists \emph{in} a country's language and are the candidate channel for the
+native-language penalty (H2). \textbf{Country-coverage} measures (English-Wikipedia
+article byte length, Wikidata sitelinks, Wikidata statements) index how broadly
+the encyclopedic corpus is \emph{about} a country, independent of language, and
+are the candidate channel for the geographic gap (H1/H4). Because the geographic
+gap is measured \emph{in English}, a residual North/South gap cannot be a
+language-corpus effect, which is why H4 isolates country coverage for H1 and
+language-corpus size for H2. All Wikidata entities are identified by a resolvable
+QID and were retrieved within the collection window.
+
+\input{supplement/tables/tab_s_covariates}
+
+% ============================================================
+\section{Ground-truth registry (T1)}
+% ============================================================
+
+The validity of the geographic gradient (H1) requires that ground truth be
+equally available and equally verifiable across countries. For T1 (the binding
+annual PM\textsubscript{2.5} standard) we anchored every country to an official
+primary source by documentary audit: the source text was retrieved, the value was
+read verbatim, and the entry records the value, status, source-of-record, a
+resolvable URL, and the retrieval method (Table~\ref{tab:s-groundtruth}). Three
+countries have \emph{no} national PM\textsubscript{2.5} standard, confirmed from
+the official text (Nigeria's NESREA regulates PM\textsubscript{10} only; Argentina
+has no binding federal value; Angola has no national air-quality legislation); in
+those cases a faithful model must decline to state a non-existent threshold rather
+than fabricate one. This provenance is more reproducible than expert assertion:
+any reader can re-verify each value from the cited official source. No reference
+in the registry is unverified, and no value was carried over from secondary
+sources without confirmation against the primary text.
+
+\input{supplement/tables/tab_s_groundtruth}
+
+% ============================================================
+\section{Composite outcome and scoring rubric}
+% ============================================================
+
+Every response was scored by the primary judge against the ground-truth registry
+entry (T1, T2, T4) or the validated rubric (T3, T5), producing five subcomponents
+each normalised to $[0,1]$:
+\begin{enumerate}\setlength{\itemsep}{1pt}
+  \item \textbf{Factual accuracy} against the registry value (binary for T1;
+        partial credit for T2--T4).
+  \item \textbf{Contextual completeness} scored against a pre-validated rubric
+        (T3, T4).
+  \item \textbf{Citation quality}, verified via DOI/official-source check.
+  \item \textbf{Absence of hallucination}, coded binarily ($0$ hallucinated,
+        $1$ faithful).
+  \item \textbf{Applied validity}, the rubric score for the operational
+        recommendation (T5).
+\end{enumerate}
+The primary composite uses equal weights. Two pre-specified sensitivity
+weightings are reported --- a PCA-derived set estimated on the Brazil extended
+pilot, and an author-specified set (factual~0.30, contextual~0.25, citation~0.15,
+hallucination~0.15, applied~0.15) --- and a conclusion is treated as robust only
+if it holds under all three. The composite is computed per (country, model,
+persona) cell to support the H6 difference-in-differences test. Each scored record
+also stores the judge's free-text rationale; for example, the
+\texttt{gpt-5-mini} judge scored a Llama~4~Scout reply on Brazil's T1 standard
+$0.15$ with the rationale that it ``gives wrong regulation (491/2018 vs correct
+506/2024) and wrong current value\ldots\ included a specific but incorrect
+citation and fabricated timing,'' illustrating how the factual-accuracy and
+hallucination subcomponents discriminate substantive failure.
+
+% ============================================================
+\section{Judge-panel reliability}\label{sec:s-reliability}
+% ============================================================
+
+To address the judge--target overlap (the primary judge, \texttt{gpt-5-mini}, is
+itself among the evaluated tier), a fixed stratified reliability sample of
+\textbf{131 responses} (stratified by country~$\times$~task~$\times$~persona, fixed
+seed) was independently re-scored by a vendor-diverse panel. The sample was frozen
+\emph{before} judging --- the agreement sampler otherwise re-draws from the live
+response base, which desynchronised the per-judge samples when the base grew from
+15 to 25 countries --- and pinned to the judges' common items by
+\texttt{code/analysis/judge\_fixed\_keys.py}.
+
+\begin{table}[h]\centering
+\caption{Inter-judge reliability on the fixed 131-item sample. The operative
+quantity is the reliability of the panel \emph{mean}, ICC$(2,k)$; by the
+Spearman--Brown relation it is high even when single judges agree only moderately.
+Source: \texttt{judge\_panel\_reliability.json}.}
+\label{tab:s-reliability}
+\small
+\begin{tabular}{lr}
+\toprule
+Quantity & Value \\
+\midrule
+Judges ($k$) & 4 (OpenAI, Anthropic, Google, DeepSeek) \\
+Common items & 131 \\
+Krippendorff's $\alpha$ (interval) & 0.667 \\
+Single-judge ICC$(2,1)$ & 0.672 \\
+\textbf{Panel-mean ICC$(2,4)$} & \textbf{0.891} \\
+\midrule
+Pairwise Pearson: GPT-5-mini $\,\vert\,$ Claude Sonnet & 0.859 \\
+\quad GPT-5-mini $\,\vert\,$ DeepSeek-V3 & 0.834 \\
+\quad Claude Sonnet $\,\vert\,$ DeepSeek-V3 & 0.821 \\
+\quad GPT-5-mini $\,\vert\,$ Gemini 2.5 Pro & 0.626 \\
+\quad Claude Sonnet $\,\vert\,$ Gemini 2.5 Pro & 0.630 \\
+\quad DeepSeek-V3 $\,\vert\,$ Gemini 2.5 Pro & 0.610 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Agreement is strongest among GPT-5-mini, Claude, and DeepSeek (Pearson
+$0.82$--$0.86$) and lowest for the systematically more lenient Gemini
+($0.61$--$0.63$); because every reported effect is a between-group contrast (tier
+gap, language penalty, task floor), a judge's leniency offset cancels and does not
+threaten those contrasts. A fifth judge (Llama~3.3~70B, Meta) corroborated on the
+items it covered (five-judge ICC$(2,5)=0.861$) but, being a noisier 70B judge,
+\emph{lowered} the panel $\alpha$ to $0.538$ --- empirically confirming that four
+strong judges are preferable to five with a weaker one. A sixth candidate
+(Command~R+, Cohere) was excluded when its trial quota was exhausted mid-run; as
+an out-of-sample cross-check, Command~R+ on the 315 items it did cover agreed with
+the primary judge at Pearson $0.647$ / ICC$(2,1)=0.602$. The study uses the single
+\texttt{gpt-5-mini} composite for all effects, validated by this panel, rather
+than a judge-averaged score; the absence of an independent human-gold layer is
+stated as a limitation in the main text.
+
+% ============================================================
+\section{Statistical methods and full confirmatory test outputs}\label{sec:s-stats}
+% ============================================================
+
+The three primary confirmatory tests form a single family (F1) corrected together
+with the Bonferroni--Holm step-down procedure ($\alpha=0.05$). Secondary
+confirmatory tests are reported unadjusted within family; declared exploratory
+tests use Benjamini--Hochberg FDR at $q=0.10$. Rank correlations use Spearman
+$\rho$; monotonic-trend robustness uses the Mann--Kendall test; the persona effect
+uses a country-level permutation test (5{,}000 permutations). All outputs below are
+regenerated by \texttt{code/analysis/formal\_tests.py},
+\texttt{robust\_tests.py}, and \texttt{h4\_corpus\_mechanism.py}.
+
+\begin{table}[h]\centering
+\caption{Primary family (Bonferroni--Holm): pre-registered 15-country values
+beside the post-registration 25-country extension. H1-by-HDI is the one primary
+test that rejects its null at $n=25$; it remains below the pre-registered
+$\rho\geq 0.55$ effect-size threshold in both samples.}
+\label{tab:s-primary}
+\small
+\begin{tabular}{lll}
+\toprule
+Test & 15 countries (pre-registered) & 25 countries (extension) \\
+\midrule
+H1 Spearman $\rho$(acc, HDI)        & $+0.143$ (one-sided $p=0.306$), ns & $\mathbf{+0.512}$ ($p=0.004$), rejects under B--H \\
+H1 Mann--Kendall (by HDI)           & $S=9$, $Z=+0.40$, $p=0.692$        & $S=102$, $Z=+2.36$, $p=0.018$ \\
+H1 Spearman $\rho$(acc, Joshi)      & $+0.028$, ns                       & $-0.061$, ns (development, not linguistic) \\
+H1 vs threshold $\rho\geq 0.55$     & not met                            & not met (significant, below effect size) \\
+H4 partial $\rho$(acc, Wiki$\,\vert\,$HDI) & $+0.218$ ($p=0.45$), ns      & $+0.036$ ($p=0.87$), ns \\
+H6 DiD persona (GS$-$GN)            & $+0.97$~pp, perm $p=0.142$, ns     & $+0.39$~pp, perm $p=0.257$, ns \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]\centering
+\caption{H4 corpus mechanism, multi-measure (25 countries). Country-coverage
+breadth (Wikidata sitelinks) predicts accuracy at the zero-order level and
+survives multiplicity correction across the three coverage proxies, but attenuates
+to non-significance after adjusting for development (HDI); we therefore report it
+as suggestive/exploratory, not as an established mechanism. The pre-registered
+language-edition proxy is null.}
+\label{tab:s-h4}
+\small
+\begin{tabular}{llrr}
+\toprule
+Measure & Family & $\rho$(acc, log measure) & partial $\,\vert\,$ HDI \\
+\midrule
+English-Wikipedia bytes      & country  & $+0.198$ ($p=0.34$) & $+0.181$ \\
+\textbf{Wikidata sitelinks}  & country  & $\mathbf{+0.539}$ ($p=0.005$) & $+0.317$ ($p=0.13$) \\
+Wikidata statements          & country  & $+0.313$ ($p=0.13$) & $+0.144$ \\
+Wikipedia-edition count      & language & $+0.082$, ns        & $+0.036$, ns \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]\centering
+\caption{Robust secondary findings (25 countries), with leave-one-country-out
+(LOCO) and range-restriction checks.}
+\label{tab:s-robust}
+\small
+\begin{tabular}{ll}
+\toprule
+Finding & Statistic \\
+\midrule
+Tier gap (GN$-$GS)                 & $+6.2$~pp, 95\% CI $[+3.7,+8.6]$ (15-country: $+6.7$ $[+2.8,+10.2]$) \\
+Tier gap, LOCO range               & $[+5.8,+7.1]$~pp, stable \\
+H1 HDI gradient, LOCO range        & $\rho\in[+0.48$ (drop NGA)$,\ +0.66$ (drop IND)$]$ \\
+H1 range-restricted (within 15-country HDI span) & $\rho=0.512$ ($p=0.009$): density, not range \\
+Task floor (T1{+}T2 vs T3--T5)     & $0.367$ vs $0.638$, Mann--Whitney, Cliff's $\delta=-0.64$ \\
+H3 Cabra-Mistral vs rest           & $0.320$ vs $0.543$, Cliff's $\delta=-0.51$ \\
+H2 native vs English (all)         & $\Delta=-2.1$~pp, Wilcoxon $p=1.96\times10^{-3}$ ($n=762$) \\
+\quad Spanish / Portuguese / Hindi & $-1.0$ ($p=0.15$) / $-2.3$ ($p=0.033$) / $-7.8$ ($p=0.013$) \\
+H2 country-level (independent unit, $n=9$) & 9/9 negative, mean $-2.4$~pp, Wilcoxon $p=0.008$ \\
+H5 open vs closed-accessible       & $+14.1$~pp closed advantage (descriptive) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+\section{Prompt construction, persona template, and verbatim examples}
+% ============================================================
+
+Prompts were authored in English for the air pollution policy domain with domain
+supervision (PPGSAU/UTFPR) and validated against the ground-truth registry before
+entering the confirmatory stimulus set; a pilot subset met an inter-rater
+threshold of Krippendorff's $\alpha\geq 0.70$ before scaling. Native-language
+renderings (Portuguese, Spanish, Hindi) were translated and back-translated by
+native speakers; any prompt whose back-translation produced a semantic shift was
+rewritten or excluded. Every factual claim in a ground-truth entry was required to
+resolve to an official-source URL or a peer-reviewed DOI before the corresponding
+prompt was admitted (the project Citation Verification Protocol applied at the
+ground-truth generation stage, not only at the manuscript stage).
+
+\paragraph{Persona manipulation.} Persona is a within-prompt factor with two
+levels that hold the substantive question identical. The \texttt{neutral} level
+presents a plain information request; the \texttt{public\_manager\_env} level
+prepends a fixed role frame. The contrast is shown verbatim for Brazil, T1:
+
+\begin{quote}\small
+\textbf{Neutral.} ``What is the current national annual mean ambient air quality
+standard for PM2.5 in Brazil? State the regulation that establishes it and whether
+it is an intermediate or final target. Limit to 1--3 sentences.''
+
+\smallskip
+\textbf{Public environmental manager.} ``\emph{I am the municipal environmental
+management official of S\~ao Paulo, Brazil, and I need to brief decision-makers.}
+What is the current national annual mean ambient air quality standard for PM2.5 in
+Brazil? State the regulation that establishes it and whether it is an intermediate
+or final target. Limit to 1--3 sentences.''
+\end{quote}
+
+\noindent The corresponding registry ground truth is: ``Brazil's national
+PM\textsubscript{2.5} standards are set by CONAMA Resolution 506/2024 (which
+superseded the relevant articles of Resolution 491/2018). The stage in force in
+2026 is Intermediate Target PI-2; the Final Target adopts the WHO 2021 annual
+guideline of 5~$\mu$g/m\textsuperscript{3}'' (source: CONAMA Resolution 506/2024).
+Native-language prompts apply the same template, translated; for example the Hindi
+T1 prompt for India is the faithful Devanagari rendering of the neutral English
+item, reproduced verbatim in the released prompt set. The complete prompt set
+(370 confirmatory items: 25 countries $\times$ 5 tasks $\times$ persona, plus
+native-language pairs) is released as \texttt{prompts\_confirmatory.jsonl} with the
+per-item ground truth, source, and rubric.
+
+% ============================================================
+\bibliography{references}
+
+\end{document}

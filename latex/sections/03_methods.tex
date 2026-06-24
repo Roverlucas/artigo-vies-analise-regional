@@ -199,7 +199,7 @@ first validated for inter-rater agreement using Krippendorff's $\alpha$, with a
 threshold of $\alpha \geq 0.70$ required before scaling the design. All prompts
 were authored in English and, for a stratified subset of countries, additionally
 in a relevant native language (sparse multilingual matrix; Supplementary
-Table~S2); native-language prompts were translated and back-translated by
+Section~S3); native-language prompts were translated and back-translated by
 native-speaker translators, and any prompt whose back-translation produced a
 semantic shift was rewritten or excluded. Following the Brazil pilot validation,
 every factual claim in a ground-truth entry was required to resolve to an
@@ -238,13 +238,25 @@ missing ground truth is never scored as a model error.
 API and local calls were executed at temperature~0.3 with deterministic seeds
 where available, with 2 replications per prompt-model-persona combination to
 estimate stochastic variability within the budget. Collection occurred within a
-fixed window to minimize model-update confounds, with pinned tags and version
-strings recorded per call. All responses were stored alongside complete request
-metadata (model version string or tag, timestamp, token counts, finish reason,
-persona condition) in a versioned storage layer with SHA-256 checksums.
-Response quality gates excluded truncated responses
+fixed window to minimize model-update confounds, with the pinned tag, version
+string, and acquisition timestamp recorded for every call; because served-model
+behaviour can drift as vendors update infrastructure, the reported accuracies are
+point-in-time estimates relative to this window, and the full per-provider
+acquisition dates are released with the dataset. All responses were stored
+alongside complete request metadata (model version string or tag, timestamp,
+token counts, finish reason, persona condition) in a versioned storage layer with
+SHA-256 checksums. Response quality gates excluded truncated responses
 (\texttt{finish\_reason $\neq$ stop}) and responses in a language divergent from
 the request; both were retained and analyzed separately as secondary outcomes.
+
+Per-cell coverage is not uniform across the model roster: free and rate-limited
+endpoints (for example GPT-OSS~120B via a shared inference provider) returned
+fewer admissible responses than the metered APIs, so the scored $N$ ranges from
+roughly 300 to 780 responses per model. We report each model's realized $N$
+alongside its score (Table~\ref{tab:conf-model}) rather than silently dropping
+under-covered cells, and a full model~$\times$~country~$\times$~task coverage
+matrix, with the quota and exclusion reasons for every shortfall, is provided in
+Supplementary Material so that no absence is hidden.
 
 \subsection{Measures}
 
@@ -275,7 +287,7 @@ to official primary sources through a documentary audit (Section~\ref{sec:ground
 and the absence of independent human scoring is stated as a limitation.
 
 The primary composite outcome combines the five pre-specified subcomponents
-(see Supplementary Table~S3), each normalized to $[0,1]$: (i) factual accuracy
+(see Supplementary Section~S6), each normalized to $[0,1]$: (i) factual accuracy
 against the registry entry (binary T1; partial credit T2--T4); (ii) contextual
 completeness scored against a pre-validated rubric (T3, T4, $0$--$5$); (iii)
 citation quality verified via DOI and official-source check; (iv) hallucination
