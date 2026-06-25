@@ -1,0 +1,404 @@
+% ============================================================
+% MATERIAL SUPLEMENTAR (versão em português, para leitura/revisão)
+% Viés Geográfico e Linguístico em LLMs para Política de Poluição do Ar
+% Um benchmark de 25 países, 14 modelos, 4 idiomas e 5 tarefas
+% ============================================================
+% Tradução fiel do supplement.tem em inglês: prosa e legendas em PT-BR;
+% TODOS os números, estatísticas e valores de tabela são idênticos ao original.
+% ============================================================
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}\onehalfspacing
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{caption}\captionsetup{font=small,labelfont=bf}
+\usepackage[numbers,square,comma,sort&compress]{natbib}
+\bibliographystyle{unsrtnat}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+
+% Numerar floats, equações e seções com prefixo "S".
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\captionsetup{labelsep=period}
+
+\title{Material Suplementar\\[0.3em]
+\large Viés Geográfico e Linguístico em LLMs para Política de Poluição do Ar:\\
+Um benchmark de 25 países, 14 modelos, 4 idiomas e 5 tarefas}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\noindent\textbf{Reprodutibilidade.} Toda tabela orientada por dados a seguir
+(Tabelas~\ref{tab:s-roster}--\ref{tab:s-groundtruth}) é regenerada a partir dos
+artefatos confirmatórios brutos por
+\texttt{code/analysis/make\_supplement\_tables.py}; nenhum valor é digitado à mão.
+O juiz primário para todos os compostos reportados é
+\texttt{gpt-5-mini-2025-08-07}. O corpus confirmatório analisado é composto por
+9{,}251 respostas pontuadas pelo juiz (7{,}580 com prompt em inglês; 1{,}671 em
+idioma nativo) sobre 25 países e 14 deployment-stacks. Todos os insumos, o código
+de pontuação, o registro de gabarito e as respostas anonimizadas serão liberados
+na publicação sob CC-BY-4.0 (dados/prompts) e MIT (código).
+
+\tableofcontents
+
+% ============================================================
+\section{Pré-registro, desenho e seleção de países}
+% ============================================================
+
+As hipóteses, os modelos primários, o protocolo de persona, os critérios de
+exclusão, as correções de comparações múltiplas e o quadro amostral de países
+foram especificados antes da coleta confirmatória de dados. O desenho
+pré-registrado cobre \textbf{15 países}; a amostra foi subsequentemente estendida,
+\emph{post registration}, para \textbf{25 países} a fim de ganhar poder para o
+gradiente de desenvolvimento (H1) e para os testes de mecanismo de corpus (H4) e
+multiplicar os pares de idioma intra-país (H2). Ao longo do manuscrito e deste
+suplemento, todo efeito calculado na amostra de 25 países é reportado ao lado de
+seu valor pré-registrado de 15 países, e nenhuma conclusão pré-registrada é
+revista com base apenas na extensão (Seção~\ref{sec:s-stats}).
+
+Os países foram selecionados por amostragem teórica triangulada em três
+classificações independentes: a classificação UNCTAD Norte/Sul Global
+(operacionalizando o enquadramento da colonialidade do conhecimento), a taxonomia
+de seis classes de recurso linguístico de Joshi et al.\ (2020)~\citep{joshi2020state}
+e os grupos de renda do Banco Mundial. Os 15 pré-registrados (Conjunto ``P'' na
+Tabela~\ref{tab:s-cov-country}) abrangem quatro regiões do mundo, cinco classes de
+Joshi e quatro grupos de renda; os 10 países de extensão (Conjunto ``E'')
+compreendem sete referências adicionais do Norte Global (Reino Unido, Canadá,
+Austrália, Coreia do Sul, França, Itália, Portugal) escolhidas para adensar a
+extremidade de alto desenvolvimento do gradiente, e três países adicionais do Sul
+Global com par de idioma nativo (Colômbia, Chile, Angola). A justificativa
+completa do desenho está em \texttt{docs/supplement/s1\_design\_rationale.md}.
+
+% ============================================================
+\section{Roster de deployment-stacks e configuração de serving}
+% ============================================================
+
+\paragraph{Unidade de análise.} Avaliamos cada modelo \emph{tal como servido} por
+meio de uma stack de acesso fixa --- a tupla de pesos do modelo, fornecedor,
+infraestrutura de serving e camada de API/endpoint --- em vez de pesos idealizados
+isoladamente, porque um gestor público interage com a stack servida e qualquer
+lacuna medida é uma propriedade dessa stack. A Tabela~\ref{tab:s-roster} lista as
+14 stacks com suas strings exatas de API/tag e os locais de execução.
+
+\input{supplement/tables_pt/tab_s_roster}
+
+\paragraph{Determinismo e tratamento de seed.} Todas as stacks foram consultadas a
+temperatura~0,3 com a configuração de máximo determinismo que cada provedor
+documenta, e não com uma superfície idêntica de parâmetros, porque as superfícies
+diferem. O suporte a seed é heterogêneo: stacks servidas localmente (Ollama)
+honram uma seed fixa; a OpenAI expõe uma seed advisory; a Messages API da
+Anthropic não expõe parâmetro de seed; e, para os demais endpoints hospedados, a
+seed é advisory ou não é exposta. Para cada chamada registramos a seed solicitada
+e um campo \texttt{seed\_status} (\texttt{sent}, \texttt{logged-only} ou
+\texttt{not-supported}) nos metadados de execução liberados, de modo que o
+determinismo de fato alcançado seja auditável em vez de presumido. Duas replicações
+estocásticas por célula (prompt, modelo, persona) estimam a variabilidade
+intra-célula.
+
+\paragraph{Janela de aquisição.} O comportamento do modelo servido pode derivar à
+medida que fornecedores atualizam a infraestrutura, de modo que as acurácias
+reportadas são estimativas point-in-time relativas à janela de coleta. A tag
+fixada, a string de versão e o timestamp de aquisição são registrados para cada
+chamada. A coleta confirmatória ocorreu de \textbf{2026-04-26 a 2026-06-12} (UTC),
+abrangendo o piloto, a coleta pré-registrada de 15 países e a extensão
+post-registration para 25 países. A Tabela~\ref{tab:s-acquisition} dá o timestamp
+da primeira e da última chamada sem erro por provedor, junto com a documentação
+oficial de API consultada; os timestamps completos por chamada são liberados com o
+conjunto de dados.
+
+\input{supplement/tables_pt/tab_s_acquisition}
+
+% ============================================================
+\section{Cobertura}
+% ============================================================
+
+A cobertura por célula não é uniforme ao longo do roster: endpoints gratuitos e com
+limite de taxa retornaram menos respostas admissíveis do que as APIs medidas, e um
+candidato (Gemini~2.5~Flash em lotes nativos iniciais) e um sexto juiz
+(Command~R+) atingiram cotas dos provedores. Reportamos a cobertura realizada em
+vez de descartar silenciosamente células sub-cobertas. A
+Tabela~\ref{tab:s-cov-task} dá a matriz modelo~$\times$~tarefa para prompts em
+inglês (os totais por coluna igualam as contagens por tarefa do texto principal);
+a Tabela~\ref{tab:s-cov-country} dá as contagens por país em inglês, nativo e total
+com camada e conjunto de pré-registro; a Tabela~\ref{tab:s-native} lista os pares
+de idioma nativo usados em H2. A matriz de cobertura completa
+modelo~$\times$~país~$\times$~tarefa, com o motivo de cota ou exclusão de cada
+déficit, está incluída no release.
+
+\input{supplement/tables_pt/tab_s_cov_task}
+\input{supplement/tables_pt/tab_s_cov_country}
+\input{supplement/tables_pt/tab_s_native}
+
+% ============================================================
+\section{Covariáveis dos países}
+% ============================================================
+
+A Tabela~\ref{tab:s-covariates} reporta as covariáveis de desenvolvimento e de
+representação no corpus usadas na análise de mecanismo (H4). As medidas de
+\textbf{corpus do idioma} (classe Joshi; tamanhos mC4/OSCAR reportados no texto
+principal) indexam quanto texto existe \emph{no} idioma de um país e são o canal
+candidato para a penalidade de idioma nativo (H2). As medidas de
+\textbf{cobertura de país} (comprimento em bytes do artigo na Wikipédia em inglês,
+sitelinks do Wikidata, statements do Wikidata) indexam quão amplamente o corpus
+enciclopédico é \emph{sobre} um país, independentemente do idioma, e são o canal
+candidato para a lacuna geográfica (H1/H4). Como a lacuna geográfica é medida
+\emph{em inglês}, uma lacuna Norte/Sul residual não pode ser um efeito de corpus do
+idioma, razão pela qual H4 isola a cobertura de país para H1 e o tamanho do corpus
+do idioma para H2. Todas as entidades do Wikidata são identificadas por um QID
+resolvível e foram recuperadas dentro da janela de coleta.
+
+\input{supplement/tables_pt/tab_s_covariates}
+
+% ============================================================
+\section{Registro de gabarito (T1)}
+% ============================================================
+
+A validade do gradiente geográfico (H1) requer que o gabarito seja igualmente
+disponível e igualmente verificável entre os países. Para T1 (o padrão anual
+vinculante de PM\textsubscript{2.5}) ancoramos cada país a uma fonte oficial
+primária por auditoria documental: o texto-fonte foi recuperado, o valor foi lido
+verbatim, e a entrada registra o valor, o status, a fonte-de-registro, uma URL
+resolvível e o método de recuperação (Tabela~\ref{tab:s-groundtruth}). Três países
+\emph{não têm} padrão nacional de PM\textsubscript{2.5}, confirmado pelo texto
+oficial (a NESREA da Nigéria regula apenas PM\textsubscript{10}; a Argentina não
+tem valor federal vinculante; a Angola não tem legislação nacional de qualidade do
+ar); nesses casos, um modelo fiel deve recusar-se a indicar um limiar inexistente
+em vez de fabricá-lo. Essa proveniência é mais reprodutível do que a asserção de
+especialistas: qualquer leitor pode reverificar cada valor a partir da fonte
+oficial citada. Nenhuma referência no registro é não-verificada, e nenhum valor foi
+transposto de fontes secundárias sem confirmação contra o texto primário.
+
+\input{supplement/tables_pt/tab_s_groundtruth}
+
+% ============================================================
+\section{Resultado composto e rubrica de pontuação}
+% ============================================================
+
+Cada resposta foi pontuada pelo juiz primário contra a entrada do registro de
+gabarito (T1, T2, T4) ou a rubrica validada (T3, T5), produzindo cinco
+subcomponentes, cada um normalizado a $[0,1]$:
+\begin{enumerate}\setlength{\itemsep}{1pt}
+  \item \textbf{Acurácia factual} contra o valor do registro (binária para T1;
+        crédito parcial para T2--T4).
+  \item \textbf{Completude contextual} pontuada contra uma rubrica pré-validada
+        (T3, T4).
+  \item \textbf{Qualidade de citação}, verificada por checagem de DOI/fonte
+        oficial.
+  \item \textbf{Ausência de alucinação}, codificada de forma binária ($0$
+        alucinada, $1$ fiel).
+  \item \textbf{Validade aplicada}, a pontuação de rubrica para a recomendação
+        operacional (T5).
+\end{enumerate}
+O composto primário usa pesos iguais. Duas ponderações de sensibilidade
+pré-especificadas são reportadas --- um conjunto derivado por PCA estimado no
+piloto estendido do Brasil, e um conjunto especificado pelos autores (factual~0,30,
+contextual~0,25, citação~0,15, alucinação~0,15, aplicada~0,15) --- e uma conclusão
+é tratada como robusta apenas se valer sob as três. O composto é calculado por
+célula (país, modelo, persona) para suportar o teste de
+diferença-em-diferenças de H6. Cada registro pontuado guarda também a justificativa
+textual do juiz; por exemplo, o juiz \texttt{gpt-5-mini} pontuou uma resposta do
+Llama~4~Scout sobre o padrão T1 do Brasil em $0,15$ com a justificativa de que ela
+``gives wrong regulation (491/2018 vs correct 506/2024) and wrong current
+value\ldots\ included a specific but incorrect citation and fabricated timing'',
+ilustrando como os subcomponentes de acurácia factual e de alucinação discriminam
+falha substantiva.
+
+% ============================================================
+\section{Confiabilidade do painel de juízes}\label{sec:s-reliability}
+% ============================================================
+
+Para tratar a sobreposição juiz--alvo (o juiz primário, \texttt{gpt-5-mini}, está
+ele próprio entre os modelos avaliados), uma amostra de confiabilidade fixa e
+estratificada de \textbf{131 respostas} (estratificada por
+país~$\times$~tarefa~$\times$~persona, seed fixa) foi re-pontuada de forma
+independente por um painel diverso em fornecedores. A amostra foi congelada
+\emph{antes} do julgamento --- caso contrário, o amostrador de concordância
+re-sorteia da base de respostas viva, o que dessincronizou as amostras por juiz
+quando a base cresceu de 15 para 25 países --- e fixada aos itens comuns dos juízes
+por \texttt{code/analysis/judge\_fixed\_keys.py}.
+
+\begin{table}[h]\centering
+\caption{Confiabilidade inter-juízes na amostra fixa de 131 itens. A quantidade
+operativa é a confiabilidade da \emph{média} do painel, ICC$(2,k)$; pela relação de
+Spearman--Brown, ela é alta mesmo quando os juízes individuais concordam apenas
+moderadamente. Fonte: \texttt{judge\_panel\_reliability.json}.}
+\label{tab:s-reliability}
+\small
+\begin{tabular}{lr}
+\toprule
+Quantidade & Valor \\
+\midrule
+Juízes ($k$) & 4 (OpenAI, Anthropic, Google, DeepSeek) \\
+Itens comuns & 131 \\
+$\alpha$ de Krippendorff (intervalar) & 0.667 \\
+ICC$(2,1)$ de juiz único & 0.672 \\
+\textbf{ICC$(2,4)$ da média do painel} & \textbf{0.891} \\
+\midrule
+Pearson pareado: GPT-5-mini $\,\vert\,$ Claude Sonnet & 0.859 \\
+\quad GPT-5-mini $\,\vert\,$ DeepSeek-V3 & 0.834 \\
+\quad Claude Sonnet $\,\vert\,$ DeepSeek-V3 & 0.821 \\
+\quad GPT-5-mini $\,\vert\,$ Gemini 2.5 Pro & 0.626 \\
+\quad Claude Sonnet $\,\vert\,$ Gemini 2.5 Pro & 0.630 \\
+\quad DeepSeek-V3 $\,\vert\,$ Gemini 2.5 Pro & 0.610 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A concordância é mais forte entre GPT-5-mini, Claude e DeepSeek (Pearson
+$0,82$--$0,86$) e mais baixa para o Gemini, sistematicamente mais leniente
+($0,61$--$0,63$); como todo efeito reportado é um contraste entre grupos (lacuna de
+camada, penalidade de idioma, piso de tarefa), o offset de leniência de um juiz
+cancela e não ameaça esses contrastes. Um quinto juiz (Llama~3.3~70B, Meta)
+corroborou nos itens que cobriu (ICC$(2,5)=0,861$ com cinco juízes), mas, por ser
+um juiz 70B mais ruidoso, \emph{baixou} o $\alpha$ do painel para $0,538$ ---
+confirmando empiricamente que quatro juízes fortes são preferíveis a cinco com um
+mais fraco. Um sexto candidato (Command~R+, Cohere) foi excluído quando sua cota de
+trial se esgotou no meio da execução; como checagem fora-de-amostra, o Command~R+
+nos 315 itens que cobriu concordou com o juiz primário em Pearson $0,647$ /
+ICC$(2,1)=0,602$. O estudo usa o composto único do \texttt{gpt-5-mini} para todos
+os efeitos, validado por este painel, em vez de uma pontuação média entre juízes; a
+ausência de uma camada independente de padrão-ouro humano é declarada como
+limitação no texto principal.
+
+% ============================================================
+\section{Métodos estatísticos e saídas completas dos testes confirmatórios}\label{sec:s-stats}
+% ============================================================
+
+Os três testes confirmatórios primários formam uma única família (F1) corrigida em
+conjunto pelo procedimento step-down de Bonferroni--Holm ($\alpha=0,05$). Os testes
+confirmatórios secundários são reportados sem ajuste dentro da família; os testes
+declarados exploratórios usam FDR de Benjamini--Hochberg a $q=0,10$. As
+correlações de postos usam Spearman $\rho$; a robustez de tendência monotônica usa
+o teste de Mann--Kendall; o efeito de persona usa um teste de permutação em nível
+de país (5{,}000 permutações). Todas as saídas a seguir são regeneradas por
+\texttt{code/analysis/formal\_tests.py}, \texttt{robust\_tests.py} e
+\texttt{h4\_corpus\_mechanism.py}.
+
+\begin{table}[h]\centering
+\caption{Família primária (Bonferroni--Holm): valores pré-registrados de 15 países
+ao lado da extensão post-registration de 25 países. H1-por-IDH é o único teste
+primário que rejeita sua hipótese nula a $n=25$; permanece abaixo do limiar de
+tamanho de efeito pré-registrado $\rho\geq 0,55$ em ambas as amostras.}
+\label{tab:s-primary}
+\small
+\begin{tabular}{lll}
+\toprule
+Teste & 15 países (pré-registrado) & 25 países (extensão) \\
+\midrule
+H1 Spearman $\rho$(acc, IDH)        & $+0.143$ (unilateral $p=0.306$), ns & $\mathbf{+0.512}$ ($p=0.004$), rejeita sob B--H \\
+H1 Mann--Kendall (por IDH)          & $S=9$, $Z=+0.40$, $p=0.692$        & $S=102$, $Z=+2.36$, $p=0.018$ \\
+H1 Spearman $\rho$(acc, Joshi)      & $+0.028$, ns                       & $-0.061$, ns (desenvolvimento, não linguístico) \\
+H1 vs limiar $\rho\geq 0.55$        & não atingido                       & não atingido (significativo, abaixo do tamanho de efeito) \\
+H4 $\rho$ parcial (acc, Wiki$\,\vert\,$IDH) & $+0.218$ ($p=0.45$), ns     & $+0.036$ ($p=0.87$), ns \\
+H6 DiD persona (GS$-$GN)            & $+0.97$~pp, perm $p=0.142$, ns     & $+0.39$~pp, perm $p=0.257$, ns \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]\centering
+\caption{Mecanismo de corpus H4, multi-medida (25 países). A amplitude de cobertura
+de país (sitelinks do Wikidata) prediz a acurácia no nível de ordem zero e
+sobrevive à correção de multiplicidade entre os três proxies de cobertura, mas
+atenua-se até a não-significância após ajuste para desenvolvimento (IDH);
+reportamos, portanto, como sugestivo/exploratório, não como mecanismo estabelecido.
+O proxy pré-registrado de edição de idioma é nulo.}
+\label{tab:s-h4}
+\small
+\begin{tabular}{llrr}
+\toprule
+Medida & Família & $\rho$(acc, log medida) & parcial $\,\vert\,$ IDH \\
+\midrule
+Bytes Wikipédia-inglês       & país     & $+0.198$ ($p=0.34$) & $+0.181$ \\
+\textbf{Sitelinks Wikidata}  & país     & $\mathbf{+0.539}$ ($p=0.005$) & $+0.317$ ($p=0.13$) \\
+Statements Wikidata          & país     & $+0.313$ ($p=0.13$) & $+0.144$ \\
+Contagem de edições Wikipédia & idioma  & $+0.082$, ns        & $+0.036$, ns \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]\centering
+\caption{Achados secundários robustos (25 países), com verificações de
+leave-one-country-out (LOCO) e de restrição de amplitude.}
+\label{tab:s-robust}
+\small
+\begin{tabular}{ll}
+\toprule
+Achado & Estatística \\
+\midrule
+Lacuna de camada (GN$-$GS)         & $+6.2$~pp, IC 95\% $[+3.7,+8.6]$ (15 países: $+6.7$ $[+2.8,+10.2]$) \\
+Lacuna de camada, faixa LOCO       & $[+5.8,+7.1]$~pp, estável \\
+Gradiente IDH H1, faixa LOCO       & $\rho\in[+0.48$ (sem NGA)$,\ +0.66$ (sem IND)$]$ \\
+H1 com amplitude restrita (dentro do IDH dos 15) & $\rho=0.512$ ($p=0.009$): densidade, não amplitude \\
+Piso de tarefa (T1{+}T2 vs T3--T5) & $0.367$ vs $0.638$, Mann--Whitney, $\delta$ de Cliff $=-0.64$ \\
+H3 Cabra-Mistral vs restante       & $0.320$ vs $0.543$, $\delta$ de Cliff $=-0.51$ \\
+H2 nativo vs inglês (todos)        & $\Delta=-2.1$~pp, Wilcoxon $p=1.96\times10^{-3}$ ($n=762$) \\
+\quad Espanhol / Português / Hindi & $-1.0$ ($p=0.15$) / $-2.3$ ($p=0.033$) / $-7.8$ ($p=0.013$) \\
+H2 em nível de país (unidade independente, $n=9$) & 9/9 negativos, média $-2.4$~pp, Wilcoxon $p=0.008$ \\
+H5 aberto vs fechado-acessível     & vantagem fechada de $+14.1$~pp (descritivo) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+\section{Construção de prompts, template de persona e exemplos verbatim}
+% ============================================================
+
+Os prompts foram autorados em inglês para o domínio de política de poluição do ar
+com supervisão de domínio (PPGSAU/UTFPR) e validados contra o registro de gabarito
+antes de entrar no conjunto de estímulos confirmatório; um subconjunto-piloto
+atingiu um limiar inter-avaliadores de $\alpha$ de Krippendorff $\geq 0,70$ antes da
+escala. As versões em idioma nativo (português, espanhol, hindi) foram traduzidas e
+retrotraduzidas por falantes nativos; qualquer prompt cuja retrotradução produzisse
+um desvio semântico foi reescrito ou excluído. Toda afirmação factual em uma
+entrada de gabarito precisava resolver para uma URL de fonte oficial ou um DOI
+revisado por pares antes de o prompt correspondente ser admitido (o Protocolo de
+Verificação de Citações do projeto aplicado já na geração do gabarito, não apenas na
+fase de manuscrito).
+
+\paragraph{Manipulação de persona.} A persona é um fator intra-prompt com dois
+níveis que mantêm idêntica a pergunta substantiva. O nível \texttt{neutral}
+apresenta um pedido simples de informação; o nível \texttt{public\_manager\_env}
+prepende um enquadramento fixo de papel. O contraste é mostrado verbatim para o
+Brasil, T1:
+
+\begin{quote}\small
+\textbf{Neutro.} ``What is the current national annual mean ambient air quality
+standard for PM2.5 in Brazil? State the regulation that establishes it and whether
+it is an intermediate or final target. Limit to 1--3 sentences.''
+
+\smallskip
+\textbf{Gestor ambiental público.} ``\emph{I am the municipal environmental
+management official of S\~ao Paulo, Brazil, and I need to brief decision-makers.}
+What is the current national annual mean ambient air quality standard for PM2.5 in
+Brazil? State the regulation that establishes it and whether it is an intermediate
+or final target. Limit to 1--3 sentences.''
+\end{quote}
+
+\noindent O gabarito correspondente no registro é (em tradução): ``Os padrões
+nacionais de PM\textsubscript{2.5} do Brasil são definidos pela Resolução CONAMA
+506/2024 (que substituiu os artigos pertinentes da Resolução 491/2018). A etapa em
+vigor em 2026 é a Meta Intermediária PI-2; a Meta Final adota a diretriz anual da
+OMS 2021 de 5~$\mu$g/m\textsuperscript{3}'' (fonte: Resolução CONAMA 506/2024). Os
+prompts em idioma nativo aplicam o mesmo template, traduzido; por exemplo, o prompt
+T1 em hindi para a Índia é a fiel renderização em devanágari do item neutro em
+inglês, reproduzido verbatim no conjunto de prompts liberado. O conjunto completo de
+prompts (370 itens confirmatórios: 25 países $\times$ 5 tarefas $\times$ persona,
+mais os pares de idioma nativo) é liberado como
+\texttt{prompts\_confirmatory.jsonl} com o gabarito, a fonte e a rubrica por item.
+
+% ============================================================
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,23 @@
+% TRADUÇÃO PT-BR (caption + cabeçalhos); dados idênticos ao original gerado.
+\begin{longtable}{p{2.6cm}llp{4.4cm}lrr}
+\caption{Roster de deployment-stacks. Cada modelo é avaliado \emph{tal como servido} por meio de uma stack de acesso fixa; a string de API/tag e o local de execução fazem parte do que cada rótulo denota. As contagens de parâmetros são reportadas pelo fornecedor (densas, ou totais para MoE; contagens de fronteira fechada não divulgadas). $N$ e média referem-se à cobertura confirmatória realizada de prompts em inglês.\label{tab:s-roster}}\\
+\toprule
+Modelo & Fornecedor & Camada & String de API/tag & Local & $N$ & Média \\
+\midrule \endfirsthead
+\toprule Modelo & Fornecedor & Camada & String de API/tag & Local & $N$ & Média \\ \midrule \endhead
+DeepSeek-V3 & DeepSeek & A & \texttt{deepseek-chat} & DeepSeek API & 500 & 0.625 \\
+Command R+ & Cohere & A & \texttt{command-r-plus-08-2024} & Cohere (trial) & 500 & 0.509 \\
+Llama 3.3 70B & Meta & A & \texttt{llama-3.3-70b-versatile} & Groq (free) & 474 & 0.506 \\
+GPT-OSS 120B & OpenAI & A & \texttt{openai/gpt-oss-120b} & Groq (free) & 298 & 0.485 \\
+Llama 4 Scout & Meta & A & \texttt{meta-llama/llama-4-scout-17b-16e-instruct} & Groq (free) & 500 & 0.473 \\
+Qwen3 32B & Alibaba & B & \texttt{qwen/qwen3-32b} & Groq (free) & 498 & 0.546 \\
+Phi-4 14B & Microsoft & B & \texttt{phi4} & Ollama (local) & 500 & 0.485 \\
+Qwen3 14B & Alibaba & B & \texttt{qwen3:14b} & Ollama (local) & 500 & 0.474 \\
+Llama 3.1 8B & Meta & C & \texttt{llama-3.1-8b-instant} & Groq (free) & 777 & 0.424 \\
+Cabra-Mistral 7B & botbot-ai & C & \texttt{cabra-mistral-7b} & Ollama (local) & 496 & 0.320 \\
+GPT-5-mini & OpenAI & D & \texttt{gpt-5-mini} & OpenAI API & 777 & 0.626 \\
+Gemini 2.5 Flash & Google & D & \texttt{gemini-2.5-flash} & Google AI (free) & 490 & 0.604 \\
+Claude Haiku 4.5 & Anthropic & D & \texttt{claude-haiku-4-5} & Anthropic API & 490 & 0.597 \\
+GPT-5 & OpenAI & E & \texttt{gpt-5} & OpenAI API & 780 & 0.647 \\
+\bottomrule
+\end{longtable}

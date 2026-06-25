@@ -93,3 +93,9 @@ Thumbs.db
 .project
 .pydevproject
 .settings/
+
+# ============================================================
+# Local review/send packages (regenerable from main.pdf/supplement.pdf)
+# ============================================================
+REVISAO_ORIENTADORA/
+REVISAO_ORIENTADORA_*.zip
