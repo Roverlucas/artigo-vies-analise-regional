@@ -385,6 +385,29 @@ factual-recall floor deepens (T1+T2 factual accuracy $0.25$ versus $0.71$ for
 T3--T5). The composite is therefore conservative; the geographic and task effects
 are not artifacts of mixing subcomponents.
 
+\textbf{Weighting, mixed-model, and E-value corroboration.} The headline effects
+do not depend on the composite weighting: recomputing under equal weights and a
+PCA-derived weighting (first principal component of the five subcomponents) leaves
+the tier gap ($+4.9$ to $+6.6$~pp), the HDI gradient ($\rho=0.51$--$0.53$), the
+factual-recall floor ($\delta$ from $-0.59$ to $-0.64$), and the regional-model
+deficit ($\delta$ from $-0.50$ to $-0.52$) unchanged in direction. A Gaussian
+linear mixed model with crossed random intercepts for country and model confirms
+the Global South penalty ($\beta=-0.077$ on the composite, $p=0.007$; stable across
+country-only and model-only fits), and a Bayesian hierarchical re-estimation with
+weakly informative priors agrees (posterior mean $-0.065$, 94\% HDI
+$[-0.096,-0.033]$, $P(\beta<0)=1.00$). E-values for the supported geographic effects
+are $1.85$ for the tier gap and $5.37$ for the development gradient: an unmeasured
+confounder would need an association of that strength with both development and
+accuracy to explain the gradient away. An exploratory country-level mediation model
+is consistent with --- but cannot establish --- the country-coverage channel: the
+standardized HDI\,$\rightarrow$\,sitelinks\,$\rightarrow$\,accuracy indirect effect
+is $+0.18$, but its bootstrap 95\% CI $[-0.27,+0.59]$ includes zero ($n=25$),
+reinforcing that country coverage is a suggestive lead rather than a proven
+mechanism. Finally, a persona manipulation check finds
+that $50.2\%$ of persona-condition responses explicitly acknowledge the
+public-manager role frame, so the null persona effect (H6) is not an artifact of
+the frame being universally ignored.
+
 \subsection{Summary}
 \label{sec:results:summary}
 

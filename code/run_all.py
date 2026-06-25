@@ -47,17 +47,30 @@ def main():
     args = ap.parse_args()
 
     if args.confirmatory:
-        # Confirmatory reproducibility: real committed data -> tables -> QA gate.
+        # Confirmatory reproducibility: real committed data -> analyses -> tables ->
+        # QA gate -> method audit (process <-> manuscript).
         py = sys.executable  # robust across environments where "python" is absent
+        venv_py = ROOT / ".venv" / "bin" / "python"          # for statsmodels-based steps
+        glmm_py = str(venv_py) if venv_py.exists() else py
         step("C1. Formal tests (primary family, n=25)",
              [py, "analysis/formal_tests.py", "--n25"])
         step("C2. Robust secondary tests (n=25)",
              [py, "analysis/robust_tests.py", "--n25"])
-        step("C3. Regenerate Supplementary tables",
+        step("C3. Composite-weighting + E-value sensitivity",
+             [py, "analysis/weighting_and_evalue.py"])
+        step("C4. GLMM (mixed model) + persona manipulation check",
+             [glmm_py, "analysis/glmm_and_manipcheck.py"])
+        step("C5. Bayesian re-estimation (pymc)",
+             [glmm_py, "analysis/bayesian_reestimation.py"])
+        step("C6. Exploratory mediation, H4 (semopy)",
+             [glmm_py, "analysis/mediation_h4.py"])
+        step("C7. Regenerate Supplementary tables",
              [py, "analysis/make_supplement_tables.py"])
-        step("C4. Reproducible QA gate (recompute every headline number)",
+        step("C8. Reproducible QA gate (recompute every headline number)",
              [py, "analysis/qa_reproduce_claims.py"])
-        print("\n[Confirmatory reproduction complete — QA gate passed]")
+        step("C9. Method audit (process <-> manuscript: nothing described that was not executed)",
+             [py, "analysis/method_audit.py"])
+        print("\n[Confirmatory reproduction complete — QA gate + method audit passed]")
         return
 
     # Step 1: Generate synthetic prompts (always)

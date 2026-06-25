@@ -199,9 +199,12 @@ first validated for inter-rater agreement using Krippendorff's $\alpha$, with a
 threshold of $\alpha \geq 0.70$ required before scaling the design. All prompts
 were authored in English and, for a stratified subset of countries, additionally
 in a relevant native language (sparse multilingual matrix; Supplementary
-Section~S3); native-language prompts were translated and back-translated by
-native-speaker translators, and any prompt whose back-translation produced a
-semantic shift was rewritten or excluded. Following the Brazil pilot validation,
+Section~S3); native-language renderings were produced by a high-quality LLM
+translator (Claude Sonnet~4.6) prompted to preserve the meaning, the persona
+frame, and proper nouns and acronyms, with the factual ground truth held in
+English (the target value is language-invariant). We did not employ human
+native-speaker translation or a back-translation verification step; this is
+acknowledged as a limitation (Section~\ref{sec:discussion}). Following the Brazil pilot validation,
 every factual claim in a ground-truth entry was required to resolve to an
 official source URL or a peer-reviewed DOI before the corresponding prompt was
 admitted, enforcing the project Citation Verification Protocol at the
@@ -290,15 +293,17 @@ The primary composite outcome combines the five pre-specified subcomponents
 (see Supplementary Section~S6), each normalized to $[0,1]$: (i) factual accuracy
 against the registry entry (binary T1; partial credit T2--T4); (ii) contextual
 completeness scored against a pre-validated rubric (T3, T4, $0$--$5$); (iii)
-citation quality verified via DOI and official-source check; (iv) hallucination
+citation quality, scored against the DOI- and official-source-verified registry; (iv) hallucination
 absence, coded binarily ($0$~hallucinated, $1$~faithful); and (v) applied
-validity, the rubric score for the operational recommendation in T5. Primary
-inference uses equal weights; two pre-specified sensitivity weightings (a
-PCA-derived set estimated on the BRA extended pilot and an author-specified set:
-factual~0.30, contextual~0.25, citation~0.15, hallucination~0.15,
-applied~0.15) are reported, and a conclusion is treated as robust only if it
-holds across all three. The composite is computed per (country, model, persona) cell
-to support the H6 difference-in-differences test.
+validity, the rubric score for the operational recommendation in T5. The primary
+composite uses a pre-specified weighting (factual~0.30, contextual~0.25,
+citation~0.15, calibration~0.15, hallucination~0.15). As a sensitivity analysis we
+recompute every headline effect under two alternative weightings --- equal weights
+and a PCA-derived weighting (the first principal component of the five
+subcomponents) --- and treat a conclusion as robust only if its direction is stable
+across all three; all headline effects are
+(Section~\ref{sec:results:robust}). The composite is computed per
+(country, model, persona) cell to support the H6 difference-in-differences test.
 
 \subsection{Analytical strategy}
 
@@ -318,11 +323,11 @@ Global South dummy as a sensitivity contrast.
 
 \textbf{H4 (corpus-representation mechanism, primary).} Country-level partial
 Spearman $\rho$ relates corpus representation to accuracy after adjusting for
-HDI and log GDP per capita, using Wikipedia counts as the primary proxy
-($\rho \geq 0.55$) and requiring convergence across at least two of three
-Common Crawl operationalizations ($\rho \geq 0.40$). An E-value sensitivity
-analysis~\citep{vanderweele2017evalue} quantifies the unmeasured confounding
-required to nullify the association (threshold 2.0).
+HDI and log GDP per capita, using Wikipedia counts as the pre-registered primary proxy
+($\rho \geq 0.55$), complemented by exploratory country-coverage proxies
+(Wikidata sitelinks and statements). Robustness of the supported geographic
+effects to unmeasured confounding is quantified with E-values~\citep{vanderweele2017evalue}
+(Section~\ref{sec:results:robust}).
 
 \textbf{H6 (persona effect, primary).} The persona effect is tested as a
 country-level difference-in-differences on the composite outcome:
@@ -338,37 +343,37 @@ absolute accuracy). Inference uses a country-level permutation test
 two-sided test is reported as a secondary check because persona amplification
 is theoretically possible and is reported transparently if observed.
 
-\textbf{H3 (regional model, secondary).} A pre-specified one-sided contrast in
-a generalized linear mixed model compares Cabra-Mistral~7B~v3 on Brazilian
-Portuguese prompts against a scale-matched globally trained open model, with an
-exploratory companion contrast on other Lusophone contexts to distinguish gap
-closure from gap displacement.
+\textbf{H3 (regional model, secondary).} H3 is tested with a pre-specified
+one-sided Mann-Whitney contrast (Cliff's $\delta$ effect size) comparing
+Cabra-Mistral~7B~v3 against the other models on the air pollution policy tasks.
 
 \textbf{H2 and H5 (exploratory).} The prompt-language~$\times$~country
 interaction (H2) and the open-frontier versus closed-frontier contrast (H5) are
 reported descriptively, with formal tests under F3 correction where applied.
 
-Cross-cutting mixed-model analyses use Generalized Linear Mixed Models with
-random intercepts for country and model, implemented via
-\texttt{pymer4}~\citep{pymer4} interfacing R's
-\texttt{lme4}~\citep{bates2015lme4}: \texttt{lmer} with REML for the Gaussian
-composite and \texttt{glmer} with a binomial family and logit link for binary
-outcomes. Where a mediation decomposition is reported for H4, it uses
-\texttt{semopy}~\citep{semopy} with 5{,}000 bootstrap replicates. Robustness
-analyses, all pre-specified, include leave-one-country-out re-estimation,
-restriction to the human-gold-validated subset, Bayesian re-estimation with
-weakly informative priors via \texttt{pymc}~\citep{pymc}, and a separate
-analysis excluding prompts flagged for potential training-data contamination.
-A Monte Carlo power simulation (10{,}000 iterations under pilot-informed effect
-sizes) confirms family-wise power for the primary trio under Bonferroni-Holm;
-the within-subject persona design yields a minimum detectable gap reduction of
-approximately 2--3 percentage points, so the 5-point H6 threshold is
-well-powered. Power details are reported in Supplementary Material.
+As a cross-cutting corroboration of the tier gap, a Gaussian linear mixed model
+(the \texttt{statsmodels} MixedLM estimator, REML) regresses the composite on the
+Global South indicator (adjusting for centered HDI) with crossed random intercepts
+for country and model, with country-only and model-only single-grouping fits as
+numerical checks. Pre-specified robustness analyses include leave-one-country-out
+re-estimation, a range-restriction check, and the composite-weighting sensitivity
+described above (Section~\ref{sec:results:robust}); robustness of the supported
+geographic effects to unmeasured confounding is summarized with E-values. We also
+re-estimate the Global South effect in a Bayesian hierarchical model
+(\texttt{pymc}~\citep{pymc}, weakly informative priors, crossed country and model
+intercepts), and probe the corpus mechanism with an exploratory country-level
+mediation model (\texttt{semopy}~\citep{semopy}; HDI~$\rightarrow$~country-coverage
+(sitelinks)~$\rightarrow$~accuracy, with a bootstrap confidence interval on the
+indirect effect). The persona manipulation is characterized by a
+role-frame-acknowledgement check on the response text. An \emph{a priori} power analysis at the pre-registration stage,
+under pilot-informed effect sizes, indicated adequate family-wise power for the
+primary trio under Bonferroni-Holm and a minimum detectable persona gap reduction
+of a few percentage points; power details are in the pre-registration materials.
 
 \subsection{Study protocol and open science}
 
 The full protocol --- hypotheses, prompts with hashes, the ground-truth
-registry, the persona template, scoring rubrics, GLMM and DiD specifications,
+registry, the persona template, scoring rubrics, mixed-model and DiD specifications,
 multiple-comparison corrections, and exclusion criteria --- is pre-specified in
 advance of confirmatory data collection. The analytic dataset, after quality
 gates but before model fitting, is frozen and hashed so that the confirmatory

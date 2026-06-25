@@ -12,9 +12,10 @@ official primary sources for every country.
 
 The geographic disadvantage is real and, given adequate power, resolves into a
 significant development gradient (Spearman $\rho=0.51$ with HDI at $n=25$, having
-been undetectable at the pre-registered $n=15$, robust to leave-one-out but below
-our pre-registered effect-size threshold), alongside a stable $+6.2$~pp
-North/South tier gap. The mechanism is harder to pin down: the pre-registered
+been undetectable at the pre-registered $n=15$, robust to leave-one-out, to three
+composite weightings, to a crossed-effects mixed model and a Bayesian
+re-estimation, and to an E-value of $5.4$ --- though below our pre-registered
+effect-size threshold), alongside a stable $+6.2$~pp North/South tier gap. The mechanism is harder to pin down: the pre-registered
 corpus proxy is null, and a country-coverage proxy correlates with accuracy
 ($\rho=0.54$) but does not survive adjustment for development, so we report country
 representation --- not language-corpus size --- as a \emph{suggestive} lead
@@ -42,4 +43,9 @@ $n=15$-to-$n=25$ reversal shows geographic-bias gradients are easily underpowere
 and we flag the expansion as a post-registration extension whose gradient sits
 just under our pre-specified effect-size threshold. Protocol, prompts,
 official-source ground-truth registry, analysis code, and anonymized response data
-are released openly.
+are released openly, with a one-command reproduction pipeline and a method-audit
+gate that recomputes every reported number from the raw data. Beyond its
+findings, the study offers a reusable template for credible applied LLM-equity
+audits --- official-source ground truth, multi-method robustness, and end-to-end
+reproducibility --- in the high-stakes public-sector domains where these systems
+are now being deployed.

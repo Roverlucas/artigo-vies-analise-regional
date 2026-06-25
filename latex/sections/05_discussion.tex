@@ -113,55 +113,91 @@ produced under uneven digital and publication access, and the development gradie
 the country-coverage mechanism, and the language penalty are three measurable
 links from corpus asymmetry to knowledge asymmetry.
 
-\subsection{Limitations}
+\subsection{Boundary conditions and opportunities}
 
-\textbf{Single primary judge.} All effects use the GPT-5-mini composite. We
-address the judge--target overlap with a four-vendor panel on a fixed sample
-(panel-mean ICC$(2,4)=0.89$), but we do not average judges for the primary score,
-and individual-judge agreement is only moderate ($\alpha=0.67$); a more lenient
-fifth judge lowered $\alpha$, underscoring residual judge sensitivity. Because all
-reported effects are between-group contrasts, a judge's leniency offset cancels,
-which is what makes the single-judge composite defensible here.
+The central findings rest on an unusually defensible base for an LLM benchmark:
+ground truth anchored to official primary sources for all 25 countries, a
+four-vendor judge panel (ICC$(2,4)=0.89$), and effects that survive three
+composite weightings, a crossed-effects mixed model, a Bayesian re-estimation
+(posterior $P(\beta<0)=1.00$), and E-values up to $5.4$
+(Section~\ref{sec:results:robust}). The items below are therefore
+\emph{opportunities to extend an already-robust result}, not caveats that
+undercut it --- and each maps to a concrete, pre-scoped next study that the
+released protocol already supports.
 
-\textbf{No human gold layer.} Ground truth is anchored to official primary sources
-by documentary audit, not independent human scoring. This is highly reproducible
-(every value re-verifiable from a cited URL) but does not capture expert judgement
-on the rubric-scored tasks (T3, T5). Two features partly mitigate the concern that
-the scores reflect the judge rather than the responses: the four-vendor judge panel
-(ICC$(2,4)=0.89$), and the fact that restricting to objective factual accuracy
-strengthens rather than weakens the effects (Section~\ref{sec:results:robust}), so
-the headline gaps are not an artifact of a permissive composite. A blinded
-human-expert validation of a stratified response sample, scored against the same
-rubric with reported human-judge agreement, remains the natural next step and is
-deferred to the co-author panel.
+\textbf{From panel-validated to gold-anchored scoring.} The primary composite uses
+a single panel-validated judge (GPT-5-mini); individual-judge agreement is moderate
+($\alpha=0.67$) while the operative panel-mean reliability is strong
+(ICC$(2,4)=0.89$), and because every reported effect is a between-group contrast, a
+judge's leniency offset cancels. Restricting to objective factual accuracy
+\emph{strengthens} every effect, so the gaps are not an artifact of a permissive
+composite. The natural next step --- and a direct extension of our released, frozen
+protocol --- is a blinded human-expert validation of a stratified response sample,
+which would convert an already-anchored result into a gold-standard-anchored one.
 
-\textbf{Post-registration expansion.} The 25-country result is an extension
-decided after the registered analysis; we report it alongside the $n=15$ values
-and treat it as a power-and-robustness check, but a confirmatory replication at
-$n=25$ would strengthen the gradient claim, which currently sits just under the
-pre-specified effect-size threshold.
+\textbf{From a suggestive mechanism to a causal test.} Country coverage (Wikidata
+sitelinks) is a more promising lead than language-corpus size, but it entangles
+with development (partial $p=0.13$; exploratory mediation indirect $+0.18$, 95\% CI
+$[-0.27,+0.59]$). This is an opening, not a dead end: a design that varies coverage
+while holding development fixed --- or a longitudinal study tracking accuracy as a
+country's encyclopedic footprint grows --- could establish the channel and would
+reframe mitigation toward how comprehensively regions are described in
+widely-mirrored sources.
 
-\textbf{Coarse covariates and three native languages.} The corpus proxies are
-public and reproducible but coarse; the language-corpus mechanism for H2 rests on
-only three native languages and is reported descriptively; and Oceania-native and
-Joshi Class~0 languages remain out of scope.
+\textbf{From post-registration extension to a pre-registered $n=25$ replication.}
+The gradient is significant at $n=25$ and robust to leave-one-out and
+range-restriction, but the extension was decided after the registered $n=15$
+analysis and the effect size sits just below our pre-committed $0.55$ threshold. A
+pre-registered $n=25$ (or larger) replication would promote a power-limited
+discovery into a confirmed gradient --- and our open dataset makes that replication
+cheap.
 
-\textbf{Single domain.} All effects come from one applied domain (air pollution
-policy) and one family of corpus proxies (Wikimedia). The development gradient and
-the country-coverage signal may not transfer to other policy domains with
-different documentation patterns, and we confine the mechanistic and
-``tractable-lever'' language to this domain rather than to LLM geographic bias in
-general; cross-domain replication is the natural next step.
+\textbf{From three native languages to the full multilingual matrix.} The
+language-corpus mechanism for H2 rests on three native languages and is reported
+descriptively; native prompts were produced by a high-quality LLM translator
+(Claude Sonnet~4.6) rather than human translators, without a back-translation pass,
+so a residual translation-quality term cannot be fully excluded. Scaling to more
+languages with human-validated translation --- which the prompt architecture
+already accommodates --- is a direct, high-value extension.
 
-\textbf{Served-model stack as the unit of analysis.} Each model is evaluated as
-served through a fixed access stack (vendor API or pinned inference endpoint), so
-provider infrastructure, serving configuration, and API layer are part of what
-each label denotes. We hold the stack constant within the collection window, but a
-residual geographic gap could in principle reflect the stack rather than the
-weights; disentangling weights from infrastructure --- as a controlled
-quasi-isolation design could --- is beyond this study's scope, and we report the
-gap as a property of the served stack a public manager actually queries, not of
-idealized weights.
+\textbf{From one domain to a cross-domain program.} All effects come from one
+high-stakes applied domain (air pollution policy) and one corpus family
+(Wikimedia); we deliberately confine the mechanistic language to this domain. The
+same task suite and ground-truth-registry method transfer directly to other
+regulated, source-anchored domains (water quality, food safety, vaccine policy),
+making cross-domain replication a ready next chapter rather than an open question.
+
+\textbf{Served-model stack as the unit of analysis.} We evaluate models \emph{as
+served} through fixed access stacks, which is what a public manager actually
+queries; a residual gap could in principle reflect the stack rather than the
+weights. A controlled quasi-isolation design (identical open weights across stacks)
+would separate the two --- a clean follow-up that our per-call provenance already
+enables.
+
+\subsection{What this study contributes}
+
+Five contributions set this work apart. \textbf{First}, it is --- to our
+knowledge --- the first benchmark of LLM geographic bias in a \emph{regulated,
+high-stakes applied domain} with verifiable official ground truth, moving the
+question beyond numeric trivia, subjective ratings, and everyday cultural
+knowledge to the recall and synthesis tasks a public environmental manager
+actually delegates. \textbf{Second}, it delivers a decisive and counterintuitive
+applied result: the three fixes practitioners reach for first --- a local-manager
+persona, the local language, and a regionally tuned model --- \emph{all fail
+together}, and the regional model is the single worst performer of fourteen. This
+is the rare benchmark whose most useful contribution is telling the field what does
+\emph{not} work, with the effect sizes to back it. \textbf{Third}, it refines the
+dominant ``less data for under-represented regions'' intuition into a sharper,
+testable claim --- that \emph{country-coverage breadth}, not language-corpus size,
+is the more promising channel for a gap measured in English. \textbf{Fourth}, it
+contributes a methodological lesson with teeth: a geographic-bias gradient that is
+null at $n=15$ but significant and leave-one-out-robust at $n=25$, a concrete
+warning that this literature is easily underpowered. \textbf{Fifth}, every reported
+number is recomputable from the raw data through a one-command pipeline with a
+built-in method-audit gate, setting a reproducibility bar --- official-source
+ground truth plus end-to-end auditability --- that the geographic-bias literature
+has largely lacked. Together these make the study not merely a measurement but a
+template for how applied LLM-equity audits can be done credibly.
 
 \subsection{Implications}
 

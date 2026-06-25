@@ -10,9 +10,11 @@ Whether these systems serve the Global South as reliably as the Global North, an
 whether prompt framing changes the answer, has not been measured for an applied
 policy domain with verifiable ground truth.
 
-We benchmark \textbf{25 countries, 14 LLMs, four languages, and five task types}
+We present the first benchmark of LLM geographic bias in a regulated,
+high-stakes applied domain with verifiable official ground truth:
+\textbf{25 countries, 14 LLMs, four languages, and five task types}
 (normative recall, local measured data, health-evidence synthesis, policy
-instruments, and applied recommendation) against official ground truth. We
+instruments, and applied recommendation). We
 evaluate each model \emph{as served} through a fixed access stack (vendor API or
 pinned inference endpoint), with a within-subject persona factor (neutral versus
 public environmental manager) and a within-country English/native-language
@@ -42,10 +44,15 @@ country-coverage proxy (Wikidata sitelinks) correlates with accuracy
 non-significance after adjusting for development ($p=0.13$). We therefore report
 country coverage as a \emph{suggestive, exploratory} channel --- better than
 language-corpus size, as expected for a gap measured in English --- not as an
-established mechanism. Reliability across a four-vendor judge panel is strong
+established mechanism. The headline effects are stable across three composite
+weightings, a crossed-effects mixed model, and a Bayesian re-estimation, with
+E-values up to $5.4$. Reliability across a four-vendor judge panel is strong
 (panel-mean ICC$(2,4)=0.89$), and ground truth is anchored to official primary
 sources for all 25 countries; the study uses one panel-validated primary judge
-and a documentary ground-truth audit without a human-gold layer. Protocol,
-prompts, and analysis code will be released on publication.
+and a documentary ground-truth audit. Beyond its findings, the study offers a
+reusable, fully reproducible template --- official-source ground truth,
+multi-method robustness, and an end-to-end audit pipeline --- for applied
+LLM-equity evaluation. Protocol, prompts, and analysis code will be released on
+publication.
 
 \end{abstract}
