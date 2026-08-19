@@ -19,6 +19,8 @@
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{booktabs}
+\usepackage{siunitx}
+\sisetup{group-separator={,}, group-minimum-digits=4}
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{caption}\captionsetup{font=small,labelfont=bf}
@@ -399,6 +401,103 @@ $50.2\%$ explicitly acknowledge the public-manager role frame, so the null perso
 effect (H6) is not an artifact of the frame being universally ignored.
 
 % ============================================================
+\section{Deviations from the pre-specified analysis plan}\label{sec:s-deviations}
+
+The analysis plan required that departures be logged and classified, and set a
+ceiling on them: confirmatory status is retained only if deviations affect no
+more than 15\% of planned cells. The table below reports every departure we
+identified. The delivered scope is 27.5\% of the planned response count, so the
+ceiling is exceeded by a wide margin, and the study is reported as exploratory
+throughout, as described in the Study protocol statement.
+
+\footnotesize
+\begin{longtable}{p{3.4cm}p{3.5cm}p{3.5cm}p{3.6cm}}
+\caption{Departures from the pre-specified plan, with the effect of each on
+interpretation. ``Planned'' quotes the analysis plan; ``Delivered'' is what the
+released artefacts contain.\label{tab:s-deviations}}\\
+\toprule
+Item & Planned & Delivered & Effect on interpretation \\
+\midrule \endfirsthead
+\toprule Item & Planned & Delivered & Effect on interpretation \\ \midrule \endhead
+
+Response count &
+\num{33600} responses (600 prompts $\times$ 14 models $\times$ 2 personas
+$\times$ 2 replicates) &
+\num{9251} scored responses (27.5\%) &
+Triggers the plan's own 15\% ceiling. The study is reported as exploratory. \\
+
+Public registration &
+Plan deposited in a public registry before confirmatory collection &
+Plan fixed in a version-controlled document; never deposited &
+Timing cannot be verified independently of repository history. We do not claim
+pre-registration. \\
+
+Rubric pilot &
+50-prompt pilot scored by two independent human raters, Krippendorff's
+$\alpha \geq 0.70$ required before scaling &
+Not run. No rater-level $\alpha$ exists &
+Rubric reliability is evidenced only after the fact, on confirmatory data, at
+$\alpha = 0.667$, below the threshold the plan had set. \\
+
+Judging &
+Three-judge LLM ensemble plus external human annotators blind to hypotheses &
+One primary judge for the full set; four-vendor panel on a fixed
+131-item sample; no human layer &
+No human gold standard anywhere in the study. Reliability rests on
+model-to-model agreement. \\
+
+Ground-truth registry &
+Per (country, task) entry with source class, resolvable URL, gold value,
+reference date, human validator and validation flag &
+Registry covers T1 for all 25 countries; T2, T3 and T4 were built in a later
+revision from single international sources; no human validator field exists &
+Ground-truth provenance is not uniform across tasks, and the claim of a
+per-(country, task) registry did not hold in the original submission draft. \\
+
+Country sample &
+15 countries, fixed in advance &
+15 extended to 25 after the pre-specified analysis was run &
+The development gradient is detectable only at $n=25$. Every effect is reported
+alongside its 15-country value. \\
+
+H4 adjustment set &
+Partial Spearman adjusting for HDI \emph{and} log GDP per capita &
+Adjusted for HDI only; GDP does not appear in the analysis code &
+The reported partial correlation is not the one specified. \\
+
+Native-language rendering &
+Human native-speaker translation with independent back-translation and
+bilingual adjudication &
+LLM translation without back-translation verification &
+Translation artefact cannot be separated from language effect in H2. \\
+
+Extra H2 variants &
+Two additional question variants per (country, task), rendered in both languages &
+Generated but never collected or judged &
+H2 rests on the principal pairs only; the planned cell count for H2 was not
+reached. \\
+
+Model coverage &
+All 14 stacks across all countries and tasks &
+Coverage is not uniform: two stacks are absent from several countries after
+provider rate limiting and credit exhaustion &
+Per-country means are computed over different model sets. A balanced-subset
+check is reported in Section~\ref{sec:s-extra}. \\
+
+\bottomrule
+\end{longtable}
+\normalsize
+
+A further property of the response corpus, not a departure from the plan but a
+consequence of how collection was retried, belongs here because it bears on
+reproducibility. Of \num{4976} unique (model, prompt, replicate) keys, \num{1003}
+have more than one stored response, produced by re-runs on different dates. The
+stored answers differ substantially between runs; in one case the same prompt and
+model yielded 307 and \num{3180} characters. The scoring pipeline consumes the
+first record encountered in alphabetical file order, so which of several stored
+answers enters the analysis is determined by filename ordering rather than by an
+analytical rule. We report this rather than leave it implicit.
+
 \section{Prompt construction, persona template, and verbatim examples}
 % ============================================================
 
