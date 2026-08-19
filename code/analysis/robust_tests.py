@@ -22,7 +22,8 @@ GN = {"USA","DEU","JPN"}
 GS_EXT = {"COL","CHL","AGO"}
 GN_EXT = {"UK","CAN","AUS","KOR","FRA","ITA","PRT"}
 import sys as _sys
-if "--n25" in _sys.argv:
+# DEFAULT = 25 countries (reported sample). `--n15-prespecified` for the subset.
+if "--n15-prespecified" not in _sys.argv and "--n15" not in _sys.argv:
     GS = GS | GS_EXT
     GN = GN | GN_EXT
 

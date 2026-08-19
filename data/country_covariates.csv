@@ -1,0 +1,26 @@
+iso3,hdi,wiki_articles_millions,joshi_class,tier,sample_set,hdi_source,hdi_reference_year,hdi_verified_against_official_dataset
+USA,0.927,7.19,5,GN,pre-specified-15,UNDP Human Development Report 2023-24,2022,FALSE
+DEU,0.950,3.13,5,GN,pre-specified-15,UNDP Human Development Report 2023-24,2022,FALSE
+JPN,0.920,1.51,5,GN,pre-specified-15,UNDP Human Development Report 2023-24,2022,FALSE
+BRA,0.760,1.17,4,GS,pre-specified-15,UNDP Human Development Report 2023-24,2022,FALSE
+MEX,0.781,2.12,5,GS,pre-specified-15,UNDP Human Development Report 2023-24,2022,FALSE
+ARG,0.849,2.12,5,GS,pre-specified-15,UNDP Human Development Report 2023-24,2022,FALSE
+PER,0.762,2.12,5,GS,pre-specified-15,UNDP Human Development Report 2023-24,2022,FALSE
+IND,0.644,7.19,5,GS,pre-specified-15,UNDP Human Development Report 2023-24,2022,FALSE
+IDN,0.713,0.78,3,GS,pre-specified-15,UNDP Human Development Report 2023-24,2022,FALSE
+EGY,0.728,1.32,5,GS,pre-specified-15,UNDP Human Development Report 2023-24,2022,FALSE
+BGD,0.670,0.19,3,GS,pre-specified-15,UNDP Human Development Report 2023-24,2022,FALSE
+NGA,0.548,7.19,5,GS,pre-specified-15,UNDP Human Development Report 2023-24,2022,FALSE
+ZAF,0.717,7.19,5,GS,pre-specified-15,UNDP Human Development Report 2023-24,2022,FALSE
+KEN,0.601,7.19,5,GS,pre-specified-15,UNDP Human Development Report 2023-24,2022,FALSE
+PHL,0.710,7.19,5,GS,pre-specified-15,UNDP Human Development Report 2023-24,2022,FALSE
+UK,0.940,7.19,5,GN,post-hoc-extension,UNDP Human Development Report 2023-24,2022,FALSE
+CAN,0.935,7.19,5,GN,post-hoc-extension,UNDP Human Development Report 2023-24,2022,FALSE
+AUS,0.946,7.19,5,GN,post-hoc-extension,UNDP Human Development Report 2023-24,2022,FALSE
+FRA,0.910,2.60,5,GN,post-hoc-extension,UNDP Human Development Report 2023-24,2022,FALSE
+ITA,0.906,1.88,4,GN,post-hoc-extension,UNDP Human Development Report 2023-24,2022,FALSE
+KOR,0.929,0.68,4,GN,post-hoc-extension,UNDP Human Development Report 2023-24,2022,FALSE
+COL,0.758,2.12,5,GS,post-hoc-extension,UNDP Human Development Report 2023-24,2022,FALSE
+CHL,0.860,2.12,5,GS,post-hoc-extension,UNDP Human Development Report 2023-24,2022,FALSE
+PRT,0.874,1.17,4,GN,post-hoc-extension,UNDP Human Development Report 2023-24,2022,FALSE
+AGO,0.591,1.17,4,GS,post-hoc-extension,UNDP Human Development Report 2023-24,2022,FALSE

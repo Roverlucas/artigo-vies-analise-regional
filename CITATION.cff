@@ -4,7 +4,7 @@ message: "If you use this work, please cite it using the metadata below."
 type: software
 authors:
   - given-names: Lucas
-    family-names: "[Surname]"
+    family-names: "Rover"
     affiliation: "Programa de Pós-Graduação em Planejamento Urbano e Ambiental, UTFPR"
     orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"
   - given-names: Yara
@@ -17,8 +17,8 @@ abstract: >-
   A pre-registered, multi-country, multi-model benchmark quantifying
   geographic bias in Large Language Models when used for applied research
   on public policy, socioeconomic reality, and environmental context in
-  the Global South. Covers 15 countries (stratified via UNCTAD, Joshi et
-  al. 2020, World Bank classifications), 6 LLMs (frontier proprietary,
+  the Global South. Covers 25 countries (stratified via UNCTAD, Joshi et
+  al. 2020, World Bank classifications), 14 LLMs (frontier proprietary,
   open-source global, regional), and a sparse factorial matrix of prompt
   languages. All prompts, ground-truth references, code, and responses
   are openly released.

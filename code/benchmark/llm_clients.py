@@ -46,8 +46,6 @@ SYNTHETIC_MODE = os.environ.get("BENCHMARK_SYNTHETIC", "0") == "1"
 # =========================================================================
 
 _ENV_CANDIDATES = [
-    Path("/Users/lucasrover/.env"),
-    Path("/Users/lucasrover/llm-evidence-synthesis-reproducibility/.env"),
     Path.home() / ".env",
     Path(__file__).parent.parent.parent / ".env",
 ]

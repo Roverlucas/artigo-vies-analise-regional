@@ -75,17 +75,17 @@ def main():
 
     # Step 1: Generate synthetic prompts (always)
     step("1. Generate prompts",
-         ["python", "-m", "benchmark.prompts"])
+         [sys.executable, "-m", "benchmark.prompts"])
 
     if not args.skip_sim:
         # Step 2: Simulate outcomes (for pipeline validation)
         step("2. Simulate outcomes",
-             ["python", "-m", "benchmark.simulate_outcomes"])
+             [sys.executable, "-m", "benchmark.simulate_outcomes"])
 
     if args.real:
         # Step 3: Real API execution
         step("3. Run real experiment (API calls)",
-             ["python", "-m", "benchmark.run_experiment",
+             [sys.executable, "-m", "benchmark.run_experiment",
               "--output", str(ROOT / "data/raw/llm_responses/real_run.jsonl")])
         # Would continue with real rubric scoring, etc.
     else:
@@ -102,7 +102,7 @@ def main():
     # Step 6: Power analysis
     if args.quick_power:
         step("6. Power simulation (quick)",
-             ["python", "-m", "benchmark.power.power_simulation", "--n_iter", "30"])
+             [sys.executable, "-m", "benchmark.power.power_simulation", "--n_iter", "30"])
     else:
         print("\n[Power grid skipped — use --quick-power or run manually]")
 
@@ -114,8 +114,10 @@ def main():
         (ROOT / "results/inference_summary.md",     "Inference summary"),
         (ROOT / "tables/h1_glmm.csv",               "H1 results"),
         (ROOT / "tables/h3_contrasts.csv",          "H3 contrasts"),
-        (ROOT / "figures/fig1_sample_composition.png", "Figure 1"),
-        (ROOT / "data/processed/analytic_synthetic.parquet", "Synthetic dataset"),
+        # NOTE: as figuras em figures/simulation/ sao de dado SINTETICO (pre-coleta) e
+        # nao entram no checklist de artefatos do paper. O manuscrito nao tem figura
+        # confirmatoria ainda; quando tiver, apontar aqui.
+        (ROOT / "data/processed/analytic_synthetic.parquet", "Synthetic dataset (pipeline validation only)"),
     ]
     for path, label in checks:
         status = "OK" if path.exists() else "MISSING"

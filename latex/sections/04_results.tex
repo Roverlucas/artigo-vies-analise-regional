@@ -4,16 +4,16 @@
 \begin{center}
 \fbox{\parbox{0.88\linewidth}{%
 \small
-\textbf{Sample note.} We report a pre-registered \emph{15-country} benchmark and
-its \emph{post-registration extension to 25 countries} (the latter adds six
+\textbf{Sample note.} We report a pre-specified \emph{15-country} benchmark and
+its \emph{post-hoc extension to 25 countries} (the latter adds six
 Global North references --- the United Kingdom, Canada, Australia, South Korea,
 France, Italy --- and four native-pair countries --- Colombia, Chile, Portugal,
 Angola). Fourteen LLMs are scored across five tasks, two personas, and four
 languages (English plus a country-native language --- Spanish, Portuguese, or
 Hindi --- for the nine applicable countries, giving the within-country
 English/native pairs that test H2). Every effect computed on the 25-country
-sample is reported alongside its pre-registered 15-country value; no
-pre-registered conclusion is revised on the extension alone. All responses are
+sample is reported alongside its pre-specified 15-country value; no
+pre-specified conclusion is revised on the extension alone. All responses are
 scored by GPT-5-mini, validated against a four-vendor judge panel
 (Section~\ref{sec:results:reliability}); the T1 ground truth is anchored to
 official primary sources for all 25 countries (Section~\ref{sec:results:gt}).
@@ -115,7 +115,7 @@ South countries, a gap of \textbf{+6.2 percentage points} whose 95\% bootstrap
 confidence interval over countries is $[+3.7,+8.6]$~pp and \emph{excludes zero}
 (15-country: $+6.7$~pp, $[+2.8,+10.2]$). The \textbf{monotonic gradient} behaves
 differently across samples, and this is where the extended sample changes the
-picture. At the pre-registered $n=15$ the gradient was
+picture. At the pre-specified $n=15$ the gradient was
 undetectable (Spearman $\rho(\text{accuracy},\text{HDI})=+0.14$, $p=0.31$;
 Mann-Kendall $p=0.69$). In the extended $n=25$ sample it becomes significant:
 $\rho(\text{accuracy},\text{HDI})=\mathbf{+0.51}$ ($p=0.004$, one-sided), with a
@@ -127,7 +127,7 @@ of high-development observations enough to reveal it --- without widening the HD
 range itself (Section~\ref{sec:results:robust}).
 
 Two honest qualifications bound this result. First, $\rho=0.51$ \emph{falls just
-short of our pre-registered $\rho\geq 0.55$ effect-size threshold}: the gradient
+short of our pre-specified $\rho\geq 0.55$ effect-size threshold}: the gradient
 is statistically significant but below the magnitude we pre-committed to call a
 strong gradient. Second, the gradient is in \emph{development} (HDI), \emph{not}
 in linguistic resource: the Joshi-class correlation remains null ($\rho=-0.06$).
@@ -170,10 +170,10 @@ Colombia      & GS & 0.539 & Argentina    & GS & 0.450 \\
 \label{sec:results:h4}
 
 The pre-specified mechanism for the geographic gap was training-corpus
-representation, with the pre-registered proxy being Wikipedia article/edition
+representation, with the pre-specified proxy being Wikipedia article/edition
 count. That proxy is \textbf{null} at both $n=15$ and $n=25$ (Spearman
 $\rho=+0.08$; partial controlling HDI $+0.04$, $p=0.87$): \textbf{H4 as
-pre-registered is not supported}. We then explored, post hoc, whether a different
+pre-specified is not supported}. We then explored, post hoc, whether a different
 channel is at work. Because the gap is measured \emph{in English}, a residual
 North/South difference cannot reflect how much text exists in a country's
 language, so we distinguish language-corpus size from how broadly the corpus is
@@ -425,11 +425,11 @@ than the data support.
 Hypothesis & Finding & Candidate mechanism & Evidence status \\
 \midrule
 H1 (tier gap) & $+6.2$~pp, CI excludes zero & development (tier) & Supported \\
-H1 (gradient) & $\rho=0.51$ with HDI ($n=25$) & development (HDI) & Supported; below pre-registered $0.55$ \\
+H1 (gradient) & $\rho=0.51$ with HDI ($n=25$) & development (HDI) & Supported; below pre-specified $0.55$ \\
 H2 (language) & $-2.1$~pp; Hindi $-7.8$ & language-corpus size & Effect supported; mechanism descriptive ($n=3$) \\
 H3 (regional model) & $\delta=-0.51$ & scale $>$ regional tuning & Supported \\
 H4 (geographic mech.) & sitelinks $\rho=0.54$ & country coverage & Exploratory (attenuates with HDI) \\
-H4 (pre-registered) & Wikipedia-size null & language-corpus size & Not supported \\
+H4 (pre-specified) & Wikipedia-size null & language-corpus size & Not supported \\
 H5 (open/closed) & $+14.1$~pp closed & access type / scale & Descriptive \\
 H6 (persona) & DiD $+0.4$~pp & --- & Not supported \\
 \bottomrule
@@ -442,13 +442,13 @@ intact.
 ($+6.2$~pp, bootstrap 95\% CI $[+3.7,+8.6]$, excludes zero) and, at $n=25$, a
 significant \emph{development gradient} (Spearman $\rho=0.51$ with HDI, $p=0.004$;
 Mann-Kendall $p=0.018$; rejects under Bonferroni-Holm) that was underpowered at
-the pre-registered $n=15$; a native-language \emph{penalty} (overall
+the pre-specified $n=15$; a native-language \emph{penalty} (overall
 $p=2\times10^{-3}$, Hindi $-7.8$~pp, Portuguese now significant); a
 technical-/local-recall \emph{floor} (T1+T2 vs others, $\delta=-0.64$); and the
 regional model as the \emph{worst} performer ($\delta=-0.51$). \textbf{Not
 supported (informative nulls):} the gradient is \emph{not} linguistic-resource
-(Joshi $\rho=-0.06$) and falls just short of the pre-registered $0.55$ effect-size
-threshold; the pre-registered corpus proxy (Wikipedia size) is \emph{not} the
+(Joshi $\rho=-0.06$) and falls just short of the pre-specified $0.55$ effect-size
+threshold; the pre-specified corpus proxy (Wikipedia size) is \emph{not} the
 mechanism (partial $\rho=0.04$), and a country-coverage proxy (sitelinks
 $\rho=0.54$, $p=0.005$) is suggestive but \emph{not} robust to HDI adjustment
 (partial $p=0.13$), leaving the mechanism exploratory; and persona does \emph{not}

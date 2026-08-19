@@ -22,8 +22,7 @@
 \linenumbers
 
 % -- Math and symbols
-\usepackage{amsmath,amssymb,amsthm}
-\usepackage{mathtools}
+\usepackage{amsmath,amssymb}
 
 % -- Graphics and tables
 \usepackage{graphicx}
@@ -31,7 +30,6 @@
 \usepackage{xcolor}
 \usepackage{booktabs}
 \usepackage{longtable}
-\usepackage{multirow}
 \usepackage{array}
 \usepackage{caption}
 \captionsetup{font=small,labelfont=bf}
@@ -108,17 +106,32 @@ pipeline is reproducible end-to-end via \texttt{python code/run\_all.py}.
 
 \section*{Study protocol}
 
-The statistical analysis plan was pre-specified for the 15-country confirmatory
-design. Confirmatory analyses follow those specifications; the post-registration
-extension to 25 countries and the exploratory analyses (notably the H4
-country-coverage proxy) are labeled explicitly and reported alongside their
-pre-registered 15-country counterparts. The full protocol, prompts, ground-truth
-registry, and analysis code will be released on publication.
+Hypotheses, sampling frame, outcome definition, decision thresholds and
+multiplicity correction were fixed in a version-controlled analysis plan before
+confirmatory collection began. That plan was not deposited in a public registry,
+so readers cannot verify its timing independently of the repository history, and
+we do not claim pre-registration. Delivered scope also departed substantially
+from the planned design, which the plan itself made a condition for confirmatory
+status.
+
+We therefore report the study in two layers. The first states what was specified
+in advance and what became of it: the three co-primary hypotheses and the
+secondary hypothesis are reported against their declared thresholds, including
+the three that failed and the one whose registered direction the data reverse.
+The second reports what the data suggested and the plan did not anticipate,
+labelled exploratory throughout, with intervals and without confirmatory
+language. Deviations from the plan are tabulated in the supplement. The full
+protocol, prompts, ground-truth registry, and analysis code will be released on
+publication.
 
 \section*{Acknowledgements}
 
-This work was supported by \placeholder{funding sources}. We acknowledge research
-credit programs from OpenAI, Anthropic, and Google for partial support of API costs.
+\placeholder{FUNDING: confirmar com os autores. Se nao houve financiamento
+especifico, usar a formula da Cell Press: ``This research did not receive any
+specific grant from funding agencies in the public, commercial, or not-for-profit
+sectors.'' Se houve bolsa (CAPES/CNPq/Fundacao Araucaria), declarar agencia e
+numero do processo.} Inference costs were paid by the authors; no vendor provided
+credits, discounts, or in-kind support for this study.
 
 \section*{Author contributions}
 

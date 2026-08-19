@@ -59,10 +59,28 @@ def main():
         noind=fn([x for x in countries if x!='IND'])
         print(f"                  without India: {noind*scale:+.3f}{unit}  (full {full*scale:+.3f}{unit})")
 
-    # (4) HDI-range restriction: restrict 25-country set to the 15-country HDI range
+    # (4) HDI-range restriction: restrict 25-country set to the 15-country HDI range.
+    #
+    # NOTE ON HOW TO READ THIS. The test answers "did the extension manufacture the
+    # gradient by widening the HDI range?". It does so by dropping any added country
+    # that falls outside the pre-specified 15-country range. If NO country is dropped,
+    # the answer is that the range was never widened: the ten added countries fall
+    # inside the original span, so the extension raised density, not amplitude, and
+    # the range-restricted rho is identical to the headline by construction. That
+    # identity is the finding, not a failure of the check -- but it must be reported
+    # as "0 dropped", never as an independent robustness result.
     hdi15=[COV[c][0] for c in COV]; lo15,hi15=min(hdi15),max(hdi15)
     inrange=[c for c in countries if lo15<=COV25[c][0]<=hi15]
-    print(f"\n(4) Restrict to 15-country HDI range [{lo15:.3f},{hi15:.3f}]: {len(inrange)} countries, HDI rho={hdi_rho(inrange):+.3f} (p={p_from_r(hdi_rho(inrange),len(inrange)):.3f})")
+    dropped=[c for c in countries if c not in inrange]
+    rho_r=hdi_rho(inrange)
+    print(f"\n(4) HDI-range restriction to the pre-specified span [{lo15:.3f},{hi15:.3f}]")
+    print(f"    countries dropped : {len(dropped)} {sorted(dropped) if dropped else ''}")
+    print(f"    countries retained: {len(inrange)} of {len(countries)}")
+    print(f"    restricted rho    : {rho_r:+.3f} (p={p_from_r(rho_r,len(inrange)):.3f})")
+    if not dropped:
+        print("    READ AS: the extension did NOT widen the HDI range; every added country")
+        print("             lies inside the pre-specified span. The restricted rho equals the")
+        print("             headline BY CONSTRUCTION and is not independent evidence.")
 
     # (2) H2 country-level (n=9). Pair EN and native by (model, base prompt).
     en={}; nat={}

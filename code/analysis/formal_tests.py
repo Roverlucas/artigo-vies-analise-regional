@@ -1,7 +1,8 @@
 """
 formal_tests.py — Pre-specified formal hypothesis tests (H1, H4, H6).
 
-Country-level (n=15) analysis on English-prompt confirmatory composites:
+Country-level analysis on English-prompt confirmatory composites.
+DEFAULT n=25 (reported sample); `--n15-prespecified` for the pre-specified subset:
   H1: Spearman rho(accuracy, HDI) and (accuracy, Joshi class), one-sided, plus Mann-Kendall.
   H4: Spearman rho(accuracy, log Wikipedia size) and PARTIAL rho controlling HDI (mechanism).
   H6: difference-in-differences (persona-neutral, GS vs GN) with 5000-permutation inference.
@@ -103,7 +104,19 @@ def mann_kendall(y):
 
 def main():
     import sys
-    use25 = "--n25" in sys.argv
+    # DEFAULT = 25 countries, the sample the manuscript reports.
+    # `--n15-prespecified` runs the smaller pre-specified subset, which yields the
+    # OPPOSITE conclusion for H1 and H4. That subset is a reporting layer, not the
+    # headline; running it by accident and quoting its numbers was a real hazard.
+    use15 = ("--n15-prespecified" in sys.argv) or ("--n15" in sys.argv)
+    use25 = not use15
+    if use15:
+        print("=" * 78)
+        print("  PRE-SPECIFIED SUBSET (n=15) — NOT the values reported in the paper.")
+        print("  The manuscript reports n=25. At n=15, H1 is null and the H4 partial")
+        print("  correlation points the other way. Quote these only as the layer-1")
+        print("  pre-specified result, never as the headline.")
+        print("=" * 78)
     cov = {**COV, **COV_EXT} if use25 else dict(COV)
     gs = (GS | GS_EXT) if use25 else set(GS)
     rows=[json.loads(l) for l in open(SCORES) if l.strip()]

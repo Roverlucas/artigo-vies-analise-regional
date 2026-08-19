@@ -12,14 +12,14 @@ of the present study extend the thread.
 \citet{manvi2024llm} established that frontier LLMs carry systematic biases
 against regions of lower socioeconomic conditions, with Spearman correlations
 up to 0.70 between model-generated ratings of attractiveness, morality, and
-intelligence and per-capita income. The outcome space (subjective ratings)
+intelligence and a proxy for those conditions. The outcome space (subjective ratings)
 leaves open whether the same bias appears in objective recall of regulatory and
 epidemiological facts, which is what air pollution policy requires.
 
 \citet{moayeri2024worldbench} introduced WorldBench, quantifying factual recall
 against World Bank indicators across 20 LLMs and 11 indicators and documenting
 1.5$\times$ higher absolute relative error for Sub-Saharan Africa versus North
-America. WorldBench also pioneered automatic detection of citation hallucination,
+America. WorldBench also enables automatic detection of citation hallucination,
 where models cite the World Bank while producing false statistics. The design is
 bounded by the macro-economic indicator space; an environmental manager asks
 narrower, source-specific questions (a national ambient standard, an attainment
@@ -69,7 +69,7 @@ candidate mitigation lever rather than a fixed property of the model.
 \subsection{LLMs in policy and health decision contexts}
 
 A parallel literature examines LLM use in specific policy settings.
-\citet{he2025policymaking} evaluated LLM policy recommendations for homelessness
+\citet{lecoz2025policymaking} evaluated LLM policy recommendations for homelessness
 across four cities (including Barcelona, Johannesburg, and South Bend), finding
 ``context-blind rigidity'' in which models apply stable internal heuristics
 poorly calibrated to local realities and align more closely with Global North
@@ -104,6 +104,38 @@ untested for geographic equity. We therefore treat persona as a pre-specified
 experimental factor and test both the
 Norm-Compliance hypothesis (persona reduces the gap) and the Persona-Vacuum
 hypothesis (persona amplifies it).
+
+\subsection{Generative AI inside the administration}
+
+The deployment question is no longer hypothetical. \citet{kim2026genai} estimates
+bureaucratic productivity effects of generative AI in public administration
+quasi-experimentally, and \citet{robinson2026opensource} documents that choosing
+which model an agency runs is now an explicit procurement decision, weighed
+between open-weight and vendor-hosted options. Both of our model-level findings
+speak directly to that decision: the openly available frontier models trail the
+closed ones, and the regionally tuned Portuguese model is the weakest of the
+fourteen we evaluate, so the two choices an agency might make on sovereignty or
+locality grounds are the two that cost the most accuracy.
+
+Two further strands frame why a wrong answer matters administratively rather than
+merely technically. \citet{choroszewicz2026crumple} shows that early generative-AI
+support tools position frontline practitioners as ``moral crumple zones'',
+absorbing responsibility for failures originating upstream; a civil servant who
+files a brief citing a superseded emission limit occupies exactly that position.
+And \citet{cordella2024regulating}, analysing Italy's intervention on ChatGPT,
+argue that technology-neutral regulatory frameworks do not reach the specific
+harms these systems produce, which leaves verification at the point of use as the
+operative control. The literature on how such decisions are received is
+correspondingly developed: \citet{aoki2024explainable} test whether the type of
+explanation changes perceived accuracy, fairness, and trustworthiness of an
+algorithmic decision among those affected by it.
+
+What none of this work establishes is whether the underlying answer is
+\emph{correct}, and whether correctness is distributed evenly across the states
+that would rely on it. Perceived trustworthiness and measured accuracy are
+different quantities, and a system can be well explained, well governed, well
+received, and wrong. That is the gap this study addresses, using a domain where
+the correct answer is published in an official register and can be checked.
 
 \subsection{Positioning of the present work}
 
