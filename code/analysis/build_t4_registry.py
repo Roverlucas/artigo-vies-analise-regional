@@ -194,6 +194,14 @@ def main() -> None:
         if iso:
             by_iso[iso] = rec
 
+    # Correções manuais dos países cuja extração saiu contaminada. Transcritas à
+    # mão do PDF; ver o _README do arquivo.
+    ovr_path = pathlib.Path("data/ground_truth/t4_manual_overrides.json")
+    overrides = {}
+    if ovr_path.exists():
+        overrides = {k: v for k, v in json.loads(ovr_path.read_text(encoding="utf-8")).items()
+                     if not k.startswith("_")}
+
     rows = []
     for iso in ALL_ISO:
         rec = by_iso.get(iso)
@@ -212,6 +220,12 @@ def main() -> None:
             continue
         instrumentos, urls = instruments_from(rec["raw"])
         q, flags = quality(iso, instrumentos, rec["country_name"])
+        ovr = overrides.get(iso)
+        if ovr:
+            instrumentos = ovr["reference_set"]
+            urls = ovr.get("source_urls", urls)
+            q = "MANUALLY_VERIFIED"
+            flags = (["conjunto possivelmente incompleto"] if ovr.get("incomplete") else [])
         rows.append({
             "extraction_quality": q,
             "extraction_flags": flags,
@@ -237,11 +251,14 @@ def main() -> None:
             fh.write(json.dumps(r, ensure_ascii=False) + "\n")
 
     ok = [r for r in rows if r["status"] == "REFERENCE_SET_AVAILABLE"]
-    limpos = [r for r in ok if r.get("extraction_quality") == "CLEAN"]
+    limpos = [r for r in ok if r.get("extraction_quality") in ("CLEAN", "MANUALLY_VERIFIED")]
     print(f"escrito: {a.out}")
-    print(f"  extracao limpa            : {len(limpos)}/25")
-    print(f"  precisa revisao humana    : {len(ok)-len(limpos)}/25 "
-          f"{[r['country'] for r in ok if r.get('extraction_quality') != 'CLEAN']}")
+    mv = [r for r in ok if r.get("extraction_quality") == "MANUALLY_VERIFIED"]
+    pend = [r["country"] for r in ok
+            if r.get("extraction_quality") not in ("CLEAN", "MANUALLY_VERIFIED")]
+    print(f"  extracao automatica limpa : {len(limpos)-len(mv)}/25")
+    print(f"  conferido manualmente     : {len(mv)}/25 {[r['country'] for r in mv]}")
+    print(f"  ainda pendente            : {len(pend)}/25 {pend}")
     print(f"  paises no GAAPL Appendix 1 (total): {len(todos)}")
     print(f"  com conjunto de referencia: {len(ok)}/25")
     faltam = [r["country"] for r in rows if r["status"] != "REFERENCE_SET_AVAILABLE"]

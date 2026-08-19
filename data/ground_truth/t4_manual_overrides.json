@@ -1,0 +1,109 @@
+{
+  "_README": {
+    "o_que_e": "Correções manuais dos países cuja extração automática do Apêndice 1 do UNEP GAAPL saiu contaminada pelo layout de quatro colunas do PDF.",
+    "como_foi_feito": "Cada entrada foi lida diretamente no texto extraído do PDF, na linha indicada em 'gaapl_line', e transcrita à mão. Não há inferência: o que está em 'reference_set' é o que está impresso no relatório.",
+    "quando": "2026-08-19",
+    "fonte": "UNEP, Regulating Air Quality: The First Global Assessment of Air Pollution Legislation, Appendix 1 (as at 15 December 2020)",
+    "por_que_manual": "O pdftotext costura colunas erradas neste layout. O extrator automático marcou estes nove com extraction_quality=NEEDS_HUMAN_REVIEW em vez de entregar texto sujo como gabarito, que é o defeito que esta rodada existe para consertar.",
+    "atencao_data_de_corte": "O conjunto reflete o estado em 15/12/2020. Para o Brasil isso significa a CONAMA 491/2018, parcialmente revogada pela 506/2024. Uma resposta que cite a 506/2024 está MAIS correta que este conjunto e não pode ser penalizada."
+  },
+
+  "AUS": {
+    "gaapl_index": 8,
+    "reference_set": [
+      "National Environment Protection (Ambient Air Quality) Measure (as amended) (2016)"
+    ],
+    "source_urls": ["www.legislation.gov.au/Details/F2016C00215"],
+    "instrument_type": "Secondary legislation",
+    "verified_by": "manual transcription from GAAPL Appendix 1"
+  },
+
+  "BRA": {
+    "gaapl_index": 19,
+    "reference_set": [
+      "Resolução CONAMA N° 491/2018 – Dispõe sobre padrões de qualidade do ar"
+    ],
+    "source_urls": ["www.in.gov.br/web/guest/materia/-/asset_publisher/Kujrw0TZC2Mb/content/id/51058895"],
+    "instrument_type": "Secondary legislation",
+    "note": "Parcialmente revogada pela CONAMA 506/2024, posterior à data de corte do GAAPL. Resposta que cite a 506/2024 deve ser aceita como correta.",
+    "verified_by": "manual transcription from GAAPL Appendix 1"
+  },
+
+  "IDN": {
+    "gaapl_index": 53,
+    "reference_set": [
+      "Government Regulation No. 41/1999 on Air Pollution Control (1999)"
+    ],
+    "source_urls": [],
+    "instrument_type": "Secondary legislation",
+    "note": "O GAAPL registra 'Data not publicly available' na coluna de fonte para este país.",
+    "verified_by": "manual transcription from GAAPL Appendix 1"
+  },
+
+  "IND": {
+    "gaapl_index": 52,
+    "reference_set": [
+      "National Ambient Air Quality Standards (2009)"
+    ],
+    "source_urls": ["https://scclmines.com/env/DOCS/NAAQS-2009.pdf"],
+    "instrument_type": "Secondary legislation",
+    "verified_by": "manual transcription from GAAPL Appendix 1"
+  },
+
+  "KEN": {
+    "gaapl_index": 61,
+    "reference_set": [
+      "The Environmental Management and Co-ordination (Air Quality) Regulations (2014)"
+    ],
+    "source_urls": ["www.nema.go.ke/images/Docs/Regulations/air%20quality%20regulations2014-1.pdf"],
+    "instrument_type": "Secondary legislation",
+    "verified_by": "manual transcription from GAAPL Appendix 1"
+  },
+
+  "KOR": {
+    "gaapl_index": 95,
+    "reference_set": [
+      "Enforcement Decree of the Clean Air Conservation Act (2007), as amended last by Presidential Decree No. 27200 of 31 May 2016"
+    ],
+    "source_urls": ["http://extwprlegs1.fao.org/docs/pdf/kor100505.pdf"],
+    "instrument_type": "Secondary legislation",
+    "note": "A entrada do GAAPL continua com 'and' e uma segunda fonte no ecolex ('special-act-...'), cujo título ficou truncado na extração. Há um segundo instrumento neste país que não foi transcrito por não estar legível. Conferir no PDF antes de tratar o conjunto como fechado.",
+    "incomplete": true,
+    "verified_by": "manual transcription from GAAPL Appendix 1"
+  },
+
+  "NGA": {
+    "gaapl_index": 82,
+    "reference_set": [
+      "National Environmental (Air Quality Control) Regulations 2014"
+    ],
+    "source_urls": ["www.nesrea.gov.ng/wp-content/uploads/2020/02/air_quality_control.pdf"],
+    "instrument_type": "Secondary legislation",
+    "verified_by": "manual transcription from GAAPL Appendix 1"
+  },
+
+  "UK": {
+    "gaapl_index": 121,
+    "reference_set": [
+      "The Air Quality Standards Regulations 2010 No. 1001",
+      "Environment Act 1995 (Part IV)"
+    ],
+    "source_urls": [
+      "www.legislation.gov.uk/uksi/2010/1001/contents/made",
+      "www.legislation.gov.uk/ukpga/1995/25/part/IV"
+    ],
+    "instrument_type": "More than one instrument",
+    "note": "Único dos nove com dois instrumentos distintos. A extração automática havia capturado cabeçalho de tabela no lugar.",
+    "verified_by": "manual transcription from GAAPL Appendix 1"
+  },
+
+  "USA": {
+    "gaapl_index": 123,
+    "reference_set": [
+      "Code of Federal Regulations (CFR) Title 40, Chapter I, Subchapter C, Part 50"
+    ],
+    "source_urls": ["www.ecfr.gov/cgi-bin/text-idx?SID=08ea3f431033e1d3e29be453d3ed5a67&mc=true&tpl=/ecfrbrowse/Title40/40cfr50_main_02.tpl"],
+    "instrument_type": "Secondary legislation",
+    "verified_by": "manual transcription from GAAPL Appendix 1"
+  }
+}
