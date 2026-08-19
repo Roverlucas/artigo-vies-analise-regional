@@ -179,7 +179,21 @@ def ground_truth_for(task: str, iso: str, regs: dict) -> str:
 
 
 def load_targets(limit: int | None) -> list[dict]:
-    """T2/T3 não resolvidos pelo código, mais T4 inteira."""
+    """T2/T3 não resolvidos pelo código, mais T4 inteira.
+
+    SELEÇÃO IDÊNTICA À DO PIPELINE ORIGINAL, e isso não é detalhe.
+    `run_judge_confirmatory.py` deduplica por (model_id, prompt_id, replicate_idx),
+    descarta registros com api_error e respostas com menos de 10 caracteres, e lê
+    os arquivos em ordem alfabética. Usar outra regra tornaria a repontuação
+    incomparável com os números publicados.
+
+    ACHADO REGISTRADO AQUI: 1.003 das 4.976 chaves têm mais de um registro, porque
+    houve re-execuções em datas diferentes. As respostas divergem muito entre elas
+    (num caso, 307 contra 3.180 caracteres para o mesmo prompt e modelo). Como a
+    regra é "a primeira na ordem alfabética dos arquivos", QUAL resposta entra na
+    análise é decidido por ordenação de nome de arquivo. Isso vale para o pipeline
+    original tanto quanto para este, e precisa ir para as limitações do manuscrito.
+    """
     unresolved = set()
     for t in ("T2", "T3"):
         f = ROOT / "data" / "processed" / f"numeric_scores_{t}.jsonl"
@@ -188,21 +202,31 @@ def load_targets(limit: int | None) -> list[dict]:
             if r["verdict"] == "UNRESOLVED":
                 unresolved.add(r["prompt_id"] + "|" + str(r.get("model_id")))
 
-    alvos = []
-    for f in glob.glob(str(RESP / "run_confirmatory_*.jsonl")):
+    alvos, visto = [], set()
+    for f in sorted(glob.glob(str(RESP / "run_confirmatory_*.jsonl"))):
+        if "_DEPRECATED" in f:
+            continue
         for line in open(f, encoding="utf-8"):
             try:
                 r = json.loads(line)
             except Exception:
                 continue
-            pid, mid = r.get("prompt_id", ""), r.get("model_id")
-            txt = r.get("response_text") or ""
-            if not txt:
+            if r.get("api_error"):
                 continue
+            pid, mid = r.get("prompt_id", ""), r.get("model_id")
+            txt = (r.get("response_text") or "").strip()
+            if len(txt) < 10:
+                continue
+            rep = int(r.get("replicate_idx", 0))
+            chave_dedup = (mid, pid, rep)
+            if chave_dedup in visto:
+                continue
+            visto.add(chave_dedup)
             chave = pid + "|" + str(mid)
             task = next((t for t in ("T2", "T3", "T4") if f"_{t}_" in pid), None)
             if task == "T4" or (task in ("T2", "T3") and chave in unresolved):
                 alvos.append({"prompt_id": pid, "model_id": mid, "task": task,
+                              "replicate_idx": rep,
                               "country": pid.split("_")[0], "response": txt})
     alvos.sort(key=lambda a: (a["task"], a["country"], str(a["model_id"])))
     return alvos[:limit] if limit else alvos
@@ -236,7 +260,9 @@ def main() -> None:
     if OUT.exists():
         for line in OUT.open(encoding="utf-8"):
             try:
-                r = json.loads(line); feitos.add((r["prompt_id"], str(r["model_id"]), r["judge"]))
+                r = json.loads(line)
+                feitos.add((r["prompt_id"], str(r["model_id"]),
+                            int(r.get("replicate_idx", 0)), r["judge"]))
             except Exception:
                 pass
     print(f"ja gravados: {len(feitos)}")
@@ -249,14 +275,16 @@ def main() -> None:
                     f"GROUND TRUTH:\n{gt}\n\n"
                     f"ANSWER TO SCORE:\n{alvo['response'][:6000]}")
             for j in judges:
-                if (alvo["prompt_id"], str(alvo["model_id"]), j) in feitos:
+                if (alvo["prompt_id"], str(alvo["model_id"]),
+                        alvo["replicate_idx"], j) in feitos:
                     continue
                 try:
                     scores = parse(call(j, RUBRIC, user))
                     if scores is None:
                         err += 1; continue
                     fh.write(json.dumps({**{k: alvo[k] for k in
-                                            ("prompt_id", "model_id", "task", "country")},
+                                            ("prompt_id", "model_id", "task", "country",
+                                             "replicate_idx")},
                                          "judge": j, **scores}, ensure_ascii=False) + "\n")
                     fh.flush(); ok += 1
                 except Exception as e:
