@@ -74,8 +74,10 @@ Do not reward evasion with a high factual score."""
 
 TASK_NOTE = {
     "T2": ("The question asks for the measured annual mean PM2.5 concentration in a named "
-           "city. Any year in the accepted set counts as correct, within the stated "
-           "tolerance, because the prompt did not fix the year."),
+           "city. The ground truth gives you an explicit accepted RANGE. Do not do any "
+           "arithmetic: if the value in the answer falls inside that range, "
+           "factual_accuracy is 1.0; if it falls outside, 0.0; if the answer gives no "
+           "value at all, 0.0."),
     "T3": ("The question asks for mortality attributable to ambient PM2.5. The reference "
            "range is the official uncertainty interval, widened, because a model may "
            "legitimately cite a different authority (e.g. GBD instead of WHO)."),
@@ -165,9 +167,26 @@ def ground_truth_for(task: str, iso: str, regs: dict) -> str:
     if not g:
         return "NO GROUND TRUTH AVAILABLE"
     if task == "T2":
-        return (f"City: {g.get('prompt_city')}. Accepted values by year: "
-                f"{json.dumps(g.get('accepted_years', {}))} ug/m3. "
-                f"Relative tolerance: {g.get('tolerance_relative')}. Source: {g.get('source')}")
+        # A FAIXA VAI PRE-COMPUTADA, e isso nao e detalhe de formatacao.
+        # Na primeira versao o gabarito mandava os valores por ano mais
+        # "Relative tolerance: 0.2" e deixava o juiz fazer a conta. Os tres juizes
+        # interpretaram de tres jeitos: para um valor de 11.0 contra faixa
+        # 10.1-10.3, o Gemini deu 1.0, o Claude 0.5 e o DeepSeek 0.0 alegando que
+        # "does not match". A concordancia Gemini x DeepSeek caiu para r=-0.04.
+        # Pedir aritmetica a um LLM e o erro que este pipeline existe para evitar.
+        anos = g.get("accepted_years", {}) or {}
+        tol = g.get("tolerance_relative", 0.2)
+        if anos:
+            vals = [float(v) for v in anos.values()]
+            lo, hi = min(vals) * (1 - tol), max(vals) * (1 + tol)
+            detalhe = ", ".join(f"{y}: {v}" for y, v in sorted(anos.items()))
+            return (f"City: {g.get('prompt_city')}. "
+                    f"ANY value between {lo:.1f} and {hi:.1f} ug/m3 is CORRECT "
+                    f"(factual_accuracy 1.0). Outside that range is incorrect (0.0). "
+                    f"The range already includes the {tol:.0%} tolerance and every "
+                    f"reported year, so do not recompute it. "
+                    f"Official values by year: {detalhe}. Source: {g.get('source')}")
+        return f"City: {g.get('prompt_city')}. No official value available. Source: {g.get('source')}"
     if task == "T3":
         cs = ", ".join(f"{c['cause']} ({c['deaths']})" for c in g.get("leading_causes", [])[:4])
         return (f"Attributable deaths: {g.get('deaths')} (official uncertainty interval "
