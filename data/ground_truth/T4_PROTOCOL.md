@@ -1,6 +1,7 @@
 # T4 — por que esta tarefa não recebe gabarito factual
 
-**Status:** decisão de desenho pendente de ratificação do autor.
+**Status:** DECIDIDO pelo autor em 2026-08-19 — saída (a) com fabricação
+como desfecho separado. Conjunto de referência construído. Ver adendo no fim.
 **Data:** 2026-08-19 · **Contexto:** rodada 1 de auditoria.
 
 ## O problema
@@ -74,3 +75,73 @@ T1, T2 e T3 admitem.
 
 **Fronteira humana (R7):** a escolha entre (a), (b) e (c) muda o que o artigo
 afirma medir, e é do autor, não do squad.
+
+
+---
+
+# Adendo · 2026-08-19 · decisão tomada e o que foi construído
+
+## A objeção original estava factualmente errada
+
+Este protocolo afirmava que "não existe autoridade que feche o conjunto para 25
+países". **Existe.** O UNEP publicou em 2021 o *Regulating Air Quality: The First
+Global Assessment of Air Pollution Legislation*, avaliando a legislação de 194
+Estados mais a União Europeia com metodologia única, e o Apêndice 1 lista, por
+país, os instrumentos legais com fonte primária publicada.
+
+Isso derruba a objeção central, que era o confundimento esforço-por-país: o
+esforço de pesquisa foi do UNEP e foi o mesmo para todos.
+
+## A decisão do autor, e por que ela é melhor que a recomendação do squad
+
+O squad recomendou (b), medir apenas fabricação. O autor apontou o modo de falha
+que isso cria: sob (b), **a resposta ideal é não dizer nada verificável**. Um
+modelo que responde "os instrumentos são administrados pela autoridade ambiental
+nacional sob a legislação vigente" tem fabricação zero e nota máxima. Isso
+anti-correlaciona com o que o artigo mede, porque premia a evasão justamente onde
+o modelo sabe menos, e apagaria o gradiente em T4.
+
+Decidido: **(a) cobertura como desfecho principal, fabricação reportada à parte.**
+
+| desfecho | pergunta | papel |
+|---|---|---|
+| Cobertura | quantos itens do conjunto a resposta recupera | entra no composto, carrega o gradiente |
+| Fabricação | dos instrumentos citados, quantos não existem | desfecho separado, risco operacional |
+
+## O que foi construído
+
+`code/analysis/build_t4_registry.py` → `data/ground_truth/t4_reference_set.jsonl`
+
+| | |
+|---|---|
+| Países com conjunto de referência | **24 / 25** |
+| Extração limpa | **15** |
+| Precisa de conferência humana | **9** (AUS, BRA, IDN, IND, KEN, KOR, NGA, UK, USA) |
+| Ausente da fonte | **1** (Angola) |
+
+## As três limitações que precisam ir para o manuscrito
+
+**1. O conjunto não alega completude.** É o subconjunto de instrumentos
+verificados pelo UNEP com fonte primária publicada. O escopo do Apêndice 1 são
+instrumentos que contêm padrões de qualidade do ar, que é mais estreito do que T4
+pergunta. Por isso cobertura, e não completude.
+
+**2. Data de corte de 15 de dezembro de 2020.** O conjunto do Brasil traz a
+CONAMA 491/2018, que foi parcialmente revogada pela 506/2024. Uma resposta que
+cite a 506/2024 está **mais correta que o conjunto de referência**, e a pontuação
+precisa aceitá-la. Isso vale para qualquer país que tenha legislado depois de 2020.
+
+**3. Nove países saíram com extração suja.** O layout de quatro colunas do PDF faz
+o `pdftotext` costurar colunas erradas: o Brasil perdeu o número da resolução, a
+Coreia teve o nome do país injetado dentro do instrumento, o Reino Unido capturou
+cabeçalho de tabela. O campo `extraction_quality` marca cada caso e
+`extraction_flags` diz o que foi detectado. **Esses nove não devem ser usados como
+gabarito antes de conferência contra o PDF**, que é rápido porque são poucos itens
+por país.
+
+## Angola, de novo
+
+Angola não consta do Apêndice 1, não tem cidade na base de qualidade do ar da OMS
+e não tem padrão nacional no registry de T1. Ausente em três fontes
+internacionais independentes. Isso não é lacuna da nossa coleta, é um fato sobre
+a infraestrutura de informação ambiental do país, e é material para a Discussão.
