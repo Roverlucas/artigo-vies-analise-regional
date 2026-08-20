@@ -36,6 +36,7 @@ from __future__ import annotations
 
 import argparse
 import collections
+import concurrent.futures
 import glob
 import json
 import pathlib
@@ -294,30 +295,58 @@ def main() -> None:
     print(f"ja gravados: {len(feitos)}")
 
     ok = err = 0
+    # Juizes de provedores diferentes nao competem por rate limit, entao rodam em
+    # PARALELO. Em sequencia, o tempo por alvo era a soma; o Gemini 2.5 Pro leva
+    # ~16 s por chamada e sozinho segurava o ritmo em ~1 score/min.
+    #
+    # `sem_credito` tira de circulacao o juiz cujo provedor ficou sem saldo: sem
+    # isso cada alvo gastava uma tentativa so para receber o mesmo 400.
+    sem_credito: set[str] = set()
+
+    def julgar(j, user):
+        return j, parse(call(j, RUBRIC, user))
+
     with OUT.open("a", encoding="utf-8") as fh:
         for i, alvo in enumerate(alvos, 1):
             gt = ground_truth_for(alvo["task"], alvo["country"], regs)
             user = (f"TASK: {alvo['task']}\n{TASK_NOTE[alvo['task']]}\n\n"
                     f"GROUND TRUTH:\n{gt}\n\n"
                     f"ANSWER TO SCORE:\n{alvo['response'][:6000]}")
-            for j in judges:
-                if (alvo["prompt_id"], str(alvo["model_id"]),
-                        alvo["replicate_idx"], j) in feitos:
-                    continue
-                try:
-                    scores = parse(call(j, RUBRIC, user))
-                    if scores is None:
-                        err += 1; continue
-                    fh.write(json.dumps({**{k: alvo[k] for k in
-                                            ("prompt_id", "model_id", "task", "country",
-                                             "replicate_idx")},
-                                         "judge": j, **scores}, ensure_ascii=False) + "\n")
-                    fh.flush(); ok += 1
-                except Exception as e:
-                    err += 1
-                    print(f"  [erro] {j} {alvo['prompt_id']}: {str(e)[:90]}", flush=True)
+            pendentes = [j for j in judges
+                         if j not in sem_credito
+                         and (alvo["prompt_id"], str(alvo["model_id"]),
+                              alvo["replicate_idx"], j) not in feitos]
+            if not pendentes:
+                continue
+            with concurrent.futures.ThreadPoolExecutor(max_workers=len(pendentes)) as ex:
+                futs = {ex.submit(julgar, j, user): j for j in pendentes}
+                for fut in concurrent.futures.as_completed(futs):
+                    j = futs[fut]
+                    try:
+                        _, scores = fut.result()
+                        if scores is None:
+                            err += 1; continue
+                        fh.write(json.dumps({**{k: alvo[k] for k in
+                                                ("prompt_id", "model_id", "task", "country",
+                                                 "replicate_idx")},
+                                             "judge": j, **scores}, ensure_ascii=False) + "\n")
+                        fh.flush(); ok += 1
+                    except Exception as e:
+                        err += 1
+                        msg = str(e)
+                        if "SEM CREDITO" in msg:
+                            sem_credito.add(j)
+                            print(f"  [PAUSADO] {j}: sem credito, removido do painel "
+                                  f"ate a proxima execucao", flush=True)
+                        else:
+                            print(f"  [erro] {j} {alvo['prompt_id']}: {msg[:90]}", flush=True)
             if i % 25 == 0:
-                print(f"  {i}/{len(alvos)} alvos | ok={ok} err={err}", flush=True)
+                ativos = [j for j in judges if j not in sem_credito]
+                print(f"  {i}/{len(alvos)} alvos | ok={ok} err={err} | ativos={ativos}",
+                      flush=True)
+    if sem_credito:
+        print(f"AVISO: juizes fora por falta de credito: {sorted(sem_credito)}. "
+              f"Rode de novo apos recarregar; o script completa so o que falta.")
     print(f"CONCLUIDO: {ok} scores gravados, {err} erros -> {OUT}")
 
 
