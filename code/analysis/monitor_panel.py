@@ -60,14 +60,19 @@ def _painel_vivo() -> bool:
 def probe_providers() -> dict[str, str]:
     """OK, SEM_CREDITO, RATE_LIMIT ou HTTP <codigo>, por juiz."""
     alvos = {
-        # A sonda usa FLASH, nao o Pro. A cota diaria e por modelo, e o painel
-        # depende de cada uma das 1.000 chamadas do Pro: gastar 49 por dia so para
-        # perguntar "voce esta vivo?" e queimar 5% do orcamento em monitoramento.
-        # O Flash compartilha a chave e o projeto, entao responde a mesma pergunta
-        # (chave valida, projeto ativo) sem competir pela cota que importa.
+        # QUAL modelo sondar depende de haver coleta rodando, e a escolha tem um
+        # custo real dos dois lados.
+        #   painel rodando -> sondar o Flash. A cota diaria e por modelo e o painel
+        #     depende de cada uma das 1.000 chamadas do Pro; gastar 49 por dia so
+        #     para perguntar "voce esta vivo?" queima 5% do orcamento.
+        #   painel parado  -> sondar o PRO. E exatamente quando precisamos saber se
+        #     a cota resetou, e nao ha coleta competindo pela chamada. Sondar o
+        #     Flash aqui devolve OK e esconde que o Pro segue bloqueado, que foi o
+        #     falso positivo introduzido pela primeira versao desta funcao.
         "gemini_2_5_pro": (
             f"https://generativelanguage.googleapis.com/v1beta/models/"
-            f"gemini-2.5-flash:generateContent?key={_key('GEMINI_API_KEY')}",
+            f"gemini-2.5-{'flash' if _painel_vivo() else 'pro'}:generateContent"
+            f"?key={_key('GEMINI_API_KEY')}",
             {"contents": [{"parts": [{"text": "ok"}]}],
              "generationConfig": {"maxOutputTokens": 1200}}, {}),
         "claude_sonnet_4_6": (
@@ -279,6 +284,20 @@ def main() -> int:
     # 7 cobertura por tarefa
     portask = collections.Counter(r.get("task") for r in rows)
     print("│ 7 COBERTURA   " + " · ".join(f"{k}={v}" for k, v in sorted(portask.items())))
+
+    # Retomada automatica: se ha trabalho pendente, o provedor voltou e nao ha
+    # coleta rodando, relancar e a acao obvia. Esperar o proximo comando humano
+    # aqui so adiciona latencia a uma decisao que ja esta tomada.
+    if not _painel_vivo() and n < total and all(
+            e == "OK" for e in saude.values()):
+        import subprocess
+        print("│ ↻ RETOMADA   provedores OK e trabalho pendente: relancando a coleta")
+        subprocess.Popen(
+            [str(ROOT / ".venv" / "bin" / "python"),
+             str(ROOT / "code" / "analysis" / "run_judge_panel.py")],
+            cwd=str(ROOT), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+            start_new_session=True)
+        alertas = [a for a in alertas if "coleta PAROU" not in a]
 
     if alertas:
         print("├─ PENDENCIAS")
