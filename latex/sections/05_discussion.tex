@@ -32,7 +32,9 @@ the field --- geographic-bias gradients across a handful of countries are easy t
 miss at small $n$, and the $n=15$ null would have been the wrong conclusion.
 
 Crucially, the gradient is in \emph{development} (HDI), not in linguistic-resource
-class (Joshi $\rho=-0.06$), and it coexists with large country-specific
+class (Joshi $\rho=-0.06$), though with the caveat that the Joshi axis has too
+few distinct values here to rule that channel out rather than merely fail to
+detect it; and it coexists with large country-specific
 heterogeneity: India tops all 25 countries despite being Global South, and Germany
 is the lowest-scoring Global North country. The disadvantage is a development
 gradient layered over substantial idiosyncrasy, not a clean ranking, which is why
@@ -104,11 +106,19 @@ acute lower respiratory infections~\citep{who2026gho_air41}; short-term exposure
 continues to drive measurable mortality in Brazilian
 cities~\citep{requia2024shortterm}. When a manager delegates a normative lookup or
 an episode recommendation to an LLM, an inaccurate answer can propagate into a
-regulatory brief or an emergency response. The alignment is the worrying part:
-the regions in the lower classes of the resource hierarchy~\citep{joshi2020state}
-and with thinner encyclopedic coverage are also where air pollution kills the most
-people, so the model is least reliable exactly where the consequences are
-greatest. We read the whole pattern within the coloniality-of-knowledge
+regulatory brief or an emergency response.
+
+It would be natural to close this argument by saying that the model is least
+reliable exactly where the consequences are greatest. We do not make that claim,
+because we did not measure it: disease burden is not among our country
+covariates, and no test in this study relates accuracy to mortality. The one
+country-level observation we do have points the other way, since India carries
+one of the largest PM\textsubscript{2.5} mortality burdens in the world and is
+also the highest-scoring country in our sample. Whether reliability is
+misaligned with need is a well-posed question, and a straightforward one to
+answer by adding an age-standardised attributable-mortality covariate, but it is
+not a question this design answers. We read the pattern we \emph{did} measure
+within the coloniality-of-knowledge
 framework~\citep{mohamed2020decolonial}: LLMs are compressed summaries of corpora
 produced under uneven digital and publication access, and the development gradient,
 the country-coverage mechanism, and the language penalty are three measurable
