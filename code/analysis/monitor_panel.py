@@ -109,6 +109,7 @@ def main() -> int:
         except json.JSONDecodeError:
             malformadas += 1
 
+    saude = probe_providers()
     n = len(rows)
     total = ESPERADO_ALVOS * len(JUIZES)
     print(f"┌─ MONITOR · {time.strftime('%H:%M:%S')}")
@@ -130,7 +131,18 @@ def main() -> int:
                 else:
                     print()
                 if dn == 0:
-                    alertas.append("coleta PAROU: nenhum score novo desde a ultima checagem")
+                    # Parada com causa conhecida e sem acao possivel nao e pendencia.
+                    # Se o unico juiz que ainda tem trabalho esta sem cota ou sem
+                    # credito, parar e o comportamento correto: alertar todo ciclo
+                    # so treina quem le a ignorar o alerta.
+                    bloqueados = [j for j, e in saude.items()
+                                  if e in ("SEM_CREDITO", "RATE_LIMIT")]
+                    if bloqueados and not _painel_vivo():
+                        print(f"│               coleta parada aguardando "
+                              f"{', '.join(bloqueados)}. Nada a fazer ate o reset.")
+                    else:
+                        alertas.append("coleta PAROU: nenhum score novo desde a "
+                                       "ultima checagem, e os provedores respondem")
         except Exception:
             pass
     STATE.parent.mkdir(parents=True, exist_ok=True)
@@ -150,7 +162,6 @@ def main() -> int:
     # paga e não defeito; (b) o juiz é simplesmente mais lento, e o Gemini 2.5 Pro
     # leva ~14 s por chamada contra ~2 s do DeepSeek; (c) falha de verdade. Só (c)
     # é pendência, então o monitor consulta o provedor antes de acusar.
-    saude = probe_providers()
     porj = collections.Counter(r.get("judge") for r in rows)
     print("│ 2 PARIDADE    " + " · ".join(f"{j.split('_')[0]}={porj.get(j,0)}" for j in JUIZES))
     if porj:
