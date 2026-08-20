@@ -330,6 +330,13 @@ def main() -> None:
     trava = threading.Lock()
 
     def julgar(j, user):
+        # Checagem TARDIA, dentro da thread. A checagem so na submissao nao basta:
+        # quando um provedor esgota cota no meio da execucao, os futures dele ja
+        # foram todos submetidos e cada um ainda gasta o ciclo completo de
+        # backoff. Foi o que travou a coleta com 1.423 chamadas mortas do Gemini
+        # na fila e o processo vivo sem produzir nada.
+        if j in sem_credito:
+            raise RuntimeError("SEM CREDITO: juiz ja pausado nesta execucao")
         return j, parse(call(j, RUBRIC, user))
 
     # fila plana de trabalho, separada por juiz
