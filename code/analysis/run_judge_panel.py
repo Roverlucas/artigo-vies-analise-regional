@@ -108,8 +108,15 @@ def _post(url, payload, headers, timeout=120, retries=5):
                 return json.loads(r.read().decode())
         except urllib.error.HTTPError as e:
             body = e.read().decode(errors="replace")
+            # 400 com "credit balance" nao e transitorio: nao adianta repetir,
+            # e insistir queima as tentativas que serviriam para um 429 de verdade.
+            if e.code == 400 and "credit balance" in body:
+                raise RuntimeError("SEM CREDITO no provedor deste juiz")
             if e.code in (429, 500, 502, 503, 529) and i < retries:
-                time.sleep(min(60, 5 * i)); continue
+                # o 429 do Gemini pede janela de minuto; 5*i era curto demais e
+                # gastava as tentativas antes de a janela virar
+                espera = 70 if e.code == 429 else min(60, 5 * i)
+                time.sleep(espera); continue
             raise RuntimeError(f"HTTP {e.code}: {body[:200]}")
         except Exception as e:
             if i < retries:
