@@ -41,6 +41,7 @@ import glob
 import json
 import pathlib
 import re
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -295,55 +296,72 @@ def main() -> None:
     print(f"ja gravados: {len(feitos)}")
 
     ok = err = 0
-    # Juizes de provedores diferentes nao competem por rate limit, entao rodam em
-    # PARALELO. Em sequencia, o tempo por alvo era a soma; o Gemini 2.5 Pro leva
-    # ~16 s por chamada e sozinho segurava o ritmo em ~1 score/min.
+    # PARALELISMO POR (ALVO, JUIZ), NAO POR ALVO.
     #
-    # `sem_credito` tira de circulacao o juiz cujo provedor ficou sem saldo: sem
-    # isso cada alvo gastava uma tentativa so para receber o mesmo 400.
+    # A versao anterior paralelizava os tres juizes dentro de cada alvo. Isso
+    # resolve enquanto os tres tem trabalho, mas colapsa na fase de recuperacao:
+    # quando so falta um juiz (por exemplo depois de o credito de um provedor
+    # voltar), cada alvo vira uma unica chamada e o ritmo cai para ~1 score/min.
+    #
+    # Aqui a unidade de trabalho e o par (alvo, juiz). Um semaforo por provedor
+    # limita a concorrencia de cada API separadamente: o Gemini tem janela
+    # apertada e aceita pouco; DeepSeek e Anthropic aguentam mais. Assim o
+    # provedor lento nao segura os rapidos, e a fase de recuperacao paraleliza.
+    LIMITE = {"gemini_2_5_pro": 2, "claude_sonnet_4_6": 4, "deepseek_v3": 4}
     sem_credito: set[str] = set()
+    trava = threading.Lock()
+    semaforos = {j: threading.Semaphore(n) for j, n in LIMITE.items()}
 
     def julgar(j, user):
-        return j, parse(call(j, RUBRIC, user))
+        with semaforos[j]:
+            return j, parse(call(j, RUBRIC, user))
 
+    # monta a fila plana de trabalho: um item por (alvo, juiz) que ainda falta
+    fila = []
+    for alvo in alvos:
+        gt = ground_truth_for(alvo["task"], alvo["country"], regs)
+        user = (f"TASK: {alvo['task']}\n{TASK_NOTE[alvo['task']]}\n\n"
+                f"GROUND TRUTH:\n{gt}\n\n"
+                f"ANSWER TO SCORE:\n{alvo['response'][:6000]}")
+        for j in judges:
+            if (alvo["prompt_id"], str(alvo["model_id"]),
+                    alvo["replicate_idx"], j) not in feitos:
+                fila.append((alvo, j, user))
+    print(f"pendentes: {len(fila)} pares (alvo, juiz)", flush=True)
+    por_juiz = collections.Counter(j for _, j, _ in fila)
+    print(f"  por juiz: {dict(por_juiz)}", flush=True)
+
+    total_workers = sum(LIMITE.values())
     with OUT.open("a", encoding="utf-8") as fh:
-        for i, alvo in enumerate(alvos, 1):
-            gt = ground_truth_for(alvo["task"], alvo["country"], regs)
-            user = (f"TASK: {alvo['task']}\n{TASK_NOTE[alvo['task']]}\n\n"
-                    f"GROUND TRUTH:\n{gt}\n\n"
-                    f"ANSWER TO SCORE:\n{alvo['response'][:6000]}")
-            pendentes = [j for j in judges
-                         if j not in sem_credito
-                         and (alvo["prompt_id"], str(alvo["model_id"]),
-                              alvo["replicate_idx"], j) not in feitos]
-            if not pendentes:
-                continue
-            with concurrent.futures.ThreadPoolExecutor(max_workers=len(pendentes)) as ex:
-                futs = {ex.submit(julgar, j, user): j for j in pendentes}
-                for fut in concurrent.futures.as_completed(futs):
-                    j = futs[fut]
-                    try:
-                        _, scores = fut.result()
-                        if scores is None:
-                            err += 1; continue
+        with concurrent.futures.ThreadPoolExecutor(max_workers=total_workers) as ex:
+            futs = {}
+            for alvo, j, user in fila:
+                if j in sem_credito:
+                    continue
+                futs[ex.submit(julgar, j, user)] = (alvo, j)
+            for n, fut in enumerate(concurrent.futures.as_completed(futs), 1):
+                alvo, j = futs[fut]
+                try:
+                    _, scores = fut.result()
+                    if scores is None:
+                        err += 1; continue
+                    with trava:
                         fh.write(json.dumps({**{k: alvo[k] for k in
                                                 ("prompt_id", "model_id", "task", "country",
                                                  "replicate_idx")},
                                              "judge": j, **scores}, ensure_ascii=False) + "\n")
-                        fh.flush(); ok += 1
-                    except Exception as e:
-                        err += 1
-                        msg = str(e)
-                        if "SEM CREDITO" in msg:
-                            sem_credito.add(j)
-                            print(f"  [PAUSADO] {j}: sem credito, removido do painel "
-                                  f"ate a proxima execucao", flush=True)
-                        else:
-                            print(f"  [erro] {j} {alvo['prompt_id']}: {msg[:90]}", flush=True)
-            if i % 25 == 0:
-                ativos = [j for j in judges if j not in sem_credito]
-                print(f"  {i}/{len(alvos)} alvos | ok={ok} err={err} | ativos={ativos}",
-                      flush=True)
+                        fh.flush()
+                    ok += 1
+                except Exception as e:
+                    err += 1
+                    msg = str(e)
+                    if "SEM CREDITO" in msg:
+                        sem_credito.add(j)
+                        print(f"  [PAUSADO] {j}: sem credito", flush=True)
+                    else:
+                        print(f"  [erro] {j} {alvo['prompt_id']}: {msg[:90]}", flush=True)
+                if n % 100 == 0:
+                    print(f"  {n}/{len(futs)} pares | ok={ok} err={err}", flush=True)
     if sem_credito:
         print(f"AVISO: juizes fora por falta de credito: {sorted(sem_credito)}. "
               f"Rode de novo apos recarregar; o script completa so o que falta.")
