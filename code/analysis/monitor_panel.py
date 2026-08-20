@@ -23,6 +23,9 @@ import pathlib
 import statistics
 import sys
 import time
+import re
+import urllib.error
+import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 SCORES = ROOT / "data" / "confirmatory_PRIVATE" / "analysis" / "judge_panel_repontuacao.jsonl"
@@ -31,6 +34,53 @@ SUBS = ("factual_accuracy", "contextual_completeness", "citation_quality",
         "calibration", "absence_of_hallucination")
 ESPERADO_ALVOS = 3192   # apos alinhar a deduplicacao ao pipeline original
 JUIZES = ("gemini_2_5_pro", "claude_sonnet_4_6", "deepseek_v3")
+
+
+def _key(nome: str) -> str | None:
+    try:
+        for line in (pathlib.Path.home() / ".env").read_text(encoding="utf-8").splitlines():
+            m = re.match(rf'\s*(?:export\s+)?{nome}\s*=\s*["\']?([^"\'\s]+)', line)
+            if m:
+                return m.group(1)
+    except Exception:
+        pass
+    return None
+
+
+def probe_providers() -> dict[str, str]:
+    """OK, SEM_CREDITO, RATE_LIMIT ou HTTP <codigo>, por juiz."""
+    alvos = {
+        "gemini_2_5_pro": (
+            f"https://generativelanguage.googleapis.com/v1beta/models/"
+            f"gemini-2.5-pro:generateContent?key={_key('GEMINI_API_KEY')}",
+            {"contents": [{"parts": [{"text": "ok"}]}],
+             "generationConfig": {"maxOutputTokens": 1200}}, {}),
+        "claude_sonnet_4_6": (
+            "https://api.anthropic.com/v1/messages",
+            {"model": "claude-sonnet-4-6", "max_tokens": 5,
+             "messages": [{"role": "user", "content": "ok"}]},
+            {"x-api-key": _key("ANTHROPIC_API_KEY") or "", "anthropic-version": "2023-06-01"}),
+        "deepseek_v3": (
+            "https://api.deepseek.com/chat/completions",
+            {"model": "deepseek-chat", "max_tokens": 5,
+             "messages": [{"role": "user", "content": "ok"}]},
+            {"Authorization": f"Bearer {_key('DEEPSEEK_API_KEY')}"}),
+    }
+    out = {}
+    for j, (url, payload, hdr) in alvos.items():
+        try:
+            req = urllib.request.Request(
+                url, data=json.dumps(payload).encode(),
+                headers={"Content-Type": "application/json", **hdr})
+            urllib.request.urlopen(req, timeout=45)
+            out[j] = "OK"
+        except urllib.error.HTTPError as e:
+            body = e.read().decode(errors="replace")
+            out[j] = ("SEM_CREDITO" if "credit balance" in body
+                      else "RATE_LIMIT" if e.code == 429 else f"HTTP {e.code}")
+        except Exception as e:
+            out[j] = type(e).__name__
+    return out
 
 
 def main() -> int:
@@ -83,15 +133,30 @@ def main() -> int:
         print("└─ sem dados ainda")
         return 1
 
-    # 2 paridade entre juízes
+    # 2 paridade entre juízes.
+    #
+    # Um juiz para atrás por três razões diferentes, e tratá-las como a mesma
+    # coisa produz alarme falso: (a) provedor sem saldo, que é decisão de quem
+    # paga e não defeito; (b) o juiz é simplesmente mais lento, e o Gemini 2.5 Pro
+    # leva ~14 s por chamada contra ~2 s do DeepSeek; (c) falha de verdade. Só (c)
+    # é pendência, então o monitor consulta o provedor antes de acusar.
+    saude = probe_providers()
     porj = collections.Counter(r.get("judge") for r in rows)
     print("│ 2 PARIDADE    " + " · ".join(f"{j.split('_')[0]}={porj.get(j,0)}" for j in JUIZES))
     if porj:
         mx = max(porj.values())
         for j in JUIZES:
             if porj.get(j, 0) < mx * 0.7:
-                alertas.append(f"juiz {j} ficou para tras ({porj.get(j,0)} vs {mx}); "
-                               f"provavel falha de API")
+                estado = saude.get(j, "?")
+                if estado == "SEM_CREDITO":
+                    print(f"│               {j}: parado por FALTA DE CREDITO "
+                          f"({porj.get(j,0)} vs {mx}). Nao e defeito; exige recarga.")
+                elif estado == "OK":
+                    print(f"│               {j}: atras ({porj.get(j,0)} vs {mx}) mas "
+                          f"respondendo; e o juiz mais lento do painel.")
+                else:
+                    alertas.append(f"juiz {j} ficou para tras ({porj.get(j,0)} vs {mx}) "
+                                   f"e o provedor responde {estado}")
 
     # 3 degeneração: variância por juiz.
     #
