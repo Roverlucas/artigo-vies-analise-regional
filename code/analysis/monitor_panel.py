@@ -154,6 +154,15 @@ def main() -> int:
                 elif estado == "OK":
                     print(f"│               {j}: atras ({porj.get(j,0)} vs {mx}) mas "
                           f"respondendo; e o juiz mais lento do painel.")
+                elif estado == "RATE_LIMIT":
+                    # A sonda do monitor COMPETE com o painel pela mesma cota. Se o
+                    # painel esta vivo e produzindo, um 429 na sonda significa que a
+                    # janela esta saturada pelo proprio trabalho, nao que o juiz
+                    # quebrou. Acusar aqui e alarme falso: foi o que aconteceu com o
+                    # Gemini, que tinha 2 erros em 500 pares enquanto a sonda dava 429.
+                    print(f"│               {j}: atras ({porj.get(j,0)} vs {mx}) e no "
+                          f"limite de taxa. A sonda disputa cota com o proprio painel; "
+                          f"so e pendencia se a coleta tambem estiver falhando.")
                 else:
                     alertas.append(f"juiz {j} ficou para tras ({porj.get(j,0)} vs {mx}) "
                                    f"e o provedor responde {estado}")

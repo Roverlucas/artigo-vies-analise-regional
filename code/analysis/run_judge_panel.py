@@ -307,17 +307,28 @@ def main() -> None:
     # limita a concorrencia de cada API separadamente: o Gemini tem janela
     # apertada e aceita pouco; DeepSeek e Anthropic aguentam mais. Assim o
     # provedor lento nao segura os rapidos, e a fase de recuperacao paraleliza.
+    # UM POOL POR PROVEDOR.
+    #
+    # Duas tentativas anteriores falharam por motivos opostos e vale registrar:
+    # (1) paralelizar os tres juizes DENTRO de cada alvo resolve enquanto os tres
+    #     tem trabalho, mas colapsa na recuperacao, quando so falta um juiz: o
+    #     ritmo caiu para 1,5 score/min;
+    # (2) um pool unico com semaforo por provedor foi PIOR (0,3/min), porque as
+    #     threads alocadas ficam bloqueadas no semaforo em vez de pegar trabalho
+    #     de outro provedor, e a fila agrupada por alvo faz dez tarefas seguidas
+    #     do mesmo juiz travarem o pool inteiro.
+    #
+    # A forma correta e nao compartilhar pool entre provedores: cada API tem o seu,
+    # dimensionado para a sua janela. Um provedor lento nunca ocupa slot de outro.
     LIMITE = {"gemini_2_5_pro": 2, "claude_sonnet_4_6": 4, "deepseek_v3": 4}
     sem_credito: set[str] = set()
     trava = threading.Lock()
-    semaforos = {j: threading.Semaphore(n) for j, n in LIMITE.items()}
 
     def julgar(j, user):
-        with semaforos[j]:
-            return j, parse(call(j, RUBRIC, user))
+        return j, parse(call(j, RUBRIC, user))
 
-    # monta a fila plana de trabalho: um item por (alvo, juiz) que ainda falta
-    fila = []
+    # fila plana de trabalho, separada por juiz
+    fila = collections.defaultdict(list)
     for alvo in alvos:
         gt = ground_truth_for(alvo["task"], alvo["country"], regs)
         user = (f"TASK: {alvo['task']}\n{TASK_NOTE[alvo['task']]}\n\n"
@@ -326,42 +337,57 @@ def main() -> None:
         for j in judges:
             if (alvo["prompt_id"], str(alvo["model_id"]),
                     alvo["replicate_idx"], j) not in feitos:
-                fila.append((alvo, j, user))
-    print(f"pendentes: {len(fila)} pares (alvo, juiz)", flush=True)
-    por_juiz = collections.Counter(j for _, j, _ in fila)
-    print(f"  por juiz: {dict(por_juiz)}", flush=True)
+                fila[j].append((alvo, user))
+    print(f"pendentes por juiz: { {k: len(v) for k, v in fila.items()} }", flush=True)
 
-    total_workers = sum(LIMITE.values())
-    with OUT.open("a", encoding="utf-8") as fh:
-        with concurrent.futures.ThreadPoolExecutor(max_workers=total_workers) as ex:
-            futs = {}
-            for alvo, j, user in fila:
-                if j in sem_credito:
-                    continue
-                futs[ex.submit(julgar, j, user)] = (alvo, j)
-            for n, fut in enumerate(concurrent.futures.as_completed(futs), 1):
-                alvo, j = futs[fut]
-                try:
-                    _, scores = fut.result()
-                    if scores is None:
-                        err += 1; continue
-                    with trava:
-                        fh.write(json.dumps({**{k: alvo[k] for k in
-                                                ("prompt_id", "model_id", "task", "country",
-                                                 "replicate_idx")},
-                                             "judge": j, **scores}, ensure_ascii=False) + "\n")
-                        fh.flush()
-                    ok += 1
-                except Exception as e:
+    ok = err = 0
+    fh = OUT.open("a", encoding="utf-8")
+
+    def grava(alvo, j, scores):
+        nonlocal ok
+        with trava:
+            fh.write(json.dumps({**{k: alvo[k] for k in
+                                    ("prompt_id", "model_id", "task", "country",
+                                     "replicate_idx")},
+                                 "judge": j, **scores}, ensure_ascii=False) + "\n")
+            fh.flush()
+            ok += 1
+
+    pools = {}
+    futuros = {}
+    try:
+        for j, itens in fila.items():
+            if not itens:
+                continue
+            pools[j] = concurrent.futures.ThreadPoolExecutor(
+                max_workers=LIMITE.get(j, 2), thread_name_prefix=j)
+            for alvo, user in itens:
+                futuros[pools[j].submit(julgar, j, user)] = (alvo, j)
+
+        total = len(futuros)
+        for n, fut in enumerate(concurrent.futures.as_completed(futuros), 1):
+            alvo, j = futuros[fut]
+            try:
+                _, scores = fut.result()
+                if scores is None:
                     err += 1
-                    msg = str(e)
-                    if "SEM CREDITO" in msg:
-                        sem_credito.add(j)
-                        print(f"  [PAUSADO] {j}: sem credito", flush=True)
-                    else:
-                        print(f"  [erro] {j} {alvo['prompt_id']}: {msg[:90]}", flush=True)
-                if n % 100 == 0:
-                    print(f"  {n}/{len(futs)} pares | ok={ok} err={err}", flush=True)
+                else:
+                    grava(alvo, j, scores)
+            except Exception as e:
+                err += 1
+                msg = str(e)
+                if "SEM CREDITO" in msg:
+                    sem_credito.add(j)
+                    print(f"  [PAUSADO] {j}: sem credito", flush=True)
+                else:
+                    print(f"  [erro] {j} {alvo['prompt_id']}: {msg[:90]}", flush=True)
+            if n % 100 == 0:
+                print(f"  {n}/{total} pares | ok={ok} err={err}", flush=True)
+    finally:
+        for pool in pools.values():
+            pool.shutdown(wait=False, cancel_futures=True)
+        fh.close()
+
     if sem_credito:
         print(f"AVISO: juizes fora por falta de credito: {sorted(sem_credito)}. "
               f"Rode de novo apos recarregar; o script completa so o que falta.")
