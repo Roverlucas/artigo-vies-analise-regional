@@ -114,6 +114,11 @@ def _post(url, payload, headers, timeout=120, retries=5):
             # e insistir queima as tentativas que serviriam para um 429 de verdade.
             if e.code == 400 and "credit balance" in body:
                 raise RuntimeError("SEM CREDITO no provedor deste juiz")
+            # Cota DIARIA esgotada nao e transitoria: nenhum backoff a recupera
+            # antes do reset. Tratar como o caso de credito, pausando o juiz, em
+            # vez de queimar 5 tentativas de 70 s por chamada.
+            if e.code == 429 and "PerDay" in body:
+                raise RuntimeError("SEM CREDITO: cota diaria do provedor esgotada")
             if e.code in (429, 500, 502, 503, 529) and i < retries:
                 # o 429 do Gemini pede janela de minuto; 5*i era curto demais e
                 # gastava as tentativas antes de a janela virar
