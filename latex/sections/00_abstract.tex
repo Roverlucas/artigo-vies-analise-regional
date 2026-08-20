@@ -1,17 +1,21 @@
 \begin{abstract}
 
-Public environmental managers in the Global South increasingly ask large language
-models (LLMs) about binding air-quality standards, measured concentrations, and
-health evidence --- a domain where a wrong answer can shape a regulatory brief or
-an emergency response. PM\textsubscript{2.5} is the leading environmental risk
-factor for premature mortality, and its burden falls disproportionately on the
-Global South~\citep{gbd2019risk,who2021aqg,joshi2020state,mohamed2020decolonial}.
-Whether these systems serve the Global South as reliably as the Global North, and
-whether prompt framing changes the answer, has not been measured for an applied
-policy domain with verifiable ground truth.
+Public officials increasingly consult large language models (LLMs) about the
+regulations they are responsible for applying, and generative AI is already in
+routine administrative use~\citep{kim2026genai}. When the answer is wrong, the
+official carries the consequence~\citep{choroszewicz2026crumple}, and
+technology-neutral regulation does not reach the
+failure~\citep{cordella2024regulating}, which leaves verification at the point of
+use as the operative control. Whether that reliability is distributed evenly
+across the states that depend on it is unmeasured, because existing evaluations
+score perception, explanation quality or generic factual recall rather than
+agreement with the binding text.
 
-We present the first benchmark of LLM geographic bias in a regulated,
-high-stakes applied domain with verifiable official ground truth:
+We test this where the correct answer is published in an official register and
+can be checked: environmental regulation. No prior benchmark combines a regulated
+policy domain, official-source ground truth, a pre-specified persona factor, and
+a mechanism test that separates language-corpus size from country coverage. The
+design spans
 \textbf{25 countries, 14 LLMs, four languages, and five task types}
 (normative recall, local measured data, health-evidence synthesis, policy
 instruments, and applied recommendation). We

@@ -99,43 +99,50 @@ measured gap is a property of that stack (Section~\ref{sec:methods}). Our
 contributions are:
 
 \begin{enumerate}\setlength{\itemsep}{2pt}
-\item \textbf{An air pollution policy task suite with verifiable ground truth.}
-  We construct five task types mapped to real decision activities of a public
-  environmental manager: recall of binding ambient standards and emission
-  limits (T1), retrieval of officially measured local concentrations (T2),
-  synthesis of epidemiological health-burden evidence (T3), identification of
-  policy instruments and executing agencies (T4), and rubric-scored applied
-  recommendation for an operational scenario (T5). Each task anchors to
-  official national or international sources, and every reference in the ground
-  truth is verified against a resolvable DOI or URL before entering the dataset.
-\item \textbf{Persona prompting as a pre-specified experimental factor.} We
-  manipulate persona within subject (neutral query vs.\ public environmental
-  manager) and test, as a co-primary confirmatory hypothesis (H6), whether the
-  persona condition reduces the Global South accuracy gap. We pre-specify both
-  the reduction direction (Norm-Compliance hypothesis) and the amplification
-  direction (Persona-Vacuum hypothesis), reporting whichever the data support.
-\item \textbf{Theoretically-triangulated country sampling.} We select 15
-  countries stratified along independent axes: UNCTAD North/South
+\item \textbf{An auditing protocol for regulatory information, not a trivia
+  benchmark.} The reliability question an administration faces is not whether a
+  model writes well about policy but whether the value it returns matches the
+  one published in the official register. We build five task types from the
+  everyday work of an environmental agency: the binding ambient standard in
+  force (T1), the officially measured local concentration (T2), the health-burden
+  evidence an impact assessment cites (T3), the national policy instruments and
+  their executing agencies (T4), and an applied recommendation for an operational
+  scenario (T5). Each key is read from an official source, so correctness is
+  adjudicable rather than a matter of expert impression. The protocol transfers
+  to any regulated domain where the correct answer is published: tax, licensing,
+  public health, procurement.
+\item \textbf{The three localisation fixes agencies reach for, tested rather
+  than assumed.} Practitioners respond to poor answers about their own country
+  with three moves: tell the system you are the responsible official, ask in the
+  national language, or adopt a regionally tuned model. Each is a procurement or
+  workflow decision with a cost, and each circulates as received wisdom. We test
+  all three: persona as a within-subject experimental factor, native-language
+  prompting against the English baseline within country, and a
+  Brazilian-Portuguese instruction-tuned model against a scale-matched global
+  one. Reporting what these levers actually do is the study's most directly
+  actionable output for practice.
+\item \textbf{Model choice as an administrative decision.} Whether an agency
+  runs an open-weight model on its own infrastructure or a vendor-hosted one is
+  now an explicit procurement question~\citep{robinson2026opensource}. We
+  evaluate fourteen deployment stacks spanning that spectrum, and treat the unit
+  of analysis as the model \emph{as served}, since an agency contracts a served
+  stack and not a set of weights.
+\item \textbf{A sampling design that separates who is poorly served from why.}
+  Countries are stratified along independent axes: UNCTAD North/South
   classification (operationalising coloniality~\citep{mohamed2020decolonial}),
-  the Joshi et al.\ six-class linguistic-resource
-  taxonomy~\citep{joshi2020state}, and Human Development and income indicators,
-  later extended to 25 to gain power for the gradient and mechanism tests. This
-  separates geographic, linguistic, and economic contributions to the bias, and
-  shows --- as a methodological by-product --- that the development gradient is
-  underpowered at $n=15$ but significant at $n=25$.
-\item \textbf{Mechanistic test separating the two corpus channels.} We test the
-  corpus-representation hypothesis (H4) using both language-corpus and
-  country-coverage proxies, with partial-correlation controls for HDI. The
-  pre-specified language-size proxy is null; a country-coverage proxy is a
-  suggestive but development-entangled lead, which we report as exploratory rather
-  than as an established mechanism.
-\item \textbf{Regional-model probe.} We include a Brazilian-Portuguese
-  instruction-tuned open-weight model (Cabra-Mistral 7B v3) to test, as a
-  secondary confirmatory hypothesis (H3), whether regional tuning narrows the
-  Portuguese-language gap for Brazil on air pollution policy tasks.
-\item \textbf{Open resources.} The full protocol, prompts (after validation),
-  ground-truth source documents, analysis code, and figures will be released on
-  publication under CC-BY-4.0 and MIT licenses.
+  the Joshi et al.\ linguistic-resource taxonomy~\citep{joshi2020state}, and
+  development indicators. This lets geographic, linguistic and economic
+  explanations be told apart instead of conflated, which matters for policy:
+  each implies a different remedy and a different responsible actor.
+\item \textbf{A mechanism test that reports its own limits.} We test corpus
+  representation using both language-corpus and country-coverage proxies, with
+  partial-correlation controls. We report where the pre-specified proxy fails,
+  where an alternative is merely suggestive, and where the instrument itself
+  lacks the resolution to decide, rather than presenting the surviving
+  correlation as an established cause.
+\item \textbf{Open resources.} The full protocol, prompts, ground-truth
+  registries with their official sources, analysis code, and the deviation log
+  will be released under CC-BY-4.0 and MIT licenses.
 \end{enumerate}
 
 \subsection*{Theoretical framing}
