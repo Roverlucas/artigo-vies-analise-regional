@@ -47,6 +47,16 @@ def _key(nome: str) -> str | None:
     return None
 
 
+def _painel_vivo() -> bool:
+    """Ha coleta em andamento? Muda a leitura de um 429 na sonda."""
+    import subprocess
+    try:
+        return subprocess.run(["pgrep", "-f", "run_judge_panel"],
+                              capture_output=True).returncode == 0
+    except Exception:
+        return False
+
+
 def probe_providers() -> dict[str, str]:
     """OK, SEM_CREDITO, RATE_LIMIT ou HTTP <codigo>, por juiz."""
     alvos = {
@@ -154,6 +164,12 @@ def main() -> int:
                 elif estado == "OK":
                     print(f"│               {j}: atras ({porj.get(j,0)} vs {mx}) mas "
                           f"respondendo; e o juiz mais lento do painel.")
+                elif estado == "RATE_LIMIT" and not _painel_vivo():
+                    # Sem painel rodando, ninguem esta disputando cota: um 429 aqui
+                    # e a cota real do provedor, nao contencao com o proprio trabalho.
+                    print(f"│               {j}: SEM COTA no provedor e coleta parada "
+                          f"({porj.get(j,0)} vs {mx}). Aguardando reset; o runner "
+                          f"retoma sozinho e preenche so o que falta.")
                 elif estado == "RATE_LIMIT":
                     # A sonda do monitor COMPETE com o painel pela mesma cota. Se o
                     # painel esta vivo e produzindo, um 429 na sonda significa que a
