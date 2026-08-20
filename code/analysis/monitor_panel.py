@@ -60,9 +60,14 @@ def _painel_vivo() -> bool:
 def probe_providers() -> dict[str, str]:
     """OK, SEM_CREDITO, RATE_LIMIT ou HTTP <codigo>, por juiz."""
     alvos = {
+        # A sonda usa FLASH, nao o Pro. A cota diaria e por modelo, e o painel
+        # depende de cada uma das 1.000 chamadas do Pro: gastar 49 por dia so para
+        # perguntar "voce esta vivo?" e queimar 5% do orcamento em monitoramento.
+        # O Flash compartilha a chave e o projeto, entao responde a mesma pergunta
+        # (chave valida, projeto ativo) sem competir pela cota que importa.
         "gemini_2_5_pro": (
             f"https://generativelanguage.googleapis.com/v1beta/models/"
-            f"gemini-2.5-pro:generateContent?key={_key('GEMINI_API_KEY')}",
+            f"gemini-2.5-flash:generateContent?key={_key('GEMINI_API_KEY')}",
             {"contents": [{"parts": [{"text": "ok"}]}],
              "generationConfig": {"maxOutputTokens": 1200}}, {}),
         "claude_sonnet_4_6": (
