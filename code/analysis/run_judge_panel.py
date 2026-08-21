@@ -109,6 +109,29 @@ def key(name: str) -> str:
 # porque o backoff nao loga: ele so espera. Espacar as chamadas ANTES de fazer a
 # requisicao troca uma penalidade de 70 s por uma espera de 13 s e mantem o ritmo
 # no teto do provedor em vez de despencar abaixo dele.
+# WATCHDOG DE PROGRESSO.
+#
+# Por que existe: em 21/08 o processo ficou 1h23 com CPU em 0,0%, log limpo,
+# provedor respondendo e ZERO score gravado. Uma thread estava pendurada numa
+# resposta HTTP que nunca terminou de chegar; o timeout do urllib cobre operacoes
+# de socket, e nao dispara quando o servidor mantem a conexao viva mandando bytes
+# devagar. Nenhum sinal que o monitor observa (processo vivo, erro no log, cota)
+# acusa esse estado. O unico sintoma e o proprio progresso parar, entao e o
+# progresso que precisa ser vigiado.
+_BATIDA = {"n": 0, "t": 0.0}
+SILENCIO_MAX = 600.0  # 10 min sem gravar nada = pendurado
+
+
+def _watchdog():
+    import os
+    while True:
+        time.sleep(60)
+        if _BATIDA["t"] and time.monotonic() - _BATIDA["t"] > SILENCIO_MAX:
+            print(f"  [WATCHDOG] {SILENCIO_MAX/60:.0f} min sem gravar; saindo com 75 "
+                  f"para o wrapper relancar (o script e retomavel)", flush=True)
+            os._exit(75)
+
+
 _ULTIMA = {}
 _TRAVA_THROTTLE = threading.Lock()
 THROTTLE = {"gemini_2_5_pro": 13.0, "claude_sonnet_4_6": 0.0, "deepseek_v3": 0.0}
@@ -384,6 +407,8 @@ def main() -> None:
 
     ok = err = 0
     fh = OUT.open("a", encoding="utf-8")
+    _BATIDA["t"] = time.monotonic()
+    threading.Thread(target=_watchdog, daemon=True).start()
 
     def grava(alvo, j, scores):
         nonlocal ok
@@ -393,6 +418,8 @@ def main() -> None:
                                      "replicate_idx")},
                                  "judge": j, **scores}, ensure_ascii=False) + "\n")
             fh.flush()
+            _BATIDA["n"] += 1
+            _BATIDA["t"] = time.monotonic()
             ok += 1
 
     pools = {}
