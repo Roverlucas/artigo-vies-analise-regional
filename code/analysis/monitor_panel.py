@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import collections
 import json
+import os
 import pathlib
 import statistics
 import sys
@@ -292,11 +293,18 @@ def main() -> int:
             e == "OK" for e in saude.values()):
         import subprocess
         print("│ ↻ RETOMADA   provedores OK e trabalho pendente: relancando a coleta")
-        subprocess.Popen(
-            [str(ROOT / ".venv" / "bin" / "python"),
-             str(ROOT / "code" / "analysis" / "run_judge_panel.py")],
-            cwd=str(ROOT), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-            start_new_session=True)
+        # nohup + setsid: sem isso o processo filho morre junto com o shell que
+        # chamou o monitor, que foi o que aconteceu na primeira retomada
+        # automatica (disparou, e morreu antes de gravar um score sequer).
+        # O log vai para arquivo em vez de DEVNULL: suprimir a saida escondeu
+        # exatamente a informacao necessaria para diagnosticar a morte.
+        log = ROOT / "data" / "processed" / "panel_autorestart.log"
+        with log.open("a") as lf:
+            subprocess.Popen(
+                ["nohup", str(ROOT / ".venv" / "bin" / "python"),
+                 str(ROOT / "code" / "analysis" / "run_judge_panel.py")],
+                cwd=str(ROOT), stdout=lf, stderr=subprocess.STDOUT,
+                start_new_session=True, preexec_fn=os.setpgrp)
         alertas = [a for a in alertas if "coleta PAROU" not in a]
 
     if alertas:
