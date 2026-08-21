@@ -100,6 +100,35 @@ def key(name: str) -> str:
     raise SystemExit(f"chave ausente: {name}")
 
 
+# THROTTLE PREVENTIVO POR PROVEDOR, em segundos entre chamadas.
+#
+# Por que isto substitui o backoff reativo: o free tier do Gemini limita
+# requisicoes por minuto. Com dois workers disparando a vontade, boa parte das
+# chamadas tomava 429 e caia num backoff de 70 s. O resultado medido foi 76
+# scores em 9,5 horas, ou 0,13/min, com o processo vivo e sem erro nenhum no log,
+# porque o backoff nao loga: ele so espera. Espacar as chamadas ANTES de fazer a
+# requisicao troca uma penalidade de 70 s por uma espera de 13 s e mantem o ritmo
+# no teto do provedor em vez de despencar abaixo dele.
+_ULTIMA = {}
+_TRAVA_THROTTLE = threading.Lock()
+THROTTLE = {"gemini_2_5_pro": 13.0, "claude_sonnet_4_6": 0.0, "deepseek_v3": 0.0}
+
+
+def _throttle(judge: str) -> None:
+    espaco = THROTTLE.get(judge, 0.0)
+    if espaco <= 0:
+        return
+    while True:
+        with _TRAVA_THROTTLE:
+            agora = time.monotonic()
+            proximo = _ULTIMA.get(judge, 0.0) + espaco
+            if agora >= proximo:
+                _ULTIMA[judge] = agora
+                return
+            espera = proximo - agora
+        time.sleep(espera)
+
+
 def _post(url, payload, headers, timeout=120, retries=5):
     data = json.dumps(payload).encode()
     for i in range(1, retries + 1):
@@ -132,6 +161,7 @@ def _post(url, payload, headers, timeout=120, retries=5):
 
 
 def call(judge: str, system: str, user: str) -> str:
+    _throttle(judge)
     if judge == "gemini_2_5_pro":
         d = _post(f"https://generativelanguage.googleapis.com/v1beta/models/"
                   f"gemini-2.5-pro:generateContent?key={key('GEMINI_API_KEY')}",
@@ -325,7 +355,7 @@ def main() -> None:
     #
     # A forma correta e nao compartilhar pool entre provedores: cada API tem o seu,
     # dimensionado para a sua janela. Um provedor lento nunca ocupa slot de outro.
-    LIMITE = {"gemini_2_5_pro": 2, "claude_sonnet_4_6": 4, "deepseek_v3": 4}
+    LIMITE = {"gemini_2_5_pro": 1, "claude_sonnet_4_6": 4, "deepseek_v3": 4}
     sem_credito: set[str] = set()
     trava = threading.Lock()
 
