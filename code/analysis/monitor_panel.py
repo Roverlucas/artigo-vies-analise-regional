@@ -18,6 +18,7 @@ CHECAGENS
 from __future__ import annotations
 
 import collections
+import subprocess
 import json
 import os
 import pathlib
@@ -289,9 +290,17 @@ def main() -> int:
     # Retomada automatica: se ha trabalho pendente, o provedor voltou e nao ha
     # coleta rodando, relancar e a acao obvia. Esperar o proximo comando humano
     # aqui so adiciona latencia a uma decisao que ja esta tomada.
-    if not _painel_vivo() and n < total and all(
+    # O retomador (retomar_painel.py) tambem relanca a coleta. Se os dois
+    # dispararem juntos, dois processos carregam o mesmo estado de "ja gravado" e
+    # escrevem os mesmos alvos duas vezes — a dedup acontece na leitura inicial,
+    # nao na escrita, e nao protege contra concorrencia. Quando o retomador esta
+    # de plantao, ele e o dono da retomada e o monitor so observa.
+    retomador_ativo = subprocess.run(
+        ["pgrep", "-f", "retomar_painel"], capture_output=True).returncode == 0
+    if retomador_ativo and not _painel_vivo() and n < total:
+        print("│ ↻ RETOMADA   a cargo do retomar_painel.py (monitor nao relanca)")
+    elif not _painel_vivo() and n < total and all(
             e == "OK" for e in saude.values()):
-        import subprocess
         print("│ ↻ RETOMADA   provedores OK e trabalho pendente: relancando a coleta")
         # nohup + setsid: sem isso o processo filho morre junto com o shell que
         # chamou o monitor, que foi o que aconteceu na primeira retomada
