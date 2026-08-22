@@ -267,6 +267,45 @@ def efeitos(rows):
         out["persona_pp"] = (statistics.mean(pm) - statistics.mean(ne)) * 100
         out["persona_p"] = perm_p(pm, ne)
 
+    # agregados que alimentam as tabelas do manuscrito
+    def medias(chave):
+        acc_ = collections.defaultdict(list)
+        for r in ing:
+            acc_[r[chave]].append(r["v"])
+        return {k: (statistics.mean(v), len(v)) for k, v in acc_.items() if v}
+
+    out["por_modelo"] = medias("modelo")
+    out["por_task"] = medias("task")
+    out["por_pais"] = {c: (statistics.mean(v), len(v)) for c, v in por_pais.items()}
+
+    # H5: acesso aberto contra fechado-acessivel
+    ABERTOS = {"llama31_8b", "llama33_70b", "llama4_scout", "qwen3_14b", "qwen3_32b",
+               "phi4_14b", "gpt_oss_120b", "command_rp", "deepseek_v3",
+               "cabra_mistral_7b"}
+    ab = [r["v"] for r in ing if r["modelo"] in ABERTOS]
+    fe = [r["v"] for r in ing if r["modelo"] not in ABERTOS]
+    if ab and fe:
+        out["h5_pp"] = (statistics.mean(fe) - statistics.mean(ab)) * 100
+        out["h5_n_aberto"] = len(ab)
+        out["h5_n_fechado"] = len(fe)
+
+    # H6: persona como diferenca-em-diferencas sobre o tier gap
+    def gap(sel):
+        pp = collections.defaultdict(list)
+        for r in ing:
+            if sel(r) and r["pais"]:
+                pp[r["pais"]].append(r["v"])
+        m = {c: statistics.mean(v) for c, v in pp.items() if v}
+        gn_ = [m[c] for c in m if c in TODAS_COV and c not in TODOS_GS]
+        gs_ = [m[c] for c in m if c in TODOS_GS]
+        return (statistics.mean(gn_) - statistics.mean(gs_)) * 100 if gn_ and gs_ else float("nan")
+
+    g_neutro = gap(lambda r: r["persona"] == "neutral")
+    g_gestor = gap(lambda r: r["persona"] and r["persona"] != "neutral")
+    out["h6_gap_neutro"] = g_neutro
+    out["h6_gap_gestor"] = g_gestor
+    out["h6_did"] = g_gestor - g_neutro
+
     # modelo regional brasileiro contra o global pareado por escala. O modelo
     # regional presente na coleta e o cabra_mistral_7b; o controle de escala
     # pre-especificado e o qwen3_14b, da mesma ordem de parametros.
