@@ -112,14 +112,17 @@ contributions are:
   to any regulated domain where the correct answer is published: tax, licensing,
   public health, procurement.
 \item \textbf{The three localisation fixes agencies reach for, tested rather
-  than assumed.} Practitioners respond to poor answers about their own country
-  with three moves: tell the system you are the responsible official, ask in the
-  national language, or adopt a regionally tuned model. Each is a procurement or
-  workflow decision with a cost, and each circulates as received wisdom. We test
-  all three: persona as a within-subject experimental factor, native-language
-  prompting against the English baseline within country, and a
-  Brazilian-Portuguese instruction-tuned model against a scale-matched global
-  one. Reporting what these levers actually do is the study's most directly
+  than assumed --- and all three fail.} Practitioners respond to poor answers
+  about their own country with three moves: tell the system you are the
+  responsible official, ask in the national language, or adopt a regionally tuned
+  model. Each is a procurement or workflow decision with a cost, and each
+  circulates as received wisdom. We test all three: persona as a within-subject
+  experimental factor, native-language prompting against the English baseline
+  within country, and a Brazilian-Portuguese instruction-tuned model against a
+  scale-matched global one. None works, and the one a manager is most likely to
+  try first does active harm: asking in the country's own language lowers
+  accuracy by five percentage points, most sharply for the language with the
+  scarcest corpus. This is the study's principal finding and its most directly
   actionable output for practice.
 \item \textbf{Model choice as an administrative decision.} Whether an agency
   runs an open-weight model on its own infrastructure or a vendor-hosted one is
@@ -139,7 +142,21 @@ contributions are:
   partial-correlation controls. We report where the pre-specified proxy fails,
   where an alternative is merely suggestive, and where the instrument itself
   lacks the resolution to decide, rather than presenting the surviving
-  correlation as an established cause.
+  correlation as an established cause. On this evidence the country-level
+  mechanism is unresolved, and we separate throughout what the design
+  demonstrates --- a tier difference, a language penalty, a recall floor --- from
+  what it cannot, namely the shape of the gradient across the development range
+  and the corpus channel behind it.
+\item \textbf{Ground truth adjudicated by code, and what that changes.} Where a
+  task's correct answer is a number published in an official register, the
+  verdict is computed against that register rather than delegated to a language
+  model, because comparing a value with an authorised range is exact and a judge
+  can only reproduce it with noise. This is not a detail of implementation. On
+  the same responses, rebuilding two task keys from official registers and moving
+  the comparison into code cut the development gradient from $\rho=0.51$ to
+  $\rho=0.36$ and more than doubled the native-language penalty. In this
+  literature the ground-truth key, not the sample size, is the binding
+  constraint.
 \item \textbf{Open resources.} The full protocol, prompts, ground-truth
   registries with their official sources, analysis code, and the deviation log
   will be released under CC-BY-4.0 and MIT licenses.

@@ -4,96 +4,127 @@
 We set out to measure whether LLMs answer air pollution policy questions as
 reliably for the Global South as for the Global North, whether prompt framing
 changes the answer, and what mechanism drives any gap. The benchmark --- 25
-countries, 14 models, four languages, five tasks, two personas, scored by a
-panel-validated judge against official ground truth --- returns a disciplined and
-partly counter-intuitive picture. A geographic disadvantage exists and, with
-adequate power, resolves into a genuine development gradient; but its mechanism is
-country representation rather than language-corpus size, the dominant harms are
-linguistic and task-specific, and every intuitive remedy fails. We organise the
-discussion around the gradient and its mechanism, the robust harms, the three
-failed remedies, the public-health stakes, the limitations that bound the claims,
-and what follows for practice.
+countries, 14 models, four languages, five tasks, two personas, scored against
+official ground truth by code where the answer is a register value and by a
+three-vendor panel elsewhere --- returns a disciplined and partly counter-intuitive
+picture. The harms we can demonstrate are practical rather than aetiological: the
+three remedies an agency would reach for all fail, the most intuitive of them
+makes the answer materially worse, and models are least reliable on the recall of
+the binding value in force. A North/South tier difference persists; what that
+difference is made of, we do not resolve.
 
-\subsection{The geographic gap is a development gradient --- visible only at power}
+\subsection{Three intuitive remedies, all failing --- and one that harms}
 
-At the pre-specified $n=15$, the North/South \emph{tier} gap was real
-($+6.7$~pp, CI excludes zero) but the \emph{gradient} was undetectable
-(Spearman vs HDI $\rho=0.14$, $p=0.31$). Extending the sample to 25 countries ---
-adding seven high-HDI Global North references that thicken the high-development
-end of the sample (without widening its range; Section~\ref{sec:results:robust}) ---
-the gradient resolves into significance ($\rho=0.51$ with HDI, $p=0.004$;
-Mann-Kendall $p=0.018$), the one primary-family test that rejects its null under
-Bonferroni-Holm. We are deliberately transparent that this is a
-post-hoc extension and that $\rho=0.51$ falls just short of the
-pre-specified $0.55$ effect-size threshold: the honest statement is that the
-gradient is significant but of moderate magnitude, and that it was underpowered,
-not absent, in the registered design. This is itself a methodological lesson for
-the field --- geographic-bias gradients across a handful of countries are easy to
-miss at small $n$, and the $n=15$ null would have been the wrong conclusion.
+The applied contribution is largely negative, and it is the study's most
+actionable result.
 
-Crucially, the gradient is in \emph{development} (HDI), not in linguistic-resource
-class (Joshi $\rho=-0.06$), though with the caveat that the Joshi axis has too
-few distinct values here to rule that channel out rather than merely fail to
-detect it; and it coexists with large country-specific
-heterogeneity: India tops all 25 countries despite being Global South, and Germany
-is the lowest-scoring Global North country. The disadvantage is a development
-gradient layered over substantial idiosyncrasy, not a clean ranking, which is why
-the tier contrast and the gradient are complementary rather than redundant
-descriptions.
+\textbf{The local language} does not help and materially hurts. Asking in the
+country's own language lowers accuracy by $5.0$~pp (Wilcoxon $p<10^{-5}$, $n=839$
+matched cells), significantly in all three languages, and the penalty scales with
+the scarcity of the language's corpus: Hindi $-12.0$~pp, Spanish $-4.6$, Portuguese
+$-3.9$. India, the highest-scoring country of all 25 in English, falls furthest in
+Hindi. This is the mechanism the resource hierarchy
+predicts~\citep{joshi2020state,xue2021mt5}, and here the measurement has the
+resolution to see it, because the unit is the language rather than the country.
 
-\subsection{A suggestive mechanism: country coverage over language-corpus size}
+\textbf{The local-manager persona} does not narrow the gap (DiD $+0.5$~pp,
+permutation $p=0.22$), consistent with evidence that expert personas do not
+reliably improve factual accuracy~\citep{zheng2024helpful,mollick2025personas}. A
+manipulation check confirms half of the responses explicitly take up the role
+frame, so the null is not a failure of the manipulation.
 
-Our pre-specified mechanism test fails: the Wikipedia-size proxy is null
-(partial $\rho=0.04$), so H4 as registered is not supported. Exploring further, we
-find a more promising lead. Because the gap is measured \emph{in English}, with
-the query language held constant, a residual North/South difference cannot be an
-effect of how much text exists in a country's language; and the candidate that
-\emph{does} track accuracy is how broadly the corpus represents the country ---
-Wikidata sitelinks correlate at $\rho=0.54$ ($p=0.005$, surviving multiplicity
-correction across three coverage proxies). We are deliberately cautious about this
-result: the association \emph{attenuates to non-significance after adjusting for
-development} (partial $\rho=0.32$, $p=0.13$), so country coverage and HDI are
-entangled and the present design cannot establish that coverage \emph{causes} the
-gap. We therefore offer the country-coverage-over-language-size contrast as a
-\emph{suggestive, testable refinement} of the ``less data for under-represented
-regions'' intuition --- one that the India case illustrates (its very high
-multilingual encyclopedic coverage accompanies its top English score) and that the
-leave-one-out analysis shows is not driven by any single country --- rather than as
-an established mechanism. If it replicates under a design that can separate
-coverage from development, it would reframe mitigation toward how comprehensively
-a country is described in widely-mirrored sources rather than the size of its
-language's web corpus.
+\textbf{The regional model} --- Brazilian-Portuguese Cabra-Mistral~7B --- is the
+\emph{worst} performer of all fourteen ($\delta=-0.45$), so reaching for a locally
+tuned small model trades away the scale and frontier training that actually carry
+domain accuracy.
 
-\subsection{The robust harms are linguistic and task-specific}
-
-Two findings are large, significant, and stable across both samples. First, the
-\textbf{factual-recall floor}: the two tasks that require a specific binding value
---- the national standard (T1) and a measured city-year concentration (T2) ---
-score around 0.37, far below synthesis and recommendation (0.64; $\delta=-0.64$).
-The floor sits precisely on the binding values a manager most needs to trust.
-Second, the \textbf{native-language penalty}: asking in the local language lowers
-accuracy ($-2.1$~pp overall, $p=0.002$), negligibly for high-resource Spanish but
-materially for Hindi ($-7.8$~pp). The penalty tracks language-corpus size across
-the three native languages, the mechanism the resource hierarchy
-predicts~\citep{joshi2020state,xue2021mt5}. Together these say the practical risk
-is concentrated, not diffuse: a manager retrieving a regulatory cutoff, especially
-in a lower-resource language, is in the worst cell of the design.
-
-\subsection{Three intuitive remedies, all failing}
-
-The applied contribution is largely negative. \textbf{The
-local-manager persona} does not narrow the gap (DiD $+0.4$~pp, permutation
-$p=0.26$); presenting the query as coming from a public environmental manager
-changes nothing, consistent with evidence that expert personas do not improve
-factual accuracy~\citep{zheng2024helpful,mollick2025personas}. \textbf{The local
-language} does not help and can hurt (H2). \textbf{The regional model} ---
-Brazilian-Portuguese Cabra-Mistral~7B --- is the \emph{worst} performer of all 14
-($\delta=-0.51$), so reaching for a locally tuned small model trades away the
-scale and frontier training that actually carry domain accuracy. Practitioners
-routinely deploy all three of these as fixes; none survives contact with the data.
-The honest message for Global South environmental agencies is that none of the
-cheap prompt- or model-level workarounds substitutes for verifying the binding
+Practitioners deploy all three of these as fixes; none survives contact with the
+data, and the one a manager is most likely to try first is the one that does
+active damage. The honest message for Global South environmental agencies is that
+no cheap prompt- or model-level workaround substitutes for verifying the binding
 value against the official source.
+
+\subsection{The recall floor sits on the values that bind}
+
+Accuracy collapses on the tasks that require returning a specific value in force:
+$0.413$ for normative and local-datum recall against $0.619$ for synthesis and
+recommendation ($\delta=-0.47$), and the floor is deepest on the national standard
+itself (T1, $0.367$). The risk is concentrated rather than diffuse. A manager
+drafting prose about air quality policy is comparatively well served; a manager
+retrieving the regulatory cutoff that a decision turns on is in the worst cell of
+the design, and worse still if they ask in a lower-resource language.
+
+That this floor is genuine, and not an artefact of how we scored it, is supported
+by an internal check. Correcting the ground truth raised T2 --- the task that had
+been scored against a placeholder --- from $0.368$ to $0.460$, while leaving T1 ---
+which always had official ground truth --- at exactly $0.367$. The correction moved
+the task whose key was defective and left untouched the task whose key was sound.
+
+\subsection{A tier difference we can show, and a gradient we cannot}
+
+H1 was pre-specified in two parts, and the corrected scoring separates them. The
+\textbf{tier gap} holds: $+4.6$~pp with a bootstrap CI of $[+1.2,+7.8]$ that
+excludes zero, stable to dropping any country and to every composite weighting,
+widening to $+7.7$~pp on the factual subcomponent alone. The \textbf{monotonic
+gradient} does not: $\rho=0.36$ with HDI at $n=25$ does not reach significance
+($p=0.080$), the Mann-Kendall trend agrees ($p=0.072$), no leave-one-out estimate
+approaches the pre-specified $0.55$ threshold, and at the registered $n=15$ the
+gradient is essentially absent ($\rho=0.08$).
+
+We report this asymmetry plainly because it is the honest description: a
+difference between groups that we can demonstrate, and a shape across the
+development range that we cannot. The country ordering shows why. India tops all
+25 countries despite being Global South; South Africa and Indonesia outrank most
+of the Global North; Canada and Germany sit low. The disadvantage is a tier
+difference layered over substantial country-specific idiosyncrasy, and that
+idiosyncrasy is precisely what a rank correlation over 25 countries lacks the
+resolution to see through.
+
+\subsection{The mechanism is unresolved}
+
+Our pre-specified mechanism test fails: the language-corpus proxy is null
+($\rho=0.09$), so H4 as registered is not supported. The post-hoc alternative
+does not rescue it. Because the gap is measured \emph{in English}, a residual
+North/South difference cannot be an effect of how much text exists in a country's
+language, which made country-coverage breadth the natural candidate; but Wikidata
+sitelinks correlate at only $\rho=0.35$ ($p=0.087$) and attenuate further after
+adjusting for development (partial $\rho=0.17$, $p=0.44$).
+
+Neither channel is established at country level, and we say so rather than
+promoting the surviving correlation. Two features of the design bound what can be
+concluded rather than what is true: the Joshi variable takes three values across
+25 countries with eighteen sharing one class, and the pre-specified corpus proxy
+takes eleven distinct values with nine tied on the English edition. The
+instrument lacks the resolution to separate the channels at country level. That
+the corpus account does show itself in H2, where the unit is the language and the
+variation is real, is consistent with an instrument problem rather than an absent
+mechanism --- but consistency is not evidence, and we do not claim the mechanism.
+
+\subsection{The methodological lesson: the key matters more than the sample}
+
+Earlier drafts of this study drew a different conclusion from the same responses,
+and the reason is worth stating, because it generalises beyond this paper.
+
+The original scoring compared model answers for two of the five tasks against
+placeholder ground truth, and delegated to a language model the arithmetic of
+deciding whether a returned number fell inside an authorised range. Rebuilding
+those keys from official registers (WHO Ambient Air Quality Database v6.1, WHO GHO
+AIR\_41, UNEP Global Assessment of Air Pollution Legislation) and moving the
+comparison into code changed the substantive conclusions: the development gradient
+fell from $\rho=0.51$ ($p=0.004$) to $\rho=0.36$ ($p=0.080$), while the
+native-language penalty more than doubled, from $-2.1$~pp to $-5.0$~pp, and turned
+Spanish from a null into a significant harm. The dataset did not change. Only the
+measuring instrument did.
+
+The field's instinct when a geographic-bias effect is fragile is to add countries.
+Our experience is that the ground truth deserves the scrutiny first. A defective
+key does not simply add noise; it adds \emph{structured} noise, because the
+defects concentrate wherever official data are hardest to obtain, which is exactly
+where the hypothesis lives. We also found that an ambiguous scoring prompt can
+masquerade as genuine inter-judge disagreement: concordance on the affected items
+was $r=-0.04$ under our wording and $r=+1.00$ once the admissible range was
+pre-computed and the judge was asked only whether the value fell inside it.
+Arithmetic belongs to code; a judge should be asked only what requires judgement.
 
 \subsection{Why the domain matters}
 
@@ -120,63 +151,56 @@ answer by adding an age-standardised attributable-mortality covariate, but it is
 not a question this design answers. We read the pattern we \emph{did} measure
 within the coloniality-of-knowledge
 framework~\citep{mohamed2020decolonial}: LLMs are compressed summaries of corpora
-produced under uneven digital and publication access, and the development gradient,
-the country-coverage mechanism, and the language penalty are three measurable
-links from corpus asymmetry to knowledge asymmetry.
+produced under uneven digital and publication access, and the language penalty is
+a measurable link from corpus asymmetry to knowledge asymmetry --- the one link of
+the three we set out to test where the measurement has the resolution to see it.
 
 \subsection{Boundary conditions and opportunities}
 
-The central findings rest on an unusually defensible base for an LLM benchmark:
-ground truth anchored to official primary sources for all 25 countries, a
-four-vendor judge panel (ICC$(2,4)=0.89$), and effects that survive three
-composite weightings, a crossed-effects mixed model, a Bayesian re-estimation
-(posterior $P(\beta<0)=1.00$), and E-values up to $5.4$
-(Section~\ref{sec:results:robust}). The items below are therefore
-\emph{opportunities to extend an already-robust result}, not caveats that
-undercut it --- and each maps to a concrete, pre-scoped next study that the
-released protocol already supports.
+The findings rest on a defensible base for an LLM benchmark: ground truth anchored
+to official primary sources for all 25 countries, code adjudication wherever the
+answer is a checkable register value, and a three-vendor panel elsewhere whose
+reliability is reported on the same 3{,}190 items that produce the effects
+(ICC$(2,3)=0.79$). The items below map to concrete, pre-scoped next studies that
+the released protocol already supports.
 
-\textbf{From panel-validated to gold-anchored scoring.} The primary composite uses
-a single panel-validated judge (GPT-5-mini); individual-judge agreement is moderate
-($\alpha=0.67$) while the operative panel-mean reliability is strong
-(ICC$(2,4)=0.89$), and because every reported effect is a between-group contrast, a
-judge's leniency offset cancels. Restricting to objective factual accuracy
-\emph{strengthens} every effect, so the gaps are not an artifact of a permissive
-composite. The natural next step --- and a direct extension of our released, frozen
-protocol --- is a blinded human-expert validation of a stratified response sample,
-which would convert an already-anchored result into a gold-standard-anchored one.
+\textbf{From panel-scored to gold-anchored.} Single-judge reliability is only
+ICC$(2,1)=0.56$, which is why the analysis uses the panel mean rather than one
+judge. Restricting to objective factual accuracy \emph{strengthens} the tier gap
+and the language penalty, so the effects are not an artefact of a permissive
+composite. The natural next step is a blinded human-expert validation of a
+stratified response sample, converting an official-source-anchored result into a
+gold-standard-anchored one.
 
-\textbf{From a suggestive mechanism to a causal test.} Country coverage (Wikidata
-sitelinks) is a more promising lead than language-corpus size, but it entangles
-with development (partial $p=0.13$; exploratory mediation indirect $+0.18$, 95\% CI
-$[-0.27,+0.59]$). This is an opening, not a dead end: a design that varies coverage
-while holding development fixed --- or a longitudinal study tracking accuracy as a
-country's encyclopedic footprint grows --- could establish the channel and would
-reframe mitigation toward how comprehensively regions are described in
-widely-mirrored sources.
+\textbf{From an unresolved mechanism to a design that can resolve it.} Neither
+corpus channel is established at country level, and the limitation is resolution
+rather than absence: three Joshi values and eleven distinct corpus-size values
+across 25 countries. A design that varies country coverage while holding
+development fixed, or a longitudinal study tracking accuracy as a country's
+encyclopedic footprint grows, could establish the channel that the present
+instrument cannot.
 
-\textbf{From post-registration extension to a pre-registered $n=25$ replication.}
-The gradient is significant at $n=25$ and robust to leave-one-out and
-range-restriction, but the extension was decided after the registered $n=15$
-analysis and the effect size sits just below our pre-committed $0.55$ threshold. A
-pre-registered $n=25$ (or larger) replication would promote a power-limited
-discovery into a confirmed gradient --- and our open dataset makes that replication
-cheap.
+\textbf{From a null gradient to an adequately powered test.} The tier difference
+is established while the gradient is not, at $n=25$ and with corrected scoring. A
+pre-registered replication at substantially larger $n$ --- which our open dataset
+makes cheap --- would settle whether the gradient is genuinely absent or still
+underpowered.
 
 \textbf{From three native languages to the full multilingual matrix.} The
-language-corpus mechanism for H2 rests on three native languages and is reported
-descriptively; native prompts were produced by a high-quality LLM translator
-(Claude Sonnet~4.6) rather than human translators, without a back-translation pass,
-so a residual translation-quality term cannot be fully excluded. Scaling to more
-languages with human-validated translation --- which the prompt architecture
-already accommodates --- is a direct, high-value extension.
+strongest result in the study rests on three native languages, and its mechanism
+is therefore reported descriptively. Native prompts were produced by a
+high-quality LLM translator (Claude Sonnet~4.6) rather than human translators and
+without a back-translation pass, so a residual translation-quality term cannot be
+fully excluded --- a caveat that carries more weight now that H2 is the headline
+finding, and that back-translation would largely settle. Scaling to more languages
+with human-validated translation is the highest-value extension this study points
+to.
 
 \textbf{From one domain to a cross-domain program.} All effects come from one
 high-stakes applied domain (air pollution policy) and one corpus family
 (Wikimedia); we deliberately confine the mechanistic language to this domain. The
 same task suite and ground-truth-registry method transfer directly to other
-regulated, source-anchored domains (water quality, food safety, vaccine policy),
-making cross-domain replication a ready next chapter rather than an open question.
+regulated, source-anchored domains (water quality, food safety, vaccine policy).
 
 \textbf{Served-model stack as the unit of analysis.} We evaluate models \emph{as
 served} through fixed access stacks, which is what a public manager actually
@@ -185,41 +209,45 @@ weights. A controlled quasi-isolation design (identical open weights across stac
 would separate the two --- a clean follow-up that our per-call provenance already
 enables.
 
+\textbf{Corroborating analyses pending re-estimation.} The crossed-effects mixed
+model, the Bayesian hierarchical re-estimation, and the E-values reported in
+earlier drafts were computed on the superseded single-judge scores. They are
+omitted rather than carried forward, and their re-estimation on the corrected
+scoring is straightforward from the released pipeline.
+
 \subsection{What this study contributes}
 
-Five contributions set this work apart. \textbf{First}, it is --- to our
-knowledge --- the first benchmark of LLM geographic bias in a \emph{regulated,
-high-stakes applied domain} with verifiable official ground truth, moving the
-question beyond numeric trivia, subjective ratings, and everyday cultural
-knowledge to the recall and synthesis tasks a public environmental manager
-actually delegates. \textbf{Second}, it delivers a decisive and counterintuitive
-applied result: the three fixes practitioners reach for first --- a local-manager
-persona, the local language, and a regionally tuned model --- \emph{all fail
-together}, and the regional model is the single worst performer of fourteen. This
-is the rare benchmark whose most useful contribution is telling the field what does
-\emph{not} work, with the effect sizes to back it. \textbf{Third}, it refines the
-dominant ``less data for under-represented regions'' intuition into a sharper,
-testable claim --- that \emph{country-coverage breadth}, not language-corpus size,
-is the more promising channel for a gap measured in English. \textbf{Fourth}, it
-contributes a methodological lesson with teeth: a geographic-bias gradient that is
-null at $n=15$ but significant and leave-one-out-robust at $n=25$, a concrete
-warning that this literature is easily underpowered. \textbf{Fifth}, every reported
-number is recomputable from the raw data through a one-command pipeline with a
-built-in method-audit gate, setting a reproducibility bar --- official-source
-ground truth plus end-to-end auditability --- that the geographic-bias literature
-has largely lacked. Together these make the study not merely a measurement but a
-template for how applied LLM-equity audits can be done credibly.
+\textbf{First}, it is --- to our knowledge --- the first benchmark of LLM
+geographic bias in a \emph{regulated, high-stakes applied domain} with verifiable
+official ground truth, moving the question beyond numeric trivia, subjective
+ratings, and everyday cultural knowledge to the recall and synthesis tasks a
+public environmental manager actually delegates. \textbf{Second}, it delivers a
+decisive and counterintuitive applied result: the three fixes practitioners reach
+for first --- a local-manager persona, the local language, and a regionally tuned
+model --- \emph{all fail together}, the local language actively harms by $5.0$~pp,
+and the regional model is the single worst performer of fourteen. This is the rare
+benchmark whose most useful contribution is telling the field what does \emph{not}
+work, with the effect sizes to back it. \textbf{Third}, it demonstrates that in
+this literature the ground-truth key, not the sample size, is the binding
+constraint: the same responses yield a significant development gradient under
+placeholder keys and a null one under official keys, while the language penalty
+more than doubles. \textbf{Fourth}, it separates what a 25-country design can
+demonstrate (a tier difference, a language penalty, a recall floor) from what it
+cannot (the shape of the gradient, the corpus channel), and reports the second set
+as unresolved rather than as supported. \textbf{Fifth}, every reported number is
+recomputable from the raw data through a one-command pipeline with a built-in
+method-audit gate, setting a reproducibility bar --- official-source ground truth,
+code adjudication where the answer is a number, and end-to-end auditability ---
+that the geographic-bias literature has largely lacked.
 
 \subsection{Implications}
 
 For environmental agencies in the Global South the operational guidance is
 concrete: treat LLM outputs on binding standards and measured data as drafts to be
-checked against the official gazette, do not assume a local-language query or a
-regionally tuned small model improves accuracy, and do not rely on role framing to
-close the gap. For model developers, the country-coverage result points to a
-tractable lever --- breadth of encyclopedic representation --- distinct from raw
-language-corpus volume. For the measurement community, the $n=15$-to-$n=25$
-reversal is a caution that geographic-bias gradients are easily underpowered.
-These are the links the study set out to probe, and the data turn each from a
-plausible worry into a measured effect with an official-source-anchored ground
-truth.
+checked against the official gazette; do not assume a local-language query
+improves accuracy, because on this evidence it degrades it; do not expect a
+regionally tuned small model or a role frame to close the gap. For model
+developers, the language penalty is the tractable lever, and it is largest exactly
+where the language is least represented. For the measurement community, the
+lesson is that a geographic-bias result can turn on the quality of the ground-truth
+key, so the key deserves auditing before the sample is enlarged.

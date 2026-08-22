@@ -205,10 +205,11 @@ registry before entering the confirmatory stimulus set. The analysis plan called
 for a 50-prompt pilot scored by two independent human raters, with Krippendorff's
 $\alpha \geq 0.70$ required before scaling the design. \emph{That pilot was not
 run}, and no rater-level $\alpha$ exists for this study. Rubric reliability is
-instead evidenced after the fact, on the confirmatory data, by a four-vendor
-judge panel over a fixed sample (Section~\ref{sec:results:reliability}), which
-returns $\alpha = 0.667$, below the threshold the plan had set. We report this as
-a departure from the plan rather than as a threshold met. All prompts
+instead evidenced after the fact, on the confirmatory data, by a three-vendor
+judge panel over every item that required a judge
+(Section~\ref{sec:results:reliability}), which returns $\alpha = 0.527$, below
+the threshold the plan had set. We report this as a departure from the plan
+rather than as a threshold met. All prompts
 were authored in English and, for a stratified subset of countries, additionally
 in a relevant native language (sparse multilingual matrix; Supplementary
 Section~S3); native-language renderings were produced by a high-quality LLM
@@ -275,31 +276,44 @@ Supplementary Material so that no absence is hidden.
 
 \subsection{Measures}
 
-Scoring used an LLM-as-judge protocol with a single primary judge and a
-multi-vendor reliability panel. Every response in the confirmatory set was
-scored by the \textbf{primary judge} (GPT-5-mini) against the ground-truth
-registry entry (for T1, T2, T4) or the validated rubric (for T3, T5), producing
-the five normalized subcomponents below. To quantify judge sensitivity, a
-\textbf{fixed stratified reliability sample} (stratified by
-country~$\times$~task~$\times$~persona, fixed random seed) was independently
-re-scored by a vendor-diverse panel. The operative panel comprises four judges
-spanning four vendors --- GPT-5-mini (OpenAI), Claude Sonnet~4.6 (Anthropic),
-Gemini~2.5~Pro (Google), and DeepSeek-V3 (DeepSeek) --- chosen for vendor
-diversity so that intra-vendor correlation does not inflate apparent agreement; a
-fifth judge (Llama~3.3~70B, Meta) corroborates on the subset it covered, and a
-sixth candidate (Command~R+, Cohere) was attempted but excluded when its provider
-quota was exhausted mid-run. Reliability is reported three ways: Krippendorff's
-$\alpha$ (an inter-rater agreement coefficient, $1$ = perfect, $0$ = chance), the
-single-judge ICC(2,1) (intraclass correlation for one rater, two-way random
-effects), and, as the operative quantity, the \textbf{ICC(2,$k$) reliability of
-the panel mean}, which by the Spearman-Brown relation is high even when individual judges agree only
-moderately. We report agreement transparently, including the most discordant
-judge: any systematic leniency offset cancels in the between-group contrasts that
-carry every reported effect (tier gap, language penalty, task floor), so
-moderate single-judge agreement does not threaten those contrasts. This study
-did not include a human gold-standard layer; ground truth was instead anchored
-to official primary sources through a documentary audit (Section~\ref{sec:groundtruth}),
-and the absence of independent human scoring is stated as a limitation.
+Scoring assigns each task the most reliable instrument it admits, which is not
+the same instrument everywhere.
+
+\textbf{Where the answer is a number in an official register, code decides.} For
+T2 (a measured city-year concentration) and T3 (an attributable-mortality
+estimate), the returned value is extracted and compared with the authorised range
+from the register by a deterministic scorer, with plausibility guards that reject
+implausible extractions --- a four-digit year read as a death count, or a national
+population read as a mortality figure. Comparing a value with a range is exact,
+and a language model asked to do the same arithmetic can only reproduce it with
+noise. Code resolves 50.2\% of T2 cells and 67.3\% of T3 cells; the rest are
+those where no value could be extracted with confidence.
+
+\textbf{Where judgement is required, a three-vendor panel decides by its mean.}
+The residual of T2 and T3, together with all of T4, is scored by
+Gemini~2.5~Pro (Google), Claude Sonnet~4.6 (Anthropic), and DeepSeek-V3
+(DeepSeek), chosen for vendor diversity so that intra-vendor correlation does not
+inflate apparent agreement. The reported score is the mean of the three. T1 and
+T5 retain the scores of the original single judge (GPT-5-mini), T1 because it
+always had official ground truth and T5 because it is a rubric judgement against
+no register.
+
+The original protocol used a single primary judge (GPT-5-mini) for all tasks,
+which two measurements make untenable. Judges differ substantially in severity,
+and single-judge reliability is only ICC(2,1)$=0.56$ against ICC(2,3)$=0.79$ for
+the panel mean (Section~\ref{sec:results:reliability}); the single judge was also
+itself among the evaluated models. Reliability is reported three ways:
+Krippendorff's $\alpha$ (an inter-rater agreement coefficient, $1$ = perfect,
+$0$ = chance), the single-judge ICC(2,1) (intraclass correlation for one rater,
+two-way random effects), and, as the operative quantity, the \textbf{ICC(2,3)
+reliability of the panel mean}, which by the Spearman-Brown relation exceeds the
+single-judge value even when individual judges agree only moderately. All three
+are computed on every item the panel scored rather than on a calibration subset.
+One panel member (DeepSeek-V3) is also an evaluated model; we test for
+self-favouring directly and report the result. This study did not include a human
+gold-standard layer; ground truth was instead anchored to official primary
+sources through a documentary audit (Section~\ref{sec:groundtruth}), and the
+absence of independent human scoring is stated as a limitation.
 
 The primary composite outcome combines the five pre-specified subcomponents
 (see Supplementary Section~S6), each normalized to $[0,1]$: (i) factual accuracy

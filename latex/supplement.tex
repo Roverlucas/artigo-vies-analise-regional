@@ -46,9 +46,12 @@ A 25-Country, 14-Model, 4-Language, 5-Task Benchmark}
 \noindent\textbf{Reproducibility.} Every data-driven table below
 (Tables~\ref{tab:s-roster}--\ref{tab:s-groundtruth}) is regenerated from the raw
 confirmatory artifacts by \texttt{code/analysis/make\_supplement\_tables.py}; no
-value is hand-entered. The primary judge for all reported composites is
-\texttt{gpt-5-mini-2025-08-07}. The analysed confirmatory corpus comprises 9{,}251
-judge-scored responses (7{,}580 English-prompt; 1{,}671 native-language) over 25
+value is hand-entered. Scoring is adjudicated by code against the official
+register wherever the correct answer is a checkable value (T2, T3), and by the
+mean of a three-vendor judge panel (Gemini~2.5~Pro, Claude Sonnet~4.6,
+DeepSeek-V3) elsewhere; T1 and T5 retain the scores of the original single judge
+(\texttt{gpt-5-mini-2025-08-07}). The analysed confirmatory corpus comprises
+9{,}251 scored responses (7{,}580 English-prompt; 1{,}671 native-language) over 25
 countries and 14 deployment stacks. All inputs, the scoring code, the
 ground-truth registry, and the anonymised responses will be released on
 publication under CC-BY-4.0 (data/prompts) and MIT (code).
@@ -437,28 +440,67 @@ Rubric pilot &
 $\alpha \geq 0.70$ required before scaling &
 Not run. No rater-level $\alpha$ exists &
 Rubric reliability is evidenced only after the fact, on confirmatory data, at
-$\alpha = 0.667$, below the threshold the plan had set. \\
+$\alpha = 0.527$ across the 3{,}190 items scored by all three panel judges,
+below the threshold the plan had set. \\
 
 Judging &
 Three-judge LLM ensemble plus external human annotators blind to hypotheses &
-One primary judge for the full set; four-vendor panel on a fixed
-131-item sample; no human layer &
-No human gold standard anywhere in the study. Reliability rests on
-model-to-model agreement. \\
+Three-vendor panel on every item that required a judge (3{,}190 items); code
+adjudication where the answer is a checkable register value; no human layer &
+The ensemble is as planned, but no human gold standard exists anywhere in the
+study. Reliability rests on model-to-model agreement, ICC$(2,3)=0.79$. \\
 
 Ground-truth registry &
 Per (country, task) entry with source class, resolvable URL, gold value,
 reference date, human validator and validation flag &
 Registry covers T1 for all 25 countries; T2, T3 and T4 were built in a later
-revision from single international sources; no human validator field exists &
-Ground-truth provenance is not uniform across tasks, and the claim of a
-per-(country, task) registry did not hold in the original submission draft. \\
+revision from single international sources (WHO AAQD v6.1, WHO GHO AIR\_41, UNEP
+GAAPL Appendix 1); no human validator field exists &
+Ground-truth provenance is now anchored for four of five tasks but is not uniform
+in source class, and the claim of a per-(country, task) registry did not hold in
+the original submission draft. \\
 
 Country sample &
 15 countries, fixed in advance &
 15 extended to 25 after the pre-specified analysis was run &
-The development gradient is detectable only at $n=25$. Every effect is reported
-alongside its 15-country value. \\
+The extension was made to gain power for the gradient, which nonetheless does not
+reach significance at $n=25$ under the corrected scoring ($\rho=0.36$, $p=0.080$).
+Every effect is reported alongside its 15-country value. \\
+
+Scoring instrument &
+Single primary judge (GPT-5-mini) scoring all tasks against the registry &
+T2 and T3 adjudicated by code against official registers where the returned value
+is extractable and plausible (50.2\% and 67.3\% of cells); the residual and all
+of T4 re-scored by the three-vendor panel mean; T1 and T5 unchanged &
+Changes the substantive conclusions on the same responses. The development
+gradient falls from $\rho=0.51$ ($p=0.004$) to $\rho=0.36$ ($p=0.080$); the
+native-language penalty grows from $-2.1$~pp to $-5.0$~pp and becomes significant
+in all three languages. The findings are reported in the revised order. \\
+
+Ordering of findings &
+Plan treated H1 (geographic gradient) as the primary hypothesis &
+H2 (native-language penalty) is reported as the principal finding and H1's
+gradient as exploratory &
+Post-hoc reordering, driven by the corrected scoring rather than by the data
+being re-examined for a better story. Both hypotheses were pre-specified and both
+are reported; only the prominence changed. \\
+
+Judge prompt defect &
+--- &
+An early T2 judge prompt asked the judge to compare a value against a tolerance
+band expressed in words, requiring it to do the arithmetic. Concordance on those
+items was $r=-0.04$; pre-computing the range raised it to $r=+1.00$ &
+The 274 scores collected under the ambiguous wording were discarded and
+recollected. Reported because the defect first presented as genuine inter-judge
+disagreement. \\
+
+Corroborating analyses &
+Mixed model, Bayesian re-estimation and E-values reported alongside the primary
+tests &
+Computed on the superseded single-judge scores; not yet recomputed on the
+corrected scoring &
+Omitted from the revised manuscript rather than carried forward, since a
+corroboration of a superseded estimate corroborates nothing. \\
 
 H4 adjustment set &
 Partial Spearman adjusting for HDI \emph{and} log GDP per capita &
@@ -506,8 +548,9 @@ analytical rule. We report this rather than leave it implicit.
 
 Prompts were authored in English for the air pollution policy domain with domain
 supervision (PPGSAU/UTFPR) and validated against the ground-truth registry before
-entering the confirmatory stimulus set; a pilot subset met an inter-rater
-threshold of Krippendorff's $\alpha\geq 0.70$ before scaling. Native-language
+entering the confirmatory stimulus set. The plan required a two-rater pilot to
+reach Krippendorff's $\alpha\geq 0.70$ before scaling; that pilot was not run,
+and the deviation is logged in Section~\ref{sec:s-deviations}. Native-language
 renderings (Portuguese, Spanish, Hindi) were produced by a high-quality LLM
 translator (Claude Sonnet~4.6) instructed to preserve the meaning, the persona
 frame, and proper nouns/acronyms, with the factual ground truth held in English
