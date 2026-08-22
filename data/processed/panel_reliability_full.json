@@ -1,0 +1,15 @@
+{
+  "n_itens": 3190,
+  "krippendorff_alpha": 0.5274262908204115,
+  "icc21": 0.5580886497626041,
+  "icc2k": 0.7911747043423325,
+  "k_juizes": 3,
+  "pearson_gemini_2_5_pro_claude_sonnet_4_6": 0.6627838731272069,
+  "pearson_gemini_2_5_pro_deepseek_v3": 0.6536077515052292,
+  "pearson_claude_sonnet_4_6_deepseek_v3": 0.8013933441202705,
+  "media_por_juiz": {
+    "gemini_2_5_pro": 0.6167755325814537,
+    "claude_sonnet_4_6": 0.450560169225948,
+    "deepseek_v3": 0.378561266060796
+  }
+}

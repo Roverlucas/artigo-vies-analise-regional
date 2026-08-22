@@ -30,7 +30,8 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
 from code.analysis.formal_tests import (  # noqa: E402
-    COV, COV_EXT, GS, GS_EXT, SCORES, spearman, p_from_r,
+    COV, COV_EXT, GS, GS_EXT, SCORES, spearman, partial_spearman, p_from_r,
+    mann_kendall,
 )
 from code.analysis.llm_judge import RUBRIC_WEIGHTS as PESOS  # noqa: E402
 
@@ -41,6 +42,9 @@ SAIDA = ROOT / "data" / "processed" / "freeze_all_effects.json"
 TODAS_COV = {**COV, **COV_EXT}
 TODOS_GS = GS | GS_EXT
 NATIVAS = ("_pt", "_es", "_hi")
+CCORP = ROOT / "data" / "confirmatory_PRIVATE" / "analysis" / "country_corpus_measures.json"
+# Os 15 paises do plano pre-especificado; os outros 10 entraram na extensao post hoc.
+PRE = set(COV)
 
 
 def composto(d: dict) -> float:
@@ -183,6 +187,38 @@ def efeitos(rows):
     out["h1_p"] = p_from_r(out["h1_rho_hdi"], len(paises))
     out["n_paises"] = len(paises)
 
+    # Mann-Kendall sobre a acuracia ordenada por HDI: tendencia monotonica sem
+    # supor forma funcional, que e o teste que o manuscrito reporta ao lado do rho.
+    por_hdi = sorted(paises, key=lambda c: TODAS_COV[c][0])
+    _, _, out["h1_mk_p"] = mann_kendall([acc[c] for c in por_hdi])
+
+    # Valor pre-especificado (15 paises), reportado ao lado de cada efeito
+    pre = sorted(c for c in acc if c in PRE)
+    if len(pre) > 3:
+        out["h1_rho_pre15"] = spearman([acc[c] for c in pre],
+                                       [TODAS_COV[c][0] for c in pre])
+        out["n_pre15"] = len(pre)
+
+    # H4: cobertura do pais (sitelinks do Wikidata) contra tamanho do corpus da
+    # lingua (edicao da Wikipedia). O manuscrito reporta ambos e a parcial por HDI.
+    if CCORP.exists():
+        cc = json.loads(CCORP.read_text(encoding="utf-8"))
+        sl = [(acc[c], (cc.get(c) or {}).get("wd_sitelinks"), TODAS_COV[c][0])
+              for c in paises]
+        sl = [(a, s_, h) for a, s_, h in sl if isinstance(s_, (int, float))]
+        if len(sl) > 3:
+            xa = [x[0] for x in sl]
+            xs = [x[1] for x in sl]
+            xh = [x[2] for x in sl]
+            out["h4_rho_sitelinks"] = spearman(xa, xs)
+            out["h4_p_sitelinks"] = p_from_r(out["h4_rho_sitelinks"], len(sl))
+            out["h4_parcial_sitelinks_hdi"] = partial_spearman(xa, xs, xh)
+            out["h4_p_parcial"] = p_from_r(out["h4_parcial_sitelinks_hdi"], len(sl), 1)
+        # proxy pre-especificado: tamanho da edicao da Wikipedia na lingua
+        out["h4_rho_wikilang"] = spearman([acc[c] for c in paises],
+                                          [TODAS_COV[c][1] for c in paises])
+        out["h4_p_wikilang"] = p_from_r(out["h4_rho_wikilang"], len(paises))
+
     # H2: lingua nativa contra o ingles em celulas CASADAS (modelo, prompt,
     # replicata), como no manuscrito — nao diferenca de medias marginais. O
     # pareamento e o que da o teste: sem ele, variacao entre modelos e entre itens
@@ -255,6 +291,14 @@ def main() -> None:
         ("  IC95 bootstrap", "tier_gap_ci", None),
         ("H1 rho(acc, HDI)", "h1_rho_hdi", "{:+.3f}"),
         ("  p", "h1_p", "{:.4f}"),
+        ("  Mann-Kendall p", "h1_mk_p", "{:.4f}"),
+        ("  rho pre-espec n=15", "h1_rho_pre15", "{:+.3f}"),
+        ("H4 rho sitelinks", "h4_rho_sitelinks", "{:+.3f}"),
+        ("  p", "h4_p_sitelinks", "{:.4f}"),
+        ("  parcial | HDI", "h4_parcial_sitelinks_hdi", "{:+.3f}"),
+        ("  p parcial", "h4_p_parcial", "{:.4f}"),
+        ("H4 rho wiki-lingua", "h4_rho_wikilang", "{:+.3f}"),
+        ("  p", "h4_p_wikilang", "{:.4f}"),
         ("lingua nativa (pp)", "nativa_pp", "{:+.2f}"),
         ("  p Wilcoxon", "nativa_p", "{:.5f}"),
         ("  n pares", "n_pares", "{:.0f}"),
