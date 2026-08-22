@@ -51,7 +51,9 @@ def composto(d: dict) -> float:
     return sum(d[k] * w for k, w in PESOS.items())
 
 
-def carrega_correcoes():
+def carrega_correcoes(modo="composto"):
+    """modo: 'composto' (pesos do instrumento), 'iguais' (pesos iguais),
+    'factual' (so a acuracia factual, o subcomponente mais objetivo)."""
     det = {}
     for t in ("T2", "T3"):
         f = NUMERIC / f"numeric_scores_{t}.jsonl"
@@ -69,13 +71,20 @@ def carrega_correcoes():
         if all(k in r for k in PESOS):
             por[(r["prompt_id"], str(r["model_id"]),
                  int(r.get("replicate_idx", 0)))].append(r)
-    painel = {k: statistics.mean(composto(x) for x in v) for k, v in por.items()}
+    def val(x):
+        if modo == "factual":
+            return x["factual_accuracy"]
+        if modo == "iguais":
+            return statistics.mean(x[k] for k in PESOS)
+        return composto(x)
+
+    painel = {k: statistics.mean(val(x) for x in v) for k, v in por.items()}
     return det, painel
 
 
-def linhas(corrigir: bool):
+def linhas(corrigir: bool, modo: str = "composto"):
     """Todas as respostas com o escore publicado ou o corrigido."""
-    det, painel = carrega_correcoes()
+    det, painel = carrega_correcoes(modo)
     saida, trocados = [], 0
     for linha in SCORES.open(encoding="utf-8"):
         if not linha.strip():
@@ -85,12 +94,22 @@ def linhas(corrigir: bool):
             continue
         if "JUDGE_API_ERROR" in str(r.get("rationale", "")):
             continue
-        v = r["composite"]
+        if modo == "factual":
+            v = r.get("factual_accuracy", 0.0)
+        elif modo == "iguais":
+            v = statistics.mean(r.get(k_, 0.0) for k_ in PESOS)
+        else:
+            v = r["composite"]
         k = (r.get("prompt_id"), str(r.get("model_id")), int(r.get("replicate_idx", 0)))
         if corrigir:
             if k in det:
-                v = (v - PESOS["factual_accuracy"] * r.get("factual_accuracy", 0)
-                     + PESOS["factual_accuracy"] * det[k])
+                if modo == "factual":
+                    v = det[k]
+                elif modo == "iguais":
+                    v = v - r.get("factual_accuracy", 0) / len(PESOS) + det[k] / len(PESOS)
+                else:
+                    v = (v - PESOS["factual_accuracy"] * r.get("factual_accuracy", 0)
+                         + PESOS["factual_accuracy"] * det[k])
                 trocados += 1
             elif k in painel:
                 v = painel[k]
@@ -250,6 +269,7 @@ def efeitos(rows):
         for lg, ds in pares_por_lingua.items():
             out[f"nativa_{lg}_pp"] = statistics.mean(ds) * 100
             out[f"n_pares_{lg}"] = len(ds)
+            out[f"nativa_{lg}_p"] = wilcoxon_p(ds)
         if "hi" in pares_por_lingua:
             out["hindi_pp"] = statistics.mean(pares_por_lingua["hi"]) * 100
 
@@ -314,6 +334,18 @@ def efeitos(rows):
         glob = [r["v"] for r in ing if r["modelo"] != "cabra_mistral_7b"]
         out["cliff_regional"] = cliffs_delta(reg, glob)
         out["n_regional"] = len(reg)
+    # leave-one-country-out: nenhum pais sozinho sustenta o gradiente ou o gap
+    loo_rho, loo_gap = [], []
+    for fora in paises:
+        rest = [c for c in paises if c != fora]
+        loo_rho.append(spearman([acc[c] for c in rest],
+                                [TODAS_COV[c][0] for c in rest]))
+        gn_ = [acc[c] for c in rest if c not in TODOS_GS]
+        gs_ = [acc[c] for c in rest if c in TODOS_GS]
+        if gn_ and gs_:
+            loo_gap.append((statistics.mean(gn_) - statistics.mean(gs_)) * 100)
+    out["loo_rho_min"], out["loo_rho_max"] = min(loo_rho), max(loo_rho)
+    out["loo_gap_min"], out["loo_gap_max"] = min(loo_gap), max(loo_gap)
     return out
 
 
@@ -321,6 +353,13 @@ def main() -> None:
     pub, _ = linhas(False)
     cor, trocados = linhas(True)
     a, b = efeitos(pub), efeitos(cor)
+
+    # robustez de metrica: os efeitos nao podem depender de como o composto pesa
+    # os cinco subcomponentes, nem sumir quando se olha so o mais objetivo deles.
+    alt = {}
+    for modo in ("iguais", "factual"):
+        alt[modo] = efeitos(linhas(True, modo)[0])
+        alt[modo + "_pub"] = efeitos(linhas(False, modo)[0])
 
     print("CONGELAMENTO COMPLETO — todos os efeitos, painel de 3 juizes fechado")
     print(f"  respostas: {len(pub)} · celulas com escore substituido: {trocados}\n")
@@ -369,7 +408,16 @@ def main() -> None:
              and fmt != "{:.0f}" else "")
         print(f"  {nome:<24} {sa:>16} {sb:>16}   {d}")
 
-    SAIDA.write_text(json.dumps({"publicado": a, "corrigido": b,
+    print("\n  robustez de metrica (corrigido):")
+    for modo in ("iguais", "factual"):
+        m = alt[modo]
+        print(f"    pesos {modo:<8} tier gap {m['tier_gap_pp']:+.2f} pp · "
+              f"rho(HDI) {m['h1_rho_hdi']:+.3f} · piso delta {m['cliff_piso']:+.3f} · "
+              f"nativa {m['nativa_pp']:+.2f} pp")
+    m = alt["factual"]
+    print(f"    factual puro: T1+T2 {m['acc_t1t2']:.3f} vs demais {m['acc_resto']:.3f}")
+
+    SAIDA.write_text(json.dumps({"publicado": a, "corrigido": b, "alternativos": alt,
                                  "celulas_substituidas": trocados,
                                  "n_respostas": len(pub)},
                                 indent=2, default=str), encoding="utf-8")

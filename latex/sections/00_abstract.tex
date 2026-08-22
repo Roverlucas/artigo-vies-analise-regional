@@ -24,40 +24,49 @@ pinned inference endpoint), with a within-subject persona factor (neutral versus
 public environmental manager) and a within-country English/native-language
 contrast. The design was pre-specified for 15 countries and then extended post
 hoc to 25 (seven more Global North, three more Global South) to gain power; every
-effect is reported alongside its pre-specified 15-country value.
+effect is reported alongside its pre-specified 15-country value. Ground truth for
+the two numeric tasks is adjudicated against official registers by code rather
+than by a language model, and the residual is scored by the mean of a
+three-vendor judge panel.
 
-Three harms are robust. A Global North/South \textbf{tier} gap of $+6.2$~pp
-(bootstrap 95\% CI $[+3.7,+8.6]$, excludes zero) resolves, at $n=25$, into a
-\textbf{development gradient} (Spearman $\rho=0.51$ with HDI, $p=0.004$;
-Mann-Kendall $p=0.018$; leave-one-out robust) that was undetectable at the
-pre-specified $n=15$ ($\rho=0.14$), sits just below our pre-specified $0.55$
-effect-size threshold, and tracks development. The linguistic-resource
-correlation is null, but the design cannot separate that channel: the Joshi
-variable takes three values across 25 countries, eighteen of them the same. \textbf{Native-language prompting lowers accuracy}
-($-2.1$~pp overall, $p=2\times10^{-3}$; $-7.8$~pp for Hindi), so the local
-language does not help and can hurt. \textbf{Accuracy collapses on
-technical-standard and local-datum recall} (T1, T2 $\approx 0.37$ vs $0.64$
-elsewhere; Cliff's $\delta=-0.64$), a regulatory-cutoff floor; and the
-Brazilian-Portuguese \textbf{regional model is the weakest of all}
-($\delta=-0.51$). Three intuitive fixes therefore fail together: neither a
-local-manager persona (permutation $p=0.26$), nor the local language, nor a
-regional model closes the gap.
+The study's most robust finding is that \textbf{the fixes practitioners reach for
+do not work, and the most intuitive one backfires}. Asking in the country's own
+language \textbf{lowers} accuracy by $5.0$~percentage points (Wilcoxon signed-rank
+$p<10^{-5}$, $n=839$ matched model-prompt cells), and the penalty is larger the
+scarcer the language's corpus: Hindi $-12.0$~pp, Portuguese $-3.9$~pp, Spanish
+$-4.6$~pp, all significant. A local-manager persona does not narrow the gap
+either (permutation $p=0.22$), and the Brazilian-Portuguese regional model is the
+weakest of all fourteen (Cliff's $\delta=-0.45$). All three remedies an agency
+would try --- speak the local language, declare the official role, procure a
+regionally tuned model --- fail together, and the first actively harms.
 
-On mechanism, the pre-specified corpus proxy (Wikipedia size) is null; a
-country-coverage proxy (Wikidata sitelinks) correlates with accuracy
-($\rho=0.54$, $p=0.005$, surviving multiplicity correction) but attenuates to
-non-significance after adjusting for development ($p=0.13$). We therefore report
-country coverage as a \emph{suggestive, exploratory} channel --- better than
-language-corpus size, as expected for a gap measured in English --- not as an
-established mechanism. The headline effects are stable across three composite
-weightings, a crossed-effects mixed model, and a Bayesian re-estimation, with
-E-values up to $5.4$. Reliability across a four-vendor judge panel is strong
-(panel-mean ICC$(2,4)=0.89$), and ground truth is anchored to official primary
-sources for all 25 countries; the study uses one panel-validated primary judge
-and a documentary ground-truth audit. Beyond its findings, the study offers a
-reusable, fully reproducible template --- official-source ground truth,
-multi-method robustness, and an end-to-end audit pipeline --- for applied
-LLM-equity evaluation. Protocol, prompts, and analysis code will be released on
-publication.
+Two further harms are robust. \textbf{Accuracy collapses on the recall of a
+binding value}: technical-standard recall scores $0.37$ against $0.62$ for
+synthesis and recommendation (Cliff's $\delta=-0.47$), a regulatory-cutoff floor
+exactly where an administration needs the model most. And a Global North/South
+\textbf{tier} gap of $+4.6$~pp persists (bootstrap 95\% CI $[+1.2,+7.8]$,
+excludes zero).
+
+What that tier gap is \emph{made of} we report as exploratory. A monotonic
+development gradient is suggestive but does not reach significance
+(Spearman $\rho=0.36$ with HDI, $p=0.080$; Mann-Kendall $p=0.072$; at the
+pre-specified $n=15$, $\rho=0.08$), so we describe a tier difference we can
+demonstrate and a gradient we cannot. The mechanism is likewise unresolved: the
+pre-specified language-corpus proxy is null ($\rho=0.09$), and a country-coverage
+proxy is no longer significant either once the ground truth is corrected
+($\rho=0.35$, $p=0.087$; partial $\rho=0.17$, $p=0.44$ after adjusting for
+development). The design also cannot separate the linguistic channel at country
+level, because the Joshi variable takes three values across 25 countries,
+eighteen of them the same.
+
+Reliability is reported on the sample that produces the effects rather than on a
+calibration subset: across 3{,}190 items scored by all three judges, panel-mean
+ICC$(2,3)=0.79$ and single-judge ICC$(2,1)=0.56$, which is why the analysis uses
+the panel mean and not one judge. Ground truth is anchored to official primary
+sources for all 25 countries. Beyond its findings, the study offers a reusable,
+fully reproducible template --- official-source ground truth, code-adjudicated
+scoring where the answer is a number, multi-method robustness, and an end-to-end
+audit pipeline --- for applied LLM-equity evaluation. Protocol, prompts, and
+analysis code will be released on publication.
 
 \end{abstract}
