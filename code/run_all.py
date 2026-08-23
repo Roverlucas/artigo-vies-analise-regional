@@ -52,23 +52,51 @@ def main():
         py = sys.executable  # robust across environments where "python" is absent
         venv_py = ROOT / ".venv" / "bin" / "python"          # for statsmodels-based steps
         glmm_py = str(venv_py) if venv_py.exists() else py
-        step("C1. Formal tests (primary family, n=25)",
+        # ---- Scoring chain -------------------------------------------------
+        # These must run first: everything downstream reads the CORRECTED scores.
+        # The judge panel itself (analysis/run_judge_panel.py) and the
+        # back-translation census (analysis/back_translation_audit.py) are NOT
+        # here because they spend API credit; their outputs are committed and
+        # these steps consume them.
+        step("C1. Deterministic scoring of T2 (value vs official register)",
+             [py, "analysis/score_numeric.py", "--task", "T2"])
+        step("C2. Deterministic scoring of T3 (value vs official register)",
+             [py, "analysis/score_numeric.py", "--task", "T3"])
+        step("C3. Export corrected scores (code verdict + panel mean, one rule)",
+             [py, "analysis/export_corrected_scores.py"])
+        step("C4. Panel reliability on the full re-scored base (ICC, alpha)",
+             [py, "analysis/panel_reliability_full.py"])
+
+        # ---- Effects -------------------------------------------------------
+        step("C5. Freeze: every published effect, published vs corrected",
+             [py, "analysis/freeze_all_effects.py"])
+        step("C6. Formal tests (primary family, n=25)",
              [py, "analysis/formal_tests.py", "--n25"])
-        step("C2. Robust secondary tests (n=25)",
+        step("C7. Robust secondary tests (n=25)",
              [py, "analysis/robust_tests.py", "--n25"])
-        step("C3. Composite-weighting + E-value sensitivity",
+
+        # ---- Robustness ----------------------------------------------------
+        step("C8. Adversarial attacks on the headline effect (H2)",
+             [py, "analysis/robustness_h2.py"])
+        step("C9. H2 restricted to verified-faithful translations",
+             [py, "analysis/h2_faithful_subset.py"])
+        step("C10. Power on the nulls, tier taxonomy, permutation arbiter",
+             [py, "analysis/robustness_extra.py"])
+        step("C11. Composite-weighting + E-value sensitivity",
              [py, "analysis/weighting_and_evalue.py"])
-        step("C4. GLMM (mixed model) + persona manipulation check",
+        step("C12. GLMM (mixed model) + persona manipulation check",
              [glmm_py, "analysis/glmm_and_manipcheck.py"])
-        step("C5. Bayesian re-estimation (pymc)",
+        step("C13. Bayesian re-estimation (pymc)",
              [glmm_py, "analysis/bayesian_reestimation.py"])
-        step("C6. Exploratory mediation, H4 (semopy)",
+        step("C14. Exploratory mediation, H4 (semopy)",
              [glmm_py, "analysis/mediation_h4.py"])
-        step("C7. Regenerate Supplementary tables",
+
+        # ---- Outputs and gates ---------------------------------------------
+        step("C15. Regenerate Supplementary tables",
              [py, "analysis/make_supplement_tables.py"])
-        step("C8. Reproducible QA gate (recompute every headline number)",
+        step("C16. Reproducible QA gate (recompute every headline number)",
              [py, "analysis/qa_reproduce_claims.py"])
-        step("C9. Method audit (process <-> manuscript: nothing described that was not executed)",
+        step("C17. Method audit (process <-> manuscript: nothing described that was not executed)",
              [py, "analysis/method_audit.py"])
         print("\n[Confirmatory reproduction complete — QA gate + method audit passed]")
         return
