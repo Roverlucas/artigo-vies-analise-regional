@@ -161,6 +161,34 @@ Hindi. The effect survives every alternative weighting of the composite
 ($-4.9$~pp under equal weights, $-5.8$~pp on the factual subcomponent alone), so
 it is not an artefact of how the five subcomponents are combined.
 
+\textbf{The effect survives being attacked.} Because H2 carries the study's
+central claim, we tried to make it disappear rather than to confirm it. It is not
+driven by any one country (leave-one-out over the nine native-pair countries:
+$-4.3$ to $-5.4$~pp, all significant), by any one model (leave-one-out over
+fourteen: $-4.4$ to $-5.3$~pp, all significant), or by outlying cells (trimming
+5\% from each tail: $-4.5$~pp, $p=8\times10^{-21}$). It appears in every task
+including the rubric task, under both persona conditions, and under each scoring
+instrument separately.
+
+\textbf{And it survives with no judge at all.} A reader may reasonably suspect
+that language-model judges penalise non-English text for reasons of style rather
+than content. We therefore test a binary outcome that no judge touches: does the
+response contain a value that the extractor can pull out and compare with the
+register? On matched (model, prompt) cells, English prompts yield a verifiable
+value $38.8\%$ of the time and native-language prompts only $27.4\%$, a paired
+difference of $-11.5$~pp; the native version is worse in 113 of the 149
+discordant pairs (sign test $p=2\times10^{-10}$), and the ordering by language is
+the same (Hindi $-26.8$~pp, Spanish $-16.3$, Portuguese $-0.8$). Asking in the
+local language does not merely lower a judged score --- it makes the model
+substantially less likely to return a checkable number at all.
+
+This also explains the one place the composite effect is weakest. Among cells
+that code adjudicated, the penalty is $-2.2$~pp and not significant; but code
+only adjudicates where a number exists, so that subset is conditioned on the
+model having produced a value in \emph{both} languages, which selects away the
+severest failure mode. The subset is also underpowered for an effect that size
+(power $0.18$ at $2$~pp, $0.80$ at $5$~pp, $n=183$).
+
 The applied implication is direct, and it is the opposite of the intuition. A
 manager who suspects an English-language model serves their country poorly, and
 responds by asking in the national language, makes the answer \emph{worse} --- and

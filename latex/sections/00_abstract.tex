@@ -34,7 +34,12 @@ do not work, and the most intuitive one backfires}. Asking in the country's own
 language \textbf{lowers} accuracy by $5.0$~percentage points (Wilcoxon signed-rank
 $p<10^{-5}$, $n=839$ matched model-prompt cells), and the penalty is larger the
 scarcer the language's corpus: Hindi $-12.0$~pp, Portuguese $-3.9$~pp, Spanish
-$-4.6$~pp, all significant. A local-manager persona does not narrow the gap
+$-4.6$~pp, all significant. The effect survives leave-one-out over countries and
+models, trimming, every task, and each scoring instrument; and it holds on an
+outcome no judge touches, since native-language prompts return a
+register-checkable value only $27.4\%$ of the time against $38.8\%$ in English
+($-11.5$~pp paired, sign test $p=2\times10^{-10}$). A local-manager persona does
+not narrow the gap
 either (permutation $p=0.22$), and the Brazilian-Portuguese regional model is the
 weakest of all fourteen (Cliff's $\delta=-0.45$). All three remedies an agency
 would try --- speak the local language, declare the official role, procure a

@@ -27,6 +27,15 @@ Hindi. This is the mechanism the resource hierarchy
 predicts~\citep{joshi2020state,xue2021mt5}, and here the measurement has the
 resolution to see it, because the unit is the language rather than the country.
 
+We treated this claim adversarially rather than confirmationally, and it held. It
+does not depend on any one country, model, task, persona condition or scoring
+instrument. Most importantly, it holds on an outcome that involves no judge at
+all: native-language prompts return a register-checkable value only $27.4\%$ of
+the time against $38.8\%$ in English ($-11.5$~pp paired, sign test
+$p=2\times10^{-10}$), with the same ordering across languages. The harm is not
+that a judge scores non-English prose more harshly; it is that the model becomes
+markedly less likely to produce a checkable number at all.
+
 \textbf{The local-manager persona} does not narrow the gap (DiD $+0.5$~pp,
 permutation $p=0.22$), consistent with evidence that expert personas do not
 reliably improve factual accuracy~\citep{zheng2024helpful,mollick2025personas}. A
