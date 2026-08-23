@@ -29,7 +29,9 @@ resolution to see it, because the unit is the language rather than the country.
 
 We treated this claim adversarially rather than confirmationally, and it held. It
 does not depend on any one country, model, task, persona condition or scoring
-instrument. Most importantly, it holds on an outcome that involves no judge at
+instrument, nor on the quality of the translation: a back-translation census of
+all 90 native prompts found none that altered the country or the requested
+quantity, and the penalty is the same among verified-faithful renderings. Most importantly, it holds on an outcome that involves no judge at
 all: native-language prompts return a register-checkable value only $27.4\%$ of
 the time against $38.8\%$ in English ($-11.5$~pp paired, sign test
 $p=2\times10^{-10}$), with the same ordering across languages. The harm is not
@@ -221,14 +223,18 @@ makes cheap --- would settle whether the gradient is genuinely absent or still
 underpowered.
 
 \textbf{From three native languages to the full multilingual matrix.} The
-strongest result in the study rests on three native languages, and its mechanism
-is therefore reported descriptively. Native prompts were produced by a
-high-quality LLM translator (Claude Sonnet~4.6) rather than human translators and
-without a back-translation pass, so a residual translation-quality term cannot be
-fully excluded --- a caveat that carries more weight now that H2 is the headline
-finding, and that back-translation would largely settle. Scaling to more languages
-with human-validated translation is the highest-value extension this study points
-to.
+strongest result in the study rests on three native languages, so its
+\emph{mechanism} is reported descriptively even though the effect is not. The
+translation-quality objection, which would otherwise bear directly on the headline
+finding, is now settled empirically rather than acknowledged: a back-translation
+census of all 90 native prompts, audited by two models against the English
+originals, found no prompt that changed the country and none that changed the
+requested quantity, and the penalty is unchanged among verified-faithful
+translations ($-4.6$~pp) with fidelity failing to predict its size (permutation
+$p=0.42$). What remains open is breadth, not validity: three languages cannot
+establish the corpus-size mechanism, and scaling to more languages --- with human
+translators, which our prompt architecture already accommodates --- is the
+highest-value extension this study points to.
 
 \textbf{From one domain to a cross-domain program.} All effects come from one
 high-stakes applied domain (air pollution policy) and one corpus family

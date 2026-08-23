@@ -182,6 +182,32 @@ the same (Hindi $-26.8$~pp, Spanish $-16.3$, Portuguese $-0.8$). Asking in the
 local language does not merely lower a judged score --- it makes the model
 substantially less likely to return a checkable number at all.
 
+\textbf{And it is not an artefact of the translation.} The native prompts were
+produced by an LLM translator, which raises the one objection the scores alone
+cannot answer: perhaps models do not answer worse in the language, and the native
+prompt simply asks something else. We tested this directly on all
+\textbf{90 unique native prompts} --- a census, not a sample --- by
+back-translating each into English with a \emph{different} model from the one that
+produced the translation, and having two further models audit the
+back-translation against the original English prompt on five concrete items.
+Disagreements were resolved conservatively: one auditor flagging an item was
+enough to mark the prompt divergent.
+
+On the two items that could actually confound the effect, fidelity is complete:
+\textbf{no prompt changed the country and none changed the requested quantity}
+($90/90$ on both). The same question is asked in $88/90$ and the persona frame
+preserved in $89/90$. The item that failed often ($56/90$) is the catch-all for
+added or omitted detail, and its failures are largely stylistic --- the most
+common was a back-translation adding a ``respond briefly'' instruction absent from
+the original. Under a consensus criterion, requiring both auditors to flag an
+item, $88/90$ prompts are faithful.
+
+Restricting H2 to the prompts verified as faithful leaves it essentially
+unchanged: $-4.6$~pp ($p=4\times10^{-8}$, $n=541$ cells) against $-5.6$~pp among
+the divergent ones, a difference of $1.0$~pp that is itself not distinguishable
+from zero (permutation $p=0.42$). Translation fidelity does not predict the size
+of the penalty, which is what one would expect if translation were not causing it.
+
 This also explains the one place the composite effect is weakest. Among cells
 that code adjudicated, the penalty is $-2.2$~pp and not significant; but code
 only adjudicates where a number exists, so that subset is conditioned on the

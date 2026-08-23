@@ -524,8 +524,14 @@ across these countries. \\
 Native-language rendering &
 Human native-speaker translation with independent back-translation and
 bilingual adjudication &
-LLM translation without back-translation verification &
-Translation artefact cannot be separated from language effect in H2. \\
+LLM translation, audited after the fact by a back-translation census of all 90
+native prompts: a different model back-translates, two further models audit
+against the English original on five items, one flag marks the prompt divergent &
+Partially resolved. No human translator and no bilingual adjudication, so the
+plan is not met. But the artefact the plan guarded against is measured and
+absent: $90/90$ preserve the country and the requested quantity, $88/90$ the
+question, and H2 is unchanged among verified-faithful prompts ($-4.6$~pp;
+fidelity does not predict effect size, permutation $p=0.42$). \\
 
 Extra H2 variants &
 Two additional question variants per (country, task), rendered in both languages &
