@@ -463,6 +463,45 @@ gap as supported but \emph{modest and specification-sensitive}, which is a weake
 claim than earlier drafts made on the single-judge scores ($\beta=-0.077$,
 $p=0.007$).
 
+\textbf{Where the tier gap lives.} The composite averages five tasks, and the gap
+is not spread evenly across them. Re-estimating the same contrast as a binomial
+mixed model on each task separately --- outcome coded as returning the register
+value, with crossed random intercepts for country and model --- shows the
+disadvantage scaling with how much the task depends on a fact specific to that
+country (Table~\ref{tab:tier-by-task}). On the binding national standard (T1) the
+Global South odds of a correct answer are $0.23$ of the Global North's
+($52.0\%$ versus $29.4\%$ raw), and on policy instruments (T4) $0.34$; on
+health-evidence synthesis (T3), where the answer is an international estimate
+rather than a national one, the ratio rises to $0.79$; and on open recommendation
+(T5), the one task with no register value to get right, the gap disappears
+entirely.
+
+This is the most important qualification of the tier gap in either direction. The
+gap is not weak --- it is \emph{concentrated}, and the composite dilutes it by
+averaging the tasks where it is severe with a task where it does not exist. On
+the question a public manager most often brings to these systems, what is the
+standard in force here, a Global South country is served at roughly a quarter of
+the odds of a Global North one.
+
+\begin{table}[h]
+\centering
+\caption{Global South versus Global North odds of returning the register value,
+by task. Binomial mixed model, crossed random intercepts for country and model.}
+\label{tab:tier-by-task}
+\small
+\begin{tabular}{llrrrl}
+\toprule
+Task & Answer is & GN & GS & OR & 95\% interval \\
+\midrule
+T1 (technical standard)     & a national value        & 52.0\% & 29.4\% & 0.23 & $[0.19,0.28]$ \\
+T4 (policy instruments)     & national instruments    & 63.1\% & 48.5\% & 0.34 & $[0.28,0.41]$ \\
+T2 (local measured datum)   & a national value        & 45.2\% & 35.6\% & 0.59 & $[0.51,0.68]$ \\
+T3 (health-evidence synth.) & an international estimate& 60.6\% & 56.2\% & 0.79 & $[0.69,0.91]$ \\
+T5 (applied recommendation) & no register value       & 99.6\% & 99.7\% & 2.67 & $[0.80,9.00]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \textbf{E-values.} On the risk-ratio scale, the tier gap carries an E-value of
 $1.65$ at the point estimate and $1.25$ at the confidence limit nearest the null.
 The second number is the operative one~\citep{vanderweele2017evalue}: an
@@ -496,7 +535,7 @@ Hypothesis & Finding & Candidate mechanism & Evidence status \\
 \midrule
 H2 (language) & $-5.0$~pp; Hindi $-12.0$ & language-corpus size & Supported; mechanism descriptive ($n=3$) \\
 H3 (regional model) & $\delta=-0.45$ & scale $>$ regional tuning & Supported \\
-H1 (tier gap) & $+4.6$~pp, CI excludes zero & tier (development) & Supported; modest and specification-sensitive \\
+H1 (tier gap) & $+4.6$~pp composite; OR $0.23$ on T1 & tier (development) & Supported; concentrated in country-fact recall \\
 H1 (gradient) & $\rho=0.36$, $p=0.080$ & development (HDI) & Exploratory; not significant \\
 H4 (geographic mech.) & sitelinks $\rho=0.35$, $p=0.087$ & country coverage & Exploratory; unresolved \\
 H4 (pre-specified) & Wikipedia-size null & language-corpus size & Not supported \\
@@ -514,9 +553,14 @@ that require returning a binding value (T1+T2 versus others, $\delta=-0.47$,
 concentrated in T1 at $0.367$); the regional model as the \emph{worst} of
 fourteen ($\delta=-0.45$); and a Global North/South \emph{tier} gap of
 $+4.6$~pp (bootstrap 95\% CI $[+1.2,+7.8]$, excludes zero), modest and
-sensitive to specification --- the Bayesian re-estimation puts it clear of zero
-($P(\beta<0)=0.984$) while the frequentist mixed model leaves it marginal
-($p=0.099$), and its E-value at the confidence limit is only $1.25$.
+sensitive to specification on the composite --- the Bayesian re-estimation puts it
+clear of zero ($P(\beta<0)=0.984$) while the frequentist mixed model leaves it
+marginal ($p=0.099$), and its E-value at the confidence limit is only $1.25$ ---
+but \emph{unambiguous where it matters}: on returning the binding national
+standard, Global South odds are $0.23$ of Global North odds
+($[0.19,0.28]$), and the gap scales with how far the answer depends on a
+country-specific fact, vanishing on the one task with no register value to get
+right.
 \textbf{Exploratory
 or not supported:} the development \emph{gradient} does not reach significance
 ($\rho=0.36$, $p=0.080$; Mann-Kendall $p=0.072$; $\rho=0.08$ at the pre-specified

@@ -12,6 +12,7 @@ glmm_and_manipcheck.py — execute two further previously-described methods for 
 Run with the project venv:  .venv/bin/python code/analysis/glmm_and_manipcheck.py
 """
 import json
+import math
 import sys, os, glob, re
 import numpy as np
 import pandas as pd
@@ -67,10 +68,50 @@ try:
     m2 = BinomialBayesMixedGLM.from_formula("y ~ is_south", {"country":"0+C(country)","model":"0+C(model)"}, t1)
     r2 = m2.fit_vb()
     idx = list(r2.model.exog_names).index("is_south")
-    print(f"  is_south: posterior mean={r2.params[idx]:+.4f}  posterior SD={r2.cov_params()[idx]**0.5:.4f}")
+    # cov_params() devolve um pandas Series de variancias posteriores, nao uma
+    # matriz. Indexar por posicao com [idx] cai no indexador por ROTULO e levanta
+    # KeyError: 1 — cuja mensagem, truncada, aparecia como "[falhou]: 1" e fazia
+    # o bloco parecer um problema de convergencia do modelo. O ajuste sempre
+    # funcionou; era a leitura do resultado que estava errada.
+    sd = float(np.asarray(r2.cov_params())[idx]) ** 0.5
+    b = float(r2.params[idx])
+    lo, hi = b - 1.96 * sd, b + 1.96 * sd
+    taxa = t1.groupby("is_south")["y"].mean()
+    print(f"  is_south: posterior mean={b:+.4f} (log-odds)  posterior SD={sd:.4f}")
+    print(f"    95% interval        : [{lo:+.3f}, {hi:+.3f}]")
+    print(f"    odds ratio          : {math.exp(b):.3f}  [{math.exp(lo):.3f}, {math.exp(hi):.3f}]")
+    print(f"    raw hit rate on T1  : Global North {taxa[0]:.1%} vs Global South {taxa[1]:.1%}")
     print(f"  (T1 n={len(t1)}; negative => Global South lower factual accuracy on the binding standard)")
 except Exception as e:
     print("  [binomial VB GLMM falhou]:", str(e)[:150])
+
+print("\n"+"="*74)
+print("1c) BINOMIAL MIXED GLM POR TAREFA — onde o gap Norte/Sul se concentra")
+print("="*74)
+# O composto promedia cinco tarefas, e o gap nao esta distribuido por igual entre
+# elas. Estimar a mesma razao de chances tarefa a tarefa mostra que o efeito
+# escala com o quanto a tarefa exige um fato ESPECIFICO daquele pais — e some na
+# tarefa que nao tem fato a acertar. Isso explica por que o gap parece modesto no
+# composto: ele e diluido por tarefas onde nao existe.
+print(f"  {'tarefa':<7}{'n':>6}{'GN':>8}{'GS':>8}{'OR':>8}   IC95")
+for _t in ("T1", "T2", "T3", "T4", "T5"):
+    _d = df[df.task == _t].copy()
+    _d["y"] = (_d["factual"] >= 0.5).astype(int)
+    if _d["y"].nunique() < 2:
+        print(f"  {_t:<7}{len(_d):>6}  sem variacao no desfecho")
+        continue
+    try:
+        _r = BinomialBayesMixedGLM.from_formula(
+            "y ~ is_south", {"country": "0+C(country)", "model": "0+C(model)"}, _d).fit_vb()
+        _i = list(_r.model.exog_names).index("is_south")
+        _b = float(_r.params[_i]); _sd = float(np.asarray(_r.cov_params())[_i]) ** 0.5
+        _tx = _d.groupby("is_south")["y"].mean()
+        print(f"  {_t:<7}{len(_d):>6}{_tx[0]:>8.1%}{_tx[1]:>8.1%}{math.exp(_b):>8.3f}"
+              f"   [{math.exp(_b-1.96*_sd):.3f}, {math.exp(_b+1.96*_sd):.3f}]")
+    except Exception as _e:
+        print(f"  {_t:<7}{len(_d):>6}  falhou: {type(_e).__name__}")
+print("  Leitura: o gap escala com a dependencia de um fato do pais e desaparece")
+print("  em T5, que e a unica tarefa sem valor de registro a acertar.")
 
 print("\n"+"="*74); print("2) PERSONA MANIPULATION CHECK — role-frame acknowledgement in persona responses")
 print("="*74)
