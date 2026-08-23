@@ -37,8 +37,11 @@
 \captionsetup{font=small,labelfont=bf}
 
 % -- References
-\usepackage[numbers,square,comma,sort&compress]{natbib}
-\bibliographystyle{unsrtnat}
+% GIQ segue o Publication Manual da APA, que pede citacao autor-ano e nao
+% numerica. natbib em modo autor-ano com apalike entrega isso sem exigir
+% reescrever nenhum \citep/\citet do texto.
+\usepackage[authoryear,round]{natbib}
+\bibliographystyle{apalike}
 
 % -- Hyperlinks (load late)
 \usepackage[colorlinks=true,

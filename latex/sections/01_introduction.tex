@@ -86,17 +86,49 @@ test which predicts air pollution policy accuracy after adjusting for Human
 Development Index --- a distinction that matters because the geographic gap is
 measured in English.
 
+\subsection*{Objectives and scope}
+
+Stating the boundary of a study is part of its contribution, because a reader
+deciding whether the evidence applies to their situation needs to know what was
+measured and what was not. This study has three objectives, and each is bounded.
+
+\textbf{First, to establish a protocol for auditing regulatory information.} The
+object is agreement between a model's answer and the value published in the
+official register, for tasks an environmental agency actually delegates. We are
+not measuring model capability in general, reasoning quality, or usefulness for
+any purpose other than retrieving and summarising regulation in force. The
+protocol is the contribution that transfers; the domain is where we demonstrate
+it.
+
+\textbf{Second, to test the mitigations available to an administration.} A public
+body facing poor answers about its own country can realistically do three things
+without building anything: declare the official role in the prompt, ask in the
+national language, or procure a regionally tuned model. Each has a procurement or
+workflow cost. We test all three as designed factors rather than discussing them.
+We do not test retrieval augmentation, fine-tuning, or human-in-the-loop
+verification, which require capacity that most agencies in our Global South
+sample do not have.
+
+\textbf{Third, to locate where reliability differs and, as far as the design
+allows, why.} We report the distribution of accuracy across countries, tasks and
+languages, and we test the corpus-representation account at the level where the
+measurement has resolution. We do not claim causal identification of any
+mechanism, and we distinguish throughout what the design demonstrates from what
+it cannot.
+
+Throughout, our unit of analysis is the model \emph{as served} --- a stack of
+model weights, vendor, and serving infrastructure reached through a pinned API or
+inference endpoint --- rather than an idealised set of weights, because a public
+manager interacts with the served stack and any measured gap is a property of
+that stack (Section~\ref{sec:methods}). Hypotheses, sampling and analysis plan
+were fixed before data collection~\citep{nosek2018preregistration} for 15
+countries and then extended to 25; the plan was never deposited publicly, so we
+do not claim pre-registration, and the study is reported as exploratory
+throughout.
+
 \subsection*{Contributions of this work}
 
-We present a benchmark designed for these gaps, with hypotheses, sampling, and
-analysis plan pre-specified before data
-collection~\citep{nosek2018preregistration}, executed across 15 countries and
-then extended to 25. Throughout, our unit of analysis is the model \emph{as
-served} --- a stack of model weights, vendor, and serving infrastructure reached
-through a pinned API or inference endpoint --- rather than an idealized set of
-weights, because a public manager interacts with the served stack and any
-measured gap is a property of that stack (Section~\ref{sec:methods}). Our
-contributions are:
+Our contributions are:
 
 \begin{enumerate}\setlength{\itemsep}{2pt}
 \item \textbf{An auditing protocol for regulatory information, not a trivia
@@ -139,14 +171,18 @@ contributions are:
   each implies a different remedy and a different responsible actor.
 \item \textbf{A mechanism test that reports its own limits.} We test corpus
   representation using both language-corpus and country-coverage proxies, with
-  partial-correlation controls. We report where the pre-specified proxy fails,
-  where an alternative is merely suggestive, and where the instrument itself
-  lacks the resolution to decide, rather than presenting the surviving
-  correlation as an established cause. On this evidence the country-level
-  mechanism is unresolved, and we separate throughout what the design
-  demonstrates --- a tier difference, a language penalty, a recall floor --- from
-  what it cannot, namely the shape of the gradient across the development range
-  and the corpus channel behind it.
+  partial-correlation controls, and we report that the pre-specified proxy is
+  defective in a way worth flagging for anyone who has used it: it assigns the
+  English Wikipedia to the nine sample countries that have English as an official
+  language, so it indexes colonial history rather than corpus size. Between
+  countries the channels cannot be separated at all, because coverage and
+  development are collinear over 25 observations. They separate once the unit of
+  variation changes: comparing tasks that depend on a national fact against tasks
+  that do not, within the same country, identifies country coverage as the
+  operative channel --- and it survives among the nine countries whose official
+  language is identical. We separate throughout what the design demonstrates from
+  what it cannot, and the shape of the gradient across the development range
+  remains in the second category.
 \item \textbf{Ground truth adjudicated by code, and what that changes.} Where a
   task's correct answer is a number published in an official register, the
   verdict is computed against that register rather than delegated to a language

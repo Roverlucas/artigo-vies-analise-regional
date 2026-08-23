@@ -99,3 +99,6 @@ Thumbs.db
 # ============================================================
 REVISAO_ORIENTADORA/
 REVISAO_ORIENTADORA_*.zip
+
+# versao anonima e regenerada por latex/build_blind.py; nao versionar o produto
+latex/blind/

@@ -1,89 +1,30 @@
 \begin{abstract}
 
-Public officials increasingly consult large language models (LLMs) about the
-regulations they are responsible for applying, and generative AI is already in
-routine administrative use~\citep{kim2026genai}. When the answer is wrong, the
-official carries the consequence~\citep{choroszewicz2026crumple}, and
-technology-neutral regulation does not reach the
-failure~\citep{cordella2024regulating}, which leaves verification at the point of
-use as the operative control. Whether that reliability is distributed evenly
-across the states that depend on it is unmeasured, because existing evaluations
-score perception, explanation quality or generic factual recall rather than
-agreement with the binding text.
+Public administrations increasingly consult large language models about the
+regulations they are responsible for applying, yet no established method exists
+for auditing whether those answers match the binding text. We contribute such a
+protocol and report what it finds.
 
-We test this where the correct answer is published in an official register and
-can be checked: environmental regulation. No prior benchmark combines a regulated
-policy domain, official-source ground truth, a pre-specified persona factor, and
-a mechanism test that separates language-corpus size from country coverage. The
-design spans
-\textbf{25 countries, 14 LLMs, four languages, and five task types}
-(normative recall, local measured data, health-evidence synthesis, policy
-instruments, and applied recommendation). We
-evaluate each model \emph{as served} through a fixed access stack (vendor API or
-pinned inference endpoint), with a within-subject persona factor (neutral versus
-public environmental manager) and a within-country English/native-language
-contrast. The design was pre-specified for 15 countries and then extended post
-hoc to 25 (seven more Global North, three more Global South) to gain power; every
-effect is reported alongside its pre-specified 15-country value. Ground truth for
-the two numeric tasks is adjudicated against official registers by code rather
-than by a language model, and the residual is scored by the mean of a
-three-vendor judge panel.
+The protocol scores answers against official registers, adjudicating by code
+wherever the correct answer is a published value and by a three-vendor judge panel
+elsewhere. We apply it to air pollution regulation across 25 countries, 14
+deployment stacks, five task types and four languages (9{,}251 responses),
+evaluating each model \emph{as served}.
 
-The study's most robust finding is that \textbf{the fixes practitioners reach for
-do not work, and the most intuitive one backfires}. Asking in the country's own
-language \textbf{lowers} accuracy by $4.8$~percentage points (Wilcoxon signed-rank
-$p=3\times10^{-15}$, $n=839$ matched model-prompt cells), and the penalty is larger the
-scarcer the language's corpus: Hindi $-11.1$~pp, Portuguese $-3.9$~pp, Spanish
-$-4.4$~pp, all significant. The effect survives leave-one-out over countries and
-models, trimming, every task, and each scoring instrument; and it holds on an
-outcome no judge touches, since native-language prompts return a
-register-checkable value only $48.7\%$ of the time against $66.4\%$ in English
-($-17.7$~pp paired, sign test $p=5\times10^{-6}$). A back-translation census of
-all 90 native prompts rules out a translation artefact: no prompt changed the
-country or the requested quantity, and restricting to verified-faithful
-translations leaves the penalty at $-4.5$~pp. A local-manager persona does
-not narrow the gap
-either (permutation $p=0.27$), and the Brazilian-Portuguese regional model is the
-weakest of all fourteen (Cliff's $\delta=-0.47$). All three remedies an agency
-would try --- speak the local language, declare the official role, procure a
-regionally tuned model --- fail together, and the first actively harms.
+The central finding is that the three remedies available to an agency all fail,
+and the most intuitive one causes harm. Querying in the country's own language
+\emph{lowers} accuracy by 4.8 percentage points (Wilcoxon $p=3\times10^{-15}$)
+and makes the model 17.7 points less likely to return a register-checkable value
+at all; a public-manager persona does not narrow the gap ($p=0.27$); and a
+regionally tuned model ranks last of fourteen. Accuracy also collapses precisely
+on retrieving the binding value: 0.37, against 0.62 for synthesis. A North/South
+gap persists ($+5.1$~pp, permutation $p=0.020$), concentrated where answers
+depend on a national fact --- on the national standard, Global South odds are
+0.23 of Global North odds.
 
-Two further harms are robust. \textbf{Accuracy collapses on the recall of a
-binding value}: technical-standard recall scores $0.37$ against $0.62$ for
-synthesis and recommendation (Cliff's $\delta=-0.47$), a regulatory-cutoff floor
-exactly where an administration needs the model most. And a Global North/South
-\textbf{tier} gap of $+5.1$~pp persists (bootstrap 95\% CI $[+1.6,+8.5]$,
-excludes zero), modest on the composite and specification-sensitive there, but
-concentrated rather than weak: estimated task by task, the Global South odds of
-returning the binding national standard are $0.23$ of the Global North odds
-($[0.19,0.28]$), and the gap shrinks as the answer depends less on a
-country-specific fact, vanishing on the one task with no register value to get
-right.
-
-What that tier gap is \emph{made of} we report as exploratory. A monotonic
-development gradient is suggestive but does not reach significance
-(Spearman $\rho=0.37$ with HDI, $p=0.073$; Mann-Kendall $p=0.072$; at the
-pre-specified $n=15$, $\rho=0.14$), so we describe a tier difference we can
-demonstrate and a gradient we cannot. The design has $77\%$ power at the
-pre-specified $\rho=0.55$, so a strong gradient is excluded while a weak one
-remains possible; and the tier gap holds under the conventional North/South
-partition but not under partitions drawn on HDI alone, which we report rather
-than resting on the favourable one. The mechanism is likewise unresolved: the
-pre-specified language-corpus proxy is null ($\rho=0.14$), and a country-coverage
-proxy is no longer significant either once the ground truth is corrected
-($\rho=0.36$, $p=0.075$; partial $\rho=0.18$, $p=0.41$ after adjusting for
-development). The design also cannot separate the linguistic channel at country
-level, because the Joshi variable takes three values across 25 countries,
-eighteen of them the same.
-
-Reliability is reported on the sample that produces the effects rather than on a
-calibration subset: across 3{,}190 items scored by all three judges, panel-mean
-ICC$(2,3)=0.79$ and single-judge ICC$(2,1)=0.56$, which is why the analysis uses
-the panel mean and not one judge. Ground truth is anchored to official primary
-sources for all 25 countries. Beyond its findings, the study offers a reusable,
-fully reproducible template --- official-source ground truth, code-adjudicated
-scoring where the answer is a number, multi-method robustness, and an end-to-end
-audit pipeline --- for applied LLM-equity evaluation. Protocol, prompts, and
-analysis code will be released on publication.
+Scope is deliberately bounded: we measure agreement with published regulation in
+one domain, not general model capability, and identify the corpus channel only
+where the design has resolution. The protocol transfers to any regulated domain
+whose correct answer is published.
 
 \end{abstract}

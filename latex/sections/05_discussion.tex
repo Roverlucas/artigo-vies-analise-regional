@@ -134,25 +134,56 @@ difference layered over substantial country-specific idiosyncrasy, and that
 idiosyncrasy is precisely what a rank correlation over 25 countries lacks the
 resolution to see through.
 
-\subsection{The mechanism is unresolved}
+\subsection{The mechanism, where the design has resolution}
 
-Our pre-specified mechanism test fails: the language-corpus proxy is null
-($\rho=0.14$), so H4 as registered is not supported. The post-hoc alternative
-does not rescue it. Because the gap is measured \emph{in English}, a residual
-North/South difference cannot be an effect of how much text exists in a country's
-language, which made country-coverage breadth the natural candidate; but Wikidata
-sitelinks correlate at only $\rho=0.36$ ($p=0.075$) and attenuate further after
-adjusting for development (partial $\rho=0.18$, $p=0.41$).
+Our pre-specified mechanism test fails, and the reason turned out to be a defect
+in the instrument rather than an absence of signal. The pre-specified proxy
+assigns the size of the Wikipedia edition in a country's dominant official
+language; nine of our 25 countries --- Australia, Canada, India, Kenya, Nigeria,
+the Philippines, the United Kingdom, the United States and South Africa ---
+therefore receive the value of the \emph{English} Wikipedia. The variable does not
+measure how much text exists in a country's language. It measures whether the
+country has English as an official language, which is a fact about colonial
+history. We report this because it bears on any study that has used or will use
+the same proxy.
 
-Neither channel is established at country level, and we say so rather than
-promoting the surviving correlation. Two features of the design bound what can be
-concluded rather than what is true: the Joshi variable takes three values across
-25 countries with eighteen sharing one class, and the pre-specified corpus proxy
-takes eleven distinct values with nine tied on the English edition. The
-instrument lacks the resolution to separate the channels at country level. That
-the corpus account does show itself in H2, where the unit is the language and the
-variation is real, is consistent with an instrument problem rather than an absent
-mechanism --- but consistency is not evidence, and we do not claim the mechanism.
+Between countries, neither corpus channel can be established. Country coverage
+correlates with accuracy at $\rho=0.36$ ($p=0.075$) and attenuates further after
+adjusting for development ($p=0.41$), because with 25 countries coverage and
+development are collinear and the partial correlation exhausts the available
+information.
+
+The resolution comes from changing the unit of variation rather than adding
+countries. Each country answers tasks that differ in how much the answer depends
+on a fact about \emph{that} country, and a country's development is constant
+across its own tasks. Estimating the interaction between coverage and task
+dependence at the response level, with a fixed effect for country, gives
+$\beta=+0.026$ ($p=2\times10^{-8}$): greater coverage predicts a smaller
+specificity deficit. The association strengthens as the contrast sharpens
+(purest contrast $\beta=+0.042$), inverts exactly under a placebo relabelling,
+and survives adjustment for the language channel.
+
+The decisive check restricts to the nine countries that share English as their
+official language. There the linguistic channel is not merely controlled but
+identical by construction, and country coverage still predicts the deficit
+($\beta=+0.025$, $p=6\times10^{-4}$), at the same magnitude as in the full
+sample. What that coefficient measures cannot be language.
+
+We state the resulting claim at the strength the design supports and no further.
+Country representation is the operative channel for a gap measured in English,
+identified in a contrast that removes country-level confounding by construction.
+This is not causal identification: the design eliminates confounding at the level
+of the country, not at the level of task-by-country, and if the country-dependent
+tasks were harder in a way that happens to track coverage for an unrelated
+reason, the test would not distinguish that. What we can say is that the account
+makes a differential prediction, the prediction holds, it strengthens as the
+contrast sharpens, and it survives the one condition in which language is held
+exactly fixed.
+
+The corpus account also appears in H2, where the unit is the language rather than
+the country: the per-language penalty falls monotonically with mC4 token
+volume~\citep{xue2021mt5} and OSCAR size~\citep{abadji2022oscar}, though with
+three languages this remains descriptive.
 
 \subsection{The methodological lesson: the key matters more than the sample}
 
@@ -209,14 +240,16 @@ produced under uneven digital and publication access, and the language penalty i
 a measurable link from corpus asymmetry to knowledge asymmetry --- the one link of
 the three we set out to test where the measurement has the resolution to see it.
 
-\subsection{Boundary conditions and opportunities}
+\subsection{What this design cannot do, and what each limit opens}
 
-The findings rest on a defensible base for an LLM benchmark: ground truth anchored
-to official primary sources for all 25 countries, code adjudication wherever the
-answer is a checkable register value, and a three-vendor panel elsewhere whose
-reliability is reported on the same 3{,}190 items that produce the effects
-(ICC$(2,3)=0.79$). The items below map to concrete, pre-scoped next studies that
-the released protocol already supports.
+Every limit below is stated as a boundary of \emph{this} design rather than as a
+caveat on the findings, and each one names the study that would remove it. We
+list them in the order we would run them.
+
+The base they sit on is defensible: ground truth anchored to official primary
+sources for all 25 countries, code adjudication wherever the answer is a
+checkable register value, and a three-vendor panel elsewhere whose reliability is
+reported on the same 3{,}190 items that produce the effects (ICC$(2,3)=0.79$).
 
 \textbf{From panel-scored to gold-anchored.} No human expert re-scored responses
 in this study, and we state that plainly. Three properties of the design bound
