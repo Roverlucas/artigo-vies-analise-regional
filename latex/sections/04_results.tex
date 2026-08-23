@@ -494,6 +494,64 @@ HDI range already spanned by the original fifteen ($[0.548,0.950]$, from Nigeria
 to Germany), so the extension increases the density of observations rather than
 the range of the predictor.
 
+\textbf{What the null gradient does and does not rule out.} A null is only
+informative to the extent the design could have seen the effect. Simulating
+25-country samples at known correlations, this design has $77\%$ power to detect
+$\rho=0.55$ --- the threshold we pre-specified --- and its minimum detectable
+effect at $80\%$ power is $\rho=0.56$. The null therefore \emph{does} rule out a
+gradient of the magnitude we committed to calling substantial. It does not rule
+out a weak one: power is $48\%$ at $\rho=0.40$ and $28\%$ at $\rho=0.30$. The
+honest statement is that a strong development gradient is excluded and a modest
+one remains possible, which is a narrower claim than either ``there is a
+gradient'' or ``there is none''.
+
+\textbf{The tier gap depends on the tier definition.} Global North and South are
+operationalised by the UNCTAD classification, and a gap that exists only under
+one taxonomy would be an artefact of that taxonomy. We therefore re-estimated it
+under three development-based partitions of the same 25 countries
+(Table~\ref{tab:taxonomy}). The gap is $+4.6$~pp and significant under UNCTAD
+(permutation $p=0.030$), and it is smaller and non-significant under every
+partition drawn on HDI alone.
+
+We report this rather than resting on the favourable partition, and we read it as
+consistent with the rest of the paper rather than as a contradiction of it. The
+HDI gradient itself is null (Section~\ref{sec:results:h1}), so a split on HDI
+should not be expected to produce a gap; that UNCTAD does and HDI does not
+suggests the operative variable is not national wealth but position in the world
+system, which is what the UNCTAD classification encodes and what the
+coloniality-of-knowledge framing predicts~\citep{quijano2000coloniality,mohamed2020decolonial}.
+That reading is post hoc, and a reader is entitled to the alternative one: that
+among several defensible partitions, one reached significance. We therefore treat
+the tier gap as demonstrated \emph{for the North/South distinction as
+conventionally drawn}, and not as a general statement about development.
+
+\begin{table}[h]
+\centering
+\caption{Tier gap under alternative partitions of the same 25 countries.
+Permutation test with country as the unit, 10{,}000 relabellings.}
+\label{tab:taxonomy}
+\small
+\begin{tabular}{lrrr}
+\toprule
+Partition & Gap (pp) & GN/GS & $p$ \\
+\midrule
+UNCTAD North/South (used throughout) & $+4.56$ & 10/15 & $0.030$ \\
+HDI below the sample median ($0.781$) & $+1.93$ & 13/12 & $0.359$ \\
+HDI $<0.800$ (UNDP ``very high'' cutoff) & $+2.47$ & 12/13 & $0.251$ \\
+HDI $<0.700$ & $+1.37$ & 20/5 & $0.602$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{A distribution-free arbiter for the tier gap.} The bootstrap and the
+mixed model disagree on whether the gap clears conventional significance. A
+permutation test settles it on the most conservative terms available: it assumes
+no distribution and uses the country, the independent unit, as the thing
+permuted. Relabelling tier across the 25 countries 20{,}000 times gives
+$p=0.030$, rejecting the null. We give this test precedence over the mixed model,
+whose marginal $p=0.099$ reflects charging between-country heterogeneity to the
+error term rather than evidence against the contrast.
+
 \textbf{Model-based corroboration, and where it disagrees.} Two model-based
 re-estimations on the corrected scoring qualify the tier gap rather than simply
 confirming it, and we report the disagreement.
