@@ -440,12 +440,43 @@ HDI range already spanned by the original fifteen ($[0.548,0.950]$, from Nigeria
 to Germany), so the extension increases the density of observations rather than
 the range of the predictor.
 
-\textbf{Pending re-estimation.} Three corroborating analyses reported in earlier
-drafts --- the crossed-effects mixed model, the Bayesian hierarchical
-re-estimation, and the E-values --- were computed on the single-judge scores and
-have not yet been recomputed on the corrected scoring. They are omitted here
-rather than carried forward, since a corroboration of a superseded estimate
-corroborates nothing.
+\textbf{Model-based corroboration, and where it disagrees.} Two model-based
+re-estimations on the corrected scoring qualify the tier gap rather than simply
+confirming it, and we report the disagreement.
+
+A Gaussian linear mixed model with crossed random intercepts for country and
+model, adjusting for centred HDI, estimates a Global South penalty of
+$\beta=-0.060$ (SE $0.037$) that does \emph{not} reach significance
+($p=0.099$). A Bayesian hierarchical re-estimation with weakly informative priors
+agrees in magnitude and is more decisive about the sign: posterior mean $-0.047$,
+94\% HDI $[-0.085,-0.006]$, $P(\beta<0)=0.984$, with clean convergence
+($\hat{R}=1.000$ over four chains).
+
+So two of the three ways of asking the question --- the country-level bootstrap
+and the Bayesian model --- put the interval clear of zero, while the frequentist
+mixed model leaves it marginal. The estimates agree on magnitude (roughly
+$-5$ to $-6$ percentage points) and on sign; they disagree on whether that is
+distinguishable from no effect at conventional thresholds, because the mixed
+model charges the substantial between-country heterogeneity
+(Table~\ref{tab:conf-country}) to the error term. We therefore describe the tier
+gap as supported but \emph{modest and specification-sensitive}, which is a weaker
+claim than earlier drafts made on the single-judge scores ($\beta=-0.077$,
+$p=0.007$).
+
+\textbf{E-values.} On the risk-ratio scale, the tier gap carries an E-value of
+$1.65$ at the point estimate and $1.25$ at the confidence limit nearest the null.
+The second number is the operative one~\citep{vanderweele2017evalue}: an
+unmeasured country-level confounder associated with both tier and accuracy at
+RR~$\approx1.25$ would suffice to render the gap compatible with no effect. That
+is a low bar, and it belongs in the reader's assessment.
+
+We do \emph{not} report an E-value for the HDI gradient, although earlier drafts
+did ($5.4$). The gradient does not reach significance ($p=0.080$), so its
+interval already includes the null and the E-value at that limit is $1.00$ ---
+no confounder at all is required. Reporting only the point-estimate E-value would
+imply a robustness the estimate does not have. The conversion is also a poor fit
+for a continuous, country-level exposure, which the risk-ratio formulation
+assumes away.
 
 \subsection{Summary}
 \label{sec:results:summary}
@@ -465,7 +496,7 @@ Hypothesis & Finding & Candidate mechanism & Evidence status \\
 \midrule
 H2 (language) & $-5.0$~pp; Hindi $-12.0$ & language-corpus size & Supported; mechanism descriptive ($n=3$) \\
 H3 (regional model) & $\delta=-0.45$ & scale $>$ regional tuning & Supported \\
-H1 (tier gap) & $+4.6$~pp, CI excludes zero & tier (development) & Supported \\
+H1 (tier gap) & $+4.6$~pp, CI excludes zero & tier (development) & Supported; modest and specification-sensitive \\
 H1 (gradient) & $\rho=0.36$, $p=0.080$ & development (HDI) & Exploratory; not significant \\
 H4 (geographic mech.) & sitelinks $\rho=0.35$, $p=0.087$ & country coverage & Exploratory; unresolved \\
 H4 (pre-specified) & Wikipedia-size null & language-corpus size & Not supported \\
@@ -482,7 +513,11 @@ languages and largest for Hindi ($-12.0$~pp); a \emph{recall floor} on the tasks
 that require returning a binding value (T1+T2 versus others, $\delta=-0.47$,
 concentrated in T1 at $0.367$); the regional model as the \emph{worst} of
 fourteen ($\delta=-0.45$); and a Global North/South \emph{tier} gap of
-$+4.6$~pp (bootstrap 95\% CI $[+1.2,+7.8]$, excludes zero). \textbf{Exploratory
+$+4.6$~pp (bootstrap 95\% CI $[+1.2,+7.8]$, excludes zero), modest and
+sensitive to specification --- the Bayesian re-estimation puts it clear of zero
+($P(\beta<0)=0.984$) while the frequentist mixed model leaves it marginal
+($p=0.099$), and its E-value at the confidence limit is only $1.25$.
+\textbf{Exploratory
 or not supported:} the development \emph{gradient} does not reach significance
 ($\rho=0.36$, $p=0.080$; Mann-Kendall $p=0.072$; $\rho=0.08$ at the pre-specified
 $n=15$), so the tier difference is demonstrated but its shape is not; the

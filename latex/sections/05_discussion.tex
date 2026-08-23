@@ -62,14 +62,25 @@ the task whose key was defective and left untouched the task whose key was sound
 
 \subsection{A tier difference we can show, and a gradient we cannot}
 
-H1 was pre-specified in two parts, and the corrected scoring separates them. The
-\textbf{tier gap} holds: $+4.6$~pp with a bootstrap CI of $[+1.2,+7.8]$ that
-excludes zero, stable to dropping any country and to every composite weighting,
-widening to $+7.7$~pp on the factual subcomponent alone. The \textbf{monotonic
-gradient} does not: $\rho=0.36$ with HDI at $n=25$ does not reach significance
-($p=0.080$), the Mann-Kendall trend agrees ($p=0.072$), no leave-one-out estimate
-approaches the pre-specified $0.55$ threshold, and at the registered $n=15$ the
-gradient is essentially absent ($\rho=0.08$).
+H1 was pre-specified in two parts, and the corrected scoring separates them: the
+\textbf{tier gap} holds and the \textbf{monotonic gradient} does not.
+
+The gap is $+4.6$~pp with a bootstrap CI of $[+1.2,+7.8]$ that excludes zero,
+stable to dropping any country and to every composite weighting, widening to
+$+7.7$~pp on the factual subcomponent alone. It is nonetheless modest and
+sensitive to how the question is asked. A Bayesian hierarchical model puts the
+effect clear of zero ($-0.047$, 94\% HDI $[-0.085,-0.006]$, $P(\beta<0)=0.984$),
+while a frequentist mixed model with crossed random intercepts leaves it marginal
+($\beta=-0.060$, $p=0.099$), because it charges the large between-country
+heterogeneity to the error term. The three approaches agree on magnitude and sign
+and disagree on significance, and the E-value at the confidence limit nearest the
+null is only $1.25$, so a country-level confounder of modest strength would
+suffice to explain the gap away.
+
+The gradient, by contrast, fails on every reading: $\rho=0.36$ with HDI at
+$n=25$ does not reach significance ($p=0.080$), the Mann-Kendall trend agrees
+($p=0.072$), no leave-one-out estimate approaches the pre-specified $0.55$
+threshold, and at the registered $n=15$ it is essentially absent ($\rho=0.08$).
 
 We report this asymmetry plainly because it is the honest description: a
 difference between groups that we can demonstrate, and a shape across the
@@ -209,11 +220,15 @@ weights. A controlled quasi-isolation design (identical open weights across stac
 would separate the two --- a clean follow-up that our per-call provenance already
 enables.
 
-\textbf{Corroborating analyses pending re-estimation.} The crossed-effects mixed
-model, the Bayesian hierarchical re-estimation, and the E-values reported in
-earlier drafts were computed on the superseded single-judge scores. They are
-omitted rather than carried forward, and their re-estimation on the corrected
-scoring is straightforward from the released pipeline.
+\textbf{A tier gap that is real but not comfortable.} Recomputed on the corrected
+scoring, the model-based corroborations are weaker than the single-judge versions
+reported in earlier drafts: the mixed model falls from $p=0.007$ to $p=0.099$,
+the Bayesian posterior from $P(\beta<0)=1.00$ to $0.984$, and the E-value at the
+confidence limit is $1.25$. We report the gap as supported because two of three
+approaches place the interval clear of zero and all three agree on sign and
+magnitude, but a reader is entitled to weigh the marginal mixed model against the
+bootstrap. What would settle it is not another estimator on these 25 countries
+but more countries, and the released pipeline makes that replication cheap.
 
 \subsection{What this study contributes}
 

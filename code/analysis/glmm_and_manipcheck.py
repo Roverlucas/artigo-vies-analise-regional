@@ -11,7 +11,8 @@ glmm_and_manipcheck.py — execute two further previously-described methods for 
 
 Run with the project venv:  .venv/bin/python code/analysis/glmm_and_manipcheck.py
 """
-import json, os, glob, re
+import json
+import sys, os, glob, re
 import numpy as np
 import pandas as pd
 import statsmodels.formula.api as smf
@@ -26,7 +27,7 @@ HDI = {"USA":0.927,"DEU":0.950,"JPN":0.920,"BRA":0.760,"MEX":0.781,"ARG":0.849,
  "KOR":0.929,"COL":0.758,"CHL":0.860,"PRT":0.874,"AGO":0.591}
 GN = {"USA","DEU","JPN","UK","CAN","AUS","KOR","FRA","ITA","PRT"}
 
-rows = [json.loads(l) for l in open(os.path.join(ANA,"judge_scores_confirmatory.jsonl"))]
+rows = [json.loads(l) for l in open(os.path.join(ANA,"judge_scores_corrected.jsonl" if "--original" not in sys.argv else "judge_scores_confirmatory.jsonl"))]
 rows = [r for r in rows if not r.get('error') and r['prompt_id'].split('_')[-1] in ('neutral','env')]
 df = pd.DataFrame({
     "composite":[r['composite'] for r in rows],

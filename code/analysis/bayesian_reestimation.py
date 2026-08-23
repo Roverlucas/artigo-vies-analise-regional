@@ -12,13 +12,14 @@ Reports the posterior mean and 94% HDI for the Global South effect b, and P(b<0)
 
 Run with the venv:  .venv/bin/python code/analysis/bayesian_reestimation.py
 """
-import json, os
+import json
+import sys, os
 import numpy as np
 import pymc as pm
 import arviz as az
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-SCORES = os.path.join(ROOT, "data/confirmatory_PRIVATE/analysis/judge_scores_confirmatory.jsonl")
+SCORES = os.path.join(ROOT, "data/confirmatory_PRIVATE/analysis/judge_scores_corrected.jsonl" if "--original" not in sys.argv else "judge_scores_confirmatory.jsonl")
 GN = {"USA","DEU","JPN","UK","CAN","AUS","KOR","FRA","ITA","PRT"}
 
 rows = [json.loads(l) for l in open(SCORES)]
@@ -40,7 +41,10 @@ with pm.Model() as model:
     v   = pm.Normal("v_model",   0.0, sm, shape=len(models))
     mu  = a + b*south + u[ci] + v[mi]
     pm.Normal("y", mu, sig, observed=y)
-    idata = pm.sample(1000, tune=1000, chains=2, cores=1, target_accept=0.9,
+    # 4 cadeias e 2000 amostras: com 2 cadeias o proprio sampler avisou r-hat
+    # acima de 1,01 e tamanho efetivo abaixo de 100 em parte dos parametros,
+    # o que torna os diagnosticos de convergencia pouco confiaveis.
+    idata = pm.sample(2000, tune=2000, chains=4, cores=1, target_accept=0.95,
                       random_seed=42, progressbar=False)
 
 chains = idata.posterior["b_south"].values            # (chain, draw)
@@ -63,5 +67,5 @@ print("="*70)
 print(f"  posterior mean b_south = {post.mean():+.4f}")
 print(f"  94% HDI                = [{lo:+.4f}, {hi:+.4f}]")
 print(f"  P(b_south < 0)         = {(post < 0).mean():.3f}")
-print(f"  (negative => Global South lower; compare frequentist MixedLM beta=-0.077, p=0.007)")
+print(f"  (negative => Global South lower)")
 print(f"  R-hat(b_south) = {rhat(chains):.3f}  (convergence; should be ~1.00)")

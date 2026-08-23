@@ -15,12 +15,13 @@ confirmatory data (replacing previously-described-but-unrun methods):
 
 Pure numpy/scipy. Run from repo root:  python3 code/analysis/weighting_and_evalue.py
 """
-import json, os, math
+import json
+import sys, os, math
 import numpy as np
 from scipy import stats
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-SCORES = os.path.join(ROOT, "data/confirmatory_PRIVATE/analysis/judge_scores_confirmatory.jsonl")
+SCORES = os.path.join(ROOT, "data/confirmatory_PRIVATE/analysis/judge_scores_corrected.jsonl" if "--original" not in sys.argv else "judge_scores_confirmatory.jsonl")
 
 # HDI per country — UNDP HDR 2023-24 (2022 data); mirrors code/analysis/formal_tests.py
 HDI = {"USA":0.927,"DEU":0.950,"JPN":0.920,"BRA":0.760,"MEX":0.781,"ARG":0.849,
@@ -101,11 +102,43 @@ print("="*74)
 gnv = (X@W_author)[np.isin(iso, list(GN))]; gsv = (X@W_author)[~np.isin(iso, list(GN))]
 sp = math.sqrt(((len(gnv)-1)*gnv.var(ddof=1)+(len(gsv)-1)*gsv.var(ddof=1))/(len(gnv)+len(gsv)-2))
 d_tier = (gnv.mean()-gsv.mean())/sp
-# correlations -> d = 2r/sqrt(1-r^2)
-cm = {c:(X@W_author)[iso==c].mean() for c in set(iso)}; cs=sorted(cm)
-rho_hdi,_ = stats.spearmanr([cm[c] for c in cs],[HDI[c] for c in cs])
-d_hdi = 2*rho_hdi/math.sqrt(1-rho_hdi**2)
-for label, d in [("H1 tier gap (GN vs GS)", d_tier), ("H1 HDI gradient", d_hdi)]:
-    print(f"  {label:26s}: Cohen's d={d:+.3f} -> E-value = {evalue_from_d(d):.2f}")
+# O E-value do PONTO estimado nunca deve ser reportado sozinho. VanderWeele &
+# Ding (2017) pedem tambem o E-value do limite do intervalo de confianca mais
+# proximo do nulo, e e esse que responde a pergunta que interessa: quao forte
+# precisaria ser um confundidor para tornar o resultado compativel com nenhum
+# efeito. Quando o intervalo ja inclui o nulo, esse E-value e 1,00 — nenhum
+# confundidor e necessario — e reportar so o E-value do ponto sugeriria uma
+# solidez que o dado nao tem.
+cm = {c: (X@W_author)[iso == c].mean() for c in set(iso)}
+cs = sorted(cm)
+
+
+def boot_ci_gap(n=10000, semente=20260822):
+    rng = np.random.default_rng(semente)
+    gn_ = np.array([cm[c] for c in cs if c in GN])
+    gs_ = np.array([cm[c] for c in cs if c not in GN])
+    d = [rng.choice(gn_, len(gn_)).mean() - rng.choice(gs_, len(gs_)).mean()
+         for _ in range(n)]
+    return float(np.percentile(d, 2.5)), float(np.percentile(d, 97.5))
+
+
+lo, hi = boot_ci_gap()
+gap_pt = np.mean([cm[c] for c in cs if c in GN]) - np.mean([cm[c] for c in cs if c not in GN])
+# o d escala com a diferenca de medias, entao o d do limite do IC e proporcional
+d_tier_lo = d_tier * (lo / gap_pt) if gap_pt else 0.0
+
+print(f"  H1 tier gap (GN vs GS)")
+print(f"    point   : Cohen's d={d_tier:+.3f} -> E-value = {evalue_from_d(d_tier):.2f}")
+print(f"    CI limit: 95% CI [{lo*100:+.2f},{hi*100:+.2f}] pp, nearest-null d="
+      f"{d_tier_lo:+.3f} -> E-value = {evalue_from_d(d_tier_lo):.2f}")
+
+rho_hdi, p_hdi = stats.spearmanr([cm[c] for c in cs], [HDI[c] for c in cs])
+print(f"  H1 HDI gradient")
+print(f"    NOT REPORTED as an E-value. rho={rho_hdi:+.3f}, p={p_hdi:.3f}: the")
+print(f"    association does not reach significance, so its confidence interval")
+print(f"    already includes the null and the nearest-null E-value is 1.00 — no")
+print(f"    confounder is needed to explain it away. The exposure is also")
+print(f"    continuous and measured at country level, which the risk-ratio")
+print(f"    conversion assumes away.")
 print("\n(E-value = minimum strength of association an unmeasured confounder would need")
-print(" with BOTH tier/HDI and accuracy, on the risk-ratio scale, to explain away the effect.)")
+print(" with BOTH tier and accuracy, on the risk-ratio scale, to explain away the effect.)")
