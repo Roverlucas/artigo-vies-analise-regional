@@ -53,7 +53,8 @@ def main() -> None:
         for linha in f.open(encoding="utf-8"):
             r = json.loads(linha)
             if r["verdict"] in ("CORRECT", "INCORRECT"):
-                det[(r["prompt_id"], str(r["model_id"]), 0)] = (
+                det[(r["prompt_id"], str(r["model_id"]),
+                     int(r.get("replicate_idx", 0)))] = (
                     1.0 if r["verdict"] == "CORRECT" else 0.0)
 
     por = collections.defaultdict(list)

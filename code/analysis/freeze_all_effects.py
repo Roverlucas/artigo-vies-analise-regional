@@ -29,6 +29,8 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
+from code.analysis.nonparametric import wilcoxon_p  # noqa: E402
+
 from code.analysis.formal_tests import (  # noqa: E402
     COV, COV_EXT, GS, GS_EXT, SCORES, spearman, partial_spearman, p_from_r,
     mann_kendall,
@@ -62,7 +64,8 @@ def carrega_correcoes(modo="composto"):
         for linha in f.open(encoding="utf-8"):
             r = json.loads(linha)
             if r["verdict"] in ("CORRECT", "INCORRECT"):
-                det[(r["prompt_id"], str(r["model_id"]), 0)] = (
+                det[(r["prompt_id"], str(r["model_id"]),
+                     int(r.get("replicate_idx", 0)))] = (
                     1.0 if r["verdict"] == "CORRECT" else 0.0)
 
     por = collections.defaultdict(list)
@@ -120,29 +123,6 @@ def linhas(corrigir: bool, modo: str = "composto"):
                       "prompt_id": pid, "rep": int(r.get("replicate_idx", 0)),
                       "nativa": pid.endswith(NATIVAS)})
     return saida, trocados
-
-
-def wilcoxon_p(difs):
-    """Wilcoxon signed-rank bilateral, aproximacao normal com correcao de empates."""
-    nz = [d for d in difs if d != 0]
-    n = len(nz)
-    if n < 10:
-        return float("nan")
-    ordenado = sorted(nz, key=abs)
-    postos, i = [0.0] * n, 0
-    while i < n:
-        j = i
-        while j + 1 < n and abs(ordenado[j + 1]) == abs(ordenado[i]):
-            j += 1
-        medio = (i + j) / 2 + 1
-        for k in range(i, j + 1):
-            postos[k] = medio
-        i = j + 1
-    mais = sum(p for p, d in zip(postos, ordenado) if d > 0)
-    media = n * (n + 1) / 4
-    dp = math.sqrt(n * (n + 1) * (2 * n + 1) / 24)
-    z = (mais - media) / dp
-    return math.erfc(abs(z) / math.sqrt(2))
 
 
 def cliffs_delta(a, b):

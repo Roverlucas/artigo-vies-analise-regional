@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 """Auditoria independente do squad academico, executada em modelo de OUTRO fornecedor.
 
-POR QUE EM OPENAI E NAO AQUI
+POR QUE NAO EM CLAUDE
 A regra R7 do squad — quem gera nao fecha — existe porque um modelo revisando o
 proprio trabalho compartilha os pontos cegos que produziram o trabalho. Todo o
-material auditado aqui foi produzido em Claude; a validacao roda em GPT-5.2-pro
-justamente para que os erros de origem tenham chance de aparecer.
+material auditado aqui foi produzido em Claude, entao a validacao precisa correr
+em outro fornecedor para que os erros de origem tenham chance de aparecer.
+
+O alvo preferido era GPT-5.2-pro, mas a conta OpenAI estava sem credito e nenhuma
+chamada passou. Gemini 2.5 Pro e DeepSeek-V3 satisfazem o mesmo requisito, e as
+quatro lentes mais criticas rodam nos DOIS, para que um achado isolado possa ser
+distinguido de um achado corroborado. O modelo que produziu cada parecer fica
+registrado no resultado, como o R7 exige.
 
 O parecer que sai daqui e evidencia E3: hipotese a adjudicar, nao instrucao a
 executar. Cada achado precisa ser conferido na fonte antes de virar edicao.
@@ -22,21 +28,80 @@ import json
 import pathlib
 import re
 import sys
+import time
 import urllib.error
 import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-SAIDA = ROOT / "data" / "processed" / "squad_audit_openai.json"
-MODELO = "gpt-5.2-pro"
-URL = "https://api.openai.com/v1/responses"
+SAIDA = ROOT / "data" / "processed" / "squad_audit.json"
+# Lentes criticas rodam nos dois fornecedores; as demais em um so.
+CRITICAS = ("senior-scientist", "statistician", "qa-reviewer", "code-reviewer")
+FORNECEDORES = ("gemini_2_5_pro", "deepseek_v3")
 
 
-def chave() -> str:
+sys.path.insert(0, str(ROOT))
+
+
+def _chave(nome: str) -> str:
     for linha in (pathlib.Path.home() / ".env").read_text().splitlines():
-        m = re.match(r'\s*(?:export\s+)?OPENAI_API_KEY\s*=\s*["\']?([^"\'\s]+)', linha)
+        m = re.match(rf'\s*(?:export\s+)?{nome}\s*=\s*["\']?([^"\'\s]+)', linha)
         if m:
             return m.group(1)
-    raise SystemExit("OPENAI_API_KEY nao encontrada em ~/.env")
+    raise SystemExit(f"{nome} nao encontrada em ~/.env")
+
+
+def _post(url: str, payload: dict, headers: dict, timeout: int = 1500) -> dict:
+    req = urllib.request.Request(url, data=json.dumps(payload).encode(),
+                                 headers={"Content-Type": "application/json", **headers})
+    for tentativa in range(4):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            if e.code in (429, 500, 502, 503, 504) and tentativa < 3:
+                time.sleep(30 * (tentativa + 1))
+                continue
+            raise RuntimeError(f"HTTP {e.code}: {e.read().decode()[:150]}") from None
+        except Exception:
+            if tentativa < 3:
+                time.sleep(20)
+                continue
+            raise
+    raise RuntimeError("esgotou tentativas")
+
+
+# ORCAMENTO DE SAIDA PROPRIO, e nao o do painel de juizes.
+# A primeira tentativa desta auditoria reusou o call() de run_judge_panel, que
+# tem max_tokens 700 (DeepSeek) e 3000 (Gemini) porque julga UMA resposta e
+# devolve um JSON curto. Uma auditoria de manuscrito produz milhares de tokens:
+# o DeepSeek truncou no meio do primeiro achado e o Gemini gastou todo o
+# orcamento em raciocinio e devolveu MAX_TOKENS sem texto. Reusar uma funcao
+# calibrada para outra tarefa e o defeito; o orcamento aqui e dimensionado para
+# o que esta tarefa produz.
+SAIDA_MAX = 16000
+
+
+def call(fornecedor: str, sistema: str, usuario: str) -> str:
+    if fornecedor == "gemini_2_5_pro":
+        d = _post(
+            "https://generativelanguage.googleapis.com/v1beta/models/"
+            f"gemini-2.5-pro:generateContent?key={_chave('GEMINI_API_KEY')}",
+            {"systemInstruction": {"parts": [{"text": sistema}]},
+             "contents": [{"parts": [{"text": usuario}]}],
+             "generationConfig": {"temperature": 0, "maxOutputTokens": SAIDA_MAX}}, {})
+        cands = d.get("candidates") or []
+        if not cands or "content" not in cands[0] or "parts" not in cands[0]["content"]:
+            raise RuntimeError(f"gemini sem texto (finishReason="
+                               f"{cands[0].get('finishReason') if cands else '?'})")
+        return "".join(p.get("text", "") for p in cands[0]["content"]["parts"])
+    if fornecedor == "deepseek_v3":
+        d = _post("https://api.deepseek.com/chat/completions",
+                  {"model": "deepseek-chat", "max_tokens": 8000, "temperature": 0,
+                   "messages": [{"role": "system", "content": sistema},
+                                {"role": "user", "content": usuario}]},
+                  {"Authorization": f"Bearer {_chave('DEEPSEEK_API_KEY')}"})
+        return d["choices"][0]["message"]["content"]
+    raise ValueError(f"fornecedor desconhecido: {fornecedor}")
 
 
 def ler(*partes: str) -> str:
@@ -146,74 +211,49 @@ LENTES = {
 }
 
 
-def chamar(lente: str, instrucao: str, material: str, api: str) -> dict:
-    payload = {
-        "model": MODELO,
-        "instructions": BASE + "\n\n" + instrucao,
-        "input": material,
-        "reasoning": {"effort": "high"},
-        "max_output_tokens": 12000,
-    }
-    req = urllib.request.Request(
-        URL, data=json.dumps(payload).encode(),
-        headers={"Content-Type": "application/json", "Authorization": f"Bearer {api}"})
-    for tentativa in range(4):
-        try:
-            with urllib.request.urlopen(req, timeout=1800) as r:
-                d = json.loads(r.read())
-            break
-        except urllib.error.HTTPError as e:
-            corpo = e.read().decode()[:200]
-            if e.code in (429, 500, 502, 503, 504) and tentativa < 3:
-                import time
-                time.sleep(20 * (tentativa + 1))
-                continue
-            return {"lente": lente, "erro": f"HTTP {e.code}: {corpo}"}
-        except Exception as e:
-            if tentativa < 3:
-                import time
-                time.sleep(15)
-                continue
-            return {"lente": lente, "erro": str(e)[:200]}
-    else:
-        return {"lente": lente, "erro": "esgotou tentativas"}
-
-    txt = ""
-    for item in d.get("output", []):
-        for c in item.get("content", []):
-            if c.get("type") in ("output_text", "text"):
-                txt += c.get("text", "")
+def chamar(lente: str, instrucao: str, material: str, fornecedor: str) -> dict:
+    try:
+        txt = call(fornecedor, BASE + "\n\n" + instrucao, material)
+    except Exception as e:
+        return {"lente": lente, "auditor": fornecedor, "erro": str(e)[:200]}
     t = txt.strip()
     if "```" in t:
         t = t.split("```")[1].removeprefix("json").strip()
-    i, j = t.find("{"), t.rfind("}")
+    i2, j2 = t.find("{"), t.rfind("}")
     try:
-        parsed = json.loads(t[i:j + 1])
+        parsed = json.loads(t[i2:j2 + 1])
     except (json.JSONDecodeError, ValueError):
-        return {"lente": lente, "erro": "resposta nao parseavel", "bruto": txt[:800]}
+        return {"lente": lente, "auditor": fornecedor,
+                "erro": "resposta nao parseavel", "bruto": txt[:600]}
     parsed["lente"] = lente
+    parsed["auditor"] = fornecedor
     return parsed
 
 
 def main() -> None:
-    api = chave()
-    print(f"auditoria independente em {MODELO} · {len(LENTES)} lentes do squad\n")
+    tarefas = []
+    for nome, (instr, mat) in LENTES.items():
+        alvos = FORNECEDORES if nome in CRITICAS else (FORNECEDORES[1],)
+        for f in alvos:
+            tarefas.append((nome, instr, mat, f))
+    print(f"auditoria independente · {len(LENTES)} lentes · {len(tarefas)} pareceres")
+    print(f"  criticas em duplicata: {', '.join(CRITICAS)}\n")
     resultados = []
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
-        futuros = {pool.submit(chamar, nome, instr, ler(*mat), api): nome
-                   for nome, (instr, mat) in LENTES.items()}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+        futuros = {pool.submit(chamar, nome, instr, ler(*mat), f): f"{nome}@{f}"
+                   for nome, instr, mat, f in tarefas}
         for fut in concurrent.futures.as_completed(futuros):
             r = fut.result()
             resultados.append(r)
-            nome = r.get("lente", futuros[fut])
+            rot = futuros[fut]
             if "erro" in r:
-                print(f"  [erro] {nome}: {r['erro'][:110]}", flush=True)
+                print(f"  [erro] {rot}: {r['erro'][:100]}", flush=True)
             else:
                 f = r.get("findings", [])
                 sev = {}
                 for x in f:
                     sev[x.get("severity", "?")] = sev.get(x.get("severity", "?"), 0) + 1
-                print(f"  {nome:<20} {len(f)} achados  {sev}", flush=True)
+                print(f"  {rot:<40} {len(f)} achados  {sev}", flush=True)
 
     SAIDA.parent.mkdir(parents=True, exist_ok=True)
     SAIDA.write_text(json.dumps(resultados, indent=2, ensure_ascii=False), encoding="utf-8")

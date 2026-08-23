@@ -19,9 +19,9 @@ The applied contribution is largely negative, and it is the study's most
 actionable result.
 
 \textbf{The local language} does not help and materially hurts. Asking in the
-country's own language lowers accuracy by $5.0$~pp (Wilcoxon $p<10^{-5}$, $n=839$
+country's own language lowers accuracy by $4.8$~pp (Wilcoxon $p=3\times10^{-15}$, $n=839$
 matched cells), significantly in all three languages, and the penalty scales with
-the scarcity of the language's corpus: Hindi $-12.0$~pp, Spanish $-4.6$, Portuguese
+the scarcity of the language's corpus: Hindi $-11.1$~pp, Spanish $-4.4$, Portuguese
 $-3.9$. India, the highest-scoring country of all 25 in English, falls furthest in
 Hindi. This is the mechanism the resource hierarchy
 predicts~\citep{joshi2020state,xue2021mt5}, and here the measurement has the
@@ -32,20 +32,20 @@ does not depend on any one country, model, task, persona condition or scoring
 instrument, nor on the quality of the translation: a back-translation census of
 all 90 native prompts found none that altered the country or the requested
 quantity, and the penalty is the same among verified-faithful renderings. Most importantly, it holds on an outcome that involves no judge at
-all: native-language prompts return a register-checkable value only $27.4\%$ of
-the time against $38.8\%$ in English ($-11.5$~pp paired, sign test
-$p=2\times10^{-10}$), with the same ordering across languages. The harm is not
+all: native-language prompts return a register-checkable value only $48.7\%$ of
+the time against $66.4\%$ in English ($-17.7$~pp paired, sign test
+$p=5\times10^{-6}$), with the same ordering across languages. The harm is not
 that a judge scores non-English prose more harshly; it is that the model becomes
 markedly less likely to produce a checkable number at all.
 
-\textbf{The local-manager persona} does not narrow the gap (DiD $+0.5$~pp,
-permutation $p=0.22$), consistent with evidence that expert personas do not
+\textbf{The local-manager persona} does not narrow the gap (DiD $+0.6$~pp,
+permutation $p=0.27$), consistent with evidence that expert personas do not
 reliably improve factual accuracy~\citep{zheng2024helpful,mollick2025personas}. A
 manipulation check confirms half of the responses explicitly take up the role
 frame, so the null is not a failure of the manipulation.
 
 \textbf{The regional model} --- Brazilian-Portuguese Cabra-Mistral~7B --- is the
-\emph{worst} performer of all fourteen ($\delta=-0.45$), so reaching for a locally
+\emph{worst} performer of all fourteen ($\delta=-0.47$), so reaching for a locally
 tuned small model trades away the scale and frontier training that actually carry
 domain accuracy.
 
@@ -58,7 +58,7 @@ value against the official source.
 \subsection{The recall floor sits on the values that bind}
 
 Accuracy collapses on the tasks that require returning a specific value in force:
-$0.413$ for normative and local-datum recall against $0.619$ for synthesis and
+$0.417$ for normative and local-datum recall against $0.623$ for synthesis and
 recommendation ($\delta=-0.47$), and the floor is deepest on the national standard
 itself (T1, $0.367$). The risk is concentrated rather than diffuse. A manager
 drafting prose about air quality policy is comparatively well served; a manager
@@ -76,23 +76,23 @@ the task whose key was defective and left untouched the task whose key was sound
 H1 was pre-specified in two parts, and the corrected scoring separates them: the
 \textbf{tier gap} holds and the \textbf{monotonic gradient} does not.
 
-The gap is $+4.6$~pp with a bootstrap CI of $[+1.2,+7.8]$ that excludes zero,
+The gap is $+5.1$~pp with a bootstrap CI of $[+1.6,+8.5]$ that excludes zero,
 stable to dropping any country and to every composite weighting, widening to
-$+7.7$~pp on the factual subcomponent alone. It is nonetheless modest and
+$+8.8$~pp on the factual subcomponent alone. It is nonetheless modest and
 sensitive to how the question is asked. A Bayesian hierarchical model puts the
-effect clear of zero ($-0.047$, 94\% HDI $[-0.085,-0.006]$, $P(\beta<0)=0.984$),
+effect clear of zero ($-0.047$, 94\% HDI $[-0.085,-0.006]$, $P(\beta<0)=0.993$),
 while a frequentist mixed model with crossed random intercepts leaves it marginal
-($\beta=-0.060$, $p=0.099$), because it charges the large between-country
+($\beta=-0.060$, $p=0.069$), because it charges the large between-country
 heterogeneity to the error term. The three approaches agree on magnitude and sign
 and disagree on significance, and the E-value at the confidence limit nearest the
-null is only $1.25$, so a country-level confounder of modest strength would
+null is only $1.31$, so a country-level confounder of modest strength would
 suffice to explain the gap away.
 
 That modesty, however, is an artefact of the composite. Estimated task by task on
 the binary outcome of returning the register value, the gap scales with how much
 the answer depends on a fact specific to that country: odds ratio $0.23$
 ($[0.19,0.28]$) on the binding national standard, $0.34$ on national policy
-instruments, $0.59$ on the local measured datum, $0.79$ on an international
+instruments, $0.51$ on the local measured datum, $0.67$ on an international
 health estimate, and no gap at all on open recommendation, the one task with no
 register value to get right. The disadvantage is not weak but \emph{concentrated},
 and averaging five tasks into one composite dilutes it with tasks where it does
@@ -102,10 +102,10 @@ quarter of the odds of a Global North one. We regard this as the more faithful
 statement of the geographic finding than the composite gap, and it is the reading
 we carry into the implications.
 
-The gradient, by contrast, fails on every reading: $\rho=0.36$ with HDI at
-$n=25$ does not reach significance ($p=0.080$), the Mann-Kendall trend agrees
+The gradient, by contrast, fails on every reading: $\rho=0.37$ with HDI at
+$n=25$ does not reach significance ($p=0.073$), the Mann-Kendall trend agrees
 ($p=0.072$), no leave-one-out estimate approaches the pre-specified $0.55$
-threshold, and at the registered $n=15$ it is essentially absent ($\rho=0.08$).
+threshold, and at the registered $n=15$ it is essentially absent ($\rho=0.14$).
 This null is informative rather than merely empty: the design has $77\%$ power at
 $\rho=0.55$ and a minimum detectable effect of $\rho=0.56$, so a gradient of the
 magnitude we pre-committed to is excluded. A weak one is not, since power falls
@@ -116,7 +116,7 @@ relabels tier across countries --- distribution-free, and using the country as t
 unit --- gives $p=0.030$, which we take as settling the disagreement between the
 bootstrap and the mixed model in favour of the gap being real. But the gap holds
 under the UNCTAD North/South partition and \emph{not} under partitions drawn on
-HDI alone ($+1.9$ to $+2.5$~pp, all non-significant). That is coherent with a null
+HDI alone ($+2.4$ to $+2.9$~pp, all non-significant). That is coherent with a null
 HDI gradient --- a split on a variable that does not predict accuracy should not
 produce a gap --- and it suggests the operative variable is position in the world
 system rather than national wealth, which is what UNCTAD encodes and what the
@@ -129,7 +129,7 @@ We report this asymmetry plainly because it is the honest description: a
 difference between groups that we can demonstrate, and a shape across the
 development range that we cannot. The country ordering shows why. India tops all
 25 countries despite being Global South; South Africa and Indonesia outrank most
-of the Global North; Canada and Germany sit low. The disadvantage is a tier
+of the Global North; Canada and France sit low. The disadvantage is a tier
 difference layered over substantial country-specific idiosyncrasy, and that
 idiosyncrasy is precisely what a rank correlation over 25 countries lacks the
 resolution to see through.
@@ -137,12 +137,12 @@ resolution to see through.
 \subsection{The mechanism is unresolved}
 
 Our pre-specified mechanism test fails: the language-corpus proxy is null
-($\rho=0.09$), so H4 as registered is not supported. The post-hoc alternative
+($\rho=0.14$), so H4 as registered is not supported. The post-hoc alternative
 does not rescue it. Because the gap is measured \emph{in English}, a residual
 North/South difference cannot be an effect of how much text exists in a country's
 language, which made country-coverage breadth the natural candidate; but Wikidata
-sitelinks correlate at only $\rho=0.35$ ($p=0.087$) and attenuate further after
-adjusting for development (partial $\rho=0.17$, $p=0.44$).
+sitelinks correlate at only $\rho=0.36$ ($p=0.075$) and attenuate further after
+adjusting for development (partial $\rho=0.18$, $p=0.41$).
 
 Neither channel is established at country level, and we say so rather than
 promoting the surviving correlation. Two features of the design bound what can be
@@ -165,8 +165,8 @@ deciding whether a returned number fell inside an authorised range. Rebuilding
 those keys from official registers (WHO Ambient Air Quality Database v6.1, WHO GHO
 AIR\_41, UNEP Global Assessment of Air Pollution Legislation) and moving the
 comparison into code changed the substantive conclusions: the development gradient
-fell from $\rho=0.51$ ($p=0.004$) to $\rho=0.36$ ($p=0.080$), while the
-native-language penalty more than doubled, from $-2.1$~pp to $-5.0$~pp, and turned
+fell from $\rho=0.51$ ($p=0.004$) to $\rho=0.37$ ($p=0.073$), while the
+native-language penalty more than doubled, from $-2.1$~pp to $-4.8$~pp, and turned
 Spanish from a null into a significant harm. The dataset did not change. Only the
 measuring instrument did.
 
@@ -257,7 +257,7 @@ finding, is now settled empirically rather than acknowledged: a back-translation
 census of all 90 native prompts, audited by two models against the English
 originals, found no prompt that changed the country and none that changed the
 requested quantity, and the penalty is unchanged among verified-faithful
-translations ($-4.6$~pp) with fidelity failing to predict its size (permutation
+translations ($-4.5$~pp) with fidelity failing to predict its size (permutation
 $p=0.42$). What remains open is breadth, not validity: three languages cannot
 establish the corpus-size mechanism, and scaling to more languages --- with human
 translators, which our prompt architecture already accommodates --- is the
@@ -278,12 +278,13 @@ enables.
 
 \textbf{A tier gap that is real but not comfortable.} Recomputed on the corrected
 scoring, the model-based corroborations are weaker than the single-judge versions
-reported in earlier drafts: the mixed model falls from $p=0.007$ to $p=0.099$,
-the Bayesian posterior from $P(\beta<0)=1.00$ to $0.984$, and the E-value at the
-confidence limit is $1.25$. We report the gap as supported because two of three
-approaches place the interval clear of zero and all three agree on sign and
-magnitude, but a reader is entitled to weigh the marginal mixed model against the
-bootstrap. What would settle it is not another estimator on these 25 countries
+reported in earlier drafts: the mixed model falls from $p=0.007$ to $p=0.069$,
+the Bayesian posterior from $P(\beta<0)=1.00$ to $0.993$, and the E-value at the
+confidence limit is $1.31$. We report the gap as supported because the
+distribution-free permutation test rejects the null ($p=0.020$), the bootstrap
+interval excludes zero and the Bayesian posterior is decisive about the sign,
+while the mixed model is marginal ($p=0.069$) rather than contrary. A reader is
+entitled to weigh those against each other. What would settle it is not another estimator on these 25 countries
 but more countries, and the released pipeline makes that replication cheap.
 
 \subsection{What this study contributes}
@@ -295,7 +296,7 @@ ratings, and everyday cultural knowledge to the recall and synthesis tasks a
 public environmental manager actually delegates. \textbf{Second}, it delivers a
 decisive and counterintuitive applied result: the three fixes practitioners reach
 for first --- a local-manager persona, the local language, and a regionally tuned
-model --- \emph{all fail together}, the local language actively harms by $5.0$~pp,
+model --- \emph{all fail together}, the local language actively harms by $4.8$~pp,
 and the regional model is the single worst performer of fourteen. This is the rare
 benchmark whose most useful contribution is telling the field what does \emph{not}
 work, with the effect sizes to back it. \textbf{Third}, it demonstrates that in

@@ -13,35 +13,35 @@ of a three-vendor judge panel elsewhere.
 
 The clearest result is that the remedies available to an agency do not work, and
 that the most intuitive one backfires. Asking in the country's own language
-\emph{lowers} accuracy by $5.0$~percentage points (Wilcoxon $p<10^{-5}$, $n=839$
+\emph{lowers} accuracy by $4.8$~percentage points (Wilcoxon $p=3\times10^{-15}$, $n=839$
 matched cells), significantly in all three languages tested and most sharply where
-the language is least represented in training corpora (Hindi $-12.0$~pp). A
-local-manager persona does not narrow the gap ($p=0.22$), and the
+the language is least represented in training corpora (Hindi $-11.1$~pp). A
+local-manager persona does not narrow the gap ($p=0.27$), and the
 Brazilian-Portuguese regional model is the weakest of all fourteen systems
-($\delta=-0.45$). Alongside this, accuracy collapses on the recall of a binding
+($\delta=-0.47$). Alongside this, accuracy collapses on the recall of a binding
 value: $0.37$ on the national standard against $0.62$ for synthesis and
 recommendation ($\delta=-0.47$), which is the task a manager can least afford to
 have wrong.
 
-A Global North/South tier gap persists ($+4.6$~pp, bootstrap 95\% CI
-$[+1.2,+7.8]$, excludes zero), though modestly and with some sensitivity to
+A Global North/South tier gap persists ($+5.1$~pp, bootstrap 95\% CI
+$[+1.6,+8.5]$, excludes zero), though modestly and with some sensitivity to
 specification: a Bayesian hierarchical model puts it clear of zero
-($P(\beta<0)=0.984$) while a frequentist mixed model leaves it marginal
-($p=0.099$). Measured task by task, however, it is unambiguous and highly
+($P(\beta<0)=0.993$) while a frequentist mixed model leaves it marginal
+($p=0.069$). Measured task by task, however, it is unambiguous and highly
 structured: on returning the binding national standard the Global South odds of a
 correct answer are $0.23$ of the Global North's ($[0.19,0.28]$), and the gap
 shrinks monotonically as the answer depends less on a country-specific fact,
 disappearing on the one task with no register value to get right. The
 disadvantage is concentrated rather than weak, and a distribution-free
-permutation test with the country as the unit confirms it ($p=0.030$). It is,
+permutation test with the country as the unit confirms it ($p=0.020$). It is,
 however, a gap along the North/South line as conventionally drawn: partitions of
 the same countries on HDI alone do not reproduce it. What the gap is made of we
 do not resolve. The
-monotonic development gradient does not reach significance ($\rho=0.36$ with HDI,
-$p=0.080$; $\rho=0.08$ at the pre-specified $n=15$), and neither corpus channel is
+monotonic development gradient does not reach significance ($\rho=0.37$ with HDI,
+$p=0.073$; $\rho=0.14$ at the pre-specified $n=15$), and neither corpus channel is
 established at country level: the pre-specified language-corpus proxy is null
-($\rho=0.09$) and country coverage is no longer significant either ($\rho=0.35$,
-$p=0.087$; partial $p=0.44$ after adjusting for development). We report a
+($\rho=0.14$) and country coverage is no longer significant either ($\rho=0.36$,
+$p=0.075$; partial $p=0.41$ after adjusting for development). We report a
 difference between groups that we can demonstrate and a shape across the
 development range that we cannot, because the design has three Joshi values and
 eleven distinct corpus-size values across 25 countries and lacks the resolution
@@ -62,7 +62,7 @@ We also report a methodological caution that we learned the hard way. Two of the
 five tasks were originally scored against placeholder keys, and the judge was
 asked to perform the arithmetic of range comparison. Rebuilding the keys from
 official registers and moving that comparison into code, on the same responses,
-cut the development gradient from $\rho=0.51$ to $\rho=0.36$ and more than
+cut the development gradient from $\rho=0.51$ to $\rho=0.37$ and more than
 doubled the native-language penalty. The instinct in this literature, when an
 effect proves fragile, is to add countries; our experience is that the
 ground-truth key deserves the audit first, because a defective key adds

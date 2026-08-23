@@ -52,7 +52,7 @@ without a publicly retrievable national ambient air quality standard were
 excluded; Oceania and Joshi Class~0 languages were not represented given
 feasibility constraints and are acknowledged as scope limitations.
 
-\subsection{Confirmatory sample expansion (post-registration)}
+\subsection{Sample expansion after the pre-specified analysis}
 \label{sec:expansion}
 
 After the pre-specified 15-country analysis, and \emph{transparently reported
@@ -216,8 +216,11 @@ Section~S3); native-language renderings were produced by a high-quality LLM
 translator (Claude Sonnet~4.6) prompted to preserve the meaning, the persona
 frame, and proper nouns and acronyms, with the factual ground truth held in
 English (the target value is language-invariant). We did not employ human
-native-speaker translation or a back-translation verification step; this is
-acknowledged as a limitation (Section~\ref{sec:discussion}). Following the Brazil pilot validation,
+native-speaker translators, which remains a limitation
+(Section~\ref{sec:discussion}). We did, however, audit the renderings after the
+fact by back-translating all 90 native prompts with a different model and having
+two further models compare each back-translation against the English original
+(Section~\ref{sec:results:h2}). Following the Brazil pilot validation,
 every factual claim in a ground-truth entry was required to resolve to an
 official source URL or a peer-reviewed DOI before the corresponding prompt was
 admitted, enforcing the project Citation Verification Protocol at the
@@ -333,10 +336,10 @@ across all three; all headline effects are
 
 \subsection{Analytical strategy}
 
-The three primary confirmatory tests are pre-specified as a single family
+The three primary tests are pre-specified as a single family
 (F1) and corrected together with the Bonferroni-Holm procedure (a step-down
 family-wise correction for multiple comparisons). Secondary
-confirmatory tests (F2) are reported unadjusted within family, and declared
+tests (F2) are reported unadjusted within family, and declared
 exploratory tests (F3) use Benjamini-Hochberg FDR at
 $q=0.10$~\citep{benjamini1995fdr}.
 

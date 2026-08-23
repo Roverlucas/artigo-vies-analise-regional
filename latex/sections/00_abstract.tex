@@ -31,20 +31,20 @@ three-vendor judge panel.
 
 The study's most robust finding is that \textbf{the fixes practitioners reach for
 do not work, and the most intuitive one backfires}. Asking in the country's own
-language \textbf{lowers} accuracy by $5.0$~percentage points (Wilcoxon signed-rank
-$p<10^{-5}$, $n=839$ matched model-prompt cells), and the penalty is larger the
-scarcer the language's corpus: Hindi $-12.0$~pp, Portuguese $-3.9$~pp, Spanish
-$-4.6$~pp, all significant. The effect survives leave-one-out over countries and
+language \textbf{lowers} accuracy by $4.8$~percentage points (Wilcoxon signed-rank
+$p=3\times10^{-15}$, $n=839$ matched model-prompt cells), and the penalty is larger the
+scarcer the language's corpus: Hindi $-11.1$~pp, Portuguese $-3.9$~pp, Spanish
+$-4.4$~pp, all significant. The effect survives leave-one-out over countries and
 models, trimming, every task, and each scoring instrument; and it holds on an
 outcome no judge touches, since native-language prompts return a
-register-checkable value only $27.4\%$ of the time against $38.8\%$ in English
-($-11.5$~pp paired, sign test $p=2\times10^{-10}$). A back-translation census of
+register-checkable value only $48.7\%$ of the time against $66.4\%$ in English
+($-17.7$~pp paired, sign test $p=5\times10^{-6}$). A back-translation census of
 all 90 native prompts rules out a translation artefact: no prompt changed the
 country or the requested quantity, and restricting to verified-faithful
-translations leaves the penalty at $-4.6$~pp. A local-manager persona does
+translations leaves the penalty at $-4.5$~pp. A local-manager persona does
 not narrow the gap
-either (permutation $p=0.22$), and the Brazilian-Portuguese regional model is the
-weakest of all fourteen (Cliff's $\delta=-0.45$). All three remedies an agency
+either (permutation $p=0.27$), and the Brazilian-Portuguese regional model is the
+weakest of all fourteen (Cliff's $\delta=-0.47$). All three remedies an agency
 would try --- speak the local language, declare the official role, procure a
 regionally tuned model --- fail together, and the first actively harms.
 
@@ -52,7 +52,7 @@ Two further harms are robust. \textbf{Accuracy collapses on the recall of a
 binding value}: technical-standard recall scores $0.37$ against $0.62$ for
 synthesis and recommendation (Cliff's $\delta=-0.47$), a regulatory-cutoff floor
 exactly where an administration needs the model most. And a Global North/South
-\textbf{tier} gap of $+4.6$~pp persists (bootstrap 95\% CI $[+1.2,+7.8]$,
+\textbf{tier} gap of $+5.1$~pp persists (bootstrap 95\% CI $[+1.6,+8.5]$,
 excludes zero), modest on the composite and specification-sensitive there, but
 concentrated rather than weak: estimated task by task, the Global South odds of
 returning the binding national standard are $0.23$ of the Global North odds
@@ -62,16 +62,16 @@ right.
 
 What that tier gap is \emph{made of} we report as exploratory. A monotonic
 development gradient is suggestive but does not reach significance
-(Spearman $\rho=0.36$ with HDI, $p=0.080$; Mann-Kendall $p=0.072$; at the
-pre-specified $n=15$, $\rho=0.08$), so we describe a tier difference we can
+(Spearman $\rho=0.37$ with HDI, $p=0.073$; Mann-Kendall $p=0.072$; at the
+pre-specified $n=15$, $\rho=0.14$), so we describe a tier difference we can
 demonstrate and a gradient we cannot. The design has $77\%$ power at the
 pre-specified $\rho=0.55$, so a strong gradient is excluded while a weak one
 remains possible; and the tier gap holds under the conventional North/South
 partition but not under partitions drawn on HDI alone, which we report rather
 than resting on the favourable one. The mechanism is likewise unresolved: the
-pre-specified language-corpus proxy is null ($\rho=0.09$), and a country-coverage
+pre-specified language-corpus proxy is null ($\rho=0.14$), and a country-coverage
 proxy is no longer significant either once the ground truth is corrected
-($\rho=0.35$, $p=0.087$; partial $\rho=0.17$, $p=0.44$ after adjusting for
+($\rho=0.36$, $p=0.075$; partial $\rho=0.18$, $p=0.41$ after adjusting for
 development). The design also cannot separate the linguistic channel at country
 level, because the Joshi variable takes three values across 25 countries,
 eighteen of them the same.

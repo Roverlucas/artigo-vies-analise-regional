@@ -131,8 +131,14 @@ def score(task: str) -> list[dict]:
             txt = r.get("response_text") or ""
             iso = pid.split("_")[0]
             g = reg.get(iso)
+            # replicate_idx PRECISA sair daqui. Sem ele, as duas replicatas da
+            # mesma celula produzem linhas de chave identica e quem consome o
+            # arquivo guarda apenas a ultima lida, atribuindo-a a replicata 0 —
+            # com vereditos divergentes entre replicatas em 27% das celulas de T2
+            # e 36% das de T3, isso tornava arbitrario o veredito aplicado a um
+            # terco delas, e deixava a replicata 1 sem veredito de codigo.
             row = {"prompt_id": pid, "model_id": r.get("model_id"), "country": iso,
-                   "task": task}
+                   "task": task, "replicate_idx": int(r.get("replicate_idx", 0))}
             if not txt:
                 out.append({**row, "verdict": "UNRESOLVED", "reason": "empty_response"})
                 continue
