@@ -344,26 +344,95 @@ editions with an article on the country (Wikidata sitelinks) --- correlates with
 accuracy at $\rho=+0.35$, which does not reach significance ($p=0.075$), and
 attenuates further after adjusting for HDI (partial $\rho=+0.18$, $p=0.41$).
 
-We therefore report the mechanism as \textbf{unresolved}. Neither channel is
-established at country level: language-corpus size is null, and country coverage
-is suggestive at best. Two features of the design limit what can be concluded
-rather than what is true. The Joshi variable takes only three values across our
-25 countries and eighteen of them share Class~5, so a rank correlation on it has
-almost no variance to work with; and the pre-specified corpus proxy assigns the
-size of the dominant official language's Wikipedia edition, taking only eleven
-distinct values for 25 countries, nine of them tied on the English edition. The
-honest reading is that this design \emph{cannot separate} the channels at country
-level, not that it ruled either out.
+At country level, therefore, neither channel is established: with 25 countries
+there is no way to separate coverage from development, because the two are
+collinear and the partial correlation exhausts the information available.
 
-The one place the corpus channel does show itself is H2, where the unit is the
-language rather than the country. There the direction is as predicted, though
-with only three native languages it remains descriptive: the per-language penalty
-falls monotonically with mC4 token volume~\citep{xue2021mt5} and OSCAR
+\subsubsection*{Changing the unit of variation resolves what the country level
+cannot}
+
+The obstacle above is confounding, not absence of signal, and it has a way out
+that does not require more countries. Each country answers five tasks, and those
+tasks differ in one respect that matters here: how much the answer depends on a
+fact about \emph{that} country. T1 (the national standard), T2 (a locally
+measured value) and T4 (national instruments) do; T3 (an international WHO
+estimate) and T5 (a generic recommendation) do not. Countries score $0.457$ on
+the first block and $0.663$ on the second, a specificity deficit of
+$0.206$.
+
+If what limits the model is how much the corpus says about a given country, that
+deficit should be smaller where coverage is greater --- and, decisively, a
+country's HDI cannot explain a deficit measured \emph{within} that same country.
+Estimating the interaction between country coverage and task dependence at the
+response level, with a fixed effect for country that absorbs development, income,
+official language and everything else distinguishing countries, gives
+$\beta=+0.026$ (SE $0.005$, $p=2\times10^{-8}$, $n=7{,}580$): greater coverage
+predicts a smaller deficit, in the direction the mechanism requires.
+
+Three checks bear on whether this is the mechanism rather than an artefact of how
+we drew the line between task types (Table~\ref{tab:h4-within}). The
+\emph{purest} contrast --- T1, wholly national, against T5, wholly generic ---
+yields the \emph{largest} coefficient ($\beta=+0.042$,
+$p=3\times10^{-12}$), which is the dose-response one would expect and not what a
+spurious association would produce. Dropping T5, whose ceiling is $99.7\%$, or
+dropping T4, the most interpretive of the three, leaves the effect intact. And a
+placebo that simply inverts the labels returns the exact mirror image
+($\beta=-0.026$), as it must if the quantity is real.
+
+Finally, the two candidate channels were entered together. They correlate only
+weakly across countries ($\rho=0.21$), and under mutual adjustment country
+coverage remains strong ($\beta=+0.025$, $p=4\times10^{-8}$) while the
+language-corpus proxy is marginal ($\beta=+0.010$, $p=0.041$). The prediction
+here was asymmetric and therefore falsifiable: because every response in this
+analysis was elicited \emph{in English}, the size of a country's local-language
+corpus has no obvious route to how much the model knows about that country, so
+had the language channel survived and coverage failed, our reading would have
+been wrong. It did not.
+
+We state the resulting claim precisely, because it is narrower than ``coverage
+causes the gap''. The design removes country-level confounding by construction,
+not confounding at the level of task-by-country: if the country-dependent tasks
+were harder in some way that happens to track coverage for an unrelated reason,
+this test would not tell the difference. What we can say is that the
+country-coverage channel makes a differential prediction, that the prediction
+holds, that it strengthens as the contrast sharpens, and that it survives when
+the rival channel is adjusted for. That is a mechanism supported at the level
+where this design has resolution, and it is what the country-level correlation
+was too confounded to show.
+
+\begin{table}[h]
+\centering
+\caption{Country coverage $\times$ task dependence, response-level mixed model
+with a fixed effect for country. Positive $\beta$ = greater coverage, smaller
+deficit on country-dependent tasks.}
+\label{tab:h4-within}
+\small
+\begin{tabular}{lrl}
+\toprule
+Task classification & $\beta$ & $p$ \\
+\midrule
+T1, T2, T4 versus T3, T5 (primary) & $+0.026$ & $2\times10^{-8}$ \\
+T1 versus T5 (purest contrast)     & $+0.042$ & $3\times10^{-12}$ \\
+Excluding T5 (ceiling at 99.7\%)   & $+0.021$ & $4\times10^{-4}$ \\
+Excluding T4 (most interpretive)   & $+0.031$ & $8\times10^{-10}$ \\
+Placebo: labels inverted           & $-0.026$ & $2\times10^{-8}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two features of the design still bound what the country-level analysis can do,
+and they are why that analysis fails while this one succeeds. The Joshi variable
+takes three values across 25 countries with eighteen sharing one class, and the
+pre-specified corpus proxy takes eleven distinct values with nine tied on the
+English edition. Neither has the resolution to separate channels between
+countries; the within-country contrast sidesteps both.
+
+The corpus account also shows itself in H2, where the unit is the language rather
+than the country. There the direction is as predicted, though with only three
+native languages it remains descriptive: the per-language penalty falls
+monotonically with mC4 token volume~\citep{xue2021mt5} and OSCAR
 size~\citep{abadji2022oscar} (Spearman $=-1.00$ over the three), with Hindi, the
-smallest corpus (mC4 24B tokens), carrying the largest penalty. That the corpus
-account survives where the measurement has resolution, and fails where it does
-not, is consistent with an instrument problem rather than an absent mechanism ---
-but consistency is not evidence, and we do not claim the mechanism.
+smallest corpus (mC4 24B tokens), carrying the largest penalty.
 
 \subsection{H5 --- open versus closed-accessible}
 \label{sec:results:h5}

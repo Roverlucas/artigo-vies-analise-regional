@@ -1,0 +1,52 @@
+{
+  "n_paises": 25,
+  "rho_deficit": -0.32544720740508176,
+  "p_deficit": 0.11240061769782787,
+  "rho_parcial_hdi": -0.09840529319667286,
+  "p_parcial": 0.6473382167999152,
+  "rho_dependentes": 0.34006540348237857,
+  "rho_independentes": -0.00653971929773805,
+  "diferenca": 0.3466051227801166,
+  "p_permutacao": 0.2348765123487651,
+  "rho_controle_lingua": -0.06727412629052379,
+  "acc_dependentes": 0.4574334289254079,
+  "acc_independentes": 0.6634251496757732,
+  "interacao_beta": 0.02613418986740936,
+  "interacao_se": 0.004626579616248058,
+  "interacao_p": 1.6165968107292102e-08,
+  "n_respostas": 7580,
+  "controle_lingua_beta": 0.011465957108185003,
+  "controle_lingua_p": 0.01335172356054102,
+  "ajuste_mutuo_cob_beta": 0.02539943942140642,
+  "ajuste_mutuo_cob_p": 4.3844546140864406e-08,
+  "ajuste_mutuo_lang_beta": 0.00950229881983409,
+  "ajuste_mutuo_lang_p": 0.040531240002645616,
+  "corr_entre_proxies": 0.21413119670230282,
+  "sensibilidade_classificacao": {
+    "principal (T1,T2,T4 vs T3,T5)": {
+      "beta": 0.02613418986740936,
+      "p": 1.6165968107292102e-08
+    },
+    "extremos (T1 vs T5)": {
+      "beta": 0.04219199010353557,
+      "p": 3.425097198280355e-12
+    },
+    "sem T5, que tem teto de 99,7%": {
+      "beta": 0.02090811314475928,
+      "p": 0.000386648039773269
+    },
+    "sem T4, a mais interpretativa": {
+      "beta": 0.03103374405496875,
+      "p": 7.590117502377132e-10
+    },
+    "PLACEBO (rotulos invertidos)": {
+      "beta": -0.026134189867409417,
+      "p": 1.6165968107290507e-08
+    }
+  },
+  "grupo_lingua_beta": 0.007907883323159576,
+  "grupo_lingua_p": 0.16987910534760475,
+  "so_anglofonos_beta": 0.02483552440646199,
+  "so_anglofonos_p": 0.0006162922991032867,
+  "n_anglofonos": 9
+}

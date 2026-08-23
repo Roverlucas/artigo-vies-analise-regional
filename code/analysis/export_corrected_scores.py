@@ -66,16 +66,36 @@ def main() -> None:
     painel = {k: {s: statistics.mean(x[s] for x in v) for s in SUBS}
               for k, v in por.items()}
 
+    # POLITICA DE DESEMPATE: media, nao "primeira em ordem alfabetica de arquivo".
+    # 11,5% das celulas pontuadas tem mais de um escore, vindos de re-execucoes em
+    # datas diferentes. A regra anterior fazia um numero do artigo depender do nome
+    # de um arquivo. A media e deterministica, independe da ordem de leitura e usa
+    # toda a informacao coletada. duplicate_policy.py mostra que a escolha entre as
+    # quatro politicas plausiveis move os efeitos em no maximo 0,06 pp.
+    agrupado = collections.defaultdict(list)
+    for linha in ORIG.open(encoding="utf-8"):
+        if not linha.strip():
+            continue
+        r = json.loads(linha)
+        if "composite" not in r or r.get("error"):
+            continue
+        if "JUDGE_API_ERROR" in str(r.get("rationale", "")):
+            continue
+        agrupado[(r.get("prompt_id"), str(r.get("model_id")),
+                  int(r.get("replicate_idx", 0)))].append(r)
+
     n = {"original": 0, "code": 0, "panel": 0}
+    n_media = 0
     with SAIDA.open("w", encoding="utf-8") as out:
-        for linha in ORIG.open(encoding="utf-8"):
-            if not linha.strip():
-                continue
-            r = json.loads(linha)
-            if "composite" not in r or r.get("error"):
-                continue
-            if "JUDGE_API_ERROR" in str(r.get("rationale", "")):
-                continue
+        for _chave, grupo in agrupado.items():
+            r = dict(grupo[0])
+            if len(grupo) > 1:
+                for campo in ("composite", *SUBS):
+                    vals = [g[campo] for g in grupo if isinstance(g.get(campo), (int, float))]
+                    if vals:
+                        r[campo] = statistics.mean(vals)
+                r["n_respostas_agregadas"] = len(grupo)
+                n_media += 1
             k = (r.get("prompt_id"), str(r.get("model_id")),
                  int(r.get("replicate_idx", 0)))
             origem = "original"
@@ -98,6 +118,7 @@ def main() -> None:
     print(f"escrito: {SAIDA}")
     print(f"  original {n['original']} · codigo {n['code']} · painel {n['panel']}"
           f"  (total {sum(n.values())})")
+    print(f"  celulas com mais de uma resposta, resolvidas por media: {n_media}")
 
 
 if __name__ == "__main__":
