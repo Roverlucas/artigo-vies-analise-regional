@@ -3,8 +3,8 @@
 % A 25-Country, 14-Model, 4-Language, 5-Task Benchmark
 % ============================================================
 % Working draft — pre-submission version
-% Target journal: Patterns (Cell Press)
-% Format: generic minimalist (adapted to Cell Press template at Stage 9)
+% Target journal: Government Information Quarterly (Elsevier)
+% Format: generic minimalist (adapted to the GIQ template before submission)
 % ============================================================
 
 \documentclass[11pt,a4paper]{article}
@@ -109,12 +109,15 @@ support; large language models; Global South
 
 \section*{Data and code availability}
 
-The full protocol, prompts, and analysis code will be released on publication
+The full protocol, prompts, analysis code, ground-truth registries, and the
+anonymised LLM responses will be released on publication
 at
 \href{https://github.com/Roverlucas/artigo-vies-analise-regional}{github.com/Roverlucas/artigo-vies-analise-regional}
-under MIT (code) and CC-BY-4.0 (data/prompts/documentation) licenses, together
-with the ground-truth registry and anonymised LLM responses. The analysis
-pipeline is reproducible end-to-end via \texttt{python code/run\_all.py}.
+under MIT (code) and CC-BY-4.0 (data, prompts, documentation) licenses. The
+release includes the per-response records that every reported effect is computed
+from, so each number in this paper can be recomputed from the raw data rather
+than taken on trust. The analysis pipeline runs end-to-end via
+\texttt{python code/run\_all.py}.
 
 \section*{Study protocol}
 
@@ -138,12 +141,10 @@ publication.
 
 \section*{Acknowledgements}
 
-\placeholder{FUNDING: confirmar com os autores. Se nao houve financiamento
-especifico, usar a formula da Cell Press: ``This research did not receive any
-specific grant from funding agencies in the public, commercial, or not-for-profit
-sectors.'' Se houve bolsa (CAPES/CNPq/Fundacao Araucaria), declarar agencia e
-numero do processo.} Inference costs were paid by the authors; no vendor provided
-credits, discounts, or in-kind support for this study.
+This research did not receive any specific grant from funding agencies in the
+public, commercial, or not-for-profit sectors. Inference costs were paid by the
+authors; no vendor provided credits, discounts, or in-kind support for this
+study.
 
 \section*{Author contributions}
 
@@ -152,10 +153,10 @@ Following CRediT taxonomy:
 \item \textbf{Lucas Rover (UTFPR):} Conceptualization, Methodology, Software,
   Data Curation, Formal Analysis, Investigation, Visualization,
   Writing~--~Original Draft, Project Administration.
-\item \textbf{Vitor de Melo Dominski (Faculdade Descomplica):}
-  \placeholder{CRediT a confirmar com o autor}.
+\item \textbf{Vitor de Melo Dominski (Faculdade Descomplica):} Data Curation,
+  Software, Formal Analysis.
 \item \textbf{Prof.\ Anibal Tavares de Azevedo (Unicamp):}
-  \placeholder{CRediT a confirmar com o autor}.
+  Writing~--~Original Draft, Writing~--~Review \& Editing.
 \item \textbf{Dr.\ Eduardo Tadeu Bacalhau (UFPR):} Validation, Supervision,
   Writing~--~Review \& Editing.
 \item \textbf{Dra.\ Yara de Souza Tadano (UTFPR):} Validation, Supervision,
