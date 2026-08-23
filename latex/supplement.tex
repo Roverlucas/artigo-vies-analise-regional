@@ -206,8 +206,8 @@ sensitivity analysis the headline effects are recomputed under two alternative
 weightings --- equal weights and a PCA-derived set (the first principal component
 of the five subcomponents) --- and a conclusion is treated as robust only if its
 direction holds under all three; all headline effects are stable (tier gap $+4.9$
-to $+6.6$~pp; HDI gradient $\rho=0.51$--$0.53$; factual floor $\delta$ from $-0.59$
-to $-0.64$; regional-model deficit $\delta$ from $-0.50$ to $-0.52$). The composite is computed per (country, model,
+to $+4.1$--$+5.1$~pp; HDI gradient $\rho=0.34$--$0.37$; factual floor $\delta$ from $-0.44$
+to $-0.47$; regional-model deficit $\delta$ from $-0.47$ to $-0.51$). The composite is computed per (country, model,
 persona) cell to support the H6 difference-in-differences test. Each scored record
 also stores the judge's free-text rationale; for example, the
 \texttt{gpt-5-mini} judge scored a Llama~4~Scout reply on Brazil's T1 standard
@@ -242,9 +242,9 @@ Quantity & Value \\
 \midrule
 Judges ($k$) & 4 (OpenAI, Anthropic, Google, DeepSeek) \\
 Common items & 131 \\
-Krippendorff's $\alpha$ (interval) & 0.667 \\
-Single-judge ICC$(2,1)$ & 0.672 \\
-\textbf{Panel-mean ICC$(2,4)$} & \textbf{0.891} \\
+Krippendorff's $\alpha$ (interval) & 0.527 \\
+Single-judge ICC$(2,1)$ & 0.558 \\
+\textbf{Panel-mean ICC$(2,3)$} & \textbf{0.791} \\
 \midrule
 Pairwise Pearson: GPT-5-mini $\,\vert\,$ Claude Sonnet & 0.859 \\
 \quad GPT-5-mini $\,\vert\,$ DeepSeek-V3 & 0.834 \\
@@ -256,20 +256,26 @@ Pairwise Pearson: GPT-5-mini $\,\vert\,$ Claude Sonnet & 0.859 \\
 \end{tabular}
 \end{table}
 
-Agreement is strongest among GPT-5-mini, Claude, and DeepSeek (Pearson
-$0.82$--$0.86$) and lowest for the systematically more lenient Gemini
-($0.61$--$0.63$); because every reported effect is a between-group contrast (tier
-gap, language penalty, task floor), a judge's leniency offset cancels and does not
-threaten those contrasts. A fifth judge (Llama~3.3~70B, Meta) corroborated on the
-items it covered (five-judge ICC$(2,5)=0.861$) but, being a noisier 70B judge,
-\emph{lowered} the panel $\alpha$ to $0.538$ --- empirically confirming that four
-strong judges are preferable to five with a weaker one. A sixth candidate
-(Command~R+, Cohere) was excluded when its trial quota was exhausted mid-run; as
-an out-of-sample cross-check, Command~R+ on the 315 items it did cover agreed with
-the primary judge at Pearson $0.647$ / ICC$(2,1)=0.602$. The study uses the single
-\texttt{gpt-5-mini} composite for all effects, validated by this panel, rather
-than a judge-averaged score; the absence of an independent human-gold layer is
-stated as a limitation in the main text.
+The values above are computed on all 3{,}190 items the panel scored, which are
+the same items the reported effects are computed from. Earlier drafts quoted
+$\alpha=0.667$ and ICC$(2,4)=0.891$ from a 131-item stratified calibration
+sample; measured on 24 times as many items, agreement is more modest, and we
+report the larger and less flattering estimate because it describes the
+instrument actually used.
+
+Pairwise agreement is strongest between Claude and DeepSeek (Pearson 0.80) and
+lower for the systematically more lenient Gemini (0.65--0.66); mean composite by
+judge is 0.617 for Gemini, 0.451 for Claude and 0.379 for DeepSeek. Because every
+reported effect is a between-group contrast (tier gap, language penalty, task
+floor), a judge's leniency offset cancels and does not threaten those contrasts
+--- which is precisely why the analysis uses the panel \emph{mean} rather than
+any single judge, whose reliability alone would be ICC$(2,1)=0.56$.
+
+One panel member (DeepSeek-V3) is also an evaluated model. We tested for
+self-favouring directly: DeepSeek scores its own outputs more harshly relative to
+the other two judges ($-0.177$) than it scores any other model's ($-0.123$ to
+$-0.160$). The absence of an independent human-gold layer is stated as a
+limitation in the main text.
 
 % ============================================================
 \section{Statistical methods and full confirmatory test outputs}\label{sec:s-stats}
@@ -295,7 +301,7 @@ $\rho\geq 0.55$ effect-size threshold in both samples.}
 \toprule
 Test & 15 countries (pre-specified) & 25 countries (extension) \\
 \midrule
-H1 Spearman $\rho$(acc, HDI)        & $+0.143$ (one-sided $p=0.306$), ns & $\mathbf{+0.512}$ ($p=0.004$), rejects under B--H \\
+H1 Spearman $\rho$(acc, HDI)        & $+0.093$, ns & $+0.365$ ($p=0.073$), ns; does not reject under B--H \\
 H1 Mann--Kendall (by HDI)           & $S=9$, $Z=+0.40$, $p=0.692$        & $S=102$, $Z=+2.36$, $p=0.018$ \\
 H1 Spearman $\rho$(acc, Joshi)      & $+0.028$, ns                       & $-0.061$, ns (development, not linguistic) \\
 H1 vs threshold $\rho\geq 0.55$     & not met                            & not met (significant, below effect size) \\
@@ -335,14 +341,14 @@ Wikipedia-edition count      & language & $+0.082$, ns        & $+0.036$, ns \\
 \toprule
 Finding & Statistic \\
 \midrule
-Tier gap (GN$-$GS)                 & $+6.2$~pp, 95\% CI $[+3.7,+8.6]$ (15-country: $+6.7$ $[+2.8,+10.2]$) \\
+Tier gap (GN$-$GS)                 & $+5.1$~pp, 95\% CI $[+1.6,+8.5]$; permutation $p=0.020$ \\
 Tier gap, LOCO range               & $[+5.8,+7.1]$~pp, stable \\
 H1 HDI gradient, LOCO range        & $\rho\in[+0.48$ (drop NGA)$,\ +0.66$ (drop IND)$]$ \\
-H1 range-restricted (within 15-country HDI span) & $\rho=0.512$ ($p=0.009$): density, not range \\
-Task floor (T1{+}T2 vs T3--T5)     & $0.367$ vs $0.638$, Mann--Whitney, Cliff's $\delta=-0.64$ \\
-H3 Cabra-Mistral vs rest           & $0.320$ vs $0.543$, Cliff's $\delta=-0.51$ \\
+H1 leave-one-country-out range & $\rho\in[+0.31,+0.49]$: never reaches the pre-specified $0.55$ \\
+Task floor (T1{+}T2 vs T3--T5)     & $0.417$ vs $0.623$, Cliff's $\delta=-0.47$ \\
+H3 Cabra-Mistral vs rest           & $0.347$ vs $0.549$, Cliff's $\delta=-0.47$ \\
 H2 native vs English (all)         & $\Delta=-2.1$~pp, Wilcoxon $p=1.96\times10^{-3}$ ($n=762$) \\
-\quad Spanish / Portuguese / Hindi & $-1.0$ ($p=0.15$) / $-2.3$ ($p=0.033$) / $-7.8$ ($p=0.013$) \\
+\quad Spanish / Portuguese / Hindi & $-4.4$ / $-3.9$ / $-11.1$~pp, all significant \\
 H2 country-level (independent unit, $n=9$) & 9/9 negative, mean $-2.4$~pp, Wilcoxon $p=0.008$ \\
 H5 open vs closed-accessible       & $+14.1$~pp closed advantage (descriptive) \\
 \bottomrule
@@ -372,9 +378,9 @@ $n=7{,}580$). Direction is stable throughout.}
 \toprule
 Weighting & Tier gap (pp) & $\rho$(HDI) & Floor $\delta$ & H3 $\delta$ \\
 \midrule
-Author-specified (primary) & $+6.24$ & $+0.512$ & $-0.638$ & $-0.508$ \\
+Author-specified (primary) & $+5.06$ & $+0.365$ & $-0.471$ & $-0.471$ \\
 Equal                      & $+4.85$ & $+0.530$ & $-0.588$ & $-0.524$ \\
-PCA-derived                & $+6.59$ & $+0.517$ & $-0.642$ & $-0.496$ \\
+PCA-derived                & $+4.84$ & $+0.375$ & $-0.494$ & $-0.473$ \\
 \bottomrule
 \end{tabular}
 \end{table}
