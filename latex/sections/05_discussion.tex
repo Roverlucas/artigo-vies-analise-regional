@@ -200,13 +200,22 @@ reliability is reported on the same 3{,}190 items that produce the effects
 (ICC$(2,3)=0.79$). The items below map to concrete, pre-scoped next studies that
 the released protocol already supports.
 
-\textbf{From panel-scored to gold-anchored.} Single-judge reliability is only
-ICC$(2,1)=0.56$, which is why the analysis uses the panel mean rather than one
-judge. Restricting to objective factual accuracy \emph{strengthens} the tier gap
-and the language penalty, so the effects are not an artefact of a permissive
-composite. The natural next step is a blinded human-expert validation of a
-stratified response sample, converting an official-source-anchored result into a
-gold-standard-anchored one.
+\textbf{From panel-scored to gold-anchored.} No human expert re-scored responses
+in this study, and we state that plainly. Three properties of the design bound
+what that omission can cost. Wherever the correct answer is a number in an
+official register, the verdict is computed by code and no judge is involved at
+all. Where judgement is required, the score is the mean of three judges from
+different vendors rather than one, raising reliability from ICC$(2,1)=0.56$ to
+ICC$(2,3)=0.79$. And every reported effect is a between-group contrast, in which
+a judge's systematic severity cancels; restricting to objective factual accuracy
+\emph{strengthens} both the tier gap and the language penalty rather than
+weakening them, which is the opposite of what a permissive judge would produce.
+The headline language effect also holds on an outcome no judge touches at all.
+The natural next step is nonetheless a blinded human-expert validation of a
+stratified sample, which would convert an official-source-anchored result into a
+gold-standard-anchored one; a power analysis puts this at roughly 150 responses
+scored by three raters, and our released pipeline exports the stratified sample
+directly.
 
 \textbf{From an unresolved mechanism to a design that can resolve it.} Neither
 corpus channel is established at country level, and the limitation is resolution
