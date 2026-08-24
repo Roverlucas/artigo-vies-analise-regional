@@ -11,8 +11,7 @@ benchmark, scored against ground truth anchored to official primary sources for
 every country --- by code wherever the answer is a register value, and by the mean
 of a three-vendor judge panel elsewhere.
 
-The clearest result is that the remedies available to an agency do not work, and
-that the most intuitive one backfires. Asking in the country's own language
+The remedies an agency can try do not work, and the most intuitive one backfires. Asking in the country's own language
 \emph{lowers} accuracy by $4.8$~percentage points (Wilcoxon $p=3\times10^{-15}$, $n=839$
 matched cells), significantly in all three languages tested and most sharply where
 the language is least represented in training corpora (Hindi $-11.1$~pp). A
@@ -52,8 +51,7 @@ channel is identical by definition ($\beta=+0.025$, $p=6\times10^{-4}$). We
 identify country representation as the operative channel without claiming causal
 identification.
 
-The message for Global South environmental agencies is concrete and largely
-cautionary. LLM outputs on binding standards and measured data should be treated
+For Global South environmental agencies, the practical message is cautionary. LLM outputs on binding standards and measured data should be treated
 as drafts checked against the official gazette, and none of the cheap prompt- or
 model-level workarounds substitutes for that verification --- least of all
 switching to the local language, which on this evidence makes the answer worse.
@@ -63,7 +61,7 @@ corpora~\citep{joshi2020state} are spoken where air pollution kills the most
 people, and this study turns that link from a plausible worry into a measured
 effect.
 
-We also report a methodological caution that we learned the hard way. Two of the
+We also report a methodological caution from our own experience. Two of the
 five tasks were originally scored against placeholder keys, and the judge was
 asked to perform the arithmetic of range comparison. Rebuilding the keys from
 official registers and moving that comparison into code, on the same responses,

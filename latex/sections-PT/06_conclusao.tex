@@ -12,8 +12,7 @@ quatro idiomas, pontuado contra gabarito ancorado em fontes oficiais primárias
 para todos os países --- por código onde a resposta é um valor de registro, e pela
 média de um painel de juízes de três fornecedores no restante.
 
-O resultado mais claro é que as mitigações disponíveis a uma agência não
-funcionam, e que a mais intuitiva sai pela culatra. Perguntar no idioma do próprio
+As mitigações disponíveis a uma agência não funcionam, e a mais intuitiva sai pela culatra. Perguntar no idioma do próprio
 país \emph{reduz} a acurácia em 4.8 pontos percentuais (Wilcoxon
 $p=3\times10^{-15}$, $n=839$ células casadas), de forma significativa nos três
 idiomas testados e mais acentuada onde o idioma é menos representado nos corpora
@@ -53,8 +52,7 @@ linguístico é idêntico por definição ($\beta=+0.025$, $p=6\times10^{-4}$).
 Identificamos a representação do país como o canal operante sem reivindicar
 identificação causal.
 
-A mensagem para as agências ambientais do Sul Global é concreta e em larga medida
-cautelar. Saídas de LLM sobre padrões vinculantes e dados medidos devem ser
+Para as agências ambientais do Sul Global, a mensagem é concreta e cautelar. Saídas de LLM sobre padrões vinculantes e dados medidos devem ser
 tratadas como rascunhos a conferir no diário oficial, e nenhum dos contornos
 baratos no nível do prompt ou do modelo substitui essa verificação --- muito menos
 mudar para o idioma local, que, com base nesta evidência, piora a resposta. Lemos
@@ -64,16 +62,12 @@ treinamento~\citep{joshi2020state} são falados onde a poluição do ar mata mai
 gente, e este estudo transforma esse elo de uma preocupação plausível em um efeito
 medido.
 
-Relatamos também uma cautela metodológica que aprendemos do jeito difícil. Duas
+Relatamos também uma cautela metodológica. Duas
 das cinco tarefas eram originalmente pontuadas contra chaves de preenchimento, e
 pedia-se ao juiz que fizesse a aritmética da comparação de faixa. Reconstruir as
 chaves a partir de registros oficiais e mover essa comparação para código, sobre
 as mesmas respostas, derrubou o gradiente de desenvolvimento de $\rho=0.51$ para
-$\rho=0.37$ e mais que dobrou a penalidade do idioma nativo. O instinto nesta
-literatura, quando um efeito se mostra frágil, é acrescentar países; nossa
-experiência é que a chave de gabarito merece a auditoria primeiro, porque uma
-chave defeituosa acrescenta ruído \emph{estruturado} que se concentra exatamente
-onde o dado oficial é mais difícil de obter --- que é onde a hipótese mora.
+$\rho=0.37$ e mais que dobrou a penalidade do idioma nativo. O instinto nesta literatura, quando um efeito se mostra frágil, é acrescentar países; nossa experiência é que a chave de gabarito merece a auditoria primeiro, porque uma chave defeituosa acrescenta ruído estruturado que se concentra onde o dado oficial é mais difícil de obter.
 
 Protocolo, prompts, registros de gabarito de fonte oficial, código de análise e
 dados de resposta anonimizados são liberados abertamente, com um pipeline de

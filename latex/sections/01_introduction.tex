@@ -88,11 +88,9 @@ measured in English.
 
 \subsection*{Objectives and scope}
 
-Stating the boundary of a study is part of its contribution, because a reader
-deciding whether the evidence applies to their situation needs to know what was
-measured and what was not. This study has three objectives, and each is bounded.
+We state the study's boundaries so readers can judge whether the evidence applies to their situation. This study has three objectives, and each is bounded.
 
-\textbf{First, to establish a protocol for auditing regulatory information.} The
+\emph{First, to establish a protocol for auditing regulatory information.} The
 object is agreement between a model's answer and the value published in the
 official register, for tasks an environmental agency actually delegates. We are
 not measuring model capability in general, reasoning quality, or usefulness for
@@ -100,7 +98,7 @@ any purpose other than retrieving and summarising regulation in force. The
 protocol is the contribution that transfers; the domain is where we demonstrate
 it.
 
-\textbf{Second, to test the mitigations available to an administration.} A public
+\emph{Second, to test the mitigations available to an administration.} A public
 body facing poor answers about its own country can realistically do three things
 without building anything: declare the official role in the prompt, ask in the
 national language, or procure a regionally tuned model. Each has a procurement or
@@ -109,7 +107,7 @@ We do not test retrieval augmentation, fine-tuning, or human-in-the-loop
 verification, which require capacity that most agencies in our Global South
 sample do not have.
 
-\textbf{Third, to locate where reliability differs and, as far as the design
+\emph{Third, to locate where reliability differs and, as far as the design
 allows, why.} We report the distribution of accuracy across countries, tasks and
 languages, and we test the corpus-representation account at the level where the
 measurement has resolution. We do not claim causal identification of any
@@ -131,8 +129,8 @@ throughout.
 Our contributions are:
 
 \begin{enumerate}\setlength{\itemsep}{2pt}
-\item \textbf{An auditing protocol for regulatory information, not a trivia
-  benchmark.} The reliability question an administration faces is not whether a
+\item An auditing protocol for regulatory information, not a trivia
+  benchmark. The reliability question an administration faces is not whether a
   model writes well about policy but whether the value it returns matches the
   one published in the official register. We build five task types from the
   everyday work of an environmental agency: the binding ambient standard in
@@ -143,8 +141,8 @@ Our contributions are:
   adjudicable rather than a matter of expert impression. The protocol transfers
   to any regulated domain where the correct answer is published: tax, licensing,
   public health, procurement.
-\item \textbf{The three localisation fixes agencies reach for, tested rather
-  than assumed --- and all three fail.} Practitioners respond to poor answers
+\item The three localisation fixes agencies reach for, tested rather
+  than assumed --- and all three fail. Practitioners respond to poor answers
   about their own country with three moves: tell the system you are the
   responsible official, ask in the national language, or adopt a regionally tuned
   model. Each is a procurement or workflow decision with a cost, and each
@@ -154,22 +152,21 @@ Our contributions are:
   scale-matched global one. None works, and the one a manager is most likely to
   try first does active harm: asking in the country's own language lowers
   accuracy by five percentage points, most sharply for the language with the
-  scarcest corpus. This is the study's principal finding and its most directly
-  actionable output for practice.
-\item \textbf{Model choice as an administrative decision.} Whether an agency
+  scarcest corpus. This is the study's main result and the one with the clearest practical implication.
+\item Model choice as an administrative decision. Whether an agency
   runs an open-weight model on its own infrastructure or a vendor-hosted one is
   now an explicit procurement question~\citep{robinson2026opensource}. We
   evaluate fourteen deployment stacks spanning that spectrum, and treat the unit
   of analysis as the model \emph{as served}, since an agency contracts a served
   stack and not a set of weights.
-\item \textbf{A sampling design that separates who is poorly served from why.}
+\item A sampling design that separates who is poorly served from why.
   Countries are stratified along independent axes: UNCTAD North/South
   classification (operationalising coloniality~\citep{mohamed2020decolonial}),
   the Joshi et al.\ linguistic-resource taxonomy~\citep{joshi2020state}, and
   development indicators. This lets geographic, linguistic and economic
   explanations be told apart instead of conflated, which matters for policy:
   each implies a different remedy and a different responsible actor.
-\item \textbf{A mechanism test that reports its own limits.} We test corpus
+\item A mechanism test that reports its own limits. We test corpus
   representation using both language-corpus and country-coverage proxies, with
   partial-correlation controls, and we report that the pre-specified proxy is
   defective in a way worth flagging for anyone who has used it: it assigns the
@@ -183,7 +180,7 @@ Our contributions are:
   language is identical. We separate throughout what the design demonstrates from
   what it cannot, and the shape of the gradient across the development range
   remains in the second category.
-\item \textbf{Ground truth adjudicated by code, and what that changes.} Where a
+\item Ground truth adjudicated by code, and what that changes. Where a
   task's correct answer is a number published in an official register, the
   verdict is computed against that register rather than delegated to a language
   model, because comparing a value with an authorised range is exact and a judge
@@ -193,7 +190,7 @@ Our contributions are:
   $\rho=0.37$ and more than doubled the native-language penalty. In this
   literature the ground-truth key, not the sample size, is the binding
   constraint.
-\item \textbf{Open resources.} The full protocol, prompts, ground-truth
+\item Open resources. The full protocol, prompts, ground-truth
   registries with their official sources, analysis code, and the deviation log
   will be released under CC-BY-4.0 and MIT licenses.
 \end{enumerate}
@@ -209,11 +206,7 @@ regions that Joshi et al.\ place in the under-served classes are precisely
 those where air pollution kills the most people~\citep{gbd2019risk,joshi2020state}.
 When a Global South environmental manager consults a model trained largely on
 Global North text to govern a local air quality problem, the resulting decision
-risks inheriting the asymmetries of the corpus. This positions our empirical
-work as a test of one link in a theorised reproduction cycle
-(training-corpus asymmetry $\to$ LLM knowledge asymmetry $\to$ policy decision
-asymmetry), and the persona manipulation as a test of whether prompt framing can
-interrupt that link.
+risks inheriting the asymmetries of the corpus. Our empirical work tests one link in this theorised cycle: whether corpus asymmetry leads to LLM knowledge asymmetry, and whether persona framing can interrupt it.
 
 The paper proceeds as follows. Section~\ref{sec:related} positions our work
 relative to the literature. Section~\ref{sec:methods} presents the

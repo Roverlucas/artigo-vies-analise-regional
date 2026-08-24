@@ -24,13 +24,13 @@ informed prompt calibration but contributes no confirmatory observations.
 
 Countries were selected via theoretical
 sampling~\citep{patton2015qualitative} triangulated across three independent
-classifications. First, the \textbf{UNCTAD Global North/South
-classification}~\citep{unctad2024classification} operationalizes the
+classifications. First, the UNCTAD Global North/South
+classification~\citep{unctad2024classification} operationalizes the
 coloniality-of-knowledge framework that motivates this
-study~\citep{mohamed2020decolonial}. Second, the \textbf{Joshi et al. (2020)
-six-class taxonomy} of linguistic-resource representation in NLP corpora
+study~\citep{mohamed2020decolonial}. Second, the Joshi et al. (2020)
+six-class taxonomy of linguistic-resource representation in NLP corpora
 provided an orthogonal stratification dimension~\citep{joshi2020state}. Third,
-\textbf{World Bank income groups (FY26)}~\citep{worldbank2025classification}
+World Bank income groups (FY26)~\citep{worldbank2025classification}
 captured economic position independently of the previous two axes.
 
 The final sample of 15 countries --- Brazil, Mexico, Argentina, Peru (Latin
@@ -57,13 +57,13 @@ feasibility constraints and are acknowledged as scope limitations.
 
 After the pre-specified 15-country analysis, and \emph{transparently reported
 here as a post-hoc extension rather than part of the locked protocol},
-the sample was enlarged to \textbf{25 countries} to increase statistical power
+the sample was enlarged to 25 countries to increase statistical power
 for the gradient (H1) and corpus-mechanism (H4) tests and to multiply the
 within-country language pairs available for H2. Ten countries were added under
 the identical prompt-construction, ground-truth, collection, and scoring
-procedures. Six are \textbf{Global North} references chosen purely to broaden the
+procedures. Six are Global North references chosen purely to broaden the
 high-resource end of the gradient --- the United Kingdom, Canada, Australia,
-South Korea, France, and Italy. Four are \textbf{native-language-pair} countries
+South Korea, France, and Italy. Four are native-language-pair countries
 that add Spanish (Colombia, Chile) and Portuguese (Portugal, Angola) contrasts for
 H2; of these, Portugal is also Global North while Colombia, Chile, and Angola are
 Global South. The two roles overlap, so by tier the extension adds seven Global
@@ -92,18 +92,18 @@ excluded from absolute-accuracy comparisons (H1, H3).
 \label{sec:covariates}
 
 For each country we compiled developmental and corpus-representation covariates.
-\textbf{Human Development Index (HDI)} (UNDP Human Development Report 2023--24,
-2022 data) and \textbf{GDP per capita} index developmental position and enter
+Human Development Index (HDI) (UNDP Human Development Report 2023--24,
+2022 data) and GDP per capita index developmental position and enter
 the mechanism analysis as adjustment covariates.
 
 The corpus-representation exposures are organized along a distinction that the
 mechanism analysis (H4) makes explicit, because the two channels apply to
-different effects. \textbf{Language-corpus measures} quantify how much
+different effects. Language-corpus measures quantify how much
 pretraining text exists \emph{in} a language and are the candidate mechanism for
 the native-language penalty (H2): the mC4 token count per language
 (\citealp{xue2021mt5}, Table~6), the OSCAR-2301 deduplicated corpus size per
 language~\citep{abadji2022oscar}, and the Joshi linguistic-resource
-class~\citep{joshi2020state}. \textbf{Country-corpus measures} quantify how much
+class~\citep{joshi2020state}. Country-corpus measures quantify how much
 the encyclopedic corpus is \emph{about} a country, independent of language, and
 are the candidate mechanism for the geographic gap (H1/H4): the byte length of
 the English Wikipedia article on the country, the number of Wikipedia language
@@ -119,14 +119,14 @@ sources, and access dates are versioned in the analysis release.
 
 Fourteen LLMs were benchmarked across five access tiers, spanning roughly two
 orders of magnitude in parameter count and four training-data geographies
-(United States, China, Europe, Brazil). \textbf{Tier A (open-weight frontier,
-5 models)} comprised large open-weight systems accessed via free inference
-endpoints. \textbf{Tier B (open-weight mid, 3 models)} and \textbf{Tier C
-(open-weight small/regional, 2 models)} were run locally via Ollama under
+(United States, China, Europe, Brazil). Tier A (open-weight frontier,
+5 models) comprised large open-weight systems accessed via free inference
+endpoints. Tier B (open-weight mid, 3 models) and Tier C
+(open-weight small/regional, 2 models) were run locally via Ollama under
 pinned model tags; Tier C includes a Brazilian-Portuguese instruction-tuned
 open model (Cabra-Mistral~7B~v3) used for the regional-model test (H3) against
-a scale-matched globally trained open model. \textbf{Tier D (closed
-accessible, 2 models)} and \textbf{Tier E (closed frontier, 1 model)} were
+a scale-matched globally trained open model. Tier D (closed
+accessible, 2 models) and Tier E (closed frontier, 1 model) were
 accessed via official APIs. Each model was queried with an identical version
 string or pinned tag throughout the collection window; tags and, where
 available, weight hashes are recorded in the protocol release to guard against
@@ -148,27 +148,27 @@ question we do not claim to resolve.
 \subsection{Domain and task taxonomy}
 \label{sec:tasks}
 
-The single domain is \textbf{air pollution policy}, chosen because it anchors
+The single domain is air pollution policy, chosen because it anchors
 to officially published, verifiable ground truth (national ambient air quality
 standards, environmental-agency monitoring data, federal control programs) and
 maps to concrete decision activities of a public environmental manager. Five
 task types operationalize the domain:
 
 \begin{itemize}
-  \item \textbf{T1 --- Technical standard.} Recall of binding ambient air
+  \item T1 --- Technical standard. Recall of binding ambient air
         quality standards, emission limits, or regulatory thresholds (for
         example, the annual mean PM\textsubscript{2.5} standard in force in the
         country).
-  \item \textbf{T2 --- Local factual datum.} Recall of officially measured air
+  \item T2 --- Local factual datum. Recall of officially measured air
         quality data for a specified city or region and year, as reported by
         the national or subnational environmental agency.
-  \item \textbf{T3 --- Health-evidence synthesis.} Synthesis of peer-reviewed
+  \item T3 --- Health-evidence synthesis. Synthesis of peer-reviewed
         epidemiological evidence on the air pollution health burden for the
         country, scored against a rubric rather than a single value.
-  \item \textbf{T4 --- Policy instruments.} Identification of policy programs,
+  \item T4 --- Policy instruments. Identification of policy programs,
         executing agencies, and legal instruments for air pollution control in
         force in the country.
-  \item \textbf{T5 --- Applied recommendation.} Rubric-scored applied
+  \item T5 --- Applied recommendation. Rubric-scored applied
         recommendation for a defined operational scenario (for example,
         short-term response to a high-concentration episode under thermal
         inversion).
@@ -182,9 +182,9 @@ status is specified in the ground-truth registry (Section~\ref{sec:groundtruth})
 \subsection{Persona manipulation}
 \label{sec:persona}
 
-Persona is a within-prompt factor with two levels. The \textbf{neutral}
+Persona is a within-prompt factor with two levels. The neutral
 condition presents the query as a plain information request. The
-\textbf{public\_manager\_env} condition prepends a fixed role frame
+public\_manager\_env condition prepends a fixed role frame
 identifying the requester as a municipal or regional environmental management
 official, holding the substantive question identical across conditions. A
 single role-frame template is applied uniformly across countries and tasks
@@ -282,7 +282,7 @@ Supplementary Material so that no absence is hidden.
 Scoring assigns each task the most reliable instrument it admits, which is not
 the same instrument everywhere.
 
-\textbf{Where the answer is a number in an official register, code decides.} For
+\emph{Where the answer is a number in an official register, code decides.} For
 T2 (a measured city-year concentration) and T3 (an attributable-mortality
 estimate), the returned value is extracted and compared with the authorised range
 from the register by a deterministic scorer, with plausibility guards that reject
@@ -292,7 +292,7 @@ and a language model asked to do the same arithmetic can only reproduce it with
 noise. Code resolves 62.5\% of T2 cells and 83.6\% of T3 cells; the rest are
 those where no value could be extracted with confidence.
 
-\textbf{Where judgement is required, a three-vendor panel decides by its mean.}
+\emph{Where judgement is required, a three-vendor panel decides by its mean.}
 The residual of T2 and T3, together with all of T4, is scored by
 Gemini~2.5~Pro (Google), Claude Sonnet~4.6 (Anthropic), and DeepSeek-V3
 (DeepSeek), chosen for vendor diversity so that intra-vendor correlation does not
@@ -308,7 +308,7 @@ the panel mean (Section~\ref{sec:results:reliability}); the single judge was als
 itself among the evaluated models. Reliability is reported three ways:
 Krippendorff's $\alpha$ (an inter-rater agreement coefficient, $1$ = perfect,
 $0$ = chance), the single-judge ICC(2,1), and, as the operative quantity, the
-\textbf{ICC(2,3) reliability of the panel mean}. An intraclass correlation
+ICC(2,3) reliability of the panel mean. An intraclass correlation
 answers a practical question: had a different judge scored the same answer, how
 much would the score have moved? Values near $1$ mean the score is a property of
 the answer; values near $0$ mean it is a property of who happened to score it.
@@ -349,14 +349,14 @@ tests (F2) are reported unadjusted within family, and declared
 exploratory tests (F3) use Benjamini-Hochberg FDR at
 $q=0.10$~\citep{benjamini1995fdr}.
 
-\textbf{H1 (geographic gradient, primary).} Country-level mean composite
+\emph{H1 (geographic gradient, primary).} Country-level mean composite
 accuracy (n=15) is regressed on the Joshi/HDI gradient via Spearman $\rho$
 (rank correlation), pre-specified one-sided with threshold $\rho \geq 0.55$ at
 $\alpha=0.05$, with a Mann-Kendall test (a non-parametric monotonic-trend test)
 as a mandatory non-monotonicity complement and a
 Global South dummy as a sensitivity contrast.
 
-\textbf{H4 (corpus-representation mechanism, primary).} Country-level partial
+\emph{H4 (corpus-representation mechanism, primary).} Country-level partial
 Spearman $\rho$ relates corpus representation to accuracy after adjusting for
 HDI and log GDP per capita, using Wikipedia counts as the pre-specified primary proxy
 ($\rho \geq 0.55$), complemented by exploratory country-coverage proxies
@@ -364,7 +364,7 @@ HDI and log GDP per capita, using Wikipedia counts as the pre-specified primary 
 effects to unmeasured confounding is quantified with E-values~\citep{vanderweele2017evalue}
 (Section~\ref{sec:results:robust}).
 
-\textbf{H6 (persona effect, primary).} The persona effect is tested as a
+\emph{H6 (persona effect, primary).} The persona effect is tested as a
 country-level difference-in-differences on the composite outcome:
 $\Delta_{\mathrm{GS}} = \overline{\text{persona}}_{\mathrm{GS}} -
 \overline{\text{neutral}}_{\mathrm{GS}}$ and
@@ -378,11 +378,11 @@ absolute accuracy). Inference uses a country-level permutation test
 two-sided test is reported as a secondary check because persona amplification
 is theoretically possible and is reported transparently if observed.
 
-\textbf{H3 (regional model, secondary).} H3 is tested with a pre-specified
+\emph{H3 (regional model, secondary).} H3 is tested with a pre-specified
 one-sided Mann-Whitney contrast (Cliff's $\delta$ effect size) comparing
 Cabra-Mistral~7B~v3 against the other models on the air pollution policy tasks.
 
-\textbf{H2 and H5 (exploratory).} The prompt-language~$\times$~country
+\emph{H2 and H5 (exploratory).} The prompt-language~$\times$~country
 interaction (H2) and the open-frontier versus closed-frontier contrast (H5) are
 reported descriptively, with formal tests under F3 correction where applied.
 

@@ -4,7 +4,7 @@
 \begin{center}
 \fbox{\parbox{0.88\linewidth}{%
 \small
-\textbf{Nota sobre a amostra.} Relatamos um benchmark \emph{pré-especificado de 15
+Nota sobre a amostra. Relatamos um benchmark \emph{pré-especificado de 15
 países} e sua \emph{extensão post hoc para 25 países} (esta acrescenta seis
 referências do Norte Global --- Reino Unido, Canadá, Austrália, Coreia do Sul,
 França, Itália --- e quatro países de par nativo --- Colômbia, Chile, Portugal,
@@ -99,8 +99,8 @@ Cabra-Mistral~7B & 496 & 0.347 \\
 \label{sec:res:tarefa}
 
 A dificuldade depende fortemente da tarefa (Tabela~\ref{tab:conf-tarefa}). A tarefa
-mais difícil por larga margem é a \textbf{T1 (recuperação do padrão técnico,
-0.367)} --- aquela que exige devolver o padrão nacional de média anual de
+mais difícil por larga margem é a T1 (recuperação do padrão técnico,
+0.367) --- aquela que exige devolver o padrão nacional de média anual de
 PM\textsubscript{2,5} em vigor. A tarefa de recomendação aberta (T5) tem a maior
 pontuação (0.773) porque sua rubrica premia conselho de política plausível e bem
 estruturado, que não depende de um fato único. Agrupando as duas tarefas de
@@ -144,7 +144,7 @@ T1 (padrão técnico)             & 1.529 & 0.367 \\
 \subsection{H2 --- perguntar no idioma local reduz a acurácia}
 \label{sec:res:h2}
 
-Este é o resultado mais forte e mais diretamente acionável do estudo.
+O resultado mais forte do estudo é o seguinte.
 
 Para os nove países com idioma nativo alvo
 (Brasil/Portugal/Angola~$\to$~português;
@@ -154,8 +154,8 @@ modo que o contraste inglês/nativo é dentro do país e dentro do modelo. As
 replicações são promediadas dentro de cada célula (modelo, prompt) antes do
 pareamento, porque parear replicação a replicação inflaria o $n$ pelo número de
 replicações e tornaria o teste anticonservador. Nas 839 células casadas, o prompt
-em idioma nativo \emph{reduz} a acurácia composta média em \textbf{4.8 pontos
-percentuais} (Wilcoxon de postos sinalizados $p=3\times10^{-15}$).
+em idioma nativo \emph{reduz} a acurácia composta média em 4.8 pontos
+percentuais (Wilcoxon de postos sinalizados $p=3\times10^{-15}$).
 
 A penalidade acompanha o nível de recurso do idioma, e as três são agora
 significativas (Tabela~\ref{tab:h2}): hindi $-11.1$~pp ($p=5\times10^{-4}$),
@@ -165,7 +165,7 @@ hindi. O efeito sobrevive a toda ponderação alternativa do composto ($-4.7$~pp
 pesos iguais, $-5.4$~pp apenas no subcomponente factual), de modo que não é
 artefato de como os cinco subcomponentes são combinados.
 
-\textbf{O efeito sobrevive a ser atacado.} Como H2 carrega a afirmação central do
+\emph{Testamos a robustez do efeito de H2.} Como H2 carrega a afirmação central do
 estudo, tentamos fazê-lo desaparecer em vez de confirmá-lo. Ele não é impulsionado
 por nenhum país em particular (\emph{leave-one-out} sobre os nove países de par
 nativo: $-4.2$ a $-5.2$~pp, todos significativos), por nenhum modelo em particular
@@ -179,7 +179,7 @@ entanto, ele atinge significância apenas no subconjunto pontuado pelo painel
 $p=0.29$, $n=148$). Retomamos isso adiante, porque a divisão tem causa específica e
 o efeito agregado que ela decompõe tem $p=3\times10^{-15}$.
 
-\textbf{E sobrevive sem juiz algum.} Um leitor pode razoavelmente suspeitar de que
+\emph{Também testamos um desfecho que não depende de juiz.} Um leitor pode razoavelmente suspeitar de que
 juízes que são modelos de linguagem penalizem texto não inglês por razões de
 estilo, e não de conteúdo. Testamos, portanto, um desfecho binário que nenhum juiz
 toca: a resposta contém um valor que o extrator consegue recuperar e comparar com o
@@ -191,11 +191,11 @@ mesma (hindi $-50.0$~pp, espanhol $-25.5$, português $+1.2$). Perguntar no idio
 local não apenas reduz uma nota julgada --- torna o modelo substancialmente menos
 propenso a devolver um número conferível.
 
-\textbf{E não é artefato da tradução.} Os prompts nativos foram produzidos por um
+\emph{A possibilidade de artefato de tradução foi testada diretamente.} Os prompts nativos foram produzidos por um
 tradutor LLM, o que levanta a única objeção que as pontuações sozinhas não
 respondem: talvez os modelos não respondam pior no idioma, e o prompt nativo
 simplesmente pergunte outra coisa. Testamos isso diretamente em todos os
-\textbf{90 prompts nativos únicos} --- um censo, não uma amostra --- retrotraduzindo
+90 prompts nativos únicos --- um censo, não uma amostra --- retrotraduzindo
 cada um para o inglês com um modelo \emph{diferente} daquele que produziu a
 tradução, e fazendo dois outros modelos auditarem a retrotradução contra o prompt
 original em inglês em cinco itens concretos. As discordâncias foram resolvidas de
@@ -203,7 +203,7 @@ forma conservadora: bastava um auditor apontar um item para o prompt ser marcado
 como divergente.
 
 Nos dois itens que de fato poderiam confundir o efeito, a fidelidade é completa:
-\textbf{nenhum prompt mudou o país e nenhum mudou a quantidade solicitada} (90/90
+nenhum prompt mudou o país e nenhum mudou a quantidade solicitada (90/90
 em ambos). A mesma pergunta é feita em 88/90 e o enquadramento de persona é
 preservado em 89/90. O item que falhou com frequência (56/90) é o de detalhe
 acrescentado ou omitido, e suas falhas são em larga medida estilísticas --- a mais
@@ -260,7 +260,7 @@ diferenças. O enquadramento de gestor ambiental público deixa a lacuna Norte/S
 essencialmente inalterada: $+4.7$~pp sob o enquadramento neutro contra $+5.4$~pp
 sob o de gestor, uma DiD de $\mathbf{+0.6}$~pp, muito abaixo do limiar
 pré-especificado de 5~pp; um teste de permutação no nível do país (5.000
-permutações do rótulo de camada) dá $p=0.27$. \textbf{H6 não é sustentada}:
+permutações do rótulo de camada) dá $p=0.27$. H6 não é sustentada:
 apresentar a consulta como vinda de um gestor ambiental público não estreita nem
 amplia a desvantagem do Sul Global, coerente com a evidência de que personas de
 especialista não melhoram de forma confiável a acurácia
@@ -275,15 +275,15 @@ universalmente ignorado.
 H1 foi pré-especificada em duas partes, e agora elas se separam com clareza: uma se
 sustenta e a outra não.
 
-\textbf{A lacuna de camada se sustenta.} Os dez países do Norte Global têm média de
-0.570 contra 0.520 dos quinze países do Sul Global, uma lacuna de \textbf{$+5.1$
-pontos percentuais} cujo intervalo bootstrap de 95\% entre países é
+\emph{A lacuna de camada se sustenta.} Os dez países do Norte Global têm média de
+0.570 contra 0.520 dos quinze países do Sul Global, uma lacuna de $+5.1$
+pontos percentuais cujo intervalo bootstrap de 95\% entre países é
 $[+1.6,+8.5]$~pp e \emph{exclui o zero}. Ela é estável à remoção de qualquer país
 isolado (amplitude \emph{leave-one-out} $[+4.5,+6.0]$~pp) e à ponderação do
 composto ($+4.2$~pp sob pesos iguais, $+8.8$~pp apenas no subcomponente factual,
 onde se amplia).
 
-\textbf{Onde a lacuna mora, e por que o composto a subestima.} O composto promedia
+\emph{Onde a lacuna mora, e por que o composto a subestima.} O composto promedia
 cinco tarefas, e a lacuna não se distribui igualmente entre elas. Reestimar o mesmo
 contraste como modelo misto binomial em cada tarefa separadamente --- desfecho
 codificado como devolver o valor de registro, com interceptos aleatórios cruzados
@@ -323,15 +323,15 @@ T5 (recomendação aplicada)   & nenhum valor de reg.   & 99.6\% & 99.7\% & 2.67
 \end{tabular}
 \end{table}
 
-\textbf{O gradiente monotônico não se sustenta.} Em $n=25$, o $\rho$ de Spearman
+\emph{O gradiente monotônico não se sustenta.} Em $n=25$, o $\rho$ de Spearman
 entre acurácia e IDH é de $+0.36$ e não atinge significância ($p=0.073$), e
 tampouco a tendência de Mann-Kendall ($p=0.072$). No $n=15$ pré-especificado ele
 está essencialmente ausente ($\rho=+0.08$). Nenhuma reestimação
 \emph{leave-one-country-out} alcança o limiar pré-especificado de $\rho\geq0.55$
 (amplitude $[+0.31,+0.49]$), e nenhuma ponderação alternativa tampouco
 ($\rho=+0.31$ tanto sob pesos iguais quanto no subcomponente factual). Relatamos,
-portanto, uma \textbf{diferença de camada que conseguimos demonstrar e um gradiente
-de desenvolvimento que não conseguimos}: a desvantagem está estabelecida como
+portanto, uma diferença de camada que conseguimos demonstrar e um gradiente
+de desenvolvimento que não conseguimos: a desvantagem está estabelecida como
 diferença entre grupos, enquanto sua forma ao longo da faixa de desenvolvimento
 permanece exploratória. Sob Bonferroni-Holm na família primária
 $\{$H1-gradiente, H4, H6$\}$, nenhum teste rejeita seu nulo.
@@ -375,12 +375,12 @@ Peru           & SG & 0.538 &              &    &       \\
 
 O mecanismo pré-especificado para a lacuna geográfica era a representação no corpus
 de treinamento, com o proxy pré-especificado sendo a contagem de artigos ou edições
-da Wikipédia. Esse proxy é \textbf{nulo}: $\rho$ de Spearman $=+0.14$ ($p=0.50$)
+da Wikipédia. Esse proxy é nulo: $\rho$ de Spearman $=+0.14$ ($p=0.50$)
 sem controle, e permanece nulo ao parcializar por IDH e log do PIB per capita, que
 é o conjunto de ajuste que o plano especificava. Os dois conjuntos de controle dão
 a mesma resposta porque carregam quase a mesma informação: IDH e log do PIB per
-capita se correlacionam a $\rho=0.97$ nestes 25 países. \textbf{H4 tal como
-pré-especificada não é sustentada.}
+capita se correlacionam a $\rho=0.97$ nestes 25 países. H4 tal como
+pré-especificada não é sustentada.
 
 Exploramos então, post hoc, se um canal diferente está em operação. Como a lacuna é
 medida \emph{em inglês}, uma diferença Norte/Sul residual não pode refletir quanto
@@ -594,13 +594,13 @@ exige julgamento.
 \subsection{Robustez}
 \label{sec:res:robustez}
 
-\textbf{Observações influentes.} A reestimação \emph{leave-one-country-out} deixa a
+\emph{Observações influentes.} A reestimação \emph{leave-one-country-out} deixa a
 lacuna de camada em $[+4.5,+6.0]$~pp, de modo que nenhum país isolado a
 impulsiona. O gradiente de IDH varia em $[+0.31,+0.49]$ e nunca atinge o limiar
 pré-especificado de 0.55 sob nenhuma remoção, o que é parte da razão de o
 relatarmos como exploratório.
 
-\textbf{Robustez de métrica.} O composto mistura cinco subcomponentes, e alguém
+Robustez de métrica. O composto mistura cinco subcomponentes, e alguém
 poderia temer que ele dilua ou fabrique os efeitos. Ele não muda as conclusões. Sob
 pesos iguais, a lacuna de camada é de $+4.2$~pp, a penalidade de idioma nativo de
 $-4.7$~pp, o piso de recuperação $\delta=-0.44$ e o gradiente $\rho=+0.34$;
@@ -611,12 +611,12 @@ factual de T1+T2 de 0.370 contra 0.657 para T3--T5). Os dois efeitos sustentados
 mantêm em toda ponderação e o gradiente falha em toda ponderação, de modo que
 nenhuma das conclusões é artefato de como os subcomponentes são misturados.
 
-\textbf{Extensão de amplitude.} Os dez países acrescentados post hoc caem
+\emph{Extensão de amplitude.} Os dez países acrescentados post hoc caem
 \emph{dentro} da faixa de IDH já coberta pelos quinze originais ($[0.548, 0.950]$,
 da Nigéria à Alemanha), de modo que a extensão aumenta a densidade das observações,
 e não a amplitude do preditor.
 
-\textbf{O que o gradiente nulo descarta e o que não descarta.} Um nulo só é
+\emph{O que o gradiente nulo descarta e o que não descarta.} Um nulo só é
 informativo na medida em que o desenho poderia ter enxergado o efeito. Simulando
 amostras de 25 países em correlações conhecidas, este desenho tem 77\% de poder
 para detectar $\rho=0.55$ --- o limiar que pré-especificamos --- e seu efeito mínimo
@@ -627,7 +627,7 @@ $\rho=0.30$. A afirmação honesta é que um gradiente forte de desenvolvimento 
 excluído e um modesto permanece possível, o que é uma afirmação mais estreita do
 que ``há um gradiente'' ou ``não há nenhum''.
 
-\textbf{A lacuna de camada depende da definição de camada.} Norte e Sul Global são
+\emph{A lacuna de camada depende da definição de camada.} Norte e Sul Global são
 operacionalizados pela classificação da UNCTAD, e uma lacuna que existisse apenas
 sob uma taxonomia seria artefato dessa taxonomia. Reestimamo-la, portanto, sob três
 partições dos mesmos 25 países baseadas em desenvolvimento
@@ -665,7 +665,7 @@ IDH $<0.700$ & $+1.53$ & 20/5 & $0.575$ \\
 \end{tabular}
 \end{table}
 
-\textbf{Um árbitro livre de distribuição para a lacuna de camada.} O bootstrap e o
+\emph{Um árbitro livre de distribuição para a lacuna de camada.} O bootstrap e o
 modelo misto discordam sobre se a lacuna supera a significância convencional. Um
 teste de permutação resolve a questão nos termos mais conservadores disponíveis, e
 o procedimento se enuncia em uma frase: embaralhar aleatoriamente os rótulos
@@ -677,7 +677,7 @@ unidade independente. O acaso produz uma lacuna desse tamanho em 2.0\% das vezes
 modelo misto, cujo $p=0.069$ marginal reflete cobrar do termo de erro a
 heterogeneidade entre países, e não evidência contra o contraste.
 
-\textbf{Corroboração baseada em modelo, e onde ela discorda.} Duas reestimações
+\emph{Corroboração baseada em modelo, e onde ela discorda.} Duas reestimações
 baseadas em modelo sobre a pontuação corrigida qualificam a lacuna de camada em vez
 de simplesmente confirmá-la, e relatamos a discordância.
 
@@ -699,7 +699,7 @@ Descrevemos, portanto, a lacuna de camada como sustentada, porém \emph{modesta 
 sensível à especificação}, o que é afirmação mais fraca do que a de versões
 anteriores sobre as pontuações de juiz único ($\beta=-0.077$, $p=0.007$).
 
-\textbf{E-values.} Um E-value pergunta quão forte precisaria ser um confundidor não
+E-values. Um E-value pergunta quão forte precisaria ser um confundidor não
 medido para explicar inteiramente um achado; quanto maior o número, mais difícil
 descartar o achado. A lacuna de camada carrega um E-value de 1.70 na estimativa
 pontual e de 1.31 no limite do intervalo mais próximo do nulo. O segundo número é o
@@ -743,8 +743,8 @@ H6 (persona) & DiD $+0.6$~pp & --- & Não sustentada \\
 \end{tabular}
 \end{table}
 
-Corrigir o gabarito reordena o que este estudo pode afirmar. \textbf{Sustentado,
-com tamanhos de efeito:} uma \emph{penalidade de idioma nativo} de $-4.8$~pp
+Corrigir o gabarito reordena o que este estudo pode afirmar. Sustentado,
+com tamanhos de efeito: uma \emph{penalidade de idioma nativo} de $-4.8$~pp
 (Wilcoxon $p=3\times10^{-15}$, $n=839$ células), significativa nos três idiomas e
 maior para o hindi ($-11.1$~pp); um \emph{piso de recuperação} nas tarefas que
 exigem devolver um valor vinculante (T1+T2 contra as demais, $\delta=-0.47$,
@@ -757,11 +757,11 @@ limite do intervalo é de apenas 1.31 ---, mas \emph{inequívoca onde importa}: 
 devolver o padrão nacional vinculante, a chance do Sul Global é 0.23 da chance do
 Norte ($[0.19,0.28]$), e a lacuna escala com o quanto a resposta depende de um fato
 específico do país, desaparecendo na única tarefa sem valor de registro a acertar.
-\textbf{Exploratório ou não sustentado:} o \emph{gradiente} de desenvolvimento não
+Exploratório ou não sustentado: o \emph{gradiente} de desenvolvimento não
 atinge significância ($\rho=0.36$, $p=0.073$; Mann-Kendall $p=0.072$; $\rho=0.08$
 no $n=15$ pré-especificado), de modo que a diferença de camada está demonstrada mas
 sua forma não; e a persona \emph{não} estreita a lacuna ($p=0.27$).
-\textbf{Identificado onde o desenho tem resolução:} entre países nenhum canal de
+Identificado onde o desenho tem resolução: entre países nenhum canal de
 corpus se separa do desenvolvimento ($\rho=0.36$, $p=0.075$; parcial $p=0.41$), mas
 dentro dos países --- comparando tarefas que dependem de um fato nacional contra
 tarefas que não dependem, mantendo o país e portanto seu desenvolvimento constantes
@@ -770,7 +770,7 @@ se fortalece à medida que o contraste fica mais nítido, inverte sob placebo e
 sobrevive entre os nove países cuja língua oficial é idêntica ($\beta=+0.025$,
 $p=6\times10^{-4}$).
 
-O centro de gravidade é, ainda assim, prático. O que este estudo demonstra é que os
+A implicação prática é clara. O que este estudo demonstra é que os
 três remédios aos quais uma agência de fato recorreria --- perguntar no idioma
 nacional, declarar o papel oficial, contratar um modelo com ajuste regional ---
 falham todos, e que o primeiro piora materialmente as coisas; e que os modelos são

@@ -24,14 +24,14 @@ calibração dos prompts, mas não contribui com observações confirmatórias.
 \subsection{Seleção de países}
 
 Os países foram selecionados por amostragem teórica~\citep{patton2015qualitative}
-triangulada em três classificações independentes. Primeiro, a \textbf{classificação
-Norte/Sul Global da UNCTAD}~\citep{unctad2024classification} operacionaliza o
+triangulada em três classificações independentes. Primeiro, a classificação
+Norte/Sul Global da UNCTAD~\citep{unctad2024classification} operacionaliza o
 arcabouço da colonialidade do saber que motiva este
-estudo~\citep{mohamed2020decolonial}. Segundo, a \textbf{taxonomia de seis classes
-de Joshi et al.\ (2020)} de representação de recursos linguísticos em corpora de
+estudo~\citep{mohamed2020decolonial}. Segundo, a taxonomia de seis classes
+de Joshi et al.\ (2020) de representação de recursos linguísticos em corpora de
 PLN forneceu uma dimensão de estratificação ortogonal~\citep{joshi2020state}.
-Terceiro, os \textbf{grupos de renda do Banco Mundial
-(FY26)}~\citep{worldbank2025classification} capturaram a posição econômica de
+Terceiro, os grupos de renda do Banco Mundial
+(FY26)~\citep{worldbank2025classification} capturaram a posição econômica de
 forma independente dos dois eixos anteriores.
 
 A amostra final de 15 países --- Brasil, México, Argentina, Peru (América Latina);
@@ -58,13 +58,13 @@ viabilidade, e isso é reconhecido como limitação de escopo.
 
 Após a análise pré-especificada de 15 países, e \emph{relatado aqui de forma
 transparente como extensão post hoc e não como parte do protocolo travado}, a
-amostra foi ampliada para \textbf{25 países} para aumentar o poder estatístico dos
+amostra foi ampliada para 25 países para aumentar o poder estatístico dos
 testes de gradiente (H1) e de mecanismo de corpus (H4) e para multiplicar os pares
 de idioma dentro do país disponíveis para H2. Dez países foram acrescentados sob
 procedimentos idênticos de construção de prompt, gabarito, coleta e pontuação.
-Seis são referências do \textbf{Norte Global}, escolhidas puramente para ampliar a
+Seis são referências do Norte Global, escolhidas puramente para ampliar a
 ponta de alto recurso do gradiente --- Reino Unido, Canadá, Austrália, Coreia do
-Sul, França e Itália. Quatro são países de \textbf{par em idioma nativo} que
+Sul, França e Itália. Quatro são países de par em idioma nativo que
 acrescentam contrastes em espanhol (Colômbia, Chile) e português (Portugal,
 Angola) para H2; desses, Portugal é também Norte Global, enquanto Colômbia, Chile
 e Angola são Sul Global. Os dois papéis se sobrepõem, de modo que, por camada, a
@@ -91,19 +91,19 @@ membros do par, e são excluídas das comparações de acurácia absoluta (H1, H
 \label{sec:covariaveis}
 
 Para cada país compilamos covariáveis de desenvolvimento e de representação no
-corpus. O \textbf{Índice de Desenvolvimento Humano (IDH)} (Relatório de
-Desenvolvimento Humano do PNUD 2023--24, dados de 2022) e o \textbf{PIB per
-capita} indexam a posição de desenvolvimento e entram na análise de mecanismo como
+corpus. O Índice de Desenvolvimento Humano (IDH) (Relatório de
+Desenvolvimento Humano do PNUD 2023--24, dados de 2022) e o PIB per
+capita indexam a posição de desenvolvimento e entram na análise de mecanismo como
 covariáveis de ajuste.
 
 As exposições de representação no corpus são organizadas segundo uma distinção que
 a análise de mecanismo (H4) torna explícita, porque os dois canais se aplicam a
-efeitos diferentes. As \textbf{medidas de corpus da língua} quantificam quanto
+efeitos diferentes. As medidas de corpus da língua quantificam quanto
 texto de pré-treinamento existe \emph{em} um idioma e são o mecanismo candidato
 para a penalidade de idioma nativo (H2): a contagem de tokens do mC4 por idioma
 (\citealp{xue2021mt5}, Tabela~6), o tamanho do corpus deduplicado OSCAR-2301 por
 idioma~\citep{abadji2022oscar} e a classe de recurso linguístico de
-Joshi~\citep{joshi2020state}. As \textbf{medidas de corpus do país} quantificam
+Joshi~\citep{joshi2020state}. As medidas de corpus do país quantificam
 quanto o corpus enciclopédico fala \emph{sobre} um país, independentemente do
 idioma, e são o mecanismo candidato para a lacuna geográfica (H1/H4): o tamanho em
 bytes do artigo da Wikipédia inglesa sobre o país, o número de edições linguísticas
@@ -119,15 +119,15 @@ e datas de acesso estão versionados na liberação da análise.
 
 Catorze LLMs foram avaliados em cinco camadas de acesso, abrangendo cerca de duas
 ordens de magnitude em contagem de parâmetros e quatro geografias de dados de
-treinamento (Estados Unidos, China, Europa, Brasil). A \textbf{Camada A (fronteira
-de pesos abertos, 5 modelos)} compreendeu grandes sistemas de pesos abertos
-acessados por endpoints gratuitos de inferência. A \textbf{Camada B (pesos abertos
-intermediários, 3 modelos)} e a \textbf{Camada C (pesos abertos pequenos ou
-regionais, 2 modelos)} foram executadas localmente via Ollama sob tags fixadas; a
+treinamento (Estados Unidos, China, Europa, Brasil). A Camada A (fronteira
+de pesos abertos, 5 modelos) compreendeu grandes sistemas de pesos abertos
+acessados por endpoints gratuitos de inferência. A Camada B (pesos abertos
+intermediários, 3 modelos) e a Camada C (pesos abertos pequenos ou
+regionais, 2 modelos) foram executadas localmente via Ollama sob tags fixadas; a
 Camada C inclui um modelo aberto ajustado por instrução em português brasileiro
 (Cabra-Mistral~7B~v3) usado para o teste de modelo regional (H3) contra um modelo
-aberto de treinamento global com escala equivalente. A \textbf{Camada D (fechados
-acessíveis, 2 modelos)} e a \textbf{Camada E (fronteira fechada, 1 modelo)} foram
+aberto de treinamento global com escala equivalente. A Camada D (fechados
+acessíveis, 2 modelos) e a Camada E (fronteira fechada, 1 modelo) foram
 acessadas por APIs oficiais. Cada modelo foi consultado com uma string de versão ou
 tag fixada e idêntica ao longo de toda a janela de coleta; tags e, quando
 disponíveis, hashes de pesos são registrados na liberação do protocolo para
@@ -149,26 +149,26 @@ questão distinta que não pretendemos resolver.
 \subsection{Domínio e taxonomia de tarefas}
 \label{sec:tarefas}
 
-O domínio único é a \textbf{política de poluição do ar}, escolhido porque se ancora
+O domínio único é a política de poluição do ar, escolhido porque se ancora
 em gabarito oficialmente publicado e verificável (padrões nacionais de qualidade do
 ar, dados de monitoramento de agências ambientais, programas federais de controle) e
 se mapeia a atividades concretas de decisão de um gestor ambiental público. Cinco
 tipos de tarefa operacionalizam o domínio:
 
 \begin{itemize}
-  \item \textbf{T1 --- Padrão técnico.} Recuperação de padrões vinculantes de
+  \item T1 --- Padrão técnico. Recuperação de padrões vinculantes de
         qualidade do ar, limites de emissão ou limiares regulatórios (por exemplo,
         o padrão de média anual de PM\textsubscript{2,5} em vigor no país).
-  \item \textbf{T2 --- Dado factual local.} Recuperação de dados de qualidade do ar
+  \item T2 --- Dado factual local. Recuperação de dados de qualidade do ar
         oficialmente medidos para uma cidade ou região e ano especificados,
         conforme reportado pela agência ambiental nacional ou subnacional.
-  \item \textbf{T3 --- Síntese de evidência em saúde.} Síntese de evidência
+  \item T3 --- Síntese de evidência em saúde. Síntese de evidência
         epidemiológica revisada por pares sobre a carga de saúde da poluição do ar
         no país, pontuada contra rubrica em vez de valor único.
-  \item \textbf{T4 --- Instrumentos de política.} Identificação de programas de
+  \item T4 --- Instrumentos de política. Identificação de programas de
         política, órgãos executores e instrumentos legais de controle da poluição
         do ar em vigor no país.
-  \item \textbf{T5 --- Recomendação aplicada.} Recomendação aplicada pontuada por
+  \item T5 --- Recomendação aplicada. Recomendação aplicada pontuada por
         rubrica para um cenário operacional definido (por exemplo, resposta de
         curto prazo a um episódio de alta concentração sob inversão térmica).
 \end{itemize}
@@ -182,9 +182,9 @@ estatuto de verificabilidade está especificado no registro de gabarito
 \subsection{Manipulação de persona}
 \label{sec:persona}
 
-A persona é um fator dentro do prompt com dois níveis. A condição \textbf{neutra}
+A persona é um fator dentro do prompt com dois níveis. A condição neutra
 apresenta a consulta como pedido simples de informação. A condição
-\textbf{public\_manager\_env} antepõe um enquadramento de papel fixo identificando
+public\_manager\_env antepõe um enquadramento de papel fixo identificando
 quem pergunta como autoridade municipal ou regional de gestão ambiental, mantendo a
 pergunta substantiva idêntica entre condições. Um único modelo de enquadramento de
 papel é aplicado de forma uniforme entre países e tarefas (traduzido quando o
@@ -285,7 +285,7 @@ para que nenhuma ausência fique escondida.
 A pontuação atribui a cada tarefa o instrumento mais confiável que ela admite, e
 não é o mesmo instrumento em toda parte.
 
-\textbf{Onde a resposta é um número em registro oficial, quem decide é o código.}
+\emph{Onde a resposta é um número em registro oficial, quem decide é o código.}
 Para T2 (uma concentração medida em cidade e ano) e T3 (uma estimativa de
 mortalidade atribuível), o valor devolvido é extraído e comparado com a faixa
 autorizada do registro por um pontuador determinístico, com salvaguardas de
@@ -296,7 +296,7 @@ se pede a mesma aritmética só consegue reproduzi-la com ruído. O código reso
 62.5\% das células de T2 e 83.6\% das de T3; o restante são aquelas em que nenhum
 valor pôde ser extraído com confiança.
 
-\textbf{Onde é preciso julgamento, um painel de três fornecedores decide pela
+\emph{Onde é preciso julgamento, um painel de três fornecedores decide pela
 média.} O resíduo de T2 e T3, junto com toda a T4, é pontuado por
 Gemini~2.5~Pro (Google), Claude Sonnet~4.6 (Anthropic) e DeepSeek-V3 (DeepSeek),
 escolhidos por diversidade de fornecedor para que a correlação intrafornecedor não
@@ -313,7 +313,7 @@ ICC(2,1)$=0.56$ contra ICC(2,3)$=0.79$ para a média do painel
 modelos avaliados. A confiabilidade é relatada de três formas: o $\alpha$ de
 Krippendorff (coeficiente de concordância entre avaliadores, $1$ = perfeita,
 $0$ = acaso), o ICC(2,1) de juiz único, e, como quantidade operante, a
-\textbf{confiabilidade ICC(2,3) da média do painel}. Uma correlação intraclasse
+confiabilidade ICC(2,3) da média do painel. Uma correlação intraclasse
 responde a uma pergunta prática: se outro juiz tivesse pontuado a mesma resposta,
 quanto a nota teria se deslocado? Valores próximos de $1$ significam que a nota é
 propriedade da resposta; valores próximos de $0$ significam que ela é propriedade
@@ -354,14 +354,14 @@ lhe sobrevive dificilmente é esse acaso. Testes secundários (F2) são relatado
 ajuste dentro da família, e testes declarados exploratórios (F3) usam FDR de
 Benjamini-Hochberg a $q=0.10$~\citep{benjamini1995fdr}.
 
-\textbf{H1 (gradiente geográfico, primária).} A acurácia composta média por país
+\emph{H1 (gradiente geográfico, primária).} A acurácia composta média por país
 ($n=15$) é regredida sobre o gradiente de Joshi/IDH via $\rho$ de Spearman
 (correlação de postos), pré-especificada unilateral com limiar $\rho \geq 0.55$ a
 $\alpha=0.05$, com um teste de Mann-Kendall (teste não paramétrico de tendência
 monotônica) como complemento obrigatório de não monotonicidade e uma variável
 indicadora de Sul Global como contraste de sensibilidade.
 
-\textbf{H4 (mecanismo de representação no corpus, primária).} O $\rho$ parcial de
+\emph{H4 (mecanismo de representação no corpus, primária).} O $\rho$ parcial de
 Spearman no nível do país relaciona representação no corpus e acurácia após ajuste
 por IDH e log do PIB per capita, usando contagens da Wikipédia como proxy primário
 pré-especificado ($\rho \geq 0.55$), complementado por proxies exploratórios de
@@ -369,7 +369,7 @@ cobertura do país (sitelinks e declarações do Wikidata). A robustez dos efeit
 geográficos sustentados a confundimento não medido é quantificada com
 E-values~\citep{vanderweele2017evalue} (Seção~\ref{sec:res:robustez}).
 
-\textbf{H6 (efeito de persona, primária).} O efeito de persona é testado como
+\emph{H6 (efeito de persona, primária).} O efeito de persona é testado como
 diferença em diferenças no nível do país sobre o desfecho composto:
 $\Delta_{\mathrm{SG}} = \overline{\text{persona}}_{\mathrm{SG}} -
 \overline{\text{neutra}}_{\mathrm{SG}}$ e
@@ -383,11 +383,11 @@ permutações) relatado ao lado de um teste pareado paramétrico; o teste bilate
 relatado como checagem secundária porque a amplificação por persona é
 teoricamente possível e é relatada de forma transparente se observada.
 
-\textbf{H3 (modelo regional, secundária).} H3 é testada com contraste unilateral
+\emph{H3 (modelo regional, secundária).} H3 é testada com contraste unilateral
 pré-especificado de Mann-Whitney (tamanho de efeito $\delta$ de Cliff) comparando o
 Cabra-Mistral~7B~v3 aos demais modelos nas tarefas de política de poluição do ar.
 
-\textbf{H2 e H5 (exploratórias).} A interação idioma do prompt por país (H2) e o
+\emph{H2 e H5 (exploratórias).} A interação idioma do prompt por país (H2) e o
 contraste entre fronteira aberta e fronteira fechada (H5) são relatados
 descritivamente, com testes formais sob correção F3 onde aplicados.
 

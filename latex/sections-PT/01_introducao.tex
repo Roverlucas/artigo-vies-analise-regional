@@ -20,9 +20,7 @@ trás de uma intervenção, uma resposta imprecisa não é erro benigno. Ela pod
 propagar para uma nota técnica regulatória, uma decisão de contratação ou uma
 resposta emergencial durante um episódio de poluição.
 
-A pergunta que este artigo endereça é se os LLMs servem à política de poluição do
-ar do Sul Global com a mesma confiabilidade com que servem ao Norte Global, e se a
-forma como a consulta é enquadrada muda a resposta. Duas linhas recentes de
+Este artigo mede se os LLMs servem à política de poluição do ar do Sul Global com a mesma confiabilidade que ao Norte Global, e se o enquadramento da consulta muda a resposta. Duas linhas recentes de
 evidência tornam essa pergunta urgente, e não hipotética.
 
 \paragraph{O viés factual geográfico é real e mensurável.}
@@ -90,11 +88,9 @@ porque a lacuna geográfica é medida em inglês.
 
 \subsection*{Objetivos e escopo}
 
-Declarar a fronteira de um estudo é parte de sua contribuição, porque o leitor que
-decide se a evidência se aplica à sua situação precisa saber o que foi medido e o
-que não foi. Este estudo tem três objetivos, e cada um é delimitado.
+Declaramos o escopo do estudo para que o leitor possa avaliar se a evidência se aplica à sua situação. Este estudo tem três objetivos, e cada um é delimitado.
 
-\textbf{Primeiro, estabelecer um protocolo de auditoria de informação
+\emph{Primeiro, estabelecer um protocolo de auditoria de informação
 regulatória.} O objeto é a concordância entre a resposta de um modelo e o valor
 publicado no registro oficial, para tarefas que uma agência ambiental de fato
 delega. Não estamos medindo capacidade geral do modelo, qualidade de raciocínio ou
@@ -102,7 +98,7 @@ utilidade para qualquer finalidade que não seja recuperar e resumir a regulaç�
 vigor. O protocolo é a contribuição que se transfere; o domínio é onde o
 demonstramos.
 
-\textbf{Segundo, testar as mitigações disponíveis a uma administração.} Um órgão
+\emph{Segundo, testar as mitigações disponíveis a uma administração.} Um órgão
 público diante de respostas ruins sobre o próprio país pode, realisticamente,
 fazer três coisas sem construir nada: declarar o papel oficial no prompt,
 perguntar no idioma nacional, ou contratar um modelo com ajuste regional. Cada uma
@@ -111,7 +107,7 @@ desenho, em vez de discuti-las. Não testamos geração aumentada por recuperaç
 ajuste fino ou verificação humana no circuito, que exigem capacidade técnica que a
 maioria das agências do nosso recorte do Sul Global não tem.
 
-\textbf{Terceiro, localizar onde a confiabilidade difere e, até onde o desenho
+\emph{Terceiro, localizar onde a confiabilidade difere e, até onde o desenho
 permitir, por quê.} Relatamos a distribuição da acurácia entre países, tarefas e
 idiomas, e testamos a explicação por representação no corpus no nível em que a
 medida tem resolução. Não reivindicamos identificação causal de mecanismo algum, e
@@ -133,8 +129,8 @@ do começo ao fim.
 Nossas contribuições são:
 
 \begin{enumerate}\setlength{\itemsep}{2pt}
-\item \textbf{Um protocolo de auditoria de informação regulatória, não um
-  benchmark de conhecimento geral.} A pergunta de confiabilidade que uma
+\item Um protocolo de auditoria de informação regulatória, não um
+  benchmark de conhecimento geral. A pergunta de confiabilidade que uma
   administração enfrenta não é se o modelo escreve bem sobre política, e sim se o
   valor que ele devolve corresponde ao publicado no registro oficial. Construímos
   cinco tipos de tarefa a partir do trabalho cotidiano de uma agência ambiental: o
@@ -146,8 +142,8 @@ Nossas contribuições são:
   matéria de impressão de especialista. O protocolo se transfere a qualquer
   domínio regulado cuja resposta correta seja publicada: tributário,
   licenciamento, saúde pública, compras.
-\item \textbf{As três correções de localização às quais as agências recorrem,
-  testadas em vez de presumidas --- e as três falham.} Profissionais respondem a
+\item As três correções de localização às quais as agências recorrem,
+  testadas em vez de presumidas --- e as três falham. Profissionais respondem a
   respostas ruins sobre o próprio país com três movimentos: informar ao sistema
   que se é a autoridade responsável, perguntar no idioma nacional, ou adotar um
   modelo com ajuste regional. Cada um é uma decisão de contratação ou de fluxo de
@@ -160,14 +156,14 @@ Nossas contribuições são:
   percentuais, de forma mais acentuada no idioma com o corpus mais escasso. Este é
   o achado principal do estudo e sua saída mais diretamente acionável para a
   prática.
-\item \textbf{A escolha do modelo como decisão administrativa.} Se uma agência
+\item A escolha do modelo como decisão administrativa. Se uma agência
   roda um modelo de pesos abertos na própria infraestrutura ou contrata um modelo
   hospedado por fornecedor é hoje uma questão explícita de
   contratação~\citep{robinson2026opensource}. Avaliamos catorze configurações de
   acesso ao longo desse espectro e tratamos a unidade de análise como o modelo
   \emph{como servido}, já que uma agência contrata uma pilha servida e não um
   conjunto de pesos.
-\item \textbf{Um desenho amostral que separa quem é mal servido de por quê.} Os
+\item Um desenho amostral que separa quem é mal servido de por quê. Os
   países são estratificados ao longo de eixos independentes: a classificação
   Norte/Sul da UNCTAD (que operacionaliza a
   colonialidade~\citep{mohamed2020decolonial}), a taxonomia de recursos
@@ -175,7 +171,7 @@ Nossas contribuições são:
   desenvolvimento. Isso permite distinguir explicações geográficas, linguísticas e
   econômicas em vez de confundi-las, o que importa para a política pública: cada
   uma implica um remédio diferente e um responsável diferente.
-\item \textbf{Um teste de mecanismo que relata os próprios limites.} Testamos a
+\item Um teste de mecanismo que relata os próprios limites. Testamos a
   representação no corpus usando proxies tanto de corpus da língua quanto de
   cobertura do país, com controles por correlação parcial, e relatamos que o proxy
   pré-especificado é defeituoso de um modo que vale sinalizar a quem já o usou:
@@ -189,7 +185,7 @@ Nossas contribuições são:
   cuja língua oficial é idêntica. Separamos ao longo de todo o texto o que o
   desenho demonstra do que ele não alcança, e a forma do gradiente ao longo da
   faixa de desenvolvimento permanece na segunda categoria.
-\item \textbf{Gabarito adjudicado por código, e o que isso muda.} Onde a resposta
+\item Gabarito adjudicado por código, e o que isso muda. Onde a resposta
   correta de uma tarefa é um número publicado em registro oficial, o veredito é
   computado contra esse registro em vez de delegado a um modelo de linguagem,
   porque comparar um valor com uma faixa autorizada é exato e um juiz só consegue
@@ -199,7 +195,7 @@ Nossas contribuições são:
   desenvolvimento de $\rho=0.51$ para $\rho=0.37$ e mais que dobrou a penalidade
   do idioma nativo. Nesta literatura, a chave de gabarito, e não o tamanho da
   amostra, é a restrição que aperta.
-\item \textbf{Recursos abertos.} O protocolo completo, os prompts, os registros de
+\item Recursos abertos. O protocolo completo, os prompts, os registros de
   gabarito com suas fontes oficiais, o código de análise e o registro de desvios
   serão liberados sob licenças CC-BY-4.0 e MIT.
 \end{enumerate}
@@ -216,11 +212,7 @@ aqueles onde a poluição do ar mata mais
 gente~\citep{gbd2019risk,joshi2020state}. Quando um gestor ambiental do Sul Global
 consulta um modelo treinado majoritariamente em texto do Norte Global para
 governar um problema local de qualidade do ar, a decisão resultante corre o risco
-de herdar as assimetrias do corpus. Isso posiciona nosso trabalho empírico como
-teste de um elo de um ciclo de reprodução teorizado (assimetria no corpus de
-treinamento $\to$ assimetria de conhecimento do LLM $\to$ assimetria na decisão de
-política), e a manipulação de persona como teste de se o enquadramento do prompt
-consegue interromper esse elo.
+de herdar as assimetrias do corpus. Isso posiciona nosso trabalho empírico como teste de um elo do ciclo teorizado: assimetria no corpus de treinamento, assimetria de conhecimento do LLM, assimetria na decisão de política. A manipulação de persona testa se o enquadramento do prompt interrompe esse elo.
 
 O artigo prossegue como segue. A Seção~\ref{sec:relacionados} posiciona nosso
 trabalho em relação à literatura. A Seção~\ref{sec:metodos} apresenta o desenho
