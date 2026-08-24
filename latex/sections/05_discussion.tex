@@ -10,8 +10,8 @@ three-vendor panel elsewhere --- returns a disciplined and partly counter-intuit
 picture. The harms we can demonstrate are practical rather than aetiological: the
 three remedies an agency would reach for all fail, the most intuitive of them
 makes the answer materially worse, and models are least reliable on the recall of
-the binding value in force. A North/South tier difference persists; what that
-difference is made of, we do not resolve.
+the binding value in force. A North/South tier difference persists, and we
+identify the channel behind it only where the design has the resolution to do so.
 
 \subsection{Three intuitive remedies, all failing --- and one that harms}
 
@@ -113,7 +113,7 @@ to $48\%$ at $\rho=0.40$.
 
 Two further results bound what the tier contrast means. A permutation test that
 relabels tier across countries --- distribution-free, and using the country as the
-unit --- gives $p=0.030$, which we take as settling the disagreement between the
+unit --- gives $p=0.020$, which we take as settling the disagreement between the
 bootstrap and the mixed model in favour of the gap being real. But the gap holds
 under the UNCTAD North/South partition and \emph{not} under partitions drawn on
 HDI alone ($+2.4$ to $+2.9$~pp, all non-significant). That is coherent with a null
@@ -268,13 +268,13 @@ gold-standard-anchored one; a power analysis puts this at roughly 150 responses
 scored by three raters, and our released pipeline exports the stratified sample
 directly.
 
-\textbf{From an unresolved mechanism to a design that can resolve it.} Neither
-corpus channel is established at country level, and the limitation is resolution
-rather than absence: three Joshi values and eleven distinct corpus-size values
-across 25 countries. A design that varies country coverage while holding
-development fixed, or a longitudinal study tracking accuracy as a country's
-encyclopedic footprint grows, could establish the channel that the present
-instrument cannot.
+\textbf{From a within-country signal to a causal design.} The channel is
+identified where the design has resolution, but not causally: between countries
+neither proxy separates from development, and within countries we remove
+country-level confounding without removing task-by-country confounding. A design
+that varies country coverage while holding development fixed, or a longitudinal
+study tracking accuracy as a country's encyclopedic footprint grows, would close
+that remaining gap.
 
 \textbf{From a null gradient to an adequately powered test.} The tier difference
 is established while the gradient is not, at $n=25$ and with corrected scoring. A
@@ -337,9 +337,10 @@ this literature the ground-truth key, not the sample size, is the binding
 constraint: the same responses yield a significant development gradient under
 placeholder keys and a null one under official keys, while the language penalty
 more than doubles. \textbf{Fourth}, it separates what a 25-country design can
-demonstrate (a tier difference, a language penalty, a recall floor) from what it
-cannot (the shape of the gradient, the corpus channel), and reports the second set
-as unresolved rather than as supported. \textbf{Fifth}, every reported number is
+demonstrate (a tier difference, a language penalty, a recall floor, and a corpus
+channel identified within countries) from what it cannot (the shape of the
+gradient across development, and causal identification of that channel), and
+reports the second set as open rather than as supported. \textbf{Fifth}, every reported number is
 recomputable from the raw data through a one-command pipeline with a built-in
 method-audit gate, setting a reproducibility bar --- official-source ground truth,
 code adjudication where the answer is a number, and end-to-end auditability ---

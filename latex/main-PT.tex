@@ -1,29 +1,32 @@
 % ============================================================
 % Viés Geográfico e Linguístico em LLMs para Política de Poluição do Ar
-% Um Benchmark de 25 Países, 14 Modelos, 4 Idiomas e 5 Tarefas
+% Versão em português — acompanha latex/main.tex (inglês)
 % ============================================================
-% VERSÃO EM PORTUGUÊS (pt-BR) — para leitura e revisão
-% Tradução fiel de main.tex; números, estatísticas, citações e tabelas idênticos.
+% ESTA VERSÃO É MODULAR, como a inglesa. A anterior era um arquivo único de
+% 1.615 linhas, e foi exatamente por isso que ficou dois meses defasada sem que
+% ninguém percebesse: manter dois monólitos em paralelo é garantir que divirjam.
+% Cada seção aqui espelha o arquivo correspondente em sections/, e os NÚMEROS são
+% os mesmos, vindos do mesmo congelamento (data/processed/freeze_all_effects.json).
+% Decimais com ponto, como na versão anterior, para não introduzir erro de
+% conversão em algumas centenas de valores.
 % ============================================================
 
 \documentclass[11pt,a4paper]{article}
 
-% -- Pacotes essenciais
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
 
-% -- Layout
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{setspace}
 \onehalfspacing
 \usepackage{lineno}
 \linenumbers
 
-% -- Matemática e símbolos
 \usepackage{amsmath,amssymb}
+\usepackage{siunitx}
+\sisetup{group-separator={.}, group-minimum-digits=4}
 
-% -- Gráficos e tabelas
 \usepackage{graphicx}
 \graphicspath{{../figures/}}
 \usepackage{xcolor}
@@ -33,26 +36,21 @@
 \usepackage{caption}
 \captionsetup{font=small,labelfont=bf}
 
-% -- Referências
-\usepackage[numbers,square,comma,sort&compress]{natbib}
-\bibliographystyle{unsrtnat}
+\usepackage[authoryear,round]{natbib}
+\bibliographystyle{apalike}
 
-% -- Hyperlinks (carregar por último)
 \usepackage[colorlinks=true,
             linkcolor=blue!50!black,
             citecolor=blue!50!black,
             urlcolor=blue!50!black]{hyperref}
 
-% -- Comandos personalizados
 \newcommand{\placeholder}[1]{\textcolor{red!80!black}{\textbf{[#1]}}}
-\newcommand{\simvalue}[1]{\textcolor{blue!60!black}{\textit{#1}}}
 
 % ============================================================
-% METADADOS
-% ============================================================
 
-\title{Viés Geográfico e Linguístico em LLMs para Política de Poluição do Ar:\\
-Um Benchmark de 25 Países, 14 Modelos, 4 Idiomas e 5 Tarefas}
+\title{De quem é a regulação que o modelo conhece?\\
+Confiabilidade da informação regulatória recuperada por LLMs para a gestão
+ambiental pública em 25 países}
 
 \author{
   Lucas Rover$^{1,*}$ \\
@@ -61,1555 +59,119 @@ Um Benchmark de 25 Países, 14 Modelos, 4 Idiomas e 5 Tarefas}
   Eduardo Tadeu Bacalhau$^{4}$ \\
   Yara de Souza Tadano$^{1}$ \\
   \\
-  \small $^1$ Universidade Tecnológica Federal do Paran\'a (UTFPR), Brasil\\
+  \small $^1$ Universidade Tecnológica Federal do Paraná (UTFPR), Brasil\\
   \small $^2$ Faculdade Descomplica, Brasil\\
   \small $^3$ Universidade Estadual de Campinas (Unicamp), Brasil\\
-  \small $^4$ Universidade Federal do Paran\'a (UFPR), Brasil\\
+  \small $^4$ Universidade Federal do Paraná (UFPR), Brasil\\
   \small $^*$ Autor correspondente: \texttt{lucasrover@alunos.utfpr.edu.br}\\
   \\
   \small ORCID: L.R. 0000-0001-6641-9224 $\cdot$ V.M.D. 0009-0001-0209-9089
-  $\cdot$ A.T.A. 0000-0003-1678-7795
-  $\cdot$ E.T.B. 0000-0002-3936-0375 $\cdot$ Y.S.T. 0000-0002-3975-3419
+  $\cdot$ A.T.A. 0000-0003-1678-7795 $\cdot$ E.T.B. 0000-0002-3936-0375
+  $\cdot$ Y.S.T. 0000-0002-3975-3419
 }
 
 \date{\today}
-
-% ============================================================
-% DOCUMENTO
-% ============================================================
 
 \begin{document}
 
 \maketitle
 
-% ------------------------------------------------------------
-% RESUMO
-% ------------------------------------------------------------
-\begin{abstract}
+\input{sections-PT/00_resumo}
 
-Gestores ambientais públicos no Sul Global cada vez mais consultam grandes
-modelos de linguagem (LLMs) sobre padrões vinculantes de qualidade do ar,
-concentrações medidas e evidência em saúde --- um domínio em que uma resposta
-errada pode moldar um parecer regulatório ou uma resposta de emergência. O
-PM\textsubscript{2.5} é o principal fator de risco ambiental para mortalidade
-prematura, e seu ônus recai desproporcionalmente sobre o Sul
-Global~\citep{gbd2019risk,who2021aqg,joshi2020state,mohamed2020decolonial}. Se
-esses sistemas atendem o Sul Global de modo tão confiável quanto o Norte Global,
-e se o enquadramento do prompt altera a resposta, ainda não havia sido medido
-para um domínio de política aplicada com gabarito verificável.
-
-Avaliamos, em benchmark, \textbf{25 países, 14 LLMs, quatro idiomas e cinco tipos
-de tarefa} (recuperação normativa, dado local medido, síntese de evidência em
-saúde, instrumentos de política e recomendação aplicada) contra gabarito oficial.
-Avaliamos cada modelo \emph{tal como servido} por meio de uma stack de acesso
-fixa (API do fornecedor ou endpoint de inferência fixado), com um fator de
-persona intra-sujeito (neutro versus gestor ambiental público) e um contraste
-inglês/idioma-nativo intra-país. O desenho foi pré-registrado para 15 países e
-depois estendido post hoc para 25 (sete a mais do Norte Global, três a mais do
-Sul Global) para ganhar poder; todo efeito é reportado ao lado de seu valor
-pré-registrado de 15 países.
-
-Três danos são robustos. Uma \textbf{diferença de camada} Norte/Sul de
-$+6.2$~pp (IC bootstrap de 95\% $[+3.7,+8.6]$, exclui zero) resolve-se, a
-$n=25$, em um \textbf{gradiente de desenvolvimento} (Spearman $\rho=0.51$ com o
-IDH, $p=0.004$; Mann-Kendall $p=0.018$; robusto a leave-one-out) que era
-indetectável no $n=15$ pré-registrado ($\rho=0.14$), fica logo abaixo do nosso
-limiar de tamanho de efeito pré-registrado de $0.55$ e acompanha o
-desenvolvimento, \emph{não} a classe de recurso linguístico (Joshi nulo). O
-\textbf{prompt em idioma nativo reduz a acurácia} ($-2.1$~pp no geral,
-$p=2\times10^{-3}$; $-7.8$~pp para o hindi), de modo que o idioma local não
-ajuda e pode prejudicar. A \textbf{acurácia colapsa na recuperação de padrão
-técnico e de dado local} (T1, T2 $\approx 0.37$ vs $0.64$ nas demais;
-$\delta$ de Cliff $=-0.64$), um piso de limiar regulatório; e o \textbf{modelo
-regional} brasileiro-português \textbf{é o pior de todos} ($\delta=-0.51$). Três
-correções intuitivas, portanto, falham juntas: nem uma persona de gestor local
-(permutação $p=0.26$), nem o idioma local, nem um modelo regional fecham a
-lacuna.
-
-Quanto ao mecanismo, o proxy de corpus pré-registrado (tamanho da Wikipédia) é
-nulo; um proxy de cobertura de país (sitelinks do Wikidata) correlaciona-se com
-a acurácia ($\rho=0.54$, $p=0.005$, sobrevivendo à correção de multiplicidade),
-mas atenua-se até a não-significância após ajuste para desenvolvimento
-($p=0.13$). Reportamos, assim, a cobertura de país como um canal \emph{sugestivo
-e exploratório} --- melhor que o tamanho do corpus do idioma, como esperado para
-uma lacuna medida em inglês --- não como mecanismo estabelecido. A confiabilidade
-entre um painel de juízes de quatro fornecedores é forte (ICC$(2,4)=0.89$ da
-média do painel), e o gabarito está ancorado em fontes oficiais primárias para
-todos os 25 países; o estudo usa um juiz primário validado por painel e uma
-auditoria documental do gabarito, sem uma camada de padrão-ouro humano.
-Protocolo, prompts e código de análise serão liberados na publicação.
-
-\end{abstract}
-
-\noindent\textbf{Palavras-chave:} grandes modelos de linguagem; viés geográfico;
-Sul Global; justiça epistêmica; pesquisa em políticas; benchmark; PLN
-multilíngue
+\noindent\textbf{Palavras-chave:} IA generativa no governo; informação
+regulatória; confiabilidade da informação; gestão ambiental pública; apoio
+algorítmico à decisão; modelos de linguagem de grande porte; Sul Global
 
 \vspace{1em}
 
-% ============================================================
-\section{Introdução}
-\label{sec:intro}
-% ============================================================
+\input{sections-PT/01_introducao}
+\input{sections-PT/02_trabalhos_relacionados}
+\input{sections-PT/03_metodos}
+\input{sections-PT/04_resultados}
+\input{sections-PT/05_discussao}
+\input{sections-PT/06_conclusao}
 
-Grandes modelos de linguagem (LLMs) passaram de curiosidade de pesquisa a
-infraestrutura operacional da administração pública em menos de cinco anos: um
-levantamento da OCDE sobre funções centrais de governo documenta a adoção de IA
-generativa ao longo da formulação de políticas e da prestação de serviços
-públicos, incluindo implantações que ajudam o corpo técnico da administração
-pública a pesquisar regulações e redigir sínteses
-técnicas~\citep{oecd2024governing}. Agências ambientais, secretarias municipais
-e analistas de políticas aplicadas cada vez mais redigem sínteses técnicas,
-traduzem normas regulatórias, localizam dados oficiais de monitoramento e
-caracterizam arcabouços institucionais com tal assistência. A política de
-poluição do ar é um domínio em que essa adoção carrega riscos diretos para a
-saúde pública. O material particulado fino (PM\textsubscript{2.5}) é o principal
-fator de risco ambiental para mortalidade prematura no
-mundo~\citep{gbd2019risk,who2021aqg}, e o ônus recai desproporcionalmente sobre
-o Sul Global~\citep{gbd2019risk}. Quando um gestor ambiental público em São
-Paulo, Lagos ou Jacarta consulta um LLM sobre um padrão de qualidade do ar, um
-prazo de atendimento ou a evidência epidemiológica por trás de uma intervenção,
-uma resposta imprecisa não é um erro benigno. Ela pode se propagar para um
-parecer regulatório, uma decisão de compra ou uma resposta de emergência durante
-um episódio de poluição.
-
-A questão que este artigo aborda é se os LLMs atendem a política de poluição do
-ar do Sul Global de modo tão confiável quanto atendem o Norte Global, e se a
-forma como uma consulta é enquadrada altera a resposta. Duas vertentes recentes
-de evidência tornam essa questão urgente, e não hipotética.
-
-\paragraph{O viés factual geográfico é real e mensurável.}
-\citet{moayeri2024worldbench} documentou taxas de erro factual 1.5$\times$
-maiores para países da África Subsaariana versus países da América do Norte, em
-20 modelos e 11 indicadores do Banco Mundial. \citet{manvi2024llm} mostrou que
-avaliações zero-shot de LLMs sobre temas subjetivos correlacionam-se fortemente
-com o nível de renda ($\rho$ de até 0.70 contra condições socioeconômicas).
-\citet{mirza2024global} constatou que o GPT-4 privilegia sistematicamente
-afirmações sobre o Norte Global em relação ao Sul Global em tarefas de
-verificação factual. Esses resultados estabelecem o fenômeno, mas nenhum deles
-tem como alvo um único domínio aplicado de alto risco com gabarito oficial
-verificável, e nenhum pergunta se o viés pode ser modulado pelo enquadramento do
-prompt.
-
-\paragraph{A assimetria linguística e de corpus é estrutural.}
-\citet{joshi2020state} mapeou uma hierarquia de seis classes de disponibilidade
-de recurso linguístico em PLN, mostrando que os idiomas da maioria dos países do
-Sul Global ocupam as classes inferiores sub-atendidas. A sub-representação no
-corpus de treinamento é a explicação dominante para o viés geográfico a
-jusante~\citep{bender2021stochastic}. Essa assimetria não é incidental; ela
-reproduz padrões de longa data de infraestrutura digital e epistêmica desigual
-que a literatura decolonial analisou para sistemas de
-IA~\citep{mohamed2020decolonial}.
-
-Identificamos três lacunas que o trabalho atual deixa em aberto para um domínio
-como a política de poluição do ar.
-
-\paragraph{Lacuna 1: nenhum benchmark tem como alvo a política de poluição do ar
-com gabarito oficial.} As avaliações existentes usam recuperação numérica do
-Banco Mundial (WorldBench), avaliações subjetivas (Manvi et al.), checagem
-factual jornalística (Global-Liar) ou conhecimento cultural cotidiano
-(BLEnD~\citep{myung2024blend}). Nenhuma mede as tarefas de recuperação e síntese
-que um gestor ambiental público de fato delega a um LLM: enunciar um padrão
-ambiental vinculante, recuperar uma concentração oficialmente medida, resumir a
-evidência de carga de doença, identificar os instrumentos legais e os órgãos
-executores, ou recomendar uma resposta operacional. Essas tarefas ancoram-se em
-fontes autoritativas (conselhos ambientais nacionais, agências estaduais de
-monitoramento, a Organização Mundial da Saúde, as estimativas do Global Burden of
-Disease), o que torna a acurácia verificável de um modo que benchmarks de trivia
-não são.
-
-\paragraph{Lacuna 2: o enquadramento por persona é inexplorado como alavanca
-experimental.} Profissionais rotineiramente prefixam consultas com um papel
-(``Como secretário municipal de meio ambiente, \dots''), e o condicionamento por
-persona ou papel é um padrão de prompt documentado em fluxos de prompting em
-produção~\citep{white2023prompt}. Se adotar a persona de um gestor ambiental
-público \emph{reduz} a lacuna de acurácia do Sul Global (ao orientar o modelo
-para respostas relevantes à política e conformes à regulação) ou a
-\emph{amplifica} (ao convidar à fabricação confiante de especificidades
-regulatórias que o modelo nunca aprendeu) não foi testado em um desenho
-pré-especificado. Tratamos a persona como um fator experimental intra-sujeito,
-em vez de um confundidor não controlado.
-
-\paragraph{Lacuna 3: o mecanismo de representação de corpus é asserido, não
-testado para este domínio.} A ligação entre representação de corpus e acurácia é
-assumida, mas raramente medida contra confundidores e raramente separada em seus
-dois canais. Distinguimos o tamanho do \emph{corpus do idioma} (quanto texto
-existe no idioma de um país: volume de tokens mC4~\citep{xue2021mt5}, tamanho do
-OSCAR~\citep{abadji2022oscar}, classe Joshi) da abrangência de
-\emph{cobertura de país} (quão amplamente o corpus é \emph{sobre} um país:
-cobertura na Wikipédia e no Wikidata), e testamos qual prediz a acurácia em
-política de poluição do ar após ajuste para o Índice de Desenvolvimento Humano
---- uma distinção que importa porque a lacuna geográfica é medida em inglês.
-
-\subsection*{Contribuições deste trabalho}
-
-Apresentamos um benchmark desenhado para essas lacunas, com hipóteses,
-amostragem e plano de análise pré-especificados antes da coleta de
-dados~\citep{nosek2018preregistration}, executado em 15 países e depois estendido
-para 25. Ao longo do trabalho, nossa unidade de análise é o modelo \emph{tal como
-servido} --- uma stack de pesos do modelo, fornecedor e infraestrutura de serving
-alcançada por uma API ou endpoint de inferência fixados --- em vez de um conjunto
-idealizado de pesos, porque um gestor público interage com a stack servida e
-qualquer lacuna medida é uma propriedade dessa stack
-(Seção~\ref{sec:methods}). Nossas contribuições são:
-
-\begin{enumerate}\setlength{\itemsep}{2pt}
-\item \textbf{Uma suíte de tarefas de política de poluição do ar com gabarito
-  verificável.} Construímos cinco tipos de tarefa mapeados a atividades reais de
-  decisão de um gestor ambiental público: recuperação de padrões ambientais
-  vinculantes e limites de emissão (T1), recuperação de concentrações locais
-  oficialmente medidas (T2), síntese de evidência epidemiológica de carga em
-  saúde (T3), identificação de instrumentos de política e órgãos executores (T4)
-  e recomendação aplicada avaliada por rubrica para um cenário operacional (T5).
-  Cada tarefa ancora-se em fontes oficiais nacionais ou internacionais, e toda
-  referência no gabarito é verificada contra um DOI ou URL resolvível antes de
-  entrar no conjunto de dados.
-\item \textbf{Prompting por persona como fator experimental pré-especificado.}
-  Manipulamos a persona intra-sujeito (consulta neutra vs.\ gestor ambiental
-  público) e testamos, como hipótese confirmatória co-primária (H6), se a
-  condição de persona reduz a lacuna de acurácia do Sul Global. Pré-especificamos
-  tanto a direção de redução (hipótese de Conformidade à Norma) quanto a direção
-  de amplificação (hipótese de Vácuo de Persona), reportando aquela que os dados
-  sustentarem.
-\item \textbf{Amostragem de países triangulada teoricamente.} Selecionamos 15
-  países estratificados ao longo de eixos independentes: a classificação
-  Norte/Sul da UNCTAD (operacionalizando a
-  colonialidade~\citep{mohamed2020decolonial}), a taxonomia de seis classes de
-  recurso linguístico de Joshi et al.~\citep{joshi2020state} e indicadores de
-  desenvolvimento humano e renda, depois estendidos para 25 a fim de ganhar poder
-  para os testes de gradiente e de mecanismo. Isso separa as contribuições
-  geográfica, linguística e econômica do viés e mostra --- como subproduto
-  metodológico --- que o gradiente de desenvolvimento é subpotente a $n=15$, mas
-  significativo a $n=25$.
-\item \textbf{Teste mecanístico separando os dois canais de corpus.} Testamos a
-  hipótese de representação de corpus (H4) usando proxies tanto de corpus do
-  idioma quanto de cobertura de país, com controles de correlação parcial para o
-  IDH. O proxy de tamanho de idioma pré-registrado é nulo; um proxy de cobertura
-  de país é uma pista promissora, porém entrelaçada com o desenvolvimento, que
-  reportamos como exploratória, e não como mecanismo estabelecido.
-\item \textbf{Sonda de modelo regional.} Incluímos um modelo aberto
-  brasileiro-português ajustado por instrução (Cabra-Mistral 7B v3) para testar,
-  como hipótese confirmatória secundária (H3), se o ajuste regional estreita a
-  lacuna do português para o Brasil em tarefas de política de poluição do ar.
-\item \textbf{Recursos abertos.} O protocolo completo, os prompts (após
-  validação), os documentos-fonte do gabarito, o código de análise e as figuras
-  serão liberados na publicação sob as licenças CC-BY-4.0 e MIT.
-\end{enumerate}
-
-\subsection*{Enquadramento teórico}
-
-Interpretamos nossos achados dentro do arcabouço da \emph{colonialidade do saber}
-~\citep{quijano2000coloniality,mohamed2020decolonial} e de suas articulações de
-dados e infraestrutura~\citep{couldry2019costs,dignazio2020data}. LLMs são
-sínteses estatísticas comprimidas de corpora produzidos sob condições de
-infraestrutura digital desigual e acesso desigual à publicação. Os idiomas e
-regiões que Joshi et al.\ situam nas classes sub-atendidas são justamente aqueles
-em que a poluição do ar mata mais pessoas~\citep{gbd2019risk,joshi2020state}.
-Quando um gestor ambiental do Sul Global consulta um modelo treinado em grande
-parte sobre texto do Norte Global para governar um problema local de qualidade do
-ar, a decisão resultante corre o risco de herdar as assimetrias do corpus. Isso
-posiciona nosso trabalho empírico como um teste de um elo em um ciclo de
-reprodução teorizado (assimetria do corpus de treinamento $\to$ assimetria de
-conhecimento do LLM $\to$ assimetria de decisão de política), e a manipulação de
-persona como um teste de se o enquadramento do prompt pode interromper esse elo.
-
-O artigo segue assim. A Seção~\ref{sec:related} posiciona nosso trabalho em
-relação à literatura. A Seção~\ref{sec:methods} apresenta o desenho
-pré-especificado. A Seção~\ref{sec:results} reporta os achados empíricos. A
-Seção~\ref{sec:discussion} os interpreta por lentes estatística e crítica e
-considera implicações práticas para a governança da poluição do ar. A
-Seção~\ref{sec:conclusion} encerra.
-
-% ============================================================
-\section{Trabalhos Relacionados}
-\label{sec:related}
-% ============================================================
-
-Organizamos o trabalho prévio em quatro vertentes: a descoberta e mensuração do
-viés factual geográfico, extensões multilíngues e culturais, tentativas de
-alinhamento e mitigação, e o uso de LLMs em contextos de decisão de política e
-saúde. Para cada uma, indicamos como o foco em política de poluição do ar e a
-manipulação de persona do presente estudo estendem a vertente.
-
-\subsection{Viés factual geográfico}
-
-\citet{manvi2024llm} estabeleceu que LLMs de fronteira carregam vieses
-sistemáticos contra regiões de condições socioeconômicas mais baixas, com
-correlações de Spearman de até 0.70 entre avaliações geradas pelo modelo (de
-atratividade, moralidade e inteligência) e a renda per capita. O espaço de
-desfecho (avaliações subjetivas) deixa em aberto se o mesmo viés aparece na
-recuperação objetiva de fatos regulatórios e epidemiológicos, que é o que a
-política de poluição do ar exige.
-
-\citet{moayeri2024worldbench} introduziu o WorldBench, quantificando a
-recuperação factual contra indicadores do Banco Mundial em 20 LLMs e 11
-indicadores e documentando erro relativo absoluto 1.5$\times$ maior para a África
-Subsaariana versus a América do Norte. O WorldBench também foi pioneiro na
-detecção automática de alucinação de citação, em que modelos citam o Banco
-Mundial enquanto produzem estatísticas falsas. O desenho é limitado pelo espaço
-de indicadores macroeconômicos; um gestor ambiental faz perguntas mais estreitas
-e específicas a fontes (um padrão ambiental nacional, um prazo de fase de
-atendimento, uma concentração medida por cidade-ano) cujo gabarito reside em
-conselhos ambientais e agências de monitoramento, e não em um único banco de
-dados agregado.
-
-\citet{mirza2024global} (Global-Liar) estendeu a questão à estabilidade temporal,
-mostrando que versões mais novas do GPT-4 não melhoram monotonicamente e que o
-privilégio de afirmações do Norte Global persiste entre versões. Sua contribuição
-é temporal e intra-modelo, em vez de inter-modelo, inter-idioma ou específica de
-domínio.
-
-Esses estudos estabelecem que o fenômeno existe e é mensurável. Nenhum isola um
-único domínio aplicado com gabarito oficial verificável, e nenhum trata o
-enquadramento do prompt como fator manipulável.
-
-\subsection{Extensões multilíngues e culturais}
-
-\citet{myung2024blend} (BLEnD) introduziu pares de pergunta-resposta cobrindo 16
-países e 13 idiomas em conhecimento cultural cotidiano. O achado de que LLMs
-têm desempenho melhor nos idiomas nativos de culturas de alto recurso, mas pior
-nos de baixo recurso, motiva nossa hipótese exploratória de idioma (H2) e conecta
-diretamente à hierarquia de recurso de \citet{joshi2020state}. Ainda assim, o
-BLEnD mede acurácia de conhecimento cultural, não a acurácia de recuperação
-regulatória e de política de saúde, e sua seleção de países não é estratificada
-teoricamente.
-
-Benchmarks regionais proliferaram: BRoverbs~\citep{broverbs2025} para provérbios
-brasileiros, TiEBe~\citep{almeida2025tiebe} para eventos históricos regionais, e
-ALBA~\citep{alba2026} e AMALIA~\citep{amalia2026} para português europeu. Eles
-documentam falhas concretas em tarefas culturalmente ancoradas, mas não abordam o
-uso em política aplicada, e cada um limita-se a um ou dois idiomas. O trabalho
-sobre construção de corpus em português~\citep{almeida2025portuguese} ressalta
-como snapshots do Common Crawl sub-representam o conteúdo lusófono, a assimetria
-de corpus que nossa H4 testa.
-
-\subsection{Alinhamento e mitigação}
-
-\citet{opuszko2026unraveling} investigou se modelos de raciocínio reduzem o viés
-geográfico, constatando que o raciocínio ajuda em agregado, mas não elimina
-disparidades regionais. \citet{kerche2026silicon} propôs uma tipologia baseada em
-lugar dos vieses de LLMs, situando o viés geográfico em um panorama
-sociotécnico mais amplo. Essas contribuições são conceituais e agregadas;
-acrescentamos um teste empírico pré-especificado e específico de domínio e
-introduzimos a persona como alavanca candidata de mitigação, em vez de uma
-propriedade fixa do modelo.
-
-\subsection{LLMs em contextos de decisão de política e saúde}
-
-Uma literatura paralela examina o uso de LLMs em cenários específicos de
-política. \citet{lecoz2025policymaking} avaliou recomendações de política de LLMs
-para a questão de pessoas em situação de rua em quatro cidades (incluindo
-Barcelona, Joanesburgo e South Bend), constatando uma ``rigidez cega ao
-contexto'' em que os modelos aplicam heurísticas internas estáveis mal calibradas
-às realidades locais e alinham-se mais de perto a especialistas do Norte Global.
-Seu resultado mostra que o viés importa para a política em um único domínio e um
-único tipo de tarefa (recomendação). Generalizamos para um domínio regulatório e
-de saúde com cinco tipos de tarefa abrangendo recuperação, síntese e
-recomendação, e acrescentamos a manipulação de persona ausente em seu desenho.
-
-Em saúde especificamente, \citet{kozlakidis2026medical} argumentam que as
-alucinações de LLMs carregam risco agudo em ambientes regulatórios com capacidade
-técnica limitada, observando que a incompatibilidade de idioma e cultura entre
-modelos treinados globalmente e a prática local aumenta o erro. A política de
-poluição do ar situa-se na interseção desse risco com a carga de mortalidade
-documentada pelas estimativas do Global Burden of Disease~\citep{gbd2019risk}, o
-que faz da recuperação acurada de padrões e evidência em saúde uma preocupação de
-saúde pública, e não uma abstração de benchmark.
-
-\subsection{Persona e condicionamento por papel}
-
-O condicionamento por papel ou persona é um padrão de prompt documentado em
-prompting em produção~\citep{white2023prompt}, e um corpo crescente de trabalho
-relata que atribuir um papel de especialista pode deslocar as saídas do modelo em
-qualquer direção, dependendo da tarefa e do domínio. A evidência sistemática é
-desanimadora: em quatro famílias de LLMs e 2{,}410 perguntas factuais, adicionar
-personas de especialista aos prompts de sistema não melhorou a acurácia em
-relação a um controle sem persona, e em 162 papéis \emph{reduziu} ligeiramente a
-acurácia em média~\citep{zheng2024helpful}; uma replicação independente também
-constata que personas de especialista não melhoram a acurácia
-factual~\citep{mollick2025personas}. Se o condicionamento por persona ajuda ou
-prejudica a confiabilidade factual em domínios de alto risco e intensivos em
-conhecimento é, portanto, indefinido e, até onde sabemos, não testado para
-equidade geográfica. Tratamos, assim, a persona como fator experimental
-pré-especificado e testamos tanto a hipótese de Conformidade à Norma (a persona
-reduz a lacuna) quanto a hipótese de Vácuo de Persona (a persona a amplifica).
-
-\subsection{Posicionamento do presente trabalho}
-
-Nosso desenho difere do trabalho prévio em quatro maneiras concretas: (i) um
-único domínio aplicado de alto risco (política de poluição do ar) com gabarito
-oficial verificável, em vez de trivia numérica ou conhecimento cultural; (ii) a
-persona como fator experimental intra-sujeito pré-especificado, em vez de uma
-escolha de enquadramento não controlada; (iii) amostragem de países guiada por
-teoria em eixos independentes (colonialidade UNCTAD, recurso linguístico Joshi,
-desenvolvimento), em vez de conveniência regional; e (iv) um teste explícito do
-mecanismo de representação de corpus com análise de sensibilidade. Nenhum estudo
-prévio combina um domínio regulado de saúde pública, uma manipulação de persona e
-um teste de mecanismo pré-especificado.
-
-% ============================================================
-\section{Métodos}
-\label{sec:methods}
-% ============================================================
-
-\subsection{Desenho da pesquisa}
-
-Especificamos um experimento de benchmark pré-especificado, fatorial e
-multipaís para quantificar o viés geográfico e modulado por persona em 14 grandes
-modelos de linguagem em tarefas de política de poluição do ar relevantes para a
-gestão ambiental pública. O desenho pré-registrado cruza 15 países
-(estratificados ao longo de três eixos teoricamente fundamentados), 14 LLMs
-abrangendo cinco camadas de acesso, um domínio guiado por teoria (política de
-poluição do ar), 5 tipos de tarefa e 2 condições de persona (neutra versus gestor
-ambiental público), com 2 replicações estocásticas por célula
-prompt-modelo-persona; uma extensão pós-registro (Seção~\ref{sec:expansion})
-amplia a amostra para 25 países. O conjunto de estímulos cruza as cinco tarefas e
-as duas personas de cada país em inglês, além de uma renderização em idioma
-nativo intra-país para os nove países com idioma nativo-alvo, pontuado no composto
-$[0,1]$. O protocolo do estudo fixa, antes da coleta de dados, as hipóteses, os
-modelos primários, o protocolo de persona, os critérios de exclusão e as
-correções de comparações múltiplas. Uma coleta restrita ao Brasil executada sob
-um desenho anterior de três domínios é reclassificada como piloto estendido e
-reportada separadamente; ela informou a calibração de prompts, mas não contribui
-com observações confirmatórias.
-
-\subsection{Seleção de países}
-
-Os países foram selecionados por amostragem teórica~\citep{patton2015qualitative}
-triangulada em três classificações independentes. Primeiro, a
-\textbf{classificação Norte/Sul Global da UNCTAD}~\citep{unctad2024classification}
-operacionaliza o arcabouço da colonialidade do saber que motiva este
-estudo~\citep{mohamed2020decolonial}. Segundo, a \textbf{taxonomia de seis
-classes de Joshi et al.\ (2020)} de representação de recurso linguístico em
-corpora de PLN forneceu uma dimensão de estratificação
-ortogonal~\citep{joshi2020state}. Terceiro, os \textbf{grupos de renda do Banco
-Mundial (AF26)}~\citep{worldbank2025classification} captaram a posição econômica
-independentemente dos dois eixos anteriores.
-
-A amostra final de 15 países --- Brasil, México, Argentina, Peru (América
-Latina); Nigéria, África do Sul, Quênia, Egito (África); Índia, Indonésia,
-Bangladesh, Filipinas (Ásia); e Estados Unidos, Alemanha, Japão (referência do
-Norte Global) --- cobre quatro regiões do mundo, cinco classes Joshi (1 a 5) e
-quatro grupos de renda do Banco Mundial. Os doze países do Sul Global também
-variam na maturidade da governança doméstica de qualidade do ar, o que é
-relevante para a disponibilidade do gabarito (Seção~\ref{sec:groundtruth}).
-Países com governança estatística comprometida (por exemplo, conflito ativo) ou
-sem um padrão nacional de qualidade do ar publicamente recuperável foram
-excluídos; a Oceania e os idiomas de Classe~0 de Joshi não foram representados
-dadas restrições de viabilidade e são reconhecidos como limitações de escopo.
-
-\subsection{Expansão confirmatória da amostra (pós-registro)}
-\label{sec:expansion}
-
-Após a análise pré-registrada de 15 países, e \emph{reportada aqui de modo
-transparente como uma extensão pós-registro, e não como parte do protocolo
-travado}, a amostra foi ampliada para \textbf{25 países} a fim de aumentar o poder
-estatístico para os testes de gradiente (H1) e de mecanismo de corpus (H4) e de
-multiplicar os pares de idioma intra-país disponíveis para H2. Dez países foram
-adicionados sob procedimentos idênticos de construção de prompt, gabarito, coleta
-e pontuação. Seis são referências do \textbf{Norte Global} escolhidas puramente
-para alargar a ponta de alto recurso do gradiente --- Reino Unido, Canadá,
-Austrália, Coreia do Sul, França e Itália. Quatro são países de
-\textbf{par de idioma nativo} que adicionam contrastes em espanhol (Colômbia,
-Chile) e português (Portugal, Angola) para H2; destes, Portugal é também do Norte
-Global, enquanto Colômbia, Chile e Angola são do Sul Global. Os dois papéis se
-sobrepõem, de modo que, por camada, a extensão adiciona sete países do Norte
-Global (as seis referências mais Portugal), elevando a célula do Norte Global de
-três para dez, e três do Sul Global; por idioma, eleva os pares de língua
-espanhola de três para cinco e os de língua portuguesa de um para três. Como esta
-extensão foi decidida após observar os resultados iniciais, todo efeito calculado
-na amostra de 25 países é reportado ao lado de sua contraparte pré-registrada de
-15 países, e nenhuma conclusão pré-registrada é revista com base apenas na
-extensão; a expansão é tratada como uma checagem de poder e robustez, e não como
-um novo teste confirmatório. Angola, como Nigéria e Argentina, \emph{não} tem
-padrão nacional de PM\textsubscript{2.5}, fornecendo casos adicionais de
-ausência-de-padrão em que um modelo fiel deve recusar-se a indicar um limiar
-inexistente em vez de fabricá-lo.
-
-Para multiplicar os pares de H2 sem adicionar novos idiomas, duas variantes
-adicionais de pergunta por (país, tarefa) também foram geradas para os cinco
-países originais de par nativo por meio de um modelo gerador de alta qualidade e
-renderizadas tanto em inglês quanto no idioma nativo; essas variantes são usadas
-\emph{apenas} para o contraste pareado inglês-versus-nativo (H2), no qual qualquer
-imperfeição no gabarito gerado se cancela entre os dois membros de um par, e são
-excluídas das comparações de acurácia absoluta (H1, H3).
-
-\subsection{Covariáveis dos países}
-\label{sec:covariates}
-
-Para cada país compilamos covariáveis de desenvolvimento e de representação de
-corpus. O \textbf{Índice de Desenvolvimento Humano (IDH)} (Relatório de
-Desenvolvimento Humano da UNDP 2023--24, dados de 2022) e o \textbf{PIB per
-capita} indexam a posição de desenvolvimento e entram na análise de mecanismo
-como covariáveis de ajuste.
-
-As exposições de representação de corpus são organizadas segundo uma distinção
-que a análise de mecanismo (H4) torna explícita, porque os dois canais aplicam-se
-a efeitos diferentes. As \textbf{medidas de corpus do idioma} quantificam quanto
-texto de pré-treinamento existe \emph{em} um idioma e são o mecanismo candidato
-para a penalidade de idioma nativo (H2): a contagem de tokens mC4 por idioma
-(\citealp{xue2021mt5}, Tabela~6), o tamanho do corpus deduplicado OSCAR-2301 por
-idioma~\citep{abadji2022oscar} e a classe de recurso linguístico de
-Joshi~\citep{joshi2020state}. As \textbf{medidas de corpus de país} quantificam
-quanto o corpus enciclopédico é \emph{sobre} um país, independentemente do idioma,
-e são o mecanismo candidato para a lacuna geográfica (H1/H4): o comprimento em
-bytes do artigo da Wikipédia em inglês sobre o país, o número de edições de idioma
-da Wikipédia com um artigo sobre ele (contagem de sitelinks do Wikidata) e o
-número de declarações (statements) do Wikidata sobre a entidade do país. As duas
-famílias não são intercambiáveis: como a lacuna geográfica é medida \emph{em
-inglês} (idioma mantido constante entre países), uma lacuna Norte/Sul residual não
-pode ser um efeito de corpus do idioma, de modo que a H4 isola o canal de
-representação de país para H1 e o canal de corpus do idioma para H2. Todos os
-valores de covariáveis, fontes oficiais e datas de acesso são versionados no
-release da análise.
-
-\subsection{Seleção de modelos}
-
-Quatorze LLMs foram avaliados em cinco camadas de acesso, abrangendo cerca de duas
-ordens de grandeza em contagem de parâmetros e quatro geografias de dados de
-treinamento (Estados Unidos, China, Europa, Brasil). A \textbf{Camada A
-(fronteira de peso aberto, 5 modelos)} compreendeu grandes sistemas de peso
-aberto acessados por endpoints de inferência gratuitos. As \textbf{Camadas B
-(peso aberto médio, 3 modelos)} e \textbf{C (peso aberto pequeno/regional, 2
-modelos)} foram executadas localmente via Ollama sob tags de modelo fixadas; a
-Camada C inclui um modelo aberto brasileiro-português ajustado por instrução
-(Cabra-Mistral~7B~v3) usado para o teste de modelo regional (H3) contra um modelo
-aberto treinado globalmente de escala equivalente. As \textbf{Camadas D (fechada
-acessível, 2 modelos)} e \textbf{E (fechada de fronteira, 1 modelo)} foram
-acessadas via APIs oficiais. Cada modelo foi consultado com uma string de versão
-ou tag fixada idêntica ao longo de toda a janela de coleta; tags e, quando
-disponíveis, hashes de pesos são registrados no release do protocolo para
-proteger contra atualizações de modelo durante a coleta. O roster completo de
-modelos com fornecedor, contagem de parâmetros, rota de acesso e backend de
-execução é fornecido na Tabela~S1 do Suplementar.
-
-Uma nota sobre a unidade de análise. Comparamos \emph{modelos tal como servidos}
-por meio de uma stack de acesso fixa (API oficial do fornecedor para modelos
-fechados; um endpoint de inferência fixado para modelos de peso aberto), e não
-pesos idealizados do modelo isoladamente. A infraestrutura do provedor, a
-configuração de serving e a camada de API são, portanto, parte do que cada rótulo
-denota, e uma lacuna residual poderia, em princípio, refletir a stack em vez dos
-pesos. Mantemos isso constante fixando strings/tags de versão e a configuração de
-máximo determinismo disponível por provedor ao longo de uma janela de coleta
-fixa, e tratamos ``modelo'' ao longo do texto como abreviação dessa stack de
-modelo servido; desemaranhar pesos de infraestrutura é uma questão separada que
-não pretendemos resolver.
-
-\subsection{Domínio e taxonomia de tarefas}
-\label{sec:tasks}
-
-O domínio único é a \textbf{política de poluição do ar}, escolhido por ancorar-se
-em gabarito oficialmente publicado e verificável (padrões nacionais de qualidade
-do ar, dados de monitoramento de agências ambientais, programas federais de
-controle) e por mapear-se a atividades concretas de decisão de um gestor
-ambiental público. Cinco tipos de tarefa operacionalizam o domínio:
-
-\begin{itemize}
-  \item \textbf{T1 --- Padrão técnico.} Recuperação de padrões vinculantes de
-        qualidade do ar, limites de emissão ou limiares regulatórios (por
-        exemplo, o padrão anual de PM\textsubscript{2.5} em vigor no país).
-  \item \textbf{T2 --- Dado factual local.} Recuperação de dados de qualidade do
-        ar oficialmente medidos para uma cidade ou região e ano especificados,
-        conforme reportado pela agência ambiental nacional ou subnacional.
-  \item \textbf{T3 --- Síntese de evidência em saúde.} Síntese de evidência
-        epidemiológica revisada por pares sobre a carga de saúde da poluição do
-        ar para o país, pontuada contra uma rubrica em vez de um único valor.
-  \item \textbf{T4 --- Instrumentos de política.} Identificação de programas de
-        política, órgãos executores e instrumentos legais de controle da poluição
-        do ar em vigor no país.
-  \item \textbf{T5 --- Recomendação aplicada.} Recomendação aplicada avaliada por
-        rubrica para um cenário operacional definido (por exemplo, resposta de
-        curto prazo a um episódio de alta concentração sob inversão térmica).
-\end{itemize}
-
-T1, T2 e T4 admitem gabarito verificável e carregam o sinal primário de acurácia;
-T3 e T5 são tarefas de geração aberta pontuadas por rubrica. O mapeamento
-país-por-tarefa das classes de fonte oficial, dos critérios de equivalência e do
-status de verificabilidade é especificado no registro de gabarito
-(Seção~\ref{sec:groundtruth}).
-
-\subsection{Manipulação de persona}
-\label{sec:persona}
-
-A persona é um fator intra-prompt com dois níveis. A condição \textbf{neutra}
-apresenta a consulta como um pedido simples de informação. A condição
-\textbf{public\_manager\_env} antepõe um quadro de papel fixo identificando o
-solicitante como um funcionário de gestão ambiental municipal ou regional,
-mantendo a pergunta substantiva idêntica entre as condições. Um único template de
-quadro de papel é aplicado uniformemente entre países e tarefas (traduzido quando
-o idioma do prompt não é o inglês), de modo que qualquer diferença entre condições
-seja atribuível ao quadro de persona, e não à redação da pergunta. A ordem da
-persona dentro de cada célula prompt-modelo é randomizada, e uma checagem de
-manipulação verifica se o quadro de papel é reconhecido na resposta. A redação
-exata, o procedimento de tradução e a codificação da checagem de manipulação são
-pré-especificados e reproduzidos no Material Suplementar. A persona é a base da
-hipótese H6, que testa se o quadro de papel reduz (ou amplifica) o gradiente de
-acurácia em nível de país.
-
-\subsection{Construção e validação de prompts}
-
-Os prompts foram autorados para o domínio de política de poluição do ar pela
-equipe de pesquisa com supervisão de domínio (PPGSAU/UTFPR) e validados contra o
-registro de gabarito antes de entrarem no conjunto confirmatório de estímulos. Um
-subconjunto-piloto foi primeiro validado quanto à concordância entre avaliadores
-usando o $\alpha$ de Krippendorff, com um limiar de $\alpha \geq 0.70$ exigido
-antes de escalar o desenho. Todos os prompts foram autorados em inglês e, para um
-subconjunto estratificado de países, adicionalmente em um idioma nativo relevante
-(matriz multilíngue esparsa; Seção~S3 do Suplementar); as renderizações em idioma
-nativo foram produzidas por um tradutor LLM de alta qualidade (Claude Sonnet~4.6),
-instruído a preservar o significado, o enquadramento de persona e nomes próprios e
-siglas, com o gabarito factual mantido em inglês (o valor-alvo é invariante ao
-idioma). Não empregamos tradução humana por falantes nativos nem uma etapa de
-verificação por retrotradução; isso é reconhecido como limitação
-(Seção~\ref{sec:discussion}). Após a
-validação do piloto do Brasil, exigiu-se que toda afirmação factual em uma entrada
-de gabarito resolvesse para uma URL de fonte oficial ou um DOI revisado por pares
-antes de o prompt correspondente ser admitido, aplicando o Protocolo de
-Verificação de Citações do projeto no estágio de geração do gabarito, e não apenas
-no estágio do manuscrito.
-
-\subsection{Gabarito e o registro de gabarito}
-\label{sec:groundtruth}
-
-O gabarito para as tarefas verificáveis (T1, T2, T4) foi extraído de fontes
-oficiais de registro: padrões nacionais de qualidade do ar e as agências que os
-emitem (T1), relatórios de monitoramento de agências ambientais (T2) e programas
-federais de política com seus órgãos executores e instrumentos legais (T4). Para
-T3, a referência é um conjunto curado de estudos epidemiológicos revisados por
-pares com DOIs resolvíveis, em vez de um único número. Como a validade do
-gradiente geográfico (H1) e do efeito de persona (H6) depende de o gabarito estar
-igualmente disponível e igualmente verificável em todos os países, construímos um
-registro de gabarito por país que, para cada par (país, tarefa), registra a classe
-de fonte oficial equivalente, a URL resolvível, o valor-ouro ou a chave da
-rubrica, a data de referência, o validador humano e um sinalizador de validação. O
-desenho do registro, os critérios de equivalência entre países e a separação
-explícita entre uma lacuna de conhecimento da IA e uma lacuna de disponibilidade
-de gabarito são documentados em
-\texttt{docs/ground\_truth\_registry\_design.md} e resumidos no Material
-Suplementar. As entradas são versionadas por data de acesso, URL de fonte e um
-hash SHA-256 do documento recuperado. Onde o gabarito poderia plausivelmente ter
-aparecido nos dados de treinamento, um subconjunto de sensibilidade é construído a
-partir de documentos datados após o corte de treinamento de cada modelo. As
-entradas cuja fonte oficial é indisponível ou não equivalente para um país são
-sinalizadas e excluídas da comparação primária de acurácia para a célula (país,
-tarefa) afetada, de modo que gabarito ausente nunca seja pontuado como erro do
-modelo.
-
-\subsection{Coleta de dados}
-
-As chamadas de API e locais foram executadas à temperatura~0.3 com seeds
-determinísticas quando disponíveis, com 2 replicações por combinação
-prompt-modelo-persona para estimar a variabilidade estocástica dentro do
-orçamento. A coleta ocorreu dentro de uma janela fixa para minimizar
-confundimentos por atualização de modelo, com a tag fixada, a string de versão e
-o timestamp de aquisição registrados para cada chamada; como o comportamento do
-modelo servido pode derivar à medida que fornecedores atualizam a infraestrutura,
-as acurácias reportadas são estimativas point-in-time relativas a essa janela, e
-as datas de aquisição por provedor são liberadas com o conjunto de dados. Todas as
-respostas foram armazenadas junto com metadados completos da requisição (string de
-versão ou tag do modelo, timestamp, contagens de tokens, motivo de finalização,
-condição de persona) em uma camada de armazenamento versionada com checksums
-SHA-256. Os portões de qualidade de resposta excluíram respostas truncadas
-(\texttt{finish\_reason $\neq$ stop}) e respostas em idioma divergente do
-solicitado; ambas foram retidas e analisadas separadamente como desfechos
-secundários.
-
-A cobertura por célula não é uniforme no roster de modelos: endpoints gratuitos e
-com limite de taxa (por exemplo, GPT-OSS~120B via um provedor de inferência
-compartilhado) retornaram menos respostas admissíveis do que as APIs medidas, de
-modo que o $N$ pontuado varia de cerca de 300 a 780 respostas por modelo.
-Reportamos o $N$ realizado de cada modelo ao lado de sua pontuação
-(Tabela~\ref{tab:conf-model}) em vez de descartar silenciosamente células
-sub-cobertas, e uma matriz de cobertura completa modelo~$\times$~país~$\times$~tarefa,
-com a cota e os motivos de exclusão de cada déficit, é fornecida no Material
-Suplementar para que nenhuma ausência fique oculta.
-
-\subsection{Medidas}
-
-A pontuação usou um protocolo de LLM-como-juiz com um único juiz primário e um
-painel de confiabilidade de múltiplos fornecedores. Cada resposta no conjunto
-confirmatório foi pontuada pelo \textbf{juiz primário} (GPT-5-mini) contra a
-entrada do registro de gabarito (para T1, T2, T4) ou a rubrica validada (para T3,
-T5), produzindo os cinco subcomponentes normalizados abaixo. Para quantificar a
-sensibilidade do juiz, uma \textbf{amostra de confiabilidade fixa e
-estratificada} (estratificada por país~$\times$~tarefa~$\times$~persona, com seed
-aleatória fixa) foi re-pontuada de modo independente por um painel diverso de
-fornecedores. O painel operativo compreende quatro juízes abrangendo quatro
-fornecedores --- GPT-5-mini (OpenAI), Claude Sonnet~4.6 (Anthropic),
-Gemini~2.5~Pro (Google) e DeepSeek-V3 (DeepSeek) --- escolhidos por diversidade de
-fornecedor para que a correlação intra-fornecedor não infle a concordância
-aparente; um quinto juiz (Llama~3.3~70B, Meta) corrobora no subconjunto que
-cobriu, e um sexto candidato (Command~R+, Cohere) foi tentado, mas excluído quando
-sua cota de provedor se esgotou durante a execução. A confiabilidade é reportada
-de três formas: o $\alpha$ de Krippendorff (um coeficiente de concordância entre
-avaliadores, $1$ = perfeito, $0$ = acaso), o ICC(2,1) de juiz único (correlação
-intraclasse para um avaliador, efeitos aleatórios de duas vias) e, como
-quantidade operativa, a \textbf{confiabilidade ICC(2,$k$) da média do painel},
-que, pela relação de Spearman-Brown, é alta mesmo quando juízes individuais
-concordam apenas moderadamente. Reportamos a concordância de modo transparente,
-incluindo o juiz mais discordante: qualquer offset sistemático de leniência se
-cancela nos contrastes entre grupos que carregam todo efeito reportado (diferença
-de camada, penalidade de idioma, piso de tarefa), de modo que a concordância
-moderada de juiz único não ameaça esses contrastes. Este estudo não incluiu uma
-camada de padrão-ouro humano; o gabarito foi, em vez disso, ancorado em fontes
-oficiais primárias por meio de uma auditoria documental
-(Seção~\ref{sec:groundtruth}), e a ausência de pontuação humana independente é
-declarada como limitação.
-
-O desfecho composto primário combina os cinco subcomponentes pré-especificados
-(ver Seção~S6 do Suplementar), cada um normalizado para $[0,1]$: (i) acurácia
-factual contra a entrada do registro (binária em T1; crédito parcial em T2--T4);
-(ii) completude contextual pontuada contra uma rubrica pré-validada (T3, T4,
-$0$--$5$); (iii) qualidade de citação verificada por DOI e checagem de fonte
-oficial; (iv) ausência de alucinação, codificada binariamente ($0$~alucinado,
-$1$~fiel); e (v) validade aplicada, a pontuação de rubrica para a recomendação
-operacional em T5. A inferência primária usa pesos iguais; duas ponderações de
-sensibilidade pré-especificadas (um conjunto derivado de PCA estimado no piloto
-estendido do BRA e um conjunto especificado pelos autores: factual~0.30,
-contextual~0.25, citação~0.15, alucinação~0.15, aplicada~0.15) são reportadas, e
-uma conclusão é tratada como robusta apenas se valer nas três. O composto é
-calculado por célula (país, modelo, persona) para sustentar o teste de
-diferença-em-diferenças de H6.
-
-\subsection{Estratégia analítica}
-
-Os três testes confirmatórios primários são pré-especificados como uma única
-família (F1) e corrigidos em conjunto com o procedimento de Bonferroni-Holm (uma
-correção familiar do tipo step-down para comparações múltiplas). Os testes
-confirmatórios secundários (F2) são reportados sem ajuste dentro da família, e os
-testes exploratórios declarados (F3) usam o FDR de Benjamini-Hochberg a
-$q=0.10$~\citep{benjamini1995fdr}.
-
-\textbf{H1 (gradiente geográfico, primário).} A acurácia composta média em nível
-de país (n=15) é regredida sobre o gradiente Joshi/IDH via Spearman $\rho$
-(correlação de postos), pré-especificada unicaudal com limiar $\rho \geq 0.55$ a
-$\alpha=0.05$, com um teste de Mann-Kendall (um teste não paramétrico de
-tendência monotônica) como complemento obrigatório de não-monotonicidade e um
-indicador binário do Sul Global como contraste de sensibilidade.
-
-\textbf{H4 (mecanismo de representação de corpus, primário).} O $\rho$ parcial de
-Spearman em nível de país relaciona a representação de corpus à acurácia após
-ajuste para IDH e log do PIB per capita, usando contagens da Wikipédia como proxy
-primário ($\rho \geq 0.55$) e exigindo convergência em pelo menos duas de três
-operacionalizações do Common Crawl ($\rho \geq 0.40$). Uma análise de
-sensibilidade de E-value~\citep{vanderweele2017evalue} quantifica o confundimento
-não medido necessário para anular a associação (limiar 2.0).
-
-\textbf{H6 (efeito de persona, primário).} O efeito de persona é testado como uma
-diferença-em-diferenças em nível de país sobre o desfecho composto:
-$\Delta_{\mathrm{GS}} = \overline{\text{persona}}_{\mathrm{GS}} -
-\overline{\text{neutral}}_{\mathrm{GS}}$ e
-$\Delta_{\mathrm{GN}} = \overline{\text{persona}}_{\mathrm{GN}} -
-\overline{\text{neutral}}_{\mathrm{GN}}$, com a estatística de H6
-$\Delta_{\mathrm{GS}} - \Delta_{\mathrm{GN}}$. H6 é sustentada (unicaudal,
-$\alpha=0.05$) se a condição de persona reduzir a lacuna do Sul Global em pelo
-menos $0.05$ no composto $[0,1]$ (equivalentemente, 5 pontos percentuais de
-acurácia absoluta). A inferência usa um teste de permutação em nível de país
-(5{,}000 permutações) reportado ao lado de um teste pareado paramétrico; o teste
-bicaudal é reportado como checagem secundária, pois a amplificação por persona é
-teoricamente possível e é reportada de modo transparente se observada.
-
-\textbf{H3 (modelo regional, secundário).} Um contraste unicaudal
-pré-especificado em um modelo linear misto generalizado compara o
-Cabra-Mistral~7B~v3 em prompts em português brasileiro contra um modelo aberto
-treinado globalmente de escala equivalente, com um contraste-companheiro
-exploratório em outros contextos lusófonos para distinguir fechamento de lacuna de
-deslocamento de lacuna.
-
-\textbf{H2 e H5 (exploratórios).} A interação idioma-do-prompt~$\times$~país (H2)
-e o contraste fronteira-aberta versus fronteira-fechada (H5) são reportados
-descritivamente, com testes formais sob correção F3 quando aplicados.
-
-As análises transversais de modelo misto usam Modelos Lineares Mistos
-Generalizados com interceptos aleatórios para país e modelo, implementados via
-\texttt{pymer4}~\citep{pymer4} interfaceando com o \texttt{lme4} do
-R~\citep{bates2015lme4}: \texttt{lmer} com REML para o composto gaussiano e
-\texttt{glmer} com família binomial e link logit para desfechos binários. Onde uma
-decomposição de mediação é reportada para H4, ela usa
-\texttt{semopy}~\citep{semopy} com 5{,}000 replicações bootstrap. As análises de
-robustez, todas pré-especificadas, incluem reestimação leave-one-country-out,
-restrição ao subconjunto validado por padrão-ouro humano, reestimação bayesiana
-com prioris fracamente informativas via \texttt{pymc}~\citep{pymc} e uma análise
-separada excluindo prompts sinalizados por potencial contaminação de dados de
-treinamento. Uma simulação de poder de Monte Carlo (10{,}000 iterações sob
-tamanhos de efeito informados pelo piloto) confirma o poder familiar para o trio
-primário sob Bonferroni-Holm; o desenho de persona intra-sujeito rende uma redução
-mínima detectável de lacuna de aproximadamente 2--3 pontos percentuais, de modo
-que o limiar de 5 pontos de H6 é bem-potente. Os detalhes de poder são reportados
-no Material Suplementar.
-
-\subsection{Protocolo do estudo e ciência aberta}
-
-O protocolo completo --- hipóteses, prompts com hashes, o registro de gabarito, o
-template de persona, as rubricas de pontuação, as especificações de GLMM e DiD, as
-correções de comparações múltiplas e os critérios de exclusão --- é
-pré-especificado antes da coleta confirmatória de dados. O conjunto de dados
-analítico, após os portões de qualidade, mas antes do ajuste de modelos, é
-congelado e hasheado para que a análise confirmatória possa ser auditada contra a
-especificação travada. O protocolo completo, os prompts, as referências de
-gabarito, o código de análise e os dados anonimizados de resposta serão liberados
-na publicação sob CC-BY-4.0 (dados e prompts) e a Licença MIT
-(código)~\citep{zenodo2026dataset}; um Data Paper companheiro está preparado para
-o \textit{Scientific Data}.
-
-\subsection{Considerações éticas}
-
-Nenhum dado pessoal de usuários finais de LLMs foi coletado. O estudo analisa
-saídas de modelos para questões de política publicamente relevantes; especialistas
-de domínio que contribuem para a validação do gabarito são reconhecidos como
-coautores quando atendem aos critérios do ICMJE. Os termos de serviço dos
-provedores de LLM foram revisados e respeitados, e as respostas são
-redistribuídas exclusivamente para pesquisa sob disposições de uso justo e
-reprodutibilidade, excluídas de qualquer aplicação comercial.
-
-% ============================================================
-\section{Resultados}
-\label{sec:results}
-% ============================================================
-
-\begin{center}
-\fbox{\parbox{0.88\linewidth}{%
-\small
-\textbf{Nota de amostra.} Reportamos um benchmark pré-registrado de \emph{15
-países} e sua \emph{extensão pós-registro para 25 países} (esta última adiciona
-seis referências do Norte Global --- Reino Unido, Canadá, Austrália, Coreia do
-Sul, França, Itália --- e quatro países de par nativo --- Colômbia, Chile,
-Portugal, Angola). Quatorze LLMs são pontuados em cinco tarefas, duas personas e
-quatro idiomas (inglês mais um idioma nativo do país --- espanhol, português ou
-hindi --- para os nove países aplicáveis, fornecendo os pares inglês/nativo
-intra-país que testam H2). Todo efeito calculado na amostra de 25 países é
-reportado ao lado de seu valor pré-registrado de 15 países; nenhuma conclusão
-pré-registrada é revista apenas com base na extensão. Todas as respostas são
-pontuadas pelo GPT-5-mini, validadas contra um painel de juízes de quatro
-fornecedores (Seção~\ref{sec:results:reliability}); o gabarito de T1 está ancorado
-em fontes oficiais primárias para todos os 25 países (Seção~\ref{sec:results:gt}).
-}}
-\end{center}
-
-\subsection{Amostra e julgamento}
-\label{sec:results:sample}
-
-O corpus analisado compreende 9{,}251 respostas pontuadas por juiz no composto
-$[0,1]$, das quais 7{,}580 são respostas a prompt em inglês nos 25 países (o
-restante são os pares de idioma nativo intra-país usados para H2). O juiz primário
-é o GPT-5-mini. Como o GPT-5-mini está ele próprio entre a camada avaliada, três
-juízes adicionais diversos em fornecedor re-pontuaram uma amostra fixa
-estratificada para quantificar a sensibilidade do juiz; a concordância é forte
-(confiabilidade da média do painel ICC$(2,4)=0.89$;
-Seção~\ref{sec:results:reliability}), o que neutraliza a sobreposição juiz--alvo
-para os compostos reportados.
-
-\subsection{Acurácia por modelo}
-\label{sec:results:model}
-
-A Tabela~\ref{tab:conf-model} ordena os 14 modelos pelo composto médio. Sistemas
-de fronteira (GPT-5, GPT-5-mini, DeepSeek-V3) lideram; modelos pequenos de peso
-aberto ficam para trás. O resultado relativo a H3 é inequívoco: o modelo regional
-brasileiro-português Cabra-Mistral~7B é o \emph{pior} de todos os modelos (0.320
-versus 0.543 para os demais; Mann-Whitney $p\approx 0$, $\delta$ de Cliff
-$=-0.51$, um tamanho de efeito não paramétrico em $[-1,1]$), contradizendo o
-enquadramento otimista de H3 de que um modelo regional compra acurácia de domínio.
-Escala e treinamento de fronteira dominam o ajuste regional por instrução no nível
-de 7B.
-
-\begin{table}[h]
-\centering
-\caption{Acurácia composta confirmatória por modelo nos 25 países (juiz
-GPT-5-mini, $[0,1]$). $N$ = respostas pontuadas a prompt em inglês.}
-\label{tab:conf-model}
-\small
-\begin{tabular}{lrr}
-\toprule
-Modelo & $N$ & Média \\
-\midrule
-GPT-5            & 780 & 0.647 \\
-GPT-5-mini       & 777 & 0.626 \\
-DeepSeek-V3      & 500 & 0.625 \\
-Gemini~2.5~Flash & 490 & 0.604 \\
-Claude Haiku~4.5 & 490 & 0.597 \\
-Qwen3 32B        & 498 & 0.546 \\
-Command~R+       & 500 & 0.509 \\
-Llama~3.3 70B    & 474 & 0.506 \\
-GPT-OSS 120B     & 298 & 0.485 \\
-Phi-4 14B        & 500 & 0.485 \\
-Qwen3 14B        & 500 & 0.474 \\
-Llama~4 Scout    & 500 & 0.473 \\
-Llama~3.1 8B     & 777 & 0.424 \\
-Cabra-Mistral~7B & 496 & 0.320 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Acurácia por tarefa: o piso de recuperação factual}
-\label{sec:results:task}
-
-A dificuldade é fortemente dependente da tarefa (Tabela~\ref{tab:conf-task}). As
-duas tarefas mais difíceis são \textbf{T1 (recuperação de padrão técnico, 0.367)}
-e \textbf{T2 (dado local medido, 0.368)} --- justamente as tarefas que exigem
-recuperar um valor vinculante específico (um padrão nacional anual de
-PM\textsubscript{2.5}; uma concentração por cidade-ano). A tarefa aberta de
-recomendação (T5) pontua mais alto (0.773) porque sua rubrica recompensa
-aconselhamento de política plausível e bem estruturado que não depende de um único
-fato. As duas tarefas de recuperação factual (T1, T2; média agrupada 0.367)
-pontuam muito abaixo das tarefas de síntese e recomendação (T3--T5, 0.638); a
-diferença é grande e inequívoca (Mann-Whitney $p\approx 0$, $\delta$ de Cliff
-$=-0.64$). Este é o achado mais robusto do estudo: os LLMs são mais fracos
-exatamente onde a gestão ambiental aplicada mais precisa deles --- recuperar o
-limiar regulatório preciso ou o valor medido em vigor.
-
-\begin{table}[h]
-\centering
-\caption{Acurácia composta confirmatória por tipo de tarefa (25 países).}
-\label{tab:conf-task}
-\small
-\begin{tabular}{lrr}
-\toprule
-Tarefa & $N$ & Média \\
-\midrule
-T5 (recomendação aplicada)      & 1{,}508 & 0.773 \\
-T4 (instrumentos de política)   & 1{,}494 & 0.574 \\
-T3 (síntese evid.\ em saúde)    & 1{,}519 & 0.567 \\
-T2 (dado factual local)         & 1{,}530 & 0.368 \\
-T1 (padrão técnico)             & 1{,}529 & 0.367 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{H1 --- uma diferença de camada e (a $n=25$) um gradiente de desenvolvimento}
-\label{sec:results:h1}
-
-H1 foi pré-especificada em duas partes. A \textbf{diferença de camada} vale em
-ambas as amostras: os dez países do Norte Global têm média 0.567 contra 0.505 dos
-quinze países do Sul Global, uma diferença de \textbf{+6.2 pontos percentuais}
-cujo intervalo de confiança bootstrap de 95\% entre países é $[+3.7,+8.6]$~pp e
-\emph{exclui zero} (15 países: $+6.7$~pp, $[+2.8,+10.2]$). O \textbf{gradiente
-monotônico} comporta-se de modo diferente entre as amostras, e é aqui que a
-amostra estendida muda o quadro. No $n=15$ pré-registrado, o gradiente era
-indetectável (Spearman $\rho(\text{acur.},\text{IDH})=+0.14$, $p=0.31$;
-Mann-Kendall $p=0.69$). Na amostra estendida de $n=25$ ele torna-se significativo:
-$\rho(\text{acur.},\text{IDH})=\mathbf{+0.51}$ ($p=0.004$, unicaudal), com uma
-tendência de Mann-Kendall significativa ($S=102$, $Z=+2.36$, $p=0.018$). O
-gradiente de desenvolvimento é, portanto, real, mas estava \emph{subpotente a
-$n=15$}; as sete referências de alto IDH adicionadas
-(Tabela~\ref{tab:conf-country}: Coreia do Sul, Itália, França, Canadá, Austrália,
-Reino Unido, Portugal, todas agrupadas perto do topo) aumentam a densidade de
-observações de alto desenvolvimento o suficiente para revelá-lo --- sem alargar a
-própria amplitude do IDH (Seção~\ref{sec:results:robust}).
-
-Duas qualificações honestas delimitam este resultado. Primeiro, $\rho=0.51$
-\emph{fica logo abaixo do nosso limiar de tamanho de efeito pré-registrado de
-$\rho\geq 0.55$}: o gradiente é estatisticamente significativo, mas abaixo da
-magnitude à qual nos pré-comprometemos para chamá-lo de gradiente forte. Segundo,
-o gradiente é em \emph{desenvolvimento} (IDH), \emph{não} em recurso linguístico:
-a correlação com a classe Joshi permanece nula ($\rho=-0.06$). A ordenação dos
-países também retém grande heterogeneidade ortogonal ao eixo --- a Índia (0.631,
-Sul Global) ainda lidera todos os países e a Alemanha (0.535) é o país do Norte
-Global de menor pontuação --- de modo que a desvantagem é um gradiente de
-desenvolvimento sobreposto a variação substancial específica de país, e não uma
-classificação limpa. Sob Bonferroni-Holm na família primária
-$\{$H1-gradiente, H4, H6$\}$, H1-por-IDH é o único teste que rejeita sua nula a
-$n=25$ ($p=0.004$ versus limiar $0.0167$).
-
-\begin{table}[h]
-\centering
-\caption{Acurácia composta confirmatória por país, amostra de 25 países (camada:
-GN = Norte Global, GS = Sul Global). Ordenada pela média.}
-\label{tab:conf-country}
-\small
-\begin{tabular}{llr@{\qquad}llr}
-\toprule
-País & Camada & Média & País & Camada & Média \\
-\midrule
-Índia          & GS & 0.631 & Alemanha       & GN & 0.535 \\
-Coreia do Sul  & GN & 0.601 & Chile          & GS & 0.528 \\
-Japão          & GN & 0.588 & África do Sul  & GS & 0.522 \\
-Itália         & GN & 0.584 & Angola         & GS & 0.506 \\
-Estados Unidos & GN & 0.581 & Bangladesh     & GS & 0.503 \\
-França         & GN & 0.564 & Filipinas      & GS & 0.499 \\
-Canadá         & GN & 0.562 & México         & GS & 0.496 \\
-Austrália      & GN & 0.559 & Peru           & GS & 0.496 \\
-Reino Unido    & GN & 0.554 & Quênia         & GS & 0.488 \\
-Portugal       & GN & 0.550 & Nigéria        & GS & 0.465 \\
-Indonésia      & GS & 0.540 & Egito          & GS & 0.465 \\
-Colômbia       & GS & 0.539 & Argentina      & GS & 0.450 \\
-               &    &       & Brasil         & GS & 0.449 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{H4 --- representação de corpus: cobertura de país, não tamanho de idioma}
-\label{sec:results:h4}
-
-O mecanismo pré-especificado para a lacuna geográfica era a representação no
-corpus de treinamento, com o proxy pré-registrado sendo a contagem de
-artigos/edições da Wikipédia. Esse proxy é \textbf{nulo} tanto a $n=15$ quanto a
-$n=25$ (Spearman $\rho=+0.08$; parcial controlando IDH $+0.04$, $p=0.87$):
-\textbf{a H4 como pré-registrada não é sustentada}. Exploramos então, post hoc, se
-um canal diferente está em ação. Como a lacuna é medida \emph{em inglês}, uma
-diferença Norte/Sul residual não pode refletir quanto texto existe no idioma de um
-país, de modo que distinguimos o tamanho do corpus do idioma de quão amplamente o
-corpus é \emph{sobre} um país. Entre três proxies de cobertura de país, o número
-de edições de idioma da Wikipédia com um artigo sobre o país (sitelinks do
-Wikidata) correlaciona-se com a acurácia no nível de ordem zero ($\rho=+0.54$,
-$p=0.005$, que sobrevive à correção de Benjamini-Hochberg entre os três proxies,
-$p$ ajustado $=0.016$; declarações do Wikidata $\rho=+0.31$ e comprimento em bytes
-do artigo em inglês $\rho=+0.20$ são ambos não significativos). \emph{Contudo},
-essa associação \textbf{atenua-se até a não-significância após ajuste para o IDH}
-(parcial $\rho=+0.32$, $p=0.13$), de modo que não atinge o padrão de correlação
-parcial que o teste de mecanismo exige. Reportamos, portanto, a abrangência de
-cobertura de país como um sinal \emph{sugestivo e exploratório} --- consistente
-com uma lacuna que aparece mesmo quando todos os países são consultados em inglês,
-e uma pista mais promissora que o tamanho do corpus do idioma --- mas \textbf{não}
-como mecanismo estabelecido: o gradiente de desenvolvimento e a cobertura de país
-estão entrelaçados, e os dados presentes não conseguem separá-los.
-
-Para a penalidade de idioma nativo (H2), o canal relevante é, em vez disso, o
-tamanho do corpus do idioma, e a direção é a prevista, embora, com apenas três
-idiomas nativos, seja descritiva: a penalidade por idioma cai monotonicamente com
-o volume de tokens mC4~\citep{xue2021mt5} e o tamanho do OSCAR~\citep{abadji2022oscar}
-(Spearman $=-1.00$ entre os três) --- o hindi, o menor corpus (24B tokens mC4),
-carrega a maior penalidade, e o espanhol (433B) a menor.
-
-\subsection{H6 --- a persona não estreita a lacuna geográfica}
-\label{sec:results:h6}
-
-O fator de persona foi totalmente cruzado, de modo que H6 é testada como uma
-diferença-em-diferenças. O quadro de gestor ambiental público deixa a lacuna
-Norte/Sul essencialmente inalterada: $+6.4$~pp sob o quadro neutro versus
-$+6.0$~pp sob o quadro de gestor, um DiD de $\mathbf{+0.4}$~pp, muito abaixo do
-limiar pré-especificado de 5~pp; um teste de permutação em nível de país (5{,}000
-permutações do rótulo de camada) dá $p=0.26$. \textbf{H6 não é sustentada} em
-nenhuma das amostras (DiD de 15 países $+1.0$~pp, $p=0.14$): apresentar a consulta
-como vinda de um gestor ambiental público não estreita nem amplifica a desvantagem
-do Sul Global, consistente com a evidência de que personas de especialista não
-melhoram de forma confiável a acurácia factual~\citep{zheng2024helpful,mollick2025personas}.
-Isso responde à questão aplicada central do estudo de forma negativa --- o
-enquadramento do prompt não é uma correção para o viés geográfico.
-
-\subsection{H5 --- aberto versus fechado-acessível}
-\label{sec:results:h5}
-
-Agrupando por tipo de acesso, os modelos fechados-acessíveis têm média 0.623
-($n=2{,}537$) contra 0.481 dos modelos de peso aberto ($n=5{,}043$), uma vantagem
-fechada de $+14.1$~pp. Isso contraria o enquadramento otimista de H5; o braço
-aberto inclui modelos maiores (Llama~3.3 70B, DeepSeek-V3), de modo que a lacuna
-não é atribuível apenas à escala, embora o próprio DeepSeek-V3 figure em terceiro
-no geral. H5 é interpretada descritivamente.
-
-\subsection{H2 --- o prompt em idioma nativo reduz a acurácia}
-\label{sec:results:h2}
-
-Para os nove países com idioma nativo-alvo
-(Brasil/Portugal/Angola~$\to$~português,
-México/Argentina/Peru/Colômbia/Chile~$\to$~espanhol, Índia~$\to$~hindi), cada
-prompt é renderizado tanto em inglês quanto no idioma nativo, mantendo o conteúdo
-fixo, de modo que o contraste inglês/nativo é intra-país e intra-modelo. Nas
-células pareadas (modelo, prompt), o prompt em idioma nativo \emph{reduz} a
-acurácia composta média em 2.1~pontos percentuais (Wilcoxon de postos sinalizados
-$p=2\times10^{-3}$, $n=762$ células). Como essas células estão agrupadas dentro de
-modelos e prompts, confirmamos o efeito no nível de \emph{país}, onde a unidade é
-independente: agregando para um delta inglês-menos-nativo por país, todos os nove
-países de par nativo mostram uma penalidade (9/9 negativos, média $-2.4$~pp,
-Wilcoxon $p=0.008$), de modo que não é um artefato de tratar células agrupadas
-como independentes. O efeito é modulado pelo nível de recurso do idioma nativo
-(Tabela~\ref{tab:h2}): a penalidade do espanhol é pequena e não significativa
-($-1.0$~pp, $p=0.15$), a penalidade do português é agora significativa com os
-pares Portugal/Angola adicionados ($-2.3$~pp, $p=0.033$), e a penalidade do hindi
-é grande ($-7.8$~pp, $p=0.013$). A Índia, que pontua mais alto de todos os países
-em inglês, cai acentuadamente em hindi. A implicação aplicada espelha H6: a
-correção intuitiva --- deixar um gestor local perguntar em seu próprio idioma ---
-não ajuda e, para um idioma de menor recurso em escrita não latina, prejudica
-materialmente. Isso é consistente com a hierarquia de recurso
-linguístico~\citep{joshi2020state} e com o canal de corpus do idioma de H4.
-
-\begin{table}[h]
-\centering
-\caption{H2: acurácia nativo-menos-inglês por idioma nativo (pareada dentro de
-país e modelo, amostra de 25 países).}
-\label{tab:h2}
-\small
-\begin{tabular}{llrr}
-\toprule
-Idioma nativo (classe Joshi) & Países & $\Delta$ (pp) & $N$ pares \\
-\midrule
-Espanhol (5)   & MEX, ARG, PER, COL, CHL & $-1.0$  & 412 \\
-Português (4)  & BRA, PRT, AGO           & $-2.3$  & 284 \\
-Hindi (4)      & IND                     & $-7.8$  & 66 \\
-\midrule
-\multicolumn{2}{l}{Geral}                & $-2.1$  & 762 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Proveniência do gabarito}
-\label{sec:results:gt}
-
-Como a ``acurácia'' medida depende do gabarito, o alvo de padrão técnico (T1) para
-todos os 25 países foi ancorado em fontes oficiais primárias por verificação
-documental, e não por asserção de especialista, e é reproduzível a partir das URLs
-citadas. A maioria dos países tem um valor lido da regulação oficial (por exemplo,
-o padrão anual de PM\textsubscript{2.5} do Brasil de
-17~$\mu$g/m\textsuperscript{3} lido verbatim do Anexo~I da Resolução CONAMA
-506/2024 no Diário Oficial da União; os 25~$\mu$g/m\textsuperscript{3} da Colômbia
-lidos da Tabla~1 da Resolución 2254/2017). Três países \emph{não} têm padrão
-nacional de PM\textsubscript{2.5}, confirmado a partir do texto oficial --- a
-regulação NESREA da Nigéria estabelece apenas PM10, a Argentina não tem valor
-federal vinculante e Angola não tem legislação nacional de qualidade do ar --- um
-fato que a auditoria estabeleceu contra números secundários em circulação, porém
-incorretos, e no qual um modelo fiel deve recusar-se a indicar um limiar
-inexistente em vez de fabricá-lo. Essa proveniência é mais reproduzível do que a
-validação por especialista: qualquer leitor pode re-verificar cada valor a partir
-da fonte oficial.
-
-\subsection{Modos qualitativos de falha}
-\label{sec:results:qualitative}
-
-Para tornar concretos os números do composto, o Quadro~1 mostra três falhas
-representativas extraídas verbatim dos logs de resposta (IDs de execução
-disponíveis no release).
-
-\begin{table}[h]
-\centering
-\caption{Quadro 1 --- Modos de falha representativos (verbatim, levemente
-truncados).}
-\label{tab:box1}
-\small
-\begin{tabular}{p{0.30\linewidth}p{0.62\linewidth}}
-\toprule
-Modo de falha & Exemplo \\
-\midrule
-\textbf{Fabricar um padrão inexistente} (país sem norma nacional de
-PM\textsubscript{2.5}) & Para \textbf{Angola} (sem padrão nacional), o
-Gemini~2.5~Flash asseriu um padrão anual de ``25~$\mu$g/m\textsuperscript{3}'' em
-uma replicação e ``15~$\mu$g/m\textsuperscript{3}'' em outra; o GPT-5 asseriu
-``15~$\mu$g/m\textsuperscript{3}'' para a \textbf{Nigéria}, que regula apenas
-PM\textsubscript{10} (NESREA). Uma resposta fiel se recusaria a indicar um valor
-que não existe. \\
-\addlinespace
-\textbf{Errar o valor vinculante} (piso de T1) & Para o \textbf{Brasil} (padrão
-anual oficial 17~$\mu$g/m\textsuperscript{3}, CONAMA 506/2024), a resposta modal
-dos modelos foi 15~$\mu$g/m\textsuperscript{3} (42 respostas), com 10, 20 e 25
-também comuns; o valor oficial quase nunca foi retornado. \\
-\addlinespace
-\textbf{Degradação em idioma nativo} (H2) & Para a \textbf{Índia} (padrão anual
-40~$\mu$g/m\textsuperscript{3}), o GPT-OSS~120B retornou o valor correto em inglês,
-mas uma resposta \emph{vazia} à mesma pergunta em hindi. \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-O primeiro modo é o mais consequente para os casos sem padrão (Angola, Nigéria,
-Argentina): em vez de se abster, os modelos inventam um limiar regulatório
-plausível e discordam entre replicações e modelos sobre o valor inventado ---
-exatamente o comportamento que um gestor público não consegue detectar sem a fonte
-oficial.
-
-\subsection{Confiabilidade entre juízes}
-\label{sec:results:reliability}
-
-Para tratar a sobreposição juiz--alvo (o GPT-5-mini está no conjunto avaliado),
-uma amostra de confiabilidade fixa e estratificada de 131 respostas foi
-re-pontuada de modo independente por um painel de juízes diverso em fornecedor:
-GPT-5-mini (OpenAI), Claude Sonnet~4.6 (Anthropic), Gemini~2.5~Pro (Google) e
-DeepSeek-V3 (DeepSeek). A confiabilidade é reportada de três formas: o $\alpha$ de
-Krippendorff $=0.667$ (intervalar), o ICC$(2,1)=0.672$ de juiz único, e --- a
-quantidade operativa --- a confiabilidade da \emph{média} do painel,
-ICC$(2,4)=\mathbf{0.891}$, que, pela relação de Spearman-Brown, é alta ainda que
-juízes individuais concordem apenas moderadamente. A concordância pareada é mais
-forte entre GPT-5-mini, Claude e DeepSeek (Pearson $0.82$--$0.86$) e mais baixa
-para o Gemini, sistematicamente mais leniente ($0.61$--$0.63$); como todos os
-efeitos reportados são contrastes entre grupos, esse offset de leniência se
-cancela. Um quinto juiz (Llama~3.3 70B, Meta) corroborou no subconjunto que cobriu
-(Pearson pareado $0.51$--$0.60$; ICC$(2,5)=0.86$ de cinco juízes), mas, por ser um
-juiz de 70B mais ruidoso, \emph{baixou} ligeiramente o $\alpha$ do painel ---
-confirmando empiricamente que quatro juízes fortes são preferíveis a cinco com um
-mais fraco. Um sexto candidato (Command~R+) foi excluído quando sua cota de
-provedor se esgotou durante a execução. O estudo usa o composto único do GPT-5-mini
-para todos os efeitos, validado por este painel, em vez de uma pontuação média
-entre juízes.
-
-\subsection{Robustez do gradiente de desenvolvimento}
-\label{sec:results:robust}
-
-Como o gradiente é significativo apenas na amostra estendida, testamos duas
-ameaças diretamente. \textbf{Extensão de amplitude.} A preocupação é que adicionar
-dez países --- sete deles do Norte Global --- fabrique o gradiente ao esticar o
-preditor IDH. Não fabrica: os dez países adicionados caem \emph{dentro} da
-amplitude de IDH já abrangida pelos quinze originais ($[0.548, 0.950]$, da Nigéria
-à Alemanha), de modo que a extensão aumenta a \emph{densidade} de observações, e
-não a amplitude, e a estimativa de Spearman é idêntica no conjunto
-restrito-à-amplitude ($\rho=0.512$, $p=0.009$). O gradiente fortaleceu-se de
-$n=15$ para $n=25$ não porque a amplitude do preditor se alargou, mas porque as
-referências de alto IDH adicionadas pontuam consistentemente bem, agudizando uma
-associação que a amostra menor estava subpotente para detectar. \textbf{Observações
-influentes.} A reestimação leave-one-country-out dá uma faixa de gradiente-IDH de
-$\rho\in[+0.48, +0.66]$ em todas as 25 remoções, de modo que nenhum país único o
-dirige; notavelmente, remover a Índia --- o país do Sul Global que pontua mais alto
-e é o contraexemplo mais forte ao gradiente --- \emph{eleva} a correlação para
-$\rho=0.66$. A Índia, portanto, não está sustentando o gradiente, mas
-atenuando-o, e o mesmo exercício leave-one-out deixa estáveis a diferença de
-camada ($[+5.8, +7.1]$~pp) e a correlação exploratória de sitelinks
-($[+0.50, +0.63]$). Lemos a Índia como consistente com --- e não contrária a --- a
-explicação de cobertura de país: ela está entre os países mais extensamente
-documentados em fontes enciclopédicas e multilíngues, exatamente a condição sob a
-qual o sinal de cobertura prediz maior acurácia, razão pela qual pontua mais alto
-em inglês apesar de seu nível de desenvolvimento.
-
-\textbf{Robustez da métrica.} O composto mistura cinco subcomponentes, então
-poder-se-ia temer que ele dilua ou fabrique os efeitos. Restringir ao
-subcomponente único mais objetivo --- acurácia factual contra o valor do registro,
-ignorando completude, calibração e estilo --- \emph{fortalece} todo resultado
-principal: a diferença de camada amplia-se para $+10.7$~pp (versus $+6.2$ no
-composto), e o piso de recuperação factual aprofunda-se (acurácia factual de T1+T2
-$0.25$ versus $0.71$ para T3--T5). O composto é, portanto, conservador; os efeitos
-geográfico e de tarefa não são artefatos de misturar subcomponentes.
-
-\subsection{Síntese}
-\label{sec:results:summary}
-
-A Tabela~\ref{tab:hyp-summary} mapeia cada hipótese a seu achado, ao mecanismo
-candidato e a um status de evidência explícito, de modo que nenhuma afirmação seja
-lida como mais forte do que os dados sustentam.
-
-\begin{table}[h]
-\centering
-\caption{Hipóteses, achados, mecanismos candidatos e status de evidência.}
-\label{tab:hyp-summary}
-\small
-\begin{tabular}{p{0.12\linewidth}p{0.29\linewidth}p{0.24\linewidth}p{0.23\linewidth}}
-\toprule
-Hipótese & Achado & Mecanismo candidato & Status de evidência \\
-\midrule
-H1 (diferença de camada) & $+6.2$~pp, IC exclui zero & desenvolvimento (camada) & Sustentado \\
-H1 (gradiente) & $\rho=0.51$ com IDH ($n=25$) & desenvolvimento (IDH) & Sustentado; abaixo do $0.55$ pré-registrado \\
-H2 (idioma) & $-2.1$~pp; hindi $-7.8$ & tamanho do corpus do idioma & Efeito sustentado; mecanismo descritivo ($n=3$) \\
-H3 (modelo regional) & $\delta=-0.51$ & escala $>$ ajuste regional & Sustentado \\
-H4 (mec.\ geográfico) & sitelinks $\rho=0.54$ & cobertura de país & Exploratório (atenua com IDH) \\
-H4 (pré-registrado) & tamanho-Wikipédia nulo & tamanho do corpus do idioma & Não sustentado \\
-H5 (aberto/fechado) & $+14.1$~pp fechado & tipo de acesso / escala & Descritivo \\
-H6 (persona) & DiD $+0.4$~pp & --- & Não sustentado \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-A expansão agudiza o resultado central enquanto deixa intactos os achados
-secundários. \textbf{Sustentados, com tamanhos de efeito:} uma \emph{diferença de
-camada} Norte/Sul ($+6.2$~pp, IC bootstrap de 95\% $[+3.7,+8.6]$, exclui zero) e,
-a $n=25$, um \emph{gradiente de desenvolvimento} significativo (Spearman
-$\rho=0.51$ com IDH, $p=0.004$; Mann-Kendall $p=0.018$; rejeita sob
-Bonferroni-Holm) que estava subpotente no $n=15$ pré-registrado; uma
-\emph{penalidade} de idioma nativo (geral $p=2\times10^{-3}$, hindi $-7.8$~pp,
-português agora significativo); um \emph{piso} de recuperação técnica/local (T1+T2
-vs demais, $\delta=-0.64$); e o modelo regional como o \emph{pior} desempenho
-($\delta=-0.51$). \textbf{Não sustentados (nulos informativos):} o gradiente
-\emph{não} é de recurso linguístico (Joshi $\rho=-0.06$) e fica logo abaixo do
-limiar de tamanho de efeito pré-registrado de $0.55$; o proxy de corpus
-pré-registrado (tamanho da Wikipédia) \emph{não} é o mecanismo (parcial
-$\rho=0.04$), e um proxy de cobertura de país (sitelinks $\rho=0.54$, $p=0.005$) é
-sugestivo, mas \emph{não} robusto ao ajuste por IDH (parcial $p=0.13$), deixando o
-mecanismo exploratório; e a persona \emph{não} estreita a lacuna (permutação
-$p=0.26$). A desvantagem geográfica é um gradiente de desenvolvimento real e
-robusto a leave-one-out, cujo mecanismo localizamos apenas \emph{sugestivamente} na
-representação de país, e não no tamanho do corpus do idioma; os danos robustos
-dominantes são \emph{linguísticos} (prompt em idioma nativo, pior para o hindi) e
-\emph{específicos de tarefa} (recuperação factual da regulação ou do dado em
-vigor); e todas as três correções intuitivas --- uma persona de gestor local, o
-idioma local e um modelo regional --- falham. O gabarito está ancorado em fontes
-oficiais primárias para todos os 25 países, e a confiabilidade da média do painel
-é forte (ICC$(2,4)=0.89$). Isso importa para a gestão ambiental no Sul Global, onde
-a carga de doença é grande~\citep{gbd2019risk,requia2024shortterm} e onde
-justamente as tarefas mais difíceis --- recuperar o padrão vinculante ou o valor
-medido --- são as de que um gestor mais precisa~\citep{joshi2020state,mohamed2020decolonial}.
-
-% ============================================================
-\section{Discussão}
-\label{sec:discussion}
-% ============================================================
-
-Propusemo-nos a medir se os LLMs respondem a questões de política de poluição do
-ar de modo tão confiável para o Sul Global quanto para o Norte Global, se o
-enquadramento do prompt altera a resposta e que mecanismo dirige qualquer lacuna.
-O benchmark --- 25 países, 14 modelos, quatro idiomas, cinco tarefas, duas
-personas, pontuado por um juiz validado por painel contra gabarito oficial ---
-retorna um quadro disciplinado e em parte contraintuitivo. Uma desvantagem
-geográfica existe e, com poder adequado, resolve-se em um gradiente de
-desenvolvimento genuíno; mas seu mecanismo é a representação de país, e não o
-tamanho do corpus do idioma, os danos dominantes são linguísticos e específicos de
-tarefa, e toda correção intuitiva falha. Organizamos a discussão em torno do
-gradiente e seu mecanismo, dos danos robustos, das três correções fracassadas, dos
-riscos de saúde pública, das limitações que delimitam as afirmações e do que se
-segue para a prática.
-
-\subsection{A lacuna geográfica é um gradiente de desenvolvimento --- visível só com poder}
-
-No $n=15$ pré-registrado, a \emph{diferença de camada} Norte/Sul era real
-($+6.7$~pp, IC exclui zero), mas o \emph{gradiente} era indetectável (Spearman vs
-IDH $\rho=0.14$, $p=0.31$). Estendendo a amostra para 25 países --- adicionando
-sete referências de alto IDH do Norte Global que adensam a ponta de alto
-desenvolvimento da amostra (sem alargar sua amplitude;
-Seção~\ref{sec:results:robust}) --- o gradiente resolve-se em significância
-($\rho=0.51$ com IDH, $p=0.004$; Mann-Kendall $p=0.018$), o único teste da família
-primária que rejeita sua nula sob Bonferroni-Holm. Somos deliberadamente
-transparentes de que esta é uma extensão pós-registro e de que $\rho=0.51$ fica
-logo abaixo do limiar de tamanho de efeito pré-especificado de $0.55$: a afirmação
-honesta é que o gradiente é significativo, porém de magnitude moderada, e que
-estava subpotente, não ausente, no desenho registrado. Isso é, por si só, uma
-lição metodológica para a área --- gradientes de viés geográfico entre um punhado
-de países são fáceis de perder a $n$ pequeno, e o nulo a $n=15$ teria sido a
-conclusão errada.
-
-Crucialmente, o gradiente é em \emph{desenvolvimento} (IDH), não em classe de
-recurso linguístico (Joshi $\rho=-0.06$), e coexiste com grande heterogeneidade
-específica de país: a Índia lidera todos os 25 países apesar de ser do Sul Global,
-e a Alemanha é o país do Norte Global de menor pontuação. A desvantagem é um
-gradiente de desenvolvimento sobreposto a substancial idiossincrasia, e não uma
-classificação limpa, razão pela qual o contraste de camada e o gradiente são
-descrições complementares, e não redundantes.
-
-\subsection{Um mecanismo sugestivo: cobertura de país acima do tamanho do corpus do idioma}
-
-Nosso teste de mecanismo pré-registrado falha: o proxy de tamanho da Wikipédia é
-nulo (parcial $\rho=0.04$), de modo que a H4 como registrada não é sustentada.
-Explorando mais, encontramos uma pista mais promissora. Como a lacuna é medida
-\emph{em inglês}, com o idioma da consulta mantido constante, uma diferença
-Norte/Sul residual não pode ser um efeito de quanto texto existe no idioma de um
-país; e o candidato que \emph{de fato} acompanha a acurácia é quão amplamente o
-corpus representa o país --- os sitelinks do Wikidata correlacionam-se a
-$\rho=0.54$ ($p=0.005$, sobrevivendo à correção de multiplicidade entre três
-proxies de cobertura). Somos deliberadamente cautelosos sobre este resultado: a
-associação \emph{atenua-se até a não-significância após ajuste para o
-desenvolvimento} (parcial $\rho=0.32$, $p=0.13$), de modo que cobertura de país e
-IDH estão entrelaçados e o desenho presente não consegue estabelecer que a
-cobertura \emph{cause} a lacuna. Oferecemos, portanto, o contraste
-cobertura-de-país-acima-de-tamanho-de-idioma como um \emph{refinamento sugestivo e
-testável} da intuição de ``menos dados para regiões sub-representadas'' --- que o
-caso da Índia ilustra (sua altíssima cobertura enciclopédica multilíngue acompanha
-sua pontuação máxima em inglês) e que a análise leave-one-out mostra não ser
-dirigida por nenhum país único --- em vez de como mecanismo estabelecido. Se
-replicar sob um desenho que consiga separar cobertura de desenvolvimento, isso
-reenquadraria a mitigação para quão abrangentemente um país é descrito em fontes
-amplamente espelhadas, e não para o tamanho do corpus web de seu idioma.
-
-\subsection{Os danos robustos são linguísticos e específicos de tarefa}
-
-Dois achados são grandes, significativos e estáveis em ambas as amostras.
-Primeiro, o \textbf{piso de recuperação factual}: as duas tarefas que exigem um
-valor vinculante específico --- o padrão nacional (T1) e uma concentração medida
-por cidade-ano (T2) --- pontuam em torno de 0.37, muito abaixo de síntese e
-recomendação (0.64; $\delta=-0.64$). O piso recai justamente sobre os valores
-vinculantes em que um gestor mais precisa confiar. Segundo, a \textbf{penalidade
-de idioma nativo}: perguntar no idioma local reduz a acurácia ($-2.1$~pp no geral,
-$p=0.002$), desprezivelmente para o espanhol de alto recurso, mas materialmente
-para o hindi ($-7.8$~pp). A penalidade acompanha o tamanho do corpus do idioma
-entre os três idiomas nativos, o mecanismo que a hierarquia de recurso
-prediz~\citep{joshi2020state,xue2021mt5}. Juntos, esses achados dizem que o risco
-prático é concentrado, não difuso: um gestor recuperando um limiar regulatório,
-especialmente em um idioma de menor recurso, está na pior célula do desenho.
-
-\subsection{Três correções intuitivas, todas falhando}
-
-A contribuição aplicada é em grande parte negativa. A \textbf{persona de gestor
-local} não estreita a lacuna (DiD $+0.4$~pp, permutação $p=0.26$); apresentar a
-consulta como vinda de um gestor ambiental público não muda nada, consistente com
-a evidência de que personas de especialista não melhoram a acurácia
-factual~\citep{zheng2024helpful,mollick2025personas}. O \textbf{idioma local} não
-ajuda e pode prejudicar (H2). O \textbf{modelo regional} --- o
-brasileiro-português Cabra-Mistral~7B --- é o \emph{pior} desempenho dos 14
-($\delta=-0.51$), de modo que recorrer a um pequeno modelo ajustado localmente
-abre mão da escala e do treinamento de fronteira que de fato carregam a acurácia
-de domínio. Profissionais rotineiramente implantam as três como correções; nenhuma
-sobrevive ao contato com os dados. A mensagem honesta para as agências ambientais
-do Sul Global é que nenhuma das soluções baratas em nível de prompt ou de modelo
-substitui a verificação do valor vinculante contra a fonte oficial.
-
-\subsection{Por que o domínio importa}
-
-Os riscos não são abstrações de benchmark. O material particulado fino está entre
-os principais fatores de risco ambiental para mortalidade prematura, e o ônus
-recai desproporcionalmente sobre o Sul Global; o Global Burden of Disease atribui
-da ordem de cinquenta mil mortes por ano só no Brasil à exposição ao
-PM\textsubscript{2.5}~\citep{gbd2019risk}, e a exposição de curto prazo continua a
-dirigir mortalidade mensurável em cidades brasileiras~\citep{requia2024shortterm}.
-Quando um gestor delega uma consulta normativa ou uma recomendação de episódio a
-um LLM, uma resposta imprecisa pode se propagar para um parecer regulatório ou uma
-resposta de emergência. O alinhamento é a parte preocupante: as regiões nas
-classes inferiores da hierarquia de recurso~\citep{joshi2020state} e com cobertura
-enciclopédica mais rala são também onde a poluição do ar mais mata, de modo que o
-modelo é menos confiável exatamente onde as consequências são maiores. Lemos todo
-o padrão dentro do arcabouço da colonialidade do
-saber~\citep{mohamed2020decolonial}: os LLMs são sínteses comprimidas de corpora
-produzidos sob acesso digital e de publicação desigual, e o gradiente de
-desenvolvimento, o mecanismo de cobertura de país e a penalidade de idioma são
-três elos mensuráveis da assimetria de corpus à assimetria de conhecimento.
-
-\subsection{Limitações}
-
-\textbf{Juiz primário único.} Todos os efeitos usam o composto do GPT-5-mini.
-Tratamos a sobreposição juiz--alvo com um painel de quatro fornecedores em uma
-amostra fixa (média do painel ICC$(2,4)=0.89$), mas não fazemos média dos juízes
-para a pontuação primária, e a concordância de juiz individual é apenas moderada
-($\alpha=0.67$); um quinto juiz mais leniente baixou o $\alpha$, ressaltando a
-sensibilidade residual do juiz. Como todos os efeitos reportados são contrastes
-entre grupos, o offset de leniência de um juiz se cancela, o que é o que torna o
-composto de juiz único defensável aqui.
-
-\textbf{Sem camada de padrão-ouro humano.} O gabarito está ancorado em fontes
-oficiais primárias por auditoria documental, e não por pontuação humana
-independente. Isso é altamente reproduzível (cada valor re-verificável a partir de
-uma URL citada), mas não captura o julgamento de especialista nas tarefas
-pontuadas por rubrica (T3, T5). Duas características mitigam parcialmente a
-preocupação de que as pontuações reflitam o juiz em vez das respostas: o painel de
-juízes de quatro fornecedores (ICC$(2,4)=0.89$) e o fato de que restringir à
-acurácia factual objetiva fortalece, em vez de enfraquecer, os efeitos
-(Seção~\ref{sec:results:robust}), de modo que as lacunas principais não são
-artefato de um composto permissivo. Uma validação cega por especialista humano de
-uma amostra estratificada de respostas, pontuada contra a mesma rubrica com a
-concordância humano-juiz reportada, permanece o próximo passo natural e é diferida
-ao painel de coautores.
-
-\textbf{Expansão pós-registro.} O resultado de 25 países é uma extensão decidida
-após a análise registrada; reportamo-lo ao lado dos valores de $n=15$ e o tratamos
-como uma checagem de poder e robustez, mas uma replicação confirmatória a $n=25$
-fortaleceria a afirmação do gradiente, que atualmente fica logo abaixo do limiar
-de tamanho de efeito pré-especificado.
-
-\textbf{Covariáveis grosseiras e três idiomas nativos.} Os proxies de corpus são
-públicos e reproduzíveis, porém grosseiros; o mecanismo de corpus do idioma para
-H2 repousa em apenas três idiomas nativos e é reportado descritivamente; e os
-idiomas nativos da Oceania e de Classe~0 de Joshi permanecem fora de escopo.
-
-\textbf{Domínio único.} Todos os efeitos vêm de um único domínio aplicado
-(política de poluição do ar) e de uma única família de proxies de corpus
-(Wikimedia). O gradiente de desenvolvimento e o sinal de cobertura de país podem
-não transferir para outros domínios de política com padrões de documentação
-diferentes, e confinamos a linguagem mecanística e de ``alavanca tratável'' a este
-domínio, em vez de ao viés geográfico de LLMs em geral; a replicação entre
-domínios é o próximo passo natural.
-
-\textbf{A stack do modelo servido como unidade de análise.} Cada modelo é
-avaliado tal como servido por meio de uma stack de acesso fixa (API do fornecedor
-ou endpoint de inferência fixado), de modo que a infraestrutura do provedor, a
-configuração de serving e a camada de API são parte do que cada rótulo denota.
-Mantemos a stack constante dentro da janela de coleta, mas uma lacuna geográfica
-residual poderia, em princípio, refletir a stack em vez dos pesos; desemaranhar
-pesos de infraestrutura --- como um desenho controlado de quase-isolamento poderia
---- está além do escopo deste estudo, e reportamos a lacuna como propriedade da
-stack servida que um gestor público de fato consulta, e não de pesos idealizados.
-
-\subsection{Implicações}
-
-Para as agências ambientais do Sul Global, a orientação operacional é concreta:
-tratar as saídas de LLM sobre padrões vinculantes e dados medidos como rascunhos a
-serem checados contra o diário oficial, não presumir que uma consulta em idioma
-local ou um pequeno modelo ajustado regionalmente melhore a acurácia, e não confiar
-no enquadramento por papel para fechar a lacuna. Para os desenvolvedores de
-modelos, o resultado de cobertura de país aponta para uma alavanca tratável ---
-abrangência de representação enciclopédica --- distinta do volume bruto de corpus
-do idioma. Para a comunidade de mensuração, a reversão de $n=15$ para $n=25$ é uma
-advertência de que gradientes de viés geográfico são facilmente subpotentes. Esses
-são os elos que o estudo se propôs a sondar, e os dados transformam cada um de uma
-preocupação plausível em um efeito medido com gabarito ancorado em fonte oficial.
-
-% ============================================================
-\section{Conclusão}
-\label{sec:conclusion}
-% ============================================================
-
-Os grandes modelos de linguagem estão se tornando infraestrutura operacional para
-a política de poluição do ar, um domínio em que uma resposta imprecisa sobre um
-padrão vinculante, uma concentração medida ou uma resposta operacional carrega
-riscos diretos de saúde pública no Sul Global, onde a carga de mortalidade por
-PM\textsubscript{2.5} é mais pesada~\citep{gbd2019risk,requia2024shortterm}.
-Medimos o viés geográfico e modulado por persona nesse domínio com um benchmark de
-25 países, 14 modelos e quatro idiomas, pontuado por um juiz validado por painel
-contra gabarito ancorado em fontes oficiais primárias para cada país.
-
-A desvantagem geográfica é real e, dado poder adequado, resolve-se em um gradiente
-de desenvolvimento significativo (Spearman $\rho=0.51$ com IDH a $n=25$, tendo
-sido indetectável no $n=15$ pré-registrado, robusto a leave-one-out, mas abaixo do
-nosso limiar de tamanho de efeito pré-registrado), ao lado de uma diferença de
-camada Norte/Sul estável de $+6.2$~pp. O mecanismo é mais difícil de fixar: o
-proxy de corpus pré-registrado é nulo, e um proxy de cobertura de país
-correlaciona-se com a acurácia ($\rho=0.54$), mas não sobrevive ao ajuste para
-desenvolvimento, de modo que reportamos a representação de país --- e não o
-tamanho do corpus do idioma --- como uma pista \emph{sugestiva} coerente com uma
-lacuna medida em inglês, e não como mecanismo estabelecido. Os danos dominantes são
-linguísticos (o prompt em idioma nativo reduz a acurácia, pior para o hindi) e
-específicos de tarefa (um piso acentuado de recuperação factual em padrões e dados
-medidos, $\delta=-0.64$). E as três correções intuitivas todas falham: uma persona
-de gestor local não estreita a lacuna ($p=0.26$), o idioma local não ajuda e pode
-prejudicar, e o modelo regional brasileiro-português é o pior de todos os sistemas
-($\delta=-0.51$).
-
-A mensagem honesta para as agências ambientais do Sul Global é, portanto, concreta
-e em grande parte cautelar: as saídas de LLM sobre padrões vinculantes e dados
-medidos devem ser tratadas como rascunhos checados contra o diário oficial, e
-nenhuma das soluções baratas em nível de prompt ou de modelo --- enquadramento por
-papel, o idioma local, um pequeno modelo ajustado regionalmente --- substitui essa
-verificação. Para os desenvolvedores de modelos, o resultado de cobertura de país
-identifica uma alavanca tratável distinta do volume bruto de corpus. Lemos o
-padrão dentro do arcabouço da colonialidade do saber~\citep{mohamed2020decolonial}:
-as regiões sub-atendidas nos corpora de treinamento~\citep{joshi2020state} são as
-mesmas em que a poluição do ar mais mata, e este estudo transforma dois desses
-elos --- um gradiente de desenvolvimento e uma penalidade de idioma --- de
-preocupações plausíveis em efeitos medidos, enquanto localiza um terceiro
-(cobertura de país) apenas sugestivamente. Reportamos também uma advertência
-metodológica: a reversão de $n=15$ para $n=25$ mostra que gradientes de viés
-geográfico são facilmente subpotentes, e sinalizamos a expansão como uma extensão
-pós-registro cujo gradiente fica logo abaixo do nosso limiar de tamanho de efeito
-pré-especificado. Protocolo, prompts, registro de gabarito ancorado em fontes
-oficiais, código de análise e dados anonimizados de resposta são liberados
-abertamente.
-
-% ============================================================
-% MATÉRIA FINAL
 % ============================================================
 
 \section*{Disponibilidade de dados e código}
 
-O protocolo completo, os prompts e o código de análise serão liberados na
-publicação em
-\href{https://github.com/Roverlucas/artigo-vies-analise-regional}{github.com/Roverlucas/artigo-vies-analise-regional}
-sob as licenças MIT (código) e CC-BY-4.0 (dados/prompts/documentação), juntamente
-com o registro de gabarito e as respostas anonimizadas dos LLMs. O pipeline de
-análise é reproduzível de ponta a ponta via \texttt{python code/run\_all.py}.
+O protocolo completo, os prompts, o código de análise, os registros de gabarito e
+as respostas anonimizadas dos modelos serão liberados na publicação em
+\href{https://github.com/Roverlucas/artigo-vies-analise-regional}{github.com/Roverlucas/artigo-vies-analise-regional},
+sob licenças MIT (código) e CC-BY-4.0 (dados, prompts, documentação). A liberação
+inclui os registros por resposta a partir dos quais cada efeito relatado é
+calculado, de modo que todo número deste artigo pode ser recomputado do dado
+bruto em vez de aceito por confiança. O pipeline de análise roda de ponta a ponta
+com \texttt{python code/run\_all.py}.
 
 \section*{Protocolo do estudo}
 
-O plano de análise estatística foi pré-especificado para o desenho confirmatório
-de 15 países. As análises confirmatórias seguem essas especificações; a extensão
-pós-registro para 25 países e as análises exploratórias (notavelmente o proxy de
-cobertura de país de H4) são rotuladas explicitamente e reportadas ao lado de suas
-contrapartes pré-registradas de 15 países. O protocolo completo, os prompts, o
-registro de gabarito e o código de análise serão liberados na publicação.
+Hipóteses, marco amostral, definição de desfecho, limiares de decisão e correção
+de multiplicidade foram fixados em um plano de análise sob controle de versão
+antes do início da coleta confirmatória. Esse plano não foi depositado em
+registro público, de modo que o leitor não pode verificar sua data de forma
+independente do histórico do repositório, e \emph{não} reivindicamos
+pré-registro. O escopo entregue também se afastou substancialmente do desenho
+planejado, o que o próprio plano estabelecia como condição para o estatuto
+confirmatório.
+
+Relatamos o estudo, portanto, em duas camadas. A primeira declara o que foi
+especificado de antemão e o que aconteceu com cada item. A segunda relata o que
+os dados sugeriram e o plano não antecipou, rotulado como exploratório do começo
+ao fim, com intervalos e sem linguagem confirmatória. Os desvios em relação ao
+plano estão tabulados no material suplementar.
 
 \section*{Agradecimentos}
 
-Este trabalho foi apoiado por \placeholder{fontes de financiamento}. Reconhecemos
-os programas de crédito de pesquisa da OpenAI, Anthropic e Google pelo apoio
-parcial aos custos de API.
+Esta pesquisa não recebeu financiamento específico de agências dos setores
+público, comercial ou sem fins lucrativos. Os custos de inferência foram pagos
+pelos autores; nenhum fornecedor concedeu créditos, descontos ou apoio em espécie
+para este estudo.
 
 \section*{Contribuições dos autores}
 
-Seguindo a taxonomia CRediT:
+Segundo a taxonomia CRediT:
 \begin{itemize}\setlength{\itemsep}{0pt}
 \item \textbf{Lucas Rover (UTFPR):} Conceituação, Metodologia, Software, Curadoria
   de Dados, Análise Formal, Investigação, Visualização, Redação~--~Rascunho
   Original, Administração do Projeto.
+\item \textbf{Vitor de Melo Dominski (Faculdade Descomplica):} Curadoria de Dados,
+  Software, Análise Formal.
+\item \textbf{Prof.\ Anibal Tavares de Azevedo (Unicamp):} Redação~--~Rascunho
+  Original, Redação~--~Revisão e Edição.
 \item \textbf{Dr.\ Eduardo Tadeu Bacalhau (UFPR):} Validação, Supervisão,
-  Redação~--~Revisão \& Edição.
+  Redação~--~Revisão e Edição.
 \item \textbf{Dra.\ Yara de Souza Tadano (UTFPR):} Validação, Supervisão,
-  Redação~--~Revisão \& Edição, Obtenção de Financiamento.
+  Redação~--~Revisão e Edição.
 \end{itemize}
 
-Validação, supervisão e revisão final do manuscrito são compartilhadas por
-Dr.\ Eduardo Tadeu Bacalhau (UFPR) e Dra.\ Yara de Souza Tadano (UTFPR).
+\section*{Declaração sobre IA generativa na redação}
+
+É preciso separar dois usos distintos, porque apenas um deles é objeto desta
+declaração.
+
+\textbf{Como objeto e instrumento do estudo.} Modelos de linguagem são o objeto
+desta pesquisa e também servem como um de seus instrumentos de medida: GPT-5-mini,
+Gemini~2.5~Pro, Claude Sonnet~4.6 e DeepSeek-V3 pontuaram respostas contra o
+registro de gabarito, e o Claude Sonnet~4.6 produziu as versões dos prompts em
+idioma nativo. Esses usos fazem parte do método, estão descritos na
+Seção~\ref{sec:metodos}, e são a razão de o estudo também relatar confiabilidade
+entre juízes e uma auditoria de retrotradução dos prompts traduzidos. Onde a
+resposta correta é um valor de registro oficial, o veredito é computado por
+código, não por modelo.
+
+\textbf{Na preparação do manuscrito.} Durante a preparação deste trabalho, os
+autores usaram modelos de linguagem para auxiliar na redação e edição do texto e
+na implementação do código de análise. Após usar essas ferramentas, os autores
+revisaram e editaram o conteúdo conforme necessário e assumem responsabilidade
+integral pelo conteúdo da publicação. Nenhum modelo de linguagem consta como
+autor, e nenhum modelo contribuiu com a interpretação dos achados ou com as
+decisões sobre o que a evidência sustenta.
 
 \section*{Declaração de interesses}
 
-Os autores declaram não haver interesses concorrentes.
+Os autores declaram não haver conflitos de interesse.
 
-% Bibliografia
 \bibliography{references}
 
 \end{document}

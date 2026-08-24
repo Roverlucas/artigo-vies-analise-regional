@@ -21,8 +21,8 @@
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{caption}\captionsetup{font=small,labelfont=bf}
-\usepackage[numbers,square,comma,sort&compress]{natbib}
-\bibliographystyle{unsrtnat}
+\usepackage[authoryear,round]{natbib}
+\bibliographystyle{apalike}
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 
 % Numerar floats, equações e seções com prefixo "S".
@@ -54,25 +54,25 @@ na publicação sob CC-BY-4.0 (dados/prompts) e MIT (código).
 \tableofcontents
 
 % ============================================================
-\section{Pré-registro, desenho e seleção de países}
+\section{Pré-especificação, desenho e seleção de países}
 % ============================================================
 
 As hipóteses, os modelos primários, o protocolo de persona, os critérios de
 exclusão, as correções de comparações múltiplas e o quadro amostral de países
 foram especificados antes da coleta confirmatória de dados. O desenho
-pré-registrado cobre \textbf{15 países}; a amostra foi subsequentemente estendida,
+pré-especificado cobre \textbf{15 países}; a amostra foi subsequentemente estendida,
 \emph{post registration}, para \textbf{25 países} a fim de ganhar poder para o
 gradiente de desenvolvimento (H1) e para os testes de mecanismo de corpus (H4) e
 multiplicar os pares de idioma intra-país (H2). Ao longo do manuscrito e deste
 suplemento, todo efeito calculado na amostra de 25 países é reportado ao lado de
-seu valor pré-registrado de 15 países, e nenhuma conclusão pré-registrada é
+seu valor pré-especificado de 15 países, e nenhuma conclusão pré-especificada é
 revista com base apenas na extensão (Seção~\ref{sec:s-stats}).
 
 Os países foram selecionados por amostragem teórica triangulada em três
 classificações independentes: a classificação UNCTAD Norte/Sul Global
 (operacionalizando o enquadramento da colonialidade do conhecimento), a taxonomia
 de seis classes de recurso linguístico de Joshi et al.\ (2020)~\citep{joshi2020state}
-e os grupos de renda do Banco Mundial. Os 15 pré-registrados (Conjunto ``P'' na
+e os grupos de renda do Banco Mundial. Os 15 pré-especificados (Conjunto ``P'' na
 Tabela~\ref{tab:s-cov-country}) abrangem quatro regiões do mundo, cinco classes de
 Joshi e quatro grupos de renda; os 10 países de extensão (Conjunto ``E'')
 compreendem sete referências adicionais do Norte Global (Reino Unido, Canadá,
@@ -112,7 +112,7 @@ medida que fornecedores atualizam a infraestrutura, de modo que as acurácias
 reportadas são estimativas point-in-time relativas à janela de coleta. A tag
 fixada, a string de versão e o timestamp de aquisição são registrados para cada
 chamada. A coleta confirmatória ocorreu de \textbf{2026-04-26 a 2026-06-12} (UTC),
-abrangendo o piloto, a coleta pré-registrada de 15 países e a extensão
+abrangendo o piloto, a coleta pré-especificada de 15 países e a extensão
 post-registration para 25 países. A Tabela~\ref{tab:s-acquisition} dá o timestamp
 da primeira e da última chamada sem erro por provedor, junto com a documentação
 oficial de API consultada; os timestamps completos por chamada são liberados com o
@@ -132,7 +132,7 @@ vez de descartar silenciosamente células sub-cobertas. A
 Tabela~\ref{tab:s-cov-task} dá a matriz modelo~$\times$~tarefa para prompts em
 inglês (os totais por coluna igualam as contagens por tarefa do texto principal);
 a Tabela~\ref{tab:s-cov-country} dá as contagens por país em inglês, nativo e total
-com camada e conjunto de pré-registro; a Tabela~\ref{tab:s-native} lista os pares
+com camada e conjunto de pré-especificação; a Tabela~\ref{tab:s-native} lista os pares
 de idioma nativo usados em H2. A matriz de cobertura completa
 modelo~$\times$~país~$\times$~tarefa, com o motivo de cota ou exclusão de cada
 déficit, está incluída no release.
@@ -242,9 +242,9 @@ Quantidade & Valor \\
 \midrule
 Juízes ($k$) & 4 (OpenAI, Anthropic, Google, DeepSeek) \\
 Itens comuns & 131 \\
-$\alpha$ de Krippendorff (intervalar) & 0.667 \\
-ICC$(2,1)$ de juiz único & 0.672 \\
-\textbf{ICC$(2,4)$ da média do painel} & \textbf{0.891} \\
+$\\alpha$ de Krippendorff (intervalar) & 0.527 \\\\
+ICC$(2,1)$ de juiz único & 0.558 \\\\
+\\textbf{ICC$(2,3)$ da média do painel} & \\textbf{0.791} \\\\
 \midrule
 Pearson pareado: GPT-5-mini $\,\vert\,$ Claude Sonnet & 0.859 \\
 \quad GPT-5-mini $\,\vert\,$ DeepSeek-V3 & 0.834 \\
@@ -287,17 +287,17 @@ de país (5{,}000 permutações). Todas as saídas a seguir são regeneradas por
 \texttt{h4\_corpus\_mechanism.py}.
 
 \begin{table}[h]\centering
-\caption{Família primária (Bonferroni--Holm): valores pré-registrados de 15 países
+\caption{Família primária (Bonferroni--Holm): valores pré-especificados de 15 países
 ao lado da extensão post-registration de 25 países. H1-por-IDH é o único teste
 primário que rejeita sua hipótese nula a $n=25$; permanece abaixo do limiar de
-tamanho de efeito pré-registrado $\rho\geq 0,55$ em ambas as amostras.}
+tamanho de efeito pré-especificado $\rho\geq 0,55$ em ambas as amostras.}
 \label{tab:s-primary}
 \small
 \begin{tabular}{lll}
 \toprule
-Teste & 15 países (pré-registrado) & 25 países (extensão) \\
+Teste & 15 países (pré-especificado) & 25 países (extensão) \\
 \midrule
-H1 Spearman $\rho$(acc, IDH)        & $+0.143$ (unilateral $p=0.306$), ns & $\mathbf{+0.512}$ ($p=0.004$), rejeita sob B--H \\
+H1 Spearman $\\rho$(acc, IDH)        & $+0.093$, ns & $+0.365$ ($p=0.073$), ns; não rejeita sob B--H \\\\
 H1 Mann--Kendall (por IDH)          & $S=9$, $Z=+0.40$, $p=0.692$        & $S=102$, $Z=+2.36$, $p=0.018$ \\
 H1 Spearman $\rho$(acc, Joshi)      & $+0.028$, ns                       & $-0.061$, ns (desenvolvimento, não linguístico) \\
 H1 vs limiar $\rho\geq 0.55$        & não atingido                       & não atingido (significativo, abaixo do tamanho de efeito) \\
@@ -313,7 +313,7 @@ de país (sitelinks do Wikidata) prediz a acurácia no nível de ordem zero e
 sobrevive à correção de multiplicidade entre os três proxies de cobertura, mas
 atenua-se até a não-significância após ajuste para desenvolvimento (IDH);
 reportamos, portanto, como sugestivo/exploratório, não como mecanismo estabelecido.
-O proxy pré-registrado de edição de idioma é nulo.}
+O proxy pré-especificado de edição de idioma é nulo.}
 \label{tab:s-h4}
 \small
 \begin{tabular}{llrr}
@@ -337,12 +337,12 @@ leave-one-country-out (LOCO) e de restrição de amplitude.}
 \toprule
 Achado & Estatística \\
 \midrule
-Lacuna de camada (GN$-$GS)         & $+6.2$~pp, IC 95\% $[+3.7,+8.6]$ (15 países: $+6.7$ $[+2.8,+10.2]$) \\
+Lacuna de camada (NG$-$SG)         & $+5.1$~pp, IC 95\\% $[+1.6,+8.5]$; permutação $p=0.020$ \\\\
 Lacuna de camada, faixa LOCO       & $[+5.8,+7.1]$~pp, estável \\
 Gradiente IDH H1, faixa LOCO       & $\rho\in[+0.48$ (sem NGA)$,\ +0.66$ (sem IND)$]$ \\
-H1 com amplitude restrita (dentro do IDH dos 15) & $\rho=0.512$ ($p=0.009$): densidade, não amplitude \\
+H1 \\emph{leave-one-country-out} & $\\rho\\in[+0.31,+0.49]$: nunca atinge o limiar pré-especificado de 0.55 \\\\
 Piso de tarefa (T1{+}T2 vs T3--T5) & $0.367$ vs $0.638$, Mann--Whitney, $\delta$ de Cliff $=-0.64$ \\
-H3 Cabra-Mistral vs restante       & $0.320$ vs $0.543$, $\delta$ de Cliff $=-0.51$ \\
+H3 Cabra-Mistral vs restante       & $0.347$ vs $0.549$, $\\delta$ de Cliff $=-0.47$ \\\\
 H2 nativo vs inglês (todos)        & $\Delta=-2.1$~pp, Wilcoxon $p=1.96\times10^{-3}$ ($n=762$) \\
 \quad Espanhol / Português / Hindi & $-1.0$ ($p=0.15$) / $-2.3$ ($p=0.033$) / $-7.8$ ($p=0.013$) \\
 H2 em nível de país (unidade independente, $n=9$) & 9/9 negativos, média $-2.4$~pp, Wilcoxon $p=0.008$ \\
@@ -352,6 +352,85 @@ H5 aberto vs fechado-acessível     & vantagem fechada de $+14.1$~pp (descritivo
 \end{table}
 
 % ============================================================
+\section{Análises adicionais de robustez e corroboração}
+
+\textbf{Sensibilidade da ponderação do composto.} Recomputamos cada efeito
+principal sob a ponderação dos autores, sob pesos iguais e sob ponderação derivada
+por ACP. Os dois efeitos sustentados se mantêm nas três; o gradiente falha nas
+três. Sob pesos iguais a lacuna de camada é de $+4.15$~pp e o gradiente
+$\rho=+0.335$; sob ACP, $+4.84$~pp e $\rho=+0.375$.
+
+\textbf{Poder sobre o nulo do gradiente.} Simulando amostras de 25 países em
+correlações conhecidas, o desenho tem 77\% de poder para detectar $\rho=0.55$ e
+efeito mínimo detectável de $\rho=0.56$ a 80\% de poder. O nulo exclui, portanto,
+um gradiente da magnitude pré-especificada, mas não um gradiente fraco (poder de
+48\% em $\rho=0.40$).
+
+\textbf{Dependência da taxonomia de camada.} A lacuna é significativa sob a
+partição Norte/Sul da UNCTAD (permutação $p=0.020$) e não sob nenhuma partição dos
+mesmos 25 países traçada apenas por IDH (mediana $+2.39$~pp, $p=0.269$; IDH
+$<0.800$ $+2.92$~pp, $p=0.182$; IDH $<0.700$ $+1.53$~pp, $p=0.575$). Relatamos isso
+em vez de descansar sobre a partição favorável.
+
+\textbf{Política de desempate entre respostas armazenadas.} De 8.300 células
+pontuadas, 951 (11.5\%) têm mais de um escore, provenientes de reexecuções em datas
+diferentes. A política adotada é a \emph{média}: determinística, independente da
+ordem de leitura, e usa toda a informação coletada. As quatro políticas plausíveis
+(primeira, última, média, aleatória com semente) movem os efeitos em no máximo
+0.06~pp, de modo que a escolha não é consequente.
+
+\section{Desvios em relação ao plano de análise pré-especificado}
+\label{sec:s-desvios-pt}
+
+O plano de análise exigia que os afastamentos fossem registrados e classificados, e
+fixava um teto para eles: o estatuto confirmatório só se mantém se os desvios
+afetarem no máximo 15\% das células planejadas. O escopo entregue é de 27.5\% da
+contagem planejada de respostas, de modo que o teto é excedido por larga margem, e
+o estudo é relatado como exploratório do começo ao fim.
+
+Os desvios principais, com o efeito de cada um sobre a interpretação:
+
+\begin{itemize}\setlength{\itemsep}{3pt}
+\item \textbf{Contagem de respostas.} Planejadas 33.600; entregues 9.251 (27.5\%).
+  Aciona o próprio teto de 15\% do plano.
+\item \textbf{Registro público.} O plano deveria ser depositado em registro público
+  antes da coleta confirmatória; foi fixado em documento sob controle de versão e
+  nunca depositado. A datação não pode ser verificada de forma independente do
+  histórico do repositório, e não reivindicamos pré-especificação pública.
+\item \textbf{Piloto de rubrica.} Previsto piloto de 50 prompts com dois
+  avaliadores humanos e $\alpha \geq 0.70$ antes de escalar. Não foi executado. A
+  confiabilidade é evidenciada a posteriori, em $\alpha = 0.527$, abaixo do limiar
+  que o plano fixara.
+\item \textbf{Instrumento de pontuação.} O plano previa juiz único. T2 e T3 passam
+  a ser adjudicadas por código contra registros oficiais onde o valor devolvido é
+  extraível (62.5\% e 83.6\% das células); o resíduo e toda a T4 são repontuados
+  pela média de um painel de três fornecedores. Isso muda as conclusões
+  substantivas sobre as mesmas respostas: o gradiente cai de $\rho=0.51$
+  ($p=0.004$) para $\rho=0.37$ ($p=0.073$) e a penalidade de idioma nativo cresce
+  de $-2.1$~pp para $-4.8$~pp.
+\item \textbf{Ordenação dos achados.} O plano tratava H1 como hipótese primária. H2
+  passa a ser relatada como achado principal e o gradiente de H1 como exploratório.
+  Reordenação post hoc, motivada pela pontuação corrigida e não por reexame dos
+  dados em busca de narrativa melhor; ambas as hipóteses eram pré-especificadas e
+  ambas são relatadas.
+\item \textbf{Tradução para idioma nativo.} Previstos tradutores humanos nativos com
+  retrotradução independente e adjudicação bilíngue. Usou-se tradução por LLM,
+  auditada a posteriori por censo de retrotradução dos 90 prompts nativos. O
+  artefato contra o qual o plano se protegia está medido e ausente: 90/90 preservam
+  o país e a quantidade solicitada.
+\item \textbf{Cobertura de modelos.} A cobertura não é uniforme; dois modelos estão
+  ausentes de vários países após limitação de taxa e esgotamento de crédito. As
+  médias por país são computadas sobre conjuntos de modelos distintos.
+\end{itemize}
+
+Uma propriedade adicional do corpus de respostas, que não é desvio do plano mas
+consequência de como a coleta foi repetida, pertence a esta seção porque afeta a
+reprodutibilidade. De 9.760 chaves únicas (modelo, prompt, replicação), 2.147
+(22.0\%) têm mais de uma resposta armazenada, produzidas por reexecuções em datas
+diferentes. A política de desempate adotada é a média dos escores, e a análise de
+sensibilidade acima mostra que a escolha entre as quatro políticas plausíveis move
+os efeitos em no máximo 0.06~pp.
+
 \section{Construção de prompts, template de persona e exemplos verbatim}
 % ============================================================
 

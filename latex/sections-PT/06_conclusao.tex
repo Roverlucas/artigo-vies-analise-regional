@@ -1,0 +1,85 @@
+\section{Conclusão}
+\label{sec:conclusao}
+
+Modelos de linguagem de grande porte estão se tornando infraestrutura de trabalho
+para a política de poluição do ar, um domínio em que uma resposta imprecisa sobre
+um padrão vinculante, uma concentração medida ou uma resposta operacional carrega
+consequências diretas de saúde pública no Sul Global, onde a carga de mortalidade
+por PM\textsubscript{2,5} é mais
+pesada~\citep{gbd2019risk,requia2024shortterm}. Medimos o viés geográfico e
+modulado por persona nesse domínio com um benchmark de 25 países, 14 modelos e
+quatro idiomas, pontuado contra gabarito ancorado em fontes oficiais primárias
+para todos os países --- por código onde a resposta é um valor de registro, e pela
+média de um painel de juízes de três fornecedores no restante.
+
+O resultado mais claro é que as mitigações disponíveis a uma agência não
+funcionam, e que a mais intuitiva sai pela culatra. Perguntar no idioma do próprio
+país \emph{reduz} a acurácia em 4.8 pontos percentuais (Wilcoxon
+$p=3\times10^{-15}$, $n=839$ células casadas), de forma significativa nos três
+idiomas testados e mais acentuada onde o idioma é menos representado nos corpora
+de treinamento (hindi $-11.1$~pp). Uma persona de gestor local não estreita a
+lacuna ($p=0.27$), e o modelo regional em português brasileiro é o mais fraco dos
+catorze sistemas ($\delta=-0.47$). Ao lado disso, a acurácia despenca na
+recuperação de um valor vinculante: 0.37 no padrão nacional contra 0.62 para
+síntese e recomendação ($\delta=-0.47$), que é justamente a tarefa que um gestor
+menos pode se dar ao luxo de ver errada.
+
+Uma lacuna de camada Norte/Sul persiste ($+5.1$~pp, IC bootstrap de 95\%
+$[+1.6,+8.5]$, exclui o zero), ainda que de forma modesta e com alguma
+sensibilidade à especificação: um modelo hierárquico bayesiano a coloca longe do
+zero ($P(\beta<0)=0.993$), enquanto um modelo misto frequentista a deixa marginal
+($p=0.069$). Medida tarefa a tarefa, no entanto, ela é inequívoca e altamente
+estruturada: ao devolver o padrão nacional vinculante, a chance de resposta
+correta do Sul Global é 0.23 da chance do Norte ($[0.19,0.28]$), e a lacuna
+encolhe monotonicamente à medida que a resposta depende menos de um fato
+específico do país, desaparecendo na única tarefa sem valor de registro a acertar.
+A desvantagem é concentrada, e não fraca, e um teste de permutação livre de
+suposição distribucional, com o país como unidade, o confirma ($p=0.020$). Trata-se,
+contudo, de uma lacuna ao longo da linha Norte/Sul tal como convencionalmente
+traçada: partições dos mesmos países feitas apenas por IDH não a reproduzem. O
+gradiente monotônico de desenvolvimento não atinge significância ($\rho=0.37$ com
+o IDH, $p=0.073$; $\rho=0.14$ no $n=15$ pré-especificado), de modo que relatamos
+uma diferença entre grupos que conseguimos demonstrar e uma forma ao longo da
+faixa de desenvolvimento que não conseguimos.
+
+Sobre o mecanismo, a resposta depende de onde se olha. Entre países, nenhum canal
+de corpus é identificável, porque cobertura e desenvolvimento são colineares ao
+longo de 25 observações. Dentro dos países, é: comparando tarefas cuja resposta
+depende de um fato nacional contra tarefas cuja resposta não depende --- um
+contraste no qual o desenvolvimento é constante por construção --- a cobertura do
+país prediz o déficit ($\beta=+0.026$, $p=2\times10^{-8}$), e continua predizendo
+entre os nove países que compartilham o inglês como língua oficial, onde o canal
+linguístico é idêntico por definição ($\beta=+0.025$, $p=6\times10^{-4}$).
+Identificamos a representação do país como o canal operante sem reivindicar
+identificação causal.
+
+A mensagem para as agências ambientais do Sul Global é concreta e em larga medida
+cautelar. Saídas de LLM sobre padrões vinculantes e dados medidos devem ser
+tratadas como rascunhos a conferir no diário oficial, e nenhum dos contornos
+baratos no nível do prompt ou do modelo substitui essa verificação --- muito menos
+mudar para o idioma local, que, com base nesta evidência, piora a resposta. Lemos
+o padrão dentro do arcabouço da colonialidade do
+saber~\citep{mohamed2020decolonial}: os idiomas menos atendidos nos corpora de
+treinamento~\citep{joshi2020state} são falados onde a poluição do ar mata mais
+gente, e este estudo transforma esse elo de uma preocupação plausível em um efeito
+medido.
+
+Relatamos também uma cautela metodológica que aprendemos do jeito difícil. Duas
+das cinco tarefas eram originalmente pontuadas contra chaves de preenchimento, e
+pedia-se ao juiz que fizesse a aritmética da comparação de faixa. Reconstruir as
+chaves a partir de registros oficiais e mover essa comparação para código, sobre
+as mesmas respostas, derrubou o gradiente de desenvolvimento de $\rho=0.51$ para
+$\rho=0.37$ e mais que dobrou a penalidade do idioma nativo. O instinto nesta
+literatura, quando um efeito se mostra frágil, é acrescentar países; nossa
+experiência é que a chave de gabarito merece a auditoria primeiro, porque uma
+chave defeituosa acrescenta ruído \emph{estruturado} que se concentra exatamente
+onde o dado oficial é mais difícil de obter --- que é onde a hipótese mora.
+
+Protocolo, prompts, registros de gabarito de fonte oficial, código de análise e
+dados de resposta anonimizados são liberados abertamente, com um pipeline de
+reprodução de um comando e um gate de auditoria de método que recomputa cada
+número relatado a partir do dado bruto. Para além de seus achados, o estudo
+oferece um modelo reutilizável para auditorias críveis de equidade aplicada de
+LLMs --- gabarito de fonte oficial, adjudicação por código onde a resposta é um
+número conferível, e reprodutibilidade de ponta a ponta --- nos domínios de alto
+risco do setor público onde esses sistemas já estão sendo implantados.

@@ -1,0 +1,230 @@
+\section{Introdução}
+\label{sec:intro}
+
+Modelos de linguagem de grande porte (LLMs) passaram de curiosidade de pesquisa a
+infraestrutura de trabalho da administração pública em menos de cinco anos: uma
+pesquisa da OCDE sobre funções centrais de governo documenta a adoção de IA
+generativa na formulação de políticas e na prestação de serviços públicos,
+incluindo usos em que servidores buscam normas e redigem sínteses
+técnicas~\citep{oecd2024governing}. Agências ambientais, secretarias municipais e
+analistas de política aplicada redigem sínteses técnicas, traduzem normas
+regulatórias, localizam dados oficiais de monitoramento e caracterizam arranjos
+institucionais com esse tipo de auxílio. A política de poluição do ar é um domínio
+em que essa adoção carrega consequências diretas para a saúde pública. O material
+particulado fino (PM\textsubscript{2,5}) é o principal fator de risco ambiental
+para mortalidade prematura no mundo~\citep{gbd2019risk,who2021aqg}, e a carga
+recai desproporcionalmente sobre o Sul Global~\citep{gbd2019risk}. Quando um
+gestor ambiental em São Paulo, Lagos ou Jacarta pergunta a um LLM sobre um padrão
+de qualidade do ar, um prazo de conformidade ou a evidência epidemiológica por
+trás de uma intervenção, uma resposta imprecisa não é erro benigno. Ela pode se
+propagar para uma nota técnica regulatória, uma decisão de contratação ou uma
+resposta emergencial durante um episódio de poluição.
+
+A pergunta que este artigo endereça é se os LLMs servem à política de poluição do
+ar do Sul Global com a mesma confiabilidade com que servem ao Norte Global, e se a
+forma como a consulta é enquadrada muda a resposta. Duas linhas recentes de
+evidência tornam essa pergunta urgente, e não hipotética.
+
+\paragraph{O viés factual geográfico é real e mensurável.}
+\citet{moayeri2024worldbench} documentou taxas de erro factual 1,5$\times$ maiores
+para países da África Subsaariana em comparação com países da América do Norte, em
+20 modelos e 11 indicadores do Banco Mundial. \citet{manvi2024llm} mostrou que
+avaliações \emph{zero-shot} de LLMs sobre temas subjetivos se correlacionam
+fortemente com o nível de renda ($\rho$ de até 0,70 contra condições
+socioeconômicas). \citet{mirza2024global} constatou que o GPT-4 privilegia
+sistematicamente afirmações sobre o Norte Global em detrimento do Sul Global em
+tarefas de verificação factual. Esses resultados estabelecem o fenômeno, mas
+nenhum deles se dirige a um único domínio aplicado de alto risco com gabarito
+oficial verificável, e nenhum pergunta se o viés pode ser modulado pelo
+enquadramento do prompt.
+
+\paragraph{A assimetria linguística e de corpus é estrutural.}
+\citet{joshi2020state} mapeou uma hierarquia de seis classes de disponibilidade de
+recursos linguísticos em PLN, mostrando que os idiomas da maioria dos países do
+Sul Global ocupam as classes menos atendidas. A sub-representação no corpus de
+treinamento é a explicação dominante para o viés geográfico a
+jusante~\citep{bender2021stochastic}. Essa assimetria não é incidental; ela
+reproduz padrões duradouros de infraestrutura digital e epistêmica desigual que a
+literatura decolonial vem analisando para sistemas de
+IA~\citep{mohamed2020decolonial}.
+
+Identificamos três lacunas que o trabalho atual deixa em aberto para um domínio
+como a política de poluição do ar.
+
+\paragraph{Lacuna 1: nenhum benchmark tem como alvo a política de poluição do ar
+com gabarito oficial.} As avaliações existentes usam recuperação numérica de
+indicadores do Banco Mundial (WorldBench), avaliações subjetivas (Manvi et al.),
+checagem factual jornalística (Global-Liar) ou conhecimento cultural cotidiano
+(BLEnD~\citep{myung2024blend}). Nenhuma mede as tarefas de recuperação e síntese
+que um gestor ambiental de fato delega a um LLM: declarar um padrão de qualidade
+do ar vinculante, recuperar uma concentração oficialmente medida, resumir a
+evidência de carga de doença, identificar os instrumentos legais e os órgãos
+executores, ou recomendar uma resposta operacional. Essas tarefas se ancoram em
+fontes autoritativas (conselhos ambientais nacionais, agências estaduais de
+monitoramento, a Organização Mundial da Saúde, as estimativas do Global Burden of
+Disease), o que torna a acurácia verificável de um modo que benchmarks de
+conhecimento geral não permitem.
+
+\paragraph{Lacuna 2: o enquadramento por persona não foi examinado como alavanca
+experimental.} Profissionais rotineiramente prefixam consultas com um papel
+(``Como secretário municipal de meio ambiente, \dots''), e o condicionamento por
+persona ou papel é um padrão documentado em fluxos de trabalho de \emph{prompting}
+em produção~\citep{white2023prompt}. Se adotar a persona de um gestor ambiental
+público \emph{reduz} a lacuna de acurácia do Sul Global (ao orientar o modelo para
+respostas relevantes à política e aderentes à norma) ou a \emph{amplia} (ao
+convidar à fabricação confiante de especificidades regulatórias que o modelo nunca
+aprendeu) não havia sido testado em um desenho pré-especificado. Tratamos a
+persona como fator experimental \emph{within-subject}, e não como um confundidor
+não controlado.
+
+\paragraph{Lacuna 3: o mecanismo de representação no corpus é afirmado, não
+testado para este domínio.} A ligação entre representação no corpus e acurácia é
+assumida, mas raramente medida contra confundidores, e raramente separada em seus
+dois canais. Distinguimos o \emph{tamanho do corpus da língua} (quanto texto
+existe no idioma de um país: volume de tokens do mC4~\citep{xue2021mt5}, tamanho do
+OSCAR~\citep{abadji2022oscar}, classe de Joshi) da \emph{amplitude de cobertura do
+país} (quão amplamente o corpus fala sobre aquele país: cobertura na Wikipédia e
+no Wikidata), e testamos qual deles prediz a acurácia em política de poluição do
+ar após ajuste pelo Índice de Desenvolvimento Humano --- uma distinção que importa
+porque a lacuna geográfica é medida em inglês.
+
+\subsection*{Objetivos e escopo}
+
+Declarar a fronteira de um estudo é parte de sua contribuição, porque o leitor que
+decide se a evidência se aplica à sua situação precisa saber o que foi medido e o
+que não foi. Este estudo tem três objetivos, e cada um é delimitado.
+
+\textbf{Primeiro, estabelecer um protocolo de auditoria de informação
+regulatória.} O objeto é a concordância entre a resposta de um modelo e o valor
+publicado no registro oficial, para tarefas que uma agência ambiental de fato
+delega. Não estamos medindo capacidade geral do modelo, qualidade de raciocínio ou
+utilidade para qualquer finalidade que não seja recuperar e resumir a regulação em
+vigor. O protocolo é a contribuição que se transfere; o domínio é onde o
+demonstramos.
+
+\textbf{Segundo, testar as mitigações disponíveis a uma administração.} Um órgão
+público diante de respostas ruins sobre o próprio país pode, realisticamente,
+fazer três coisas sem construir nada: declarar o papel oficial no prompt,
+perguntar no idioma nacional, ou contratar um modelo com ajuste regional. Cada uma
+tem custo de contratação ou de fluxo de trabalho. Testamos as três como fatores do
+desenho, em vez de discuti-las. Não testamos geração aumentada por recuperação,
+ajuste fino ou verificação humana no circuito, que exigem capacidade técnica que a
+maioria das agências do nosso recorte do Sul Global não tem.
+
+\textbf{Terceiro, localizar onde a confiabilidade difere e, até onde o desenho
+permitir, por quê.} Relatamos a distribuição da acurácia entre países, tarefas e
+idiomas, e testamos a explicação por representação no corpus no nível em que a
+medida tem resolução. Não reivindicamos identificação causal de mecanismo algum, e
+distinguimos ao longo de todo o texto o que o desenho demonstra do que ele não
+alcança.
+
+Em todo o trabalho, nossa unidade de análise é o modelo \emph{como servido} ---
+uma pilha de pesos, fornecedor e infraestrutura de serviço alcançada por uma API
+ou endpoint de inferência fixado --- e não um conjunto idealizado de pesos, porque
+o gestor público interage com a pilha servida e qualquer lacuna medida é
+propriedade dessa pilha (Seção~\ref{sec:metodos}). Hipóteses, amostragem e plano
+de análise foram fixados antes da coleta~\citep{nosek2018preregistration} para 15
+países e depois estendidos a 25; o plano nunca foi depositado publicamente, de
+modo que não reivindicamos pré-registro, e o estudo é relatado como exploratório
+do começo ao fim.
+
+\subsection*{Contribuições deste trabalho}
+
+Nossas contribuições são:
+
+\begin{enumerate}\setlength{\itemsep}{2pt}
+\item \textbf{Um protocolo de auditoria de informação regulatória, não um
+  benchmark de conhecimento geral.} A pergunta de confiabilidade que uma
+  administração enfrenta não é se o modelo escreve bem sobre política, e sim se o
+  valor que ele devolve corresponde ao publicado no registro oficial. Construímos
+  cinco tipos de tarefa a partir do trabalho cotidiano de uma agência ambiental: o
+  padrão de qualidade do ar vinculante em vigor (T1), a concentração local
+  oficialmente medida (T2), a evidência de carga de doença que uma avaliação de
+  impacto cita (T3), os instrumentos nacionais de política e seus órgãos
+  executores (T4), e uma recomendação aplicada para um cenário operacional (T5).
+  Cada chave é lida de fonte oficial, de modo que a correção é adjudicável e não
+  matéria de impressão de especialista. O protocolo se transfere a qualquer
+  domínio regulado cuja resposta correta seja publicada: tributário,
+  licenciamento, saúde pública, compras.
+\item \textbf{As três correções de localização às quais as agências recorrem,
+  testadas em vez de presumidas --- e as três falham.} Profissionais respondem a
+  respostas ruins sobre o próprio país com três movimentos: informar ao sistema
+  que se é a autoridade responsável, perguntar no idioma nacional, ou adotar um
+  modelo com ajuste regional. Cada um é uma decisão de contratação ou de fluxo de
+  trabalho com custo, e cada um circula como sabedoria recebida. Testamos os três:
+  persona como fator experimental \emph{within-subject}, prompt em idioma nativo
+  contra a linha de base em inglês dentro do país, e um modelo ajustado por
+  instrução em português brasileiro contra um modelo global de escala equivalente.
+  Nenhum funciona, e o que um gestor tem mais chance de tentar primeiro causa dano
+  ativo: perguntar no idioma do próprio país reduz a acurácia em cinco pontos
+  percentuais, de forma mais acentuada no idioma com o corpus mais escasso. Este é
+  o achado principal do estudo e sua saída mais diretamente acionável para a
+  prática.
+\item \textbf{A escolha do modelo como decisão administrativa.} Se uma agência
+  roda um modelo de pesos abertos na própria infraestrutura ou contrata um modelo
+  hospedado por fornecedor é hoje uma questão explícita de
+  contratação~\citep{robinson2026opensource}. Avaliamos catorze configurações de
+  acesso ao longo desse espectro e tratamos a unidade de análise como o modelo
+  \emph{como servido}, já que uma agência contrata uma pilha servida e não um
+  conjunto de pesos.
+\item \textbf{Um desenho amostral que separa quem é mal servido de por quê.} Os
+  países são estratificados ao longo de eixos independentes: a classificação
+  Norte/Sul da UNCTAD (que operacionaliza a
+  colonialidade~\citep{mohamed2020decolonial}), a taxonomia de recursos
+  linguísticos de Joshi et al.~\citep{joshi2020state}, e indicadores de
+  desenvolvimento. Isso permite distinguir explicações geográficas, linguísticas e
+  econômicas em vez de confundi-las, o que importa para a política pública: cada
+  uma implica um remédio diferente e um responsável diferente.
+\item \textbf{Um teste de mecanismo que relata os próprios limites.} Testamos a
+  representação no corpus usando proxies tanto de corpus da língua quanto de
+  cobertura do país, com controles por correlação parcial, e relatamos que o proxy
+  pré-especificado é defeituoso de um modo que vale sinalizar a quem já o usou:
+  ele atribui a Wikipédia inglesa aos nove países da amostra que têm o inglês como
+  língua oficial, de modo que indexa história colonial e não tamanho de corpus.
+  Entre países os canais não podem ser separados de forma alguma, porque cobertura
+  e desenvolvimento são colineares ao longo de 25 observações. Eles se separam
+  quando a unidade de variação muda: comparar tarefas que dependem de um fato
+  nacional contra tarefas que não dependem, dentro do mesmo país, identifica a
+  cobertura do país como canal operante --- e isso sobrevive entre os nove países
+  cuja língua oficial é idêntica. Separamos ao longo de todo o texto o que o
+  desenho demonstra do que ele não alcança, e a forma do gradiente ao longo da
+  faixa de desenvolvimento permanece na segunda categoria.
+\item \textbf{Gabarito adjudicado por código, e o que isso muda.} Onde a resposta
+  correta de uma tarefa é um número publicado em registro oficial, o veredito é
+  computado contra esse registro em vez de delegado a um modelo de linguagem,
+  porque comparar um valor com uma faixa autorizada é exato e um juiz só consegue
+  reproduzir isso com ruído. Não se trata de detalhe de implementação. Sobre as
+  mesmas respostas, reconstruir as chaves de duas tarefas a partir de registros
+  oficiais e mover a comparação para código derrubou o gradiente de
+  desenvolvimento de $\rho=0.51$ para $\rho=0.37$ e mais que dobrou a penalidade
+  do idioma nativo. Nesta literatura, a chave de gabarito, e não o tamanho da
+  amostra, é a restrição que aperta.
+\item \textbf{Recursos abertos.} O protocolo completo, os prompts, os registros de
+  gabarito com suas fontes oficiais, o código de análise e o registro de desvios
+  serão liberados sob licenças CC-BY-4.0 e MIT.
+\end{enumerate}
+
+\subsection*{Enquadramento teórico}
+
+Interpretamos nossos achados dentro do arcabouço da \emph{colonialidade do
+saber}~\citep{quijano2000coloniality,mohamed2020decolonial} e de suas articulações
+em dados e infraestrutura~\citep{couldry2019costs,dignazio2020data}. LLMs são
+sumários estatísticos comprimidos de corpora produzidos sob condições de
+infraestrutura digital desigual e acesso desigual à publicação. Os idiomas e as
+regiões que Joshi et al.\ situam nas classes menos atendidas são precisamente
+aqueles onde a poluição do ar mata mais
+gente~\citep{gbd2019risk,joshi2020state}. Quando um gestor ambiental do Sul Global
+consulta um modelo treinado majoritariamente em texto do Norte Global para
+governar um problema local de qualidade do ar, a decisão resultante corre o risco
+de herdar as assimetrias do corpus. Isso posiciona nosso trabalho empírico como
+teste de um elo de um ciclo de reprodução teorizado (assimetria no corpus de
+treinamento $\to$ assimetria de conhecimento do LLM $\to$ assimetria na decisão de
+política), e a manipulação de persona como teste de se o enquadramento do prompt
+consegue interromper esse elo.
+
+O artigo prossegue como segue. A Seção~\ref{sec:relacionados} posiciona nosso
+trabalho em relação à literatura. A Seção~\ref{sec:metodos} apresenta o desenho
+pré-especificado. A Seção~\ref{sec:resultados} relata os achados empíricos. A
+Seção~\ref{sec:discussao} os interpreta por lentes estatística e crítica e
+considera implicações práticas para a governança da poluição do ar. A
+Seção~\ref{sec:conclusao} encerra.
