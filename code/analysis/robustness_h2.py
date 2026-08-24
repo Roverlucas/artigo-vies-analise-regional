@@ -43,6 +43,10 @@ def carrega():
                        "modelo": str(r.get("model_id")), "task": r.get("task"),
                        "pais": r.get("country_iso3"),
                        "fonte": r.get("score_source", "original"),
+                       # o campo persona vem do proprio registro; a versao anterior
+                       # inferia a condicao lendo o prompt_id, o que casaria com
+                       # qualquer id que contivesse a substring "env"
+                       "persona": r.get("persona"),
                        "nativa": pid.endswith(NATIVAS)})
     return linhas
 
@@ -120,9 +124,9 @@ def main() -> None:
         linha(rot, pares(L, lambda r, f=f: r["fonte"] == f))
 
     print("\n5) DEPENDE DA PERSONA?")
-    for p_, rot in (("neutral", "so prompts neutros"), ("env", "so prompts com persona")):
-        linha(rot, pares(L, lambda r, p_=p_: r["pid"].rsplit("_", 1)[0].endswith(p_)
-                         or p_ in r["pid"]))
+    for p_, rot in (("neutral", "so prompts neutros"),
+                    ("public_manager_env", "so prompts com persona")):
+        linha(rot, pares(L, lambda r, p_=p_: r["persona"] == p_))
 
     print("\n6) E SE OS 5% DE PARES MAIS EXTREMOS FOREM ARTEFATO?")
     ordenado = sorted(base)

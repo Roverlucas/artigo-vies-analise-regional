@@ -58,8 +58,11 @@ Table~\ref{tab:conf-model} orders the 14 models by mean composite. Frontier
 systems lead and small open-weight models trail. The result bearing on H3 is
 unambiguous: the Brazilian-Portuguese regional model Cabra-Mistral~7B is the
 \emph{weakest} of all models ($0.347$ versus $0.549$ for the rest; Mann-Whitney
-$p\approx 0$, Cliff's $\delta=-0.47$, a non-parametric effect size in $[-1,1]$),
-contradicting the optimistic H3 framing that a regional model buys domain
+$p\approx 0$, Cliff's $\delta=-0.47$). Cliff's $\delta$ has a direct reading: it
+is the probability that a randomly drawn answer from one group beats one from the
+other, rescaled to run from $-1$ to $+1$. A value of $-0.47$ means the regional
+model loses roughly three such comparisons for every one it wins. This
+contradicts the optimistic H3 framing that a regional model buys domain
 accuracy. Scale and frontier training dominate regional instruction tuning at the
 7B level.
 
@@ -102,8 +105,9 @@ in force. The open recommendation task (T5) scores highest (0.773) because its
 rubric rewards plausible, well-structured policy advice that does not hinge on a
 single fact. Pooling the two recall tasks (T1, T2; mean $0.417$) against
 synthesis and recommendation (T3--T5, $0.623$), the difference is large
-(Mann-Whitney $p\approx 0$, Cliff's $\delta=-0.47$). LLMs are weakest exactly
-where applied environmental management needs them most: recalling the precise
+(Mann-Whitney $p\approx 0$, Cliff's $\delta=-0.47$, again roughly three losses
+for every win). LLMs are weakest exactly where applied environmental management
+needs them most: recalling the precise
 regulatory threshold in force.
 
 The correction of the ground truth is itself informative here, and provides an
@@ -255,7 +259,7 @@ difference-in-differences. The public-environmental-manager frame leaves the
 North/South gap essentially unchanged: $+4.7$~pp under the neutral frame versus
 $+5.4$~pp under the manager frame, a DiD of $\mathbf{+0.6}$~pp, far below the
 pre-specified 5~pp threshold; a country-level permutation test (5{,}000
-permutations of the tier label) gives $p=0.22$. \textbf{H6 is not supported}:
+permutations of the tier label) gives $p=0.27$. \textbf{H6 is not supported}:
 presenting the query as coming from a public environmental manager neither
 narrows nor amplifies the Global South disadvantage, consistent with evidence
 that expert personas do not reliably improve factual
@@ -263,7 +267,7 @@ accuracy~\citep{zheng2024helpful,mollick2025personas}. A manipulation check find
 that $50.2\%$ of persona-condition responses explicitly acknowledge the role
 frame, so the null is not an artefact of the frame being universally ignored.
 
-\subsection{H1 --- a tier gap, and an unresolved gradient}
+\subsection{H1 --- a tier gap that holds, a gradient that does not}
 \label{sec:results:h1}
 
 H1 was pre-specified in two parts, and they now separate cleanly: one holds and
@@ -276,6 +280,46 @@ countries is $[+1.6,+8.5]$~pp and \emph{excludes zero}. It is stable to dropping
 any single country (leave-one-out range $[+4.5,+6.0]$~pp) and to the composite
 weighting ($+4.2$~pp under equal weights, $+8.8$~pp on the factual subcomponent
 alone, where it widens).
+
+\textbf{Where the gap lives, and why the composite understates it.} The
+composite averages five tasks, and the gap
+is not spread evenly across them. Re-estimating the same contrast as a binomial
+mixed model on each task separately --- outcome coded as returning the register
+value, with crossed random intercepts for country and model --- shows the
+disadvantage scaling with how much the task depends on a fact specific to that
+country (Table~\ref{tab:tier-by-task}). On the binding national standard (T1) the
+Global South odds of a correct answer are $0.23$ of the Global North's
+($52.0\%$ versus $29.4\%$ raw), and on policy instruments (T4) $0.34$; on
+health-evidence synthesis (T3), where the answer is an international estimate
+rather than a national one, the ratio rises to $0.79$; and on open recommendation
+(T5), the one task with no register value to get right, the gap disappears
+entirely.
+
+This is the most important qualification of the tier gap in either direction. The
+gap is not weak --- it is \emph{concentrated}, and the composite dilutes it by
+averaging the tasks where it is severe with a task where it does not exist. On
+the question a public manager most often brings to these systems, what is the
+standard in force here, a Global South country is served at roughly a quarter of
+the odds of a Global North one.
+
+\begin{table}[h]
+\centering
+\caption{Global South versus Global North odds of returning the register value,
+by task. Binomial mixed model, crossed random intercepts for country and model.}
+\label{tab:tier-by-task}
+\small
+\begin{tabular}{llrrrl}
+\toprule
+Task & Answer is & GN & GS & OR & 95\% interval \\
+\midrule
+T1 (technical standard)     & a national value        & 52.0\% & 29.4\% & 0.23 & $[0.19,0.28]$ \\
+T4 (policy instruments)     & national instruments    & 63.1\% & 48.5\% & 0.34 & $[0.28,0.41]$ \\
+T2 (local measured datum)   & a national value        & 50.1\% & 38.6\% & 0.51 & $[0.43,0.59]$ \\
+T3 (health-evidence synth.) & an international estimate& 59.9\% & 53.5\% & 0.67 & $[0.59,0.78]$ \\
+T5 (applied recommendation) & no register value       & 99.6\% & 99.7\% & 2.67 & $[0.80,9.00]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \textbf{The monotonic gradient does not.} At $n=25$, Spearman
 $\rho(\text{accuracy},\text{HDI})=+0.36$ does not reach significance ($p=0.073$),
@@ -323,7 +367,7 @@ Peru          & GS & 0.538 &              &    &       \\
 \end{tabular}
 \end{table}
 
-\subsection{H4 --- corpus representation: mechanism unresolved}
+\subsection{H4 --- corpus representation: country coverage, not language size}
 \label{sec:results:h4}
 
 The pre-specified mechanism for the geographic gap was training-corpus
@@ -618,10 +662,13 @@ HDI $<0.700$ & $+1.53$ & 20/5 & $0.575$ \\
 
 \textbf{A distribution-free arbiter for the tier gap.} The bootstrap and the
 mixed model disagree on whether the gap clears conventional significance. A
-permutation test settles it on the most conservative terms available: it assumes
-no distribution and uses the country, the independent unit, as the thing
-permuted. Relabelling tier across the 25 countries 20{,}000 times gives
-$p=0.030$, rejecting the null. We give this test precedence over the mixed model,
+permutation test settles it on the most conservative terms available, and the
+procedure states itself in a sentence: shuffle the North/South labels among the
+25 countries at random, twenty thousand times over, and count how often chance
+alone produces a gap as large as the one we observed. It assumes nothing about
+how the data are distributed and treats the country, not the individual answer,
+as the independent unit. Chance produces a gap this large $2.0\%$ of the time
+($p=0.020$), so we reject the null. We give this test precedence over the mixed model,
 whose marginal $p=0.069$ reflects charging between-country heterogeneity to the
 error term rather than evidence against the contrast.
 
@@ -648,47 +695,10 @@ gap as supported but \emph{modest and specification-sensitive}, which is a weake
 claim than earlier drafts made on the single-judge scores ($\beta=-0.077$,
 $p=0.007$).
 
-\textbf{Where the tier gap lives.} The composite averages five tasks, and the gap
-is not spread evenly across them. Re-estimating the same contrast as a binomial
-mixed model on each task separately --- outcome coded as returning the register
-value, with crossed random intercepts for country and model --- shows the
-disadvantage scaling with how much the task depends on a fact specific to that
-country (Table~\ref{tab:tier-by-task}). On the binding national standard (T1) the
-Global South odds of a correct answer are $0.23$ of the Global North's
-($52.0\%$ versus $29.4\%$ raw), and on policy instruments (T4) $0.34$; on
-health-evidence synthesis (T3), where the answer is an international estimate
-rather than a national one, the ratio rises to $0.79$; and on open recommendation
-(T5), the one task with no register value to get right, the gap disappears
-entirely.
-
-This is the most important qualification of the tier gap in either direction. The
-gap is not weak --- it is \emph{concentrated}, and the composite dilutes it by
-averaging the tasks where it is severe with a task where it does not exist. On
-the question a public manager most often brings to these systems, what is the
-standard in force here, a Global South country is served at roughly a quarter of
-the odds of a Global North one.
-
-\begin{table}[h]
-\centering
-\caption{Global South versus Global North odds of returning the register value,
-by task. Binomial mixed model, crossed random intercepts for country and model.}
-\label{tab:tier-by-task}
-\small
-\begin{tabular}{llrrrl}
-\toprule
-Task & Answer is & GN & GS & OR & 95\% interval \\
-\midrule
-T1 (technical standard)     & a national value        & 52.0\% & 29.4\% & 0.23 & $[0.19,0.28]$ \\
-T4 (policy instruments)     & national instruments    & 63.1\% & 48.5\% & 0.34 & $[0.28,0.41]$ \\
-T2 (local measured datum)   & a national value        & 50.1\% & 38.6\% & 0.51 & $[0.43,0.59]$ \\
-T3 (health-evidence synth.) & an international estimate& 59.9\% & 53.5\% & 0.67 & $[0.59,0.78]$ \\
-T5 (applied recommendation) & no register value       & 99.6\% & 99.7\% & 2.67 & $[0.80,9.00]$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\textbf{E-values.} On the risk-ratio scale, the tier gap carries an E-value of
-$1.70$ at the point estimate and $1.31$ at the confidence limit nearest the null.
+\textbf{E-values.} An E-value asks how strong an unmeasured confounder would have to be to explain a
+finding away entirely; the larger the number, the harder the finding is to
+dismiss. The tier gap carries an E-value of $1.70$ at the point estimate and
+$1.31$ at the confidence limit nearest the null.
 The second number is the operative one~\citep{vanderweele2017evalue}: an
 unmeasured country-level confounder associated with both tier and accuracy at
 RR~$\approx1.31$ would suffice to render the gap compatible with no effect. That
@@ -722,7 +732,7 @@ H2 (language) & $-4.8$~pp; Hindi $-11.1$ & language-corpus size & Supported; mec
 H3 (regional model) & $\delta=-0.47$ & scale $>$ regional tuning & Supported \\
 H1 (tier gap) & $+5.1$~pp composite; OR $0.23$ on T1 & tier (development) & Supported; concentrated in country-fact recall \\
 H1 (gradient) & $\rho=0.37$, $p=0.080$ & development (HDI) & Exploratory; not significant \\
-H4 (geographic mech.) & sitelinks $\rho=0.36$, $p=0.087$ & country coverage & Exploratory; unresolved \\
+H4 (geographic mech.) & within-country $\beta=+0.026$, $p=2\times10^{-8}$ & country coverage & Supported within country; not causal \\
 H4 (pre-specified) & Wikipedia-size null & language-corpus size & Not supported \\
 H5 (open/closed) & $+13.3$~pp closed & access type / scale & Descriptive \\
 H6 (persona) & DiD $+0.6$~pp & --- & Not supported \\

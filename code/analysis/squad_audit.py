@@ -35,7 +35,7 @@ import urllib.request
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 SAIDA = ROOT / "data" / "processed" / "squad_audit.json"
 # Lentes criticas rodam nos dois fornecedores; as demais em um so.
-CRITICAS = ("senior-scientist", "statistician", "qa-reviewer", "code-reviewer")
+CRITICAS = ("orientador", "narrativa", "didatica", "qa-reviewer")
 FORNECEDORES = ("gemini_2_5_pro", "deepseek_v3")
 
 
@@ -116,24 +116,65 @@ def ler(*partes: str) -> str:
     return "\n".join(out)
 
 
-BASE = """You are auditing a manuscript and its analysis code before submission to
-Government Information Quarterly (Elsevier). The work was produced with heavy
-assistance from a different AI model, so your job is to find what that model and
-its authors missed — not to praise what is there.
+BASE = """You are giving a final review of a manuscript before it goes to the
+authors' senior colleagues and then to Government Information Quarterly
+(Elsevier). The work was produced with heavy assistance from a different AI
+model, so your job is to find what that model and its authors missed.
 
-Report ONLY defects you can point to in the supplied material. For each one give
-the exact location, what is wrong, why it matters, and the smallest fix. Do not
-speculate about material you were not shown; say "not shown" instead. Do not pad
-the list: three real defects beat fifteen plausible ones. If a section is sound,
-say so in one line and move on.
+This is a LATE review, so weigh two things equally: whether the work is sound,
+and whether it READS. A reader of GIQ is a public-administration scholar or a
+practitioner, not a machine-learning researcher. Judge whether the argument can
+be followed from first page to last by that reader: whether the through-line
+holds, whether each section earns the next, whether the numbers are explained
+rather than merely stated, and whether anything is needlessly opaque.
+
+Score the manuscript 0-10 on your dimension, where 5 = publishable somewhere with
+work, 7 = solid for this venue, 9 = among the better papers the venue runs. Be
+calibrated: a 9 must be defended, and so must a 4.
+
+Report weaknesses you can point at, and — separately — opportunities that are
+WITHIN the study's declared scope (a protocol for auditing regulatory
+information; testing the mitigations an agency can actually deploy; locating
+where reliability differs). Do not propose new data collection unless it is the
+only way to fix something you consider blocking.
 
 Return ONLY this JSON:
-{"findings":[{"severity":"critical|major|minor","location":"<file/section>",
-"defect":"<what is wrong>","why":"<consequence>","fix":"<smallest change>"}],
-"sound":["<what you checked and found solid, one line each>"],
-"verdict":"<one sentence: is this submittable as is?>"}"""
+{"score": <0-10 number>,
+ "score_rationale": "<two sentences defending the number>",
+ "weaknesses":[{"severity":"critical|major|minor","location":"<section>",
+   "problem":"<what is wrong>","fix":"<smallest change>"}],
+ "opportunities":[{"what":"<within-scope improvement>","payoff":"<why it is worth it>"}],
+ "readability":"<one paragraph: can a public-administration reader follow this start to finish? where does it lose them?>",
+ "verdict":"<one sentence>"}"""
 
 LENTES = {
+    "orientador": (
+        "Lens: the supervising academic. Judge the manuscript AS A WHOLE: does the "
+        "argument hold from title to conclusion, does each section earn the next, "
+        "is the contribution stated clearly enough that a busy reader gets it from "
+        "the abstract alone, and is any claim stronger than its evidence? You are "
+        "the last person to see this before the co-authors do.",
+        ("latex/sections", "latex/main.tex"),
+    ),
+    "narrativa": (
+        "Lens: storytelling and line of reasoning. Trace the through-line from the "
+        "opening problem to the closing implication. Does the paper set up a "
+        "question and answer THAT question? Are there sections that break the "
+        "thread, repeat an earlier one, or arrive without being set up? Does the "
+        "reader always know why they are being shown a number? Name the exact "
+        "places where the thread snaps, and say what would restore it.",
+        ("latex/sections",),
+    ),
+    "didatica": (
+        "Lens: accessibility for a public-administration readership. This audience "
+        "reads statistics but does not build models. Flag: jargon used without "
+        "being introduced, a statistic reported without saying what it means in "
+        "practical terms, a table the reader cannot interpret unaided, and any "
+        "passage where the writing is harder than the idea requires. Quote the "
+        "offending sentence and rewrite it in one line.",
+        ("latex/sections/00_abstract.tex", "latex/sections/03_methods.tex",
+         "latex/sections/04_results.tex"),
+    ),
     "senior-scientist": (
         "Lens: John Ioannidis. Threats to validity, inferential overreach, "
         "selective reporting, and whether the conclusions the text draws are the "
@@ -249,11 +290,13 @@ def main() -> None:
             if "erro" in r:
                 print(f"  [erro] {rot}: {r['erro'][:100]}", flush=True)
             else:
-                f = r.get("findings", [])
+                w = r.get("weaknesses", [])
+                o = r.get("opportunities", [])
                 sev = {}
-                for x in f:
+                for x in w:
                     sev[x.get("severity", "?")] = sev.get(x.get("severity", "?"), 0) + 1
-                print(f"  {rot:<40} {len(f)} achados  {sev}", flush=True)
+                print(f"  {rot:<38} nota {r.get('score','?'):<5} "
+                      f"{len(w)} fraquezas {sev} · {len(o)} oportunidades", flush=True)
 
     SAIDA.parent.mkdir(parents=True, exist_ok=True)
     SAIDA.write_text(json.dumps(resultados, indent=2, ensure_ascii=False), encoding="utf-8")

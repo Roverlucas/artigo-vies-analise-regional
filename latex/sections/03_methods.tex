@@ -289,7 +289,7 @@ from the register by a deterministic scorer, with plausibility guards that rejec
 implausible extractions --- a four-digit year read as a death count, or a national
 population read as a mortality figure. Comparing a value with a range is exact,
 and a language model asked to do the same arithmetic can only reproduce it with
-noise. Code resolves 50.2\% of T2 cells and 67.3\% of T3 cells; the rest are
+noise. Code resolves 62.5\% of T2 cells and 83.6\% of T3 cells; the rest are
 those where no value could be extracted with confidence.
 
 \textbf{Where judgement is required, a three-vendor panel decides by its mean.}
@@ -307,10 +307,14 @@ and single-judge reliability is only ICC(2,1)$=0.56$ against ICC(2,3)$=0.79$ for
 the panel mean (Section~\ref{sec:results:reliability}); the single judge was also
 itself among the evaluated models. Reliability is reported three ways:
 Krippendorff's $\alpha$ (an inter-rater agreement coefficient, $1$ = perfect,
-$0$ = chance), the single-judge ICC(2,1) (intraclass correlation for one rater,
-two-way random effects), and, as the operative quantity, the \textbf{ICC(2,3)
-reliability of the panel mean}, which by the Spearman-Brown relation exceeds the
-single-judge value even when individual judges agree only moderately. All three
+$0$ = chance), the single-judge ICC(2,1), and, as the operative quantity, the
+\textbf{ICC(2,3) reliability of the panel mean}. An intraclass correlation
+answers a practical question: had a different judge scored the same answer, how
+much would the score have moved? Values near $1$ mean the score is a property of
+the answer; values near $0$ mean it is a property of who happened to score it.
+Averaging several judges raises that figure even when each of them agrees only
+moderately with the others, which is why the panel mean is the operative
+quantity here and a single judge is not. All three
 are computed on every item the panel scored rather than on a calibration subset.
 One panel member (DeepSeek-V3) is also an evaluated model; we test for
 self-favouring directly and report the result. This study did not include a human
@@ -337,8 +341,10 @@ across all three; all headline effects are
 \subsection{Analytical strategy}
 
 The three primary tests are pre-specified as a single family
-(F1) and corrected together with the Bonferroni-Holm procedure (a step-down
-family-wise correction for multiple comparisons). Secondary
+(F1) and corrected together with the Bonferroni-Holm procedure. Testing several
+hypotheses at once raises the chance that one of them looks significant by
+accident; this correction raises the bar accordingly, so a result that survives
+it is unlikely to be such an accident. Secondary
 tests (F2) are reported unadjusted within family, and declared
 exploratory tests (F3) use Benjamini-Hochberg FDR at
 $q=0.10$~\citep{benjamini1995fdr}.
