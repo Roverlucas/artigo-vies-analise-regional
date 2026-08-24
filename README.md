@@ -8,11 +8,14 @@ environmental management in the Global South, scored against official ground tru
 
 **Target journal:** *Government Information Quarterly* (Elsevier)
 **Institution:** Programa de Pós-Graduação em Sustentabilidade Ambiental Urbana, UTFPR
-**Status:** Analysis complete and re-scored against official registers. Reported as
-**exploratory** (delivered scope departed from the plan by more than the plan's own
-ceiling). Manuscript + Supplementary drafted; QA gate and method audit passing.
-**Manuscript:** [`latex/main.tex`](latex/main.tex) → `latex/main.pdf` (39 pp)
-**Supplementary:** [`latex/supplement.tex`](latex/supplement.tex) → `latex/supplement.pdf`
+**Status:** Ready for co-author review. Analysis complete and re-scored against
+official registers; reported as **exploratory** (delivered scope departed from the
+plan by more than the plan's own ceiling). Adapted to GIQ requirements: abstract
+within the 250-word limit, APA author-year citations, and a blinded version for
+double-blind review. QA gate and method audit passing.
+**Manuscript:** [`latex/main.tex`](latex/main.tex) → `latex/main.pdf` (41 pp)
+**Supplementary:** [`latex/supplement.tex`](latex/supplement.tex) → `latex/supplement.pdf` (17 pp)
+**Blinded:** regenerate with `python latex/build_blind.py` (checks for identifier leaks)
 
 ---
 
@@ -28,13 +31,13 @@ Ordered by strength of evidence, not by hypothesis number.
 
 | # | Hypothesis | Finding | Evidence status |
 |---|---|---|---|
-| **H2** | Native-language prompting modulates accuracy | **−5.0 pp** (Wilcoxon p<1e−5, n=839 cells); Hindi −12.0, Spanish −4.6, Portuguese −3.9, all significant. Native prompts also return a register-checkable value only 27.4% of the time vs 38.8% in English (−11.5 pp, sign test p=2e−10) | **Principal finding.** Survives leave-one-out over countries and models, every task, every weighting, each scoring instrument, and a back-translation census |
-| **H3** | Regional model narrows the gap | Cabra-Mistral 7B is the **weakest** of all 14 (δ=−0.45) | Supported (opposite of optimistic framing) |
-| **H1** (tier) | Global North/South gap | **+4.6 pp** (bootstrap 95% CI [+1.2,+7.8]; permutation p=0.030). Concentrated: on the binding national standard, Global South odds are **0.23** of Global North odds; no gap on the task with no register value | Supported, but only under the conventional UNCTAD partition — partitions on HDI alone do not reproduce it |
-| **H1** (gradient) | Monotonic development gradient | ρ=0.36 with HDI (p=0.080); ρ=0.08 at the pre-specified n=15 | **Not supported.** Design has 77% power at the pre-specified ρ=0.55, so a strong gradient is excluded; a weak one is not |
-| **H4** | Corpus representation is the mechanism | Language-corpus proxy **null** (ρ=0.09); Wikidata sitelinks ρ=0.35 (p=0.087), partial p=0.44 | **Unresolved.** Neither channel established at country level |
-| **H5** | Open frontier closes the gap vs closed | Closed advantage **+13.0 pp** | Descriptive |
-| **H6** | Persona narrows the gap | DiD **+0.5 pp** (permutation p=0.22) | Not supported |
+| **H2** | Native-language prompting modulates accuracy | **-4.8 pp** (Wilcoxon p=3e−15, n=839 cells); Hindi -11.1, Spanish -4.4, Portuguese -3.9, all significant. Native prompts also return a register-checkable value only 48.7% of the time vs 66.4% in English (−17.7 pp, sign test p=5e−06) | **Principal finding.** Survives leave-one-out over countries and models, every task, every weighting, and a back-translation census of all 90 native prompts |
+| **H3** | Regional model narrows the gap | Cabra-Mistral 7B is the **weakest** of all 14 (δ=-0.47) | Supported (opposite of optimistic framing) |
+| **H1** (tier) | Global North/South gap | **+5.1 pp** (bootstrap 95% CI [+1.6,+8.5]; permutation p=0.020). Concentrated: on the binding national standard, Global South odds are **0.23** of Global North odds; no gap on the one task with no register value | Supported, but only under the conventional UNCTAD partition — partitions on HDI alone do not reproduce it |
+| **H1** (gradient) | Monotonic development gradient | ρ=0.37 with HDI (p=0.072); ρ=0.09 at the pre-specified n=15 | **Not supported.** Design has 77% power at the pre-specified ρ=0.55, so a strong gradient is excluded; a weak one is not |
+| **H4** | Corpus representation is the mechanism | Between countries, neither channel separates from development (sitelinks ρ=0.36, p=0.075; partial p=0.41). Within countries, coverage predicts the specificity deficit (β=+0.026, p=2e−08), and still does among the 9 countries sharing English as official language (β=+0.025, p=6e−04) | **Identified where the design has resolution.** Not causal: country-level confounding is removed by construction, task-by-country confounding is not |
+| **H5** | Open frontier closes the gap vs closed | Closed advantage **+13.3 pp** | Descriptive |
+| **H6** | Persona narrows the gap | DiD **+0.6 pp** (permutation p=0.27) | Not supported |
 
 The design was **pre-specified for 15 countries** and extended **post hoc to 25**;
 every effect is reported alongside its 15-country value. The plan was never
@@ -152,3 +155,31 @@ Validation, supervision, and writing review are shared by Dr. Eduardo Tadeu Baca
 ## Citation
 
 To be added on first preprint deposit.
+
+## Reproducing the analysis
+
+```bash
+python code/run_all.py --confirmatory
+```
+
+Runs the full chain from the committed artefacts: deterministic scoring against
+the official registers, export of corrected scores, panel reliability, the freeze
+of every effect, the robustness battery, and the two gates (headline-number
+recomputation and the process-versus-manuscript method audit). The two steps that
+spend API credit — the judge panel and the back-translation census — are excluded
+by design; their outputs are committed and the pipeline consumes them.
+
+Key scripts, in the order the pipeline calls them:
+
+| script | what it does |
+|---|---|
+| `score_numeric.py` | compares a returned value with the authorised range, by code |
+| `export_corrected_scores.py` | one substitution rule; duplicates resolved by mean |
+| `panel_reliability_full.py` | ICC and alpha on the 3,190 items that produce the effects |
+| `freeze_all_effects.py` | every published effect, as published versus as corrected |
+| `robustness_h2.py` | adversarial attacks on the headline finding |
+| `h2_faithful_subset.py` | headline finding restricted to verified-faithful translations |
+| `h4_within_country.py` | mechanism test using within-country variation |
+| `robustness_extra.py` | power on the nulls, tier taxonomy, permutation arbiter |
+| `duplicate_policy.py` | sensitivity of every effect to the duplicate-response rule |
+| `squad_audit.py` | independent review by models from other vendors |
