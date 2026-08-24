@@ -24,8 +24,10 @@
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{caption}\captionsetup{font=small,labelfont=bf}
-\usepackage[numbers,square,comma,sort&compress]{natbib}
-\bibliographystyle{unsrtnat}
+% mesmo estilo do manuscrito principal: APA pede autor-ano, e os dois documentos
+% vao juntos ao editor
+\usepackage[authoryear,round]{natbib}
+\bibliographystyle{apalike}
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 
 % Number all floats, equations, sections with an "S" prefix.
