@@ -19,15 +19,16 @@ The applied contribution is largely negative, and it is the most actionable
 result.
 
 The local language does not help and materially hurts. Asking in the country's own
-language lowers accuracy by $4.8$~pp, significantly in all three languages, and the
-penalty scales with the scarcity of the language's corpus, with India --- the
+language lowers accuracy by $4.8$~pp, significantly in all three languages, and
+the penalty scales with the scarcity of the language's corpus, with India --- the
 highest-scoring country of all 25 in English --- falling furthest in Hindi. This
-is the mechanism the resource hierarchy predicts~\citep{joshi2020state,xue2021mt5},
-and the measurement has the resolution to see it because the unit is the language
-rather than the country. The effect depends on no single country, model, task,
-persona condition or scoring instrument, nor on translation quality, and it holds
-on an outcome involving no judge at all: the model becomes markedly less likely to
-produce a checkable number in the first place.
+is the mechanism the resource hierarchy
+predicts~\citep{joshi2020state,xue2021mt5}, and the measurement has the resolution
+to see it because the unit is the language rather than the country. The effect
+depends on no single country, model, task, persona condition or scoring
+instrument, nor on translation quality, and it holds on an outcome involving no
+judge at all: the model becomes markedly less likely to produce a checkable number
+in the first place.
 
 The local-manager persona does not narrow the gap (DiD $+0.6$~pp, permutation
 $p=0.27$), consistent with evidence that expert personas do not reliably improve
@@ -36,15 +37,14 @@ more weight than a null about a folk habit would, because role framing is the
 first thing every major vendor tells its users to do --- Anthropic, OpenAI, Google
 and xAI converge on the same advice (Section~\ref{sec:related}), so an
 administration following its supplier's documentation writes the sentence we
-tested. What that documentation claims for the sentence, read closely, is control
-over tone, format and framing, and nothing in it marks the boundary: nothing tells
-a reader that the technique which reliably shapes register does not also shape
-factual reliability. Our estimate separates the two. A manipulation check confirms
-half the responses explicitly take up the role, so the frame is received and
-changes the voice; it does not change what the model knows. We tested it typed
-into the message rather than installed as a system instruction, which is the
-channel a public servant in a chat interface actually has and the narrower of the
-two claims (Section~\ref{sec:limits}).
+tested. What that documentation claims for the sentence is control over tone,
+format and framing, and nothing in it marks the boundary: nothing tells a reader
+that the technique which reliably shapes register does not also shape factual
+reliability. Our estimate separates the two. A manipulation check confirms half
+the responses explicitly take up the role, so the frame is received and changes
+the voice; it does not change what the model knows. We tested it typed into the
+message rather than installed as a system instruction, the channel a public
+servant in a chat interface actually has (Section~\ref{sec:limits}).
 
 The regional model is the \emph{worst} performer of all fourteen
 ($\delta=-0.47$), so reaching for a locally tuned small model trades away the
@@ -59,16 +59,14 @@ value against the official source.
 
 Accuracy collapses on the tasks that require returning a specific value in force:
 $0.417$ for normative and local-datum recall against $0.623$ for synthesis and
-recommendation ($\delta=-0.47$), deepest on the national standard itself (T1,
-$0.367$). The risk is concentrated. A manager drafting prose about air quality
+recommendation ($\delta=-0.47$), deepest on the national standard itself
+($0.367$). The risk is concentrated. A manager drafting prose about air quality
 policy is comparatively well served; a manager retrieving the regulatory cutoff a
 decision turns on is in the worst cell of the design, and worse still if they ask
 in a lower-resource language. An internal check supports that this floor is
 genuine rather than an artefact of scoring: correcting the ground truth raised T2
 --- the task scored against a placeholder --- from $0.368$ to $0.467$, while
-leaving T1, which always had official ground truth, at exactly $0.367$. The
-correction moved the task whose key was defective and left untouched the task
-whose key was sound.
+leaving T1, which always had official ground truth, at exactly $0.367$.
 
 \subsection{A tier difference we can show, and a gradient we cannot}
 
@@ -106,21 +104,15 @@ country has English as an official language, which is a fact about colonial
 history. We report this because it bears on any study that has used or will use
 the same proxy.
 
-Resolution comes from changing the unit of variation rather than adding countries,
-and the decisive check restricts to those same nine anglophone countries. There
-the linguistic channel is not merely controlled but identical by construction, and
-country coverage still predicts the specificity deficit at the full-sample
-magnitude ($\beta=+0.025$, $p=6\times10^{-4}$). What that coefficient measures
-cannot be language.
-
-We state the claim at the strength the design supports and no further. Country
-representation is the operative channel for a gap measured in English, identified
-in a contrast that removes country-level confounding by construction. This is not
-causal identification: the design eliminates confounding at the level of the
-country, not of task-by-country. What we can say is that the account makes a
-differential prediction, the prediction holds, it strengthens as the contrast
-sharpens, and it survives the one condition in which language is held exactly
-fixed.
+Resolution comes from changing the unit of variation, and the decisive check
+restricts to those same nine anglophone countries. There the linguistic channel is
+not merely controlled but identical by construction, and country coverage still
+predicts the specificity deficit at the full-sample magnitude ($\beta=+0.025$,
+$p=6\times10^{-4}$). What that coefficient measures cannot be language. The claim
+stops there: country representation is the operative channel for a gap measured in
+English, identified in a contrast that removes country-level confounding by
+construction, but not causally --- the design eliminates confounding at the level
+of the country, not of task-by-country.
 
 \subsection{The methodological lesson: the key matters more than the sample}
 
@@ -156,13 +148,12 @@ because we did not measure it: disease burden is not among our country covariate
 and the one country-level observation we have points the other way, since India
 carries one of the largest PM\textsubscript{2.5} mortality burdens in the world
 and is also the highest-scoring country in our sample. Whether reliability is
-misaligned with need is a well-posed question, answerable by adding an
-age-standardised attributable-mortality covariate, but not one this design
-answers. We interpret the pattern we \emph{did} measure through the
-coloniality-of-knowledge framework~\citep{mohamed2020decolonial}: LLMs are
-compressed summaries of corpora produced under uneven digital and publication
-access, and the language penalty is a measurable link from corpus asymmetry to
-knowledge asymmetry.
+misaligned with need is answerable by adding an age-standardised
+attributable-mortality covariate, but not by this design. We interpret the pattern
+we \emph{did} measure through the coloniality-of-knowledge
+framework~\citep{mohamed2020decolonial}: LLMs are compressed summaries of corpora
+produced under uneven digital and publication access, and the language penalty is
+a measurable link from corpus asymmetry to knowledge asymmetry.
 
 \subsection{Limitations and future opportunities}
 \label{sec:limits}
@@ -181,17 +172,16 @@ the first study we would run.
 
 \emph{From panel-scored to gold-anchored.} No human expert re-scored responses
 here. Three properties bound what that costs: where the answer is a register value
-the verdict is computed by code and no judge is involved; where judgement is
-required the score is the mean of three vendors rather than one; and every
-reported effect is a between-group contrast, in which a judge's systematic
-severity cancels. Restricting to objective factual accuracy \emph{strengthens}
-both headline effects, the opposite of what a permissive judge would produce. A
-blinded human-expert validation of a stratified sample --- roughly 150 responses
-scored by three raters, which the released pipeline exports directly --- would
-convert an official-source-anchored result into a gold-standard-anchored one.
+the verdict is computed by code; where judgement is required the score is the mean
+of three vendors rather than one; and every reported effect is a between-group
+contrast, in which a judge's systematic severity cancels. Restricting to objective
+factual accuracy \emph{strengthens} both headline effects, the opposite of what a
+permissive judge would produce. A blinded human-expert validation of a stratified
+sample --- roughly 150 responses scored by three raters, which the released
+pipeline exports directly --- would convert an official-source-anchored result
+into a gold-standard-anchored one.
 
-\emph{From a within-country signal to a causal design.} The channel is identified
-where the design has resolution, but not causally: within countries we remove
+\emph{From a within-country signal to a causal design.} Within countries we remove
 country-level confounding without removing task-by-country confounding. A design
 that varies country coverage while holding development fixed, or a longitudinal
 study tracking accuracy as a country's encyclopedic footprint grows, would close
@@ -199,15 +189,15 @@ that gap.
 
 \emph{From a null gradient to an adequately powered test.} The tier difference is
 established while the gradient is not, at $n=25$. A pre-registered replication at
-substantially larger $n$ --- which the open dataset makes cheap --- would settle
-whether the gradient is genuinely absent or still underpowered.
+substantially larger $n$, which the open dataset makes cheap, would settle whether
+the gradient is genuinely absent or still underpowered.
 
 \emph{From three native languages to the full multilingual matrix.} The strongest
 result rests on three native languages, so its \emph{mechanism} is reported
 descriptively even though the effect is not. The translation-quality objection is
-settled empirically rather than acknowledged, by the back-translation census
-reported above. What remains open is breadth, not validity, and scaling to more
-languages is the highest-value extension this study points to.
+settled empirically by the back-translation census reported above; what remains
+open is breadth, not validity, and scaling to more languages is the highest-value
+extension this study points to.
 
 \emph{From one domain to a cross-domain program.} All effects come from one
 high-stakes applied domain and one corpus family (Wikimedia), and we confine the

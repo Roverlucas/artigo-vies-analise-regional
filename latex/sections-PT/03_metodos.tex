@@ -51,46 +51,38 @@ Após a análise pré-especificada de 15 países, e \emph{relatado aqui como ext
 post hoc e não como parte do protocolo travado}, a amostra foi ampliada para 25
 países sob procedimentos idênticos, para aumentar o poder dos testes de gradiente e
 de mecanismo e para multiplicar os pares de idioma dentro do país disponíveis para
-H2. As dez adições são seis referências do Norte Global e quatro países de par em
-idioma nativo, listados com seus papéis no material suplementar. Como a extensão
-seguiu a observação dos resultados iniciais, todo efeito na amostra de 25 países é
-relatado ao lado de sua contraparte pré-especificada de 15, nenhuma conclusão
-pré-especificada é revisada apenas com base na extensão, e a ampliação é tratada
-como checagem de poder e robustez, não como novo teste confirmatório. Angola, como
-Nigéria e Argentina, \emph{não} tem padrão nacional de PM\textsubscript{2,5},
-acrescentando casos sem padrão nos quais um modelo fiel deve se recusar a declarar
-um limiar inexistente.
-
-Para multiplicar os pares de H2 sem acrescentar idiomas, duas variantes adicionais
-de pergunta por (país, tarefa) foram geradas para os cinco países originais com par
-nativo e renderizadas nos dois idiomas; elas são usadas \emph{apenas} para o
-contraste pareado inglês versus nativo, no qual qualquer imperfeição no gabarito
-gerado se cancela entre os dois membros do par.
+H2. Como a extensão seguiu a observação dos resultados iniciais, todo efeito na
+amostra de 25 países é relatado ao lado de sua contraparte pré-especificada de 15,
+nenhuma conclusão pré-especificada é revisada apenas com base na extensão, e a
+ampliação é tratada como checagem de poder e robustez, não como novo teste
+confirmatório. Angola, como Nigéria e Argentina, \emph{não} tem padrão nacional de
+PM\textsubscript{2,5}, acrescentando casos sem padrão nos quais um modelo fiel deve
+se recusar a declarar um limiar inexistente. As dez adições, seus papéis e as duas
+variantes extras de pergunta geradas por (país, tarefa) para os pares de H2 estão
+detalhadas no suplemento.
 
 \subsection{Covariáveis de país}
 \label{sec:covariaveis}
 
 O Índice de Desenvolvimento Humano (PNUD 2023--24) e o PIB per capita indexam a
 posição de desenvolvimento e entram na análise de mecanismo como covariáveis de
-ajuste.
-
-As exposições de representação no corpus se dividem segundo uma distinção que a
-análise de mecanismo torna explícita, porque os dois canais se aplicam a efeitos
-diferentes. As medidas de \emph{corpus da língua} quantificam quanto texto de
-pré-treinamento existe \emph{em} um idioma e são o mecanismo candidato para a
+ajuste. As exposições de representação no corpus se dividem segundo uma distinção
+que a análise de mecanismo torna explícita, porque os dois canais se aplicam a
+efeitos diferentes. As medidas de \emph{corpus da língua} quantificam quanto texto
+de pré-treinamento existe \emph{em} um idioma e são o mecanismo candidato para a
 penalidade de idioma nativo: contagem de tokens do mC4~\citep{xue2021mt5}, tamanho
 do corpus OSCAR-2301~\citep{abadji2022oscar} e a classe de
 Joshi~\citep{joshi2020state}. As medidas de \emph{corpus do país} quantificam
 quanto o corpus enciclopédico fala \emph{sobre} um país, independentemente do
-idioma, e são o mecanismo candidato para a lacuna geográfica: tamanho em bytes do
-artigo da Wikipédia inglesa, número de edições linguísticas da Wikipédia com artigo
-sobre o país e número de declarações do Wikidata sobre a entidade do país.
+idioma, e são o mecanismo candidato para a lacuna geográfica: tamanho do artigo da
+Wikipédia inglesa, número de edições linguísticas com artigo sobre o país e número
+de declarações do Wikidata sobre a entidade do país.
 
 As duas famílias não são intercambiáveis. Como a lacuna geográfica é medida
 \emph{em inglês}, com o idioma mantido constante entre países, uma lacuna
 Norte/Sul residual não pode ser efeito de corpus da língua. Um ponto merece ser
-dito de forma direta, porque os papéis se confundem com facilidade: a Wikipédia e o
-Wikidata nunca são gabarito aqui, eles são a variável \emph{explicativa}. Aquilo
+dito de forma direta, porque os papéis se confundem com facilidade: a Wikipédia e
+o Wikidata nunca são gabarito aqui, eles são a variável \emph{explicativa}. Aquilo
 contra o que uma resposta é pontuada é sempre um registro oficial
 (Seção~\ref{sec:gabarito}); tivéssemos pontuado contra uma enciclopédia, o estudo
 mediria concordância com uma enciclopédia, que não é a pergunta que uma
@@ -100,25 +92,21 @@ administração pública enfrenta.
 
 Catorze LLMs foram avaliados em cinco camadas de acesso, abrangendo cerca de duas
 ordens de magnitude em contagem de parâmetros e quatro geografias de dados de
-treinamento (Estados Unidos, China, Europa, Brasil): fronteira de pesos abertos (5
-modelos, endpoints gratuitos de inferência), pesos abertos médios (3) e pequenos ou
-regionais (2) executados localmente via Ollama sob tags fixadas, e fechados
-acessíveis (2) e fechados de fronteira (1) via APIs oficiais. A camada pequena
-inclui um modelo ajustado por instrução em português brasileiro
-(Cabra-Mistral~7B~v3), testado contra um modelo aberto de treinamento global de
-escala equivalente para H3. Cada modelo foi consultado com string de versão ou tag
-idêntica ao longo da janela de coleta, registrada na liberação do protocolo para
-proteger contra atualizações no meio da coleta. O roster completo, com fornecedor,
-contagem de parâmetros, rota de acesso e backend de execução, está na
-Tabela~S1 do suplemento.
+treinamento (Estados Unidos, China, Europa, Brasil): fronteira de pesos abertos
+(5), pesos abertos médios (3) e pequenos ou regionais (2) executados localmente sob
+tags fixadas, e fechados acessíveis (2) e fechados de fronteira (1) via APIs
+oficiais. A camada pequena inclui um modelo ajustado por instrução em português
+brasileiro (Cabra-Mistral~7B~v3), testado contra um modelo aberto de treinamento
+global de escala equivalente para H3. Cada modelo foi consultado com tag fixada
+idêntica ao longo da janela de coleta. O roster completo está na Tabela~S1 do
+suplemento.
 
 Comparamos \emph{modelos como servidos} por uma pilha de acesso fixa, e não pesos
-idealizados em isolamento. Infraestrutura do provedor, configuração de serviço e
-camada de API fazem parte, portanto, do que cada rótulo denota, e uma lacuna
-residual poderia em princípio refletir a pilha em vez dos pesos. Mantemos isso
-constante fixando tags de versão e a configuração de máximo determinismo disponível
-por provedor ao longo de uma janela fixa de coleta; separar pesos de infraestrutura
-é uma questão distinta que não pretendemos resolver.
+idealizados. Infraestrutura do provedor, configuração de serviço e camada de API
+fazem parte do que cada rótulo denota, e uma lacuna residual poderia em princípio
+refletir a pilha em vez dos pesos; mantemos isso constante fixando tags de versão e
+a configuração de máximo determinismo disponível por provedor ao longo de uma
+janela fixa.
 
 \subsection{Domínio e taxonomia de tarefas}
 \label{sec:tarefas}
@@ -330,11 +318,9 @@ diferenças de H6.
 \subsection{Estratégia analítica}
 
 Os três testes primários são pré-especificados como uma única família (F1) e
-corrigidos em conjunto por Bonferroni-Holm, de modo que um resultado que sobrevive a
-ele dificilmente é artefato de testar várias hipóteses ao mesmo tempo. Os testes
-secundários (F2) são relatados sem ajuste dentro da família, e os declarados
-exploratórios (F3) usam FDR de Benjamini-Hochberg a
-$q=0.10$~\citep{benjamini1995fdr}.
+corrigidos em conjunto por Bonferroni-Holm. Os testes secundários (F2) são
+relatados sem ajuste dentro da família, e os declarados exploratórios (F3) usam FDR
+de Benjamini-Hochberg a $q=0.10$~\citep{benjamini1995fdr}.
 
 \emph{H1 (gradiente geográfico, primário)} regride a acurácia composta média por
 país sobre o gradiente Joshi/IDH via $\rho$ de Spearman, pré-especificado
@@ -342,27 +328,21 @@ unilateral em $\rho\geq0.55$, com um teste de tendência de Mann-Kendall como
 complemento obrigatório de não monotonicidade. \emph{H4 (mecanismo de corpus,
 primário)} relaciona representação no corpus à acurácia por $\rho$ de Spearman
 parcial ajustando para IDH e log do PIB per capita, com contagens da Wikipédia como
-proxy pré-especificado e medidas de cobertura do Wikidata como complementos
-exploratórios. \emph{H6 (persona, primário)} é uma diferença em diferenças no nível
-do país, $\Delta_{\mathrm{SG}}-\Delta_{\mathrm{NG}}$, em que cada $\Delta$ é a média
-persona-menos-neutra dentro da camada; é sustentada se a condição de persona reduzir
-a lacuna do Sul Global em ao menos 0.05 no composto, com inferência por teste de
-permutação no nível do país (5.000 permutações) ao lado de um teste pareado
-paramétrico. \emph{H3 (secundária)} é um contraste unilateral de Mann-Whitney
-($\delta$ de Cliff) comparando o Cabra-Mistral~7B~v3 aos demais modelos. \emph{H2 e
-H5 (exploratórias)} são relatadas descritivamente, com testes formais sob correção
-F3.
+proxy pré-especificado. \emph{H6 (persona, primário)} é uma diferença em diferenças
+no nível do país, sustentada se a condição de persona reduzir a lacuna do Sul
+Global em ao menos 0.05 no composto, com inferência por teste de permutação de
+5.000 iterações. \emph{H3 (secundária)} é um contraste unilateral de Mann-Whitney
+($\delta$ de Cliff). \emph{H2 e H5 (exploratórias)} são relatadas descritivamente
+sob correção F3.
 
 Três análises transversais corroboram a lacuna de camada: um modelo linear misto
 gaussiano (MixedLM do \texttt{statsmodels}, REML) com interceptos aleatórios
 cruzados de país e modelo, ajustando para IDH centrado; uma reestimação hierárquica
-bayesiana (\texttt{pymc}~\citep{pymc}, prioris fracamente informativas); e E-values
-para robustez a confundimento não medido~\citep{vanderweele2017evalue}. O mecanismo
-de corpus é sondado com um modelo exploratório de mediação
-(\texttt{semopy}~\citep{semopy}), e a manipulação de persona com uma checagem de
-reconhecimento do enquadramento de papel. As análises de robustez pré-especificadas
---- leave-one-country-out, restrição de amplitude e ponderação do composto ---
-aparecem na Seção~\ref{sec:res:robustez}.
+bayesiana (\texttt{pymc}~\citep{pymc}); e E-values para robustez a confundimento não
+medido~\citep{vanderweele2017evalue}. O mecanismo de corpus é sondado com um modelo
+exploratório de mediação (\texttt{semopy}~\citep{semopy}), e a manipulação de
+persona com uma checagem de reconhecimento do enquadramento. As análises de
+robustez pré-especificadas aparecem na Seção~\ref{sec:res:robustez}.
 
 \subsection{Protocolo do estudo e ética}
 

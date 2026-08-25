@@ -49,37 +49,30 @@ After the pre-specified 15-country analysis, and \emph{reported here as a post-h
 extension rather than part of the locked protocol}, the sample was enlarged to 25
 countries under identical procedures, to raise power for the gradient and
 mechanism tests and to multiply the within-country language pairs available for
-H2. The ten additions are six Global North references and four
-native-language-pair countries, listed with their roles in Supplementary Material.
-Because the extension followed observation of the initial results, every effect on
-the 25-country sample is reported alongside its pre-specified 15-country
-counterpart, no pre-specified conclusion is revised on the extension alone, and
-the expansion is treated as a power-and-robustness check rather than a new
-confirmatory test. Angola, like Nigeria and Argentina, has \emph{no} national
+H2. Because the extension followed observation of the initial results, every
+effect on the 25-country sample is reported alongside its pre-specified
+15-country counterpart, no pre-specified conclusion is revised on the extension
+alone, and the expansion is treated as a power-and-robustness check rather than a
+new confirmatory test. Angola, like Nigeria and Argentina, has \emph{no} national
 ambient PM\textsubscript{2.5} standard, adding no-standard cases in which a
-faithful model must decline to state a non-existent threshold.
-
-To multiply H2 pairs without adding languages, two additional question variants
-per (country, task) were generated for the five original native-pair countries and
-rendered in both languages; these are used \emph{only} for the paired
-English-versus-native contrast, in which any imperfection in the generated ground
-truth cancels between the two members of a pair.
+faithful model must decline to state a non-existent threshold. The ten additions,
+their roles, and the two extra question variants generated per (country, task) for
+the H2 pairs are detailed in Supplementary Material.
 
 \subsection{Country covariates}
 \label{sec:covariates}
 
 Human Development Index (UNDP 2023--24) and GDP per capita index developmental
-position and enter the mechanism analysis as adjustment covariates.
-
-The corpus-representation exposures divide along a distinction the mechanism
-analysis makes explicit, because the two channels apply to different effects.
+position and enter the mechanism analysis as adjustment covariates. The
+corpus-representation exposures divide along a distinction the mechanism analysis
+makes explicit, because the two channels apply to different effects.
 \emph{Language-corpus} measures quantify how much pretraining text exists \emph{in}
 a language and are the candidate mechanism for the native-language penalty: mC4
 token count~\citep{xue2021mt5}, OSCAR-2301 corpus size~\citep{abadji2022oscar}, and
 the Joshi class~\citep{joshi2020state}. \emph{Country-corpus} measures quantify how
 much the encyclopedic corpus is \emph{about} a country, independent of language,
-and are the candidate mechanism for the geographic gap: byte length of the English
-Wikipedia article, the number of Wikipedia language editions with an article on the
+and are the candidate mechanism for the geographic gap: the English Wikipedia
+article length, the number of Wikipedia language editions with an article on the
 country, and the number of Wikidata statements on the country entity.
 
 The two families are not interchangeable. Because the geographic gap is measured
@@ -87,32 +80,29 @@ The two families are not interchangeable. Because the geographic gap is measured
 North/South gap cannot be a language-corpus effect. One point deserves stating
 plainly, because the roles are easy to conflate: Wikipedia and Wikidata are never
 ground truth here, they are the \emph{explanatory} variable. What an answer is
-scored against is always an official register (Section~\ref{sec:groundtruth}); had
-we scored against an encyclopedia, the study would measure agreement with an
-encyclopedia, which is not the question a public administration faces.
+scored against is always an official register
+(Section~\ref{sec:groundtruth}); had we scored against an encyclopedia, the study
+would measure agreement with an encyclopedia, which is not the question a public
+administration faces.
 
 \subsection{Model selection}
 
 Fourteen LLMs were benchmarked across five access tiers, spanning roughly two
 orders of magnitude in parameter count and four training-data geographies (United
-States, China, Europe, Brazil): open-weight frontier (5 models, free inference
-endpoints), open-weight mid (3) and open-weight small or regional (2) run locally
-via Ollama under pinned tags, and closed-accessible (2) and closed-frontier (1)
-via official APIs. The small tier includes a Brazilian-Portuguese
-instruction-tuned model (Cabra-Mistral~7B~v3), tested against a scale-matched
-globally trained open model for H3. Each model was queried with an identical
-version string or pinned tag throughout the collection window, recorded in the
-protocol release to guard against mid-collection updates. The full roster with
-vendor, parameter count, access route and execution backend is in Supplementary
-Table~S1.
+States, China, Europe, Brazil): open-weight frontier (5), open-weight mid (3) and
+open-weight small or regional (2) run locally under pinned tags, and
+closed-accessible (2) and closed-frontier (1) via official APIs. The small tier
+includes a Brazilian-Portuguese instruction-tuned model (Cabra-Mistral~7B~v3),
+tested against a scale-matched globally trained open model for H3. Each model was
+queried with an identical pinned tag throughout the collection window. The full
+roster is in Supplementary Table~S1.
 
 We compare \emph{models as served} through a fixed access stack, not idealised
-weights in isolation. Provider infrastructure, serving configuration and API layer
-are therefore part of what each label denotes, and a residual gap could in
-principle reflect the stack rather than the weights. We hold this constant by
-pinning version tags and the maximum-determinism configuration available per
-provider throughout a fixed collection window; disentangling weights from
-infrastructure is a separate question we do not claim to resolve.
+weights. Provider infrastructure, serving configuration and API layer are part of
+what each label denotes, and a residual gap could in principle reflect the stack
+rather than the weights; we hold this constant by pinning version tags and the
+maximum-determinism configuration available per provider throughout a fixed
+window.
 
 \subsection{Domain and task taxonomy}
 \label{sec:tasks}
@@ -126,7 +116,7 @@ carry an administrative consequence rather than merely lose a point.
 Table~\ref{tab:tasks} gives them with the prompt exactly as issued to the models,
 using Brazil as the worked instance, alongside the decision each stands in for.
 
-\begin{table}[htbp]
+\begin{table}[!t]
 \centering
 \caption{The five tasks, the prompt as issued, and the decision each stands in
 for. Prompts are shown for the Brazil instance under the neutral persona; every
@@ -299,13 +289,11 @@ residual of T2 and T3, with all of T4, is scored by Gemini~2.5~Pro, Claude
 Sonnet~4.6 and DeepSeek-V3, chosen for vendor diversity so that intra-vendor
 correlation does not inflate apparent agreement. T1 and T5 retain the original
 single-judge scores. Reliability is reported as Krippendorff's $\alpha$, the
-single-judge ICC$(2,1)$ and, as the operative quantity, the ICC$(2,3)$ of the
-panel mean, computed on every item the panel scored rather than on a calibration
-subset --- an intraclass correlation answering how much a score would move had a
-different judge produced it. One panel member (DeepSeek-V3) is also an evaluated
-model, and we test for self-favouring directly. No human gold-standard layer was
-collected; ground truth is anchored instead to official primary sources
-(Section~\ref{sec:groundtruth}).
+single-judge ICC$(2,1)$ and, as the operative quantity, the ICC$(2,3)$ of the panel
+mean, computed on every item the panel scored rather than on a calibration subset.
+One panel member (DeepSeek-V3) is also an evaluated model, and we test for
+self-favouring directly. No human gold-standard layer was collected; ground truth
+is anchored instead to official primary sources (Section~\ref{sec:groundtruth}).
 
 The primary composite combines five pre-specified subcomponents (Supplementary
 Section~S6), each normalised to $[0,1]$: factual accuracy against the registry
@@ -319,35 +307,31 @@ difference-in-differences test.
 \subsection{Analytical strategy}
 
 The three primary tests are pre-specified as a single family (F1) and corrected
-together with Bonferroni-Holm, so a result surviving it is unlikely to be an
-artefact of testing several hypotheses at once. Secondary tests (F2) are reported
-unadjusted within family, and declared exploratory tests (F3) use
-Benjamini-Hochberg FDR at $q=0.10$~\citep{benjamini1995fdr}.
+together with Bonferroni-Holm. Secondary tests (F2) are reported unadjusted within
+family, and declared exploratory tests (F3) use Benjamini-Hochberg FDR at
+$q=0.10$~\citep{benjamini1995fdr}.
 
 \emph{H1 (geographic gradient, primary)} regresses country-level mean composite
 accuracy on the Joshi/HDI gradient via Spearman $\rho$, pre-specified one-sided at
 $\rho\geq0.55$, with a Mann-Kendall trend test as a mandatory non-monotonicity
 complement. \emph{H4 (corpus mechanism, primary)} relates corpus representation to
 accuracy by partial Spearman $\rho$ adjusting for HDI and log GDP per capita, with
-Wikipedia counts as the pre-specified proxy and Wikidata coverage measures as
-exploratory complements. \emph{H6 (persona, primary)} is a country-level
-difference-in-differences, $\Delta_{\mathrm{GS}}-\Delta_{\mathrm{GN}}$, where each
-$\Delta$ is the persona-minus-neutral mean within tier; it is supported if the
-persona condition reduces the Global South gap by at least $0.05$ on the composite,
-with inference by a 5{,}000-permutation country-level test alongside a parametric
-paired test. \emph{H3 (secondary)} is a one-sided Mann-Whitney contrast (Cliff's
-$\delta$) comparing Cabra-Mistral~7B~v3 against the other models. \emph{H2 and H5
-(exploratory)} are reported descriptively, with formal tests under F3 correction.
+Wikipedia counts as the pre-specified proxy and Wikidata coverage as exploratory
+complements. \emph{H6 (persona, primary)} is a country-level
+difference-in-differences, $\Delta_{\mathrm{GS}}-\Delta_{\mathrm{GN}}$, supported
+if the persona condition reduces the Global South gap by at least $0.05$ on the
+composite, with inference by a 5{,}000-permutation country-level test. \emph{H3
+(secondary)} is a one-sided Mann-Whitney contrast (Cliff's $\delta$). \emph{H2 and
+H5 (exploratory)} are reported descriptively under F3 correction.
 
 Three cross-cutting analyses corroborate the tier gap: a Gaussian linear mixed
 model (\texttt{statsmodels} MixedLM, REML) with crossed random intercepts for
 country and model, adjusting for centred HDI; a Bayesian hierarchical
-re-estimation (\texttt{pymc}~\citep{pymc}, weakly informative priors); and
-E-values for robustness to unmeasured confounding~\citep{vanderweele2017evalue}.
-The corpus mechanism is probed with an exploratory mediation model
+re-estimation (\texttt{pymc}~\citep{pymc}, weakly informative priors); and E-values
+for robustness to unmeasured confounding~\citep{vanderweele2017evalue}. The corpus
+mechanism is probed with an exploratory mediation model
 (\texttt{semopy}~\citep{semopy}), and the persona manipulation with a
-role-frame-acknowledgement check. Pre-specified robustness analyses ---
-leave-one-country-out, range restriction, composite weighting --- appear in
+role-frame-acknowledgement check. Pre-specified robustness analyses appear in
 Section~\ref{sec:results:robust}.
 
 \subsection{Study protocol and ethics}

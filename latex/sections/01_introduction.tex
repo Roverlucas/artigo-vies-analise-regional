@@ -81,8 +81,8 @@ and the study is reported as exploratory throughout.
   well about policy but whether the value it returns matches the official
   register. We build five task types from the everyday work of an environmental
   agency (Table~\ref{tab:tasks}), each keyed to an official source, so correctness
-  is adjudicable rather than a matter of expert impression. The protocol transfers
-  to any regulated domain where the correct answer is published.
+  is adjudicable rather than a matter of expert impression, and the protocol
+  transfers to any regulated domain where the correct answer is published.
 \item \emph{The three localisation fixes agencies reach for, tested rather than
   assumed --- and all three fail.} Persona framing, native-language prompting and
   a regionally tuned model are each a procurement or workflow decision, and each
@@ -91,24 +91,20 @@ and the study is reported as exploratory throughout.
   accuracy by $4.8$ percentage points, most sharply for the language with the
   scarcest corpus.
 \item \emph{A design that separates who is poorly served from why.} Countries are
-  stratified on independent axes --- UNCTAD North/South (operationalising
-  coloniality~\citep{mohamed2020decolonial}), the Joshi linguistic-resource
-  taxonomy~\citep{joshi2020state}, and development --- so geographic, linguistic
-  and economic explanations can be told apart instead of conflated. Between
-  countries, coverage and development are collinear and cannot be separated; they
-  separate once the unit of variation changes to tasks within a country, which
-  identifies country coverage as the operative channel. We also flag that the
-  pre-specified corpus proxy is defective in a way worth knowing for anyone who
-  has used it: it assigns the English Wikipedia to every sample country with
-  English as an official language, indexing colonial history rather than corpus
-  size.
-\item \emph{Ground truth adjudicated by code, and what that changes.} Where the
-  correct answer is a number in an official register, the verdict is computed
-  against that register rather than delegated to a language model. On the same
-  responses, rebuilding two task keys from official registers and moving the
-  comparison into code cut the development gradient from $\rho=0.51$ to
-  $\rho=0.37$ and more than doubled the native-language penalty. In this
-  literature the ground-truth key, not the sample size, is the binding constraint.
+  stratified on independent axes --- UNCTAD North/South, the Joshi
+  linguistic-resource taxonomy, and development --- so geographic, linguistic and
+  economic explanations can be told apart. Between countries, coverage and
+  development are collinear and cannot be separated; they separate once the unit
+  of variation becomes the task within a country, which identifies country
+  coverage as the operative channel. We also flag that the pre-specified corpus
+  proxy is defective in a way worth knowing for anyone who has used it: it assigns
+  the English Wikipedia to every sample country with English as an official
+  language, indexing colonial history rather than corpus size.
+\item \emph{Ground truth adjudicated by code, and what that changes.} Rebuilding
+  two task keys from official registers and moving range comparison into code cut
+  the development gradient from $\rho=0.51$ to $\rho=0.37$ and more than doubled
+  the native-language penalty, on the same responses. In this literature the
+  ground-truth key, not the sample size, is the binding constraint.
 \item \emph{Open resources.} Protocol, prompts, ground-truth registries with their
   official sources, analysis code, and the deviation log are released under
   CC-BY-4.0 and MIT, with a one-command reproduction pipeline.

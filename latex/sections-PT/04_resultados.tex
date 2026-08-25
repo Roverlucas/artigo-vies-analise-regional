@@ -365,34 +365,28 @@ H5 é interpretada descritivamente.
 \subsection{Proveniência do gabarito}
 \label{sec:res:proveniencia}
 
-Como a acurácia medida depende do gabarito, toda chave deste estudo vem de um
-registro oficial, ancorada por verificação documental em vez de asserção de
-especialista e reproduzível a partir das URLs citadas: T1 a partir da regulação
-nacional (o padrão brasileiro de 17~$\mu$g/m\textsuperscript{3}, por exemplo, lido
-literalmente do Anexo~I da Resolução CONAMA 506/2024), T2 da Base de Dados de
-Qualidade do Ar Ambiente da OMS v6.1, T3 do indicador AIR\_41 do GHO/OMS, e T4 do
-Apêndice~1 do Global Assessment of Air Pollution Legislation do PNUMA. Três países
-\emph{não} têm padrão nacional de PM\textsubscript{2,5}, confirmado no texto oficial
---- a Nigéria regula apenas PM\textsubscript{10}, a Argentina não tem valor federal
-vinculante, Angola não tem legislação nacional ---, o que a auditoria estabeleceu
-contra números secundários circulantes mas incorretos, e são esses os casos em que
-um modelo fiel deve se recusar a declarar um limiar inexistente. O registro
-completo, com fontes e métodos de recuperação por país, está no suplemento. As
-medidas de Wikipédia e Wikidata usadas no teste de mecanismo cumprem o papel oposto:
-são a variável explicativa, e nenhuma resposta é jamais pontuada contra elas.
+Toda chave vem de um registro oficial, ancorada por verificação documental e
+reproduzível a partir das URLs citadas: T1 da regulação nacional, T2 da Base de
+Dados de Qualidade do Ar Ambiente da OMS v6.1, T3 do indicador AIR\_41 do GHO/OMS,
+e T4 do Global Assessment of Air Pollution Legislation do PNUMA. Três países
+\emph{não} têm padrão nacional de PM\textsubscript{2,5}, confirmado no texto
+oficial --- a Nigéria regula apenas PM\textsubscript{10}, a Argentina não tem valor
+federal vinculante, Angola não tem legislação nacional ---, e é aí que um modelo
+fiel deve se recusar a declarar um limiar inexistente. O registro completo está no
+suplemento. Wikipédia e Wikidata aparecem apenas como variável explicativa do teste
+de mecanismo; nenhuma resposta é pontuada contra elas.
 
 \subsection{Modos qualitativos de falha}
 \label{sec:res:qualitativo}
 
-Três modos de falha recorrem por trás do composto (exemplos literais no
-suplemento). Os modelos \emph{fabricam padrões inexistentes}: para os três países
-sem norma nacional, inventam um limiar plausível em vez de se absterem, e discordam
-entre replicações sobre o valor inventado --- o comportamento que um gestor não
-consegue detectar sem a fonte oficial. Eles \emph{erram o valor vinculante}: o
-padrão brasileiro é 17~$\mu$g/m\textsuperscript{3} (CONAMA 506/2024), mas a resposta
-modal foi 15 (42 respostas), com 10, 20 e 25 também comuns. E \emph{degradam em
-idioma nativo}: o GPT-OSS~120B devolveu os corretos 40~$\mu$g/m\textsuperscript{3}
-da Índia em inglês e resposta \emph{vazia} à mesma pergunta em hindi.
+Três modos de falha recorrem por trás do composto, com exemplos literais no
+suplemento. Os modelos \emph{fabricam padrões inexistentes} para os três países sem
+norma nacional, inventando um limiar plausível em vez de se absterem e discordando
+entre replicações sobre o valor inventado; \emph{erram o valor vinculante},
+respondendo 15~$\mu$g/m\textsuperscript{3} para o Brasil, cujo padrão é 17 (CONAMA
+506/2024); e \emph{degradam em idioma nativo}, como quando o GPT-OSS~120B devolveu
+os corretos 40~$\mu$g/m\textsuperscript{3} da Índia em inglês e resposta
+\emph{vazia} em hindi.
 
 \subsection{Confiabilidade entre juízes}
 \label{sec:res:confiab}
@@ -400,11 +394,8 @@ da Índia em inglês e resposta \emph{vazia} à mesma pergunta em hindi.
 A confiabilidade é relatada sobre a amostra que produz os efeitos, não sobre um
 subconjunto de calibração. Todos os 3.190 itens que exigiram juiz foram pontuados
 pelos três membros do painel, dando $\alpha$ de Krippendorff $=0.527$, ICC$(2,1)$
-de juiz único $=0.558$ e --- a quantidade operativa, já que a análise usa a média do
-painel --- ICC$(2,3)=0.791$. A concordância par a par é de $+0.80$ entre Claude e
-DeepSeek e de $+0.65$--$0.66$ entre cada um e o Gemini, sistematicamente mais
-brando. Um juiz único carregaria ICC$(2,1)=0.56$, moderado na melhor das hipóteses,
-razão pela qual o protocolo especifica três fornecedores e analisa sua média.
+de juiz único $=0.558$ e --- a quantidade operativa, já que a análise usa a média
+do painel --- ICC$(2,3)=0.791$.
 
 O painel também isola uma regra de projeto que vale enunciar de forma geral. Onde o
 prompt de julgamento pedia ao modelo que comparasse uma concentração devolvida
@@ -472,8 +463,11 @@ não a amplitude do preditor.
 \label{sec:res:sintese}
 
 A Tabela~\ref{tab:sintese-hip} mapeia cada hipótese ao seu achado, ao mecanismo
-candidato e a um estatuto de evidência explícito, de modo que nenhuma afirmação seja
-lida como mais forte do que os dados sustentam.
+candidato e a um estatuto de evidência explícito, de modo que nenhuma afirmação
+seja lida como mais forte do que os dados sustentam. Três efeitos são sustentados e
+sobrevivem a todo ataque de robustez da Seção~\ref{sec:res:robustez}; duas
+expectativas pré-especificadas não se cumprem; e o mecanismo de corpus é
+identificado dentro dos países, onde o desenho tem resolução, e não entre eles.
 
 \begin{table}[h]
 \centering
@@ -495,11 +489,3 @@ H6 (persona) & DiD $+0.6$~pp & --- & Não sustentada \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-Três efeitos são sustentados com tamanhos de efeito e sobrevivem a todo ataque de
-robustez da Seção~\ref{sec:res:robustez}: a penalidade de idioma nativo, o piso de
-recuperação sobre valores vinculantes e a lacuna de camada. Duas expectativas
-pré-especificadas não se cumprem: o gradiente de desenvolvimento não atinge
-significância, e o enquadramento de persona não estreita a lacuna. O mecanismo de
-corpus é identificado dentro dos países, onde o desenho tem resolução, e não entre
-eles, onde cobertura e desenvolvimento são colineares.
