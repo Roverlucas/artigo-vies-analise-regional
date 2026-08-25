@@ -16,387 +16,223 @@ apenas onde o desenho tem resolução para tanto.
 
 \subsection{Três mitigações intuitivas, todas falhando --- e uma que prejudica}
 
-A contribuição aplicada é em larga medida negativa.
+A contribuição aplicada é em larga medida negativa, e é o resultado mais acionável.
 
-O idioma local não ajuda e prejudica materialmente. Perguntar no idioma do
-próprio país reduz a acurácia em 4.8~pp (Wilcoxon $p=3\times10^{-15}$, $n=839$
-células casadas), de forma significativa nos três idiomas, e a penalidade escala
-com a escassez do corpus daquele idioma: hindi $-11.1$~pp, espanhol $-4.4$,
-português $-3.9$. A Índia, país com maior pontuação entre os 25 em inglês, é a que
-mais cai em hindi. Este é o mecanismo que a hierarquia de recursos
-prevê~\citep{joshi2020state,xue2021mt5}, e aqui a medida tem resolução para vê-lo,
-porque a unidade é o idioma e não o país.
+O idioma local não ajuda e prejudica materialmente. Perguntar no idioma do próprio
+país reduz a acurácia em 4.8~pp, de forma significativa nos três idiomas, e a
+penalidade escala com a escassez do corpus daquele idioma, com a Índia --- país de
+maior pontuação entre os 25 em inglês --- caindo mais em hindi. Este é o mecanismo
+que a hierarquia de recursos prevê~\citep{joshi2020state,xue2021mt5}, e a medida
+tem resolução para vê-lo porque a unidade é o idioma e não o país. O efeito não
+depende de nenhum país, modelo, tarefa, condição de persona ou instrumento de
+pontuação em particular, nem da qualidade da tradução, e se sustenta em um desfecho
+que não envolve juiz algum: o modelo se torna acentuadamente menos propenso a
+produzir um número conferível.
 
-Tratamos essa afirmação de forma adversarial, e não confirmatória, e ela se
-sustentou. Não depende de nenhum país, modelo, tarefa, condição de persona ou
-instrumento de pontuação em particular, nem da qualidade da tradução: um censo de
-retrotradução de todos os 90 prompts nativos não encontrou nenhum que alterasse o
-país ou a quantidade solicitada, e a penalidade é a mesma entre as versões
-verificadas como fiéis. Mais importante, ela se sustenta em um desfecho que não
-envolve juiz algum: prompts em idioma nativo devolvem um valor verificável contra
-o registro em apenas 48.7\% das vezes, contra 66.4\% em inglês ($-17.7$~pp em
-pares, teste de sinais $p=5\times10^{-6}$), com a mesma ordenação entre idiomas. O
-dano não é que um juiz pontue prosa não inglesa com mais severidade; é que o
-modelo se torna acentuadamente menos propenso a produzir um número conferível.
+A persona de gestor local não estreita a lacuna (DiD $+0.6$~pp, permutação
+$p=0.27$), coerente com a evidência de que personas de especialista não melhoram
+de forma confiável a acurácia
+factual~\citep{zheng2024helpful,mollick2025personas}. Esse nulo pesa mais do que
+pesaria um nulo sobre um hábito popular, porque o enquadramento por papel é a
+primeira coisa que todo fornecedor relevante manda seu usuário fazer --- Anthropic,
+OpenAI, Google e xAI convergem no mesmo conselho (Seção~\ref{sec:related}), de modo
+que uma administração que siga a documentação do próprio fornecedor escreverá a
+frase que testamos. O que essa documentação promete para a frase, lida de perto, é
+controle sobre tom, formato e enquadramento, e nada nela marca a fronteira: nada
+avisa ao leitor que a técnica que molda o registro de forma confiável não molda
+também a confiabilidade factual. Nossa estimativa separa as duas. Uma checagem de
+manipulação confirma que metade das respostas assume explicitamente o papel, de
+modo que o enquadramento é recebido e muda a voz; ele não muda o que o modelo sabe.
+Testamo-lo digitado na mensagem, e não instalado como instrução de sistema, que é o
+canal que um servidor público na interface de conversa efetivamente tem e a mais
+estreita das duas afirmações (Seção~\ref{sec:limites}).
 
-A persona de gestor local não estreita a lacuna (DiD $+0.6$~pp,
-permutação $p=0.27$), coerente com a evidência de que personas de especialista não
-melhoram de forma confiável a acurácia
-factual~\citep{zheng2024helpful,mollick2025personas}. Uma checagem de manipulação
-confirma que metade das respostas assume explicitamente o enquadramento de papel,
-de modo que o nulo não decorre de falha da manipulação.
+O modelo regional é o \emph{pior} desempenho entre os catorze ($\delta=-0.47$), de
+modo que recorrer a um modelo pequeno com ajuste local troca a escala e o
+treinamento de fronteira que sustentam a acurácia no domínio.
 
-Esse nulo pesa mais do que pesaria um nulo sobre um hábito popular, porque o
-enquadramento por papel não é algo que inventamos para testar: é a primeira coisa
-que todo fornecedor relevante manda seu usuário fazer. A Anthropic manda dar um
-papel ao modelo no prompt de sistema, afirmando que uma única frase muda como ele
-responde~\citep{anthropic2026systemprompts}; o guia da OpenAI abre a estrutura de
-mensagem recomendada com um bloco de identidade~\citep{openai2026promptengineering};
-a documentação do Gemini pede que definições de papel --- que ela chama de persona
---- fiquem na instrução de sistema~\citep{google2026promptingstrategies}; e o
-exemplo padrão da xAI inicia toda conversa com um prompt de sistema que atribui
-papel~\citep{xai2026chatguide}. Quatro empresas independentes convergem no mesmo
-conselho, e uma administração que leia a documentação do próprio fornecedor e a
-siga escreverá a frase que testamos.
-
-O que a documentação promete para essa frase, lida de perto, é controle sobre tom,
-formato e enquadramento. O que as administrações extraem dela é algo mais amplo,
-porque os guias não marcam a fronteira: nada neles avisa ao leitor que a técnica
-que molda o registro de forma confiável não molda também a confiabilidade factual.
-Nossa estimativa separa as duas. Dizer ao modelo que ele fala com um gestor
-ambiental municipal move a acurácia sobre a norma desse próprio gestor em
-$+0.6$~pp, intervalo que contém zero com folga, enquanto a checagem de manipulação
-confirma que os modelos de fato assumem o papel. O enquadramento é recebido e muda
-a voz; não muda o que o modelo sabe.
-
-Duas fronteiras impedem que isso seja lido como mais do que é. Testamos o
-enquadramento digitado na mensagem, não instalado como instrução de sistema, que é
-o canal que um servidor público na interface de conversa efetivamente tem e a mais
-estreita das duas afirmações (Seção~\ref{sec:limites}). E um nulo sobre um
-enquadramento em um domínio não é veredito geral sobre prompting por persona. O
-que ele estabelece é específico e, para este público, acionável: para a
-recuperação de valores regulatórios vinculantes, a intervenção mais barata e mais
-recomendada de que um órgão público dispõe não devolve nada, e o órgão não tem como
-descobrir isso pela documentação que recebeu.
-
-O modelo regional --- o Cabra-Mistral~7B em português brasileiro --- é o
-\emph{pior} desempenho entre os catorze ($\delta=-0.47$), de modo que recorrer a um
-modelo pequeno com ajuste local troca a escala e o treinamento de fronteira, que
-são o que de fato sustenta a acurácia no domínio.
-
-Profissionais implantam as três como soluções; nenhuma funciona, e a que um gestor tem mais chance de tentar primeiro é a que causa dano ativo. A mensagem honesta para as agências ambientais do Sul Global é que nenhum
-contorno barato no nível do prompt ou do modelo substitui verificar o valor
-vinculante na fonte oficial.
+Profissionais implantam as três como soluções; nenhuma funciona, e a que um gestor
+tem mais chance de tentar primeiro causa dano ativo. Para as agências ambientais do
+Sul Global, nenhum contorno barato no nível do prompt ou do modelo substitui
+verificar o valor vinculante na fonte oficial.
 
 \subsection{O piso de recuperação recai sobre os valores que vinculam}
 
 A acurácia despenca nas tarefas que exigem devolver um valor específico em vigor:
 0.417 para recuperação normativa e de dado local, contra 0.623 para síntese e
-recomendação ($\delta=-0.47$), e o piso é mais profundo no próprio padrão nacional
-(T1, 0.367). O risco é concentrado. Um gestor que redige prosa sobre
-política de qualidade do ar é comparativamente bem servido; um gestor que recupera
-o limite regulatório do qual depende uma decisão está na pior célula do desenho, e
-pior ainda se perguntar em um idioma de menos recursos.
-
-Uma checagem interna sustenta que esse piso não é artefato de como pontuamos. Corrigir o gabarito elevou a T2 --- a tarefa que vinha sendo
-pontuada contra uma chave de preenchimento --- de 0.368 para 0.467, enquanto
-deixou a T1 --- que sempre teve gabarito oficial --- em exatamente 0.367. A
-correção moveu a tarefa cuja chave era defeituosa e não tocou naquela cuja chave
-era sólida.
+recomendação ($\delta=-0.47$), sendo mais profundo no próprio padrão nacional (T1,
+0.367). O risco é concentrado. Um gestor que redige prosa sobre política de
+qualidade do ar é comparativamente bem servido; um gestor que recupera o limite
+regulatório do qual depende uma decisão está na pior célula do desenho, e pior
+ainda se perguntar em um idioma de menos recursos. Uma checagem interna sustenta
+que esse piso é genuíno, e não artefato de pontuação: corrigir o gabarito elevou a
+T2 --- a tarefa pontuada contra uma chave de preenchimento --- de 0.368 para 0.467,
+deixando a T1, que sempre teve gabarito oficial, em exatamente 0.367. A correção
+moveu a tarefa cuja chave era defeituosa e não tocou naquela cuja chave era sólida.
 
 \subsection{Uma diferença de camada que podemos mostrar, e um gradiente que não}
 
 A H1 foi pré-especificada em duas partes, e a pontuação corrigida as separa: a
 lacuna de camada se sustenta e o gradiente monotônico não.
 
-A lacuna é de $+5.1$~pp, com IC bootstrap de $[+1.6,+8.5]$ que exclui o zero,
-estável à remoção de qualquer país e a toda ponderação do composto, ampliando-se
-para $+8.8$~pp apenas no subcomponente factual. É, ainda assim, modesta e sensível
-a como a pergunta é feita. Um modelo hierárquico bayesiano coloca o efeito longe do
-zero ($-0.052$, HDI de 94\% $[-0.092,-0.016]$, $P(\beta<0)=0.994$), enquanto um
-modelo misto frequentista com interceptos aleatórios cruzados o deixa marginal
-($\beta=-0.060$, $p=0.069$), porque cobra do termo de erro a grande
-heterogeneidade entre países. As três abordagens concordam em magnitude e sinal e
-discordam quanto à significância, e o E-value no limite do intervalo mais próximo
-do nulo é de apenas 1.31, de modo que um confundidor de nível país com força
-modesta bastaria para explicar a lacuna.
+Lida no composto, a lacuna parece modesta ($+5.1$~pp, IC bootstrap
+$[+1.6,+8.5]$). Estimada tarefa a tarefa no desfecho binário de devolver o valor de
+registro, não é: a lacuna escala com o quanto a resposta depende de um fato
+específico daquele país, de uma razão de chances de 0.22 no padrão nacional
+vinculante até nenhuma lacuna na recomendação aberta, a única tarefa sem valor de
+registro a acertar. A desvantagem é concentrada, e mediar cinco tarefas em um
+composto a dilui com tarefas em que ela não existe. Na pergunta que um gestor de
+fato leva a esses sistemas --- qual é o padrão em vigor aqui ---, um país do Sul
+Global é servido a cerca de um quarto das chances de um do Norte. Esse é o
+enunciado fiel do achado geográfico.
 
-Essa modéstia, contudo, é artefato do composto. Estimada tarefa a tarefa sobre o
-desfecho binário de devolver o valor de registro, a lacuna escala com o quanto a
-resposta depende de um fato específico daquele país: razão de chances de 0.22
-($[0.18,0.27]$) no padrão nacional vinculante, 0.33 nos instrumentos nacionais de
-política, 0.47 no dado medido local, 0.69 em uma estimativa internacional de
-saúde, e nenhuma lacuna na recomendação aberta, a única tarefa sem valor de
-registro a acertar. A desvantagem não é fraca, e sim \emph{concentrada}, e
-promediar cinco tarefas em um composto a dilui com tarefas em que ela não existe.
-Na pergunta que um gestor de fato traz a esses sistemas --- qual é o padrão em
-vigor aqui --- um país do Sul Global é servido a aproximadamente um quarto das
-chances de um país do Norte. Consideramos esta a formulação mais fiel do achado
-geográfico do que a lacuna do composto, e é a leitura que levamos às implicações.
-
-O gradiente, em contraste, falha em toda leitura: $\rho=0.37$ com o IDH em $n=25$
-não atinge significância ($p=0.073$), a tendência de Mann-Kendall concorda
-($p=0.072$), nenhuma estimativa \emph{leave-one-out} se aproxima do limiar
-pré-especificado de 0.55, e no $n=15$ registrado ele está essencialmente ausente
-($\rho=0.09$). Esse nulo é informativo, e não meramente vazio: o desenho tem 77\%
-de poder em $\rho=0.55$ e efeito mínimo detectável de $\rho=0.56$, de modo que um
-gradiente da magnitude com a qual nos comprometemos está excluído. Um gradiente
-fraco não está, já que o poder cai para 48\% em $\rho=0.40$.
-
-Dois outros resultados delimitam o que o contraste de camada significa. Um teste de
-permutação que reetiqueta a camada entre países --- livre de suposição
-distribucional, e usando o país como unidade --- dá $p=0.020$, que tomamos como
-resolvendo a discordância entre o bootstrap e o modelo misto em favor de a lacuna
-ser real. Mas a lacuna se sustenta sob a partição Norte/Sul da UNCTAD e \emph{não}
-sob partições traçadas apenas por IDH ($+2.4$ a $+2.9$~pp, todas não
-significativas). Isso é coerente com um gradiente de IDH nulo --- uma divisão por
-uma variável que não prediz acurácia não deveria produzir lacuna --- e sugere que
-a variável operante é a posição no sistema mundial, e não a riqueza nacional, que
-é o que a UNCTAD codifica e o que o enquadramento da colonialidade prevê.
-Sinalizamos que essa leitura é post hoc, e que um leitor cético pode ver, em vez
-disso, uma partição entre várias atingindo significância. De todo modo, a
-afirmação que defendemos é sobre a distinção Norte/Sul tal como convencionalmente
-traçada, não sobre desenvolvimento em geral.
-
-Relatamos essa assimetria de forma direta: uma diferença entre grupos que conseguimos demonstrar, e uma forma ao longo da faixa de desenvolvimento que não conseguimos. A ordenação dos países mostra por quê. A
-Índia lidera os 25 apesar de ser Sul Global; África do Sul e Indonésia superam
-boa parte do Norte Global; Canadá e França ficam abaixo. A desvantagem é uma
-diferença de camada sobreposta a substancial idiossincrasia por país, e é
-precisamente essa idiossincrasia que uma correlação de postos sobre 25 países não
-tem resolução para atravessar.
+O gradiente falha em toda leitura, e o nulo é informativo em vez de vazio porque o
+desenho tem 77\% de poder no $\rho=0.55$ pré-especificado: um gradiente da
+magnitude com que nos comprometemos está excluído, ao passo que um fraco não está.
+A ordenação dos países mostra por que os dois resultados diferem. A Índia lidera os
+25 países apesar de ser Sul Global; África do Sul e Indonésia superam a maior parte
+do Norte Global; Canadá e França ficam abaixo. A desvantagem é uma diferença de
+camada sobreposta a uma idiossincrasia substancial de cada país, e é essa
+idiossincrasia que uma correlação de postos sobre 25 países não tem resolução para
+atravessar.
 
 \subsection{O mecanismo, onde o desenho tem resolução}
 
-Nosso teste de mecanismo pré-especificado falha, e a razão acabou sendo um defeito
-no instrumento, não ausência de sinal. O proxy pré-especificado atribui o tamanho
-da edição da Wikipédia no idioma oficial dominante de um país; nove dos nossos 25
-países --- Austrália, Canadá, Índia, Quênia, Nigéria, Filipinas, Reino Unido,
-Estados Unidos e África do Sul --- recebem por isso o valor da Wikipédia
-\emph{inglesa}. A variável não mede quanto texto existe no idioma de um país. Ela
-mede se o país tem o inglês como língua oficial, o que é um fato sobre história
-colonial. Relatamos isso porque afeta qualquer estudo que tenha usado ou venha a
-usar o mesmo proxy.
+O teste de mecanismo pré-especificado falha, e a razão é um defeito do instrumento,
+não ausência de sinal. O proxy atribui o tamanho da edição da Wikipédia no idioma
+oficial dominante do país, de modo que nove dos nossos 25 países recebem o valor da
+Wikipédia \emph{inglesa}. A variável não mede quanto texto existe no idioma de um
+país; mede se o país tem o inglês como idioma oficial, que é um fato de história
+colonial. Relatamos isso porque incide sobre qualquer estudo que tenha usado ou
+venha a usar o mesmo proxy.
 
-Entre países, nenhum canal de corpus pode ser estabelecido. A cobertura do país se
-correlaciona com a acurácia em $\rho=0.36$ ($p=0.075$) e se atenua ainda mais após
-ajuste por desenvolvimento ($p=0.41$), porque com 25 países cobertura e
-desenvolvimento são colineares e a correlação parcial esgota a informação
-disponível.
+A resolução vem de mudar a unidade de variação em vez de acrescentar países, e a
+checagem decisiva restringe-se a esses mesmos nove países anglófonos. Ali o canal
+linguístico não é apenas controlado, mas idêntico por construção, e a cobertura do
+país ainda prevê o déficit de especificidade na magnitude da amostra completa
+($\beta=+0.025$, $p=6\times10^{-4}$). O que esse coeficiente mede não pode ser
+idioma.
 
-A resolução vem de mudar a unidade de variação, não de acrescentar países. Cada
-país responde a tarefas que diferem em quanto a resposta depende de um fato sobre
-\emph{aquele} país, e o desenvolvimento de um país é constante entre suas próprias
-tarefas. Estimar a interação entre cobertura e dependência da tarefa no nível da
-resposta, com efeito fixo de país, dá $\beta=+0.026$ ($p=2\times10^{-8}$): maior
-cobertura prediz menor déficit de especificidade. A associação se fortalece à
-medida que o contraste fica mais puro (contraste mais puro $\beta=+0.042$),
-inverte-se exatamente sob uma reetiquetagem placebo, e sobrevive ao ajuste pelo
-canal linguístico.
-
-A checagem decisiva restringe aos nove países que compartilham o inglês como
-língua oficial. Ali o canal linguístico não é apenas controlado, mas idêntico por
-construção, e a cobertura do país continua predizendo o déficit ($\beta=+0.025$,
-$p=6\times10^{-4}$), na mesma magnitude da amostra completa. O que esse
-coeficiente mede não pode ser idioma.
-
-Enunciamos a afirmação resultante na força que o desenho sustenta. A
-representação do país é o canal operante para uma lacuna medida em inglês,
-identificada em um contraste que remove por construção o confundimento no nível do
-país. Isso não é identificação causal: o desenho elimina o confundimento no nível
-do país, não no nível de tarefa por país, e se as tarefas dependentes do país fossem
-mais difíceis de um modo que por acaso acompanhasse a cobertura por razão não
-relacionada, o teste não distinguiria. O que podemos dizer é que a explicação faz
-uma predição diferencial, que a predição se confirma, que ela se fortalece à medida
-que o contraste fica mais nítido, e que sobrevive à única condição em que o idioma
-é mantido exatamente fixo.
-
-A explicação por corpus também aparece na H2, em que a unidade é o idioma e não o
-país: a penalidade por idioma cai monotonicamente com o volume de tokens do
-mC4~\citep{xue2021mt5} e com o tamanho do OSCAR~\citep{abadji2022oscar}, embora
-com três idiomas isso permaneça descritivo.
+Enunciamos a afirmação na força que o desenho sustenta, e não além. A representação
+do país é o canal operante para uma lacuna medida em inglês, identificado em um
+contraste que remove por construção o confundimento no nível do país. Isso não é
+identificação causal: o desenho elimina confundimento no nível do país, não no de
+tarefa por país. O que podemos dizer é que a explicação faz uma predição
+diferencial, que a predição se sustenta, que ela se fortalece à medida que o
+contraste se aguça, e que sobrevive à única condição em que o idioma é mantido
+exatamente fixo.
 
 \subsection{A lição metodológica: a chave importa mais que a amostra}
 
-Versões anteriores deste estudo extraíram conclusão diferente das mesmas respostas,
-e vale enunciar a razão, porque ela generaliza para além deste artigo.
-
-A pontuação original comparava respostas de modelo, em duas das cinco tarefas,
-contra gabarito de preenchimento, e delegava a um modelo de linguagem a aritmética
-de decidir se um número devolvido caía dentro de uma faixa autorizada.
-Reconstruir essas chaves a partir de registros oficiais (WHO Ambient Air Quality
-Database v6.1, WHO GHO AIR\_41, UNEP Global Assessment of Air Pollution
-Legislation) e mover a comparação para código mudou as conclusões substantivas: o
-gradiente de desenvolvimento caiu de $\rho=0.51$ ($p=0.004$) para $\rho=0.37$
-($p=0.073$), enquanto a penalidade do idioma nativo mais que dobrou, de
-$-2.1$~pp para $-4.8$~pp, e transformou o espanhol de nulo em dano significativo.
-O conjunto de dados não mudou. Só o instrumento de medida mudou.
-
-O instinto do campo, quando um efeito de viés geográfico se mostra frágil, é
-acrescentar países. Nossa experiência é que o gabarito merece o escrutínio
-primeiro. Uma chave defeituosa não apenas acrescenta ruído; ela acrescenta ruído
+As mesmas 9.251 respostas sustentam conclusões substantivas diferentes conforme o
+instrumento usado para pontuá-las, e o tamanho dessa diferença é a lição. Pontuar
+duas das cinco tarefas contra gabarito de preenchimento, e delegar a um modelo de
+linguagem a aritmética de decidir se um número devolvido cai dentro de uma faixa
+autorizada, produz um gradiente de desenvolvimento de $\rho=0.51$ ($p=0.004$) e uma
+penalidade de idioma nativo de $-2.1$~pp. Reconstruir essas chaves a partir de
+registros oficiais e passar a comparação para o código transforma o gradiente em um
+nulo ($\rho=0.37$), mais que dobra a penalidade de idioma para $-4.8$~pp e converte
+o espanhol de nulo em dano significativo. O conjunto de dados não mudou; apenas o
+instrumento de medida. O instinto do campo, quando um efeito de viés geográfico se
+mostra frágil, é acrescentar países, mas o gabarito merece o escrutínio primeiro:
+uma chave defeituosa não apenas acrescenta ruído, ela acrescenta ruído
 \emph{estruturado}, porque os defeitos se concentram onde o dado oficial é mais
-difícil de obter, que é exatamente onde a hipótese mora. Também constatamos que um
-prompt de pontuação ambíguo pode se disfarçar de discordância genuína entre juízes:
-a concordância nos itens afetados era de $r=-0.04$ sob nossa redação e de
-$r=+1.00$ depois que a faixa admissível passou a ser pré-computada e ao juiz se
-perguntou apenas se o valor caía dentro dela. Aritmética pertence ao código; ao
-juiz deve-se perguntar apenas o que exige julgamento.
+difícil de obter --- que é exatamente onde a hipótese vive.
 
 \subsection{Por que o domínio importa}
 
-O que está em jogo não são abstrações de benchmarking. O material
-particulado fino está entre os principais fatores de risco ambiental para
-mortalidade prematura, e a carga recai desproporcionalmente sobre o Sul Global. A
-Organização Mundial da Saúde atribui \num{88548} mortes no Brasil em 2021 à
-poluição do ar ambiente (intervalo de incerteza \numrange{69477}{108431}),
-lideradas por doença isquêmica do coração, acidente vascular cerebral e infecções
-respiratórias agudas das vias inferiores~\citep{who2026gho_air41}; a exposição de
-curto prazo segue produzindo mortalidade mensurável em cidades
-brasileiras~\citep{requia2024shortterm}. Quando um gestor delega uma consulta
-normativa ou uma recomendação de episódio a um LLM, uma resposta imprecisa pode se
-propagar para uma nota técnica regulatória ou uma resposta emergencial.
+O material particulado fino está entre os principais fatores de risco ambiental
+para mortalidade prematura, e a carga recai desproporcionalmente sobre o Sul
+Global: a Organização Mundial da Saúde atribui \num{88548} óbitos no Brasil em 2021
+à poluição do ar ambiente (intervalo de incerteza
+\numrange{69477}{108431})~\citep{who2026gho_air41}, e a exposição de curto prazo
+segue impulsionando mortalidade mensurável em cidades
+brasileiras~\citep{requia2024shortterm}. Quando um gestor delega a um LLM uma
+consulta normativa ou uma recomendação de episódio, uma resposta imprecisa pode se
+propagar para um parecer regulatório ou uma resposta emergencial.
 
-Não afirmamos que o modelo é menos confiável exatamente onde as consequências são maiores, porque não a medimos: a carga de doença não está entre nossas covariáveis de país, e
-nenhum teste deste estudo relaciona acurácia a mortalidade. A única observação de
-nível país que temos aponta na direção contrária, já que a Índia carrega uma das
-maiores cargas de mortalidade por PM\textsubscript{2,5} do mundo e é também o país
-de maior pontuação em nossa amostra. Se a confiabilidade está desalinhada da
-necessidade é uma pergunta bem posta, e de resposta direta ao acrescentar uma
-covariável de mortalidade atribuível padronizada por idade, mas não é uma pergunta
-que este desenho responde. Lemos o padrão que \emph{de fato} medimos dentro do
-arcabouço da colonialidade do saber~\citep{mohamed2020decolonial}: LLMs são
-sumários comprimidos de corpora produzidos sob acesso digital e editorial
-desigual, e a penalidade do idioma é um elo mensurável entre assimetria de corpus e
-assimetria de conhecimento --- o único dos três elos que nos propusemos a testar em
-que a medida tem resolução para enxergá-lo.
+Não afirmamos que o modelo é menos confiável onde as consequências são maiores,
+porque não medimos isso: a carga de doença não está entre nossas covariáveis de
+país, e a única observação de nível de país que temos aponta no sentido contrário,
+já que a Índia carrega uma das maiores cargas de mortalidade por
+PM\textsubscript{2,5} do mundo e é também o país de maior pontuação em nossa
+amostra. Se a confiabilidade está desalinhada da necessidade é pergunta bem posta,
+respondível acrescentando uma covariável de mortalidade atribuível padronizada por
+idade, mas não uma pergunta que este desenho responde. Interpretamos o padrão que
+\emph{de fato} medimos pelo arcabouço da colonialidade do
+saber~\citep{mohamed2020decolonial}: os LLMs são resumos comprimidos de corpora
+produzidos sob acesso digital e de publicação desigual, e a penalidade de idioma é
+um elo mensurável entre assimetria de corpus e assimetria de conhecimento.
 
-\subsection{O que este desenho não alcança, e o que cada limite abre}
+\subsection{Limitações e oportunidades futuras}
 \label{sec:limites}
 
-Cada limite abaixo é enunciado como fronteira deste desenho, e cada um nomeia o estudo que o removeria. Listamo-los
-na ordem em que os faríamos.
+Cada limite abaixo delimita este desenho, e cada um nomeia o estudo que o
+removeria. Listamo-los na ordem em que os faríamos.
 
 \emph{O enquadramento de papel foi testado no turno do usuário, não no prompt de
-sistema.} Toda requisição aqui é um turno único de usuário, de modo que o
-enquadramento de gestor é anteposto à mensagem em vez de instalado como instrução
-de sistema, que é onde os guias dos fornecedores o colocam. A escolha acompanha a
-população que nos interessa --- servidores públicos trabalhando na interface de
+sistema.} O enquadramento de gestor é anteposto à mensagem em vez de instalado como
+instrução de sistema, que é onde os guias dos fornecedores o colocam. A escolha
+acompanha a população que nos interessa --- servidores públicos na interface de
 conversa, que não têm prompt de sistema a configurar ---, mas significa que nosso
-nulo delimita o canal disponível a esse usuário, não o canal disponível a um
-desenvolvedor. Se uma persona em instrução de sistema recupera acurácia factual
-onde uma digitada não recupera é um experimento limpo de duas células sobre os
-mesmos itens, e é o primeiro estudo que faríamos: um resultado positivo tornaria a
-contratação mediada por API uma recomendação concreta para órgãos públicos, e um
-segundo nulo encerraria a questão para os dois canais.
+nulo delimita o canal desse usuário, não o de um desenvolvedor. Se uma persona em
+instrução de sistema recupera acurácia factual onde uma digitada não recupera é um
+experimento limpo de duas células sobre os mesmos itens, e é o primeiro estudo que
+faríamos.
 
-A base é defensável: gabarito ancorado em fontes oficiais
-primárias para todos os 25 países, adjudicação por código sempre que a resposta é
-um valor de registro conferível, e um painel de três fornecedores no restante,
-cuja confiabilidade é relatada sobre os mesmos 3.190 itens que produzem os efeitos
-(ICC$(2,3)=0.79$).
+\emph{De pontuado por painel a ancorado em padrão-ouro.} Nenhum especialista humano
+repontuou respostas aqui. Três propriedades delimitam o custo disso: onde a
+resposta é um valor de registro, o veredito é computado por código e nenhum juiz se
+envolve; onde se exige julgamento, a nota é a média de três fornecedores em vez de
+um; e todo efeito relatado é um contraste entre grupos, no qual a severidade
+sistemática de um juiz se cancela. Restringir à acurácia factual objetiva
+\emph{fortalece} os dois efeitos principais, o oposto do que um juiz permissivo
+produziria. Uma validação cega por especialistas humanos de uma amostra
+estratificada --- cerca de 150 respostas pontuadas por três avaliadores, que o
+pipeline liberado exporta diretamente --- converteria um resultado ancorado em
+fonte oficial em um ancorado em padrão-ouro.
 
-\emph{De pontuado por painel a ancorado em padrão-ouro.} Nenhum especialista
-humano repontuou respostas neste estudo, e dizemos isso de forma direta. Três
-propriedades do desenho delimitam o que essa ausência pode custar. Sempre que a
-resposta correta é um número em registro oficial, o veredito é computado por
-código e nenhum juiz é envolvido. Onde há necessidade de julgamento, o escore é a
-média de três juízes de fornecedores diferentes, e não de um só, elevando a
-confiabilidade de ICC$(2,1)=0.56$ para ICC$(2,3)=0.79$. E todo efeito relatado é
-um contraste entre grupos, no qual a severidade sistemática de um juiz se cancela;
-restringir à acurácia factual objetiva \emph{fortalece} tanto a lacuna de camada
-quanto a penalidade de idioma, em vez de enfraquecê-las, que é o oposto do que um
-juiz permissivo produziria. O efeito principal de idioma também se sustenta em um
-desfecho que nenhum juiz toca. O passo natural seguinte é, ainda assim, uma
-validação cega por especialista humano sobre amostra estratificada, que converteria
-um resultado ancorado em fonte oficial em um ancorado em padrão-ouro; uma análise
-de poder situa isso em cerca de 150 respostas pontuadas por três avaliadores, e
-nosso pipeline liberado exporta a amostra estratificada diretamente.
-
-\emph{De um sinal dentro do país a um desenho causal.} O canal é identificado
-onde o desenho tem resolução, mas não causalmente: entre países nenhum proxy se
-separa do desenvolvimento, e dentro dos países removemos o confundimento de nível
-país sem remover o confundimento de tarefa por país. Um desenho que varie a
-cobertura do país mantendo o desenvolvimento fixo, ou um estudo longitudinal que
-acompanhe a acurácia à medida que a pegada enciclopédica de um país cresce,
-fecharia essa lacuna remanescente.
+\emph{De um sinal dentro do país a um desenho causal.} O canal é identificado onde
+o desenho tem resolução, mas não causalmente: dentro dos países removemos o
+confundimento no nível do país sem remover o de tarefa por país. Um desenho que
+varie a cobertura do país mantendo o desenvolvimento fixo, ou um estudo
+longitudinal acompanhando a acurácia à medida que a pegada enciclopédica de um país
+cresce, fecharia essa lacuna.
 
 \emph{De um gradiente nulo a um teste com poder adequado.} A diferença de camada
-está estabelecida enquanto o gradiente não, em $n=25$ e com a pontuação corrigida.
-Uma replicação pré-registrada com $n$ substancialmente maior --- que nosso conjunto
-de dados aberto torna barata --- resolveria se o gradiente é genuinamente ausente
-ou ainda insuficientemente potente.
+está estabelecida enquanto o gradiente não, em $n=25$. Uma replicação pré-registrada
+com $n$ substancialmente maior --- que o conjunto de dados aberto torna barata ---
+resolveria se o gradiente é genuinamente ausente ou ainda subdimensionado.
 
 \emph{De três idiomas nativos à matriz multilíngue completa.} O resultado mais
-forte do estudo repousa sobre três idiomas nativos, de modo que seu
-\emph{mecanismo} é relatado descritivamente ainda que o efeito não seja. A objeção
-de qualidade de tradução, que de outro modo incidiria diretamente sobre o achado
-principal, está agora resolvida empiricamente em vez de apenas reconhecida: um
-censo de retrotradução de todos os 90 prompts nativos, auditado por dois modelos
-contra os originais em inglês, não encontrou nenhum prompt que mudasse o país nem
-nenhum que mudasse a quantidade solicitada, e a penalidade é inalterada entre as
-traduções verificadas como fiéis ($-4.5$~pp), com a fidelidade não predizendo seu
-tamanho (permutação $p=0.42$). O que permanece aberto é amplitude, não validade:
-três idiomas não estabelecem o mecanismo de tamanho de corpus, e escalar para mais
-idiomas --- com tradutores humanos, que nossa arquitetura de prompt já acomoda ---
-é a extensão de maior valor que este estudo aponta.
+forte repousa sobre três idiomas nativos, de modo que seu \emph{mecanismo} é
+relatado descritivamente ainda que o efeito não seja. A objeção de qualidade de
+tradução é resolvida empiricamente, e não apenas reconhecida, pelo censo de
+retrotradução relatado acima. O que permanece aberto é amplitude, não validade, e
+escalar para mais idiomas é a extensão de maior valor que este estudo aponta.
 
 \emph{De um domínio a um programa entre domínios.} Todos os efeitos vêm de um
-único domínio aplicado de alto risco (política de poluição do ar) e de uma única
-família de corpus (Wikimedia); confinamos deliberadamente a linguagem mecanicista
-a este domínio. O mesmo conjunto de tarefas e o método de registro de gabarito se
-transferem diretamente a outros domínios regulados e ancorados em fonte (qualidade
-da água, segurança de alimentos, política de vacinação).
+domínio aplicado de alto risco e de uma família de corpus (Wikimedia), e confinamos
+a linguagem mecanicista a ele. O mesmo conjunto de tarefas e o método de registro de
+gabarito se transferem diretamente a outros domínios regulados e ancorados em fonte
+--- qualidade da água, segurança de alimentos, política de vacinação.
 
-\emph{A pilha servida como unidade de análise.} Avaliamos modelos \emph{como
-servidos} por meio de pilhas de acesso fixas, que é o que um gestor público de fato
-consulta; uma lacuna residual poderia, em princípio, refletir a pilha e não os
-pesos. Um desenho controlado de quase isolamento (pesos abertos idênticos em
-pilhas distintas) separaria os dois --- um desdobramento limpo que nossa
-proveniência por chamada já viabiliza.
-
-\emph{Uma lacuna de camada real, porém desconfortável.} Recomputadas sobre a
-pontuação corrigida, as corroborações baseadas em modelo são mais fracas que as
-versões de juiz único relatadas em rascunhos anteriores: o modelo misto cai de
-$p=0.007$ para $p=0.069$, o posterior bayesiano de $P(\beta<0)=1.00$ para 0.994, e
-o E-value no limite do intervalo é 1.31. Relatamos a lacuna como sustentada porque
-o teste de permutação livre de distribuição rejeita o nulo ($p=0.020$), o
-intervalo bootstrap exclui o zero e o posterior bayesiano é decisivo quanto ao
-sinal, enquanto o modelo misto é marginal ($p=0.069$) e não contrário. O leitor pode pesar esses resultados uns contra os outros. O que resolveria a
-questão não é outro estimador sobre estes 25 países, e sim mais países, e o
-pipeline liberado torna essa replicação barata.
+\emph{A pilha do modelo servido como unidade de análise.} Avaliamos modelos
+\emph{como servidos} por pilhas de acesso fixas, que é o que um gestor público
+consulta; uma lacuna residual poderia, em princípio, refletir a pilha em vez dos
+pesos. Um desenho controlado de quase-isolamento com pesos abertos idênticos entre
+pilhas separaria os dois, o que a proveniência por chamada que liberamos já
+viabiliza.
 
 \subsection{O que este estudo contribui}
 
-Primeiro, é --- até onde sabemos --- o primeiro benchmark de viés
-geográfico de LLM em um \emph{domínio aplicado regulado e de alto risco} com
-gabarito oficial verificável, movendo a pergunta para além de conhecimento
-numérico geral, avaliações subjetivas e conhecimento cultural cotidiano, na
-direção das tarefas de recuperação e síntese que um gestor ambiental de fato
-delega. Segundo, entrega um resultado aplicado decisivo e contraintuitivo:
-as três correções às quais os profissionais recorrem primeiro --- persona de
-gestor local, idioma local e modelo com ajuste regional --- \emph{falham todas
-juntas}, o idioma local prejudica ativamente em 4.8~pp, e o modelo regional é o
-único pior desempenho entre catorze. Este é um benchmark cuja contribuição mais útil é dizer ao campo o que não funciona, com os tamanhos de efeito para sustentá-lo. Terceiro, demonstra que, nesta literatura, a chave de
-gabarito, e não o tamanho da amostra, é a restrição que aperta: as mesmas respostas
-produzem um gradiente de desenvolvimento significativo sob chaves de preenchimento
-e um gradiente nulo sob chaves oficiais, enquanto a penalidade de idioma mais que
-dobra. Quarto, separa o que um desenho de 25 países consegue demonstrar
-(uma diferença de camada, uma penalidade de idioma, um piso de recuperação e um
-canal de corpus identificado dentro dos países) do que ele não alcança (a forma do
-gradiente ao longo do desenvolvimento, e a identificação causal desse canal), e
-relata o segundo conjunto como em aberto, e não como sustentado. Quinto,
-cada número relatado é recomputável a partir do dado bruto por um pipeline de um
-comando com gate de auditoria de método embutido, estabelecendo um patamar de
-reprodutibilidade --- gabarito de fonte oficial, adjudicação por código onde a
-resposta é um número, e auditabilidade de ponta a ponta --- que a literatura de
-viés geográfico em larga medida não teve.
-
-\subsection{Implicações}
-
-Para as agências ambientais do Sul Global, a orientação operacional é concreta:
-tratar saídas de LLM sobre padrões vinculantes e dados medidos como rascunhos a
-conferir no diário oficial; não presumir que uma consulta em idioma local melhora a
-acurácia, porque com base nesta evidência ela a degrada; não esperar que um modelo
-pequeno com ajuste regional ou um enquadramento de papel fechem a lacuna. Para
-desenvolvedores de modelos, a penalidade de idioma é a alavanca tratável, e ela é
-maior exatamente onde o idioma é menos representado. Para a comunidade de medição, um resultado de viés geográfico pode depender da qualidade da chave de gabarito, de modo que a chave merece auditoria antes de a amostra ser ampliada.
+Diante da evidência agora em mãos, três das contribuições listadas na
+Seção~\ref{sec:intro} se destacam. O resultado aplicado é decisivo e
+contraintuitivo: as três soluções a que os profissionais recorrem primeiro falham
+juntas, o idioma local prejudica ativamente, e o modelo regional é o pior
+desempenho entre catorze --- a saída mais útil de um benchmark é muitas vezes dizer
+ao campo o que não funciona, com tamanhos de efeito por trás. O resultado
+metodológico é que, nesta literatura, a chave de gabarito, e não o tamanho
+amostral, é a restrição vinculante. E o desenho separa o que 25 países conseguem
+demonstrar do que não conseguem, relatando o segundo conjunto como aberto em vez de
+sustentado.
