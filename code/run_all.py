@@ -100,6 +100,8 @@ def main():
              [py, "analysis/qa_reproduce_claims.py"])
         step("C18. Method audit (process <-> manuscript: nothing described that was not executed)",
              [py, "analysis/method_audit.py"])
+        step("C19. Journal format gate (GIQ highlights: 3-5 bullets, 85 chars each)",
+             [py, "analysis/check_highlights.py"])
         print("\n[Confirmatory reproduction complete — QA gate + method audit passed]")
         return
 
