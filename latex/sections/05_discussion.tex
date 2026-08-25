@@ -3,20 +3,17 @@
 
 We set out to measure whether LLMs answer air pollution policy questions as
 reliably for the Global South as for the Global North, whether prompt framing
-changes the answer, and what mechanism drives any gap. The benchmark --- 25
-countries, 14 models, four languages, five tasks, two personas, scored against
-official ground truth by code where the answer is a register value and by a
-three-vendor panel elsewhere --- returns a disciplined and partly counter-intuitive
-picture. The harms we can demonstrate are practical rather than aetiological: the
+changes the answer, and what mechanism drives any gap. Across 25 countries, 14
+models, four languages, five tasks and two personas, scored against official
+ground truth by code where the answer is a register value and by a three-vendor
+panel elsewhere, the harms we can demonstrate are practical rather than
+aetiological: the
 three remedies an agency would reach for all fail, the most intuitive of them
 makes the answer materially worse, and models are least reliable on the recall of
 the binding value in force. A North/South tier difference persists, and we
 identify the channel behind it only where the design has the resolution to do so.
 
 \subsection{Three intuitive remedies, all failing --- and one that harms}
-
-The applied contribution is largely negative, and it is the most actionable
-result.
 
 The local language does not help and materially hurts. Asking in the country's own
 language lowers accuracy by $4.8$~pp, significantly in all three languages, and
@@ -60,10 +57,10 @@ value against the official source.
 Accuracy collapses on the tasks that require returning a specific value in force:
 $0.417$ for normative and local-datum recall against $0.623$ for synthesis and
 recommendation ($\delta=-0.47$), deepest on the national standard itself
-($0.367$). The risk is concentrated. A manager drafting prose about air quality
-policy is comparatively well served; a manager retrieving the regulatory cutoff a
+($0.367$). The risk falls unevenly: a manager drafting prose about air quality
+policy is comparatively well served, a manager retrieving the regulatory cutoff a
 decision turns on is in the worst cell of the design, and worse still if they ask
-in a lower-resource language. An internal check supports that this floor is
+in a lower-resource language, and an internal check supports that the floor is
 genuine rather than an artefact of scoring: correcting the ground truth raised T2
 --- the task scored against a placeholder --- from $0.368$ to $0.467$, while
 leaving T1, which always had official ground truth, at exactly $0.367$.
@@ -108,8 +105,8 @@ Resolution comes from changing the unit of variation, and the decisive check
 restricts to those same nine anglophone countries. There the linguistic channel is
 not merely controlled but identical by construction, and country coverage still
 predicts the specificity deficit at the full-sample magnitude ($\beta=+0.025$,
-$p=6\times10^{-4}$). What that coefficient measures cannot be language. The claim
-stops there: country representation is the operative channel for a gap measured in
+$p=6\times10^{-4}$). What that coefficient measures cannot be language. Country representation is
+therefore the operative channel for a gap measured in
 English, identified in a contrast that removes country-level confounding by
 construction, but not causally --- the design eliminates confounding at the level
 of the country, not of task-by-country.
@@ -213,12 +210,11 @@ separate the two, which the per-call provenance we release already enables.
 
 \subsection{What this study contributes}
 
-Against the evidence now in hand, three of the contributions listed in
-Section~\ref{sec:intro} stand out. The applied result is decisive and
-counterintuitive: the three fixes practitioners reach for first fail together, the
-local language actively harms, and the regional model is the single worst
-performer of fourteen --- a benchmark's most useful output is often telling the
-field what does not work, with effect sizes behind it. The methodological result
+The three fixes practitioners reach for first fail together:
+the local language actively harms, the persona frame does nothing, and the
+regional model is the single worst performer of fourteen. A benchmark's most
+useful output is often telling the field what does not work, with effect sizes
+behind it. The methodological result
 is that in this literature the ground-truth key, not the sample size, is the
 binding constraint. And the design separates what 25 countries can demonstrate
 from what they cannot, reporting the second set as open rather than as supported.

@@ -48,9 +48,9 @@ relação aos outros dois juízes ($-0.177$) do que pontua as de qualquer outro 
 \label{sec:res:modelo}
 
 A Tabela~\ref{tab:conf-modelo} ordena os 14 modelos pelo composto médio. Sistemas
-de fronteira lideram e modelos pequenos de pesos abertos ficam atrás. O resultado
-que incide sobre H3 é inequívoco: o modelo regional em português brasileiro
-Cabra-Mistral~7B é o \emph{mais fraco} de todos (0.347 contra 0.549 para os demais;
+de fronteira lideram e modelos pequenos de pesos abertos ficam atrás. Em H3, o
+modelo regional em português brasileiro Cabra-Mistral~7B é o \emph{mais fraco} de
+todos (0.347 contra 0.549 para os demais;
 Mann-Whitney $p\approx 0$, $\delta$ de Cliff $=-0.47$). O $\delta$ de Cliff tem
 leitura direta: é a probabilidade de uma resposta sorteada de um grupo superar uma
 sorteada do outro, reescalada para variar de $-1$ a $+1$; um valor de $-0.47$
@@ -471,23 +471,48 @@ sobrevivem a todo ataque de robustez da Seção~\ref{sec:res:robustez}; duas
 expectativas pré-especificadas não se cumprem; e o mecanismo de corpus é
 identificado dentro dos países, onde o desenho tem resolução, e não entre eles.
 
-\begin{table}[h]
+\begin{table}[!ht]
 \centering
-\caption{Hipóteses, achados, mecanismos candidatos e estatuto de evidência.}
+\caption{Hipóteses, achados, mecanismos candidatos e estatuto de evidência.
+Agrupada pelo que a evidência sustenta, não por número de hipótese.}
 \label{tab:sintese-hip}
-\small
-\begin{tabular}{p{0.12\linewidth}p{0.29\linewidth}p{0.24\linewidth}p{0.23\linewidth}}
+\footnotesize
+\setlength{\tabcolsep}{8pt}
+\renewcommand{\arraystretch}{1.15}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.235\linewidth}%
+                  >{\raggedright\arraybackslash}p{0.315\linewidth}%
+                  >{\raggedright\arraybackslash}p{0.235\linewidth}@{}}
 \toprule
-Hipótese & Achado & Mecanismo candidato & Estatuto de evidência \\
+Hipótese & Achado & Mecanismo \\
 \midrule
-H2 (idioma) & $-4.8$~pp; hindi $-11.1$ & tamanho do corpus da língua & Sustentada; mecanismo descritivo ($n=3$) \\
-H3 (modelo regional) & $\delta=-0.47$ & escala $>$ ajuste regional & Sustentada \\
-H1 (lacuna de camada) & $+5.1$~pp composto; RC 0.22 em T1 & camada (desenvolvimento) & Sustentada; concentrada na recuperação de fato do país \\
-H1 (gradiente) & $\rho=0.37$, $p=0.072$ & desenvolvimento (IDH) & Exploratória; não significativa \\
-H4 (mecanismo geográfico) & dentro do país $\beta=+0.026$, $p=2\times10^{-8}$ & cobertura do país & Sustentada dentro do país; não causal \\
-H4 (pré-especificada) & tamanho da Wikipédia nulo & tamanho do corpus da língua & Não sustentada \\
-H5 (aberto/fechado) & $+13.3$~pp fechado & tipo de acesso / escala & Descritiva \\
-H6 (persona) & DiD $+0.6$~pp & --- & Não sustentada \\
+\multicolumn{3}{@{}l}{\emph{Sustentadas}} \\
+\addlinespace[2pt]
+H2 idioma           & $-4.8$~pp; hindi $-11.1$     & corpus do idioma \\
+H3 modelo regional  & $\delta=-0.47$, pior de 14   & escala sobre ajuste \\
+H1 lacuna de camada & $+5.1$~pp; RC 0.22 em T1     & camada \\
+\midrule
+\multicolumn{3}{@{}l}{\emph{Sustentada, mas não identificada causalmente}} \\
+\addlinespace[2pt]
+H4 dentro do país   & $\beta=+0.026$, $p=2\times10^{-8}$ & cobertura do país \\
+\midrule
+\multicolumn{3}{@{}l}{\emph{Não sustentadas}} \\
+\addlinespace[2pt]
+H1 gradiente        & $\rho=0.37$, $p=0.072$       & desenvolvimento \\
+H4 pré-especificada & proxy de corpus do idioma nulo & corpus do idioma \\
+H6 persona          & DiD $+0.6$~pp, $p=0.27$      & --- \\
+\midrule
+\multicolumn{3}{@{}l}{\emph{Apenas descritiva}} \\
+\addlinespace[2pt]
+H5 aberto/fechado   & $+13.3$~pp para fechados     & tipo de acesso \\
 \bottomrule
 \end{tabular}
+
+\vspace{4pt}
+\begin{minipage}{0.75\linewidth}
+\footnotesize\emph{Nota.} O mecanismo de H2 repousa sobre três idiomas nativos e é
+descritivo. A lacuna de camada de H1 é concentrada nas tarefas cuja resposta
+depende de um fato nacional. H4 dentro do país remove o confundimento no nível do
+país por construção, o que não é identificação causal.
+\end{minipage}
 \end{table}

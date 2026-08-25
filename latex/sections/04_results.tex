@@ -47,9 +47,8 @@ it scores its own outputs \emph{more} harshly relative to the other two judges
 \label{sec:results:model}
 
 Table~\ref{tab:conf-model} orders the 14 models by mean composite: frontier systems
-lead and small open-weight models trail. The result bearing on H3 is unambiguous:
-the Brazilian-Portuguese regional model Cabra-Mistral~7B is the \emph{weakest} of
-all ($0.347$ versus $0.549$ for the rest; Mann-Whitney $p\approx 0$, Cliff's
+lead and small open-weight models trail. On H3, the Brazilian-Portuguese regional
+model Cabra-Mistral~7B is the \emph{weakest} of all ($0.347$ versus $0.549$ for the rest; Mann-Whitney $p\approx 0$, Cliff's
 $\delta=-0.47$). Cliff's $\delta$ has a direct reading --- the probability that a
 randomly drawn answer from one group beats one from the other, rescaled to
 $[-1,+1]$ --- so $-0.47$ means the regional model loses roughly three such
@@ -63,7 +62,8 @@ the answer is a register value, panel mean elsewhere; $[0,1]$). $N$ = scored
 English-prompt responses.}
 \label{tab:conf-model}
 \footnotesize
-\setlength{\tabcolsep}{4pt}
+\setlength{\tabcolsep}{8pt}
+\renewcommand{\arraystretch}{1.15}
 \begin{tabular}{lrr}
 \toprule
 Model & $N$ & Mean \\
@@ -119,7 +119,8 @@ code-adjudicated where the returned value is checkable against the official
 register; T4 is panel-scored; T1 and T5 retain their original scores.}
 \label{tab:conf-task}
 \footnotesize
-\setlength{\tabcolsep}{4pt}
+\setlength{\tabcolsep}{8pt}
+\renewcommand{\arraystretch}{1.15}
 \begin{tabular}{lrr}
 \toprule
 Task & $N$ & Mean \\
@@ -190,7 +191,8 @@ margin precisely where the language is least represented in training corpora.
 country and model, replicates averaged within cell, 25-country sample).}
 \label{tab:h2}
 \footnotesize
-\setlength{\tabcolsep}{4pt}
+\setlength{\tabcolsep}{8pt}
+\renewcommand{\arraystretch}{1.15}
 \begin{tabular}{llrrr}
 \toprule
 Native language (Joshi class) & Countries & $\Delta$ (pp) & $p$ & $N$ cells \\
@@ -223,10 +225,9 @@ frame, so the null is not an artefact of the frame being universally ignored.
 \subsection{H1 --- a tier gap that holds, a gradient that does not}
 \label{sec:results:h1}
 
-H1 was pre-specified in two parts, and they separate cleanly: one holds and one
-does not.
+H1 was pre-specified in two parts, and they separate cleanly.
 
-The tier gap holds. The ten Global North countries average $0.570$ against
+The ten Global North countries average $0.570$ against
 $0.520$ for the fifteen Global South countries, a gap of $+5.1$ percentage points
 whose 95\% bootstrap confidence interval over countries is $[+1.6,+8.5]$~pp and
 \emph{excludes zero}. It is stable to dropping any single country (leave-one-out
@@ -256,7 +257,8 @@ roughly a quarter of the odds of a Global North one.
 by task. Binomial mixed model, crossed random intercepts for country and model.}
 \label{tab:tier-by-task}
 \footnotesize
-\setlength{\tabcolsep}{4pt}
+\setlength{\tabcolsep}{8pt}
+\renewcommand{\arraystretch}{1.15}
 \begin{tabular}{llrrrl}
 \toprule
 Task & Answer is & GN & GS & OR & 95\% interval \\
@@ -270,7 +272,7 @@ T5 (applied recommendation) & no register value       & 99.6\% & 99.7\% & 3.58 &
 \end{tabular}
 \end{table}
 
-\emph{The monotonic gradient does not.} At $n=25$, Spearman
+At $n=25$, Spearman
 $\rho(\text{accuracy},\text{HDI})=+0.37$ does not reach significance ($p=0.072$),
 and neither does the Mann-Kendall trend ($p=0.072$). At the pre-specified $n=15$
 it is essentially absent ($\rho=+0.09$), and no leave-one-country-out re-estimate
@@ -301,8 +303,8 @@ development are collinear.
 \subsubsection*{Changing the unit of variation resolves what the country level
 cannot}
 
-The obstacle is confounding, not absence of signal, and the way out does not
-require more countries. Each country answers five tasks that differ in how much
+The obstacle is confounding rather than absence of signal, and the way out does
+not require more countries. Each country answers five tasks that differ in how much
 the answer depends on a fact about \emph{that} country: T1, T2 and T4 do; T3 (an
 international WHO estimate) and T5 (a generic recommendation) do not. Countries
 score $0.457$ on the first block and $0.663$ on the second, a specificity deficit
@@ -340,7 +342,8 @@ with a fixed effect for country. Positive $\beta$ = greater coverage, smaller
 deficit on country-dependent tasks.}
 \label{tab:h4-within}
 \footnotesize
-\setlength{\tabcolsep}{4pt}
+\setlength{\tabcolsep}{8pt}
+\renewcommand{\arraystretch}{1.15}
 \begin{tabular}{lrl}
 \toprule
 Task classification & $\beta$ & $p$ \\
@@ -403,7 +406,8 @@ panel members, giving Krippendorff's $\alpha=0.527$, single-judge
 ICC$(2,1)=0.558$, and --- the operative quantity, since the analysis uses the panel
 mean --- ICC$(2,3)=0.791$.
 
-The panel also isolates a design rule worth stating generally. Where the judging
+The panel also isolates a design rule that generalises beyond this study. Where
+the judging
 prompt asked the model to compare a returned concentration against a tolerance
 band expressed in words --- that is, to perform the arithmetic itself ---
 inter-judge concordance on those items was $r=-0.04$. Pre-computing the admissible
@@ -425,7 +429,7 @@ Leave-one-country-out re-estimation holds the tier gap in $[+4.5,+6.0]$~pp and t
 native-language penalty at $-4.7$ to $-5.0$~pp. Under equal weights the gap is
 $+4.2$~pp and the language penalty $-4.7$~pp; restricting to factual accuracy
 against the register value widens them to $+8.8$ and $-5.4$~pp and deepens the
-recall floor. The effects are strongest where the measurement is most objective.
+recall floor, so both effects grow where the measurement is most objective.
 
 \emph{The tier gap survives a distribution-free test and two model families.} A
 permutation test shuffles the North/South labels among the 25 countries ten
@@ -453,7 +457,7 @@ variable~\citep{quijano2000coloniality,mohamed2020decolonial}. The reading is po
 hoc, so we claim the gap for the North/South distinction as conventionally drawn,
 not as a general statement about development.
 
-\emph{The null gradient is informative, within stated bounds.} Simulating
+\emph{What the null gradient does and does not exclude.} Simulating
 25-country samples at known correlations, the design has $77\%$ power at
 $\rho=0.55$ --- the threshold fixed in advance --- and a minimum detectable effect
 of $\rho=0.56$. A gradient of the magnitude we committed to calling substantial is
@@ -472,31 +476,48 @@ in Section~\ref{sec:results:robust}; two pre-specified expectations are not met;
 and the corpus mechanism is identified within countries, where the design has
 resolution, and not between them.
 
-\begin{table}[h]
+\begin{table}[!ht]
 \centering
-\caption{Hypotheses, findings, candidate mechanisms, and evidence status.}
+\caption{Hypotheses, findings, candidate mechanisms, and evidence status. Grouped
+by what the evidence supports, not by hypothesis number.}
 \label{tab:hyp-summary}
 \footnotesize
-\setlength{\tabcolsep}{4pt}
+\setlength{\tabcolsep}{8pt}
 \renewcommand{\arraystretch}{1.15}
-\begin{tabular}{@{}l l l l@{}}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.235\linewidth}%
+                  >{\raggedright\arraybackslash}p{0.315\linewidth}%
+                  >{\raggedright\arraybackslash}p{0.235\linewidth}@{}}
 \toprule
-Hypothesis & Finding & Mechanism & Evidence status \\
+Hypothesis & Finding & Mechanism \\
 \midrule
-H2 language      & $-4.8$ pp; Hindi $-11.1$        & language corpus  & Supported \\
-H3 regional model& $\delta=-0.47$, worst of 14     & scale over tuning& Supported \\
-H1 tier gap      & $+5.1$ pp; OR $0.22$ on T1      & tier             & Supported \\
-H1 gradient      & $\rho=0.37$, $p=0.072$          & development      & Not significant \\
-H4 within country& $\beta=+0.026$, $p=2$e$-8$      & country coverage & Supported, not causal \\
-H4 pre-specified & language-corpus proxy null      & language corpus  & Not supported \\
-H5 open/closed   & $+13.3$ pp for closed           & access type      & Descriptive \\
-H6 persona       & DiD $+0.6$ pp, $p=0.27$         & ---              & Not supported \\
+\multicolumn{3}{@{}l}{\emph{Supported}} \\
+\addlinespace[2pt]
+H2 language        & $-4.8$~pp; Hindi $-11.1$    & language corpus \\
+H3 regional model  & $\delta=-0.47$, worst of 14 & scale over tuning \\
+H1 tier gap        & $+5.1$~pp; OR $0.22$ on T1  & tier \\
+\midrule
+\multicolumn{3}{@{}l}{\emph{Supported, but not causally identified}} \\
+\addlinespace[2pt]
+H4 within country  & $\beta=+0.026$, $p=2\times10^{-8}$ & country coverage \\
+\midrule
+\multicolumn{3}{@{}l}{\emph{Not supported}} \\
+\addlinespace[2pt]
+H1 gradient        & $\rho=0.37$, $p=0.072$      & development \\
+H4 pre-specified   & language-corpus proxy null  & language corpus \\
+H6 persona         & DiD $+0.6$~pp, $p=0.27$     & --- \\
+\midrule
+\multicolumn{3}{@{}l}{\emph{Descriptive only}} \\
+\addlinespace[2pt]
+H5 open/closed     & $+13.3$~pp for closed       & access type \\
 \bottomrule
 \end{tabular}
 
-\vspace{2pt}
+\vspace{4pt}
+\begin{minipage}{0.75\linewidth}
 \footnotesize\emph{Note.} H2's mechanism rests on three native languages and is
 descriptive. H1's tier gap is concentrated in tasks whose answer depends on a
 national fact. H4 within country removes country-level confounding by
-construction, not causal identification.
+construction, which is not causal identification.
+\end{minipage}
 \end{table}

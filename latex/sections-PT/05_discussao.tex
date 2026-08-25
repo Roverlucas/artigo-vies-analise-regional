@@ -4,19 +4,16 @@
 Propusemo-nos a medir se os LLMs respondem a perguntas de política de poluição do
 ar com a mesma confiabilidade para o Sul Global e para o Norte Global, se o
 enquadramento do prompt muda a resposta, e qual mecanismo impulsiona eventual
-lacuna. O benchmark --- 25 países, 14 modelos, quatro idiomas, cinco tarefas, duas
-personas, pontuado contra gabarito oficial por código onde a resposta é um valor
-de registro e por um painel de três fornecedores nos demais casos --- devolve um
-quadro disciplinado e em parte contraintuitivo. Os danos que conseguimos demonstrar
-são práticos, e não etiológicos: as três mitigações às quais uma agência recorreria
+lacuna. Em 25 países, 14 modelos, quatro idiomas, cinco tarefas e duas personas,
+pontuados contra gabarito oficial por código onde a resposta é um valor de
+registro e por um painel de três fornecedores nos demais casos, os danos que
+conseguimos demonstrar são práticos, e não etiológicos: as três mitigações às quais uma agência recorreria
 falham, a mais intuitiva delas piora materialmente a resposta, e os modelos são
 menos confiáveis justamente na recuperação do valor vinculante em vigor. Uma
 diferença de camada Norte/Sul persiste, e identificamos o canal por trás dela
 apenas onde o desenho tem resolução para tanto.
 
 \subsection{Três mitigações intuitivas, todas falhando --- e uma que prejudica}
-
-A contribuição aplicada é em larga medida negativa, e é o resultado mais acionável.
 
 O idioma local não ajuda e prejudica materialmente. Perguntar no idioma do próprio
 país reduz a acurácia em 4.8~pp, de forma significativa nos três idiomas, e a
@@ -61,11 +58,11 @@ verificar o valor vinculante na fonte oficial.
 A acurácia despenca nas tarefas que exigem devolver um valor específico em vigor:
 0.417 para recuperação normativa e de dado local, contra 0.623 para síntese e
 recomendação ($\delta=-0.47$), sendo mais profundo no próprio padrão nacional (T1,
-0.367). O risco é concentrado. Um gestor que redige prosa sobre política de
-qualidade do ar é comparativamente bem servido; um gestor que recupera o limite
-regulatório do qual depende uma decisão está na pior célula do desenho, e pior
-ainda se perguntar em um idioma de menos recursos. Uma checagem interna sustenta
-que esse piso é genuíno, e não artefato de pontuação: corrigir o gabarito elevou a
+0.367). O risco recai de forma desigual: um gestor que redige prosa sobre política
+de qualidade do ar é comparativamente bem servido, enquanto um gestor que recupera
+o limite regulatório do qual depende uma decisão está na pior célula do desenho, e
+pior ainda se perguntar em um idioma de menos recursos. Uma checagem interna
+mostra que o piso é genuíno, e não artefato de pontuação: corrigir o gabarito elevou a
 T2 --- a tarefa pontuada contra uma chave de preenchimento --- de 0.368 para 0.467,
 deixando a T1, que sempre teve gabarito oficial, em exatamente 0.367. A correção
 moveu a tarefa cuja chave era defeituosa e não tocou naquela cuja chave era sólida.
@@ -83,14 +80,12 @@ vinculante até nenhuma lacuna na recomendação aberta, a única tarefa sem val
 registro a acertar. A desvantagem é concentrada, e mediar cinco tarefas em um
 composto a dilui com tarefas em que ela não existe. Na pergunta que um gestor de
 fato leva a esses sistemas --- qual é o padrão em vigor aqui ---, um país do Sul
-Global é servido a cerca de um quarto das chances de um do Norte. Esse é o
-enunciado fiel do achado geográfico.
+Global é servido a cerca de um quarto das chances de um do Norte.
 
 O gradiente falha em toda leitura, e o nulo é informativo em vez de vazio porque o
 desenho tem 77\% de poder no $\rho=0.55$ pré-especificado: um gradiente da
 magnitude com que nos comprometemos está excluído, ao passo que um fraco não está.
-A ordenação dos países mostra por que os dois resultados diferem. A Índia lidera os
-25 países apesar de ser Sul Global; África do Sul e Indonésia superam a maior parte
+A Índia lidera os 25 países apesar de ser Sul Global; África do Sul e Indonésia superam a maior parte
 do Norte Global; Canadá e França ficam abaixo. A desvantagem é uma diferença de
 camada sobreposta a uma idiossincrasia substancial de cada país, e é essa
 idiossincrasia que uma correlação de postos sobre 25 países não tem resolução para
@@ -110,8 +105,8 @@ A resolução vem de mudar a unidade de variação, e a checagem decisiva restri
 a esses mesmos nove países anglófonos. Ali o canal linguístico não é apenas
 controlado, mas idêntico por construção, e a cobertura do país ainda prevê o
 déficit de especificidade na magnitude da amostra completa ($\beta=+0.025$,
-$p=6\times10^{-4}$). O que esse coeficiente mede não pode ser idioma. A afirmação
-para aí: a representação do país é o canal operante para uma lacuna medida em
+$p=6\times10^{-4}$). O que esse coeficiente mede não pode ser idioma. A representação do país é,
+portanto, o canal operante para uma lacuna medida em
 inglês, identificado em um contraste que remove por construção o confundimento no
 nível do país, mas não causalmente --- o desenho elimina confundimento no nível do
 país, não no de tarefa por país.

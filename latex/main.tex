@@ -26,6 +26,13 @@
 \usepackage{siunitx}
 \sisetup{group-separator={,}, group-minimum-digits=4}
 
+% NOTA SOBRE A POSICAO DAS TABELAS
+% No modo [review] a classe elsarticle agrupa todas as tabelas no fim do
+% documento. Isso NAO e um defeito de float nem falta de \FloatBarrier: e o
+% formato que a Elsevier pede na submissao, para que o revisor leia o texto
+% corrido e consulte as tabelas em bloco. Verificado trocando a opcao para
+% [preprint], onde as mesmas tabelas voltam para junto do texto (p.11, 17, 18,
+% 20, 21, 23, 26). Nao mexer nos parametros de float para "corrigir" isso.
 \usepackage{graphicx}
 \graphicspath{{../figures/}}
 \usepackage{xcolor}
