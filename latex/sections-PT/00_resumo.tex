@@ -1,26 +1,27 @@
-% Bloco unico, como a Elsevier exige — ver a nota em sections/00_abstract.tex.
+% Bloco unico, como a Elsevier exige. A abertura pela cena do gestor e
+% deliberada — ver a nota em sections/00_abstract.tex.
 \begin{abstract}
 
-Administrações públicas consultam cada vez mais modelos de linguagem de grande
-porte sobre as normas que lhes cabe aplicar, mas não existe método estabelecido
-para auditar se essas respostas correspondem ao texto vinculante. Contribuímos com
-esse protocolo e relatamos o que ele encontra. Ele pontua respostas contra
-registros oficiais, decidindo por código sempre que a resposta correta é um valor
-publicado e por um painel de juízes de três fornecedores nos demais casos, e o
-aplicamos à regulação da poluição do ar em 25 países, 14 configurações de acesso,
-cinco tipos de tarefa e quatro idiomas (9.251 respostas), avaliando cada modelo
-\emph{como servido}. As três mitigações disponíveis a um órgão público falham, e a
-mais intuitiva causa dano: perguntar no idioma do próprio país \emph{reduz} a
-acurácia em 4.8 pontos percentuais (Wilcoxon $p=3\times10^{-15}$) e torna o modelo
-17.7 pontos menos propenso a devolver um valor verificável contra o registro; a
-persona de gestor público não estreita a lacuna ($p=0.27$); e um modelo com ajuste
-regional fica em último entre os catorze. A acurácia também despenca justamente na
-recuperação do valor vinculante: 0.37, contra 0.62 para síntese. Uma lacuna
-Norte/Sul persiste ($+5.1$~pp, permutação $p=0.020$), concentrada onde a resposta
-depende de um fato nacional --- no padrão nacional, a chance do Sul Global é 0.22
-da chance do Norte. O escopo é deliberadamente delimitado: medimos concordância
-com a regulação publicada em um domínio, não capacidade geral do modelo, e
-identificamos o canal de corpus apenas onde o desenho tem resolução. O protocolo
-se transfere a qualquer domínio regulado cuja resposta correta seja publicada.
+Um gestor ambiental municipal em São Paulo, Lagos ou Jacarta pergunta a um modelo
+de linguagem qual é o padrão vinculante de PM\textsubscript{2,5} em seu país. Nada
+na resposta diz se ela corresponde ao registro oficial, e não existe método
+estabelecido para conferir. Contribuímos com esse protocolo e relatamos o que ele
+encontra. Ele pontua respostas contra registros oficiais, decidindo por código
+sempre que a resposta correta é um valor publicado e por um painel de juízes de
+três fornecedores nos demais casos, e o aplicamos à regulação da poluição do ar em
+25 países, 14 configurações de acesso e quatro idiomas (9.251 respostas). As três
+mitigações que um órgão consegue implantar sem construir nada falham, e a mais
+intuitiva piora a resposta: perguntar no idioma do próprio país \emph{reduz} a acurácia em
+4.8 pontos percentuais (Wilcoxon $p=3\times10^{-15}$) e torna o modelo 17.7 pontos
+menos propenso a devolver um valor verificável contra o registro; declarar o papel
+oficial não estreita a lacuna ($p=0.27$); e um modelo com ajuste regional fica em
+último entre os catorze. A acurácia também despenca na tarefa que carrega
+consequência administrativa, recuperar o valor vinculante: 0.37 contra 0.62 para
+síntese. Uma lacuna Norte/Sul persiste ($+5.1$~pp, permutação
+$p=0.020$), concentrada onde a resposta depende de um fato nacional --- no padrão
+nacional, a chance do Sul Global é 0.22 da chance do Norte. O escopo é
+delimitado: medimos concordância com a regulação publicada em um domínio, não
+capacidade geral. O protocolo se transfere a qualquer domínio regulado cuja
+resposta correta seja publicada.
 
 \end{abstract}

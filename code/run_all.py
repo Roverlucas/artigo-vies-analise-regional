@@ -102,7 +102,12 @@ def main():
              [py, "analysis/method_audit.py"])
         step("C19. Journal format gate (GIQ highlights: 3-5 bullets, 85 chars each)",
              [py, "analysis/check_highlights.py"])
-        print("\n[Confirmatory reproduction complete — QA gate + method audit passed]")
+        step("C20. Corpus proxies recomputed on the corrected scoring",
+             [py, "analysis/h4_proxies_corrigido.py"])
+        step("C21. Consistency gate (body <-> supplement <-> freeze tell one story)",
+             [py, "analysis/consistency_gate.py"])
+        print("\n[Confirmatory reproduction complete — QA gate, method audit "
+              "and consistency gate passed]")
         return
 
     # Step 1: Generate synthetic prompts (always)
