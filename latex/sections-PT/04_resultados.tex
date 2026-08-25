@@ -4,13 +4,15 @@
 \begin{center}
 \fbox{\parbox{0.88\linewidth}{%
 \small
-Nota sobre a amostra. Relatamos um benchmark \emph{pré-especificado de 15
-países} e sua \emph{extensão post hoc para 25 países}. Catorze LLMs são pontuados
-em cinco tarefas, duas personas e quatro idiomas (inglês mais um idioma nativo do
-país --- espanhol, português ou hindi --- para os nove países aplicáveis, o que dá
-os pares inglês/nativo dentro do país que testam H2). Todo efeito computado sobre
-a amostra de 25 países é relatado ao lado de seu valor pré-especificado de 15
-países; nenhuma conclusão pré-especificada é revisada apenas com base na extensão.
+Nota sobre a amostra. Os resultados abaixo são relatados sobre a amostra de
+\emph{25 países}. O benchmark pré-especificado cobria 15 países e foi estendido
+post hoc por dez. Catorze LLMs são pontuados em cinco tarefas, duas personas e
+quatro idiomas (inglês mais um idioma nativo do país --- espanhol, português ou
+hindi --- para os nove países aplicáveis, o que dá os pares inglês/nativo dentro
+do país que testam H2). A família primária recomputada apenas sobre os 15 países
+pré-especificados está tabulada no material suplementar, e nenhuma conclusão
+pré-especificada é revisada apenas com base na extensão; onde as duas amostras
+divergem em uma hipótese de que o artigo depende, dizemos isso no texto.
 A pontuação é adjudicada por código sempre que a resposta é um número conferível
 contra registro oficial, e pela média de um painel de juízes de três fornecedores
 nos demais casos (Seção~\ref{sec:res:confiab}).
@@ -266,7 +268,7 @@ T5 (recomendação aplicada)   & nenhum valor de reg.   & 99.6\% & 99.7\% & 3.58
 \end{table}
 
 \emph{O gradiente monotônico não se sustenta.} Em $n=25$, o $\rho$ de Spearman
-entre acurácia e IDH é de $+0.37$ e não atinge significância ($p=0.073$), e
+entre acurácia e IDH é de $+0.37$ e não atinge significância ($p=0.072$), e
 tampouco a tendência de Mann-Kendall ($p=0.072$). No $n=15$ pré-especificado ele
 está essencialmente ausente ($\rho=+0.09$), e nenhuma reestimação
 \emph{leave-one-country-out} alcança o limiar pré-especificado de $\rho\geq0.55$
@@ -481,7 +483,7 @@ Hipótese & Achado & Mecanismo candidato & Estatuto de evidência \\
 H2 (idioma) & $-4.8$~pp; hindi $-11.1$ & tamanho do corpus da língua & Sustentada; mecanismo descritivo ($n=3$) \\
 H3 (modelo regional) & $\delta=-0.47$ & escala $>$ ajuste regional & Sustentada \\
 H1 (lacuna de camada) & $+5.1$~pp composto; RC 0.22 em T1 & camada (desenvolvimento) & Sustentada; concentrada na recuperação de fato do país \\
-H1 (gradiente) & $\rho=0.37$, $p=0.073$ & desenvolvimento (IDH) & Exploratória; não significativa \\
+H1 (gradiente) & $\rho=0.37$, $p=0.072$ & desenvolvimento (IDH) & Exploratória; não significativa \\
 H4 (mecanismo geográfico) & dentro do país $\beta=+0.026$, $p=2\times10^{-8}$ & cobertura do país & Sustentada dentro do país; não causal \\
 H4 (pré-especificada) & tamanho da Wikipédia nulo & tamanho do corpus da língua & Não sustentada \\
 H5 (aberto/fechado) & $+13.3$~pp fechado & tipo de acesso / escala & Descritiva \\

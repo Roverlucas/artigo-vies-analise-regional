@@ -4,16 +4,17 @@
 \begin{center}
 \fbox{\parbox{0.88\linewidth}{%
 \small
-Sample note. We report a pre-specified \emph{15-country} benchmark and
-its \emph{post-hoc extension to 25 countries} (the latter adds six
-Global North references --- the United Kingdom, Canada, Australia, South Korea,
-France, Italy --- and four native-pair countries --- Colombia, Chile, Portugal,
-Angola). Fourteen LLMs are scored across five tasks, two personas, and four
-languages (English plus a country-native language --- Spanish, Portuguese, or
-Hindi --- for the nine applicable countries, giving the within-country
-English/native pairs that test H2). Every effect computed on the 25-country
-sample is reported alongside its pre-specified 15-country value; no
-pre-specified conclusion is revised on the extension alone. Scoring is
+Sample note. Results below are reported on the \emph{25-country} sample.
+The pre-specified benchmark covered 15 countries and was extended post hoc by ten
+(six Global North references --- the United Kingdom, Canada, Australia, South
+Korea, France, Italy --- and four native-pair countries --- Colombia, Chile,
+Portugal, Angola). Fourteen LLMs are scored across five tasks, two personas, and
+four languages (English plus a country-native language --- Spanish, Portuguese,
+or Hindi --- for the nine applicable countries, giving the within-country
+English/native pairs that test H2). The primary family recomputed on the
+pre-specified 15 countries alone is tabulated in Supplementary Material, and no
+pre-specified conclusion is revised on the extension alone; where the two samples
+differ on a hypothesis the paper turns on, we say so in the text. Scoring is
 adjudicated by code wherever the answer is a number checkable against an official
 register, and by the mean of a three-vendor judge panel elsewhere
 (Section~\ref{sec:results:reliability}); the T1 ground truth is anchored to
@@ -270,7 +271,7 @@ T5 (applied recommendation) & no register value       & 99.6\% & 99.7\% & 3.58 &
 \end{table}
 
 \emph{The monotonic gradient does not.} At $n=25$, Spearman
-$\rho(\text{accuracy},\text{HDI})=+0.37$ does not reach significance ($p=0.073$),
+$\rho(\text{accuracy},\text{HDI})=+0.37$ does not reach significance ($p=0.072$),
 and neither does the Mann-Kendall trend ($p=0.072$). At the pre-specified $n=15$
 it is essentially absent ($\rho=+0.09$), and no leave-one-country-out re-estimate
 reaches the pre-specified $\rho\geq0.55$ threshold (range $[+0.31,+0.49]$). We
@@ -485,7 +486,7 @@ Hypothesis & Finding & Mechanism & Evidence status \\
 H2 language      & $-4.8$ pp; Hindi $-11.1$        & language corpus  & Supported \\
 H3 regional model& $\delta=-0.47$, worst of 14     & scale over tuning& Supported \\
 H1 tier gap      & $+5.1$ pp; OR $0.22$ on T1      & tier             & Supported \\
-H1 gradient      & $\rho=0.37$, $p=0.073$          & development      & Not significant \\
+H1 gradient      & $\rho=0.37$, $p=0.072$          & development      & Not significant \\
 H4 within country& $\beta=+0.026$, $p=2$e$-8$      & country coverage & Supported, not causal \\
 H4 pre-specified & language-corpus proxy null      & language corpus  & Not supported \\
 H5 open/closed   & $+13.3$ pp for closed           & access type      & Descriptive \\

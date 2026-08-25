@@ -67,6 +67,9 @@ PROIBIDOS = [
                                    "OR de T1 pre-correcao",          "0.22"),
     (r"& 2\.67 &",                 "OR de T5 pre-correcao",          "3.58"),
     (r"to\s+\$0\.460\$|para\s+0\.460", "T2 pre-correcao",            "0.467"),
+    # 0.07248 arredonda para 0.072; 0.073 era arredondamento errado, e circulava
+    # em sete pontos entre corpo, suplemento e as duas linguas.
+    (r"p=0\.073",                  "p de H1 arredondado errado",     "p=0.072"),
 ]
 
 
@@ -97,6 +100,8 @@ def ancoras(c: dict) -> list[tuple[str, str, tuple[str, ...]]]:
         ("bayesiano",             "-0.052",                             RES_SUP),
         ("E-value no limite",     "1.31",                               RES_SUP),
         ("OR de T1",              "0.22",                               RES),
+        ("p do gradiente",        "0.072",                              RES),
+        ("familia primaria a n=15", "+0.093",                           ("supplement.tex",)),
     ]
 
 

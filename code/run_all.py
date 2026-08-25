@@ -104,7 +104,9 @@ def main():
              [py, "analysis/check_highlights.py"])
         step("C20. Corpus proxies recomputed on the corrected scoring",
              [py, "analysis/h4_proxies_corrigido.py"])
-        step("C21. Consistency gate (body <-> supplement <-> freeze tell one story)",
+        step("C21. Primary family recomputed on the pre-specified 15 countries",
+             [py, "analysis/pre15_corrigido.py"])
+        step("C22. Consistency gate (body <-> supplement <-> freeze tell one story)",
              [py, "analysis/consistency_gate.py"])
         print("\n[Confirmatory reproduction complete — QA gate, method audit "
               "and consistency gate passed]")
