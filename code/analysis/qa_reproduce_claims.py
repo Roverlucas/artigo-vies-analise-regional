@@ -1,3 +1,22 @@
+"""Reproducao da LINHA DE BASE PRE-CORRECAO (historica).
+
+ATENCAO AO ESCOPO — este script NAO valida os numeros do manuscrito atual.
+
+Ele recomputa, a partir de judge_scores_confirmatory.jsonl, os valores da analise
+ORIGINAL: lacuna de camada +6.2 pp, H1 rho=0.512, H2 -2.1 pp. Esses numeros foram
+substituidos quando o gabarito de T2/T3 foi reconstruido, a adjudicacao passou
+para codigo e a unidade de analise virou a celula deduplicada. O manuscrito hoje
+relata +5.4 pp, rho=0.41 e -4.8 pp.
+
+Por isso o "ALL CLAIMS REPRODUCED" daqui significa apenas que a linha de base
+historica continua reproduzivel — util para documentar de onde o estudo saiu, e
+inutil como prova de que o artigo submetido esta correto. Uma auditoria externa
+leu este script como gate dos numeros atuais e concluiu, com razao, que ele era
+falso-positivo nesse papel.
+
+O gate dos numeros do manuscrito e consistency_gate.py, que deriva tudo de
+freeze_all_effects.json["corrigido"].
+"""
 #!/usr/bin/env python3
 """
 qa_reproduce_claims.py — reproducible integrity QA for the manuscript + supplement.

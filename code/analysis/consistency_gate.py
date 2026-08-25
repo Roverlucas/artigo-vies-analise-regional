@@ -37,6 +37,9 @@ LATEX = ROOT / "latex"
 
 # Secoes em que citar o valor antigo e o proposito do texto, nao um defeito.
 ISENTAS = (
+    # a nota que EXPLICA a deduplicacao precisa citar as 9.251 pontuacoes brutas
+    r"\emph{The unit of analysis is the scored cell",
+    r"\emph{A unidade de análise é a célula pontuada",
     r"\section{Deviations from the pre-specified analysis plan}",
     r"\section{Desvios em relação ao plano de análise pré-especificado}",
     r"\subsection{The methodological lesson",
@@ -69,7 +72,12 @@ PROIBIDOS = [
     (r"to\s+\$0\.460\$|para\s+0\.460", "T2 pre-correcao",            "0.467"),
     # 0.07248 arredonda para 0.072; 0.073 era arredondamento errado, e circulava
     # em sete pontos entre corpo, suplemento e as duas linguas.
-    (r"p=0\.073",                  "p de H1 arredondado errado",     "p=0.072"),
+    (r"p=0\.073|p=0\.072",         "p de H1 antes da deduplicacao",  "p=0.043"),
+    (r"\$\+5\.1\$~pp",              "tier gap antes da deduplicacao", "+5.4 pp"),
+    (r"\[\+1\.6,\+8\.5\]",           "IC do tier gap pre-dedup",       "[+2.1,+8.7]"),
+    (r"9\{,\}251",                  "n com pseudo-replicacao",        "8.300 celulas"),
+    (r"7\{,\}580",                  "n ingles com pseudo-replicacao", "6.629"),
+    (r"\$\+13\.3\$~pp",             "H5 antes da deduplicacao",       "+12.6 pp"),
 ]
 
 
@@ -91,7 +99,7 @@ def ancoras(c: dict) -> list[tuple[str, str, tuple[str, ...]]]:
         ("hindi",                 fmt(abs(c["hindi_pp"]), 1),           RES),
         ("n de pares H2",         "839",                                RES),
         ("gradiente a n=15",      fmt(c["h1_rho_pre15"], 2),            RES),
-        ("H4 dentro do pais",     "0.026",                              RES),
+        ("H4 dentro do pais",     "0.028",                              RES),
         ("H5",                    fmt(c["h5_pp"], 1),                   RES),
         ("LOCO tier gap min",     fmt(c["loo_gap_min"], 1),             RES),
         ("LOCO rho min",          fmt(c["loo_rho_min"], 2),             RES),
@@ -100,8 +108,8 @@ def ancoras(c: dict) -> list[tuple[str, str, tuple[str, ...]]]:
         ("bayesiano",             "-0.052",                             RES_SUP),
         ("E-value no limite",     "1.31",                               RES_SUP),
         ("OR de T1",              "0.22",                               RES),
-        ("p do gradiente",        "0.072",                              RES),
-        ("familia primaria a n=15", "+0.093",                           ("supplement.tex",)),
+        ("gradiente HDI (rho)",   fmt(c["h1_rho_hdi"], 2),              RES),
+        ("familia primaria a n=15", "+0.104",                           ("supplement.tex",)),
     ]
 
 

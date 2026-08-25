@@ -22,8 +22,8 @@ nos demais casos (Seção~\ref{sec:res:confiab}).
 \subsection{Amostra e pontuação}
 \label{sec:res:amostra}
 
-O corpus analisado compreende 9.251 respostas pontuadas no composto $[0,1]$, das
-quais 7.580 são respostas a prompts em inglês nos 25 países; o restante são os
+O corpus analisado compreende 8.300 células pontuadas no composto $[0,1]$, das
+quais 6.629 são respostas a prompts em inglês nos 25 países; o restante são os
 pares em idioma nativo dentro do país usados para H2.
 
 A pontuação usa o instrumento mais confiável que cada tarefa admite. Para T2 e T3,
@@ -70,18 +70,18 @@ respostas pontuadas a prompts em inglês.}
 Modelo & $N$ & Média \\
 \midrule
 DeepSeek-V3      & 500 & 0.680 \\
-GPT-5            & 780 & 0.672 \\
+GPT-5            & 500 & 0.670 \\
 Gemini~2.5~Flash & 490 & 0.624 \\
-GPT-5-mini       & 777 & 0.617 \\
+GPT-5-mini       & 499 & 0.619 \\
 Claude Haiku~4.5 & 490 & 0.580 \\
 Qwen3 32B        & 498 & 0.553 \\
 Command~R+       & 500 & 0.526 \\
-Llama~3.3 70B    & 474 & 0.507 \\
+Llama~3.3 70B    & 395 & 0.507 \\
 Llama~4 Scout    & 500 & 0.492 \\
 Qwen3 14B        & 500 & 0.480 \\
-GPT-OSS 120B     & 298 & 0.479 \\
 Phi-4 14B        & 500 & 0.473 \\
-Llama~3.1 8B     & 777 & 0.437 \\
+GPT-OSS 120B     & 261 & 0.472 \\
+Llama~3.1 8B     & 500 & 0.435 \\
 Cabra-Mistral~7B & 496 & 0.347 \\
 \bottomrule
 \end{tabular}
@@ -119,11 +119,11 @@ pontuada por painel; T1 e T5 mantêm suas pontuações originais.}
 \toprule
 Tarefa & $N$ & Média \\
 \midrule
-T5 (recomendação aplicada)      & 1.508 & 0.773 \\
-T3 (síntese de evid.\ em saúde) & 1.519 & 0.560 \\
-T4 (instrumentos de política)   & 1.494 & 0.534 \\
-T2 (dado factual local)         & 1.530 & 0.467 \\
-T1 (padrão técnico)             & 1.529 & 0.367 \\
+T5 (recomendação aplicada)      & 1.320 & 0.769 \\
+T3 (síntese de evid.\ em saúde) & 1.329 & 0.548 \\
+T4 (instrumentos de política)   & 1.310 & 0.520 \\
+T2 (dado factual local)         & 1.335 & 0.473 \\
+T1 (padrão técnico)             & 1.335 & 0.369 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -206,10 +206,10 @@ Hindi (4)     & IND                     & $-11.1$ & $5\times10^{-4}$  & 71 \\
 
 O fator persona foi plenamente cruzado, de modo que H6 é testado como diferença em
 diferenças. O enquadramento de gestor ambiental público deixa a lacuna Norte/Sul
-essencialmente inalterada: $+4.7$~pp sob o enquadramento neutro contra $+5.4$~pp
-sob o de gestor, uma DiD de $+0.6$~pp, muito abaixo do limiar pré-especificado de
+essencialmente inalterada: $+5.0$~pp sob o enquadramento neutro contra $+5.9$~pp
+sob o de gestor, uma DiD de $+0.8$~pp, muito abaixo do limiar pré-especificado de
 5~pp; um teste de permutação no nível do país (5.000 permutações do rótulo de
-camada) dá $p=0.27$. H6 não é sustentada: apresentar a consulta como vinda de um
+camada) dá $p=0.29$. H6 não é sustentada: apresentar a consulta como vinda de um
 gestor ambiental público não estreita nem amplifica a desvantagem do Sul Global,
 coerente com a evidência de que personas de especialista não melhoram de forma
 confiável a acurácia factual~\citep{zheng2024helpful,mollick2025personas}. Uma
@@ -223,11 +223,11 @@ enquadramento ser universalmente ignorado.
 A H1 foi pré-especificada em duas partes, e elas se separam com nitidez: uma se
 sustenta e a outra não.
 
-A lacuna de camada se sustenta. Os dez países do Norte Global têm média de 0.570
-contra 0.520 dos quinze do Sul Global, uma lacuna de $+5.1$ pontos percentuais cujo
-intervalo de confiança bootstrap de 95\% entre países é $[+1.6,+8.5]$~pp e
+A lacuna de camada se sustenta. Os dez países do Norte Global têm média de 0.568
+contra 0.514 dos quinze do Sul Global, uma lacuna de $+5.4$ pontos percentuais cujo
+intervalo de confiança bootstrap de 95\% entre países é $[+2.1,+8.7]$~pp e
 \emph{exclui o zero}. Ela é estável à remoção de qualquer país isolado
-(leave-one-out $[+4.5,+6.0]$~pp) e à ponderação do composto ($+4.2$~pp sob pesos
+(leave-one-out $[+4.9,+6.4]$~pp) e à ponderação do composto ($+4.2$~pp sob pesos
 iguais, $+8.8$~pp apenas no subcomponente factual, onde se amplia).
 
 \emph{Onde a lacuna vive, e por que o composto a subestima.} O composto faz a média
@@ -268,11 +268,12 @@ T5 (recomendação aplicada)   & nenhum valor de reg.   & 99.6\% & 99.7\% & 3.58
 \end{table}
 
 \emph{O gradiente monotônico não se sustenta.} Em $n=25$, o $\rho$ de Spearman
-entre acurácia e IDH é de $+0.37$ e não atinge significância ($p=0.072$), e
-tampouco a tendência de Mann-Kendall ($p=0.072$). No $n=15$ pré-especificado ele
-está essencialmente ausente ($\rho=+0.09$), e nenhuma reestimação
-\emph{leave-one-country-out} alcança o limiar pré-especificado de $\rho\geq0.55$
-(faixa $[+0.31,+0.49]$). Relatamos, portanto, uma diferença de camada que
+entre acurácia e IDH é de $+0.41$ e cruza a significância convencional
+($p=0.043$; Mann-Kendall $p=0.042$), mas fica bem abaixo do limiar
+pré-especificado $\rho\geq0.55$, que é o critério contra o qual H1 foi registrada. No $n=15$ pré-especificado ele
+está essencialmente ausente ($\rho=+0.10$), e nenhuma reestimação
+\emph{leave-one-country-out} alcança o limiar de $0.55$
+(faixa $[+0.35,+0.54]$). Relatamos, portanto, uma diferença de camada que
 conseguimos demonstrar e um gradiente de desenvolvimento que não: a desvantagem
 está estabelecida como diferença entre grupos, enquanto sua forma ao longo da faixa
 de desenvolvimento permanece exploratória. Sob Bonferroni-Holm na família primária
@@ -359,7 +360,7 @@ permaneça descritivo.
 \subsection{H5 --- abertos versus fechados acessíveis}
 \label{sec:res:h5}
 
-Modelos fechados acessíveis têm média $+13.3$~pp acima dos de pesos abertos, contra
+Modelos fechados acessíveis têm média $+12.6$~pp acima dos de pesos abertos, contra
 o enquadramento otimista de H5. O braço aberto inclui modelos maiores, de modo que
 a lacuna não é atribuível apenas à escala, ainda que o DeepSeek-V3 lidere no geral.
 H5 é interpretada descritivamente.
@@ -490,21 +491,21 @@ Hipótese & Achado & Mecanismo \\
 \addlinespace[2pt]
 H2 idioma           & $-4.8$~pp; hindi $-11.1$     & corpus do idioma \\
 H3 modelo regional  & $\delta=-0.47$, pior de 14   & escala sobre ajuste \\
-H1 lacuna de camada & $+5.1$~pp; RC 0.22 em T1     & camada \\
+H1 lacuna de camada & $+5.4$~pp; RC 0.22 em T1     & camada \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Sustentada, mas não identificada causalmente}} \\
 \addlinespace[2pt]
-H4 dentro do país   & $\beta=+0.026$, $p=2\times10^{-8}$ & cobertura do país \\
+H4 dentro do país   & $\beta=+0.028$, $p=7\times10^{-9}$ & cobertura do país \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Não sustentadas}} \\
 \addlinespace[2pt]
-H1 gradiente        & $\rho=0.37$, $p=0.072$       & desenvolvimento \\
+H1 gradiente        & $\rho=0.41$, abaixo de $0.55$ & desenvolvimento \\
 H4 pré-especificada & proxy de corpus do idioma nulo & corpus do idioma \\
-H6 persona          & DiD $+0.6$~pp, $p=0.27$      & --- \\
+H6 persona          & DiD $+0.8$~pp, $p=0.29$      & --- \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Apenas descritiva}} \\
 \addlinespace[2pt]
-H5 aberto/fechado   & $+13.3$~pp para fechados     & tipo de acesso \\
+H5 aberto/fechado   & $+12.6$~pp para fechados     & tipo de acesso \\
 \bottomrule
 \end{tabular}
 

@@ -17,15 +17,15 @@ no established method exists for checking. We contribute such a protocol and
 report what it finds. It scores answers against official registers, adjudicating
 by code wherever the correct answer is a published value and by a three-vendor
 judge panel elsewhere. We apply it to air pollution regulation across 25
-countries, 14 deployment stacks and four languages (9{,}251 responses). The three
+countries, 14 deployment stacks and four languages (8{,}300 scored cells). The three
 fixes an agency can deploy without building anything all fail, and the most
 intuitive one makes the answer worse: querying in the country's own language
 \emph{lowers} accuracy by 4.8 percentage points (Wilcoxon $p=3\times10^{-15}$) and makes the model 17.7
 points less likely to return a register-checkable value at all; declaring the
 official role does not narrow the gap ($p=0.27$); and a regionally tuned model
 ranks last of fourteen. Accuracy also collapses on the task that carries
-administrative consequence, retrieving the binding value: 0.37 against 0.62 for
-synthesis. A North/South gap persists ($+5.1$~pp, permutation
+administrative consequence, retrieving the binding value: 0.37 against 0.61 for
+synthesis. A North/South gap persists ($+5.4$~pp, permutation
 $p=0.020$), concentrated where answers depend on a national fact --- on the
 national standard, Global South odds are 0.22 of Global North odds. Scope is
 bounded: we measure agreement with published regulation in one domain, not general

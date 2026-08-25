@@ -296,6 +296,17 @@ One panel member (DeepSeek-V3) is also an evaluated model, and we test for
 self-favouring directly. No human gold-standard layer was collected; ground truth
 is anchored instead to official primary sources (Section~\ref{sec:groundtruth}).
 
+\emph{The unit of analysis is the scored cell, not the log line.} Of the 9{,}251
+scores the judge produced, 951 cells (11.5\%) carry more than one score, because
+the judge was re-run on parts of the set on different dates. Those are repeated
+measurements of the same item, not independent observations, so we collapse them
+by their mean, leaving 8{,}300 cells (6{,}629 English-prompt). Treating re-runs as
+independent would be pseudo-replication: it inflates $n$ and gives extra weight to
+whichever cells happened to be reprocessed. The choice is made on methodological
+grounds and does not depend on the result; Supplementary Material reports every
+headline effect under both conventions, and the study's central finding is
+indifferent to it ($-4.755$ against $-4.753$~pp).
+
 The primary composite combines five pre-specified subcomponents (Supplementary
 Section~S6), each normalised to $[0,1]$: factual accuracy against the registry
 entry (weight $0.30$), contextual completeness ($0.25$), citation quality

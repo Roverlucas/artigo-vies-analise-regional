@@ -96,7 +96,8 @@ def main():
         # ---- Outputs and gates ---------------------------------------------
         step("C16. Regenerate Supplementary tables",
              [py, "analysis/make_supplement_tables.py"])
-        step("C17. Reproducible QA gate (recompute every headline number)",
+        step("C17. Pre-correction baseline still reproduces (historical, NOT the "
+             "manuscript's numbers — see consistency gate at C22)",
              [py, "analysis/qa_reproduce_claims.py"])
         step("C18. Method audit (process <-> manuscript: nothing described that was not executed)",
              [py, "analysis/method_audit.py"])

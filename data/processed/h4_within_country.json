@@ -1,52 +1,52 @@
 {
   "n_paises": 25,
-  "rho_deficit": -0.32544720740508176,
-  "p_deficit": 0.11240061769782787,
-  "rho_parcial_hdi": -0.09840529319667286,
-  "p_parcial": 0.6473382167999152,
-  "rho_dependentes": 0.34006540348237857,
-  "rho_independentes": -0.00653971929773805,
-  "diferenca": 0.3466051227801166,
-  "p_permutacao": 0.2348765123487651,
-  "rho_controle_lingua": -0.06727412629052379,
-  "acc_dependentes": 0.4574334289254079,
-  "acc_independentes": 0.6634251496757732,
-  "interacao_beta": 0.02613418986740936,
-  "interacao_se": 0.004626579616248058,
-  "interacao_p": 1.6165968107292102e-08,
-  "n_respostas": 7580,
-  "controle_lingua_beta": 0.011465957108185003,
-  "controle_lingua_p": 0.01335172356054102,
-  "ajuste_mutuo_cob_beta": 0.02539943942140642,
-  "ajuste_mutuo_cob_p": 4.3844546140864406e-08,
-  "ajuste_mutuo_lang_beta": 0.00950229881983409,
-  "ajuste_mutuo_lang_p": 0.040531240002645616,
+  "rho_deficit": -0.323908449923261,
+  "p_deficit": 0.11420895603494588,
+  "rho_parcial_hdi": -0.11362357511733956,
+  "p_parcial": 0.597054294019282,
+  "rho_dependentes": 0.4039238389779383,
+  "rho_independentes": 0.009617234261379485,
+  "diferenca": 0.3943066047165588,
+  "p_permutacao": 0.17268273172682733,
+  "rho_controle_lingua": -0.06252536443472212,
+  "acc_dependentes": 0.45414218553392416,
+  "acc_independentes": 0.6577237356701452,
+  "interacao_beta": 0.028275908270888085,
+  "interacao_se": 0.004886949057974126,
+  "interacao_p": 7.208036885860071e-09,
+  "n_respostas": 6629,
+  "controle_lingua_beta": 0.011100207625994485,
+  "controle_lingua_p": 0.023427768433468884,
+  "ajuste_mutuo_cob_beta": 0.027442034780212184,
+  "ajuste_mutuo_cob_p": 2.2943943167791796e-08,
+  "ajuste_mutuo_lang_beta": 0.00836392698951928,
+  "ajuste_mutuo_lang_p": 0.08855153357891142,
   "corr_entre_proxies": 0.21413119670230282,
   "sensibilidade_classificacao": {
     "principal (T1,T2,T4 vs T3,T5)": {
-      "beta": 0.02613418986740936,
-      "p": 1.6165968107292102e-08
+      "beta": 0.028275908270888085,
+      "p": 7.208036885860071e-09
     },
     "extremos (T1 vs T5)": {
-      "beta": 0.04219199010353557,
-      "p": 3.425097198280355e-12
+      "beta": 0.038418863894054495,
+      "p": 1.7237871318678281e-09
     },
     "sem T5, que tem teto de 99,7%": {
-      "beta": 0.02090811314475928,
-      "p": 0.000386648039773269
+      "beta": 0.024197342626096054,
+      "p": 8.491038733862339e-05
     },
     "sem T4, a mais interpretativa": {
-      "beta": 0.03103374405496875,
-      "p": 7.590117502377132e-10
+      "beta": 0.030816611035820028,
+      "p": 9.668071082864722e-09
     },
     "PLACEBO (rotulos invertidos)": {
-      "beta": -0.026134189867409417,
-      "p": 1.6165968107290507e-08
+      "beta": -0.028275908270887398,
+      "p": 7.208036885867548e-09
     }
   },
-  "grupo_lingua_beta": 0.007907883323159576,
-  "grupo_lingua_p": 0.16987910534760475,
-  "so_anglofonos_beta": 0.02483552440646199,
-  "so_anglofonos_p": 0.0006162922991032867,
+  "grupo_lingua_beta": 0.009720061889460178,
+  "grupo_lingua_p": 0.11308772876285968,
+  "so_anglofonos_beta": 0.026334064380360466,
+  "so_anglofonos_p": 0.0007311831351855551,
   "n_anglofonos": 9
 }

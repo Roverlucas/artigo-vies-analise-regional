@@ -34,7 +34,9 @@ abstract: >-
   al. 2020, World Bank classifications), 14 LLMs (frontier proprietary,
   open-source global, regional), and a sparse factorial matrix of prompt
   languages. All prompts, ground-truth references, code, and responses
-  are openly released.
+  will be released on publication under CC-BY-4.0 (data, prompts, documentation)
+  and MIT (code). Until then this repository carries the protocol, the analysis
+  code and the manuscript; the per-response records live outside the public tree.
 keywords:
   - large language models
   - geographic bias

@@ -85,7 +85,7 @@ def carrega_correcoes(modo="composto"):
     return det, painel
 
 
-def linhas(corrigir: bool, modo: str = "composto"):
+def linhas(corrigir: bool, modo: str = "composto", dedup: bool = True):
     """Todas as respostas com o escore publicado ou o corrigido."""
     det, painel = carrega_correcoes(modo)
     saida, trocados = [], 0
@@ -122,6 +122,30 @@ def linhas(corrigir: bool, modo: str = "composto"):
                       "modelo": str(r.get("model_id")), "persona": r.get("persona"),
                       "prompt_id": pid, "rep": int(r.get("replicate_idx", 0)),
                       "nativa": pid.endswith(NATIVAS)})
+
+    # DEDUPLICACAO — a unidade de analise e a CELULA, nao a linha de arquivo.
+    # 951 celulas (11,5%) tem mais de um escore, vindos de re-execucoes do juiz em
+    # datas diferentes. Nao sao observacoes independentes: sao medicoes repetidas
+    # do mesmo item. Trata-las como independentes e pseudo-replicacao — infla o n
+    # e da peso extra a celulas que por acaso foram reprocessadas. Colapsamos pela
+    # media, que e deterministica e usa toda a informacao coletada.
+    #
+    # A decisao e metodologica e independe do resultado; o efeito colateral e que
+    # quase todos os efeitos ficam ligeiramente MAIS fortes, e o achado central
+    # (H2) fica praticamente identico (-4.755 -> -4.753 pp), o que e a melhor
+    # evidencia de que ele nao depende desta escolha. Nenhum vereditode hipotese
+    # muda: H1 continua abaixo do limiar pre-especificado rho>=0.55.
+    # dedup=False reproduz a versao anterior, para a analise de sensibilidade.
+    if dedup:
+        por_celula = collections.defaultdict(list)
+        for r in saida:
+            por_celula[(r["prompt_id"], r["modelo"], r["rep"])].append(r)
+        colapsado = []
+        for _k, grupo in por_celula.items():
+            base = dict(grupo[0])
+            base["v"] = statistics.fmean(x["v"] for x in grupo)
+            colapsado.append(base)
+        saida = colapsado
     return saida, trocados
 
 

@@ -25,8 +25,8 @@ official primary sources for all 25 countries (Section~\ref{sec:results:gt}).
 \subsection{Sample and scoring}
 \label{sec:results:sample}
 
-The analysed corpus comprises 9{,}251 scored responses on the $[0,1]$ composite,
-of which 7{,}580 are English-prompt responses across the 25 countries; the
+The analysed corpus comprises 8{,}300 scored cells on the $[0,1]$ composite,
+of which 6{,}629 are English-prompt responses across the 25 countries; the
 remainder are the within-country native-language pairs used for H2. Scoring uses
 the most reliable instrument each task admits: code adjudicates against the
 official register wherever the answer is a published number, resolving 62.5\% of
@@ -48,7 +48,7 @@ it scores its own outputs \emph{more} harshly relative to the other two judges
 
 Table~\ref{tab:conf-model} orders the 14 models by mean composite: frontier systems
 lead and small open-weight models trail. On H3, the Brazilian-Portuguese regional
-model Cabra-Mistral~7B is the \emph{weakest} of all ($0.347$ versus $0.549$ for the rest; Mann-Whitney $p\approx 0$, Cliff's
+model Cabra-Mistral~7B is the \emph{weakest} of all ($0.347$ versus $0.548$ for the rest; Mann-Whitney $p\approx 0$, Cliff's
 $\delta=-0.47$). Cliff's $\delta$ has a direct reading --- the probability that a
 randomly drawn answer from one group beats one from the other, rescaled to
 $[-1,+1]$ --- so $-0.47$ means the regional model loses roughly three such
@@ -69,18 +69,18 @@ English-prompt responses.}
 Model & $N$ & Mean \\
 \midrule
 DeepSeek-V3      & 500 & 0.680 \\
-GPT-5            & 780 & 0.672 \\
+GPT-5            & 500 & 0.670 \\
 Gemini~2.5~Flash & 490 & 0.624 \\
-GPT-5-mini       & 777 & 0.617 \\
+GPT-5-mini       & 499 & 0.619 \\
 Claude Haiku~4.5 & 490 & 0.580 \\
 Qwen3 32B        & 498 & 0.553 \\
 Command~R+       & 500 & 0.526 \\
-Llama~3.3 70B    & 474 & 0.507 \\
+Llama~3.3 70B    & 395 & 0.507 \\
 Llama~4 Scout    & 500 & 0.492 \\
 Qwen3 14B        & 500 & 0.480 \\
-GPT-OSS 120B     & 298 & 0.479 \\
 Phi-4 14B        & 500 & 0.473 \\
-Llama~3.1 8B     & 777 & 0.437 \\
+GPT-OSS 120B     & 261 & 0.472 \\
+Llama~3.1 8B     & 500 & 0.435 \\
 Cabra-Mistral~7B & 496 & 0.347 \\
 \bottomrule
 \end{tabular}
@@ -90,21 +90,21 @@ Cabra-Mistral~7B & 496 & 0.347 \\
 \label{sec:results:task}
 
 Difficulty is sharply task-dependent (Table~\ref{tab:conf-task}). The hardest
-task by a wide margin is T1 (technical-standard recall, 0.367) --- the
+task by a wide margin is T1 (technical-standard recall, 0.369) --- the
 task that requires returning the national annual PM\textsubscript{2.5} standard
-in force. The open recommendation task (T5) scores highest (0.773) because its
+in force. The open recommendation task (T5) scores highest (0.769) because its
 rubric rewards plausible, well-structured policy advice that does not hinge on a
-single fact. Pooling the two recall tasks (T1, T2; mean $0.417$) against
-synthesis and recommendation (T3--T5, $0.623$), the difference is large
+single fact. Pooling the two recall tasks (T1, T2; mean $0.421$) against
+synthesis and recommendation (T3--T5, $0.612$), the difference is large
 (Mann-Whitney $p\approx 0$, Cliff's $\delta=-0.47$, again roughly three losses
 for every win). LLMs are weakest exactly where applied environmental management
 needs them most: recalling the precise
 regulatory threshold in force.
 
 The correction of the ground truth is itself informative here, and provides an
-internal check on it. T1 always had official ground truth, and its score does not
-move at all ($0.367$ before and after). T2 was previously scored against a
-placeholder, and it rises from $0.368$ to $0.467$ once each returned
+internal check on it. T1 always had official ground truth, and its score barely
+moves ($0.367$ to $0.369$). T2 was previously scored against a
+placeholder, and it rises from $0.368$ to $0.473$ once each returned
 concentration is compared with the authorised range by code. The correction
 therefore moved exactly the task whose ground truth was defective and left
 untouched the task whose ground truth was sound, which is the behaviour expected
@@ -125,11 +125,11 @@ register; T4 is panel-scored; T1 and T5 retain their original scores.}
 \toprule
 Task & $N$ & Mean \\
 \midrule
-T5 (applied recommendation)  & 1{,}508 & 0.773 \\
-T3 (health-evidence synth.)  & 1{,}519 & 0.560 \\
-T4 (policy instruments)      & 1{,}494 & 0.534 \\
-T2 (local factual datum)     & 1{,}530 & 0.467 \\
-T1 (technical standard)      & 1{,}529 & 0.367 \\
+T5 (applied recommendation)  & 1{,}320 & 0.769 \\
+T3 (health-evidence synth.)  & 1{,}329 & 0.548 \\
+T4 (policy instruments)      & 1{,}310 & 0.520 \\
+T2 (local factual datum)     & 1{,}335 & 0.473 \\
+T1 (technical standard)      & 1{,}335 & 0.369 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -211,10 +211,10 @@ Hindi (4)      & IND                     & $-11.1$ & $5\times10^{-4}$  & 71 \\
 
 The persona factor was fully crossed, so H6 is tested as a
 difference-in-differences. The public-environmental-manager frame leaves the
-North/South gap essentially unchanged: $+4.7$~pp under the neutral frame versus
-$+5.4$~pp under the manager frame, a DiD of $+0.6$~pp, far below the
+North/South gap essentially unchanged: $+5.0$~pp under the neutral frame versus
+$+5.9$~pp under the manager frame, a DiD of $+0.8$~pp, far below the
 pre-specified 5~pp threshold; a country-level permutation test (5{,}000
-permutations of the tier label) gives $p=0.27$. H6 is not supported:
+permutations of the tier label) gives $p=0.29$. H6 is not supported:
 presenting the query as coming from a public environmental manager neither
 narrows nor amplifies the Global South disadvantage, consistent with evidence
 that expert personas do not reliably improve factual
@@ -227,11 +227,11 @@ frame, so the null is not an artefact of the frame being universally ignored.
 
 H1 was pre-specified in two parts, and they separate cleanly.
 
-The ten Global North countries average $0.570$ against
-$0.520$ for the fifteen Global South countries, a gap of $+5.1$ percentage points
-whose 95\% bootstrap confidence interval over countries is $[+1.6,+8.5]$~pp and
+The ten Global North countries average $0.568$ against
+$0.514$ for the fifteen Global South countries, a gap of $+5.4$ percentage points
+whose 95\% bootstrap confidence interval over countries is $[+2.1,+8.7]$~pp and
 \emph{excludes zero}. It is stable to dropping any single country (leave-one-out
-$[+4.5,+6.0]$~pp) and to the composite weighting ($+4.2$~pp under equal weights,
+$[+4.9,+6.4]$~pp) and to the composite weighting ($+4.2$~pp under equal weights,
 $+8.8$~pp on the factual subcomponent, where it widens).
 
 \emph{Where the gap lives, and why the composite understates it.} The composite
@@ -273,10 +273,11 @@ T5 (applied recommendation) & no register value       & 99.6\% & 99.7\% & 3.58 &
 \end{table}
 
 At $n=25$, Spearman
-$\rho(\text{accuracy},\text{HDI})=+0.37$ does not reach significance ($p=0.072$),
-and neither does the Mann-Kendall trend ($p=0.072$). At the pre-specified $n=15$
-it is essentially absent ($\rho=+0.09$), and no leave-one-country-out re-estimate
-reaches the pre-specified $\rho\geq0.55$ threshold (range $[+0.31,+0.49]$). We
+$\rho(\text{accuracy},\text{HDI})=+0.41$ clears conventional significance
+($p=0.043$; Mann-Kendall $p=0.042$) but stays well below the pre-specified
+$\rho\geq0.55$ threshold, which is the criterion H1 was registered against. At the
+pre-specified $n=15$ it is essentially absent ($\rho=+0.10$), and no
+leave-one-country-out re-estimate reaches $0.55$ either (range $[+0.35,+0.54]$). We
 therefore report a tier difference we can demonstrate and a development gradient
 we cannot: the disadvantage is established as a difference between groups, while
 its shape across the development range remains exploratory. Under Bonferroni-Holm
@@ -295,8 +296,8 @@ resolve.
 The pre-specified mechanism was training-corpus representation, proxied by
 Wikipedia article and edition count. That proxy is null: Spearman $\rho=+0.14$
 ($p=0.50$) uncontrolled, and still null partialling out HDI and log GDP per
-capita. A post-hoc country-coverage proxy reaches $\rho=+0.36$ ($p=0.075$) and
-attenuates after adjusting for HDI (partial $\rho=+0.18$, $p=0.41$). At country
+capita. A post-hoc country-coverage proxy reaches $\rho=+0.40$ ($p=0.048$) and
+attenuates after adjusting for HDI (partial $\rho=+0.19$, $p=0.36$). At country
 level neither channel is established, because with 25 countries coverage and
 development are collinear.
 
@@ -307,23 +308,23 @@ The obstacle is confounding rather than absence of signal, and the way out does
 not require more countries. Each country answers five tasks that differ in how much
 the answer depends on a fact about \emph{that} country: T1, T2 and T4 do; T3 (an
 international WHO estimate) and T5 (a generic recommendation) do not. Countries
-score $0.457$ on the first block and $0.663$ on the second, a specificity deficit
-of $0.206$. If what limits the model is how much the corpus says about a given
+score $0.454$ on the first block and $0.658$ on the second, a specificity deficit
+of $0.204$. If what limits the model is how much the corpus says about a given
 country, that deficit should be smaller where coverage is greater --- and a
 country's HDI cannot explain a deficit measured \emph{within} that same country.
 Estimating the interaction between coverage and task dependence at the response
 level, with a fixed effect for country that absorbs development, income, official
-language and everything else distinguishing countries, gives $\beta=+0.026$
-(SE $0.005$, $p=2\times10^{-8}$, $n=7{,}580$).
+language and everything else distinguishing countries, gives $\beta=+0.028$
+(SE $0.005$, $p=7\times10^{-9}$, $n=6{,}629$).
 
 Four checks separate mechanism from artefact (Table~\ref{tab:h4-within}). The
 \emph{purest} contrast --- T1, wholly national, against T5, wholly generic ---
 yields the \emph{largest} coefficient, the dose-response a real effect produces and
 a spurious association does not. Dropping T5 or T4 leaves it intact, and a placebo
 inverting the labels returns the exact mirror image. Entering both candidate
-channels together, country coverage remains strong ($\beta=+0.025$,
-$p=4\times10^{-8}$) while the language-corpus proxy is marginal ($\beta=+0.010$,
-$p=0.041$). That prediction was asymmetric and therefore falsifiable: because
+channels together, country coverage remains strong ($\beta=+0.027$,
+$p=2\times10^{-8}$) while the language-corpus proxy does not survive
+($\beta=+0.008$, $p=0.089$). That prediction was asymmetric and therefore falsifiable: because
 every response here was elicited \emph{in English}, the size of a country's
 local-language corpus has no obvious route to how much the model knows about that
 country, so had the language channel survived and coverage failed, our reading
@@ -348,11 +349,11 @@ deficit on country-dependent tasks.}
 \toprule
 Task classification & $\beta$ & $p$ \\
 \midrule
-T1, T2, T4 versus T3, T5 (primary) & $+0.026$ & $2\times10^{-8}$ \\
-T1 versus T5 (purest contrast)     & $+0.042$ & $3\times10^{-12}$ \\
-Excluding T5 (ceiling at 99.7\%)   & $+0.021$ & $4\times10^{-4}$ \\
-Excluding T4 (most interpretive)   & $+0.031$ & $8\times10^{-10}$ \\
-Placebo: labels inverted           & $-0.026$ & $2\times10^{-8}$ \\
+T1, T2, T4 versus T3, T5 (primary) & $+0.028$ & $7\times10^{-9}$ \\
+T1 versus T5 (purest contrast)     & $+0.038$ & $2\times10^{-9}$ \\
+Excluding T5 (ceiling at 99.7\%)   & $+0.024$ & $8\times10^{-5}$ \\
+Excluding T4 (most interpretive)   & $+0.031$ & $1\times10^{-8}$ \\
+Placebo: labels inverted           & $-0.028$ & $7\times10^{-9}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -366,7 +367,7 @@ remains descriptive.
 \subsection{H5 --- open versus closed-accessible}
 \label{sec:results:h5}
 
-Closed-accessible models average $+13.3$~pp above open-weight ones, against the
+Closed-accessible models average $+12.6$~pp above open-weight ones, against the
 optimistic H5 framing. The open arm includes larger models, so the gap is not
 attributable to scale alone, although DeepSeek-V3 ranks first overall. H5 is
 interpreted descriptively.
@@ -425,10 +426,10 @@ what makes its exploratory status a finding rather than an omission. Full output
 are in Supplementary Material.
 
 \emph{No single country, and no weighting, carries the result.}
-Leave-one-country-out re-estimation holds the tier gap in $[+4.5,+6.0]$~pp and the
+Leave-one-country-out re-estimation holds the tier gap in $[+4.9,+6.4]$~pp and the
 native-language penalty at $-4.7$ to $-5.0$~pp. Under equal weights the gap is
-$+4.2$~pp and the language penalty $-4.7$~pp; restricting to factual accuracy
-against the register value widens them to $+8.8$ and $-5.4$~pp and deepens the
+$+4.6$~pp and the language penalty $-4.7$~pp; restricting to factual accuracy
+against the register value widens them to $+9.4$ and $-5.4$~pp and deepens the
 recall floor, so both effects grow where the measurement is most objective.
 
 \emph{The tier gap survives a distribution-free test and two model families.} A
@@ -495,21 +496,21 @@ Hypothesis & Finding & Mechanism \\
 \addlinespace[2pt]
 H2 language        & $-4.8$~pp; Hindi $-11.1$    & language corpus \\
 H3 regional model  & $\delta=-0.47$, worst of 14 & scale over tuning \\
-H1 tier gap        & $+5.1$~pp; OR $0.22$ on T1  & tier \\
+H1 tier gap        & $+5.4$~pp; OR $0.22$ on T1  & tier \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Supported, but not causally identified}} \\
 \addlinespace[2pt]
-H4 within country  & $\beta=+0.026$, $p=2\times10^{-8}$ & country coverage \\
+H4 within country  & $\beta=+0.028$, $p=7\times10^{-9}$ & country coverage \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Not supported}} \\
 \addlinespace[2pt]
-H1 gradient        & $\rho=0.37$, $p=0.072$      & development \\
+H1 gradient        & $\rho=0.41$, below the $0.55$ threshold & development \\
 H4 pre-specified   & language-corpus proxy null  & language corpus \\
-H6 persona         & DiD $+0.6$~pp, $p=0.27$     & --- \\
+H6 persona         & DiD $+0.8$~pp, $p=0.29$     & --- \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Descriptive only}} \\
 \addlinespace[2pt]
-H5 open/closed     & $+13.3$~pp for closed       & access type \\
+H5 open/closed     & $+12.6$~pp for closed       & access type \\
 \bottomrule
 \end{tabular}
 

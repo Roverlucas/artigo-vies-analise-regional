@@ -27,8 +27,8 @@ instrument, nor on translation quality, and it holds on an outcome involving no
 judge at all: the model becomes markedly less likely to produce a checkable number
 in the first place.
 
-The local-manager persona does not narrow the gap (DiD $+0.6$~pp, permutation
-$p=0.27$), consistent with evidence that expert personas do not reliably improve
+The local-manager persona does not narrow the gap (DiD $+0.8$~pp, permutation
+$p=0.29$), consistent with evidence that expert personas do not reliably improve
 factual accuracy~\citep{zheng2024helpful,mollick2025personas}. This null carries
 more weight than a null about a folk habit would, because role framing is the
 first thing every major vendor tells its users to do --- Anthropic, OpenAI, Google
@@ -55,23 +55,24 @@ value against the official source.
 \subsection{The recall floor sits on the values that bind}
 
 Accuracy collapses on the tasks that require returning a specific value in force:
-$0.417$ for normative and local-datum recall against $0.623$ for synthesis and
-recommendation ($\delta=-0.47$), deepest on the national standard itself
-($0.367$). The risk falls unevenly: a manager drafting prose about air quality
+$0.421$ for normative and local-datum recall against $0.612$ for synthesis and
+recommendation ($\delta=-0.45$), deepest on the national standard itself
+($0.369$). The risk falls unevenly: a manager drafting prose about air quality
 policy is comparatively well served, a manager retrieving the regulatory cutoff a
 decision turns on is in the worst cell of the design, and worse still if they ask
 in a lower-resource language, and an internal check supports that the floor is
 genuine rather than an artefact of scoring: correcting the ground truth raised T2
---- the task scored against a placeholder --- from $0.368$ to $0.467$, while
-leaving T1, which always had official ground truth, at exactly $0.367$.
+--- the task scored against a placeholder --- from $0.368$ to $0.473$, while
+leaving T1, which always had official ground truth, essentially unchanged
+($0.367$ to $0.369$).
 
 \subsection{A tier difference we can show, and a gradient we cannot}
 
 H1 was pre-specified in two parts, and the corrected scoring separates them: the
 tier gap holds and the monotonic gradient does not.
 
-Read on the composite the gap looks modest ($+5.1$~pp, bootstrap CI
-$[+1.6,+8.5]$). Estimated task by task on the binary outcome of returning the
+Read on the composite the gap looks modest ($+5.4$~pp, bootstrap CI
+$[+2.1,+8.7]$). Estimated task by task on the binary outcome of returning the
 register value, it is not: the gap scales with how much the answer depends on a
 fact specific to that country, from an odds ratio of $0.22$ on the binding
 national standard to no gap at all on open recommendation, the one task with no
@@ -104,8 +105,8 @@ the same proxy.
 Resolution comes from changing the unit of variation, and the decisive check
 restricts to those same nine anglophone countries. There the linguistic channel is
 not merely controlled but identical by construction, and country coverage still
-predicts the specificity deficit at the full-sample magnitude ($\beta=+0.025$,
-$p=6\times10^{-4}$). What that coefficient measures cannot be language. Country representation is
+predicts the specificity deficit at the full-sample magnitude ($\beta=+0.026$,
+$p=7\times10^{-4}$). What that coefficient measures cannot be language. Country representation is
 therefore the operative channel for a gap measured in
 English, identified in a contrast that removes country-level confounding by
 construction, but not causally --- the design eliminates confounding at the level
@@ -113,14 +114,14 @@ of the country, not of task-by-country.
 
 \subsection{The methodological lesson: the key matters more than the sample}
 
-The same 9{,}251 responses support different substantive conclusions depending on
+The same 8{,}300 scored cells support different substantive conclusions depending on
 the instrument used to score them, and the size of that difference is the lesson.
 Scoring two of the five tasks against placeholder ground truth, and delegating to
 a language model the arithmetic of deciding whether a returned number fell inside
 an authorised range, yields a development gradient of $\rho=0.51$ ($p=0.004$) and
 a native-language penalty of $-2.1$~pp. Rebuilding those keys from official
-registers and moving the comparison into code turns the gradient into a null
-($\rho=0.37$), more than doubles the language penalty to $-4.8$~pp, and converts
+registers and moving the comparison into code cuts the gradient to $\rho=0.41$, below the registered threshold, more than doubles
+the language penalty to $-4.8$~pp, and converts
 Spanish from a null into a significant harm. The dataset did not change; only the
 measuring instrument did. The field's instinct when a geographic-bias effect
 proves fragile is to add countries, but the ground truth deserves the scrutiny

@@ -308,6 +308,17 @@ nota se moveria se outro juiz a tivesse produzido. Um membro do painel (DeepSeek
 camada humana de padrão-ouro foi coletada; o gabarito está ancorado, em vez disso,
 em fontes oficiais primárias (Seção~\ref{sec:gabarito}).
 
+\emph{A unidade de análise é a célula pontuada, não a linha de log.} Das 9.251
+pontuações que o juiz produziu, 951 células (11,5\%) carregam mais de um escore,
+porque o juiz foi reexecutado sobre partes do conjunto em datas diferentes. São
+medições repetidas do mesmo item, não observações independentes, de modo que as
+colapsamos pela média, restando 8.300 células (6.629 com prompt em inglês). Tratar
+reexecuções como independentes seria pseudo-replicação: infla o $n$ e dá peso extra
+às células que por acaso foram reprocessadas. A escolha é metodológica e não
+depende do resultado; o material suplementar reporta cada efeito principal sob as
+duas convenções, e o achado central do estudo é indiferente a ela ($-4.755$ contra
+$-4.753$~pp).
+
 O composto primário combina cinco subcomponentes pré-especificados (Seção~S6 do
 suplemento), cada um normalizado para $[0,1]$: acurácia factual contra a entrada do
 registro (peso 0.30), completude contextual (0.25), qualidade de citação (0.15),

@@ -35,6 +35,11 @@ CEGO = RAIZ / "blind"
 # do autor correspondente no proprio URL, e que aparece tambem numa tabela do
 # suplemento.
 REGRAS = [
+    # entrada de deposito de dados: o campo author nomeia os tres autores
+    (r"author\s*=\s*\{Rover, Lucas and Bacalhau, Eduardo Tadeu and Tadano, Yara\}",
+     "author       = {Author(s) withheld for review}",
+     "autores na entrada de deposito do .bib"),
+
     (r"\\documentclass\[review,authoryear,12pt\]\{elsarticle\}",
      "\\\\documentclass[review,authoryear,doubleblind,12pt]{elsarticle}",
      "classe passa a doubleblind (suprime autores na renderizacao)"),
@@ -78,7 +83,10 @@ def main() -> None:
             shutil.copy2(origem, destino)
 
     achados = []
-    for tex in sorted(CEGO.rglob("*.tex")):
+    # O .bib ENTRA aqui. A versao anterior so varria *.tex, e a entrada Zenodo do
+    # references.bib carregava "Rover, Lucas and Bacalhau ... and Tadano" — se a
+    # bibliografia fosse renderizada, a identidade vazava numa submissao cega.
+    for tex in sorted(list(CEGO.rglob("*.tex")) + list(CEGO.rglob("*.bib"))):
         s = tex.read_text(encoding="utf-8")
         antes = s
         for padrao, sub, rotulo in REGRAS:
@@ -98,7 +106,7 @@ def main() -> None:
                  "Descomplica", "Tadano", "Dominski", "Azevedo", "Bacalhau",
                  "Lucas Rover")
     vazou = []
-    for tex in sorted(CEGO.rglob("*.tex")):
+    for tex in sorted(f for f in CEGO.rglob("*") if f.is_file()):
         s = tex.read_text(encoding="utf-8")
         for t in proibidos:
             if t in s:
