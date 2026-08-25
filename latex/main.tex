@@ -2,106 +2,86 @@
 % Whose Regulation Does the Model Know?
 % Reliability of LLM-Retrieved Regulatory Information, 25 Countries
 % ============================================================
-% Working draft — pre-submission version
 % Target journal: Government Information Quarterly (Elsevier)
-% Formato: classe article genérica. A Elsevier fornece elsarticle.cls, e a
-% conversão é o último passo antes de submeter — feita depois de o texto estar
-% fechado, porque mudar de classe reflui figuras, tabelas e quebras de página.
+%
+% Formato: elsarticle, a classe oficial da Elsevier.
+%   [review]     espaçamento duplo e numeração de linha, que é o que o portal
+%                pede na submissão; trocar por [preprint] ou [final] depois.
+%   [authoryear] com elsarticle-harv.bst atende o estilo APA que o GIQ segue.
+%   [doubleblind] existe nesta classe e é o que gera a versão cega — ver
+%                latex/build_blind.py, que a aplica e ainda verifica vazamento de
+%                identificadores FORA do bloco de autores, porque o endereço do
+%                repositório carrega o usuário do autor correspondente.
+%
 % Highlights: latex/highlights.tex, arquivo separado como o GIQ exige.
 % ============================================================
 
-\documentclass[11pt,a4paper]{article}
+\documentclass[review,authoryear,12pt]{elsarticle}
 
-% -- Essential packages
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 
-% -- Layout
-\usepackage[margin=2.5cm]{geometry}
-\usepackage{setspace}
-\onehalfspacing
-\usepackage{lineno}
-\linenumbers
-
-% -- Math and symbols
 \usepackage{amsmath,amssymb}
 \usepackage{siunitx}
 \sisetup{group-separator={,}, group-minimum-digits=4}
 
-% -- Graphics and tables
 \usepackage{graphicx}
 \graphicspath{{../figures/}}
 \usepackage{xcolor}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
-\usepackage{caption}
-\captionsetup{font=small,labelfont=bf}
 
-% -- References
-% GIQ segue o Publication Manual da APA, que pede citacao autor-ano e nao
-% numerica. natbib em modo autor-ano com apalike entrega isso sem exigir
-% reescrever nenhum \citep/\citet do texto.
-\usepackage[authoryear,round]{natbib}
-\bibliographystyle{apalike}
-
-% -- Hyperlinks (load late)
 \usepackage[colorlinks=true,
             linkcolor=blue!50!black,
             citecolor=blue!50!black,
             urlcolor=blue!50!black]{hyperref}
 
-% -- Custom commands
 \newcommand{\placeholder}[1]{\textcolor{red!80!black}{\textbf{[#1]}}}
-\newcommand{\simvalue}[1]{\textcolor{blue!60!black}{\textit{#1}}}
 
-% ============================================================
-% METADATA
-% ============================================================
-
-\title{Whose Regulation Does the Model Know?\\
-Reliability of LLM-Retrieved Regulatory Information for Public
-Environmental Management in 25 Countries}
-
-\author{
-  Lucas Rover$^{1,*}$ \\
-  Vitor de Melo Dominski$^{2}$ \\
-  Anibal Tavares de Azevedo$^{3}$ \\
-  Eduardo Tadeu Bacalhau$^{4}$ \\
-  Yara de Souza Tadano$^{1}$ \\
-  \\
-  \small $^1$ Federal University of Technology --- Paran\'a (UTFPR), Brazil\\
-  \small $^2$ Faculdade Descomplica, Brazil\\
-  \small $^3$ University of Campinas (Unicamp), Brazil\\
-  \small $^4$ Federal University of Paran\'a (UFPR), Brazil\\
-  \small $^*$ Corresponding author (lead contact): \texttt{lucasrover@alunos.utfpr.edu.br}\\
-  \\
-  \small ORCID: L.R. 0000-0001-6641-9224 $\cdot$ V.M.D. 0009-0001-0209-9089
-  $\cdot$ A.T.A. 0000-0003-1678-7795 $\cdot$ E.T.B. 0000-0002-3936-0375
-  $\cdot$ Y.S.T. 0000-0002-3975-3419
-}
-
-\date{\today}
-
-% ============================================================
-% DOCUMENT
-% ============================================================
+\journal{Government Information Quarterly}
 
 \begin{document}
 
-\maketitle
+\begin{frontmatter}
 
-% Abstract
+\title{Whose Regulation Does the Model Know? Reliability of LLM-Retrieved
+Regulatory Information for Public Environmental Management in 25 Countries}
+
+\author[utfpr]{Lucas Rover\corref{cor}}
+\ead{lucasrover@alunos.utfpr.edu.br}
+\cortext[cor]{Corresponding author}
+
+\author[desc]{Vitor de Melo Dominski}
+\author[unicamp]{Anibal Tavares de Azevedo}
+\author[ufpr]{Eduardo Tadeu Bacalhau}
+\author[utfpr]{Yara de Souza Tadano}
+
+\affiliation[utfpr]{organization={Federal University of Technology --- Paran\'a
+  (UTFPR)}, country={Brazil}}
+\affiliation[desc]{organization={Faculdade Descomplica}, country={Brazil}}
+\affiliation[unicamp]{organization={University of Campinas (Unicamp)},
+  country={Brazil}}
+\affiliation[ufpr]{organization={Federal University of Paran\'a (UFPR)},
+  country={Brazil}}
+
 \input{sections/00_abstract}
 
-\noindent\textbf{Keywords:} generative AI in government; regulatory information;
-information reliability; public environmental management; algorithmic decision
-support; large language models; Global South
+% Palavras-chave escolhidas para AMPLIAR o alcance, não para repeti-lo. O título
+% já é indexado, e três das sete anteriores duplicavam termos dele (regulatory
+% information, information reliability, public environmental management), o que
+% gastava espaço de indexação sem trazer leitor novo. Estas cinco cobrem quatro
+% comunidades distintas que citariam este trabalho e nenhuma se sobrepõe ao
+% título: auditoria de algoritmos, viés geográfico, viés multilíngue, e a
+% própria comunidade de governo digital do GIQ.
+\begin{keyword}
+algorithm auditing \sep geographic bias \sep multilingual bias \sep
+digital government \sep Global South
+\end{keyword}
 
-\vspace{1em}
+\end{frontmatter}
 
-% Body
 \input{sections/01_introduction}
 \input{sections/02_related_work}
 \input{sections/03_methods}
@@ -109,8 +89,6 @@ support; large language models; Global South
 \input{sections/05_discussion}
 \input{sections/06_conclusion}
 
-% ============================================================
-% BACK MATTER
 % ============================================================
 
 \section*{Data and code availability}
@@ -141,9 +119,7 @@ secondary hypothesis are reported against their declared thresholds, including
 the three that failed and the one whose registered direction the data reverse.
 The second reports what the data suggested and the plan did not anticipate,
 labelled exploratory throughout, with intervals and without confirmatory
-language. Deviations from the plan are tabulated in the supplement. The full
-protocol, prompts, ground-truth registry, and analysis code will be released on
-publication.
+language. Deviations from the plan are tabulated in the supplement.
 
 \section*{Acknowledgements}
 
@@ -156,28 +132,25 @@ study.
 
 Following CRediT taxonomy:
 \begin{itemize}\setlength{\itemsep}{0pt}
-\item \textbf{Lucas Rover (UTFPR):} Conceptualization, Methodology, Software,
+\item Lucas Rover (UTFPR): Conceptualization, Methodology, Software,
   Data Curation, Formal Analysis, Investigation, Visualization,
   Writing~--~Original Draft, Project Administration.
-\item \textbf{Vitor de Melo Dominski (Faculdade Descomplica):} Data Curation,
+\item Vitor de Melo Dominski (Faculdade Descomplica): Data Curation,
   Software, Formal Analysis.
-\item \textbf{Prof.\ Anibal Tavares de Azevedo (Unicamp):}
+\item Prof.\ Anibal Tavares de Azevedo (Unicamp):
   Writing~--~Original Draft, Writing~--~Review \& Editing.
-\item \textbf{Dr.\ Eduardo Tadeu Bacalhau (UFPR):} Validation, Supervision,
+\item Dr.\ Eduardo Tadeu Bacalhau (UFPR): Validation, Supervision,
   Writing~--~Review \& Editing.
-\item \textbf{Dra.\ Yara de Souza Tadano (UTFPR):} Validation, Supervision,
+\item Dra.\ Yara de Souza Tadano (UTFPR): Validation, Supervision,
   Writing~--~Review \& Editing.
 \end{itemize}
-
-Validation, supervision, and final manuscript review are shared by
-Dr.\ Eduardo Tadeu Bacalhau (UFPR) and Dra.\ Yara de Souza Tadano (UTFPR).
 
 \section*{Declaration of generative AI in the writing process}
 
 Two distinct uses must be separated here, because only one of them is what this
 declaration is about.
 
-\textbf{As an object and instrument of the study.} Large language models are the
+\emph{As an object and instrument of the study.} Large language models are the
 subject of this research, and they also serve as one of its measuring
 instruments: GPT-5-mini, Gemini~2.5~Pro, Claude Sonnet~4.6 and DeepSeek-V3 scored
 model responses against the ground-truth registry, and Claude Sonnet~4.6 produced
@@ -187,7 +160,7 @@ inter-judge reliability and a back-translation audit of the translated prompts.
 Wherever the correct answer is a value in an official register, the verdict is
 computed by code rather than by a model.
 
-\textbf{In preparing the manuscript.} During the preparation of this work the
+\emph{In preparing the manuscript.} During the preparation of this work the
 authors used large language models to assist with drafting and editing the text
 and with implementing analysis code. After using these tools, the authors
 reviewed and edited the content as needed and take full responsibility for the
@@ -199,7 +172,7 @@ evidence supports.
 
 The authors declare no competing interests.
 
-% Bibliography
+\bibliographystyle{elsarticle-harv}
 \bibliography{references}
 
 \end{document}

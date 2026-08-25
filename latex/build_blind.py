@@ -26,8 +26,24 @@ RAIZ = pathlib.Path(__file__).resolve().parent
 CEGO = RAIZ / "blind"
 
 # (padrao, substituto, rotulo do que estava vazando)
+#
+# O bloco de autores nao precisa mais ser removido a mao: a classe elsarticle tem
+# a opcao doubleblind, que suprime autores e afiliacoes na renderizacao. O que a
+# opcao NAO faz — e por isso este script continua existindo — e limpar o resto do
+# documento. O vazamento mais serio deste manuscrito nunca esteve no bloco de
+# autores: esta no endereco do repositorio publico, que carrega o nome de usuario
+# do autor correspondente no proprio URL, e que aparece tambem numa tabela do
+# suplemento.
 REGRAS = [
-    (r"\\author\{.*?\n\}", "\\\\author{}", "bloco de autores, afiliacoes, ORCIDs, e-mail"),
+    (r"\\documentclass\[review,authoryear,12pt\]\{elsarticle\}",
+     "\\\\documentclass[review,authoryear,doubleblind,12pt]{elsarticle}",
+     "classe passa a doubleblind (suprime autores na renderizacao)"),
+    # A opcao doubleblind limpa o PDF, nao o fonte. Se o portal pedir o .tex, ou
+    # se alguem abrir o arquivo, os nomes continuam la. Removemos os dois.
+    (r"\\author\[[^\]]*\]\{[^}]*\}(\s*\\corref\{[^}]*\})?", "", "linhas de autor no fonte"),
+    (r"\\ead\{[^}]*\}", "", "e-mail de contato no fonte"),
+    (r"\\cortext\[[^\]]*\]\{[^}]*\}", "", "nota de autor correspondente"),
+    (r"\\affiliation\[[^\]]*\]\{[^}]*(\{[^}]*\}[^}]*)*\}", "", "afiliacoes no fonte"),
     (r"https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+",
      "https://ANONYMISED-FOR-REVIEW", "URL do repositorio com o usuario do autor"),
     (r"\{github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+\}",

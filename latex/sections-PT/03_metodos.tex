@@ -182,8 +182,17 @@ estatuto de verificabilidade está especificado no registro de gabarito
 \subsection{Manipulação de persona}
 \label{sec:persona}
 
-A persona é um fator dentro do prompt com dois níveis. A condição neutra
-apresenta a consulta como pedido simples de informação. A condição
+A persona é um fator dentro do prompt com dois níveis, e a manipulação não é
+arbitrária: atribuir um papel no prompt de sistema é a prática que os próprios
+fornecedores dos modelos documentam e recomendam. A Anthropic instrui
+desenvolvedores a definir um papel no prompt de sistema, afirmando que mesmo uma
+única frase muda o comportamento~\citep{anthropic2026systemprompts}; o guia da
+OpenAI pede um bloco de ``Identidade'' descrevendo o propósito e o papel do
+assistente antes da própria tarefa~\citep{openai2026promptengineering}; e a
+prática está catalogada como Padrão de Persona na literatura de padrões de
+prompt~\citep{white2023prompt}. Um órgão público que siga a documentação do
+próprio fornecedor chega, portanto, exatamente à manipulação que testamos. A
+condição neutra apresenta a consulta como pedido simples de informação. A condição
 public\_manager\_env antepõe um enquadramento de papel fixo identificando
 quem pergunta como autoridade municipal ou regional de gestão ambiental, mantendo a
 pergunta substantiva idêntica entre condições. Um único modelo de enquadramento de

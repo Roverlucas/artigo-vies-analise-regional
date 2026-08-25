@@ -182,7 +182,16 @@ status is specified in the ground-truth registry (Section~\ref{sec:groundtruth})
 \subsection{Persona manipulation}
 \label{sec:persona}
 
-Persona is a within-prompt factor with two levels. The neutral
+Persona is a within-prompt factor with two levels, and the manipulation is not
+an arbitrary one: assigning a role in the system prompt is the practice the model
+vendors themselves document and recommend. Anthropic instructs developers to set
+a role in the system prompt, stating that even a single sentence changes
+behaviour~\citep{anthropic2026systemprompts}; OpenAI's guide asks for an
+``Identity'' block describing the assistant's purpose and role before the task
+itself~\citep{openai2026promptengineering}; and the practice is catalogued as the
+Persona Pattern in the prompt-pattern literature~\citep{white2023prompt}. A public
+body that follows its supplier's own documentation therefore arrives at exactly
+the manipulation we test. The neutral
 condition presents the query as a plain information request. The
 public\_manager\_env condition prepends a fixed role frame
 identifying the requester as a municipal or regional environmental management

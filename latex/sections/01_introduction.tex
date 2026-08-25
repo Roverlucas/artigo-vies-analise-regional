@@ -65,9 +65,12 @@ benchmarks are not.
 
 \paragraph{Gap 2: persona framing is unexamined as an experimental lever.}
 Practitioners routinely prefix queries with a role (``As a municipal
-environmental secretary, \dots''), and persona or role conditioning is a
-documented prompt pattern in deployed prompting
-workflows~\citep{white2023prompt}. Whether adopting the persona of a public
+environmental secretary, \dots''), and they do so on the advice of the model
+vendors: Anthropic's documentation tells developers to give the model a role in
+the system prompt~\citep{anthropic2026systemprompts} and OpenAI's asks for an
+identity block stating the assistant's purpose~\citep{openai2026promptengineering},
+while the practice is catalogued as the Persona Pattern in the prompt-pattern
+literature~\citep{white2023prompt}. Whether adopting the persona of a public
 environmental manager \emph{reduces} the Global South accuracy gap (by steering
 the model toward policy-relevant, regulation-compliant responses) or
 \emph{amplifies} it (by inviting confident fabrication of regulatory specifics

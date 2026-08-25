@@ -89,8 +89,14 @@ benchmarking abstraction.
 
 \subsection{Persona and role conditioning}
 
-Role or persona conditioning is a documented prompt pattern in deployed
-prompting~\citep{white2023prompt}, and a growing body of work reports that
+Role or persona conditioning is not merely a folk practice: it is what the model
+vendors instruct their own users to do. Anthropic documents role setting in the
+system prompt as a way to focus behaviour and tone~\citep{anthropic2026systemprompts},
+OpenAI's prompt-engineering guide opens the recommended message structure with an
+identity block~\citep{openai2026promptengineering}, and the pattern is catalogued
+in the prompting literature~\citep{white2023prompt}. That makes the null result
+below a statement about vendor-recommended practice rather than about a habit
+practitioners invented. A growing body of work reports that
 assigning an expert role can shift model outputs in either direction depending on
 task and domain. Systematic evidence is
 sobering: across four LLM families and 2{,}410 factual questions, adding expert
