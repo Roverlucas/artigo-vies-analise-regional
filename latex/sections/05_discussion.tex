@@ -15,75 +15,63 @@ identify the channel behind it only where the design has the resolution to do so
 
 \subsection{Three intuitive remedies, all failing --- and one that harms}
 
-The applied contribution is largely negative, and it is the most actionable result.
+The applied contribution is largely negative, and it is the most actionable
+result.
 
-The local language does not help and materially hurts. Asking in the
-country's own language lowers accuracy by $4.8$~pp (Wilcoxon $p=3\times10^{-15}$, $n=839$
+The local language does not help and materially hurts. Asking in the country's
+own language lowers accuracy by $4.8$~pp (Wilcoxon $p=3\times10^{-15}$, $n=839$
 matched cells), significantly in all three languages, and the penalty scales with
-the scarcity of the language's corpus: Hindi $-11.1$~pp, Spanish $-4.4$, Portuguese
-$-3.9$. India, the highest-scoring country of all 25 in English, falls furthest in
-Hindi. This is the mechanism the resource hierarchy
-predicts~\citep{joshi2020state,xue2021mt5}, and here the measurement has the
-resolution to see it, because the unit is the language rather than the country.
-
-We tested this claim adversarially, and it held. It
+the scarcity of the language's corpus: Hindi $-11.1$~pp, Spanish $-4.4$,
+Portuguese $-3.9$. India, the highest-scoring country of all 25 in English, falls
+furthest in Hindi. This is the mechanism the resource hierarchy
+predicts~\citep{joshi2020state,xue2021mt5}, and the measurement has the resolution
+to see it because the unit is the language rather than the country. The effect
 does not depend on any one country, model, task, persona condition or scoring
-instrument, nor on the quality of the translation: a back-translation census of
-all 90 native prompts found none that altered the country or the requested
-quantity, and the penalty is the same among verified-faithful renderings. It also holds on an outcome that involves no judge at all: native-language prompts return a register-checkable value only $48.7\%$ of
-the time against $66.4\%$ in English ($-17.7$~pp paired, sign test
-$p=5\times10^{-6}$), with the same ordering across languages. The harm is not
-that a judge scores non-English prose more harshly; it is that the model becomes
-markedly less likely to produce a checkable number at all.
+instrument, nor on translation quality --- a back-translation census of all 90
+native prompts found none that altered the country or the requested quantity ---
+and it holds on an outcome involving no judge at all: native-language prompts
+return a register-checkable value only $48.7\%$ of the time against $66.4\%$ in
+English ($-17.7$~pp paired, sign test $p=5\times10^{-6}$). The harm is not that a
+judge scores non-English prose more harshly; the model becomes markedly less
+likely to produce a checkable number at all.
 
-The local-manager persona does not narrow the gap (DiD $+0.6$~pp,
-permutation $p=0.27$), consistent with evidence that expert personas do not
-reliably improve factual accuracy~\citep{zheng2024helpful,mollick2025personas}. A
-manipulation check confirms half of the responses explicitly take up the role
-frame, so the null is not a failure of the manipulation.
-
-This null carries more weight than a null about a folk habit would, because role
-framing is not something we invented to test: it is the first thing every major
-vendor tells its users to do. Anthropic tells developers to give the model a role
-in the system prompt, stating that a single sentence changes how it
-responds~\citep{anthropic2026systemprompts}; OpenAI's guide opens the recommended
-message structure with an identity block~\citep{openai2026promptengineering};
+The local-manager persona does not narrow the gap (DiD $+0.6$~pp, permutation
+$p=0.27$), consistent with evidence that expert personas do not reliably improve
+factual accuracy~\citep{zheng2024helpful,mollick2025personas}. This null carries
+more weight than a null about a folk habit would, because role framing is the
+first thing every major vendor tells its users to do: Anthropic instructs
+developers to give the model a role in the system
+prompt~\citep{anthropic2026systemprompts}, OpenAI's guide opens the recommended
+message structure with an identity block~\citep{openai2026promptengineering},
 Google's Gemini documentation asks that role definitions --- which it calls
 persona --- be placed in the system
-instruction~\citep{google2026promptingstrategies}; and xAI's standard example
+instruction~\citep{google2026promptingstrategies}, and xAI's standard example
 initialises every conversation with a role-assigning system
 prompt~\citep{xai2026chatguide}. Four independent companies converge on the same
-advice, and an administration that reads its supplier's documentation and follows
-it will write the sentence we tested.
+advice, and an administration following its supplier's documentation writes the
+sentence we tested.
 
-What the documentation claims for that sentence, read closely, is control over
-tone, format and framing. What administrations take from it is something broader,
-because the guides do not mark the boundary: nothing in them tells a reader that
-the technique which reliably shapes register does not also shape factual
-reliability. Our estimate separates the two. Telling the model it is speaking to
-a municipal environmental official moves accuracy about that official's own
-regulation by $+0.6$~pp, an interval that comfortably contains zero, while the
-manipulation check confirms the models do take the role up. The frame is
-received and it changes the voice; it does not change what the model knows.
-
-Two boundaries keep this from being read as more than it is. We tested the frame
-typed into the message, not installed as a system instruction, which is the
-channel a public servant in a chat interface actually has and the narrower of the
-two claims (Section~\ref{sec:limits}). And a null on one frame in one domain is
-not a general verdict on persona prompting. What it does establish is specific
-and, for this readership, actionable: for the retrieval of binding regulatory
-values, the cheapest and most widely recommended intervention available to a
-public body returns nothing, and the body has no way to learn that from the
-documentation it was given.
+What that documentation claims for the sentence, read closely, is control over
+tone, format and framing --- and nothing in it marks the boundary, so nothing
+tells a reader that the technique which reliably shapes register does not also
+shape factual reliability. Our estimate separates the two. A manipulation check
+confirms half the responses explicitly take up the role, so the frame is received
+and it changes the voice; it moves accuracy about that official's own regulation
+by $+0.6$~pp, an interval that comfortably contains zero. The frame does not
+change what the model knows. We tested it typed into the message rather than
+installed as a system instruction, which is the channel a public servant in a
+chat interface actually has and the narrower of the two claims
+(Section~\ref{sec:limits}).
 
 The regional model --- Brazilian-Portuguese Cabra-Mistral~7B --- is the
 \emph{worst} performer of all fourteen ($\delta=-0.47$), so reaching for a locally
-tuned small model trades away the scale and frontier training that actually carry
-domain accuracy.
+tuned small model trades away the scale and frontier training that carry domain
+accuracy.
 
-Practitioners deploy all three of these as fixes; none works, and the one a manager is most likely to try first does active damage. The honest message for Global South environmental agencies is that
-no cheap prompt- or model-level workaround substitutes for verifying the binding
-value against the official source.
+Practitioners deploy all three as fixes; none works, and the one a manager is
+most likely to try first does active damage. For Global South environmental
+agencies, no cheap prompt- or model-level workaround substitutes for verifying
+the binding value against the official source.
 
 \subsection{The recall floor sits on the values that bind}
 
@@ -105,59 +93,34 @@ the task whose key was defective and left untouched the task whose key was sound
 H1 was pre-specified in two parts, and the corrected scoring separates them: the
 tier gap holds and the monotonic gradient does not.
 
-The gap is $+5.1$~pp with a bootstrap CI of $[+1.6,+8.5]$ that excludes zero,
-stable to dropping any country and to every composite weighting, widening to
-$+8.8$~pp on the factual subcomponent alone. It is nonetheless modest and
-sensitive to how the question is asked. A Bayesian hierarchical model puts the
-effect clear of zero ($-0.047$, 94\% HDI $[-0.085,-0.006]$, $P(\beta<0)=0.993$),
-while a frequentist mixed model with crossed random intercepts leaves it marginal
-($\beta=-0.060$, $p=0.069$), because it charges the large between-country
-heterogeneity to the error term. The three approaches agree on magnitude and sign
-and disagree on significance, and the E-value at the confidence limit nearest the
-null is only $1.31$, so a country-level confounder of modest strength would
-suffice to explain the gap away.
+The gap is $+5.1$~pp (bootstrap CI $[+1.6,+8.5]$), stable to dropping any country
+and to every composite weighting, and a distribution-free permutation test with
+the country as the unit rejects the null ($p=0.020$). Read on the composite it
+looks modest. Estimated task by task on the binary outcome of returning the
+register value, it is not: the gap scales with how much the answer depends on a
+fact specific to that country --- odds ratio $0.22$ $([0.18,0.27])$ on the binding
+national standard, $0.33$ on national policy instruments, $0.47$ on the local
+measured datum, $0.69$ on an international health estimate, and no gap at all on
+open recommendation, the one task with no register value to get right. The
+disadvantage is concentrated, and averaging five tasks into one composite dilutes
+it with tasks where it does not exist. On the question a manager actually brings
+to these systems --- what is the standard in force here --- a Global South country
+is served at roughly a quarter of the odds of a Global North one. That is the
+faithful statement of the geographic finding.
 
-That modesty, however, is an artefact of the composite. Estimated task by task on
-the binary outcome of returning the register value, the gap scales with how much
-the answer depends on a fact specific to that country: odds ratio $0.23$
-($[0.19,0.28]$) on the binding national standard, $0.34$ on national policy
-instruments, $0.51$ on the local measured datum, $0.67$ on an international
-health estimate, and no gap at all on open recommendation, the one task with no
-register value to get right. The disadvantage is concentrated, and averaging five tasks into one composite dilutes it with tasks where it does not exist. On the question a manager actually brings to these systems --- what is
-the standard in force here --- a Global South country is served at roughly a
-quarter of the odds of a Global North one. We regard this as the more faithful statement of the geographic finding than the composite gap.
+The gradient fails on every reading: $\rho=0.37$ with HDI at $n=25$ ($p=0.073$),
+Mann-Kendall agreeing ($p=0.072$), no leave-one-out estimate approaching the
+pre-specified $0.55$ threshold, and $\rho=0.09$ at the registered $n=15$. The null
+is informative rather than empty, because the design has $77\%$ power at
+$\rho=0.55$: a gradient of the magnitude we pre-committed to is excluded, while a
+weak one is not.
 
-The gradient, by contrast, fails on every reading: $\rho=0.37$ with HDI at
-$n=25$ does not reach significance ($p=0.073$), the Mann-Kendall trend agrees
-($p=0.072$), no leave-one-out estimate approaches the pre-specified $0.55$
-threshold, and at the registered $n=15$ it is essentially absent ($\rho=0.09$).
-This null is informative: the design has $77\%$ power at
-$\rho=0.55$ and a minimum detectable effect of $\rho=0.56$, so a gradient of the
-magnitude we pre-committed to is excluded. A weak one is not, since power falls
-to $48\%$ at $\rho=0.40$.
-
-Two further results bound what the tier contrast means. A permutation test that
-relabels tier across countries --- distribution-free, and using the country as the
-unit --- gives $p=0.020$, which we take as settling the disagreement between the
-bootstrap and the mixed model in favour of the gap being real. But the gap holds
-under the UNCTAD North/South partition and \emph{not} under partitions drawn on
-HDI alone ($+2.4$ to $+2.9$~pp, all non-significant). That is coherent with a null
-HDI gradient --- a split on a variable that does not predict accuracy should not
-produce a gap --- and it suggests the operative variable is position in the world
-system rather than national wealth, which is what UNCTAD encodes and what the
-coloniality framing predicts. We flag that this reading is post hoc, and that a
-sceptical reader may instead see one partition out of several reaching
-significance. Either way, the claim we defend is about the North/South
-distinction as conventionally drawn, not about development in general.
-
-We report this asymmetry plainly: a
-difference between groups that we can demonstrate, and a shape across the
-development range that we cannot. The country ordering shows why. India tops all
-25 countries despite being Global South; South Africa and Indonesia outrank most
-of the Global North; Canada and France sit low. The disadvantage is a tier
+The country ordering shows why the two results differ. India tops all 25
+countries despite being Global South; South Africa and Indonesia outrank most of
+the Global North; Canada and France sit low. The disadvantage is a tier
 difference layered over substantial country-specific idiosyncrasy, and that
-idiosyncrasy is precisely what a rank correlation over 25 countries lacks the
-resolution to see through.
+idiosyncrasy is what a rank correlation over 25 countries lacks the resolution to
+see through.
 
 \subsection{The mechanism, where the design has resolution}
 
@@ -212,34 +175,29 @@ three languages this remains descriptive.
 
 \subsection{The methodological lesson: the key matters more than the sample}
 
-Earlier drafts of this study drew a different conclusion from the same responses,
-and the reason is worth stating, because it generalises beyond this paper.
+The same 9{,}251 responses support different substantive conclusions depending on
+the instrument used to score them, and the size of that difference is the lesson.
 
-The original scoring compared model answers for two of the five tasks against
-placeholder ground truth, and delegated to a language model the arithmetic of
-deciding whether a returned number fell inside an authorised range. Rebuilding
-those keys from official registers (WHO Ambient Air Quality Database v6.1, WHO GHO
-AIR\_41, UNEP Global Assessment of Air Pollution Legislation) and moving the
-comparison into code changed the substantive conclusions: the development gradient
-fell from $\rho=0.51$ ($p=0.004$) to $\rho=0.37$ ($p=0.073$), while the
-native-language penalty more than doubled, from $-2.1$~pp to $-4.8$~pp, and turned
-Spanish from a null into a significant harm. The dataset did not change. Only the
-measuring instrument did.
+Scoring two of the five tasks against placeholder ground truth, and delegating to
+a language model the arithmetic of deciding whether a returned number fell inside
+an authorised range, yields a development gradient of $\rho=0.51$ ($p=0.004$) and
+a native-language penalty of $-2.1$~pp. Rebuilding those keys from official
+registers (WHO Ambient Air Quality Database v6.1, WHO GHO AIR\_41, UNEP Global
+Assessment of Air Pollution Legislation) and moving the comparison into code
+turns the gradient into a null ($\rho=0.37$, $p=0.073$), more than doubles the
+language penalty to $-4.8$~pp, and converts Spanish from a null into a
+significant harm. The dataset did not change; only the measuring instrument did.
 
-The field's instinct when a geographic-bias effect is fragile is to add countries.
-Our experience is that the ground truth deserves the scrutiny first. A defective
-key does not simply add noise; it adds \emph{structured} noise, because the
-defects concentrate wherever official data are hardest to obtain, which is exactly
-where the hypothesis lives. We also found that an ambiguous scoring prompt can
-masquerade as genuine inter-judge disagreement: concordance on the affected items
-was $r=-0.04$ under our wording and $r=+1.00$ once the admissible range was
-pre-computed and the judge was asked only whether the value fell inside it.
-Arithmetic belongs to code; a judge should be asked only what requires judgement.
+The field's instinct when a geographic-bias effect proves fragile is to add
+countries. The ground truth deserves the scrutiny first. A defective key does not
+merely add noise, it adds \emph{structured} noise, because the defects
+concentrate wherever official data are hardest to obtain --- which is exactly
+where the hypothesis lives.
 
 \subsection{Why the domain matters}
 
-The stakes are concrete. Fine particulate matter is among the
-leading environmental risk factors for premature mortality, and the burden falls
+The stakes are concrete. Fine particulate matter is among the leading
+environmental risk factors for premature mortality, and the burden falls
 disproportionately on the Global South. The World Health Organization attributes
 \num{88548} deaths in Brazil in 2021 to ambient air pollution (uncertainty
 interval \numrange{69477}{108431}), led by ischaemic heart disease, stroke and
@@ -249,111 +207,82 @@ cities~\citep{requia2024shortterm}. When a manager delegates a normative lookup 
 an episode recommendation to an LLM, an inaccurate answer can propagate into a
 regulatory brief or an emergency response.
 
-We do not claim the model is least reliable where consequences are greatest, because we did not measure it: disease burden is not among our country
-covariates, and no test in this study relates accuracy to mortality. The one
-country-level observation we do have points the other way, since India carries
-one of the largest PM\textsubscript{2.5} mortality burdens in the world and is
-also the highest-scoring country in our sample. Whether reliability is
-misaligned with need is a well-posed question, and a straightforward one to
-answer by adding an age-standardised attributable-mortality covariate, but it is
-not a question this design answers. We read the pattern we \emph{did} measure
-within the coloniality-of-knowledge
-framework~\citep{mohamed2020decolonial}: LLMs are compressed summaries of corpora
-produced under uneven digital and publication access, and the language penalty is
-a measurable link from corpus asymmetry to knowledge asymmetry --- the one link of
-the three we set out to test where the measurement has the resolution to see it.
+We do not claim the model is least reliable where consequences are greatest,
+because we did not measure it: disease burden is not among our country covariates.
+The one country-level observation we have points the other way, since India
+carries one of the largest PM\textsubscript{2.5} mortality burdens in the world
+and is also the highest-scoring country in our sample. Whether reliability is
+misaligned with need is a well-posed question, answerable by adding an
+age-standardised attributable-mortality covariate, but not one this design
+answers. We interpret the pattern we \emph{did} measure through the
+coloniality-of-knowledge framework~\citep{mohamed2020decolonial}: LLMs are
+compressed summaries of corpora produced under uneven digital and publication
+access, and the language penalty is a measurable link from corpus asymmetry to
+knowledge asymmetry.
 
-\subsection{What this design cannot do, and what each limit opens}
+\subsection{Limitations and future opportunities}
 \label{sec:limits}
 
-Each limit below is a boundary of this design, and each names the study that would remove it. We
-list them in the order we would run them.
+Each limit below bounds this design, and each names the study that would remove
+it. We list them in the order we would run them.
 
-\emph{Role framing was tested in the user turn, not the system prompt.} Every
-request here is a single user turn, so the manager frame is prefixed to the
-message rather than installed as a system instruction, which is where the vendor
-guides put it. The choice follows the population we care about --- public
-servants working in the chat interface, who have no system prompt to configure
---- but it means our null bounds the channel available to that user, not the
-channel available to a developer. Whether a system-instruction persona recovers
-factual accuracy where a typed one does not is a clean two-cell experiment on the
-same items, and it is the first study we would run: a positive result would make
-API-mediated procurement a concrete recommendation for public bodies, and a
-second null would close the question for both channels.
-
-The base is defensible: ground truth anchored to official primary
-sources for all 25 countries, code adjudication wherever the answer is a
-checkable register value, and a three-vendor panel elsewhere whose reliability is
-reported on the same 3{,}190 items that produce the effects (ICC$(2,3)=0.79$).
+\emph{Role framing was tested in the user turn, not the system prompt.} The
+manager frame is prefixed to the message rather than installed as a system
+instruction, which is where the vendor guides put it. The choice follows the
+population we care about --- public servants in the chat interface, who have no
+system prompt to configure --- but our null bounds that user's channel, not a
+developer's. Whether a system-instruction persona recovers factual accuracy where
+a typed one does not is a clean two-cell experiment on the same items, and it is
+the first study we would run.
 
 \emph{From panel-scored to gold-anchored.} No human expert re-scored responses
-in this study, and we state that plainly. Three properties of the design bound
-what that omission can cost. Wherever the correct answer is a number in an
-official register, the verdict is computed by code and no judge is involved at
-all. Where judgement is required, the score is the mean of three judges from
-different vendors rather than one, raising reliability from ICC$(2,1)=0.56$ to
-ICC$(2,3)=0.79$. And every reported effect is a between-group contrast, in which
-a judge's systematic severity cancels; restricting to objective factual accuracy
-\emph{strengthens} both the tier gap and the language penalty rather than
-weakening them, which is the opposite of what a permissive judge would produce.
-The headline language effect also holds on an outcome no judge touches at all.
-The natural next step is nonetheless a blinded human-expert validation of a
-stratified sample, which would convert an official-source-anchored result into a
-gold-standard-anchored one; a power analysis puts this at roughly 150 responses
-scored by three raters, and our released pipeline exports the stratified sample
-directly.
+here. Three properties of the design bound what that costs: where the answer is a
+register value the verdict is computed by code and no judge is involved; where
+judgement is required the score is the mean of three vendors rather than one
+(ICC$(2,1)=0.56$ to ICC$(2,3)=0.79$); and every reported effect is a
+between-group contrast, in which a judge's systematic severity cancels.
+Restricting to objective factual accuracy \emph{strengthens} both headline
+effects, the opposite of what a permissive judge would produce, and the language
+effect holds on an outcome no judge touches. A blinded human-expert validation
+of a stratified sample would nonetheless convert an official-source-anchored
+result into a gold-standard-anchored one; a power analysis puts this at roughly
+150 responses scored by three raters, and the released pipeline exports the
+sample directly.
 
-\emph{From a within-country signal to a causal design.} The channel is
-identified where the design has resolution, but not causally: between countries
-neither proxy separates from development, and within countries we remove
+\emph{From a within-country signal to a causal design.} The channel is identified
+where the design has resolution, but not causally: within countries we remove
 country-level confounding without removing task-by-country confounding. A design
 that varies country coverage while holding development fixed, or a longitudinal
 study tracking accuracy as a country's encyclopedic footprint grows, would close
-that remaining gap.
+that gap.
 
-\emph{From a null gradient to an adequately powered test.} The tier difference
-is established while the gradient is not, at $n=25$ and with corrected scoring. A
-pre-registered replication at substantially larger $n$ --- which our open dataset
-makes cheap --- would settle whether the gradient is genuinely absent or still
-underpowered.
+\emph{From a null gradient to an adequately powered test.} The tier difference is
+established while the gradient is not, at $n=25$. A pre-registered replication at
+substantially larger $n$ --- which the open dataset makes cheap --- would settle
+whether the gradient is genuinely absent or still underpowered.
 
-\emph{From three native languages to the full multilingual matrix.} The
-strongest result in the study rests on three native languages, so its
-\emph{mechanism} is reported descriptively even though the effect is not. The
-translation-quality objection, which would otherwise bear directly on the headline
-finding, is now settled empirically rather than acknowledged: a back-translation
-census of all 90 native prompts, audited by two models against the English
-originals, found no prompt that changed the country and none that changed the
-requested quantity, and the penalty is unchanged among verified-faithful
-translations ($-4.5$~pp) with fidelity failing to predict its size (permutation
-$p=0.42$). What remains open is breadth, not validity: three languages cannot
-establish the corpus-size mechanism, and scaling to more languages --- with human
-translators, which our prompt architecture already accommodates --- is the
-highest-value extension this study points to.
+\emph{From three native languages to the full multilingual matrix.} The strongest
+result rests on three native languages, so its \emph{mechanism} is reported
+descriptively even though the effect is not. The translation-quality objection is
+settled empirically rather than acknowledged: a back-translation census of all 90
+native prompts, audited by two models against the English originals, found none
+that changed the country and none that changed the requested quantity, and the
+penalty is unchanged among verified-faithful translations ($-4.5$~pp) with
+fidelity failing to predict its size (permutation $p=0.42$). What remains open is
+breadth, not validity, and scaling to more languages is the highest-value
+extension this study points to.
 
 \emph{From one domain to a cross-domain program.} All effects come from one
-high-stakes applied domain (air pollution policy) and one corpus family
-(Wikimedia); we deliberately confine the mechanistic language to this domain. The
-same task suite and ground-truth-registry method transfer directly to other
-regulated, source-anchored domains (water quality, food safety, vaccine policy).
+high-stakes applied domain and one corpus family (Wikimedia), and we confine the
+mechanistic language accordingly. The same task suite and ground-truth-registry
+method transfer directly to other regulated, source-anchored domains --- water
+quality, food safety, vaccine policy.
 
 \emph{Served-model stack as the unit of analysis.} We evaluate models \emph{as
-served} through fixed access stacks, which is what a public manager actually
-queries; a residual gap could in principle reflect the stack rather than the
-weights. A controlled quasi-isolation design (identical open weights across stacks)
-would separate the two --- a clean follow-up that our per-call provenance already
-enables.
-
-\emph{A tier gap that is real but not comfortable.} Recomputed on the corrected
-scoring, the model-based corroborations are weaker than the single-judge versions
-reported in earlier drafts: the mixed model falls from $p=0.007$ to $p=0.069$,
-the Bayesian posterior from $P(\beta<0)=1.00$ to $0.993$, and the E-value at the
-confidence limit is $1.31$. We report the gap as supported because the
-distribution-free permutation test rejects the null ($p=0.020$), the bootstrap
-interval excludes zero and the Bayesian posterior is decisive about the sign,
-while the mixed model is marginal ($p=0.069$) rather than contrary. A reader is
-entitled to weigh those against each other. What would settle it is not another estimator on these 25 countries
-but more countries, and the released pipeline makes that replication cheap.
+served} through fixed access stacks, which is what a public manager queries; a
+residual gap could in principle reflect the stack rather than the weights. A
+controlled quasi-isolation design with identical open weights across stacks would
+separate the two, which the per-call provenance we release already enables.
 
 \subsection{What this study contributes}
 

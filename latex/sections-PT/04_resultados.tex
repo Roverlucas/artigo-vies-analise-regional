@@ -289,8 +289,8 @@ contraste como modelo misto binomial em cada tarefa separadamente --- desfecho
 codificado como devolver o valor de registro, com interceptos aleatórios cruzados
 para país e modelo --- mostra a desvantagem escalando com o quanto a tarefa depende
 de um fato específico daquele país (Tabela~\ref{tab:camada-por-tarefa}). No padrão
-nacional vinculante (T1), a chance de resposta correta do Sul Global é 0.23 da
-chance do Norte (52.0\% contra 29.4\% em taxa bruta), e nos instrumentos de
+nacional vinculante (T1), a chance de resposta correta do Sul Global é 0.22 da
+chance do Norte (52.2\% contra 29.4\% em taxa bruta), e nos instrumentos de
 política (T4), 0.34; na síntese de evidência em saúde (T3), em que a resposta é uma
 estimativa internacional e não nacional, a razão sobe para 0.67; e na recomendação
 aberta (T5), a única tarefa sem valor de registro a acertar, a lacuna desaparece
@@ -314,11 +314,11 @@ país e modelo.}
 \toprule
 Tarefa & A resposta é & NG & SG & RC & Intervalo 95\% \\
 \midrule
-T1 (padrão técnico)          & um valor nacional      & 52.0\% & 29.4\% & 0.23 & $[0.19,0.28]$ \\
-T4 (instrumentos)            & instrumentos nacionais & 63.1\% & 48.5\% & 0.34 & $[0.28,0.41]$ \\
-T2 (dado medido local)       & um valor nacional      & 50.1\% & 38.6\% & 0.51 & $[0.43,0.59]$ \\
-T3 (síntese de evid.\ saúde) & estimativa internac.   & 59.9\% & 53.5\% & 0.67 & $[0.59,0.78]$ \\
-T5 (recomendação aplicada)   & nenhum valor de reg.   & 99.6\% & 99.7\% & 2.67 & $[0.80,9.00]$ \\
+T1 (padrão técnico)          & um valor nacional      & 52.2\% & 29.4\% & 0.22 & $[0.18,0.27]$ \\
+T4 (instrumentos)            & instrumentos nacionais & 62.0\% & 44.7\% & 0.33 & $[0.26,0.40]$ \\
+T2 (dado medido local)       & um valor nacional      & 50.7\% & 37.8\% & 0.47 & $[0.39,0.55]$ \\
+T3 (síntese de evid.\ saúde) & estimativa internac.   & 59.1\% & 52.3\% & 0.69 & $[0.59,0.80]$ \\
+T5 (recomendação aplicada)   & nenhum valor de reg.   & 99.6\% & 99.7\% & 3.58 & $[0.84,15.17]$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -700,8 +700,8 @@ modelo, ajustando por IDH centrado, estima uma penalidade de Sul Global de
 $\beta=-0.066$ (EP 0.036) que \emph{não} atinge significância ($p=0.069$). Uma
 reestimação hierárquica bayesiana com prioris fracamente informativas concorda em
 magnitude e é mais decisiva quanto ao sinal: média posterior de $-0.052$, HDI de
-94\% $[-0.091,-0.013]$, $P(\beta<0)=0.993$, com convergência limpa
-($\hat{R}=1.000$ em quatro cadeias).
+94\% $[-0.092,-0.016]$, $P(\beta<0)=0.994$, com convergência limpa
+($\hat{R}=1.001$ em quatro cadeias).
 
 Assim, duas das três formas de fazer a pergunta --- o bootstrap no nível do país e
 o modelo bayesiano --- colocam o intervalo longe do zero, enquanto o modelo misto
@@ -747,7 +747,7 @@ Hipótese & Achado & Mecanismo candidato & Estatuto de evidência \\
 \midrule
 H2 (idioma) & $-4.8$~pp; hindi $-11.1$ & tamanho do corpus da língua & Sustentada; mecanismo descritivo ($n=3$) \\
 H3 (modelo regional) & $\delta=-0.47$ & escala $>$ ajuste regional & Sustentada \\
-H1 (lacuna de camada) & $+5.1$~pp composto; RC 0.23 em T1 & camada (desenvolvimento) & Sustentada; concentrada na recuperação de fato do país \\
+H1 (lacuna de camada) & $+5.1$~pp composto; RC 0.22 em T1 & camada (desenvolvimento) & Sustentada; concentrada na recuperação de fato do país \\
 H1 (gradiente) & $\rho=0.37$, $p=0.073$ & desenvolvimento (IDH) & Exploratória; não significativa \\
 H4 (mecanismo geográfico) & dentro do país $\beta=+0.026$, $p=2\times10^{-8}$ & cobertura do país & Sustentada dentro do país; não causal \\
 H4 (pré-especificada) & tamanho da Wikipédia nulo & tamanho do corpus da língua & Não sustentada \\
@@ -765,11 +765,11 @@ exigem devolver um valor vinculante (T1+T2 contra as demais, $\delta=-0.47$,
 concentrado em T1, com 0.367); o modelo regional como o \emph{pior} dos catorze
 ($\delta=-0.47$); e uma \emph{lacuna de camada} Norte/Sul de $+5.1$~pp (IC bootstrap
 de 95\% $[+1.6,+8.5]$, exclui o zero), modesta e sensível à especificação no
-composto --- a reestimação bayesiana a coloca longe do zero ($P(\beta<0)=0.993$)
+composto --- a reestimação bayesiana a coloca longe do zero ($P(\beta<0)=0.994$)
 enquanto o modelo misto frequentista a deixa marginal ($p=0.069$), e seu E-value no
 limite do intervalo é de apenas 1.31 ---, mas \emph{inequívoca onde importa}: ao
-devolver o padrão nacional vinculante, a chance do Sul Global é 0.23 da chance do
-Norte ($[0.19,0.28]$), e a lacuna escala com o quanto a resposta depende de um fato
+devolver o padrão nacional vinculante, a chance do Sul Global é 0.22 da chance do
+Norte ($[0.18,0.27]$), e a lacuna escala com o quanto a resposta depende de um fato
 específico do país, desaparecendo na única tarefa sem valor de registro a acertar.
 Exploratório ou não sustentado: o \emph{gradiente} de desenvolvimento não
 atinge significância ($\rho=0.37$, $p=0.073$; Mann-Kendall $p=0.072$; $\rho=0.09$

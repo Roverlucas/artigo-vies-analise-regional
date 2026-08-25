@@ -132,88 +132,54 @@ throughout.
 Our contributions are:
 
 \begin{enumerate}\setlength{\itemsep}{2pt}
-\item An auditing protocol for regulatory information, not a trivia
-  benchmark. The reliability question an administration faces is not whether a
-  model writes well about policy but whether the value it returns matches the
-  one published in the official register. We build five task types from the
-  everyday work of an environmental agency: the binding ambient standard in
-  force (T1), the officially measured local concentration (T2), the health-burden
-  evidence an impact assessment cites (T3), the national policy instruments and
-  their executing agencies (T4), and an applied recommendation for an operational
-  scenario (T5). Each key is read from an official source, so correctness is
-  adjudicable rather than a matter of expert impression. The protocol transfers
-  to any regulated domain where the correct answer is published: tax, licensing,
-  public health, procurement.
-\item The three localisation fixes agencies reach for, tested rather
-  than assumed --- and all three fail. Practitioners respond to poor answers
-  about their own country with three moves: tell the system you are the
-  responsible official, ask in the national language, or adopt a regionally tuned
-  model. Each is a procurement or workflow decision with a cost, and each
-  circulates as received wisdom. We test all three: persona as a within-subject
-  experimental factor, native-language prompting against the English baseline
-  within country, and a Brazilian-Portuguese instruction-tuned model against a
-  scale-matched global one. None works, and the one a manager is most likely to
-  try first does active harm: asking in the country's own language lowers
-  accuracy by five percentage points, most sharply for the language with the
-  scarcest corpus. This is the study's main result and the one with the clearest practical implication.
-\item Model choice as an administrative decision. Whether an agency
-  runs an open-weight model on its own infrastructure or a vendor-hosted one is
-  now an explicit procurement question~\citep{robinson2026opensource}. We
-  evaluate fourteen deployment stacks spanning that spectrum, and treat the unit
-  of analysis as the model \emph{as served}, since an agency contracts a served
-  stack and not a set of weights.
-\item A sampling design that separates who is poorly served from why.
-  Countries are stratified along independent axes: UNCTAD North/South
-  classification (operationalising coloniality~\citep{mohamed2020decolonial}),
-  the Joshi et al.\ linguistic-resource taxonomy~\citep{joshi2020state}, and
-  development indicators. This lets geographic, linguistic and economic
-  explanations be told apart instead of conflated, which matters for policy:
-  each implies a different remedy and a different responsible actor.
-\item A mechanism test that reports its own limits. We test corpus
-  representation using both language-corpus and country-coverage proxies, with
-  partial-correlation controls, and we report that the pre-specified proxy is
-  defective in a way worth flagging for anyone who has used it: it assigns the
-  English Wikipedia to the nine sample countries that have English as an official
-  language, so it indexes colonial history rather than corpus size. Between
-  countries the channels cannot be separated at all, because coverage and
-  development are collinear over 25 observations. They separate once the unit of
-  variation changes: comparing tasks that depend on a national fact against tasks
-  that do not, within the same country, identifies country coverage as the
-  operative channel --- and it survives among the nine countries whose official
-  language is identical. We separate throughout what the design demonstrates from
-  what it cannot, and the shape of the gradient across the development range
-  remains in the second category.
-\item Ground truth adjudicated by code, and what that changes. Where a
-  task's correct answer is a number published in an official register, the
-  verdict is computed against that register rather than delegated to a language
-  model, because comparing a value with an authorised range is exact and a judge
-  can only reproduce it with noise. This is not a detail of implementation. On
-  the same responses, rebuilding two task keys from official registers and moving
-  the comparison into code cut the development gradient from $\rho=0.51$ to
-  $\rho=0.37$ and more than doubled the native-language penalty. In this
-  literature the ground-truth key, not the sample size, is the binding
-  constraint.
-\item Open resources. The full protocol, prompts, ground-truth
-  registries with their official sources, analysis code, and the deviation log
-  will be released under CC-BY-4.0 and MIT licenses.
+\item \emph{An auditing protocol for regulatory information, not a trivia
+  benchmark.} The question an administration faces is not whether a model writes
+  well about policy but whether the value it returns matches the one published in
+  the official register. We build five task types from the everyday work of an
+  environmental agency (Table~\ref{tab:tasks}), each keyed to an official source,
+  so correctness is adjudicable rather than a matter of expert impression. The
+  protocol transfers to any regulated domain where the correct answer is
+  published: tax, licensing, public health, procurement.
+\item \emph{The three localisation fixes agencies reach for, tested rather than
+  assumed --- and all three fail.} Persona framing, native-language prompting and
+  a regionally tuned model are each a procurement or workflow decision, and each
+  circulates as received wisdom. We test all three as designed factors. None
+  works, and the one a manager is most likely to try first does active harm:
+  asking in the country's own language lowers accuracy by $4.8$ percentage
+  points, most sharply for the language with the scarcest corpus.
+\item \emph{Model choice as an administrative decision.} Whether an agency runs
+  an open-weight model on its own infrastructure or a vendor-hosted one is now an
+  explicit procurement question~\citep{robinson2026opensource}. We evaluate
+  fourteen deployment stacks across that spectrum, treating the unit of analysis
+  as the model \emph{as served}, since an agency contracts a served stack and not
+  a set of weights.
+\item \emph{A sampling design that separates who is poorly served from why.}
+  Countries are stratified along independent axes --- UNCTAD North/South
+  (operationalising coloniality~\citep{mohamed2020decolonial}), the Joshi et al.\
+  linguistic-resource taxonomy~\citep{joshi2020state}, and development indicators
+  --- so geographic, linguistic and economic explanations can be told apart
+  instead of conflated. Each implies a different remedy and a different
+  responsible actor.
+\item \emph{A mechanism test that reports its own limits.} Between countries,
+  coverage and development are collinear over 25 observations and cannot be
+  separated. They separate once the unit of variation changes: comparing tasks
+  that depend on a national fact against tasks that do not, within the same
+  country, identifies country coverage as the operative channel, and it survives
+  among the nine countries whose official language is identical. We also flag
+  that the pre-specified corpus proxy is defective in a way worth knowing for
+  anyone who has used it --- it assigns the English Wikipedia to every sample
+  country with English as an official language, indexing colonial history rather
+  than corpus size.
+\item \emph{Ground truth adjudicated by code, and what that changes.} Where a
+  task's correct answer is a number in an official register, the verdict is
+  computed against that register rather than delegated to a language model,
+  because comparing a value with an authorised range is exact and a judge can
+  only reproduce it with noise. On the same responses, rebuilding two task keys
+  from official registers and moving the comparison into code cut the development
+  gradient from $\rho=0.51$ to $\rho=0.37$ and more than doubled the
+  native-language penalty. In this literature the ground-truth key, not the
+  sample size, is the binding constraint.
+\item \emph{Open resources.} The full protocol, prompts, ground-truth registries
+  with their official sources, analysis code, and the deviation log will be
+  released under CC-BY-4.0 and MIT licenses.
 \end{enumerate}
-
-\subsection*{Theoretical framing}
-
-We interpret our findings within the \emph{coloniality of knowledge}
-framework~\citep{quijano2000coloniality,mohamed2020decolonial} and its data and
-infrastructural articulations~\citep{couldry2019costs,dignazio2020data}. LLMs
-are compressed statistical summaries of corpora produced under conditions of
-uneven digital infrastructure and uneven publication access. The languages and
-regions that Joshi et al.\ place in the under-served classes are precisely
-those where air pollution kills the most people~\citep{gbd2019risk,joshi2020state}.
-When a Global South environmental manager consults a model trained largely on
-Global North text to govern a local air quality problem, the resulting decision
-risks inheriting the asymmetries of the corpus. Our empirical work tests one link in this theorised cycle: whether corpus asymmetry leads to LLM knowledge asymmetry, and whether persona framing can interrupt it.
-
-The paper proceeds as follows. Section~\ref{sec:related} positions our work
-relative to the literature. Section~\ref{sec:methods} presents the
-pre-specified design. Section~\ref{sec:results} reports the empirical
-findings. Section~\ref{sec:discussion} interprets them through both statistical
-and critical lenses and considers practical implications for air pollution
-governance. Section~\ref{sec:conclusion} closes.

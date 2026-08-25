@@ -1,37 +1,27 @@
 \section{Related Work}
 \label{sec:related}
 
-We organize prior work along four threads: the discovery and measurement of
-geographic factual bias, multilingual and cultural extensions, alignment and
-mitigation attempts, and LLM use in policy and health decision contexts. For
-each we state how the air pollution policy focus and the persona manipulation
-of the present study extend the thread.
+Prior work runs along four threads: the measurement of geographic factual bias,
+multilingual and cultural extensions, mitigation attempts, and LLM use in policy
+and health decision contexts.
 
 \subsection{Geographic factual bias}
 
 \citet{manvi2024llm} established that frontier LLMs carry systematic biases
-against regions of lower socioeconomic conditions, with Spearman correlations
-up to 0.70 between model-generated ratings of attractiveness, morality, and
-intelligence and a proxy for those conditions. The outcome space (subjective ratings)
-leaves open whether the same bias appears in objective recall of regulatory and
-epidemiological facts, which is what air pollution policy requires.
-
-\citet{moayeri2024worldbench} introduced WorldBench, quantifying factual recall
-against World Bank indicators across 20 LLMs and 11 indicators and documenting
-1.5$\times$ higher absolute relative error for Sub-Saharan Africa versus North
-America. WorldBench also enables automatic detection of citation hallucination,
-where models cite the World Bank while producing false statistics. The design is
-bounded by the macro-economic indicator space; an environmental manager asks
-narrower, source-specific questions (a national ambient standard, an attainment
-phase deadline, a city-year measured concentration) whose ground truth lives in
-environmental councils and monitoring agencies rather than in a single
-aggregated database.
-
-\citet{mirza2024global} (Global-Liar) extended the question to temporal
-stability, showing that newer GPT-4 versions do not monotonically improve and
-that the privileging of Global North statements persists across versions. Their
-contribution is temporal and within-model rather than cross-model,
-cross-language, or domain-specific.
+against regions of lower socioeconomic conditions, with Spearman correlations up
+to 0.70 between model-generated ratings and a proxy for those conditions. The
+outcome space is subjective ratings, which leaves open whether the same bias
+appears in objective recall of regulatory facts. \citet{moayeri2024worldbench}
+introduced WorldBench, quantifying factual recall against World Bank indicators
+across 20 LLMs and documenting 1.5$\times$ higher absolute relative error for
+Sub-Saharan Africa than North America, and enabling automatic detection of
+citation hallucination. Its design is bounded by the macro-economic indicator
+space; an environmental manager asks narrower, source-specific questions --- a
+national ambient standard, an attainment deadline, a city-year concentration ---
+whose ground truth lives in environmental councils and monitoring agencies rather
+than one aggregated database. \citet{mirza2024global} extended the question to
+temporal stability, showing that newer GPT-4 versions do not monotonically
+improve and that the privileging of Global North statements persists.
 
 These studies establish that the phenomenon exists and is measurable. None
 isolates a single applied domain with verifiable official ground truth, and none
@@ -39,119 +29,89 @@ treats prompt framing as a manipulable factor.
 
 \subsection{Multilingual and cultural extensions}
 
-\citet{myung2024blend} (BLEnD) introduced question-answer pairs covering 16
-countries and 13 languages in everyday cultural knowledge. Their finding that
-LLMs perform better in the native languages of high-resource cultures but worse
-in those of low-resource ones motivates our exploratory language hypothesis (H2)
-and connects directly to the resource hierarchy of \citet{joshi2020state}. Yet
-BLEnD measures cultural-knowledge accuracy, not the accuracy of regulatory and
-health-policy recall, and its country selection is not stratified theoretically.
-
-Regional benchmarks proliferated: BRoverbs~\citep{broverbs2025} for Brazilian
-proverbs, TiEBe~\citep{almeida2025tiebe} for regional historical events, and
+\citet{myung2024blend} covered 16 countries and 13 languages in everyday cultural
+knowledge, finding that LLMs perform better in the native languages of
+high-resource cultures and worse in those of low-resource ones --- the finding
+that motivates our language hypothesis (H2) and connects to the resource
+hierarchy of \citet{joshi2020state}. Regional benchmarks have proliferated:
+BRoverbs~\citep{broverbs2025} for Brazilian proverbs,
+TiEBe~\citep{almeida2025tiebe} for regional historical events, and
 ALBA~\citep{alba2026} and AMALIA~\citep{amalia2026} for European Portuguese.
 These document concrete failures in culturally grounded tasks but do not address
-applied policy use, and each is limited to one or two languages. Work on
-Portuguese corpus construction~\citep{almeida2025portuguese} underscores how
-Common Crawl snapshots under-represent Lusophone content, the corpus asymmetry
-our H4 tests.
+applied policy use. Work on Portuguese corpus
+construction~\citep{almeida2025portuguese} underscores how Common Crawl snapshots
+under-represent Lusophone content, the corpus asymmetry H4 tests.
 
-\subsection{Alignment and mitigation}
+\subsection{Mitigation, persona, and role conditioning}
 
-\citet{opuszko2026unraveling} investigated whether reasoning models reduce
-geographic bias, finding that reasoning helps in aggregate but does not
-eliminate regional disparities. \citet{kerche2026silicon} proposed a
-place-based typology of LLM biases, situating geographic bias within a broader
-sociotechnical landscape. These contributions are conceptual and aggregate; we
-add a domain-specific, pre-specified empirical test and introduce persona as a
-candidate mitigation lever rather than a fixed property of the model.
+\citet{opuszko2026unraveling} found that reasoning helps in aggregate but does
+not eliminate regional disparities, and \citet{kerche2026silicon} proposed a
+place-based typology situating geographic bias in a broader sociotechnical
+landscape. Both are conceptual and aggregate.
 
-\subsection{LLMs in policy and health decision contexts}
+Role conditioning is not a folk practice but what the vendors instruct their own
+users to do: Anthropic documents role setting in the system
+prompt~\citep{anthropic2026systemprompts}, OpenAI's guide opens the recommended
+message structure with an identity block~\citep{openai2026promptengineering}, and
+the pattern is catalogued in the prompting literature~\citep{white2023prompt}.
+The systematic evidence on whether it helps is sobering: across four LLM families
+and 2{,}410 factual questions, expert personas did not improve accuracy over a
+no-persona control and slightly \emph{reduced} it across 162
+roles~\citep{zheng2024helpful}, and an independent replication
+agrees~\citep{mollick2025personas}. Whether persona conditioning helps or harms
+factual reliability in high-stakes domains is therefore unsettled and, to our
+knowledge, untested for geographic equity. We treat persona as a pre-specified
+experimental factor and test both the Norm-Compliance hypothesis (persona reduces
+the gap) and the Persona-Vacuum hypothesis (persona amplifies it).
 
-A parallel literature examines LLM use in specific policy settings.
-\citet{lecoz2025policymaking} evaluated LLM policy recommendations for homelessness
-across four cities (including Barcelona, Johannesburg, and South Bend), finding
-``context-blind rigidity'' in which models apply stable internal heuristics
-poorly calibrated to local realities and align more closely with Global North
-experts. Their result shows the bias matters for policy in a single domain and a
-single task type (recommendation). We generalize to a regulatory and health
-domain with five task types spanning recall, synthesis, and recommendation, and
-we add the persona manipulation absent from their design.
+\subsection{LLMs in policy, health, and the administration}
 
-In health specifically, \citet{kozlakidis2026medical} argue that LLM
-hallucinations carry acute risk in regulatory environments with limited
-technical capacity, noting that language and cultural mismatch between globally
-trained models and local practice increases error. Air pollution policy sits at
-the intersection of this risk and the mortality burden documented by the Global
-Burden of Disease estimates~\citep{gbd2019risk}, which makes accurate retrieval
-of standards and health evidence a public-health concern rather than a
-benchmarking abstraction.
-
-\subsection{Persona and role conditioning}
-
-Role or persona conditioning is not merely a folk practice: it is what the model
-vendors instruct their own users to do. Anthropic documents role setting in the
-system prompt as a way to focus behaviour and tone~\citep{anthropic2026systemprompts},
-OpenAI's prompt-engineering guide opens the recommended message structure with an
-identity block~\citep{openai2026promptengineering}, and the pattern is catalogued
-in the prompting literature~\citep{white2023prompt}. That makes the null result
-below a statement about vendor-recommended practice rather than about a habit
-practitioners invented. A growing body of work reports that
-assigning an expert role can shift model outputs in either direction depending on
-task and domain. Systematic evidence is
-sobering: across four LLM families and 2{,}410 factual questions, adding expert
-personas to system prompts did not improve accuracy over a no-persona control,
-and across 162 roles it slightly \emph{reduced} accuracy on
-average~\citep{zheng2024helpful}; an independent replication likewise finds that
-expert personas do not improve factual accuracy~\citep{mollick2025personas}.
-Whether persona conditioning helps or harms factual reliability in high-stakes,
-knowledge-intensive domains is therefore unsettled and, to our knowledge,
-untested for geographic equity. We therefore treat persona as a pre-specified
-experimental factor and test both the
-Norm-Compliance hypothesis (persona reduces the gap) and the Persona-Vacuum
-hypothesis (persona amplifies it).
-
-\subsection{Generative AI inside the administration}
+\citet{lecoz2025policymaking} evaluated LLM policy recommendations for
+homelessness across four cities, finding ``context-blind rigidity'' in which
+models apply stable internal heuristics poorly calibrated to local realities and
+align more closely with Global North experts. That result covers one domain and
+one task type; we generalise to a regulatory and health domain with five task
+types spanning recall, synthesis and recommendation. In health,
+\citet{kozlakidis2026medical} argue that hallucinations carry acute risk in
+regulatory environments with limited technical capacity, where language and
+cultural mismatch increases error --- a risk that meets the mortality burden
+documented by the Global Burden of Disease estimates~\citep{gbd2019risk}.
 
 The deployment question is no longer hypothetical. \citet{kim2026genai} estimates
-bureaucratic productivity effects of generative AI in public administration
-quasi-experimentally, and \citet{robinson2026opensource} documents that choosing
-which model an agency runs is now an explicit procurement decision, weighed
-between open-weight and vendor-hosted options. Both of our model-level findings
-speak directly to that decision: the openly available frontier models trail the
-closed ones, and the regionally tuned Portuguese model is the weakest of the
-fourteen we evaluate, so the two choices an agency might make on sovereignty or
-locality grounds are the two that cost the most accuracy.
+bureaucratic productivity effects of generative AI quasi-experimentally, and
+\citet{robinson2026opensource} documents that choosing which model an agency runs
+is now an explicit procurement decision between open-weight and vendor-hosted
+options. Both our model-level findings speak to it: the openly available frontier
+models trail the closed ones, and the regionally tuned Portuguese model is the
+weakest of the fourteen, so the two choices an agency might make on sovereignty
+or locality grounds are the two that cost the most accuracy.
 
-Two further strands frame why a wrong answer matters administratively rather than
-merely technically. \citet{choroszewicz2026crumple} shows that early generative-AI
-support tools position frontline practitioners as ``moral crumple zones'',
-absorbing responsibility for failures originating upstream; a civil servant who
-files a brief citing a superseded emission limit occupies exactly that position.
-And \citet{cordella2024regulating}, analysing Italy's intervention on ChatGPT,
-argue that technology-neutral regulatory frameworks do not reach the specific
-harms these systems produce, which leaves verification at the point of use as the
-operative control. The literature on how such decisions are received is
-correspondingly developed: \citet{aoki2024explainable} test whether the type of
-explanation changes perceived accuracy, fairness, and trustworthiness of an
-algorithmic decision among those affected by it.
+Two strands frame why a wrong answer matters administratively.
+\citet{choroszewicz2026crumple} shows that generative-AI support tools position
+frontline practitioners as ``moral crumple zones'', absorbing responsibility for
+failures originating upstream --- exactly the position of a civil servant who
+files a brief citing a superseded emission limit. And
+\citet{cordella2024regulating}, analysing Italy's intervention on ChatGPT, argue
+that technology-neutral regulatory frameworks do not reach the specific harms
+these systems produce, which leaves verification at the point of use as the
+operative control. The literature on reception is correspondingly developed:
+\citet{aoki2024explainable} test whether the type of explanation changes
+perceived accuracy, fairness and trustworthiness among those affected.
 
-What none of this work establishes is whether the underlying answer is
+What none of this establishes is whether the underlying answer is
 \emph{correct}, and whether correctness is distributed evenly across the states
-that would rely on it. Perceived trustworthiness and measured accuracy are
-different quantities, and a system can be well explained, well governed, well
-received, and wrong. That is the gap this study addresses, using a domain where
-the correct answer is published in an official register and can be checked.
+that rely on it. Perceived trustworthiness and measured accuracy are different
+quantities, and a system can be well explained, well governed, well received, and
+wrong. That is the gap this study addresses, in a domain where the correct answer
+is published in an official register and can be checked.
 
 \subsection{Positioning of the present work}
 
-Our design differs from prior work in four concrete ways: (i) a single
-high-stakes applied domain (air pollution policy) with verifiable official
-ground truth, rather than numeric trivia or cultural knowledge; (ii) persona as
-a pre-specified within-subject experimental factor, rather than an
-uncontrolled framing choice; (iii) theory-driven country sampling on
-independent axes (UNCTAD coloniality, Joshi linguistic resource, development),
+Our design differs from prior work in four ways: (i) a single high-stakes applied
+domain with verifiable official ground truth, rather than numeric trivia or
+cultural knowledge; (ii) persona as a pre-specified within-subject factor rather
+than an uncontrolled framing choice; (iii) theory-driven country sampling on
+independent axes (UNCTAD coloniality, Joshi linguistic resource, development)
 rather than regional convenience; and (iv) an explicit corpus-representation
 mechanism test with sensitivity analysis. No prior study combines a regulated
-public-health domain, a persona manipulation, and a pre-specified
-mechanism test.
+public-health domain, a persona manipulation, and a pre-specified mechanism test.
