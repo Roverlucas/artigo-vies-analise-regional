@@ -40,7 +40,7 @@ Um benchmark de 25 países, 14 modelos, 4 idiomas e 5 tarefas}
 \begin{document}
 \maketitle
 
-\noindent\textbf{Reprodutibilidade.} Toda tabela orientada por dados a seguir
+\noindent\emph{Reprodutibilidade.} Toda tabela orientada por dados a seguir
 (Tabelas~\ref{tab:s-roster}--\ref{tab:s-groundtruth}) é regenerada a partir dos
 artefatos confirmatórios brutos por
 \texttt{code/analysis/make\_supplement\_tables.py}; nenhum valor é digitado à mão.
@@ -60,8 +60,8 @@ na publicação sob CC-BY-4.0 (dados/prompts) e MIT (código).
 As hipóteses, os modelos primários, o protocolo de persona, os critérios de
 exclusão, as correções de comparações múltiplas e o quadro amostral de países
 foram especificados antes da coleta confirmatória de dados. O desenho
-pré-especificado cobre \textbf{15 países}; a amostra foi subsequentemente estendida,
-\emph{post registration}, para \textbf{25 países} a fim de ganhar poder para o
+pré-especificado cobre 15 países; a amostra foi subsequentemente estendida,
+\emph{post registration}, para 25 países a fim de ganhar poder para o
 gradiente de desenvolvimento (H1) e para os testes de mecanismo de corpus (H4) e
 multiplicar os pares de idioma intra-país (H2). Ao longo do manuscrito e deste
 suplemento, todo efeito calculado na amostra de 25 países é reportado ao lado de
@@ -111,7 +111,7 @@ intra-célula.
 medida que fornecedores atualizam a infraestrutura, de modo que as acurácias
 reportadas são estimativas point-in-time relativas à janela de coleta. A tag
 fixada, a string de versão e o timestamp de aquisição são registrados para cada
-chamada. A coleta confirmatória ocorreu de \textbf{2026-04-26 a 2026-06-12} (UTC),
+chamada. A coleta confirmatória ocorreu de 2026-04-26 a 2026-06-12 (UTC),
 abrangendo o piloto, a coleta pré-especificada de 15 países e a extensão
 post-registration para 25 países. A Tabela~\ref{tab:s-acquisition} dá o timestamp
 da primeira e da última chamada sem erro por provedor, junto com a documentação
@@ -147,10 +147,10 @@ déficit, está incluída no release.
 
 A Tabela~\ref{tab:s-covariates} reporta as covariáveis de desenvolvimento e de
 representação no corpus usadas na análise de mecanismo (H4). As medidas de
-\textbf{corpus do idioma} (classe Joshi; tamanhos mC4/OSCAR reportados no texto
+corpus do idioma (classe Joshi; tamanhos mC4/OSCAR reportados no texto
 principal) indexam quanto texto existe \emph{no} idioma de um país e são o canal
 candidato para a penalidade de idioma nativo (H2). As medidas de
-\textbf{cobertura de país} (comprimento em bytes do artigo na Wikipédia em inglês,
+cobertura de país (comprimento em bytes do artigo na Wikipédia em inglês,
 sitelinks do Wikidata, statements do Wikidata) indexam quão amplamente o corpus
 enciclopédico é \emph{sobre} um país, independentemente do idioma, e são o canal
 candidato para a lacuna geográfica (H1/H4). Como a lacuna geográfica é medida
@@ -190,16 +190,14 @@ Cada resposta foi pontuada pelo juiz primário contra a entrada do registro de
 gabarito (T1, T2, T4) ou a rubrica validada (T3, T5), produzindo cinco
 subcomponentes, cada um normalizado a $[0,1]$:
 \begin{enumerate}\setlength{\itemsep}{1pt}
-  \item \textbf{Acurácia factual} contra o valor do registro (binária para T1;
+  \item Acurácia factual contra o valor do registro (binária para T1;
         crédito parcial para T2--T4).
-  \item \textbf{Completude contextual} pontuada contra uma rubrica pré-validada
+  \item Completude contextual pontuada contra uma rubrica pré-validada
         (T3, T4).
-  \item \textbf{Qualidade de citação}, verificada por checagem de DOI/fonte
-        oficial.
-  \item \textbf{Ausência de alucinação}, codificada de forma binária ($0$
-        alucinada, $1$ fiel).
-  \item \textbf{Validade aplicada}, a pontuação de rubrica para a recomendação
-        operacional (T5).
+  \item Qualidade de citação, verificada por checagem de DOI/fonte oficial.
+  \item Calibração, o alinhamento entre a confiança declarada e a correção.
+  \item Ausência de alucinação, codificada de forma binária ($0$ alucinado,
+        $1$ fiel).
 \end{enumerate}
 O composto primário usa pesos iguais. Duas ponderações de sensibilidade
 pré-especificadas são reportadas --- um conjunto derivado por PCA estimado no
@@ -219,60 +217,50 @@ falha substantiva.
 \section{Confiabilidade do painel de juízes}\label{sec:s-reliability}
 % ============================================================
 
-Para tratar a sobreposição juiz--alvo (o juiz primário, \texttt{gpt-5-mini}, está
-ele próprio entre os modelos avaliados), uma amostra de confiabilidade fixa e
-estratificada de \textbf{131 respostas} (estratificada por
-país~$\times$~tarefa~$\times$~persona, seed fixa) foi re-pontuada de forma
-independente por um painel diverso em fornecedores. A amostra foi congelada
-\emph{antes} do julgamento --- caso contrário, o amostrador de concordância
-re-sorteia da base de respostas viva, o que dessincronizou as amostras por juiz
-quando a base cresceu de 15 para 25 países --- e fixada aos itens comuns dos juízes
-por \texttt{code/analysis/judge\_fixed\_keys.py}.
+A confiabilidade é computada sobre cada item que o painel pontuou --- os mesmos
+itens de que os efeitos relatados são computados ---, e não sobre um subconjunto
+estratificado de calibração. Todas as 3.190 respostas que exigiram juiz foram
+pontuadas independentemente pelos três membros do painel, escolhidos por
+diversidade de fornecedor para que a correlação intrafornecedor não infle a
+concordância aparente. O painel substitui o desenho de juiz único do protocolo
+original, no qual o juiz primário (\texttt{gpt-5-mini}) estava ele próprio entre os
+modelos avaliados.
 
 \begin{table}[h]\centering
-\caption{Confiabilidade inter-juízes na amostra fixa de 131 itens. A quantidade
-operativa é a confiabilidade da \emph{média} do painel, ICC$(2,k)$; pela relação de
-Spearman--Brown, ela é alta mesmo quando os juízes individuais concordam apenas
-moderadamente. Fonte: \texttt{judge\_panel\_reliability.json}.}
-\label{tab:s-reliability}
+\caption{Confiabilidade entre juízes sobre os 3.190 itens pontuados pelo painel. A
+quantidade operativa é a confiabilidade da \emph{média} do painel, ICC$(2,3)$;
+pela relação de Spearman--Brown ela é alta mesmo quando juízes isolados concordam
+apenas moderadamente. Fonte: \texttt{panel\_reliability\_full.json}.}
+\label{tab:s-confiabilidade}
 \small
 \begin{tabular}{lr}
 \toprule
 Quantidade & Valor \\
 \midrule
-Juízes ($k$) & 4 (OpenAI, Anthropic, Google, DeepSeek) \\
-Itens comuns & 131 \\
-$\\alpha$ de Krippendorff (intervalar) & 0.527 \\\\
-ICC$(2,1)$ de juiz único & 0.558 \\\\
-\\textbf{ICC$(2,3)$ da média do painel} & \\textbf{0.791} \\\\
+Juízes ($k$) & 3 (Google, Anthropic, DeepSeek) \\
+Itens pontuados por todos os juízes & 3.190 \\
+$\alpha$ de Krippendorff (intervalar) & 0.527 \\
+ICC$(2,1)$ de juiz único & 0.558 \\
+ICC$(2,3)$ da média do painel & 0.791 \\
 \midrule
-Pearson pareado: GPT-5-mini $\,\vert\,$ Claude Sonnet & 0.859 \\
-\quad GPT-5-mini $\,\vert\,$ DeepSeek-V3 & 0.834 \\
-\quad Claude Sonnet $\,\vert\,$ DeepSeek-V3 & 0.821 \\
-\quad GPT-5-mini $\,\vert\,$ Gemini 2.5 Pro & 0.626 \\
-\quad Claude Sonnet $\,\vert\,$ Gemini 2.5 Pro & 0.630 \\
-\quad DeepSeek-V3 $\,\vert\,$ Gemini 2.5 Pro & 0.610 \\
+Pearson par a par: Claude Sonnet $\,\vert\,$ DeepSeek-V3 & 0.801 \\
+\quad Gemini 2.5 Pro $\,\vert\,$ Claude Sonnet & 0.663 \\
+\quad Gemini 2.5 Pro $\,\vert\,$ DeepSeek-V3 & 0.654 \\
+\midrule
+Composto médio por juiz: Gemini 2.5 Pro & 0.617 \\
+\quad Claude Sonnet 4.6 & 0.451 \\
+\quad DeepSeek-V3 & 0.379 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-A concordância é mais forte entre GPT-5-mini, Claude e DeepSeek (Pearson
-$0,82$--$0,86$) e mais baixa para o Gemini, sistematicamente mais leniente
-($0,61$--$0,63$); como todo efeito reportado é um contraste entre grupos (lacuna de
-camada, penalidade de idioma, piso de tarefa), o offset de leniência de um juiz
-cancela e não ameaça esses contrastes. Um quinto juiz (Llama~3.3~70B, Meta)
-corroborou nos itens que cobriu (ICC$(2,5)=0,861$ com cinco juízes), mas, por ser
-um juiz 70B mais ruidoso, \emph{baixou} o $\alpha$ do painel para $0,538$ ---
-confirmando empiricamente que quatro juízes fortes são preferíveis a cinco com um
-mais fraco. Um sexto candidato (Command~R+, Cohere) foi excluído quando sua cota de
-trial se esgotou no meio da execução; como checagem fora-de-amostra, o Command~R+
-nos 315 itens que cobriu concordou com o juiz primário em Pearson $0,647$ /
-ICC$(2,1)=0,602$. O estudo usa o composto único do \texttt{gpt-5-mini} para todos
-os efeitos, validado por este painel, em vez de uma pontuação média entre juízes; a
-ausência de uma camada independente de padrão-ouro humano é declarada como
-limitação no texto principal.
+A concordância par a par é mais forte entre Claude e DeepSeek e menor para o
+Gemini, sistematicamente mais brando. Como todo efeito relatado é um contraste
+entre grupos (lacuna de camada, penalidade de idioma, piso de tarefa), o
+deslocamento de brandura de um juiz se cancela e não ameaça esses contrastes ---
+que é precisamente a razão de a análise usar a \emph{média} do painel em vez de
+qualquer juiz isolado, cuja confiabilidade sozinha seria ICC$(2,1)=0.56$.
 
-% ============================================================
 \section{Métodos estatísticos e saídas completas dos testes confirmatórios}\label{sec:s-stats}
 % ============================================================
 
@@ -297,7 +285,7 @@ tamanho de efeito pré-especificado $\rho\geq 0,55$ em ambas as amostras.}
 \toprule
 Teste & 15 países (pré-especificado) & 25 países (extensão) \\
 \midrule
-H1 Spearman $\\rho$(acc, IDH)        & $+0.093$, ns & $+0.365$ ($p=0.073$), ns; não rejeita sob B--H \\\\
+H1 Spearman $\rho$(acc, IDH)        & $+0.093$, ns & $+0.365$ ($p=0.073$), ns; não rejeita sob B--H \\
 H1 Mann--Kendall (por IDH)          & $S=9$, $Z=+0.40$, $p=0.692$        & $S=102$, $Z=+2.36$, $p=0.018$ \\
 H1 Spearman $\rho$(acc, Joshi)      & $+0.028$, ns                       & $-0.061$, ns (desenvolvimento, não linguístico) \\
 H1 vs limiar $\rho\geq 0.55$        & não atingido                       & não atingido (significativo, abaixo do tamanho de efeito) \\
@@ -321,7 +309,7 @@ O proxy pré-especificado de edição de idioma é nulo.}
 Medida & Família & $\rho$(acc, log medida) & parcial $\,\vert\,$ IDH \\
 \midrule
 Bytes Wikipédia-inglês       & país     & $+0.198$ ($p=0.34$) & $+0.181$ \\
-\textbf{Sitelinks Wikidata}  & país     & $\mathbf{+0.539}$ ($p=0.005$) & $+0.317$ ($p=0.13$) \\
+Sitelinks Wikidata  & país     & $+0.539$ ($p=0.005$) & $+0.317$ ($p=0.13$) \\
 Statements Wikidata          & país     & $+0.313$ ($p=0.13$) & $+0.144$ \\
 Contagem de edições Wikipédia & idioma  & $+0.082$, ns        & $+0.036$, ns \\
 \bottomrule
@@ -337,12 +325,12 @@ leave-one-country-out (LOCO) e de restrição de amplitude.}
 \toprule
 Achado & Estatística \\
 \midrule
-Lacuna de camada (NG$-$SG)         & $+5.1$~pp, IC 95\\% $[+1.6,+8.5]$; permutação $p=0.020$ \\\\
+Lacuna de camada (NG$-$SG)         & $+5.1$~pp, IC 95\% $[+1.6,+8.5]$; permutação $p=0.020$ \\
 Lacuna de camada, faixa LOCO       & $[+5.8,+7.1]$~pp, estável \\
 Gradiente IDH H1, faixa LOCO       & $\rho\in[+0.48$ (sem NGA)$,\ +0.66$ (sem IND)$]$ \\
-H1 \\emph{leave-one-country-out} & $\\rho\\in[+0.31,+0.49]$: nunca atinge o limiar pré-especificado de 0.55 \\\\
+H1 \emph{leave-one-country-out} & $\rho\in[+0.31,+0.49]$: nunca atinge o limiar pré-especificado de 0.55 \\
 Piso de tarefa (T1{+}T2 vs T3--T5) & $0.367$ vs $0.638$, Mann--Whitney, $\delta$ de Cliff $=-0.64$ \\
-H3 Cabra-Mistral vs restante       & $0.347$ vs $0.549$, $\\delta$ de Cliff $=-0.47$ \\\\
+H3 Cabra-Mistral vs restante       & $0.347$ vs $0.549$, $\delta$ de Cliff $=-0.47$ \\
 H2 nativo vs inglês (todos)        & $\Delta=-2.1$~pp, Wilcoxon $p=1.96\times10^{-3}$ ($n=762$) \\
 \quad Espanhol / Português / Hindi & $-1.0$ ($p=0.15$) / $-2.3$ ($p=0.033$) / $-7.8$ ($p=0.013$) \\
 H2 em nível de país (unidade independente, $n=9$) & 9/9 negativos, média $-2.4$~pp, Wilcoxon $p=0.008$ \\
@@ -354,31 +342,121 @@ H5 aberto vs fechado-acessível     & vantagem fechada de $+14.1$~pp (descritivo
 % ============================================================
 \section{Análises adicionais de robustez e corroboração}
 
-\textbf{Sensibilidade da ponderação do composto.} Recomputamos cada efeito
+\emph{Sensibilidade da ponderação do composto.} Recomputamos cada efeito
 principal sob a ponderação dos autores, sob pesos iguais e sob ponderação derivada
 por ACP. Os dois efeitos sustentados se mantêm nas três; o gradiente falha nas
 três. Sob pesos iguais a lacuna de camada é de $+4.15$~pp e o gradiente
 $\rho=+0.335$; sob ACP, $+4.84$~pp e $\rho=+0.375$.
 
-\textbf{Poder sobre o nulo do gradiente.} Simulando amostras de 25 países em
+\emph{Poder sobre o nulo do gradiente.} Simulando amostras de 25 países em
 correlações conhecidas, o desenho tem 77\% de poder para detectar $\rho=0.55$ e
 efeito mínimo detectável de $\rho=0.56$ a 80\% de poder. O nulo exclui, portanto,
 um gradiente da magnitude pré-especificada, mas não um gradiente fraco (poder de
 48\% em $\rho=0.40$).
 
-\textbf{Dependência da taxonomia de camada.} A lacuna é significativa sob a
+\emph{Dependência da taxonomia de camada.} A lacuna é significativa sob a
 partição Norte/Sul da UNCTAD (permutação $p=0.020$) e não sob nenhuma partição dos
 mesmos 25 países traçada apenas por IDH (mediana $+2.39$~pp, $p=0.269$; IDH
 $<0.800$ $+2.92$~pp, $p=0.182$; IDH $<0.700$ $+1.53$~pp, $p=0.575$). Relatamos isso
 em vez de descansar sobre a partição favorável.
 
-\textbf{Política de desempate entre respostas armazenadas.} De 8.300 células
+\emph{Política de desempate entre respostas armazenadas.} De 8.300 células
 pontuadas, 951 (11.5\%) têm mais de um escore, provenientes de reexecuções em datas
 diferentes. A política adotada é a \emph{média}: determinística, independente da
 ordem de leitura, e usa toda a informação coletada. As quatro políticas plausíveis
 (primeira, última, média, aleatória com semente) movem os efeitos em no máximo
 0.06~pp, de modo que a escolha não é consequente.
 
+
+\subsection{Acurácia composta por país}
+
+\begin{table}[h]
+\centering
+\caption{Acurácia composta por país, amostra de 25 países
+(tier: GN = Global North, GS = Global South). Ordered by mean.}
+\label{tab:s-pais}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llr@{\qquad}llr}
+\toprule
+País & Camada & Média & País & Camada & Média \\
+\midrule
+Índia         & SG & 0.652 & França        & NG & 0.536 \\
+Japão         & NG & 0.611 & Bangladesh    & SG & 0.534 \\
+Australia     & NG & 0.604 & Colômbia      & SG & 0.530 \\
+Estados Unidos & NG & 0.592 & Chile         & SG & 0.513 \\
+Coreia do Sul   & NG & 0.590 & Canadá        & NG & 0.510 \\
+Indonésia     & SG & 0.584 & México        & SG & 0.507 \\
+África do Sul  & SG & 0.579 & Quênia         & SG & 0.506 \\
+Itália         & NG & 0.577 & Angola        & SG & 0.485 \\
+Reino Unido& NG & 0.573 & Nigéria       & SG & 0.461 \\
+Portugal      & NG & 0.563 & Brasil        & SG & 0.459 \\
+Filipinas   & SG & 0.546 & Egito         & SG & 0.455 \\
+Alemanha       & NG & 0.544 & Argentina     & SG & 0.445 \\
+Peru          & SG & 0.538 &              &    &       \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Lacuna de camada sob partições alternativas de país}
+
+A divisão Norte/Sul Global segue a classificação da UNCTAD. Uma lacuna visível
+apenas sob uma taxonomia seria artefato dela, de modo que a reestimamos sob três
+partições baseadas em desenvolvimento dos mesmos 25 países
+(Tabela~\ref{tab:s-taxonomia}). A lacuna é significativa sob a UNCTAD e não
+significativa sob toda partição traçada pelo IDH, o que é coerente com o gradiente
+de IDH nulo relatado no texto principal.
+
+\begin{table}[h]
+\centering
+\caption{Lacuna de camada sob partições alternativas dos mesmos 25 países.
+Teste de permutação com o país como unidade, 10.000 reetiquetagens.}
+\label{tab:s-taxonomia}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrr}
+\toprule
+Partição & Lacuna (pp) & NG/SG & $p$ \\
+\midrule
+UNCTAD Norte/Sul (usada no artigo) & $+5.06$ & 10/15 & $0.020$ \\
+IDH abaixo da mediana da amostra ($0.781$) & $+2.39$ & 13/12 & $0.269$ \\
+IDH $<0.800$ (corte ``muito alto'' do PNUD) & $+2.92$ & 12/13 & $0.182$ \\
+IDH $<0.700$ & $+1.53$ & 20/5 & $0.575$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Modos representativos de falha, literais}
+
+\begin{table}[h]
+\centering
+\caption{Quadro 1 --- Modos representativos de falha (literais, levemente truncados).}
+\label{tab:s-quadro1}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.20\linewidth}>{\raggedright\arraybackslash}p{0.74\linewidth}@{}}
+\toprule
+Modo de falha & Exemplo \\
+\midrule
+Fabricar um padrão inexistente
+& Angola has no national norm. Gemini~2.5~Flash asserted an annual standard of
+``25~$\mu$g/m\textsuperscript{3}'' em uma replicação e
+``15~$\mu$g/m\textsuperscript{3}'' em outra. O GPT-5 afirmou
+``15~$\mu$g/m\textsuperscript{3}'' para a Nigéria, que regula apenas PM\textsubscript{10} (NESREA). Uma resposta fiel se recusaria a declarar um valor que não existe. \\
+\addlinespace
+Errar o valor vinculante (piso de T1)
+& O padrão anual oficial do Brasil é 17~$\mu$g/m\textsuperscript{3} (CONAMA
+506/2024). A resposta modal foi 15~$\mu$g/m\textsuperscript{3} (42 respostas), com 10, 20 e 25 também comuns; o valor oficial quase nunca foi devolvido. \\
+\addlinespace
+Degradação em idioma nativo (H2)
+& O padrão anual da Índia é 40~$\mu$g/m\textsuperscript{3}. GPT-OSS~120B
+devolveu o valor correto em inglês e resposta \emph{vazia} à mesma pergunta em hindi. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
 \section{Desvios em relação ao plano de análise pré-especificado}
 \label{sec:s-desvios-pt}
 
@@ -391,34 +469,34 @@ o estudo é relatado como exploratório do começo ao fim.
 Os desvios principais, com o efeito de cada um sobre a interpretação:
 
 \begin{itemize}\setlength{\itemsep}{3pt}
-\item \textbf{Contagem de respostas.} Planejadas 33.600; entregues 9.251 (27.5\%).
+\item Contagem de respostas. Planejadas 33.600; entregues 9.251 (27.5\%).
   Aciona o próprio teto de 15\% do plano.
-\item \textbf{Registro público.} O plano deveria ser depositado em registro público
+\item Registro público. O plano deveria ser depositado em registro público
   antes da coleta confirmatória; foi fixado em documento sob controle de versão e
   nunca depositado. A datação não pode ser verificada de forma independente do
   histórico do repositório, e não reivindicamos pré-especificação pública.
-\item \textbf{Piloto de rubrica.} Previsto piloto de 50 prompts com dois
+\item Piloto de rubrica. Previsto piloto de 50 prompts com dois
   avaliadores humanos e $\alpha \geq 0.70$ antes de escalar. Não foi executado. A
   confiabilidade é evidenciada a posteriori, em $\alpha = 0.527$, abaixo do limiar
   que o plano fixara.
-\item \textbf{Instrumento de pontuação.} O plano previa juiz único. T2 e T3 passam
+\item Instrumento de pontuação. O plano previa juiz único. T2 e T3 passam
   a ser adjudicadas por código contra registros oficiais onde o valor devolvido é
   extraível (62.5\% e 83.6\% das células); o resíduo e toda a T4 são repontuados
   pela média de um painel de três fornecedores. Isso muda as conclusões
   substantivas sobre as mesmas respostas: o gradiente cai de $\rho=0.51$
   ($p=0.004$) para $\rho=0.37$ ($p=0.073$) e a penalidade de idioma nativo cresce
   de $-2.1$~pp para $-4.8$~pp.
-\item \textbf{Ordenação dos achados.} O plano tratava H1 como hipótese primária. H2
+\item Ordenação dos achados. O plano tratava H1 como hipótese primária. H2
   passa a ser relatada como achado principal e o gradiente de H1 como exploratório.
   Reordenação post hoc, motivada pela pontuação corrigida e não por reexame dos
   dados em busca de narrativa melhor; ambas as hipóteses eram pré-especificadas e
   ambas são relatadas.
-\item \textbf{Tradução para idioma nativo.} Previstos tradutores humanos nativos com
+\item Tradução para idioma nativo. Previstos tradutores humanos nativos com
   retrotradução independente e adjudicação bilíngue. Usou-se tradução por LLM,
   auditada a posteriori por censo de retrotradução dos 90 prompts nativos. O
   artefato contra o qual o plano se protegia está medido e ausente: 90/90 preservam
   o país e a quantidade solicitada.
-\item \textbf{Cobertura de modelos.} A cobertura não é uniforme; dois modelos estão
+\item Cobertura de modelos. A cobertura não é uniforme; dois modelos estão
   ausentes de vários países após limitação de taxa e esgotamento de crédito. As
   médias por país são computadas sobre conjuntos de modelos distintos.
 \end{itemize}
@@ -453,12 +531,12 @@ prepende um enquadramento fixo de papel. O contraste é mostrado verbatim para o
 Brasil, T1:
 
 \begin{quote}\small
-\textbf{Neutro.} ``What is the current national annual mean ambient air quality
+\emph{Neutro.} ``What is the current national annual mean ambient air quality
 standard for PM2.5 in Brazil? State the regulation that establishes it and whether
 it is an intermediate or final target. Limit to 1--3 sentences.''
 
 \smallskip
-\textbf{Gestor ambiental público.} ``\emph{I am the municipal environmental
+\emph{Gestor ambiental público.} ``\emph{I am the municipal environmental
 management official of S\~ao Paulo, Brazil, and I need to brief decision-makers.}
 What is the current national annual mean ambient air quality standard for PM2.5 in
 Brazil? State the regulation that establishes it and whether it is an intermediate

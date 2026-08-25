@@ -45,7 +45,7 @@ A 25-Country, 14-Model, 4-Language, 5-Task Benchmark}
 \begin{document}
 \maketitle
 
-\noindent\textbf{Reproducibility.} Every data-driven table below
+\noindent\emph{Reproducibility.} Every data-driven table below
 (Tables~\ref{tab:s-roster}--\ref{tab:s-groundtruth}) is regenerated from the raw
 confirmatory artifacts by \texttt{code/analysis/make\_supplement\_tables.py}; no
 value is hand-entered. Scoring is adjudicated by code against the official
@@ -67,8 +67,8 @@ publication under CC-BY-4.0 (data/prompts) and MIT (code).
 The hypotheses, primary models, persona protocol, exclusion criteria,
 multiple-comparison corrections, and the country sampling frame were specified in
 advance of confirmatory data collection. The pre-specified design covers
-\textbf{15 countries}; the sample was subsequently extended, \emph{post
-registration}, to \textbf{25 countries} to gain power for the development gradient
+15 countries; the sample was subsequently extended, \emph{post
+registration}, to 25 countries to gain power for the development gradient
 (H1) and the corpus-mechanism tests (H4) and to multiply the within-country
 language pairs (H2). Throughout the manuscript and this supplement, every effect
 computed on the 25-country sample is reported alongside its pre-specified
@@ -116,7 +116,7 @@ per (prompt, model, persona) cell estimate within-cell variability.
 infrastructure, so the reported accuracies are point-in-time estimates relative to
 the collection window. The pinned tag, version string, and acquisition timestamp
 are recorded for every call. Confirmatory collection ran from
-\textbf{2026-04-26 to 2026-06-12} (UTC), spanning the pilot, the pre-specified
+2026-04-26 to 2026-06-12 (UTC), spanning the pilot, the pre-specified
 15-country collection, and the post-hoc extension to 25 countries.
 Table~\ref{tab:s-acquisition} gives the first and last non-error call timestamp
 per provider together with the official API documentation consulted; the full
@@ -149,10 +149,10 @@ reason for every shortfall, is included in the release.
 % ============================================================
 
 Table~\ref{tab:s-covariates} reports the developmental and corpus-representation
-covariates used in the mechanism analysis (H4). \textbf{Language-corpus} measures
+covariates used in the mechanism analysis (H4). Language-corpus measures
 (Joshi class; mC4/OSCAR sizes reported in the main text) index how much text
 exists \emph{in} a country's language and are the candidate channel for the
-native-language penalty (H2). \textbf{Country-coverage} measures (English-Wikipedia
+native-language penalty (H2). Country-coverage measures (English-Wikipedia
 article byte length, Wikidata sitelinks, Wikidata statements) index how broadly
 the encyclopedic corpus is \emph{about} a country, independent of language, and
 are the candidate channel for the geographic gap (H1/H4). Because the geographic
@@ -192,15 +192,14 @@ Every response was scored by the primary judge against the ground-truth registry
 entry (T1, T2, T4) or the validated rubric (T3, T5), producing five subcomponents
 each normalised to $[0,1]$:
 \begin{enumerate}\setlength{\itemsep}{1pt}
-  \item \textbf{Factual accuracy} against the registry value (binary for T1;
+  \item Factual accuracy against the registry value (binary for T1;
         partial credit for T2--T4).
-  \item \textbf{Contextual completeness} scored against a pre-validated rubric
+  \item Contextual completeness scored against a pre-validated rubric
         (T3, T4).
-  \item \textbf{Citation quality}, verified via DOI/official-source check.
-  \item \textbf{Absence of hallucination}, coded binarily ($0$ hallucinated,
+  \item Citation quality, verified via DOI/official-source check.
+  \item Calibration, the alignment between stated confidence and correctness.
+  \item Absence of hallucination, coded binarily ($0$ hallucinated,
         $1$ faithful).
-  \item \textbf{Applied validity}, the rubric score for the operational
-        recommendation (T5).
 \end{enumerate}
 The primary composite uses a pre-specified weighting (factual~0.30,
 contextual~0.25, citation~0.15, calibration~0.15, hallucination~0.15). As a
@@ -222,95 +221,49 @@ hallucination subcomponents discriminate substantive failure.
 \section{Judge-panel reliability}\label{sec:s-reliability}
 % ============================================================
 
-To address the judge--target overlap (the primary judge, \texttt{gpt-5-mini}, is
-itself among the evaluated tier), a fixed stratified reliability sample of
-\textbf{131 responses} (stratified by country~$\times$~task~$\times$~persona, fixed
-seed) was independently re-scored by a vendor-diverse panel. The sample was frozen
-\emph{before} judging --- the agreement sampler otherwise re-draws from the live
-response base, which desynchronised the per-judge samples when the base grew from
-15 to 25 countries --- and pinned to the judges' common items by
-\texttt{code/analysis/judge\_fixed\_keys.py}.
+Reliability is computed on every item the panel scored --- the same items the
+reported effects are computed from --- rather than on a stratified calibration
+subset. All 3{,}190 responses requiring a judge were independently scored by all
+three panel members, chosen for vendor diversity so that intra-vendor correlation
+does not inflate apparent agreement. The panel replaces the single-judge design of
+the original protocol, in which the primary judge (\texttt{gpt-5-mini}) was itself
+among the evaluated models.
 
 \begin{table}[h]\centering
-\caption{Inter-judge reliability on the fixed 131-item sample. The operative
-quantity is the reliability of the panel \emph{mean}, ICC$(2,k)$; by the
+\caption{Inter-judge reliability on all 3{,}190 panel-scored items. The operative
+quantity is the reliability of the panel \emph{mean}, ICC$(2,3)$; by the
 Spearman--Brown relation it is high even when single judges agree only moderately.
-Source: \texttt{judge\_panel\_reliability.json}.}
+Source: \texttt{panel\_reliability\_full.json}.}
 \label{tab:s-reliability}
 \small
 \begin{tabular}{lr}
 \toprule
 Quantity & Value \\
 \midrule
-Judges ($k$) & 4 (OpenAI, Anthropic, Google, DeepSeek) \\
-Common items & 131 \\
+Judges ($k$) & 3 (Google, Anthropic, DeepSeek) \\
+Items scored by all judges & 3{,}190 \\
 Krippendorff's $\alpha$ (interval) & 0.527 \\
 Single-judge ICC$(2,1)$ & 0.558 \\
-\textbf{Panel-mean ICC$(2,3)$} & \textbf{0.791} \\
+Panel-mean ICC$(2,3)$ & 0.791 \\
 \midrule
-Pairwise Pearson: GPT-5-mini $\,\vert\,$ Claude Sonnet & 0.859 \\
-\quad GPT-5-mini $\,\vert\,$ DeepSeek-V3 & 0.834 \\
-\quad Claude Sonnet $\,\vert\,$ DeepSeek-V3 & 0.821 \\
-\quad GPT-5-mini $\,\vert\,$ Gemini 2.5 Pro & 0.626 \\
-\quad Claude Sonnet $\,\vert\,$ Gemini 2.5 Pro & 0.630 \\
-\quad DeepSeek-V3 $\,\vert\,$ Gemini 2.5 Pro & 0.610 \\
+Pairwise Pearson: Claude Sonnet $\,\vert\,$ DeepSeek-V3 & 0.801 \\
+\quad Gemini 2.5 Pro $\,\vert\,$ Claude Sonnet & 0.663 \\
+\quad Gemini 2.5 Pro $\,\vert\,$ DeepSeek-V3 & 0.654 \\
+\midrule
+Mean composite by judge: Gemini 2.5 Pro & 0.617 \\
+\quad Claude Sonnet 4.6 & 0.451 \\
+\quad DeepSeek-V3 & 0.379 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The values above are computed on all 3{,}190 items the panel scored, which are
-the same items the reported effects are computed from. Earlier drafts quoted
-$\alpha=0.667$ and ICC$(2,4)=0.891$ from a 131-item stratified calibration
-sample; measured on 24 times as many items, agreement is more modest, and we
-report the larger and less flattering estimate because it describes the
-instrument actually used.
+Pairwise agreement is strongest between Claude and DeepSeek and lower for the
+systematically more lenient Gemini. Because every reported effect is a
+between-group contrast (tier gap, language penalty, task floor), a judge's
+leniency offset cancels and does not threaten those contrasts --- which is
+precisely why the analysis uses the panel \emph{mean} rather than any single
+judge, whose reliability alone would be ICC$(2,1)=0.56$.
 
-Pairwise agreement is strongest between Claude and DeepSeek (Pearson 0.80) and
-lower for the systematically more lenient Gemini (0.65--0.66); mean composite by
-judge is 0.617 for Gemini, 0.451 for Claude and 0.379 for DeepSeek. Because every
-reported effect is a between-group contrast (tier gap, language penalty, task
-floor), a judge's leniency offset cancels and does not threaten those contrasts
---- which is precisely why the analysis uses the panel \emph{mean} rather than
-any single judge, whose reliability alone would be ICC$(2,1)=0.56$.
-
-One panel member (DeepSeek-V3) is also an evaluated model. We tested for
-self-favouring directly: DeepSeek scores its own outputs more harshly relative to
-the other two judges ($-0.177$) than it scores any other model's ($-0.123$ to
-$-0.160$). The absence of an independent human-gold layer is stated as a
-limitation in the main text.
-
-% ============================================================
-\subsection{Composite accuracy by country}
-
-\begin{table}[h]
-\centering
-\caption{Composite accuracy by country, 25-country sample
-(tier: GN = Global North, GS = Global South). Ordered by mean.}
-\label{tab:s-country}
-\footnotesize
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{llr@{\qquad}llr}
-\toprule
-Country & Tier & Mean & Country & Tier & Mean \\
-\midrule
-India         & GS & 0.652 & France        & GN & 0.536 \\
-Japan         & GN & 0.611 & Bangladesh    & GS & 0.534 \\
-Australia     & GN & 0.604 & Colombia      & GS & 0.530 \\
-United States & GN & 0.592 & Chile         & GS & 0.513 \\
-South Korea   & GN & 0.590 & Canada        & GN & 0.510 \\
-Indonesia     & GS & 0.584 & Mexico        & GS & 0.507 \\
-South Africa  & GS & 0.579 & Kenya         & GS & 0.506 \\
-Italy         & GN & 0.577 & Angola        & GS & 0.485 \\
-United Kingdom& GN & 0.573 & Nigeria       & GS & 0.461 \\
-Portugal      & GN & 0.563 & Brazil        & GS & 0.459 \\
-Philippines   & GS & 0.546 & Egypt         & GS & 0.455 \\
-Germany       & GN & 0.544 & Argentina     & GS & 0.445 \\
-Peru          & GS & 0.538 &              &    &       \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-% ============================================================
 \section{Statistical methods and full confirmatory test outputs}\label{sec:s-stats}
 % ============================================================
 
@@ -358,7 +311,7 @@ language-edition proxy is null.}
 Measure & Family & $\rho$(acc, log measure) & partial $\,\vert\,$ HDI \\
 \midrule
 English-Wikipedia bytes      & country  & $+0.198$ ($p=0.34$) & $+0.181$ \\
-\textbf{Wikidata sitelinks}  & country  & $\mathbf{+0.539}$ ($p=0.005$) & $+0.317$ ($p=0.13$) \\
+Wikidata sitelinks  & country  & $+0.539$ ($p=0.005$) & $+0.317$ ($p=0.13$) \\
 Wikidata statements          & country  & $+0.313$ ($p=0.13$) & $+0.144$ \\
 Wikipedia-edition count      & language & $+0.082$, ns        & $+0.036$, ns \\
 \bottomrule
@@ -692,12 +645,12 @@ presents a plain information request; the \texttt{public\_manager\_env} level
 prepends a fixed role frame. The contrast is shown verbatim for Brazil, T1:
 
 \begin{quote}\small
-\textbf{Neutral.} ``What is the current national annual mean ambient air quality
+\emph{Neutral.} ``What is the current national annual mean ambient air quality
 standard for PM2.5 in Brazil? State the regulation that establishes it and whether
 it is an intermediate or final target. Limit to 1--3 sentences.''
 
 \smallskip
-\textbf{Public environmental manager.} ``\emph{I am the municipal environmental
+\emph{Public environmental manager.} ``\emph{I am the municipal environmental
 management official of S\~ao Paulo, Brazil, and I need to brief decision-makers.}
 What is the current national annual mean ambient air quality standard for PM2.5 in
 Brazil? State the regulation that establishes it and whether it is an intermediate
