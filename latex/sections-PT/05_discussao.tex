@@ -47,20 +47,37 @@ confirma que metade das respostas assume explicitamente o enquadramento de papel
 de modo que o nulo não decorre de falha da manipulação.
 
 Esse nulo pesa mais do que pesaria um nulo sobre um hábito popular, porque o
-enquadramento por papel é o que os próprios fornecedores instruem seus usuários a
-fazer. Os quatro principais o documentam: a Anthropic manda dar um papel ao modelo
-no prompt de sistema~\citep{anthropic2026systemprompts}, o guia da OpenAI abre a
-estrutura de mensagem recomendada com um bloco de
-identidade~\citep{openai2026promptengineering}, a documentação do Gemini pede que
-definições de papel --- que ela chama de persona --- fiquem na instrução de
-sistema~\citep{google2026promptingstrategies}, e o exemplo padrão da xAI inicia
-toda conversa com um prompt de sistema que atribui papel~\citep{xai2026chatguide}.
-Uma administração que leia a documentação do próprio fornecedor e a siga chega
-exatamente à manipulação que testamos, e não ganha acurácia alguma sobre a própria
-norma. O conselho não está errado quanto a tom ou formato, que é o que a
-documentação de fato promete; ele é apenas inerte para confiabilidade factual, e
-um órgão público não tem como distinguir uma coisa da outra apenas pela
-documentação.
+enquadramento por papel não é algo que inventamos para testar: é a primeira coisa
+que todo fornecedor relevante manda seu usuário fazer. A Anthropic manda dar um
+papel ao modelo no prompt de sistema, afirmando que uma única frase muda como ele
+responde~\citep{anthropic2026systemprompts}; o guia da OpenAI abre a estrutura de
+mensagem recomendada com um bloco de identidade~\citep{openai2026promptengineering};
+a documentação do Gemini pede que definições de papel --- que ela chama de persona
+--- fiquem na instrução de sistema~\citep{google2026promptingstrategies}; e o
+exemplo padrão da xAI inicia toda conversa com um prompt de sistema que atribui
+papel~\citep{xai2026chatguide}. Quatro empresas independentes convergem no mesmo
+conselho, e uma administração que leia a documentação do próprio fornecedor e a
+siga escreverá a frase que testamos.
+
+O que a documentação promete para essa frase, lida de perto, é controle sobre tom,
+formato e enquadramento. O que as administrações extraem dela é algo mais amplo,
+porque os guias não marcam a fronteira: nada neles avisa ao leitor que a técnica
+que molda o registro de forma confiável não molda também a confiabilidade factual.
+Nossa estimativa separa as duas. Dizer ao modelo que ele fala com um gestor
+ambiental municipal move a acurácia sobre a norma desse próprio gestor em
+$+0.6$~pp, intervalo que contém zero com folga, enquanto a checagem de manipulação
+confirma que os modelos de fato assumem o papel. O enquadramento é recebido e muda
+a voz; não muda o que o modelo sabe.
+
+Duas fronteiras impedem que isso seja lido como mais do que é. Testamos o
+enquadramento digitado na mensagem, não instalado como instrução de sistema, que é
+o canal que um servidor público na interface de conversa efetivamente tem e a mais
+estreita das duas afirmações (Seção~\ref{sec:limites}). E um nulo sobre um
+enquadramento em um domínio não é veredito geral sobre prompting por persona. O
+que ele estabelece é específico e, para este público, acionável: para a
+recuperação de valores regulatórios vinculantes, a intervenção mais barata e mais
+recomendada de que um órgão público dispõe não devolve nada, e o órgão não tem como
+descobrir isso pela documentação que recebeu.
 
 O modelo regional --- o Cabra-Mistral~7B em português brasileiro --- é o
 \emph{pior} desempenho entre os catorze ($\delta=-0.47$), de modo que recorrer a um
@@ -82,7 +99,7 @@ o limite regulatório do qual depende uma decisão está na pior célula do dese
 pior ainda se perguntar em um idioma de menos recursos.
 
 Uma checagem interna sustenta que esse piso não é artefato de como pontuamos. Corrigir o gabarito elevou a T2 --- a tarefa que vinha sendo
-pontuada contra uma chave de preenchimento --- de 0.368 para 0.460, enquanto
+pontuada contra uma chave de preenchimento --- de 0.368 para 0.467, enquanto
 deixou a T1 --- que sempre teve gabarito oficial --- em exatamente 0.367. A
 correção moveu a tarefa cuja chave era defeituosa e não tocou naquela cuja chave
 era sólida.
@@ -121,7 +138,7 @@ O gradiente, em contraste, falha em toda leitura: $\rho=0.37$ com o IDH em $n=25
 não atinge significância ($p=0.073$), a tendência de Mann-Kendall concorda
 ($p=0.072$), nenhuma estimativa \emph{leave-one-out} se aproxima do limiar
 pré-especificado de 0.55, e no $n=15$ registrado ele está essencialmente ausente
-($\rho=0.14$). Esse nulo é informativo, e não meramente vazio: o desenho tem 77\%
+($\rho=0.09$). Esse nulo é informativo, e não meramente vazio: o desenho tem 77\%
 de poder em $\rho=0.55$ e efeito mínimo detectável de $\rho=0.56$, de modo que um
 gradiente da magnitude com a qual nos comprometemos está excluído. Um gradiente
 fraco não está, já que o poder cai para 48\% em $\rho=0.40$.
@@ -254,9 +271,23 @@ assimetria de conhecimento --- o único dos três elos que nos propusemos a test
 que a medida tem resolução para enxergá-lo.
 
 \subsection{O que este desenho não alcança, e o que cada limite abre}
+\label{sec:limites}
 
 Cada limite abaixo é enunciado como fronteira deste desenho, e cada um nomeia o estudo que o removeria. Listamo-los
 na ordem em que os faríamos.
+
+\emph{O enquadramento de papel foi testado no turno do usuário, não no prompt de
+sistema.} Toda requisição aqui é um turno único de usuário, de modo que o
+enquadramento de gestor é anteposto à mensagem em vez de instalado como instrução
+de sistema, que é onde os guias dos fornecedores o colocam. A escolha acompanha a
+população que nos interessa --- servidores públicos trabalhando na interface de
+conversa, que não têm prompt de sistema a configurar ---, mas significa que nosso
+nulo delimita o canal disponível a esse usuário, não o canal disponível a um
+desenvolvedor. Se uma persona em instrução de sistema recupera acurácia factual
+onde uma digitada não recupera é um experimento limpo de duas células sobre os
+mesmos itens, e é o primeiro estudo que faríamos: um resultado positivo tornaria a
+contratação mediada por API uma recomendação concreta para órgãos públicos, e um
+segundo nulo encerraria a questão para os dois canais.
 
 A base é defensável: gabarito ancorado em fontes oficiais
 primárias para todos os 25 países, adjudicação por código sempre que a resposta é

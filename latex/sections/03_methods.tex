@@ -166,48 +166,107 @@ standards, environmental-agency monitoring data, federal control programs) and
 maps to concrete decision activities of a public environmental manager. Five
 task types operationalize the domain:
 
-\begin{itemize}
-  \item T1 --- Technical standard. Recall of binding ambient air
-        quality standards, emission limits, or regulatory thresholds (for
-        example, the annual mean PM\textsubscript{2.5} standard in force in the
-        country).
-  \item T2 --- Local factual datum. Recall of officially measured air
-        quality data for a specified city or region and year, as reported by
-        the national or subnational environmental agency.
-  \item T3 --- Health-evidence synthesis. Synthesis of peer-reviewed
-        epidemiological evidence on the air pollution health burden for the
-        country, scored against a rubric rather than a single value.
-  \item T4 --- Policy instruments. Identification of policy programs,
-        executing agencies, and legal instruments for air pollution control in
-        force in the country.
-  \item T5 --- Applied recommendation. Rubric-scored applied
-        recommendation for a defined operational scenario (for example,
-        short-term response to a high-concentration episode under thermal
-        inversion).
-\end{itemize}
+The five tasks were not written as a generic knowledge quiz. Each corresponds to
+a question a public environmental manager has to answer in the course of ordinary
+work, and each was drafted so that a wrong answer would carry an administrative
+consequence rather than merely lose a point. Table~\ref{tab:tasks} gives the
+tasks with the prompt exactly as it was issued to the models, using Brazil as the
+worked instance, alongside the decision each one stands in for.
 
+\begin{table}[htbp]
+\centering
+\caption{The five tasks, the prompt as issued, and the decision each stands in
+for. Prompts are shown for the Brazil instance under the neutral persona; every
+country receives the same five templates with its own entities substituted
+(city, agency, regulation).}
+\label{tab:tasks}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.11\linewidth}>{\raggedright\arraybackslash}p{0.54\linewidth}>{\raggedright\arraybackslash}p{0.28\linewidth}@{}}
+\toprule
+Task & Prompt as issued (Brazil) & Decision it stands in for \\
+\midrule
+T1 \newline Technical standard
+& ``What is the current national annual mean ambient air quality standard for
+PM\textsubscript{2.5} in Brazil? State the regulation that establishes it and
+whether it is an intermediate or final target. Limit to 1--3 sentences.''
+& Citing the binding limit in a licence condition, an enforcement notice or a
+technical opinion. The wrong value voids the act. \\
+\addlinespace
+T2 \newline Local factual datum
+& ``According to the national or subnational environmental agency, what was the
+annual mean PM\textsubscript{2.5} concentration in São Paulo, Brazil, in the
+most recent reported year? Provide value in
+$\mu$g/m\textsuperscript{3}, the reference station or network, and the source.''
+& Establishing the baseline a local air quality plan or a public report is
+written against. \\
+\addlinespace
+T3 \newline Health-evidence synthesis
+& ``Summarize the epidemiological evidence on mortality attributable to ambient
+PM\textsubscript{2.5} exposure in Brazil over the last decade. Include estimated
+annual deaths, primary causes, and at least one authoritative source.''
+& Justifying why air quality should be prioritised against competing demands on
+the same budget. \\
+\addlinespace
+T4 \newline Policy instruments
+& ``List the principal national programs or legal instruments for monitoring and
+controlling ambient air pollution in Brazil, with the executing agency for
+each.''
+& Identifying which programme to draw on and which agency holds the mandate. \\
+\addlinespace
+T5 \newline Applied recommendation
+& ``A metropolitan region of Brazil faces a forecast episode with
+PM\textsubscript{2.5} expected to exceed 75~$\mu$g/m\textsuperscript{3} within
+24 hours. Recommend three short-term policy actions (deployable within 48 hours)
+to reduce population exposure, each justified by public-health evidence or
+operational feasibility.''
+& Choosing the operational response to an acute episode, under time pressure. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The tasks are ordered by how much of the answer is fixed by an official source.
 T1, T2, and T4 admit verifiable ground truth and carry the primary accuracy
-signal; T3 and T5 are rubric-scored open-generation tasks. The country-by-task
+signal; T3 and T5 are rubric-scored open-generation tasks, where competent
+answers legitimately differ. That ordering is what makes the task dimension
+informative rather than decorative: it lets us ask whether models fail uniformly
+or fail specifically where a published national value has to be recalled, which
+is the question the results turn on. The country-by-task
 mapping of official source classes, equivalence criteria, and verifiability
-status is specified in the ground-truth registry (Section~\ref{sec:groundtruth}).
+status is specified in the ground-truth registry (Section~\ref{sec:groundtruth}),
+and the full 25-country prompt set is released with the data. The persona
+condition (Section~\ref{sec:persona}) prefixes a manager frame to these same
+questions without altering a word of them.
 
 \subsection{Persona manipulation}
 \label{sec:persona}
 
 Persona is a within-prompt factor with two levels, and the manipulation is not
-an arbitrary one: assigning a role in the system prompt is the practice the model
-vendors themselves document and recommend. Anthropic instructs developers to set
-a role in the system prompt, stating that even a single sentence changes
+an arbitrary one: assigning a role to the model is the practice the vendors
+themselves document and recommend. Anthropic instructs developers to set a role,
+stating that even a single sentence changes
 behaviour~\citep{anthropic2026systemprompts}; OpenAI's guide asks for an
 ``Identity'' block describing the assistant's purpose and role before the task
 itself~\citep{openai2026promptengineering}; and the practice is catalogued as the
-Persona Pattern in the prompt-pattern literature~\citep{white2023prompt}. A public
-body that follows its supplier's own documentation therefore arrives at exactly
-the manipulation we test. The neutral
+Persona Pattern in the prompt-pattern literature~\citep{white2023prompt}. The neutral
 condition presents the query as a plain information request. The
 public\_manager\_env condition prepends a fixed role frame
 identifying the requester as a municipal or regional environmental management
-official, holding the substantive question identical across conditions. A
+official, holding the substantive question identical across conditions. For
+Brazil's T1 the frame is the single sentence \emph{``I am the municipal
+environmental management official of São Paulo, Brazil, and I need to brief
+decision-makers.''}, placed before the unchanged question.
+
+One implementation detail matters for how the result should be read. Every
+request in this study is sent as a single user turn with no system prompt, so the
+role frame is prefixed to the user message rather than installed as a system
+instruction, which is where the vendor guides place it. This is deliberate. The
+system-prompt route requires API access and a developer to configure it; the
+public servants whose decisions motivate this study reach these models through
+the consumer chat interface, where the only available channel is the message they
+type. We therefore test role framing as the sector actually performs it, and
+Section~\ref{sec:limits} states plainly what remains untested. A
 single role-frame template is applied uniformly across countries and tasks
 (translated where the prompt language is non-English), so that any
 between-condition difference is attributable to the persona frame rather than

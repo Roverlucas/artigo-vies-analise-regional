@@ -167,47 +167,113 @@ ar, dados de monitoramento de agências ambientais, programas federais de contro
 se mapeia a atividades concretas de decisão de um gestor ambiental público. Cinco
 tipos de tarefa operacionalizam o domínio:
 
-\begin{itemize}
-  \item T1 --- Padrão técnico. Recuperação de padrões vinculantes de
-        qualidade do ar, limites de emissão ou limiares regulatórios (por exemplo,
-        o padrão de média anual de PM\textsubscript{2,5} em vigor no país).
-  \item T2 --- Dado factual local. Recuperação de dados de qualidade do ar
-        oficialmente medidos para uma cidade ou região e ano especificados,
-        conforme reportado pela agência ambiental nacional ou subnacional.
-  \item T3 --- Síntese de evidência em saúde. Síntese de evidência
-        epidemiológica revisada por pares sobre a carga de saúde da poluição do ar
-        no país, pontuada contra rubrica em vez de valor único.
-  \item T4 --- Instrumentos de política. Identificação de programas de
-        política, órgãos executores e instrumentos legais de controle da poluição
-        do ar em vigor no país.
-  \item T5 --- Recomendação aplicada. Recomendação aplicada pontuada por
-        rubrica para um cenário operacional definido (por exemplo, resposta de
-        curto prazo a um episódio de alta concentração sob inversão térmica).
-\end{itemize}
+As cinco tarefas não foram escritas como um questionário genérico de
+conhecimento. Cada uma corresponde a uma pergunta que um gestor ambiental público
+tem de responder no curso do trabalho ordinário, e cada uma foi redigida de modo
+que uma resposta errada carregasse consequência administrativa, e não apenas a
+perda de um ponto. A Tabela~\ref{tab:tarefas} traz as tarefas com o prompt tal
+como foi emitido aos modelos, usando o Brasil como instância trabalhada, ao lado
+da decisão que cada uma representa.
 
-T1, T2 e T4 admitem gabarito verificável e carregam o sinal primário de acurácia;
-T3 e T5 são tarefas de geração aberta pontuadas por rubrica. O mapeamento de
-país por tarefa das classes de fonte oficial, dos critérios de equivalência e do
-estatuto de verificabilidade está especificado no registro de gabarito
-(Seção~\ref{sec:gabarito}).
+\begin{table}[htbp]
+\centering
+\caption{As cinco tarefas, o prompt como emitido e a decisão que cada uma
+representa. Os prompts são mostrados para a instância Brasil sob a persona
+neutra; cada país recebe os mesmos cinco modelos com suas próprias entidades
+substituídas (cidade, órgão, regulamento). Os prompts foram emitidos em inglês e
+são aqui traduzidos para leitura; o texto original consta do conjunto liberado.}
+\label{tab:tarefas}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.11\linewidth}>{\raggedright\arraybackslash}p{0.54\linewidth}>{\raggedright\arraybackslash}p{0.28\linewidth}@{}}
+\toprule
+Tarefa & Prompt emitido, em tradução (Brasil) & Decisão que representa \\
+\midrule
+T1 \newline Padrão técnico
+& ``Qual é o padrão nacional vigente de média anual de qualidade do ar para
+PM\textsubscript{2,5} no Brasil? Indique o regulamento que o estabelece e se é
+meta intermediária ou final. Limite-se a 1--3 frases.''
+& Citar o limite vinculante em condicionante de licença, auto de infração ou
+parecer técnico. O valor errado vicia o ato. \\
+\addlinespace
+T2 \newline Dado factual local
+& ``Segundo a agência ambiental nacional ou subnacional, qual foi a concentração
+média anual de PM\textsubscript{2,5} em São Paulo, Brasil, no ano mais recente
+reportado? Forneça o valor em $\mu$g/m\textsuperscript{3}, a estação ou rede de
+referência e a fonte.''
+& Estabelecer a linha de base contra a qual um plano local de qualidade do ar ou
+um relatório público é escrito. \\
+\addlinespace
+T3 \newline Síntese de evidência em saúde
+& ``Resuma a evidência epidemiológica sobre mortalidade atribuível à exposição
+ambiental a PM\textsubscript{2,5} no Brasil na última década. Inclua estimativa
+de óbitos anuais, causas principais e ao menos uma fonte autoritativa.''
+& Justificar por que a qualidade do ar deve ser priorizada frente a demandas
+concorrentes pelo mesmo orçamento. \\
+\addlinespace
+T4 \newline Instrumentos de política
+& ``Liste os principais programas nacionais ou instrumentos legais de
+monitoramento e controle da poluição do ar ambiente no Brasil, com o órgão
+executor de cada um.''
+& Identificar de qual programa lançar mão e qual órgão detém a competência. \\
+\addlinespace
+T5 \newline Recomendação aplicada
+& ``Uma região metropolitana do Brasil enfrenta episódio previsto com
+PM\textsubscript{2,5} projetado para exceder 75~$\mu$g/m\textsuperscript{3} em
+24 horas. Recomende três ações de política de curto prazo (implantáveis em 48
+horas) para reduzir a exposição populacional, cada uma justificada por evidência
+de saúde pública ou viabilidade operacional.''
+& Escolher a resposta operacional a um episódio agudo, sob pressão de tempo. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+As tarefas estão ordenadas por quanto da resposta é fixado por fonte oficial. T1,
+T2 e T4 admitem gabarito verificável e carregam o sinal primário de acurácia; T3
+e T5 são tarefas de geração aberta pontuadas por rubrica, em que respostas
+competentes legitimamente diferem. É essa ordenação que torna a dimensão de
+tarefa informativa em vez de decorativa: ela permite perguntar se os modelos
+falham de maneira uniforme ou falham especificamente onde é preciso recuperar um
+valor nacional publicado, que é a pergunta sobre a qual os resultados se apoiam.
+O mapeamento de país por tarefa das classes de fonte oficial, dos critérios de
+equivalência e do estatuto de verificabilidade está especificado no registro de
+gabarito (Seção~\ref{sec:gabarito}), e o conjunto completo de prompts dos 25
+países é liberado com os dados. A condição de persona (Seção~\ref{sec:persona})
+antepõe um enquadramento de gestor a essas mesmas perguntas sem alterar uma
+palavra delas.
 
 \subsection{Manipulação de persona}
 \label{sec:persona}
 
 A persona é um fator dentro do prompt com dois níveis, e a manipulação não é
-arbitrária: atribuir um papel no prompt de sistema é a prática que os próprios
-fornecedores dos modelos documentam e recomendam. A Anthropic instrui
-desenvolvedores a definir um papel no prompt de sistema, afirmando que mesmo uma
+arbitrária: atribuir um papel ao modelo é a prática que os próprios
+fornecedores documentam e recomendam. A Anthropic instrui
+desenvolvedores a definir um papel, afirmando que mesmo uma
 única frase muda o comportamento~\citep{anthropic2026systemprompts}; o guia da
 OpenAI pede um bloco de ``Identidade'' descrevendo o propósito e o papel do
 assistente antes da própria tarefa~\citep{openai2026promptengineering}; e a
 prática está catalogada como Padrão de Persona na literatura de padrões de
-prompt~\citep{white2023prompt}. Um órgão público que siga a documentação do
-próprio fornecedor chega, portanto, exatamente à manipulação que testamos. A
+prompt~\citep{white2023prompt}. A
 condição neutra apresenta a consulta como pedido simples de informação. A condição
 public\_manager\_env antepõe um enquadramento de papel fixo identificando
 quem pergunta como autoridade municipal ou regional de gestão ambiental, mantendo a
-pergunta substantiva idêntica entre condições. Um único modelo de enquadramento de
+pergunta substantiva idêntica entre condições. Para a T1 do Brasil, o
+enquadramento é a frase única \emph{``Sou o gestor ambiental municipal de São
+Paulo, Brasil, e preciso informar tomadores de decisão.''}, colocada antes da
+pergunta inalterada.
+
+Um detalhe de implementação importa para a leitura do resultado. Toda requisição
+neste estudo é enviada como turno único de usuário, sem prompt de sistema, de modo
+que o enquadramento de papel é anteposto à mensagem do usuário em vez de instalado
+como instrução de sistema, que é onde os guias dos fornecedores o colocam. A
+escolha é deliberada. A via do prompt de sistema exige acesso por API e um
+desenvolvedor para configurá-la; os servidores públicos cujas decisões motivam
+este estudo alcançam esses modelos pela interface de conversa de consumo, na qual
+o único canal disponível é a mensagem que digitam. Testamos, portanto, o
+enquadramento de papel tal como o setor de fato o executa, e a
+Seção~\ref{sec:limites} declara com todas as letras o que permanece não testado.
+Um único modelo de enquadramento de
 papel é aplicado de forma uniforme entre países e tarefas (traduzido quando o
 idioma do prompt não é o inglês), de modo que qualquer diferença entre condições
 seja atribuível ao enquadramento de persona e não à redação da pergunta. A ordem

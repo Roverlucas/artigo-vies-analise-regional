@@ -258,7 +258,7 @@ Hindi (4)     & IND                     & $-11.1$ & $5\times10^{-4}$  & 71 \\
 O fator persona foi plenamente cruzado, de modo que H6 é testada como diferença em
 diferenças. O enquadramento de gestor ambiental público deixa a lacuna Norte/Sul
 essencialmente inalterada: $+4.7$~pp sob o enquadramento neutro contra $+5.4$~pp
-sob o de gestor, uma DiD de $\mathbf{+0.6}$~pp, muito abaixo do limiar
+sob o de gestor, uma DiD de $+0.6$~pp, muito abaixo do limiar
 pré-especificado de 5~pp; um teste de permutação no nível do país (5.000
 permutações do rótulo de camada) dá $p=0.27$. H6 não é sustentada:
 apresentar a consulta como vinda de um gestor ambiental público não estreita nem
@@ -324,9 +324,9 @@ T5 (recomendação aplicada)   & nenhum valor de reg.   & 99.6\% & 99.7\% & 2.67
 \end{table}
 
 \emph{O gradiente monotônico não se sustenta.} Em $n=25$, o $\rho$ de Spearman
-entre acurácia e IDH é de $+0.36$ e não atinge significância ($p=0.073$), e
+entre acurácia e IDH é de $+0.37$ e não atinge significância ($p=0.073$), e
 tampouco a tendência de Mann-Kendall ($p=0.072$). No $n=15$ pré-especificado ele
-está essencialmente ausente ($\rho=+0.08$). Nenhuma reestimação
+está essencialmente ausente ($\rho=+0.09$). Nenhuma reestimação
 \emph{leave-one-country-out} alcança o limiar pré-especificado de $\rho\geq0.55$
 (amplitude $[+0.31,+0.49]$), e nenhuma ponderação alternativa tampouco
 ($\rho=+0.31$ tanto sob pesos iguais quanto no subcomponente factual). Relatamos,
@@ -533,27 +533,30 @@ identificadores de execução estão disponíveis na liberação).
 \caption{Quadro 1 --- Modos representativos de falha (literais, levemente
 truncados).}
 \label{tab:quadro1}
-\small
-\begin{tabular}{p{0.30\linewidth}p{0.62\linewidth}}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.20\linewidth}>{\raggedright\arraybackslash}p{0.74\linewidth}@{}}
 \toprule
 Modo de falha & Exemplo \\
 \midrule
-\textbf{Fabricar um padrão inexistente} (país sem norma nacional de
-PM\textsubscript{2,5}) & Para \textbf{Angola} (sem padrão nacional), o
-Gemini~2.5~Flash afirmou um padrão anual de ``25~$\mu$g/m\textsuperscript{3}'' em
-uma replicação e de ``15~$\mu$g/m\textsuperscript{3}'' em outra; o GPT-5 afirmou
-``15~$\mu$g/m\textsuperscript{3}'' para a \textbf{Nigéria}, que regula apenas
+Fabricar um padrão inexistente
+& Angola não tem norma nacional. O Gemini~2.5~Flash afirmou um padrão anual de
+``25~$\mu$g/m\textsuperscript{3}'' em uma replicação e de
+``15~$\mu$g/m\textsuperscript{3}'' em outra. O GPT-5 afirmou
+``15~$\mu$g/m\textsuperscript{3}'' para a Nigéria, que regula apenas
 PM\textsubscript{10} (NESREA). Uma resposta fiel se recusaria a declarar um valor
 que não existe. \\
 \addlinespace
-\textbf{Errar o valor vinculante} (piso de T1) & Para o \textbf{Brasil} (padrão
-anual oficial de 17~$\mu$g/m\textsuperscript{3}, CONAMA 506/2024), a resposta modal
-dos modelos foi 15~$\mu$g/m\textsuperscript{3} (42 respostas), com 10, 20 e 25
-também comuns; o valor oficial quase nunca foi devolvido. \\
+Errar o valor vinculante (piso de T1)
+& O padrão anual oficial do Brasil é 17~$\mu$g/m\textsuperscript{3} (CONAMA
+506/2024). A resposta modal foi 15~$\mu$g/m\textsuperscript{3} (42 respostas),
+com 10, 20 e 25 também comuns; o valor oficial quase nunca foi devolvido. \\
 \addlinespace
-\textbf{Degradação em idioma nativo} (H2) & Para a \textbf{Índia} (padrão anual de
-40~$\mu$g/m\textsuperscript{3}), o GPT-OSS~120B devolveu o valor correto em inglês,
-mas resposta \emph{vazia} à mesma pergunta em hindi. \\
+Degradação em idioma nativo (H2)
+& O padrão anual da Índia é 40~$\mu$g/m\textsuperscript{3}. O GPT-OSS~120B
+devolveu o valor correto em inglês e resposta \emph{vazia} à mesma pergunta em
+hindi. \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -572,7 +575,7 @@ subconjunto de calibração. Todos os 3.190 itens que exigiram juiz foram pontua
 pelos três membros do painel (Gemini~2.5~Pro, Claude Sonnet~4.6, DeepSeek-V3),
 resultando em $\alpha$ de Krippendorff $=0.527$ (intervalar), ICC$(2,1)=0.558$ de
 juiz único e --- a quantidade operante, já que a análise usa a média do painel ---
-ICC$(2,3)=\mathbf{0.791}$. A concordância de Pearson par a par é de $+0.80$ entre
+ICC$(2,3)=0.791$. A concordância de Pearson par a par é de $+0.80$ entre
 Claude e DeepSeek e de $+0.65$ a $+0.66$ entre cada um deles e o sistematicamente
 mais leniente Gemini.
 
@@ -602,11 +605,16 @@ exige julgamento.
 
 \emph{Observações influentes.} A reestimação \emph{leave-one-country-out} deixa a
 lacuna de camada em $[+4.5,+6.0]$~pp, de modo que nenhum país isolado a
-impulsiona. O gradiente de IDH varia em $[+0.31,+0.49]$ e nunca atinge o limiar
-pré-especificado de 0.55 sob nenhuma remoção, o que é parte da razão de o
-relatarmos como exploratório.
+impulsiona. O gradiente de IDH permanece positivo nas 25 reestimações, variando em
+$[+0.31,+0.49]$, e em todas elas fica abaixo do limiar de 0.55 fixado no plano de
+análise. A regra de decisão escrita antes da coleta devolve, portanto, o mesmo
+veredito qualquer que seja o país removido, e é essa a parte informativa: o
+estatuto exploratório do gradiente de desenvolvimento é propriedade da evidência,
+não de um país isolado da amostra. Uma associação tão estável em sinal e tão
+consistente em magnitude merece ser levada adiante como hipótese; o limiar com que
+nos comprometemos de antemão é o que governa até onde a levamos.
 
-Robustez de métrica. O composto mistura cinco subcomponentes, e alguém
+\emph{Robustez de métrica.} O composto mistura cinco subcomponentes, e alguém
 poderia temer que ele dilua ou fabrique os efeitos. Ele não muda as conclusões. Sob
 pesos iguais, a lacuna de camada é de $+4.2$~pp, a penalidade de idioma nativo de
 $-4.7$~pp, o piso de recuperação $\delta=-0.44$ e o gradiente $\rho=+0.34$;
@@ -740,7 +748,7 @@ Hipótese & Achado & Mecanismo candidato & Estatuto de evidência \\
 H2 (idioma) & $-4.8$~pp; hindi $-11.1$ & tamanho do corpus da língua & Sustentada; mecanismo descritivo ($n=3$) \\
 H3 (modelo regional) & $\delta=-0.47$ & escala $>$ ajuste regional & Sustentada \\
 H1 (lacuna de camada) & $+5.1$~pp composto; RC 0.23 em T1 & camada (desenvolvimento) & Sustentada; concentrada na recuperação de fato do país \\
-H1 (gradiente) & $\rho=0.36$, $p=0.073$ & desenvolvimento (IDH) & Exploratória; não significativa \\
+H1 (gradiente) & $\rho=0.37$, $p=0.073$ & desenvolvimento (IDH) & Exploratória; não significativa \\
 H4 (mecanismo geográfico) & dentro do país $\beta=+0.026$, $p=2\times10^{-8}$ & cobertura do país & Sustentada dentro do país; não causal \\
 H4 (pré-especificada) & tamanho da Wikipédia nulo & tamanho do corpus da língua & Não sustentada \\
 H5 (aberto/fechado) & $+13.3$~pp fechado & tipo de acesso / escala & Descritiva \\
@@ -764,7 +772,7 @@ devolver o padrão nacional vinculante, a chance do Sul Global é 0.23 da chance
 Norte ($[0.19,0.28]$), e a lacuna escala com o quanto a resposta depende de um fato
 específico do país, desaparecendo na única tarefa sem valor de registro a acertar.
 Exploratório ou não sustentado: o \emph{gradiente} de desenvolvimento não
-atinge significância ($\rho=0.36$, $p=0.073$; Mann-Kendall $p=0.072$; $\rho=0.08$
+atinge significância ($\rho=0.37$, $p=0.073$; Mann-Kendall $p=0.072$; $\rho=0.09$
 no $n=15$ pré-especificado), de modo que a diferença de camada está demonstrada mas
 sua forma não; e a persona \emph{não} estreita a lacuna ($p=0.27$).
 Identificado onde o desenho tem resolução: entre países nenhum canal de

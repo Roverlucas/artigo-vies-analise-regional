@@ -223,7 +223,7 @@ model having produced a value in \emph{both} languages, which selects away the
 severest failure mode. The subset is also underpowered for an effect that size
 (power $0.18$ at $2$~pp, $0.80$ at $5$~pp, $n=183$).
 
-The applied implication is direct, and it is the opposite of the intuition. A
+The applied implication is the opposite of the intuition. A
 manager who suspects an English-language model serves their country poorly, and
 responds by asking in the national language, makes the answer \emph{worse} --- and
 worse by the largest margin precisely where the language is least represented in
@@ -258,7 +258,7 @@ Hindi (4)      & IND                     & $-11.1$ & $5\times10^{-4}$  & 71 \\
 The persona factor was fully crossed, so H6 is tested as a
 difference-in-differences. The public-environmental-manager frame leaves the
 North/South gap essentially unchanged: $+4.7$~pp under the neutral frame versus
-$+5.4$~pp under the manager frame, a DiD of $\mathbf{+0.6}$~pp, far below the
+$+5.4$~pp under the manager frame, a DiD of $+0.6$~pp, far below the
 pre-specified 5~pp threshold; a country-level permutation test (5{,}000
 permutations of the tier label) gives $p=0.27$. H6 is not supported:
 presenting the query as coming from a public environmental manager neither
@@ -296,7 +296,7 @@ rather than a national one, the ratio rises to $0.79$; and on open recommendatio
 (T5), the one task with no register value to get right, the gap disappears
 entirely.
 
-This is the most important qualification of the tier gap in either direction. The
+The
 gap is not weak --- it is \emph{concentrated}, and the composite dilutes it by
 averaging the tasks where it is severe with a task where it does not exist. On
 the question a public manager most often brings to these systems, what is the
@@ -324,9 +324,9 @@ T5 (applied recommendation) & no register value       & 99.6\% & 99.7\% & 2.67 &
 \end{table}
 
 \emph{The monotonic gradient does not.} At $n=25$, Spearman
-$\rho(\text{accuracy},\text{HDI})=+0.36$ does not reach significance ($p=0.073$),
+$\rho(\text{accuracy},\text{HDI})=+0.37$ does not reach significance ($p=0.073$),
 and neither does the Mann-Kendall trend ($p=0.072$). At the pre-specified $n=15$
-it is essentially absent ($\rho=+0.08$). No leave-one-country-out re-estimate
+it is essentially absent ($\rho=+0.09$). No leave-one-country-out re-estimate
 reaches the pre-specified $\rho\geq0.55$ threshold (range $[+0.31,+0.49]$), and
 no alternative weighting does either ($\rho=+0.31$ under both equal weights and
 the factual subcomponent). We therefore report a tier difference we can
@@ -535,28 +535,29 @@ drawn verbatim from the response logs (run IDs available in the release).
 \caption{Box 1 --- Representative failure modes (verbatim, lightly truncated).}
 \label{tab:box1}
 \footnotesize
-\setlength{\tabcolsep}{4pt}
-\renewcommand{\arraystretch}{1.1}
-\begin{tabular}{@{}p{0.26\linewidth}p{0.68\linewidth}@{}}
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.20\linewidth}>{\raggedright\arraybackslash}p{0.74\linewidth}@{}}
 \toprule
 Failure mode & Example \\
 \midrule
-\textbf{Fabricating a non-existent standard} (country with no national
-PM\textsubscript{2.5} norm) & For \textbf{Angola} (no national standard),
-Gemini~2.5~Flash asserted a ``25~$\mu$g/m\textsuperscript{3}'' annual standard in
-one replicate and ``15~$\mu$g/m\textsuperscript{3}'' in another; GPT-5 asserted
-``15~$\mu$g/m\textsuperscript{3}'' for \textbf{Nigeria}, which regulates only
-PM\textsubscript{10} (NESREA). A faithful response would decline to state a value
-that does not exist. \\
+Fabricating a standard that does not exist
+& Angola has no national norm. Gemini~2.5~Flash asserted an annual standard of
+``25~$\mu$g/m\textsuperscript{3}'' in one replicate and
+``15~$\mu$g/m\textsuperscript{3}'' in another. GPT-5 asserted
+``15~$\mu$g/m\textsuperscript{3}'' for Nigeria, which regulates
+PM\textsubscript{10} only (NESREA). A faithful response would decline to state a
+value that does not exist. \\
 \addlinespace
-\textbf{Missing the binding value} (T1 floor) & For \textbf{Brazil} (official
-annual standard 17~$\mu$g/m\textsuperscript{3}, CONAMA 506/2024), the modal model
-answer was 15~$\mu$g/m\textsuperscript{3} (42 responses), with 10, 20, and 25 also
-common; the official value was almost never returned. \\
+Missing the binding value (the T1 floor)
+& Brazil's official annual standard is 17~$\mu$g/m\textsuperscript{3} (CONAMA
+506/2024). The modal answer was 15~$\mu$g/m\textsuperscript{3} (42 responses),
+with 10, 20 and 25 also common; the official value was almost never returned. \\
 \addlinespace
-\textbf{Native-language degradation} (H2) & For \textbf{India} (annual standard
-40~$\mu$g/m\textsuperscript{3}), GPT-OSS~120B returned the correct value in
-English but an \emph{empty} answer to the same question in Hindi. \\
+Degradation in the native language (H2)
+& India's annual standard is 40~$\mu$g/m\textsuperscript{3}. GPT-OSS~120B
+returned the correct value in English and an \emph{empty} answer to the same
+question in Hindi. \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -574,11 +575,11 @@ calibration subset. All 3{,}190 items that required a judge were scored by all
 three panel members (Gemini~2.5~Pro, Claude Sonnet~4.6, DeepSeek-V3), giving
 Krippendorff's $\alpha=0.527$ (interval), single-judge ICC$(2,1)=0.558$, and ---
 the operative quantity, since the analysis uses the panel mean ---
-ICC$(2,3)=\mathbf{0.791}$. Pairwise Pearson agreement is $+0.80$ between Claude
+ICC$(2,3)=0.791$. Pairwise Pearson agreement is $+0.80$ between Claude
 and DeepSeek and $+0.65$--$0.66$ between each and the systematically more lenient
 Gemini.
 
-Two points deserve emphasis because they cut against the original design. First,
+Two points cut against the original design. First,
 a single judge would carry ICC$(2,1)=0.56$, which is moderate at best; the
 published protocol relied on one, and the panel mean is what makes the composite
 defensible. Second, these values are \emph{lower} than the ICC$(2,4)=0.89$
@@ -604,10 +605,16 @@ requires judgement.
 
 \emph{Influential observations.} Leave-one-country-out re-estimation leaves the
 tier gap in $[+4.5,+6.0]$~pp, so no single country drives it. The HDI gradient
-ranges over $[+0.31,+0.49]$ and never reaches the pre-specified $0.55$ threshold
-under any drop, which is part of why we report it as exploratory.
+stays positive in all 25 re-estimations, ranging over $[+0.31,+0.49]$, and sits
+below the $0.55$ threshold fixed in the analysis plan in every one of them. The
+decision rule written before collection thus returns the same verdict whichever
+country is removed, which is the informative part: the exploratory status of the
+development gradient is a property of the evidence rather than of any single
+country in the sample. An association this stable in sign and this consistent in
+magnitude is worth carrying forward as a hypothesis; the threshold we committed
+to in advance is what governs how far we carry it.
 
-Metric robustness. The composite blends five subcomponents, so one might
+\emph{Metric robustness.} The composite blends five subcomponents, so one might
 worry it dilutes or manufactures the effects. It does not change the conclusions.
 Under equal weights the tier gap is $+4.2$~pp, the native-language penalty
 $-4.7$~pp, the recall floor $\delta=-0.44$ and the gradient $\rho=+0.34$;
@@ -618,7 +625,7 @@ deepening (T1+T2 factual accuracy $0.370$ versus $0.657$ for T3--T5). The two
 supported effects hold in every weighting and the gradient fails in every
 weighting, so neither conclusion is an artefact of how subcomponents are mixed.
 
-Range extension. The ten countries added post hoc fall \emph{within} the
+\emph{Range extension.} The ten countries added post hoc fall \emph{within} the
 HDI range already spanned by the original fifteen ($[0.548,0.950]$, from Nigeria
 to Germany), so the extension increases the density of observations rather than
 the range of the predictor.
@@ -779,7 +786,7 @@ country-specific fact, vanishing on the one task with no register value to get
 right.
 Exploratory
 or not supported: the development \emph{gradient} does not reach significance
-($\rho=0.37$, $p=0.073$; Mann-Kendall $p=0.072$; $\rho=0.14$ at the pre-specified
+($\rho=0.37$, $p=0.073$; Mann-Kendall $p=0.072$; $\rho=0.09$ at the pre-specified
 $n=15$), so the tier difference is demonstrated but its shape is not; and persona
 does \emph{not} narrow the gap ($p=0.27$). Identified where the design
 has resolution: between countries neither corpus channel separates from
@@ -790,7 +797,7 @@ the deficit ($\beta=+0.026$, $p=2\times10^{-8}$), strengthens as the contrast
 sharpens, inverts under placebo, and survives among the nine countries whose
 official language is identical ($\beta=+0.025$, $p=6\times10^{-4}$).
 
-The practical implications are nonetheless clear. What this
+What this
 study demonstrates is that the three remedies an agency would actually reach for
 --- ask in the national language, declare the official role, procure a regionally
 tuned model --- all fail, and that the first makes matters materially worse; and

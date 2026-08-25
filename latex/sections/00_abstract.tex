@@ -1,29 +1,30 @@
+% O GIQ, como o resto da Elsevier, quer o abstract em BLOCO UNICO, sem quebra de
+% paragrafo. A versao anterior tinha quatro paragrafos, o que o portal de
+% submissao achata de qualquer forma — e achatar sem costurar as transicoes
+% produz exatamente o texto emendado que um editor le como desleixo. As
+% transicoes abaixo foram reescritas para o texto correr como um paragrafo so.
 \begin{abstract}
 
 Public administrations increasingly consult large language models about the
 regulations they are responsible for applying, yet no established method exists
 for auditing whether those answers match the binding text. We contribute such a
-protocol and report what it finds.
-
-The protocol scores answers against official registers, adjudicating by code
-wherever the correct answer is a published value and by a three-vendor judge panel
-elsewhere. We apply it to air pollution regulation across 25 countries, 14
-deployment stacks, five task types and four languages (9{,}251 responses),
-evaluating each model \emph{as served}.
-
-All three remedies an agency can try fail, and the most intuitive one makes accuracy worse. Querying in the country's own language
-\emph{lowers} accuracy by 4.8 percentage points (Wilcoxon $p=3\times10^{-15}$)
-and makes the model 17.7 points less likely to return a register-checkable value
-at all; a public-manager persona does not narrow the gap ($p=0.27$); and a
-regionally tuned model ranks last of fourteen. Accuracy also collapses precisely
-on retrieving the binding value: 0.37, against 0.62 for synthesis. A North/South
-gap persists ($+5.1$~pp, permutation $p=0.020$), concentrated where answers
-depend on a national fact --- on the national standard, Global South odds are
-0.23 of Global North odds.
-
-Scope is deliberately bounded: we measure agreement with published regulation in
-one domain, not general model capability, and identify the corpus channel only
-where the design has resolution. The protocol transfers to any regulated domain
-whose correct answer is published.
+protocol and report what it finds. It scores answers against official registers,
+adjudicating by code wherever the correct answer is a published value and by a
+three-vendor judge panel elsewhere, and we apply it to air pollution regulation
+across 25 countries, 14 deployment stacks, five task types and four languages
+(9{,}251 responses), evaluating each model \emph{as served}. All three remedies
+an agency can try fail, and the most intuitive one makes accuracy worse: querying
+in the country's own language \emph{lowers} accuracy by 4.8 percentage points
+(Wilcoxon $p=3\times10^{-15}$) and makes the model 17.7 points less likely to
+return a register-checkable value at all; a public-manager persona does not
+narrow the gap ($p=0.27$); and a regionally tuned model ranks last of fourteen.
+Accuracy also collapses precisely on retrieving the binding value: 0.37, against
+0.62 for synthesis. A North/South gap persists ($+5.1$~pp, permutation
+$p=0.020$), concentrated where answers depend on a national fact --- on the
+national standard, Global South odds are 0.23 of Global North odds. Scope is
+deliberately bounded: we measure agreement with published regulation in one
+domain, not general model capability, and identify the corpus channel only where
+the design has resolution. The protocol transfers to any regulated domain whose
+correct answer is published.
 
 \end{abstract}

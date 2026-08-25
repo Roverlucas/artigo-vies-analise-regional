@@ -3,39 +3,39 @@
     "findings": [
       {
         "file": "latex/sections/04_results.tex",
-        "quote": "This is the study's strongest and most directly actionable result.",
+        "quote": "This is the most important qualification of the tier gap in either direction.",
         "why": "ASSERTS importance instead of demonstrating it",
-        "rewrite": "KEEP — the sentence is a clear, direct claim that is immediately substantiated by the data that follow; removing it would lose the reader's orientation."
+        "rewrite": "The tier gap is concentrated in specific tasks."
       },
       {
         "file": "latex/sections/04_results.tex",
-        "quote": "The effect survives being attacked.",
-        "why": "formulaic transition, short declarative opener announcing what the paragraph will do",
-        "rewrite": "We tested whether the effect could be made to disappear."
-      },
-      {
-        "file": "latex/sections/04_results.tex",
-        "quote": "And it survives with no judge at all.",
-        "why": "formulaic transition, short declarative opener announcing what the paragraph will do",
-        "rewrite": "We also tested a binary outcome that no judge touches."
-      },
-      {
-        "file": "latex/sections/04_results.tex",
-        "quote": "And it is not an artefact of the translation.",
-        "why": "formulaic transition, short declarative opener announcing what the paragraph will do",
-        "rewrite": "We tested whether the native prompts asked something different from the English prompts."
-      },
-      {
-        "file": "latex/sections/04_results.tex",
-        "quote": "The centre of gravity is nonetheless practical.",
-        "why": "inflated abstraction where a concrete noun would do",
-        "rewrite": "The practical implications are nonetheless clear."
-      },
-      {
-        "file": "latex/sections/04_results.tex",
-        "quote": "This matters for environmental management in the Global South, where the disease burden is large and where exactly the hardest task --- recalling the binding standard --- is the one a manager most needs.",
+        "quote": "The applied implication is direct, and it is the opposite of the intuition.",
         "why": "ASSERTS importance instead of demonstrating it",
-        "rewrite": "KEEP — the sentence ties the findings to the applied context and cites evidence for the disease burden; it is not mere assertion."
+        "rewrite": "The applied implication is the opposite of the intuition."
+      },
+      {
+        "file": "latex/sections/04_results.tex",
+        "quote": "Two points deserve emphasis because they cut against the original design.",
+        "why": "formulaic transition announcing what the paragraph will do",
+        "rewrite": "Two points cut against the original design."
+      },
+      {
+        "file": "latex/sections/04_results.tex",
+        "quote": "The first mode is the most consequential for the no-standard cases (Angola, Nigeria, Argentina):",
+        "why": "ASSERTS importance instead of demonstrating it",
+        "rewrite": "The first mode is consequential for the no-standard cases (Angola, Nigeria, Argentina):"
+      },
+      {
+        "file": "latex/sections/04_results.tex",
+        "quote": "The practical implications are nonetheless clear.",
+        "why": "ASSERTS importance instead of demonstrating it",
+        "rewrite": "The practical implications are clear."
+      },
+      {
+        "file": "latex/sections/04_results.tex",
+        "quote": "This matters for environmental management in the Global South, where the disease burden is large",
+        "why": "ASSERTS importance instead of demonstrating it",
+        "rewrite": "This is relevant to environmental management in the Global South, where the disease burden is large"
       }
     ],
     "clean_sections": [
@@ -53,206 +53,272 @@
       "Robustness",
       "Summary"
     ],
-    "verdict": "The voice is largely that of a careful, evidence-driven scientist, with occasional lapses into rhetorical framing that reads as performative rather than informative.",
+    "verdict": "The voice is largely human and scientifically careful, with only a few lapses into assertive or formulaic phrasing that can be tightened.",
     "bloco": "en-resultados"
   },
   {
     "findings": [
       {
-        "file": "latex/sections/00_abstract.tex",
-        "quote": "The central finding is that the three remedies available to an agency all fail, and the most intuitive one causes harm.",
-        "why": "Asserts importance instead of demonstrating it; formulaic opener.",
-        "rewrite": "All three remedies an agency can try fail, and the most intuitive one makes accuracy worse."
+        "file": "00_abstract.tex",
+        "quote": "All three remedies an agency can try fail, and the most intuitive one makes accuracy worse.",
+        "why": "Formulaic transition; short declarative opener that announces the paragraph's content rather than presenting evidence.",
+        "rewrite": "None of the three remedies an agency can try improves accuracy, and the most intuitive one—querying in the country's own language—reduces it."
       },
       {
-        "file": "latex/sections/01_introduction.tex",
-        "quote": "This is the study's principal finding and its most directly actionable output for practice.",
+        "file": "01_introduction.tex",
+        "quote": "This is the study's main result and the one with the clearest practical implication.",
         "why": "Asserts importance instead of demonstrating it.",
-        "rewrite": "This is the study's main result and the one with the clearest practical implication."
+        "rewrite": "KEEP: The sentence identifies the key finding for practitioners; removing it would lose the explicit prioritization."
       },
       {
-        "file": "latex/sections/01_introduction.tex",
-        "quote": "Stating the boundary of a study is part of its contribution, because a reader deciding whether the evidence applies to their situation needs to know what was measured and what was not.",
-        "why": "Inflated abstraction; could be deleted without losing information.",
-        "rewrite": "We state the study's boundaries so readers can judge whether the evidence applies to their situation."
+        "file": "01_introduction.tex",
+        "quote": "The effect survives being attacked.",
+        "why": "Formulaic transition; short declarative opener that announces the paragraph's resilience without evidence.",
+        "rewrite": "The effect persists even when the analysis is restricted to the nine countries sharing English as an official language."
       },
       {
-        "file": "latex/sections/01_introduction.tex",
-        "quote": "This positions our empirical work as a test of one link in a theorised reproduction cycle (training-corpus asymmetry $\\to$ LLM knowledge asymmetry $\\to$ policy decision asymmetry), and the persona manipulation as a test of whether prompt framing can interrupt that link.",
-        "why": "Inflated abstraction; three-part parallel construction used for rhythm rather than meaning.",
-        "rewrite": "Our empirical work tests one link in this theorised cycle: whether corpus asymmetry leads to LLM knowledge asymmetry, and whether persona framing can interrupt it."
+        "file": "01_introduction.tex",
+        "quote": "And it survives with no judge at all.",
+        "why": "Formulaic transition; short declarative opener that announces the paragraph's content.",
+        "rewrite": "The effect also holds when the comparison is computed by code rather than by a judge panel."
       },
       {
-        "file": "latex/sections/06_conclusion.tex",
-        "quote": "The clearest result is that the remedies available to an agency do not work, and that the most intuitive one backfires.",
-        "why": "Formulaic transition; asserts importance instead of demonstrating it.",
-        "rewrite": "The remedies an agency can try do not work, and the most intuitive one backfires."
+        "file": "01_introduction.tex",
+        "quote": "This is not a detail of implementation.",
+        "why": "Asserts importance instead of demonstrating it.",
+        "rewrite": "KEEP: The sentence emphasizes that the adjudication method is substantive, not incidental; removing it would lose the emphasis."
       },
       {
-        "file": "latex/sections/06_conclusion.tex",
-        "quote": "The message for Global South environmental agencies is concrete and largely cautionary.",
-        "why": "Formulaic transition; could be deleted without losing information.",
-        "rewrite": "For Global South environmental agencies, the practical message is cautionary."
+        "file": "01_introduction.tex",
+        "quote": "The instinct in this literature, when an effect proves fragile, is to add countries; our experience is that the ground-truth key deserves the audit first, because a defective key adds structured noise that concentrates exactly where official data are hardest to obtain --- which is where the hypothesis lives.",
+        "why": "Inflated abstraction; 'structured noise' and 'where the hypothesis lives' are abstract where concrete terms would do.",
+        "rewrite": "When an effect proves fragile, researchers often add more countries; our experience suggests auditing the ground-truth key first, because a defective key adds systematic error that is worst where official data are hardest to obtain—precisely the places the hypothesis concerns."
       },
       {
-        "file": "latex/sections/06_conclusion.tex",
-        "quote": "We also report a methodological caution that we learned the hard way.",
-        "why": "Formulaic transition; asserts importance instead of demonstrating it.",
-        "rewrite": "We also report a methodological caution from our own experience."
+        "file": "06_conclusion.tex",
+        "quote": "The remedies an agency can try do not work, and the most intuitive one backfires.",
+        "why": "Formulaic transition; short declarative opener that announces the paragraph's content.",
+        "rewrite": "None of the remedies an agency can try improves accuracy, and the most intuitive one—asking in the country's own language—reduces it."
+      },
+      {
+        "file": "06_conclusion.tex",
+        "quote": "The disadvantage is concentrated rather than weak, and a distribution-free permutation test with the country as the unit confirms it ($p=0.020$).",
+        "why": "Inflated abstraction; 'concentrated rather than weak' is vague and rhetorical.",
+        "rewrite": "The disadvantage is large on specific tasks, and a distribution-free permutation test with the country as the unit confirms it ($p=0.020$)."
+      },
+      {
+        "file": "06_conclusion.tex",
+        "quote": "We read the pattern within the coloniality-of-knowledge framework",
+        "why": "Inflated abstraction; 'read the pattern within' is vague.",
+        "rewrite": "We interpret the pattern using the coloniality-of-knowledge framework"
+      },
+      {
+        "file": "06_conclusion.tex",
+        "quote": "Beyond its findings, the study offers a reusable template for credible applied LLM-equity audits --- official-source ground truth, code adjudication wherever the answer is a checkable number, and end-to-end reproducibility --- in the high-stakes public-sector domains where these systems are now being deployed.",
+        "why": "Asserts importance instead of demonstrating it; 'reusable template' is an inflated claim.",
+        "rewrite": "The study also provides a reusable template for applied LLM-equity audits: official-source ground truth, code adjudication for checkable numbers, and end-to-end reproducibility, applicable to other high-stakes public-sector domains."
       }
     ],
     "clean_sections": [
-      "latex/sections/00_abstract.tex (except the flagged sentence)",
-      "latex/sections/01_introduction.tex (except the flagged sentences)",
-      "latex/sections/06_conclusion.tex (except the flagged sentences)"
+      "00_abstract.tex (except the flagged sentence)",
+      "01_introduction.tex (except the flagged sentences)",
+      "06_conclusion.tex (except the flagged sentences)"
     ],
-    "verdict": "The overall voice is that of a careful empirical scientist, but it occasionally slips into promotional or formulaic phrasing that undercuts the otherwise measured tone.",
+    "verdict": "The overall voice is that of a careful empirical study, but it occasionally slips into rhetorical flourishes and formulaic transitions that undercut the scientific tone.",
     "bloco": "en-abertura"
   },
   {
-    "findings": [
-      {
-        "file": "latex/sections/05_discussion.tex",
-        "quote": "The applied contribution is largely negative, and it is the study's most actionable result.",
-        "why": "Asserts importance instead of demonstrating it",
-        "rewrite": "The applied contribution is largely negative, and it is the most actionable result."
-      },
-      {
-        "file": "latex/sections/05_discussion.tex",
-        "quote": "We treated this claim adversarially rather than confirmationally, and it held.",
-        "why": "Formulaic transition; short declarative opener announcing what the paragraph will do",
-        "rewrite": "We tested this claim adversarially, and it held."
-      },
-      {
-        "file": "latex/sections/05_discussion.tex",
-        "quote": "Most importantly, it holds on an outcome that involves no judge at all:",
-        "why": "Emphasis stacked on emphasis; formulaic transition",
-        "rewrite": "It also holds on an outcome that involves no judge at all:"
-      },
-      {
-        "file": "latex/sections/05_discussion.tex",
-        "quote": "Practitioners deploy all three of these as fixes; none survives contact with the data, and the one a manager is most likely to try first is the one that does active damage.",
-        "why": "Inflated abstraction ('survives contact with the data') and formulaic rhythm",
-        "rewrite": "Practitioners deploy all three of these as fixes; none works, and the one a manager is most likely to try first does active damage."
-      },
-      {
-        "file": "latex/sections/05_discussion.tex",
-        "quote": "The risk is concentrated rather than diffuse.",
-        "why": "Inflated abstraction; could be deleted without losing information",
-        "rewrite": "The risk is concentrated."
-      },
-      {
-        "file": "latex/sections/05_discussion.tex",
-        "quote": "That this floor is genuine, and not an artefact of how we scored it, is supported by an internal check.",
-        "why": "Hedging stacked on hedging; formulaic transition",
-        "rewrite": "An internal check supports that this floor is genuine, not an artefact of scoring."
-      },
-      {
-        "file": "latex/sections/05_discussion.tex",
-        "quote": "The disadvantage is not weak but \\emph{concentrated}, and averaging five tasks into one composite dilutes it with tasks where it does not exist.",
-        "why": "Three-part parallel construction used for rhythm rather than meaning",
-        "rewrite": "The disadvantage is concentrated, and averaging five tasks into one composite dilutes it with tasks where it does not exist."
-      },
-      {
-        "file": "latex/sections/05_discussion.tex",
-        "quote": "We regard this as the more faithful statement of the geographic finding than the composite gap, and it is the reading we carry into the implications.",
-        "why": "Inflated abstraction ('the reading we carry into the implications')",
-        "rewrite": "We regard this as the more faithful statement of the geographic finding than the composite gap."
-      },
-      {
-        "file": "latex/sections/05_discussion.tex",
-        "quote": "This null is informative rather than merely empty:",
-        "why": "Formulaic transition; asserts importance",
-        "rewrite": "This null is informative:"
-      },
-      {
-        "file": "latex/sections/05_discussion.tex",
-        "quote": "We report this asymmetry plainly because it is the honest description:",
-        "why": "Formulaic transition; asserts importance",
-        "rewrite": "We report this asymmetry plainly:"
-      },
-      {
-        "file": "latex/sections/05_discussion.tex",
-        "quote": "The stakes are not benchmarking abstractions.",
-        "why": "Inflated abstraction; asserts importance",
-        "rewrite": "The stakes are concrete."
-      },
-      {
-        "file": "latex/sections/05_discussion.tex",
-        "quote": "It would be natural to close this argument by saying that the model is least reliable exactly where the consequences are greatest. We do not make that claim, because we did not measure it:",
-        "why": "Formulaic transition; asserts importance",
-        "rewrite": "We do not claim the model is least reliable where consequences are greatest, because we did not measure it:"
-      },
-      {
-        "file": "latex/sections/05_discussion.tex",
-        "quote": "Every limit below is stated as a boundary of \\emph{this} design rather than as a caveat on the findings, and each one names the study that would remove it.",
-        "why": "Inflated abstraction; could be deleted without losing information",
-        "rewrite": "Each limit below is a boundary of this design, and each names the study that would remove it."
-      },
-      {
-        "file": "latex/sections/05_discussion.tex",
-        "quote": "The base they sit on is defensible:",
-        "why": "Formulaic transition; asserts importance",
-        "rewrite": "The base is defensible:"
-      },
-      {
-        "file": "latex/sections/05_discussion.tex",
-        "quote": "This is the rare benchmark whose most useful contribution is telling the field what does \\emph{not} work, with the effect sizes to back it.",
-        "why": "Asserts importance instead of demonstrating it",
-        "rewrite": "This benchmark's most useful contribution is telling the field what does not work, with effect sizes to back it."
-      },
-      {
-        "file": "latex/sections/05_discussion.tex",
-        "quote": "For the measurement community, the lesson is that a geographic-bias result can turn on the quality of the ground-truth key, so the key deserves auditing before the sample is enlarged.",
-        "why": "Formulaic transition; asserts importance",
-        "rewrite": "For the measurement community, a geographic-bias result can turn on the quality of the ground-truth key, so the key deserves auditing before the sample is enlarged."
-      }
-    ],
-    "clean_sections": [
-      "Three intuitive remedies, all failing --- and one that harms",
-      "The recall floor sits on the values that bind",
-      "A tier difference we can show, and a gradient we cannot",
-      "The mechanism, where the design has resolution",
-      "The methodological lesson: the key matters more than the sample",
-      "Why the domain matters",
-      "What this design cannot do, and what each limit opens",
-      "What this study contributes",
-      "Implications"
-    ],
-    "verdict": "The overall voice is human-written and scientifically careful, with occasional lapses into formulaic transitions and inflated abstractions that read as machine-generated.",
-    "bloco": "en-discussao"
+    "bloco": "en-discussao",
+    "erro": "nao parseavel",
+    "bruto": "{\n  \"findings\": [\n    {\n      \"file\": \"latex/sections/05_discussion.tex\",\n      \"quote\": \"The applied contribution is largely negative, and it is the most actionable result.\",\n      \"why\": \"Asserts importance without demonstrating it; could be deleted without losing information.\",\n      \"rewrite\": \"The applied contribution is negative, and it is actionable.\"\n    },\n    {\n      \"file\": \"latex/secti"
   },
   {
     "findings": [
       {
         "file": "04_resultados.tex",
-        "quote": "Este é o resultado mais forte e mais diretamente acionável do estudo.",
-        "why": "ASSERTS importance instead of demonstrating it",
-        "rewrite": "O resultado mais forte do estudo é o seguinte."
+        "quote": "O resultado mais forte do estudo é o seguinte.",
+        "why": "Formulaic transition that announces importance without demonstrating it.",
+        "rewrite": "KEEP — the sentence is a short declarative opener that sets up the following paragraph; removing it would not lose information, but it is not machine-generated slop."
       },
       {
         "file": "04_resultados.tex",
-        "quote": "O efeito sobrevive a ser atacado.",
-        "why": "formulaic transition, short declarative opener announcing what the paragraph will do",
-        "rewrite": "Testamos a robustez do efeito de H2."
+        "quote": "O efeito sobrevive a toda ponderação alternativa do composto ($-4.7$~pp sob pesos iguais, $-5.4$~pp apenas no subcomponente factual), de modo que não é artefato de como os cinco subcomponentes são combinados.",
+        "why": "Formulaic transition ('O efeito sobrevive') and inflated abstraction ('artefato') where a concrete statement would do.",
+        "rewrite": "A ponderação alternativa do composto não altera o efeito: $-4.7$~pp sob pesos iguais, $-5.4$~pp apenas no subcomponente factual, indicando que a combinação dos cinco subcomponentes não o produz."
       },
       {
         "file": "04_resultados.tex",
-        "quote": "E sobrevive sem juiz algum.",
-        "why": "formulaic transition, short declarative opener",
-        "rewrite": "Também testamos um desfecho que não depende de juiz."
+        "quote": "Isso contradiz o enquadramento otimista de H3, segundo o qual um modelo regional compraria acurácia de domínio.",
+        "why": "Inflated abstraction ('enquadramento otimista') and a three-part parallel construction used for rhythm rather than meaning.",
+        "rewrite": "Isso contradiz a expectativa de H3 de que um modelo regional teria maior acurácia de domínio."
       },
       {
         "file": "04_resultados.tex",
-        "quote": "E não é artefato da tradução.",
-        "why": "formulaic transition, short declarative opener",
-        "rewrite": "A possibilidade de artefato de tradução foi testada diretamente."
+        "quote": "A implicação aplicada é direta, e é o oposto da intuição.",
+        "why": "Formulaic transition that asserts importance without demonstrating it.",
+        "rewrite": "KEEP — the sentence is a short declarative opener that sets up the following paragraph; removing it would not lose information, but it is not machine-generated slop."
       },
       {
         "file": "04_resultados.tex",
-        "quote": "O centro de gravidade é, ainda assim, prático.",
-        "why": "inflated abstraction where a concrete noun would do",
-        "rewrite": "A implicação prática é clara."
+        "quote": "Isso é coerente com a hierarquia de recursos linguísticos~\\citep{joshi2020state} e com o canal de corpus da língua de H4.",
+        "why": "Inflated abstraction ('canal de corpus da língua') where a concrete noun would do.",
+        "rewrite": "Isso é coerente com a hierarquia de recursos linguísticos~\\citep{joshi2020state} e com o mecanismo de corpus da língua de H4."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Esta é a qualificação mais importante da lacuna de camada, em qualquer direção.",
+        "why": "Asserts importance instead of demonstrating it.",
+        "rewrite": "KEEP — the sentence is a short declarative opener that sets up the following paragraph; removing it would not lose information, but it is not machine-generated slop."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "A lacuna não é fraca --- ela é \\emph{concentrada}, e o composto a dilui ao promediar as tarefas em que ela é severa com uma tarefa em que ela não existe.",
+        "why": "Three-part parallel construction used for rhythm rather than meaning.",
+        "rewrite": "A lacuna é concentrada, e o composto a dilui ao promediar as tarefas em que ela é severa com uma tarefa em que ela não existe."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Na pergunta que um gestor público mais frequentemente traz a esses sistemas, qual é o padrão em vigor aqui, um país do Sul Global é servido a aproximadamente um quarto das chances de um país do Norte.",
+        "why": "Inflated abstraction ('servido a aproximadamente um quarto das chances') where a concrete noun would do.",
+        "rewrite": "Na pergunta que um gestor público mais frequentemente traz a esses sistemas, qual é o padrão em vigor aqui, um país do Sul Global tem aproximadamente um quarto das chances de um país do Norte de obter resposta correta."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Relatamos, portanto, uma diferença de camada que conseguimos demonstrar e um gradiente de desenvolvimento que não conseguimos: a desvantagem está estabelecida como diferença entre grupos, enquanto sua forma ao longo da faixa de desenvolvimento permanece exploratória.",
+        "why": "Three-part parallel construction used for rhythm rather than meaning.",
+        "rewrite": "Relatamos, portanto, uma diferença de camada que conseguimos demonstrar e um gradiente de desenvolvimento que não conseguimos: a desvantagem está estabelecida como diferença entre grupos, enquanto sua forma ao longo da faixa de desenvolvimento permanece exploratória."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Essa heterogeneidade é ela própria parte da razão de o gradiente não se resolver.",
+        "why": "Inflated abstraction ('parte da razão') where a concrete noun would do.",
+        "rewrite": "Essa heterogeneidade contribui para o gradiente não se resolver."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "O obstáculo acima é confundimento, não ausência de sinal, e tem uma saída que não exige mais países.",
+        "why": "Formulaic transition that announces what the paragraph will do.",
+        "rewrite": "KEEP — the sentence is a short declarative opener that sets up the following paragraph; removing it would not lose information, but it is not machine-generated slop."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Enunciamos a afirmação resultante com precisão, porque ela é mais estreita do que ``a cobertura causa a lacuna''.",
+        "why": "Formulaic transition that announces what the paragraph will do.",
+        "rewrite": "KEEP — the sentence is a short declarative opener that sets up the following paragraph; removing it would not lose information, but it is not machine-generated slop."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Isso é um mecanismo sustentado no nível em que este desenho tem resolução, e é o que a correlação no nível do país estava confundida demais para mostrar.",
+        "why": "Inflated abstraction ('mecanismo sustentado no nível em que este desenho tem resolução') where a concrete noun would do.",
+        "rewrite": "Isso é um mecanismo sustentado no nível em que este desenho tem resolução, e é o que a correlação no nível do país estava confundida demais para mostrar."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Duas características do desenho ainda delimitam o que a análise no nível do país consegue fazer, e são a razão de aquela análise falhar enquanto esta tem êxito.",
+        "why": "Formulaic transition that announces what the paragraph will do.",
+        "rewrite": "KEEP — the sentence is a short declarative opener that sets up the following paragraph; removing it would not lose information, but it is not machine-generated slop."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "A explicação por corpus também se mostra em H2, em que a unidade é o idioma e não o país.",
+        "why": "Formulaic transition that announces what the paragraph will do.",
+        "rewrite": "KEEP — the sentence is a short declarative opener that sets up the following paragraph; removing it would not lose information, but it is not machine-generated slop."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Dois pontos merecem ênfase porque contrariam o desenho original.",
+        "why": "Asserts importance instead of demonstrating it.",
+        "rewrite": "KEEP — the sentence is a short declarative opener that sets up the following paragraph; removing it would not lose information, but it is not machine-generated slop."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Aritmética pertence ao código; ao juiz deve-se perguntar apenas o que exige julgamento.",
+        "why": "Three-part parallel construction used for rhythm rather than meaning.",
+        "rewrite": "Aritmética pertence ao código; ao juiz deve-se perguntar apenas o que exige julgamento."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Uma associação tão estável em sinal e tão consistente em magnitude merece ser levada adiante como hipótese; o limiar com que nos comprometemos de antemão é o que governa até onde a levamos.",
+        "why": "Three-part parallel construction used for rhythm rather than meaning.",
+        "rewrite": "Uma associação tão estável em sinal e tão consistente em magnitude merece ser levada adiante como hipótese; o limiar com que nos comprometemos de antemão é o que governa até onde a levamos."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "O nulo, portanto, \\emph{descarta} um gradiente da magnitude que nos comprometemos a chamar de substancial.",
+        "why": "Hedging stacked on hedging, or emphasis stacked on emphasis.",
+        "rewrite": "O nulo, portanto, descarta um gradiente da magnitude que nos comprometemos a chamar de substancial."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "A afirmação honesta é que um gradiente forte de desenvolvimento está excluído e um modesto permanece possível, o que é uma afirmação mais estreita do que ``há um gradiente'' ou ``não há nenhum''.",
+        "why": "Three-part parallel construction used for rhythm rather than meaning.",
+        "rewrite": "A afirmação honesta é que um gradiente forte de desenvolvimento está excluído e um modesto permanece possível, o que é uma afirmação mais estreita do que ``há um gradiente'' ou ``não há nenhum''."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Relatamos isso em vez de descansar sobre a partição favorável, e o lemos como coerente com o restante do artigo, e não como contradição dele.",
+        "why": "Three-part parallel construction used for rhythm rather than meaning.",
+        "rewrite": "Relatamos isso em vez de descansar sobre a partição favorável, e o lemos como coerente com o restante do artigo, e não como contradição dele."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Essa leitura é post hoc, e o leitor tem direito à alternativa: que, entre várias partições defensáveis, uma atingiu significância.",
+        "why": "Formulaic transition that announces what the paragraph will do.",
+        "rewrite": "KEEP — the sentence is a short declarative opener that sets up the following paragraph; removing it would not lose information, but it is not machine-generated slop."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Tratamos, portanto, a lacuna de camada como demonstrada \\emph{para a distinção Norte/Sul tal como convencionalmente traçada}, e não como afirmação geral sobre desenvolvimento.",
+        "why": "Three-part parallel construction used for rhythm rather than meaning.",
+        "rewrite": "Tratamos, portanto, a lacuna de camada como demonstrada para a distinção Norte/Sul tal como convencionalmente traçada, e não como afirmação geral sobre desenvolvimento."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Um árbitro livre de distribuição para a lacuna de camada.",
+        "why": "Inflated abstraction ('árbitro livre de distribuição') where a concrete noun would do.",
+        "rewrite": "Um teste de permutação para a lacuna de camada."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "O procedimento se enuncia em uma frase: embaralhar aleatoriamente os rótulos Norte/Sul entre os 25 países, vinte mil vezes, e contar com que frequência o acaso sozinho produz uma lacuna tão grande quanto a observada.",
+        "why": "Three-part parallel construction used for rhythm rather than meaning.",
+        "rewrite": "O procedimento se enuncia em uma frase: embaralhar aleatoriamente os rótulos Norte/Sul entre os 25 países, vinte mil vezes, e contar com que frequência o acaso sozinho produz uma lacuna tão grande quanto a observada."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Corroboração baseada em modelo, e onde ela discorda.",
+        "why": "Formulaic transition that announces what the paragraph will do.",
+        "rewrite": "KEEP — the sentence is a short declarative opener that sets up the following paragraph; removing it would not lose information, but it is not machine-generated slop."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Descrevemos, portanto, a lacuna de camada como sustentada, porém \\emph{modesta e sensível à especificação}, o que é afirmação mais fraca do que a de versões anteriores sobre as pontuações de juiz único ($\\beta=-0.077$, $p=0.007$).",
+        "why": "Hedging stacked on hedging, or emphasis stacked on emphasis.",
+        "rewrite": "Descrevemos, portanto, a lacuna de camada como sustentada, porém modesta e sensível à especificação, o que é afirmação mais fraca do que a de versões anteriores sobre as pontuações de juiz único ($\\beta=-0.077$, $p=0.007$)."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "E-values. Um E-value pergunta quão forte precisaria ser um confundidor não medido para explicar inteiramente um achado; quanto maior o número, mais difícil descartar o achado.",
+        "why": "Formulaic transition that announces what the paragraph will do.",
+        "rewrite": "KEEP — the sentence is a short declarative opener that sets up the following paragraph; removing it would not lose information, but it is not machine-generated slop."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Essa é uma barra baixa, e pertence à avaliação do leitor.",
+        "why": "Asserts importance instead of demonstrating it.",
+        "rewrite": "KEEP — the sentence is a short declarative opener that sets up the following paragraph; removing it would not lose information, but it is not machine-generated slop."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "A implicação prática é clara.",
+        "why": "Formulaic transition that announces what the paragraph will do.",
+        "rewrite": "KEEP — the sentence is a short declarative opener that sets up the following paragraph; removing it would not lose information, but it is not machine-generated slop."
+      },
+      {
+        "file": "04_resultados.tex",
+        "quote": "Isso importa para a gestão ambiental no Sul Global, onde a carga de doença é grande~\\citep{gbd2019risk,requia2024shortterm} e onde exatamente a tarefa mais difícil --- recuperar o padrão vinculante --- é a de que um gestor mais precisa~\\citep{joshi2020state,mohamed2020decolonial}.",
+        "why": "Three-part parallel construction used for rhythm rather than meaning.",
+        "rewrite": "Isso importa para a gestão ambiental no Sul Global, onde a carga de doença é grande~\\citep{gbd2019risk,requia2024shortterm} e onde exatamente a tarefa mais difícil --- recuperar o padrão vinculante --- é a de que um gestor mais precisa~\\citep{joshi2020state,mohamed2020decolonial}."
       }
     ],
     "clean_sections": [
@@ -270,179 +336,17 @@
       "Robustez",
       "Síntese"
     ],
-    "verdict": "O texto é majoritariamente científico e direto, com raras frases de transição formulaicas e uma abstração inflada no final.",
+    "verdict": "O texto é majoritariamente escrito por um cientista com algo a dizer, com densidade técnica e passivas corretas; os poucos deslizes são aberturas declarativas e abstrações infladas que soam como transições formuláicas.",
     "bloco": "pt-resultados"
   },
   {
-    "findings": [
-      {
-        "file": "05_discussao.tex",
-        "quote": "A contribuição aplicada é em larga medida negativa, e é o resultado mais acionável do estudo.",
-        "why": "Asserts importance instead of demonstrating it",
-        "rewrite": "A contribuição aplicada é em larga medida negativa."
-      },
-      {
-        "file": "05_discussao.tex",
-        "quote": "Profissionais implantam as três como soluções; nenhuma sobrevive ao contato com os dados, e a que um gestor tem mais chance de tentar primeiro é a que causa dano ativo.",
-        "why": "Formulaic transition and inflated abstraction ('sobrevive ao contato com os dados')",
-        "rewrite": "Profissionais implantam as três como soluções; nenhuma funciona, e a que um gestor tem mais chance de tentar primeiro é a que causa dano ativo."
-      },
-      {
-        "file": "05_discussao.tex",
-        "quote": "O risco é concentrado, não difuso.",
-        "why": "Short declarative opener announcing what the paragraph will do",
-        "rewrite": "O risco é concentrado."
-      },
-      {
-        "file": "05_discussao.tex",
-        "quote": "Que esse piso é genuíno, e não artefato de como pontuamos, é sustentado por uma checagem interna.",
-        "why": "Inflated abstraction ('piso é genuíno') and formulaic transition",
-        "rewrite": "Uma checagem interna sustenta que esse piso não é artefato de como pontuamos."
-      },
-      {
-        "file": "05_discussao.tex",
-        "quote": "Relatamos essa assimetria de forma direta porque é a descrição honesta: uma diferença entre grupos que conseguimos demonstrar, e uma forma ao longo da faixa de desenvolvimento que não conseguimos.",
-        "why": "Asserts importance ('descrição honesta') and formulaic transition",
-        "rewrite": "Relatamos essa assimetria de forma direta: uma diferença entre grupos que conseguimos demonstrar, e uma forma ao longo da faixa de desenvolvimento que não conseguimos."
-      },
-      {
-        "file": "05_discussao.tex",
-        "quote": "A resolução vem de mudar a unidade de variação, e não de acrescentar países.",
-        "why": "Short declarative opener announcing what the paragraph will do",
-        "rewrite": "A resolução vem de mudar a unidade de variação, não de acrescentar países."
-      },
-      {
-        "file": "05_discussao.tex",
-        "quote": "Enunciamos a afirmação resultante na força que o desenho sustenta, e não além.",
-        "why": "Inflated abstraction ('na força que o desenho sustenta')",
-        "rewrite": "Enunciamos a afirmação resultante na força que o desenho sustenta."
-      },
-      {
-        "file": "05_discussao.tex",
-        "quote": "O que está em jogo não são abstrações de \\emph{benchmarking}.",
-        "why": "Asserts importance instead of demonstrating it",
-        "rewrite": "O que está em jogo não são abstrações de benchmarking."
-      },
-      {
-        "file": "05_discussao.tex",
-        "quote": "Seria natural encerrar este argumento dizendo que o modelo é menos confiável exatamente onde as consequências são maiores. Não fazemos essa afirmação, porque não a medimos:",
-        "why": "Formulaic transition and hedging stacked on hedging",
-        "rewrite": "Não afirmamos que o modelo é menos confiável exatamente onde as consequências são maiores, porque não a medimos:"
-      },
-      {
-        "file": "05_discussao.tex",
-        "quote": "Cada limite abaixo é enunciado como fronteira \\emph{deste} desenho, e não como ressalva sobre os achados, e cada um nomeia o estudo que o removeria.",
-        "why": "Inflated abstraction ('fronteira deste desenho') and formulaic transition",
-        "rewrite": "Cada limite abaixo é enunciado como fronteira deste desenho, e cada um nomeia o estudo que o removeria."
-      },
-      {
-        "file": "05_discussao.tex",
-        "quote": "A base sobre a qual repousam é defensável:",
-        "why": "Inflated abstraction ('base sobre a qual repousam')",
-        "rewrite": "A base é defensável:"
-      },
-      {
-        "file": "05_discussao.tex",
-        "quote": "O leitor tem o direito de pesar esses resultados uns contra os outros.",
-        "why": "Asserts importance instead of demonstrating it",
-        "rewrite": "O leitor pode pesar esses resultados uns contra os outros."
-      },
-      {
-        "file": "05_discussao.tex",
-        "quote": "Este é o raro benchmark cuja contribuição mais útil é dizer ao campo o que \\emph{não} funciona, com os tamanhos de efeito para sustentá-lo.",
-        "why": "Asserts importance instead of demonstrating it",
-        "rewrite": "Este é um benchmark cuja contribuição mais útil é dizer ao campo o que não funciona, com os tamanhos de efeito para sustentá-lo."
-      },
-      {
-        "file": "05_discussao.tex",
-        "quote": "Para a comunidade de medição, a lição é que um resultado de viés geográfico pode depender da qualidade da chave de gabarito, de modo que a chave merece auditoria antes de a amostra ser ampliada.",
-        "why": "Formulaic transition ('a lição é que')",
-        "rewrite": "Para a comunidade de medição, um resultado de viés geográfico pode depender da qualidade da chave de gabarito, de modo que a chave merece auditoria antes de a amostra ser ampliada."
-      }
-    ],
-    "clean_sections": [
-      "Três mitigações intuitivas, todas falhando --- e uma que prejudica",
-      "O piso de recuperação recai sobre os valores que vinculam",
-      "Uma diferença de camada que podemos mostrar, e um gradiente que não",
-      "O mecanismo, onde o desenho tem resolução",
-      "A lição metodológica: a chave importa mais que a amostra",
-      "Por que o domínio importa",
-      "O que este desenho não alcança, e o que cada limite abre",
-      "O que este estudo contribui",
-      "Implicações"
-    ],
-    "verdict": "O texto é majoritariamente científico e denso, com passagens que leem como humanas, mas contém alguns aberturas declarativas e abstrações infladas que soam como geradas por máquina.",
-    "bloco": "pt-discussao"
+    "bloco": "pt-discussao",
+    "erro": "nao parseavel",
+    "bruto": "{\n  \"findings\": [\n    {\n      \"file\": \"latex/sections-PT/05_discussao.tex\",\n      \"quote\": \"A contribuição aplicada é em larga medida negativa.\",\n      \"why\": \"Formulaic transition that announces the paragraph's content without adding information.\",\n      \"rewrite\": \"KEEP — the sentence is a concise summary of the section's finding, not a filler transition.\"\n    },\n    {\n      \"file\": \"latex/secti"
   },
   {
-    "findings": [
-      {
-        "file": "latex/sections-PT/00_resumo.tex",
-        "quote": "O achado central é que as três mitigações disponíveis a um órgão público falham, e a mais intuitiva causa dano.",
-        "why": "Asserts importance instead of demonstrating it",
-        "rewrite": "As três mitigações disponíveis a um órgão público falham, e a mais intuitiva causa dano."
-      },
-      {
-        "file": "latex/sections-PT/01_introducao.tex",
-        "quote": "A pergunta que este artigo endereça é se os LLMs servem à política de poluição do ar do Sul Global com a mesma confiabilidade com que servem ao Norte Global, e se a forma como a consulta é enquadrada muda a resposta.",
-        "why": "Formulaic transition announcing what the paper will do",
-        "rewrite": "Este artigo mede se os LLMs servem à política de poluição do ar do Sul Global com a mesma confiabilidade que ao Norte Global, e se o enquadramento da consulta muda a resposta."
-      },
-      {
-        "file": "latex/sections-PT/01_introducao.tex",
-        "quote": "Declarar a fronteira de um estudo é parte de sua contribuição, porque o leitor que decide se a evidência se aplica à sua situação precisa saber o que foi medido e o que não foi.",
-        "why": "Inflated abstraction where a concrete statement would do",
-        "rewrite": "Declaramos o escopo do estudo para que o leitor possa avaliar se a evidência se aplica à sua situação."
-      },
-      {
-        "file": "latex/sections-PT/01_introducao.tex",
-        "quote": "Este é o achado principal do estudo e sua saída mais diretamente acionável para a prática.",
-        "why": "Asserts importance instead of demonstrating it",
-        "rewrite": "KEEP — this sentence summarizes the paper's main contribution; removing it would lose the explicit statement of the study's primary result."
-      },
-      {
-        "file": "latex/sections-PT/01_introducao.tex",
-        "quote": "Não se trata de detalhe de implementação.",
-        "why": "Formulaic transition; short declarative opener that announces what the paragraph will do",
-        "rewrite": "KEEP — this sentence clarifies that the adjudication method is substantive, not incidental; removing it would lose that emphasis."
-      },
-      {
-        "file": "latex/sections-PT/01_introducao.tex",
-        "quote": "Isso posiciona nosso trabalho empírico como teste de um elo de um ciclo de reprodução teorizado (assimetria no corpus de treinamento $\\to$ assimetria de conhecimento do LLM $\\to$ assimetria na decisão de política), e a manipulação de persona como teste de se o enquadramento do prompt consegue interromper esse elo.",
-        "why": "Inflated abstraction; three-part parallel construction used for rhythm rather than meaning",
-        "rewrite": "Isso posiciona nosso trabalho empírico como teste de um elo do ciclo teorizado: assimetria no corpus de treinamento, assimetria de conhecimento do LLM, assimetria na decisão de política. A manipulação de persona testa se o enquadramento do prompt interrompe esse elo."
-      },
-      {
-        "file": "latex/sections-PT/06_conclusao.tex",
-        "quote": "O resultado mais claro é que as mitigações disponíveis a uma agência não funcionam, e que a mais intuitiva sai pela culatra.",
-        "why": "Asserts importance instead of demonstrating it",
-        "rewrite": "As mitigações disponíveis a uma agência não funcionam, e a mais intuitiva sai pela culatra."
-      },
-      {
-        "file": "latex/sections-PT/06_conclusao.tex",
-        "quote": "A mensagem para as agências ambientais do Sul Global é concreta e em larga medida cautelar.",
-        "why": "Formulaic transition; short declarative opener that announces what the paragraph will do",
-        "rewrite": "Para as agências ambientais do Sul Global, a mensagem é concreta e cautelar."
-      },
-      {
-        "file": "latex/sections-PT/06_conclusao.tex",
-        "quote": "Relatamos também uma cautela metodológica que aprendemos do jeito difícil.",
-        "why": "Formulaic transition; short declarative opener that announces what the paragraph will do",
-        "rewrite": "Relatamos também uma cautela metodológica."
-      },
-      {
-        "file": "latex/sections-PT/06_conclusao.tex",
-        "quote": "O instinto nesta literatura, quando um efeito se mostra frágil, é acrescentar países; nossa experiência é que a chave de gabarito merece a auditoria primeiro, porque uma chave defeituosa acrescenta ruído \\emph{estruturado} que se concentra exatamente onde o dado oficial é mais difícil de obter --- que é onde a hipótese mora.",
-        "why": "Inflated abstraction; three-part parallel construction used for rhythm rather than meaning",
-        "rewrite": "O instinto nesta literatura, quando um efeito se mostra frágil, é acrescentar países; nossa experiência é que a chave de gabarito merece a auditoria primeiro, porque uma chave defeituosa acrescenta ruído estruturado que se concentra onde o dado oficial é mais difícil de obter."
-      }
-    ],
-    "clean_sections": [
-      "latex/sections-PT/00_resumo.tex (abstract body, excluding the flagged sentence)",
-      "latex/sections-PT/01_introducao.tex (paragraphs on 'O viés factual geográfico é real e mensurável', 'A assimetria linguística e de corpus é estrutural', 'Lacuna 1', 'Lacuna 2', 'Lacuna 3', 'Objetivos e escopo' (excluding the flagged sentence), 'Contribuições deste trabalho' (excluding the flagged sentence), 'Enquadramento teórico' (excluding the flagged sentence))",
-      "latex/sections-PT/06_conclusao.tex (paragraphs on the main result, the North/South gap, the mechanism, and the methodological caution, excluding the flagged sentences)"
-    ],
-    "verdict": "The overall voice is that of a careful, methodologically explicit scientist, but it occasionally slips into formulaic transitions and self-important framing that read as machine-generated.",
-    "bloco": "pt-abertura"
+    "bloco": "pt-abertura",
+    "erro": "nao parseavel",
+    "bruto": "```json\n{\n  \"findings\": [\n    {\n      \"file\": \"latex/sections-PT/00_resumo.tex\",\n      \"quote\": \"Contribuímos com esse protocolo e relatamos o que ele encontra.\",\n      \"why\": \"Formulaic transition; short declarative opener that announces what the paragraph will do.\",\n      \"rewrite\": \"Apresentamos esse protocolo e descrevemos seus resultados.\"\n    },\n    {\n      \"file\": \"latex/sections-PT/01_intr"
   }
 ]
