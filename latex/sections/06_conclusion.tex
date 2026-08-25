@@ -7,63 +7,43 @@ concentration, or an operational response carries direct public-health stakes in
 the Global South, where the PM\textsubscript{2.5} mortality burden is
 heaviest~\citep{gbd2019risk,requia2024shortterm}. We measured geographic and
 persona-modulated bias in that domain with a 25-country, 14-model, four-language
-benchmark, scored against ground truth anchored to official primary sources for
-every country --- by code wherever the answer is a register value, and by the mean
-of a three-vendor judge panel elsewhere.
+benchmark, scored against ground truth anchored to official primary sources ---
+by code wherever the answer is a register value, and by the mean of a
+three-vendor judge panel elsewhere.
 
 The remedies an agency can try do not work, and the most intuitive one backfires.
 Asking in the country's own language \emph{lowers} accuracy by $4.8$~percentage
-points (Wilcoxon $p=3\times10^{-15}$, $n=839$ matched cells), significantly in all
-three languages tested and most sharply where the language is least represented in
-training corpora (Hindi $-11.1$~pp). A local-manager persona does not narrow the
-gap ($p=0.27$), and the Brazilian-Portuguese regional model is the weakest of all
-fourteen systems ($\delta=-0.47$). Accuracy also collapses on the recall of a
-binding value: $0.37$ on the national standard against $0.62$ for synthesis and
-recommendation, the task a manager can least afford to have wrong.
-
-A Global North/South tier gap persists ($+5.1$~pp, bootstrap 95\% CI
-$[+1.6,+8.5]$), confirmed by a distribution-free permutation test with the country
-as the unit ($p=0.020$). Measured task by task it is highly structured: on
-returning the binding national standard the Global South odds of a correct answer
-are $0.22$ of the Global North's ($[0.18,0.27]$), and the gap shrinks
-monotonically as the answer depends less on a country-specific fact, disappearing
-on the one task with no register value to get right. It is a gap along the
-North/South line as conventionally drawn --- partitions of the same countries on
-HDI alone do not reproduce it --- and the monotonic development gradient does not
-reach significance ($\rho=0.37$ with HDI, $p=0.073$). We therefore report a
-difference between groups that we can demonstrate and a shape across the
-development range that we cannot.
-
-On mechanism, the answer depends on where one looks. Between countries neither
-corpus channel is identifiable, because coverage and development are collinear
-across 25 observations. Within countries it is: comparing tasks whose answer
-depends on a national fact against tasks whose answer does not --- a contrast in
-which development is constant by construction --- country coverage predicts the
-deficit ($\beta=+0.026$, $p=2\times10^{-8}$), and it still does among the nine
-countries that share English as an official language, where the linguistic
-channel is identical by definition ($\beta=+0.025$, $p=6\times10^{-4}$). We
-identify country representation as the operative channel without claiming causal
-identification.
+points, most sharply where the language is least represented in training corpora;
+a local-manager persona does not narrow the gap; and the regionally tuned model is
+the weakest of all fourteen systems. Accuracy also collapses on the recall of a
+binding value, the task a manager can least afford to have wrong. A Global
+North/South tier gap persists and is highly structured: on returning the binding
+national standard the Global South odds of a correct answer are $0.22$ of the
+Global North's, and the gap shrinks as the answer depends less on a
+country-specific fact, disappearing on the one task with no register value to get
+right. The monotonic development gradient does not reach significance, so we
+report a difference between groups that we can demonstrate and a shape across the
+development range that we cannot. On mechanism, country representation is the
+operative channel for a gap measured in English, identified within countries
+rather than between them, and without a claim to causal identification.
 
 For Global South environmental agencies the practical message is cautionary. LLM
-outputs on binding standards and measured data should be treated as drafts
-checked against the official gazette, and none of the cheap prompt- or
-model-level workarounds substitutes for that verification --- least of all
-switching to the local language, which on this evidence makes the answer worse.
-We interpret the pattern through the coloniality-of-knowledge
+outputs on binding standards and measured data should be treated as drafts checked
+against the official gazette, and none of the cheap prompt- or model-level
+workarounds substitutes for that verification --- least of all switching to the
+local language, which on this evidence makes the answer worse. We interpret the
+pattern through the coloniality-of-knowledge
 framework~\citep{mohamed2020decolonial}: the languages under-served in training
 corpora~\citep{joshi2020state} are spoken where air pollution kills the most
 people, and this study turns that link from a plausible worry into a measured
 effect.
 
-One methodological result generalises beyond this domain. Rebuilding two task
-keys from official registers and moving range comparison out of the judge and
-into code changed the substantive conclusions on the same responses, cutting the
-development gradient from $\rho=0.51$ to $\rho=0.37$ and more than doubling the
-native-language penalty. When an effect in this literature proves fragile, the
-ground-truth key deserves the audit before the sample does, because a defective
-key adds \emph{structured} noise that concentrates exactly where official data are
-hardest to obtain --- which is where the hypothesis lives.
+One methodological result generalises beyond the domain. Rebuilding two task keys
+from official registers and moving range comparison out of the judge and into code
+changed the substantive conclusions on the same responses. When an effect in this
+literature proves fragile, the ground-truth key deserves the audit before the
+sample does, because a defective key adds \emph{structured} noise that concentrates
+exactly where official data are hardest to obtain.
 
 Protocol, prompts, official-source ground-truth registries, analysis code, and
 anonymised response data are released openly, with a one-command reproduction
