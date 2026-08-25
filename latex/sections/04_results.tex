@@ -72,7 +72,8 @@ accuracy. Scale and frontier training dominate regional instruction tuning at th
 the answer is a register value, panel mean elsewhere; $[0,1]$). $N$ = scored
 English-prompt responses.}
 \label{tab:conf-model}
-\small
+\footnotesize
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{lrr}
 \toprule
 Model & $N$ & Mean \\
@@ -127,7 +128,8 @@ rather than shared equally with local-datum recall (T2).
 code-adjudicated where the returned value is checkable against the official
 register; T4 is panel-scored; T1 and T5 retain their original scores.}
 \label{tab:conf-task}
-\small
+\footnotesize
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{lrr}
 \toprule
 Task & $N$ & Mean \\
@@ -145,8 +147,8 @@ T1 (technical standard)      & 1{,}529 & 0.367 \\
 \label{sec:results:h2}
 
 For the nine countries with a target native language
-(Brazil/Portugal/Angola~$\to$~Portuguese,
-Mexico/Argentina/Peru/Colombia/Chile~$\to$~Spanish, India~$\to$~Hindi), each
+(Brazil\slash Portugal\slash Angola~$\to$~Portuguese,
+Mexico\slash Argentina\slash Peru\slash Colombia\slash Chile~$\to$~Spanish, India~$\to$~Hindi), each
 prompt is rendered in both English and the native language, holding content
 fixed, so the English/native contrast is within-country and within-model.
 Replicates are averaged within each (model, prompt) cell before pairing, because
@@ -235,7 +237,8 @@ the language-corpus channel of H4.
 \caption{H2: native-minus-English accuracy by native language (paired within
 country and model, replicates averaged within cell, 25-country sample).}
 \label{tab:h2}
-\small
+\footnotesize
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{llrrr}
 \toprule
 Native language (Joshi class) & Countries & $\Delta$ (pp) & $p$ & $N$ cells \\
@@ -305,7 +308,8 @@ the odds of a Global North one.
 \caption{Global South versus Global North odds of returning the register value,
 by task. Binomial mixed model, crossed random intercepts for country and model.}
 \label{tab:tier-by-task}
-\small
+\footnotesize
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{llrrrl}
 \toprule
 Task & Answer is & GN & GS & OR & 95\% interval \\
@@ -343,7 +347,8 @@ ranking. This heterogeneity is itself part of why the gradient does not resolve.
 \caption{Composite accuracy by country, 25-country sample
 (tier: GN = Global North, GS = Global South). Ordered by mean.}
 \label{tab:conf-country}
-\small
+\footnotesize
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{llr@{\qquad}llr}
 \toprule
 Country & Tier & Mean & Country & Tier & Mean \\
@@ -448,7 +453,8 @@ was too confounded to show.
 with a fixed effect for country. Positive $\beta$ = greater coverage, smaller
 deficit on country-dependent tasks.}
 \label{tab:h4-within}
-\small
+\footnotesize
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{lrl}
 \toprule
 Task classification & $\beta$ & $p$ \\
@@ -512,6 +518,12 @@ Air Pollution Legislation, covering 24 of 25 countries. This provenance is more
 reproducible than expert validation: any reader can re-verify each value from the
 official source.
 
+Every key in this study therefore comes from an official register. The Wikipedia
+and Wikidata measures that appear in the mechanism test (Section~\ref{sec:results:h4})
+play the opposite role: they are the explanatory variable, standing for how much
+the training corpus is likely to say about a country, and no answer is ever
+scored against them.
+
 \subsection{Qualitative failure modes}
 \label{sec:results:qualitative}
 
@@ -522,8 +534,10 @@ drawn verbatim from the response logs (run IDs available in the release).
 \centering
 \caption{Box 1 --- Representative failure modes (verbatim, lightly truncated).}
 \label{tab:box1}
-\small
-\begin{tabular}{p{0.30\linewidth}p{0.62\linewidth}}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}p{0.26\linewidth}p{0.68\linewidth}@{}}
 \toprule
 Failure mode & Example \\
 \midrule
@@ -645,7 +659,8 @@ conventionally drawn}, and not as a general statement about development.
 \caption{Tier gap under alternative partitions of the same 25 countries.
 Permutation test with country as the unit, 10{,}000 relabellings.}
 \label{tab:taxonomy}
-\small
+\footnotesize
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{lrrr}
 \toprule
 Partition & Gap (pp) & GN/GS & $p$ \\
@@ -721,21 +736,29 @@ than the data support.
 \centering
 \caption{Hypotheses, findings, candidate mechanisms, and evidence status.}
 \label{tab:hyp-summary}
-\small
-\begin{tabular}{p{0.12\linewidth}p{0.29\linewidth}p{0.24\linewidth}p{0.23\linewidth}}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l l l l@{}}
 \toprule
-Hypothesis & Finding & Candidate mechanism & Evidence status \\
+Hypothesis & Finding & Mechanism & Evidence status \\
 \midrule
-H2 (language) & $-4.8$~pp; Hindi $-11.1$ & language-corpus size & Supported; mechanism descriptive ($n=3$) \\
-H3 (regional model) & $\delta=-0.47$ & scale $>$ regional tuning & Supported \\
-H1 (tier gap) & $+5.1$~pp composite; OR $0.23$ on T1 & tier (development) & Supported; concentrated in country-fact recall \\
-H1 (gradient) & $\rho=0.37$, $p=0.080$ & development (HDI) & Exploratory; not significant \\
-H4 (geographic mech.) & within-country $\beta=+0.026$, $p=2\times10^{-8}$ & country coverage & Supported within country; not causal \\
-H4 (pre-specified) & Wikipedia-size null & language-corpus size & Not supported \\
-H5 (open/closed) & $+13.3$~pp closed & access type / scale & Descriptive \\
-H6 (persona) & DiD $+0.6$~pp & --- & Not supported \\
+H2 language      & $-4.8$ pp; Hindi $-11.1$        & language corpus  & Supported \\
+H3 regional model& $\delta=-0.47$, worst of 14     & scale over tuning& Supported \\
+H1 tier gap      & $+5.1$ pp; OR $0.23$ on T1      & tier             & Supported \\
+H1 gradient      & $\rho=0.37$, $p=0.073$          & development      & Not significant \\
+H4 within country& $\beta=+0.026$, $p=2$e$-8$      & country coverage & Supported, not causal \\
+H4 pre-specified & language-corpus proxy null      & language corpus  & Not supported \\
+H5 open/closed   & $+13.3$ pp for closed           & access type      & Descriptive \\
+H6 persona       & DiD $+0.6$ pp, $p=0.27$         & ---              & Not supported \\
 \bottomrule
 \end{tabular}
+
+\vspace{2pt}
+\footnotesize\emph{Note.} H2's mechanism rests on three native languages and is
+descriptive. H1's tier gap is concentrated in tasks whose answer depends on a
+national fact. H4 within country removes country-level confounding by
+construction, not causal identification.
 \end{table}
 
 Correcting the ground truth reorders what this study can claim.

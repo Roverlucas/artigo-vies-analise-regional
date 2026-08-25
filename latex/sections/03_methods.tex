@@ -108,8 +108,20 @@ the encyclopedic corpus is \emph{about} a country, independent of language, and
 are the candidate mechanism for the geographic gap (H1/H4): the byte length of
 the English Wikipedia article on the country, the number of Wikipedia language
 editions with an article on it (Wikidata sitelink count), and the number of
-Wikidata statements on the country entity. The two families are not
-interchangeable: because the geographic gap is measured \emph{in English}
+Wikidata statements on the country entity.
+
+One point deserves stating plainly, because the two roles are easy to conflate.
+Wikipedia and Wikidata are never used as ground truth here. They are the
+\emph{explanatory} variable of the mechanism test: measures of how much the
+training corpus is likely to contain about a country. What a model's answer is
+scored against is always an official register --- the national gazette for the
+binding standard, WHO databases for measured concentrations and health burden,
+and the UNEP legislative assessment for policy instruments
+(Section~\ref{sec:groundtruth}). Had we scored answers against an encyclopedia,
+the study would measure agreement with an encyclopedia, which is not the question
+a public administration faces.
+
+The two corpus families are also not interchangeable: because the geographic gap is measured \emph{in English}
 (language held constant across countries), a residual North/South gap cannot be
 a language-corpus effect, so H4 isolates the country-representation channel for
 H1 and the language-corpus channel for H2. All covariate values, official

@@ -39,6 +39,15 @@
 \usepackage[authoryear,round]{natbib}
 \bibliographystyle{apalike}
 
+% URLs longas e nomes compostos estouram a margem; ver main.tex
+\usepackage{url}
+\def\UrlBreaks{\do\/\do\-\do\.\do\_}
+\Urlmuskip=0mu plus 1mu
+\hyphenation{Deep-Seek An-thro-pic Son-net Ge-mi-ni Kripp-en-dorff
+             mul-ti-lin-gue pre-es-pe-ci-fi-ca-do re-tro-tra-du-cao
+             ad-mi-nis-tra-cao}
+\setlength{\emergencystretch}{3em}
+
 \usepackage[colorlinks=true,
             linkcolor=blue!50!black,
             citecolor=blue!50!black,
@@ -78,9 +87,9 @@ ambiental pública em 25 países}
 
 \input{sections-PT/00_resumo}
 
-\noindent\textbf{Palavras-chave:} IA generativa no governo; informação
-regulatória; confiabilidade da informação; gestão ambiental pública; apoio
-algorítmico à decisão; modelos de linguagem de grande porte; Sul Global
+% Cinco, e nenhuma repete o título — ver a nota em main.tex.
+\noindent\emph{Palavras-chave:} auditoria de algoritmos; viés geográfico; viés
+multilíngue; governo digital; Sul Global
 
 \vspace{1em}
 
@@ -132,16 +141,16 @@ para este estudo.
 
 Segundo a taxonomia CRediT:
 \begin{itemize}\setlength{\itemsep}{0pt}
-\item \textbf{Lucas Rover (UTFPR):} Conceituação, Metodologia, Software, Curadoria
+\item Lucas Rover (UTFPR): Conceituação, Metodologia, Software, Curadoria
   de Dados, Análise Formal, Investigação, Visualização, Redação~--~Rascunho
   Original, Administração do Projeto.
-\item \textbf{Vitor de Melo Dominski (Faculdade Descomplica):} Curadoria de Dados,
+\item Vitor de Melo Dominski (Faculdade Descomplica): Curadoria de Dados,
   Software, Análise Formal.
-\item \textbf{Prof.\ Anibal Tavares de Azevedo (Unicamp):} Redação~--~Rascunho
+\item Prof.\ Anibal Tavares de Azevedo (Unicamp): Redação~--~Rascunho
   Original, Redação~--~Revisão e Edição.
-\item \textbf{Dr.\ Eduardo Tadeu Bacalhau (UFPR):} Validação, Supervisão,
+\item Dr.\ Eduardo Tadeu Bacalhau (UFPR): Validação, Supervisão,
   Redação~--~Revisão e Edição.
-\item \textbf{Dra.\ Yara de Souza Tadano (UTFPR):} Validação, Supervisão,
+\item Dra.\ Yara de Souza Tadano (UTFPR): Validação, Supervisão,
   Redação~--~Revisão e Edição.
 \end{itemize}
 
@@ -150,7 +159,7 @@ Segundo a taxonomia CRediT:
 É preciso separar dois usos distintos, porque apenas um deles é objeto desta
 declaração.
 
-\textbf{Como objeto e instrumento do estudo.} Modelos de linguagem são o objeto
+\emph{Como objeto e instrumento do estudo.} Modelos de linguagem são o objeto
 desta pesquisa e também servem como um de seus instrumentos de medida: GPT-5-mini,
 Gemini~2.5~Pro, Claude Sonnet~4.6 e DeepSeek-V3 pontuaram respostas contra o
 registro de gabarito, e o Claude Sonnet~4.6 produziu as versões dos prompts em
@@ -160,7 +169,7 @@ entre juízes e uma auditoria de retrotradução dos prompts traduzidos. Onde a
 resposta correta é um valor de registro oficial, o veredito é computado por
 código, não por modelo.
 
-\textbf{Na preparação do manuscrito.} Durante a preparação deste trabalho, os
+\emph{Na preparação do manuscrito.} Durante a preparação deste trabalho, os
 autores usaram modelos de linguagem para auxiliar na redação e edição do texto e
 na implementação do código de análise. Após usar essas ferramentas, os autores
 revisaram e editaram o conteúdo conforme necessário e assumem responsabilidade

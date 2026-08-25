@@ -42,6 +42,21 @@ reliably improve factual accuracy~\citep{zheng2024helpful,mollick2025personas}. 
 manipulation check confirms half of the responses explicitly take up the role
 frame, so the null is not a failure of the manipulation.
 
+This null carries more weight than a null about a folk habit would, because role
+framing is what the vendors themselves instruct their users to do. All four of
+the major providers document it: Anthropic tells developers to give the model a
+role in the system prompt~\citep{anthropic2026systemprompts}, OpenAI's guide opens
+the recommended message structure with an identity block~\citep{openai2026promptengineering},
+Google's Gemini documentation asks that role definitions --- which it calls
+persona --- be placed in the system instruction~\citep{google2026promptingstrategies},
+and xAI's standard example initialises every conversation with a role-assigning
+system prompt~\citep{xai2026chatguide}. An administration that reads its supplier's
+own documentation and follows it arrives at precisely the manipulation we tested,
+and gains nothing in accuracy about its own regulation. The advice is not wrong
+about tone or format, which is what the documentation actually claims for it; it
+is simply inert for factual reliability, and a public body has no way to tell the
+difference from the documentation alone.
+
 The regional model --- Brazilian-Portuguese Cabra-Mistral~7B --- is the
 \emph{worst} performer of all fourteen ($\delta=-0.47$), so reaching for a locally
 tuned small model trades away the scale and frontier training that actually carry

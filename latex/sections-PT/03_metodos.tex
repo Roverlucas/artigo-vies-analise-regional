@@ -108,8 +108,20 @@ quanto o corpus enciclopédico fala \emph{sobre} um país, independentemente do
 idioma, e são o mecanismo candidato para a lacuna geográfica (H1/H4): o tamanho em
 bytes do artigo da Wikipédia inglesa sobre o país, o número de edições linguísticas
 da Wikipédia com artigo sobre ele (contagem de sitelinks do Wikidata) e o número de
-declarações do Wikidata sobre a entidade do país. As duas famílias não são
-intercambiáveis: como a lacuna geográfica é medida \emph{em inglês} (idioma mantido
+declarações do Wikidata sobre a entidade do país.
+
+Um ponto merece ser dito de forma direta, porque os dois papéis se confundem com
+facilidade. A Wikipédia e o Wikidata nunca são usados como gabarito aqui. Eles são
+a variável \emph{explicativa} do teste de mecanismo: medidas de quanto o corpus de
+treinamento provavelmente contém sobre um país. Aquilo contra o que a resposta de
+um modelo é pontuada é sempre um registro oficial --- o diário oficial para o
+padrão vinculante, as bases da OMS para concentrações medidas e carga de saúde, e
+a avaliação legislativa do PNUMA para instrumentos de política
+(Seção~\ref{sec:gabarito}). Tivéssemos pontuado respostas contra uma enciclopédia,
+o estudo mediria concordância com uma enciclopédia, que não é a pergunta que uma
+administração pública enfrenta.
+
+As duas famílias de corpus também não são intercambiáveis: como a lacuna geográfica é medida \emph{em inglês} (idioma mantido
 constante entre países), uma lacuna Norte/Sul residual não pode ser efeito de
 corpus da língua, de modo que H4 isola o canal de representação do país para H1 e o
 canal de corpus da língua para H2. Todos os valores de covariáveis, fontes oficiais

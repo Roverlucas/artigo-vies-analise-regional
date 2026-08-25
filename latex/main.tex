@@ -33,12 +33,33 @@
 \usepackage{longtable}
 \usepackage{array}
 
+% URLs longas nao quebram sozinhas e estouram a margem; estas duas linhas
+% autorizam a quebra depois de barras e hifens dentro do endereco.
+\usepackage{url}
+\def\UrlBreaks{\do\/\do\-\do\.\do\_}
+\Urlmuskip=0mu plus 1mu
+
 \usepackage[colorlinks=true,
             linkcolor=blue!50!black,
             citecolor=blue!50!black,
             urlcolor=blue!50!black]{hyperref}
 
 \newcommand{\placeholder}[1]{\textcolor{red!80!black}{\textbf{[#1]}}}
+
+% Palavras compostas e siglas longas travam a quebra de linha e produzem
+% overfull; declarar os pontos de hifenizacao resolve sem \sloppy, que estraga
+% o espacamento do paragrafo inteiro.
+\hyphenation{Bra-zil Por-tu-gal An-go-la Co-lom-bia Ar-gen-ti-na
+             Phil-ip-pines In-do-ne-sia Bangla-desh
+             mul-ti-lin-gual pre-spec-i-fied back-trans-la-tion
+             coun-try-cov-er-age lan-guage-cor-pus
+             Deep-Seek An-thro-pic Son-net Ge-mi-ni
+             ad-min-is-tra-tion Mann-Whit-ney Kripp-en-dorff}
+
+% Ultimo recurso do TeX antes de estourar a margem: permite afrouxar o
+% espacamento de um paragrafo em vez de deixar uma linha sair da caixa. Preferivel
+% a \sloppy, que afrouxa o documento inteiro.
+\setlength{\emergencystretch}{3em}
 
 \journal{Government Information Quarterly}
 
@@ -94,9 +115,9 @@ digital government \sep Global South
 \section*{Data and code availability}
 
 The full protocol, prompts, analysis code, ground-truth registries, and the
-anonymised LLM responses will be released on publication
-at
-\href{https://github.com/Roverlucas/artigo-vies-analise-regional}{github.com/Roverlucas/artigo-vies-analise-regional}
+anonymised LLM responses will be released on publication at\\
+\href{https://github.com/Roverlucas/artigo-vies-analise-regional}%
+{\texttt{github.com/Roverlucas/}\allowbreak\texttt{artigo-vies-analise-regional}}\\
 under MIT (code) and CC-BY-4.0 (data, prompts, documentation) licenses. The
 release includes the per-response records that every reported effect is computed
 from, so each number in this paper can be recomputed from the raw data rather

@@ -46,6 +46,22 @@ factual~\citep{zheng2024helpful,mollick2025personas}. Uma checagem de manipulaç
 confirma que metade das respostas assume explicitamente o enquadramento de papel,
 de modo que o nulo não decorre de falha da manipulação.
 
+Esse nulo pesa mais do que pesaria um nulo sobre um hábito popular, porque o
+enquadramento por papel é o que os próprios fornecedores instruem seus usuários a
+fazer. Os quatro principais o documentam: a Anthropic manda dar um papel ao modelo
+no prompt de sistema~\citep{anthropic2026systemprompts}, o guia da OpenAI abre a
+estrutura de mensagem recomendada com um bloco de
+identidade~\citep{openai2026promptengineering}, a documentação do Gemini pede que
+definições de papel --- que ela chama de persona --- fiquem na instrução de
+sistema~\citep{google2026promptingstrategies}, e o exemplo padrão da xAI inicia
+toda conversa com um prompt de sistema que atribui papel~\citep{xai2026chatguide}.
+Uma administração que leia a documentação do próprio fornecedor e a siga chega
+exatamente à manipulação que testamos, e não ganha acurácia alguma sobre a própria
+norma. O conselho não está errado quanto a tom ou formato, que é o que a
+documentação de fato promete; ele é apenas inerte para confiabilidade factual, e
+um órgão público não tem como distinguir uma coisa da outra apenas pela
+documentação.
+
 O modelo regional --- o Cabra-Mistral~7B em português brasileiro --- é o
 \emph{pior} desempenho entre os catorze ($\delta=-0.47$), de modo que recorrer a um
 modelo pequeno com ajuste local troca a escala e o treinamento de fronteira, que

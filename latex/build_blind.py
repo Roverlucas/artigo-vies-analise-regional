@@ -46,8 +46,14 @@ REGRAS = [
     (r"\\affiliation\[[^\]]*\]\{[^}]*(\{[^}]*\}[^}]*)*\}", "", "afiliacoes no fonte"),
     (r"https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+",
      "https://ANONYMISED-FOR-REVIEW", "URL do repositorio com o usuario do autor"),
+    # o endereco visivel aparece em mais de um formato (texto simples, dentro de
+    # \texttt, quebrado por \allowbreak); casar o usuario direto cobre todos
+    (r"\\texttt\{github\.com/[A-Za-z0-9_.-]+/\}\\allowbreak\\texttt\{[A-Za-z0-9_.-]+\}",
+     "{repository URL withheld for double-blind review}", "URL em texttt quebrado"),
     (r"\{github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+\}",
      "{repository URL withheld for double-blind review}", "URL visivel no texto"),
+    (r"github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+",
+     "repository URL withheld for review", "qualquer ocorrencia restante do endereco"),
     (r"\\section\*\{Acknowledgements\}.*?(?=\\section\*)", "", "agradecimentos"),
     (r"\\section\*\{Author contributions\}.*?(?=\\section\*)", "", "contribuicoes CRediT"),
     (r"\(PPGSAU/UTFPR\)", "(institutional details withheld for review)",
