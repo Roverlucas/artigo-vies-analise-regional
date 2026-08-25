@@ -287,12 +287,12 @@ $\rho\geq 0.55$ effect-size threshold in both samples.}
 \toprule
 Test & 15 countries (pre-specified) & 25 countries (extension) \\
 \midrule
-H1 Spearman $\rho$(acc, HDI)        & $+0.093$, ns & $+0.365$ ($p=0.073$), ns; does not reject under B--H \\
-H1 Mann--Kendall (by HDI)           & $S=9$, $Z=+0.40$, $p=0.692$        & $S=102$, $Z=+2.36$, $p=0.018$ \\
+H1 Spearman $\rho$(acc, HDI)        & $+0.093$, ns                       & $+0.365$ ($p=0.072$), ns \\
+H1 Mann--Kendall (by HDI)           & ns                                 & $p=0.072$, ns \\
 H1 Spearman $\rho$(acc, Joshi)      & $+0.028$, ns                       & $-0.061$, ns (development, not linguistic) \\
-H1 vs threshold $\rho\geq 0.55$     & not met                            & not met (significant, below effect size) \\
-H4 partial $\rho$(acc, Wiki$\,\vert\,$HDI) & $+0.218$ ($p=0.45$), ns      & $+0.036$ ($p=0.87$), ns \\
-H6 DiD persona (GS$-$GN)            & $+0.97$~pp, perm $p=0.142$, ns     & $+0.39$~pp, perm $p=0.257$, ns \\
+H1 vs threshold $\rho\geq 0.55$     & not met                            & not met \\
+H4 partial $\rho$(acc, coverage$\,\vert\,$HDI) & ns                      & $+0.177$ ($p=0.41$), ns \\
+H6 DiD persona (GS$-$GN)            & ns                                 & $+0.65$~pp, perm $p=0.269$, ns \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -310,10 +310,10 @@ language-edition proxy is null.}
 \toprule
 Measure & Family & $\rho$(acc, log measure) & partial $\,\vert\,$ HDI \\
 \midrule
-English-Wikipedia bytes      & country  & $+0.198$ ($p=0.34$) & $+0.181$ \\
-Wikidata sitelinks  & country  & $+0.539$ ($p=0.005$) & $+0.317$ ($p=0.13$) \\
-Wikidata statements          & country  & $+0.313$ ($p=0.13$) & $+0.144$ \\
-Wikipedia-edition count      & language & $+0.082$, ns        & $+0.036$, ns \\
+English-Wikipedia bytes      & country  & $+0.153$ ($p=0.47$) & $+0.132$ ($p=0.54$) \\
+Wikidata sitelinks  & country  & $+0.362$ ($p=0.075$) & $+0.177$ ($p=0.41$) \\
+Wikidata statements          & country  & $+0.296$ ($p=0.15$) & $+0.180$ ($p=0.40$) \\
+Wikipedia-edition count      & language & $+0.142$, ns        & ns \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -328,15 +328,13 @@ Wikipedia-edition count      & language & $+0.082$, ns        & $+0.036$, ns \\
 Finding & Statistic \\
 \midrule
 Tier gap (GN$-$GS)                 & $+5.1$~pp, 95\% CI $[+1.6,+8.5]$; permutation $p=0.020$ \\
-Tier gap, LOCO range               & $[+5.8,+7.1]$~pp, stable \\
-H1 HDI gradient, LOCO range        & $\rho\in[+0.48$ (drop NGA)$,\ +0.66$ (drop IND)$]$ \\
+Tier gap, LOCO range               & $[+4.5,+6.0]$~pp, stable \\
 H1 leave-one-country-out range & $\rho\in[+0.31,+0.49]$: never reaches the pre-specified $0.55$ \\
 Task floor (T1{+}T2 vs T3--T5)     & $0.417$ vs $0.623$, Cliff's $\delta=-0.47$ \\
 H3 Cabra-Mistral vs rest           & $0.347$ vs $0.549$, Cliff's $\delta=-0.47$ \\
-H2 native vs English (all)         & $\Delta=-2.1$~pp, Wilcoxon $p=1.96\times10^{-3}$ ($n=762$) \\
+H2 native vs English (all)         & $\Delta=-4.8$~pp, Wilcoxon $p=3\times10^{-15}$ ($n=839$) \\
 \quad Spanish / Portuguese / Hindi & $-4.4$ / $-3.9$ / $-11.1$~pp, all significant \\
-H2 country-level (independent unit, $n=9$) & 9/9 negative, mean $-2.4$~pp, Wilcoxon $p=0.008$ \\
-H5 open vs closed-accessible       & $+14.1$~pp closed advantage (descriptive) \\
+H5 open vs closed-accessible       & $+13.3$~pp closed advantage (descriptive) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -373,16 +371,20 @@ PCA-derived                & $+4.84$ & $+0.375$ & $-0.494$ & $-0.473$ \\
 
 \paragraph{Mixed model and Bayesian re-estimation.} A Gaussian linear mixed model
 (\texttt{statsmodels} MixedLM, REML) with crossed random intercepts for country and
-model gives a Global South effect of $\beta=-0.077$ ($\mathrm{SE}=0.028$,
-$p=0.007$; country-only $-0.077$, model-only $-0.064$). A Bayesian hierarchical
+model gives a Global South effect of $\beta=-0.066$ ($\mathrm{SE}=0.036$,
+$p=0.069$), marginal rather than conventionally significant because it charges the
+large between-country heterogeneity to the error term. A Bayesian hierarchical
 re-estimation with weakly informative priors (\texttt{pymc}; crossed country/model
-intercepts) agrees: posterior mean $-0.065$, 94\% HDI $[-0.096,-0.033]$,
-$P(\beta<0)=1.00$ ($\hat{R}=1.01$).
+intercepts, \texttt{random\_seed=42}) agrees on magnitude and is decisive about the
+sign: posterior mean $-0.052$, 94\% HDI $[-0.092,-0.016]$, $P(\beta<0)=0.994$
+($\hat{R}=1.001$).
 
-\paragraph{E-values.} The unmeasured confounding required to explain away the
-supported geographic effects is substantial: E-value $=1.85$ for the tier gap and
-$5.37$ for the development gradient (VanderWeele \& Ding 2017 approximation from
-the standardized effect).
+\paragraph{E-values.} The tier gap carries an E-value of $1.70$ at the point
+estimate and $1.31$ at the confidence limit nearest the null (VanderWeele \& Ding
+2017 approximation from the standardized effect); the second is the operative
+number, and it is a low bar. No E-value is reported for the development gradient:
+its interval already includes the null, so the E-value at that limit is $1.00$ and
+no confounder at all is required.
 
 \paragraph{Exploratory mediation (H4).} A standardized country-level path model
 (\texttt{semopy}, $n=25$): $\mathrm{HDI}\rightarrow$ sitelinks $a=+0.67$;
@@ -521,8 +523,8 @@ Mixed model, Bayesian re-estimation and E-values reported alongside the primary
 tests &
 Recomputed on the corrected scoring &
 All three are weaker than the single-judge versions. The mixed model falls from
-$p=0.007$ to $p=0.069$; the Bayesian posterior from $P(\beta<0)=1.00$ to $0.984$;
-the tier-gap E-value from $1.85$ to $1.65$ at the point and $1.25$ at the
+$p=0.007$ to $p=0.069$; the Bayesian posterior from $P(\beta<0)=1.00$ to $0.994$;
+the tier-gap E-value from $1.85$ to $1.70$ at the point and $1.31$ at the
 confidence limit. The tier gap is reported as supported but
 specification-sensitive. \\
 

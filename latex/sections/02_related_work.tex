@@ -47,8 +47,13 @@ landscape. Both are conceptual and aggregate.
 Role conditioning is not a folk practice but what the vendors instruct their own
 users to do: Anthropic documents role setting in the system
 prompt~\citep{anthropic2026systemprompts}, OpenAI's guide opens the recommended
-message structure with an identity block~\citep{openai2026promptengineering}, and
-the pattern is catalogued in the prompting literature~\citep{white2023prompt}.
+message structure with an identity block~\citep{openai2026promptengineering},
+Google's Gemini documentation asks that role definitions --- which it calls
+persona --- be placed in the system
+instruction~\citep{google2026promptingstrategies}, xAI's standard example
+initialises every conversation with a role-assigning system
+prompt~\citep{xai2026chatguide}, and the pattern is catalogued in the prompting
+literature~\citep{white2023prompt}.
 The systematic evidence on whether it helps is sobering: across four LLM families
 and 2{,}410 factual questions, expert personas did not improve accuracy over a
 no-persona control and slightly \emph{reduced} it across 162

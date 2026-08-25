@@ -286,11 +286,11 @@ tamanho de efeito pré-especificado $\rho\geq 0,55$ em ambas as amostras.}
 Teste & 15 países (pré-especificado) & 25 países (extensão) \\
 \midrule
 H1 Spearman $\rho$(acc, IDH)        & $+0.093$, ns & $+0.365$ ($p=0.073$), ns; não rejeita sob B--H \\
-H1 Mann--Kendall (por IDH)          & $S=9$, $Z=+0.40$, $p=0.692$        & $S=102$, $Z=+2.36$, $p=0.018$ \\
+H1 Mann--Kendall (por IDH)          & ns                                 & $p=0.072$, ns \\
 H1 Spearman $\rho$(acc, Joshi)      & $+0.028$, ns                       & $-0.061$, ns (desenvolvimento, não linguístico) \\
 H1 vs limiar $\rho\geq 0.55$        & não atingido                       & não atingido (significativo, abaixo do tamanho de efeito) \\
-H4 $\rho$ parcial (acc, Wiki$\,\vert\,$IDH) & $+0.218$ ($p=0.45$), ns     & $+0.036$ ($p=0.87$), ns \\
-H6 DiD persona (GS$-$GN)            & $+0.97$~pp, perm $p=0.142$, ns     & $+0.39$~pp, perm $p=0.257$, ns \\
+H4 $\rho$ parcial (acc, cobertura$\,\vert\,$IDH) & ns                    & $+0.177$ ($p=0.41$), ns \\
+H6 DiD persona (SG$-$NG)            & ns                                 & $+0.65$~pp, perm $p=0.269$, ns \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -308,10 +308,10 @@ O proxy pré-especificado de edição de idioma é nulo.}
 \toprule
 Medida & Família & $\rho$(acc, log medida) & parcial $\,\vert\,$ IDH \\
 \midrule
-Bytes Wikipédia-inglês       & país     & $+0.198$ ($p=0.34$) & $+0.181$ \\
-Sitelinks Wikidata  & país     & $+0.539$ ($p=0.005$) & $+0.317$ ($p=0.13$) \\
-Statements Wikidata          & país     & $+0.313$ ($p=0.13$) & $+0.144$ \\
-Contagem de edições Wikipédia & idioma  & $+0.082$, ns        & $+0.036$, ns \\
+Bytes Wikipédia-inglês       & país     & $+0.153$ ($p=0.47$) & $+0.132$ ($p=0.54$) \\
+Sitelinks Wikidata  & país     & $+0.362$ ($p=0.075$) & $+0.177$ ($p=0.41$) \\
+Statements Wikidata          & país     & $+0.296$ ($p=0.15$) & $+0.180$ ($p=0.40$) \\
+Contagem de edições Wikipédia & idioma  & $+0.142$, ns        & ns \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -326,15 +326,15 @@ leave-one-country-out (LOCO) e de restrição de amplitude.}
 Achado & Estatística \\
 \midrule
 Lacuna de camada (NG$-$SG)         & $+5.1$~pp, IC 95\% $[+1.6,+8.5]$; permutação $p=0.020$ \\
-Lacuna de camada, faixa LOCO       & $[+5.8,+7.1]$~pp, estável \\
+Lacuna de camada, faixa LOCO       & $[+4.5,+6.0]$~pp, estável \\
 Gradiente IDH H1, faixa LOCO       & $\rho\in[+0.48$ (sem NGA)$,\ +0.66$ (sem IND)$]$ \\
 H1 \emph{leave-one-country-out} & $\rho\in[+0.31,+0.49]$: nunca atinge o limiar pré-especificado de 0.55 \\
 Piso de tarefa (T1{+}T2 vs T3--T5) & $0.367$ vs $0.638$, Mann--Whitney, $\delta$ de Cliff $=-0.64$ \\
 H3 Cabra-Mistral vs restante       & $0.347$ vs $0.549$, $\delta$ de Cliff $=-0.47$ \\
-H2 nativo vs inglês (todos)        & $\Delta=-2.1$~pp, Wilcoxon $p=1.96\times10^{-3}$ ($n=762$) \\
+H2 nativo vs inglês (todos)        & $\Delta=-4.8$~pp, Wilcoxon $p=3\times10^{-15}$ ($n=839$) \\
 \quad Espanhol / Português / Hindi & $-1.0$ ($p=0.15$) / $-2.3$ ($p=0.033$) / $-7.8$ ($p=0.013$) \\
 H2 em nível de país (unidade independente, $n=9$) & 9/9 negativos, média $-2.4$~pp, Wilcoxon $p=0.008$ \\
-H5 aberto vs fechado-acessível     & vantagem fechada de $+14.1$~pp (descritivo) \\
+H5 aberto vs fechado-acessível     & vantagem fechada de $+13.3$~pp (descritivo) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -455,6 +455,36 @@ devolveu o valor correto em inglês e resposta \emph{vazia} à mesma pergunta em
 \bottomrule
 \end{tabular}
 \end{table}
+
+% ============================================================
+\emph{Modelo misto e reestimação bayesiana.} Um modelo linear misto gaussiano
+(MixedLM do \texttt{statsmodels}, REML) com interceptos aleatórios cruzados de país
+e modelo dá um efeito do Sul Global de $\beta=-0.066$ ($\mathrm{EP}=0.036$,
+$p=0.069$), marginal em vez de convencionalmente significativo porque cobra do
+termo de erro a grande heterogeneidade entre países. Uma reestimação hierárquica
+bayesiana com prioris fracamente informativas (\texttt{pymc}; interceptos cruzados
+de país e modelo, \texttt{random\_seed=42}) concorda em magnitude e é decisiva
+quanto ao sinal: média posterior $-0.052$, HDI de 94\% $[-0.092,-0.016]$,
+$P(\beta<0)=0.994$ ($\hat{R}=1.001$).
+
+\emph{E-values.} A lacuna de camada carrega um E-value de $1.70$ na estimativa
+pontual e $1.31$ no limite do intervalo mais próximo do nulo (aproximação de
+VanderWeele \& Ding 2017 a partir do efeito padronizado); o segundo é o número
+operativo, e é um limiar baixo. Nenhum E-value é relatado para o gradiente de
+desenvolvimento: seu intervalo já inclui o nulo, de modo que o E-value nesse limite
+é $1.00$ e nenhum confundidor é necessário.
+
+\emph{Mediação exploratória (H4).} Um modelo de caminhos padronizado no nível do
+país (\texttt{semopy}, $n=25$): $\mathrm{IDH}\rightarrow$ sitelinks $a=+0.67$;
+sitelinks $\rightarrow$ acurácia $b=+0.27$; direto $c'=+0.31$; indireto
+$ab=+0.18$ com IC bootstrap de 95\% $[-0.27,+0.59]$ (inclui o zero). A cobertura do
+país é, portanto, um mediador sugestivo mas não estabelecido, coerente com o
+enquadramento do texto principal.
+
+\emph{Checagem da manipulação de persona.} Em 4.349 respostas na condição de
+persona, $50.2\%$ reconhecem explicitamente o enquadramento de papel de gestor
+público, de modo que o nulo de persona (H6) não é artefato de o enquadramento ser
+universalmente ignorado.
 
 % ============================================================
 \section{Desvios em relação ao plano de análise pré-especificado}
