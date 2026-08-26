@@ -203,7 +203,10 @@ Material.
 One implementation detail matters for how the result should be read. Every request
 in this study is sent as a single user turn with no system prompt, so the role
 frame is prefixed to the user message rather than installed as a system
-instruction, which is where the vendor guides place it. This is deliberate: the
+instruction. Three of the four vendor guides place the role there; Google's is
+explicit that it belongs \emph{either} in the system instruction \emph{or} ``at the
+very beginning of the user prompt''~\citep{google2026promptingstrategies}, which
+is exactly the channel we test. This is deliberate: the
 system-prompt route requires API access and a developer to configure it, while the
 public servants whose decisions motivate this study reach these models through the
 consumer chat interface, where the only available channel is the message they
