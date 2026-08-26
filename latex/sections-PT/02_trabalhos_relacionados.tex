@@ -29,9 +29,12 @@ que motiva H2 e se conecta à hierarquia de recursos de \citet{joshi2020state}.
 Benchmarks regionais proliferaram: BRoverbs~\citep{broverbs2025},
 TiEBe~\citep{almeida2025tiebe}, ALBA~\citep{alba2026} e AMALIA~\citep{amalia2026}
 documentam falhas concretas em tarefas culturalmente ancoradas, mas não tratam do
-uso aplicado em política, e o trabalho sobre construção de corpus em
-português~\citep{almeida2025portuguese} evidencia como os snapshots do Common
-Crawl sub-representam conteúdo lusófono --- a assimetria de corpus que H4 testa.
+uso aplicado em política. O trabalho sobre construção de corpus em português é
+explícito ao dizer que o esforço se concentrou no inglês e que montar corpora
+eficazes para outros idiomas segue em aberto: \citet{almeida2025portuguese}
+montam um corpus de 120B tokens em português justamente porque são necessários
+pipelines específicos do idioma para alcançar qualidade industrial. É essa
+assimetria de quanto texto existe por idioma que H4 testa.
 
 Esses estudos estabelecem que o fenômeno existe e é mensurável. Nenhum isola um
 domínio aplicado único com gabarito oficial verificável, e nenhum trata o
@@ -55,8 +58,11 @@ conversa com um prompt de sistema que atribui papel~\citep{xai2026chatguide}, e 
 padrão está catalogado na literatura de prompting~\citep{white2023prompt}. A evidência sistemática sobre se
 isso ajuda é desalentadora: em quatro famílias de LLM e 2.410 perguntas factuais,
 personas de especialista não melhoraram a acurácia frente a um controle sem
-persona e a \emph{reduziram} ligeiramente em 162 papéis~\citep{zheng2024helpful}, e
-uma replicação independente concorda~\citep{mollick2025personas}. Se o
+persona e a \emph{reduziram} ligeiramente em 162 papéis~\citep{zheng2024helpful}.
+Um estudo independente com desenho diferente --- seis modelos em questões de
+múltipla escolha de nível de pós-graduação --- chega à mesma conclusão: casar a
+persona de especialista ao tipo do problema não teve efeito significativo sobre o
+desempenho~\citep{mollick2025personas}. Se o
 condicionamento por persona ajuda ou prejudica a confiabilidade factual em
 domínios de alto risco é, portanto, questão em aberto e, até onde sabemos, não
 testada para equidade geográfica. Tratamos persona como fator experimental
@@ -66,11 +72,13 @@ reduz a lacuna) quanto a de Vácuo de Persona (a persona a amplifica).
 \subsection{LLMs em política, saúde e na administração}
 
 \citet{lecoz2025policymaking} avaliaram recomendações de política de LLMs para
-situação de rua em quatro cidades, encontrando ``rigidez cega ao contexto'', em
-que os modelos aplicam heurísticas internas estáveis mal calibradas às realidades
-locais e se alinham mais ao juízo de especialistas do Norte Global --- um domínio e
-um tipo de tarefa, que generalizamos para cinco tipos abrangendo recuperação,
-síntese e recomendação. Em saúde, \citet{kozlakidis2026medical} argumentam que
+situação de rua em quatro cidades --- Barcelona, Joanesburgo, South Bend e Macau
+--- e leem o padrão como ``uma rigidez cega ao contexto e um possível viés
+ancorado no discurso online publicado sobre situação de rua nas regiões do mundo
+com dados super-representados nos LLMs'', contra especialistas que ajustaram suas
+decisões a realidades localmente codificadas. É um domínio e um tipo de tarefa,
+que generalizamos para cinco tipos abrangendo recuperação, síntese e
+recomendação. Em saúde, \citet{kozlakidis2026medical} argumentam que
 alucinações carregam risco agudo em ambientes regulatórios com capacidade técnica
 limitada, onde o descompasso linguístico e cultural aumenta o erro --- risco que se
 encontra com a carga de mortalidade documentada pelas estimativas do Global Burden

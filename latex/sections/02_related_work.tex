@@ -28,10 +28,12 @@ native languages of high-resource cultures and worse in those of low-resource on
 \citet{joshi2020state}. Regional benchmarks have proliferated:
 BRoverbs~\citep{broverbs2025}, TiEBe~\citep{almeida2025tiebe},
 ALBA~\citep{alba2026} and AMALIA~\citep{amalia2026} document concrete failures in
-culturally grounded tasks but do not address applied policy use, and work on
-Portuguese corpus construction~\citep{almeida2025portuguese} underscores how
-Common Crawl snapshots under-represent Lusophone content --- the corpus asymmetry
-H4 tests.
+culturally grounded tasks but do not address applied policy use. Work on
+Portuguese corpus construction is explicit that the effort has centred on English
+and that building effective corpora for other languages remains open:
+\citet{almeida2025portuguese} assemble a 120B-token Portuguese corpus precisely
+because language-specific pipelines are needed to reach industrial quality. That
+asymmetry in how much text exists per language is what H4 tests.
 
 These studies establish that the phenomenon exists and is measurable. None
 isolates a single applied domain with verifiable official ground truth, and none
@@ -57,8 +59,10 @@ literature~\citep{white2023prompt}.
 The systematic evidence on whether it helps is sobering: across four LLM families
 and 2{,}410 factual questions, expert personas did not improve accuracy over a
 no-persona control and slightly \emph{reduced} it across 162
-roles~\citep{zheng2024helpful}, and an independent replication
-agrees~\citep{mollick2025personas}. Whether persona conditioning helps or harms
+roles~\citep{zheng2024helpful}. An independent study with a different design ---
+six models on graduate-level multiple-choice questions --- reaches the same
+conclusion: matching an expert persona to the problem type had no significant
+effect on performance~\citep{mollick2025personas}. Whether persona conditioning helps or harms
 factual reliability in high-stakes domains is therefore unsettled and, to our
 knowledge, untested for geographic equity. We treat persona as a pre-specified
 experimental factor and test both the Norm-Compliance hypothesis (persona reduces
@@ -67,11 +71,12 @@ the gap) and the Persona-Vacuum hypothesis (persona amplifies it).
 \subsection{LLMs in policy, health, and the administration}
 
 \citet{lecoz2025policymaking} evaluated LLM policy recommendations for
-homelessness across four cities, finding ``context-blind rigidity'' in which
-models apply stable internal heuristics poorly calibrated to local realities and
-align more closely with Global North experts --- one domain and one task type,
-which we generalise to five task types spanning recall, synthesis and
-recommendation. In health, \citet{kozlakidis2026medical} argue that hallucinations
+homelessness across four cities --- Barcelona, Johannesburg, South Bend and Macau
+--- and read the pattern as ``a context-blind rigidity and a potential bias based
+on the published online discourse on homelessness in the regions of the world with
+overrepresented data in LLMs'', against experts who tailored decisions to locally
+encoded realities. That is one domain and one task type, which we generalise to
+five task types spanning recall, synthesis and recommendation. In health, \citet{kozlakidis2026medical} argue that hallucinations
 carry acute risk in regulatory environments with limited technical capacity, where
 language and cultural mismatch increases error, a risk that meets the mortality
 burden documented by the Global Burden of Disease estimates~\citep{gbd2019risk}.
