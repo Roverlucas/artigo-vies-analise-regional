@@ -73,7 +73,9 @@ que a análise de mecanismo torna explícita, porque os dois canais se aplicam a
 efeitos diferentes. As medidas de \emph{corpus da língua} quantificam quanto texto
 de pré-treinamento existe \emph{em} um idioma e são o mecanismo candidato para a
 penalidade de idioma nativo: contagem de tokens do mC4~\citep{xue2021mt5}, tamanho
-do corpus OSCAR-2301~\citep{abadji2022oscar} e a classe de
+do corpus OSCAR-2301 (corpus apresentado por \citealp{abadji2022oscar}; os
+valores por idioma vêm do dataset card do OSCAR-2301, cujos totais diferem da
+versão 22.01 descrita naquele artigo) e a classe de
 Joshi~\citep{joshi2020state}. As medidas de \emph{corpus do país} quantificam
 quanto o corpus enciclopédico fala \emph{sobre} um país, independentemente do
 idioma, e são o mecanismo candidato para a lacuna geográfica: tamanho do artigo da

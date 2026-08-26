@@ -11,7 +11,10 @@ they can address:
       - mC4 tokens (B) & mT5 sampling % : Xue et al. 2021, NAACL, Table 6
         "mT5: A Massively Multilingual Pre-trained Text-to-Text Transformer"
         https://aclanthology.org/2021.naacl-main.41/
-      - OSCAR-2301 deduplicated size (GB) & words (B) : Abadji et al. 2022, LREC
+      - OSCAR-2301 size (GB) & words (B) : dataset card do OSCAR-2301.
+        ATENCAO: sao os totais da versao ORIGINAL do card, nao da deduplicada, e nao
+        coincidem com o paper LREC de Abadji et al. 2022, que descreve o OSCAR 22.01
+        (espanhol 381,9 GB ali contra 429,9 GB aqui). Conferido em 2026-08-26.
         "Towards a Cleaner Document-Oriented Multilingual Crawled Corpus";
         figures from the official oscar-corpus/OSCAR-2301 dataset card.
       - Joshi linguistic-resource class (0-5) : Joshi et al. 2020, ACL
@@ -33,7 +36,7 @@ from __future__ import annotations
 
 # (A) LANGUAGE-corpus measures, keyed by ISO 639-1.
 # mc4_tokens_b, mc4_pages_m, mt5_pct : Xue et al. 2021 Table 6 (verbatim).
-# oscar_gb, oscar_words_b : OSCAR-2301 dataset card (deduplicated, verbatim).
+# oscar_gb, oscar_words_b : OSCAR-2301 dataset card, versao ORIGINAL (verbatim).
 # joshi : Joshi et al. 2020 resource class.
 LANG_CORPUS = {
     "en": {"mc4_tokens_b": 2733.0, "mc4_pages_m": 3067.0, "mt5_pct": 5.67,
