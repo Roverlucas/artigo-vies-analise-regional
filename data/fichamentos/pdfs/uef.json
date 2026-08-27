@@ -1,0 +1,2169 @@
+{
+  "id" : null,
+  "scope" : null,
+  "query" : "moral crumple zones",
+  "appliedFilters" : null,
+  "sort" : null,
+  "configuration" : null,
+  "type" : "discover",
+  "_links" : {
+    "self" : {
+      "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones"
+    }
+  },
+  "_embedded" : {
+    "searchResult" : {
+      "_embedded" : {
+        "objects" : [ {
+          "hitHighlights" : null,
+          "type" : "discover",
+          "_links" : {
+            "indexableObject" : {
+              "href" : "https://erepo.uef.fi/server/api/core/items/8da70c2c-0475-4389-a861-beacf516b307"
+            }
+          },
+          "_embedded" : {
+            "indexableObject" : {
+              "id" : "8da70c2c-0475-4389-a861-beacf516b307",
+              "uuid" : "8da70c2c-0475-4389-a861-beacf516b307",
+              "name" : "(In)visible everyday work of fostering a data-driven healthcare and social service organisation",
+              "handle" : "123456789/29558",
+              "metadata" : {
+                "dc.contributor.author" : [ {
+                  "value" : "Choroszewicz, Marta",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.contributor.department" : [ {
+                  "value" : "Yhteiskuntatieteiden laitos",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.accessioned" : [ {
+                  "value" : "2023-04-25T11:34:05Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.available" : [ {
+                  "value" : "2023-04-25T11:34:05Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issued" : [ {
+                  "value" : "2024",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.abstract" : [ {
+                  "value" : "This article combines the frameworks of (in)visible work and articulation work to examine the everyday articulation work ascribed to a knowledge production and technology expert team (KT) in the transition to a data-driven healthcare and social service organisation. The article structures the results of an ethnographic study spanning 2.5 years around four roles of the KT's work: (1) mediating messy and incomplete technologies in-the-making, (2) facilitating bleeding-edge technologies in-the-making, (3) coaching in new data practices and technologies in-the-making, and (4) advocating for care staff. Additionally, insights are provided into the invisible articulation work of the care staff performed in support of these KT roles. With these results, the study advances our understanding of the complexity, power dynamics, and instability of work invested in transitioning to a data-driven public organisation. It also contributes to the critical discussion on the perpetual piloting nature of this transition.",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.reviewstatus" : [ {
+                  "value" : "peerReviewed",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.version" : [ {
+                  "value" : "published version",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.format.pagerange" : [ {
+                  "value" : "1-18",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.uri" : [ {
+                  "value" : "https://erepo.uef.fi/handle/123456789/29558",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language.iso" : [ {
+                  "value" : "eng",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.publisher" : [ {
+                  "value" : "Brian Towers (BRITOW) and John Wiley & Sons Ltd",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.doi" : [ {
+                  "value" : "10.1111/ntwe.12270",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.ispartofseries" : [ {
+                  "value" : "New technology work and employment",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.issn" : [ {
+                  "value" : "0268-1072",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.issue" : [ {
+                  "value" : "1",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.uri" : [ {
+                  "value" : "https://doi.org/10.1111/ntwe.12270",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.volume" : [ {
+                  "value" : "39",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights" : [ {
+                  "value" : "CC BY 4.0",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.accesslevel" : [ {
+                  "value" : "openAccess",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.copyright" : [ {
+                  "value" : "© 2023 The Authors",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.url" : [ {
+                  "value" : "https://creativecommons.org/licenses/by/4.0/",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject" : [ {
+                  "value" : "articulation work",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "care staff",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                }, {
+                  "value" : "data‐driven public healthcare and social services",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 2
+                }, {
+                  "value" : "(in)visible work",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 3
+                }, {
+                  "value" : "knowledge production and technology expert team (KT)",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 4
+                }, {
+                  "value" : "technologies in‐the‐making",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 5
+                } ],
+                "dc.title" : [ {
+                  "value" : "(In)visible everyday work of fostering a data-driven healthcare and social service organisation",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type.displayType" : [ {
+                  "value" : "Artikkeli",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Article",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.type.okm" : [ {
+                  "value" : "A1",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type.publication" : [ {
+                  "value" : "article",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type.version" : [ {
+                  "value" : "publishedVersion",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "uef.rt.id" : [ {
+                  "value" : "16665",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "uef.solecris.id" : [ {
+                  "value" : "4456ae89-125b-4425-8fb8-b049ca9d2a5f",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "uef.solecris.openaccess" : [ {
+                  "value" : "2",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ]
+              },
+              "inArchive" : true,
+              "discoverable" : true,
+              "withdrawn" : false,
+              "lastModified" : "2025-09-08T11:41:30.581+00:00",
+              "entityType" : null,
+              "type" : "item",
+              "_links" : {
+                "accessStatus" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/8da70c2c-0475-4389-a861-beacf516b307/accessStatus"
+                },
+                "bundles" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/8da70c2c-0475-4389-a861-beacf516b307/bundles"
+                },
+                "identifiers" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/8da70c2c-0475-4389-a861-beacf516b307/identifiers"
+                },
+                "mappedCollections" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/8da70c2c-0475-4389-a861-beacf516b307/mappedCollections"
+                },
+                "owningCollection" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/8da70c2c-0475-4389-a861-beacf516b307/owningCollection"
+                },
+                "relationships" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/8da70c2c-0475-4389-a861-beacf516b307/relationships"
+                },
+                "version" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/8da70c2c-0475-4389-a861-beacf516b307/version"
+                },
+                "templateItemOf" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/8da70c2c-0475-4389-a861-beacf516b307/templateItemOf"
+                },
+                "thumbnail" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/8da70c2c-0475-4389-a861-beacf516b307/thumbnail"
+                },
+                "self" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/8da70c2c-0475-4389-a861-beacf516b307"
+                }
+              }
+            }
+          }
+        }, {
+          "hitHighlights" : null,
+          "type" : "discover",
+          "_links" : {
+            "indexableObject" : {
+              "href" : "https://erepo.uef.fi/server/api/core/items/c8a858df-6f44-40c0-a07c-5db281f5e87e"
+            }
+          },
+          "_embedded" : {
+            "indexableObject" : {
+              "id" : "c8a858df-6f44-40c0-a07c-5db281f5e87e",
+              "uuid" : "c8a858df-6f44-40c0-a07c-5db281f5e87e",
+              "name" : "Understanding Ethics and Agency in Data-Driven Decision-Making. A literature review",
+              "handle" : "123456789/36807",
+              "metadata" : {
+                "dc.contributor.author" : [ {
+                  "value" : "Lehto, Iiris",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Järvinen, Katri-Maria",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                }, {
+                  "value" : "Alastalo, Marja",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 2
+                } ],
+                "dc.contributor.department" : [ {
+                  "value" : "Yhteiskuntatieteiden laitos",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.accessioned" : [ {
+                  "value" : "2026-02-16T07:48:04Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.available" : [ {
+                  "value" : "2026-02-16T07:48:04Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issued" : [ {
+                  "value" : "2025",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.abstract" : [ {
+                  "value" : "As information systems (IS), including data-driven solutions, become increasingly prevalent across sectors, the need for ethical data-driven decision-making (DDDM) is gaining recognition. This scoping literature review explores how agency and ethics are addressed in scientific discussions on DDDM. It examines the ethical terminology used, its definitions, and the forms of agency identified in 79 peer-reviewed articles from disciplines such as computer science, education, and engineering. Agency is central to ethical judgment, decision-making, and action. The review reveals a wide range of ethics-related concepts, many of which are loosely defined, incoherent, and problem-oriented. Drawing on a sociomaterial perspective, the study identifies three forms of agency relevant to DDDM: human, technological, and distributed. These forms reflect the complex interplay between individuals, technologies, and institutional contexts. The review concludes that ethics and agency must be considered together to clarify responsibility at different levels of decision-making. Although ethical concerns are increasingly discussed, the debate remains fragmented. In the broader context of IS and the rapid development of generative AI, cross-disciplinary research is essential to address ethical challenges comprehensively. This study contributes both practical insights and theoretical understanding to the evolving discourse on ethical DDDM.",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.reviewstatus" : [ {
+                  "value" : "peerReviewed",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.version" : [ {
+                  "value" : "publishedVersion",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.uri" : [ {
+                  "value" : "https://erepo.uef.fi/handle/123456789/36807",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language.iso" : [ {
+                  "value" : "eng",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.publisher" : [ {
+                  "value" : "Scandinavian Journal of Information Systems",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.articlenumber" : [ {
+                  "value" : "5",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.doi" : [ {
+                  "value" : "10.17705/3SJIS/037.14",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.grantnumber" : [ {
+                  "value" : "The Research Councilof Finland: 336074, 358248",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.ispartofseries" : [ {
+                  "value" : "Scandinavian journal of information systems",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.issn" : [ {
+                  "value" : "0905-0167",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.issue" : [ {
+                  "value" : "2",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.uri" : [ {
+                  "value" : "https://doi.org/10.17705/3SJIS/037.14",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.volume" : [ {
+                  "value" : "37",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights" : [ {
+                  "value" : "In copyright 1.0",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.accesslevel" : [ {
+                  "value" : "openAccess",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.copyright" : [ {
+                  "value" : "© 2025 Scandinavian Journal of Information Systems",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.url" : [ {
+                  "value" : "https://rightsstatements.org/page/InC/1.0/",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject" : [ {
+                  "value" : "data-driven decision-making",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "ethics",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                }, {
+                  "value" : "agency",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 2
+                }, {
+                  "value" : "information systems",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 3
+                }, {
+                  "value" : "review",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 4
+                } ],
+                "dc.title" : [ {
+                  "value" : "Understanding Ethics and Agency in Data-Driven Decision-Making. A literature review",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type.displayType" : [ {
+                  "value" : "Katsausartikkeli",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Review",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.type.okm" : [ {
+                  "value" : "A2",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type.publication" : [ {
+                  "value" : "review",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type.version" : [ {
+                  "value" : "publishedVersion",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "uef.rt.id" : [ {
+                  "value" : "18030",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "uef.solecris.id" : [ {
+                  "value" : "49ec43a8-518a-48e5-b62d-bf3e3f2f478b",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "uef.solecris.openaccess" : [ {
+                  "value" : "1",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ]
+              },
+              "inArchive" : true,
+              "discoverable" : true,
+              "withdrawn" : false,
+              "lastModified" : "2026-03-13T01:04:03.062+00:00",
+              "entityType" : null,
+              "type" : "item",
+              "_links" : {
+                "accessStatus" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/c8a858df-6f44-40c0-a07c-5db281f5e87e/accessStatus"
+                },
+                "bundles" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/c8a858df-6f44-40c0-a07c-5db281f5e87e/bundles"
+                },
+                "identifiers" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/c8a858df-6f44-40c0-a07c-5db281f5e87e/identifiers"
+                },
+                "mappedCollections" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/c8a858df-6f44-40c0-a07c-5db281f5e87e/mappedCollections"
+                },
+                "owningCollection" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/c8a858df-6f44-40c0-a07c-5db281f5e87e/owningCollection"
+                },
+                "relationships" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/c8a858df-6f44-40c0-a07c-5db281f5e87e/relationships"
+                },
+                "version" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/c8a858df-6f44-40c0-a07c-5db281f5e87e/version"
+                },
+                "templateItemOf" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/c8a858df-6f44-40c0-a07c-5db281f5e87e/templateItemOf"
+                },
+                "thumbnail" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/c8a858df-6f44-40c0-a07c-5db281f5e87e/thumbnail"
+                },
+                "self" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/c8a858df-6f44-40c0-a07c-5db281f5e87e"
+                }
+              }
+            }
+          }
+        }, {
+          "hitHighlights" : null,
+          "type" : "discover",
+          "_links" : {
+            "indexableObject" : {
+              "href" : "https://erepo.uef.fi/server/api/core/items/edf3aed7-a675-4ffd-9c1d-c77169460595"
+            }
+          },
+          "_embedded" : {
+            "indexableObject" : {
+              "id" : "edf3aed7-a675-4ffd-9c1d-c77169460595",
+              "uuid" : "edf3aed7-a675-4ffd-9c1d-c77169460595",
+              "name" : "Counterfire: The military unconscious, counternarratives, and the hegemonic soldier in Phil Klay`s Redeployment",
+              "handle" : "123456789/20642",
+              "metadata" : {
+                "dc.contributor.author" : [ {
+                  "value" : "Räisänen, Ari",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.contributor.department" : [ {
+                  "value" : "Humanistinen osasto",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "School of Humanities",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.contributor.faculty" : [ {
+                  "value" : "Filosofinen tiedekunta",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Philosophical faculty",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.contributor.organization" : [ {
+                  "value" : "Filosofinen tiedekunta, Humanistinen osasto",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Philosophical faculty, School of Humanities",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.date.accessioned" : [ {
+                  "value" : "2020-11-02T06:50:06Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.available" : [ {
+                  "value" : "2018-12-12",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issued" : [ {
+                  "value" : "2018-12-06",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.format.content" : [ {
+                  "value" : "fulltext",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.format.displayContent" : [ {
+                  "value" : "Julkaisun kokoteksti",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Fulltext of publication",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.identifier.uri" : [ {
+                  "value" : "https://erepo.uef.fi/handle/123456789/20642",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.urn" : [ {
+                  "value" : "http://urn.fi/urn:nbn:fi:uef-20181323",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language.iso" : [ {
+                  "value" : "en",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.publisher" : [ {
+                  "value" : "Itä-Suomen yliopisto",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "University of Eastern Finland",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.publisher.country" : [ {
+                  "value" : "fi",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.accesslevel" : [ {
+                  "value" : "openAccess",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject.discipline" : [ {
+                  "value" : "englannin kieli ja kulttuuri",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "english and culture",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.title" : [ {
+                  "value" : "Counterfire: The military unconscious, counternarratives, and the hegemonic soldier in Phil Klay`s Redeployment",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type.coar" : [ {
+                  "value" : "http://purl.org/eprint/type/Thesis",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type.displayType" : [ {
+                  "value" : "Pro gradu",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Masters thesis",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.type.ontasot" : [ {
+                  "value" : "Pro gradu",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Master's thesis",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.type.publication" : [ {
+                  "value" : "masterThesis",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "uef.publication.id" : [ {
+                  "value" : "13092",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ]
+              },
+              "inArchive" : true,
+              "discoverable" : true,
+              "withdrawn" : false,
+              "lastModified" : "2025-09-18T08:45:17.363+00:00",
+              "entityType" : null,
+              "type" : "item",
+              "_links" : {
+                "accessStatus" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/edf3aed7-a675-4ffd-9c1d-c77169460595/accessStatus"
+                },
+                "bundles" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/edf3aed7-a675-4ffd-9c1d-c77169460595/bundles"
+                },
+                "identifiers" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/edf3aed7-a675-4ffd-9c1d-c77169460595/identifiers"
+                },
+                "mappedCollections" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/edf3aed7-a675-4ffd-9c1d-c77169460595/mappedCollections"
+                },
+                "owningCollection" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/edf3aed7-a675-4ffd-9c1d-c77169460595/owningCollection"
+                },
+                "relationships" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/edf3aed7-a675-4ffd-9c1d-c77169460595/relationships"
+                },
+                "version" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/edf3aed7-a675-4ffd-9c1d-c77169460595/version"
+                },
+                "templateItemOf" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/edf3aed7-a675-4ffd-9c1d-c77169460595/templateItemOf"
+                },
+                "thumbnail" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/edf3aed7-a675-4ffd-9c1d-c77169460595/thumbnail"
+                },
+                "self" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/edf3aed7-a675-4ffd-9c1d-c77169460595"
+                }
+              }
+            }
+          }
+        }, {
+          "hitHighlights" : null,
+          "type" : "discover",
+          "_links" : {
+            "indexableObject" : {
+              "href" : "https://erepo.uef.fi/server/api/core/items/6b5fc3c7-3675-4d6a-8ca8-cc4158fa8204"
+            }
+          },
+          "_embedded" : {
+            "indexableObject" : {
+              "id" : "6b5fc3c7-3675-4d6a-8ca8-cc4158fa8204",
+              "uuid" : "6b5fc3c7-3675-4d6a-8ca8-cc4158fa8204",
+              "name" : "The Veil in Women’s Life Writing: An Analysis of American Chick in Saudi Arabia by Jean Sasson and In the Land of Invisible Women: A Female Doctor's Journey in the Saudi Kingdom by Qanta A. Ahmed",
+              "handle" : "123456789/25674",
+              "metadata" : {
+                "dc.contributor.author" : [ {
+                  "value" : "Sariola, Saga",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.contributor.department" : [ {
+                  "value" : "Humanistinen osasto",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "School of Humanities",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.contributor.faculty" : [ {
+                  "value" : "Filosofinen tiedekunta",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Philosophical faculty",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.contributor.organization" : [ {
+                  "value" : "Filosofinen tiedekunta, Humanistinen osasto, Vieraat kielet ja käännöstiede",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Philosophical faculty, School of Humanities, Foreign Languages and Translation Studies",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.contributor.unit" : [ {
+                  "value" : "Foreign Languages and Translation Studies",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Vieraat kielet ja käännöstiede",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.date.accessioned" : [ {
+                  "value" : "2021-06-21T09:15:11Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.available" : [ {
+                  "value" : "2021-06-21",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issued" : [ {
+                  "value" : "2021-06-21",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.format.content" : [ {
+                  "value" : "fulltext",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.format.displayContent" : [ {
+                  "value" : "Julkaisun kokoteksti",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Fulltext of publication",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.identifier.uri" : [ {
+                  "value" : "https://erepo.uef.fi/handle/123456789/25674",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.urn" : [ {
+                  "value" : "http://urn.fi/urn:nbn:fi:uef-20211030",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language.iso" : [ {
+                  "value" : "en",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.publisher" : [ {
+                  "value" : "Itä-Suomen yliopisto",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "University of Eastern Finland",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.publisher.country" : [ {
+                  "value" : "fi",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.accesslevel" : [ {
+                  "value" : "restrictedAccess",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject.discipline" : [ {
+                  "value" : "englannin kieli ja kulttuuri",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "english and culture",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.title" : [ {
+                  "value" : "The Veil in Women’s Life Writing: An Analysis of American Chick in Saudi Arabia by Jean Sasson and In the Land of Invisible Women: A Female Doctor's Journey in the Saudi Kingdom by Qanta A. Ahmed",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type.coar" : [ {
+                  "value" : "http://purl.org/eprint/type/Thesis",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type.displayType" : [ {
+                  "value" : "Pro gradu",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Masters thesis",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.type.ontasot" : [ {
+                  "value" : "Pro gradu",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Master's thesis",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.type.publication" : [ {
+                  "value" : "masterThesis",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "uef.publication.id" : [ {
+                  "value" : "17898",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ]
+              },
+              "inArchive" : true,
+              "discoverable" : true,
+              "withdrawn" : false,
+              "lastModified" : "2025-09-18T08:40:27.697+00:00",
+              "entityType" : null,
+              "type" : "item",
+              "_links" : {
+                "accessStatus" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/6b5fc3c7-3675-4d6a-8ca8-cc4158fa8204/accessStatus"
+                },
+                "bundles" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/6b5fc3c7-3675-4d6a-8ca8-cc4158fa8204/bundles"
+                },
+                "identifiers" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/6b5fc3c7-3675-4d6a-8ca8-cc4158fa8204/identifiers"
+                },
+                "mappedCollections" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/6b5fc3c7-3675-4d6a-8ca8-cc4158fa8204/mappedCollections"
+                },
+                "owningCollection" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/6b5fc3c7-3675-4d6a-8ca8-cc4158fa8204/owningCollection"
+                },
+                "relationships" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/6b5fc3c7-3675-4d6a-8ca8-cc4158fa8204/relationships"
+                },
+                "version" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/6b5fc3c7-3675-4d6a-8ca8-cc4158fa8204/version"
+                },
+                "templateItemOf" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/6b5fc3c7-3675-4d6a-8ca8-cc4158fa8204/templateItemOf"
+                },
+                "thumbnail" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/6b5fc3c7-3675-4d6a-8ca8-cc4158fa8204/thumbnail"
+                },
+                "self" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/6b5fc3c7-3675-4d6a-8ca8-cc4158fa8204"
+                }
+              }
+            }
+          }
+        }, {
+          "hitHighlights" : null,
+          "type" : "discover",
+          "_links" : {
+            "indexableObject" : {
+              "href" : "https://erepo.uef.fi/server/api/core/items/fe11e845-78b0-4afc-a664-7c751e9f65b7"
+            }
+          },
+          "_embedded" : {
+            "indexableObject" : {
+              "id" : "fe11e845-78b0-4afc-a664-7c751e9f65b7",
+              "uuid" : "fe11e845-78b0-4afc-a664-7c751e9f65b7",
+              "name" : "AI innovation at the boundaries: Justifying a generative AI decision support tool",
+              "handle" : "123456789/37540",
+              "metadata" : {
+                "dc.contributor.author" : [ {
+                  "value" : "Choroszewicz, Marta",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Rannisto, Antti",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.contributor.department" : [ {
+                  "value" : "Yhteiskuntatieteiden laitos",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.accessioned" : [ {
+                  "value" : "2026-05-11T11:04:25Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.available" : [ {
+                  "value" : "2026-05-11T11:04:25Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issued" : [ {
+                  "value" : "2026",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.abstract" : [ {
+                  "value" : "The growing uptake of generative AI by public administrations raises important questions about the continuity of AI innovations and the ‘thingness’ of AI, despite recurrent failures of these emerging technologies to fulfil their promises. We combine the frameworks of boundary work and regimes of justification and methodologically draw on nearly 1.5 years of ethnographic fieldwork following the innovation process of a generative AI decision support tool in a Finnish public organization. We capture how the team driving this AI innovation engages in boundary-crossing practices, enacting diverse conceptions of moral and common good to ensure the continuity of the tool's development process. We identified nine powerful justification frames related to the tool, its innovation process and its underlying ideology that sustained the generative AI tool's innovation. Three frames in particular – centring on efficiency, well-being and equality – formed a powerful trio capable of making the tool compelling across organizational boundaries within the context of the Nordic welfare state. The frames fostered a protective structure around the tool, simultaneously legitimizing it as it was developed. We show how enacting these frames to safeguard the tool and its imagined value from criticism – specifically a lack of accuracy, precision and consistency – made it an irresistible thing to influential organizational actors.",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.reviewstatus" : [ {
+                  "value" : "peerReviewed",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.version" : [ {
+                  "value" : "publishedVersion",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.format.pagerange" : [ {
+                  "value" : "1-15",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.uri" : [ {
+                  "value" : "https://erepo.uef.fi/handle/123456789/37540",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language.iso" : [ {
+                  "value" : "eng",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.doi" : [ {
+                  "value" : "10.1177/20539517261424159",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.grantnumber" : [ {
+                  "value" : "The Research Council of Finland: 357349",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.ispartofseries" : [ {
+                  "value" : "Big data & society",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.issn" : [ {
+                  "value" : "2053-9517",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.uri" : [ {
+                  "value" : "https://doi.org/10.1177/20539517261424159",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.volume" : [ {
+                  "value" : "[Epub ahead of print 13 Feb 2026]",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights" : [ {
+                  "value" : "CC BY 4.0",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.accesslevel" : [ {
+                  "value" : "openAccess",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.copyright" : [ {
+                  "value" : "© The Author(s) 2026",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.url" : [ {
+                  "value" : "https://creativecommons.org/licenses/by/4.0/",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject" : [ {
+                  "value" : "AI innovation",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "boundary work",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                }, {
+                  "value" : "boundaries",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 2
+                }, {
+                  "value" : "generative AI",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 3
+                }, {
+                  "value" : "justification frames",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 4
+                }, {
+                  "value" : "public administration",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 5
+                } ],
+                "dc.title" : [ {
+                  "value" : "AI innovation at the boundaries: Justifying a generative AI decision support tool",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type.displayType" : [ {
+                  "value" : "Artikkeli",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Article",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.type.okm" : [ {
+                  "value" : "A1",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type.publication" : [ {
+                  "value" : "article",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type.version" : [ {
+                  "value" : "publishedVersion",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "uef.rt.id" : [ {
+                  "value" : "18323",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "uef.solecris.id" : [ {
+                  "value" : "feaaf9f3-072e-47c6-a8ea-b61a6270451f",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "uef.solecris.openaccess" : [ {
+                  "value" : "1",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ]
+              },
+              "inArchive" : true,
+              "discoverable" : true,
+              "withdrawn" : false,
+              "lastModified" : "2026-05-12T00:02:07.899+00:00",
+              "entityType" : null,
+              "type" : "item",
+              "_links" : {
+                "accessStatus" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/fe11e845-78b0-4afc-a664-7c751e9f65b7/accessStatus"
+                },
+                "bundles" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/fe11e845-78b0-4afc-a664-7c751e9f65b7/bundles"
+                },
+                "identifiers" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/fe11e845-78b0-4afc-a664-7c751e9f65b7/identifiers"
+                },
+                "mappedCollections" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/fe11e845-78b0-4afc-a664-7c751e9f65b7/mappedCollections"
+                },
+                "owningCollection" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/fe11e845-78b0-4afc-a664-7c751e9f65b7/owningCollection"
+                },
+                "relationships" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/fe11e845-78b0-4afc-a664-7c751e9f65b7/relationships"
+                },
+                "version" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/fe11e845-78b0-4afc-a664-7c751e9f65b7/version"
+                },
+                "templateItemOf" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/fe11e845-78b0-4afc-a664-7c751e9f65b7/templateItemOf"
+                },
+                "thumbnail" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/fe11e845-78b0-4afc-a664-7c751e9f65b7/thumbnail"
+                },
+                "self" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/fe11e845-78b0-4afc-a664-7c751e9f65b7"
+                }
+              }
+            }
+          }
+        }, {
+          "hitHighlights" : null,
+          "type" : "discover",
+          "_links" : {
+            "indexableObject" : {
+              "href" : "https://erepo.uef.fi/server/api/core/items/a00236df-276b-48a4-b534-b44c865b01a8"
+            }
+          },
+          "_embedded" : {
+            "indexableObject" : {
+              "id" : "a00236df-276b-48a4-b534-b44c865b01a8",
+              "uuid" : "a00236df-276b-48a4-b534-b44c865b01a8",
+              "name" : "Manganese Oxide Based Catalytic Micromotors: Synthesis, Characterization and Applications",
+              "handle" : "123456789/18779",
+              "metadata" : {
+                "dc.contributor.author" : [ {
+                  "value" : "Safdar, Muhammad",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.contributor.department" : [ {
+                  "value" : "Kemian laitos",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Department of Chemistry",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.contributor.faculty" : [ {
+                  "value" : "Luonnontieteiden ja metsätieteiden tiedekunta",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Faculty of Science and Forestry",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.contributor.organization" : [ {
+                  "value" : "Luonnontieteiden ja metsätieteiden tiedekunta, Kemian laitos",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Faculty of Science and Forestry, Department of Chemistry",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.date.accessioned" : [ {
+                  "value" : "2020-10-30T11:19:24Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.available" : [ {
+                  "value" : "2017-11-07",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issued" : [ {
+                  "value" : "2017-11-17",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.accessibilityfeature" : [ {
+                  "value" : "unknown accessibility",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "ei tietoa saavutettavuudesta",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                }, {
+                  "value" : "okänd tillgänglighet",
+                  "language" : "sv",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 2
+                } ],
+                "dc.format.content" : [ {
+                  "value" : "abstractOnly",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.format.displayContent" : [ {
+                  "value" : "Julkaisusta vain yhteenveto-osa",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Abstract available only",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.identifier.isbn" : [ {
+                  "value" : "978-952-61-2625-8",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.uri" : [ {
+                  "value" : "https://erepo.uef.fi/handle/123456789/18779",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.urn" : [ {
+                  "value" : "http://urn.fi/URN:ISBN:978-952-61-2625-8",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language.iso" : [ {
+                  "value" : "en",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.publisher" : [ {
+                  "value" : "Itä-Suomen yliopisto",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "University of Eastern Finland",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.publisher.country" : [ {
+                  "value" : "fi",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.publisher.place" : [ {
+                  "value" : "Joensuu",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.ispartofseries" : [ {
+                  "value" : "Dissertations / Department of Chemistry, University of Eastern Finland",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.issn" : [ {
+                  "value" : "2242-1033",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.isversionof" : [ {
+                  "value" : "978-952-61-2624-1",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.numberinseries" : [ {
+                  "value" : "287",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights" : [ {
+                  "value" : "In copyright 1.0",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.accesslevel" : [ {
+                  "value" : "openAccess",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.url" : [ {
+                  "value" : "https://rightsstatements.org/page/InC/1.0/",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.title" : [ {
+                  "value" : "Manganese Oxide Based Catalytic Micromotors: Synthesis, Characterization and Applications",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type.coar" : [ {
+                  "value" : "http://purl.org/eprint/type/Thesis",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type.displayType" : [ {
+                  "value" : "Väitöskirja",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Dissertation",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.type.ontasot" : [ {
+                  "value" : "Väitöskirja",
+                  "language" : "fi",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Doctoral dissertation",
+                  "language" : "en",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.type.publication" : [ {
+                  "value" : "doctoralThesis",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "uef.publication.id" : [ {
+                  "value" : "11471",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ]
+              },
+              "inArchive" : true,
+              "discoverable" : true,
+              "withdrawn" : false,
+              "lastModified" : "2026-03-13T07:56:34.890+00:00",
+              "entityType" : null,
+              "type" : "item",
+              "_links" : {
+                "accessStatus" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/a00236df-276b-48a4-b534-b44c865b01a8/accessStatus"
+                },
+                "bundles" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/a00236df-276b-48a4-b534-b44c865b01a8/bundles"
+                },
+                "identifiers" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/a00236df-276b-48a4-b534-b44c865b01a8/identifiers"
+                },
+                "mappedCollections" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/a00236df-276b-48a4-b534-b44c865b01a8/mappedCollections"
+                },
+                "owningCollection" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/a00236df-276b-48a4-b534-b44c865b01a8/owningCollection"
+                },
+                "relationships" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/a00236df-276b-48a4-b534-b44c865b01a8/relationships"
+                },
+                "version" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/a00236df-276b-48a4-b534-b44c865b01a8/version"
+                },
+                "templateItemOf" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/a00236df-276b-48a4-b534-b44c865b01a8/templateItemOf"
+                },
+                "thumbnail" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/a00236df-276b-48a4-b534-b44c865b01a8/thumbnail"
+                },
+                "self" : {
+                  "href" : "https://erepo.uef.fi/server/api/core/items/a00236df-276b-48a4-b534-b44c865b01a8"
+                }
+              }
+            }
+          }
+        } ]
+      },
+      "page" : {
+        "number" : 0,
+        "size" : 20,
+        "totalPages" : 1,
+        "totalElements" : 6
+      },
+      "_links" : {
+        "self" : {
+          "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%20crumple%20zones"
+        }
+      }
+    },
+    "facets" : [ {
+      "name" : "author",
+      "facetType" : "text",
+      "facetLimit" : 5,
+      "minValue" : "!Aibeb, Andreas Ignathius",
+      "maxValue" : "Пииспа-Хакала, Сату",
+      "page" : {
+        "number" : 0,
+        "size" : 5
+      },
+      "_links" : {
+        "next" : {
+          "href" : "https://erepo.uef.fi/server/api/discover/facets/author?query=moral%20crumple%20zones&page=1&size=5"
+        },
+        "self" : {
+          "href" : "https://erepo.uef.fi/server/api/discover/facets/author?query=moral%20crumple%20zones&size=5"
+        }
+      },
+      "_embedded" : {
+        "values" : [ {
+          "label" : "Choroszewicz, Marta",
+          "count" : 2,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.author=Choroszewicz,%20Marta,equals"
+            }
+          }
+        }, {
+          "label" : "Alastalo, Marja",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.author=Alastalo,%20Marja,equals"
+            }
+          }
+        }, {
+          "label" : "Järvinen, Katri-Maria",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.author=J%C3%A4rvinen,%20Katri-Maria,equals"
+            }
+          }
+        }, {
+          "label" : "Lehto, Iiris",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.author=Lehto,%20Iiris,equals"
+            }
+          }
+        }, {
+          "label" : "Rannisto, Antti",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.author=Rannisto,%20Antti,equals"
+            }
+          }
+        } ]
+      }
+    }, {
+      "name" : "subject",
+      "facetType" : "hierarchical",
+      "facetLimit" : 5,
+      "page" : {
+        "number" : 0,
+        "size" : 5
+      },
+      "_links" : {
+        "next" : {
+          "href" : "https://erepo.uef.fi/server/api/discover/facets/subject?query=moral%20crumple%20zones&page=1&size=5"
+        },
+        "self" : {
+          "href" : "https://erepo.uef.fi/server/api/discover/facets/subject?query=moral%20crumple%20zones&size=5"
+        }
+      },
+      "_embedded" : {
+        "values" : [ {
+          "label" : "englannin kieli ja kulttuuri",
+          "count" : 2,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.subject=englannin%20kieli%20ja%20kulttuuri,equals"
+            }
+          }
+        }, {
+          "label" : "english and culture",
+          "count" : 2,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.subject=english%20and%20culture,equals"
+            }
+          }
+        }, {
+          "label" : "(in)visible work",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.subject=(in)visible%20work,equals"
+            }
+          }
+        }, {
+          "label" : "agency",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.subject=agency,equals"
+            }
+          }
+        }, {
+          "label" : "AI innovation",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.subject=AI%20innovation,equals"
+            }
+          }
+        } ]
+      }
+    }, {
+      "name" : "dateIssued",
+      "facetType" : "date",
+      "facetLimit" : 5,
+      "minValue" : "1974-01-01",
+      "maxValue" : "2027",
+      "page" : {
+        "number" : 0,
+        "size" : 5
+      },
+      "_links" : {
+        "self" : {
+          "href" : "https://erepo.uef.fi/server/api/discover/facets/dateIssued?query=moral%20crumple%20zones&size=5"
+        }
+      },
+      "_embedded" : {
+        "values" : [ {
+          "label" : "2000 - 2019",
+          "count" : 2,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.dateIssued=%5B2000%20TO%202019%5D,equals"
+            }
+          }
+        }, {
+          "label" : "2020 - 2027",
+          "count" : 4,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.dateIssued=%5B2020%20TO%202027%5D,equals"
+            }
+          }
+        } ]
+      }
+    }, {
+      "name" : "entityType",
+      "facetType" : "text",
+      "facetLimit" : 5,
+      "_links" : {
+        "self" : {
+          "href" : "https://erepo.uef.fi/server/api/discover/facets/entityType?query=moral%20crumple%20zones"
+        }
+      },
+      "_embedded" : {
+        "values" : [ ]
+      }
+    }, {
+      "name" : "Faculty",
+      "facetType" : "text",
+      "facetLimit" : 5,
+      "page" : {
+        "number" : 0,
+        "size" : 5
+      },
+      "_links" : {
+        "self" : {
+          "href" : "https://erepo.uef.fi/server/api/discover/facets/Faculty?query=moral%20crumple%20zones&size=5"
+        }
+      },
+      "_embedded" : {
+        "values" : [ {
+          "label" : "Filosofinen tiedekunta",
+          "count" : 2,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.Faculty=Filosofinen%20tiedekunta,equals"
+            }
+          }
+        }, {
+          "label" : "Philosophical faculty",
+          "count" : 2,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.Faculty=Philosophical%20faculty,equals"
+            }
+          }
+        }, {
+          "label" : "Faculty of Science and Forestry",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.Faculty=Faculty%20of%20Science%20and%20Forestry,equals"
+            }
+          }
+        }, {
+          "label" : "Luonnontieteiden ja metsätieteiden tiedekunta",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.Faculty=Luonnontieteiden%20ja%20mets%C3%A4tieteiden%20tiedekunta,equals"
+            }
+          }
+        } ]
+      }
+    }, {
+      "name" : "Department",
+      "facetType" : "text",
+      "facetLimit" : 5,
+      "page" : {
+        "number" : 0,
+        "size" : 5
+      },
+      "_links" : {
+        "self" : {
+          "href" : "https://erepo.uef.fi/server/api/discover/facets/Department?query=moral%20crumple%20zones&size=5"
+        }
+      },
+      "_embedded" : {
+        "values" : [ {
+          "label" : "Yhteiskuntatieteiden laitos",
+          "count" : 3,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.Department=Yhteiskuntatieteiden%20laitos,equals"
+            }
+          }
+        }, {
+          "label" : "Humanistinen osasto",
+          "count" : 2,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.Department=Humanistinen%20osasto,equals"
+            }
+          }
+        }, {
+          "label" : "School of Humanities",
+          "count" : 2,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.Department=School%20of%20Humanities,equals"
+            }
+          }
+        }, {
+          "label" : "Department of Chemistry",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.Department=Department%20of%20Chemistry,equals"
+            }
+          }
+        }, {
+          "label" : "Kemian laitos",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.Department=Kemian%20laitos,equals"
+            }
+          }
+        } ]
+      }
+    }, {
+      "name" : "Unit",
+      "facetType" : "text",
+      "facetLimit" : 5,
+      "page" : {
+        "number" : 0,
+        "size" : 5
+      },
+      "_links" : {
+        "self" : {
+          "href" : "https://erepo.uef.fi/server/api/discover/facets/Unit?query=moral%20crumple%20zones&size=5"
+        }
+      },
+      "_embedded" : {
+        "values" : [ {
+          "label" : "Foreign Languages and Translation Studies",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.Unit=Foreign%20Languages%20and%20Translation%20Studies,equals"
+            }
+          }
+        }, {
+          "label" : "Vieraat kielet ja käännöstiede",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://erepo.uef.fi/server/api/discover/search/objects?query=moral%2520crumple%2520zones&f.Unit=Vieraat%20kielet%20ja%20k%C3%A4%C3%A4nn%C3%B6stiede,equals"
+            }
+          }
+        } ]
+      }
+    } ]
+  }
+}

@@ -8,12 +8,14 @@ environmental management in the Global South, scored against official ground tru
 
 **Target journal:** *Government Information Quarterly* (Elsevier)
 **Institution:** Programa de Pós-Graduação em Sustentabilidade Ambiental Urbana, UTFPR
-**Status:** Ready for co-author review. Analysis complete and re-scored against
-official registers; reported as **exploratory** (delivered scope departed from the
-plan by more than the plan's own ceiling). Adapted to GIQ requirements: abstract
-within the 250-word limit, APA author-year citations, and a blinded version for
-double-blind review. QA gate and method audit passing.
-**Manuscript:** [`latex/main.tex`](latex/main.tex) → `latex/main.pdf` (41 pp)
+**Status:** Ready for co-author review. Analysis complete and scored against
+official registers. The analysis plan was fixed before data collection but never
+deposited publicly, so the study claims no pre-registration and is reported as
+**exploratory** throughout. Adapted to GIQ requirements: abstract within the
+250-word limit, APA author-year citations, and a blinded version for double-blind
+review. QA gate, method audit and consistency gate passing.
+**Manuscript:** [`latex/main.tex`](latex/main.tex) → `latex/main.pdf` (59 pp,
+`elsarticle [review]` double-spaced submission format)
 **Supplementary:** [`latex/supplement.tex`](latex/supplement.tex) → `latex/supplement.pdf` (17 pp)
 **Blinded:** regenerate with `python latex/build_blind.py` (checks for identifier leaks)
 

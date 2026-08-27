@@ -24,10 +24,18 @@ rodada não havia nenhum fichamento; o que existia era checagem de sintaxe
 
 Quatro são artigos do próprio GIQ (`aoki2024explainable`, `kim2026genai`,
 `robinson2026opensource`, `choroszewicz2026crumple`): são open access CC-BY, mas o
-ScienceDirect recusa acesso automatizado, e a única versão em repositório
-localizada (`robinson2026opensource`, OPUS4) não expõe o arquivo. `requia2024shortterm`
-e `opuszko2026unraveling` estão atrás de paywall sem versão verde localizada.
-`mollick2025personas` é SSRN, cujo download exige sessão de navegador.
+único local que os hospeda é o ScienceDirect, que devolve HTTP 403 a qualquer
+acesso automatizado. `requia2024shortterm` e `opuszko2026unraveling` estão em
+paywall e `mollick2025personas` no SSRN, que exige sessão de navegador.
+
+Rotas esgotadas para as sete, para que uma próxima rodada não as repita: OpenAlex
+(todas as `locations`, não só as com `pdf_url`), Unpaywall, Semantic Scholar,
+OpenAIRE, Open Access Button, fatcat/Internet Archive Scholar, Europe PMC,
+repositórios institucionais (OPUS4/Hertie, eRepo/UEF, Trepo/Tampere, ORA/Oxford)
+e ScienceDirect com conjunto completo de cabeçalhos de navegador. As quatro do GIQ
+só têm localização no editor; Unpaywall e Semantic Scholar confirmam `is_oa=true`
+apontando de volta para o próprio DOI. **Fecham com uma sessão de navegador
+autenticada** — foi tentada, mas o navegador estava ocupado por outra sessão.
 
 Em todas, o que o manuscrito atribui está no título e no abstract conferidos —
 nenhuma sustenta número nosso.

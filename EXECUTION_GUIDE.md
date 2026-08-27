@@ -1,5 +1,16 @@
 # Execution Guide — Starting Real Work on the Benchmark
 
+> **Superseded planning document.** This is the setup-phase guide, kept for the
+> record. It describes what was *intended* in early 2026, and the delivered study
+> departs from it on several points: 25 countries rather than 15, 14 deployment
+> configurations rather than six models, and *Government Information Quarterly*
+> rather than Patterns. Most importantly, **the OSF registration described in §1.3
+> was never deposited**, so the study claims no pre-registration and is reported as
+> exploratory throughout. The invitation template in §2 must not be sent as
+> written even after correction: it still describes 15 countries, six models and a
+> different target journal. For the study as delivered, read `README.md` and
+> `latex/main.tex`.
+
 This guide picks up where the specification pipeline ended. At this point you
 have a complete pre-specified research project waiting for empirical execution.
 The steps below are ordered by dependency; parallelize where noted.
@@ -84,7 +95,7 @@ Target: 2-3 per region. Contacts by region:
 >
 > Dear [Name],
 >
-> I am conducting a pre-registered benchmark study on geographic bias in
+> I am conducting a benchmark study on geographic bias in
 > Large Language Models, specifically evaluating their reliability when used
 > for applied policy research in the Global South. The study covers 15
 > countries stratified along UNCTAD, Joshi linguistic-resource, and World
@@ -98,8 +109,7 @@ Target: 2-3 per region. Contacts by region:
 >
 > Time commitment: estimated 15-20 hours over 6 weeks.
 >
-> The pre-registration, ethics approval (Plataforma Brasil), and complete
-> project documentation are openly available at:
+> The analysis plan and complete project documentation are openly available at:
 > https://github.com/Roverlucas/artigo-vies-analise-regional
 >
 > Would you be interested in participating? I am happy to discuss further.

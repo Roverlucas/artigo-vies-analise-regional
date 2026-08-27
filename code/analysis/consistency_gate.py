@@ -20,6 +20,12 @@ O QUE ELE VERIFICA
    gate o ignora.
 2. ANCORAS: cada numero canonico do congelamento precisa estar presente onde o
    artigo o defende, na formatacao com que aparece no texto.
+3. MARKDOWN DA RAIZ: o repositorio e PUBLICO, e um .md obsoleto contradiz o
+   manuscrito com a mesma forca que um .tex. A versao 1 deste gate so varria
+   .tex, e por esse ponto cego passaram tres arquivos versionados com numeros
+   pre-correcao e com afirmacao de pre-registro — que o manuscrito nega. Os
+   documentos de PLANO em docs/ sao isentos por construcao: eles registram o que
+   foi pre-especificado, e reescreve-los seria falsificar o registro historico.
 
 Falhar aqui significa que o corpo e o suplemento divergiram de novo. O conserto
 nunca e editar o gate: e reconciliar o texto com o congelamento.
@@ -79,6 +85,66 @@ PROIBIDOS = [
     (r"7\{,\}580",                  "n ingles com pseudo-replicacao", "6.629"),
     (r"\$\+13\.3\$~pp",             "H5 antes da deduplicacao",       "+12.6 pp"),
 ]
+
+
+# Markdown da raiz: valores pre-correcao em texto puro (sem a marcacao do LaTeX).
+MD_PROIBIDOS = [
+    (r"\+6[.,]2\s*pp",           "tier gap pre-correcao",    "+5.4 pp"),
+    (r"(?:ρ|rho|p)\s*=\s*[+]?0[.,]51\b", "gradiente pre-correcao", "0.41"),
+    (r"0\.512\b",                "gradiente pre-correcao",   "0.41"),
+    (r"[-−]2[.,]1\s*pp",         "H2 pre-correcao",          "-4.8 pp"),
+    (r"\+6[.,]7\s*pp",           "tier gap a n=15 pre-corr", "ver congelamento"),
+]
+
+# O manuscrito declara que o plano nunca foi depositado. Duas regras, porque uma
+# so nao basta: a primeira exige a ressalva em qualquer .md que toque no assunto;
+# a segunda barra a afirmacao direta mesmo num arquivo que ja traga a ressalva —
+# senao bastava uma linha de ressalva no rodape para liberar o resto do texto.
+MD_PREREG = r"pré-registrad|pre-registrad|pre-registered|pre-registration|post-registration|pré-registro|pre-registro"
+MD_RESSALVA = (
+    "no pre-registration", "não reivindica", "nao reivindica",
+    "never deposited", "nunca foi depositado", "nunca depositado",
+    "claims no pre-registration",
+)
+MD_AFIRMA = (
+    r"(?:is|as) a pre-registered",
+    r"conducting a pre-registered",
+    r"pre-registered (?:study|benchmark|result|sample|analysis)",
+    r"estudo pré-registrado",
+    r"post-registration extension",
+    r"extensão pós-registro",
+)
+# Texto entre aspas e citacao — inclusive a citacao que existe para dizer que
+# aquilo saiu. Barrar a citacao proibiria explicar a propria correcao.
+CITADO = re.compile(r"[\"“][^\"”\n]{0,200}[\"”]")
+
+
+def checa_markdown_raiz(root: pathlib.Path) -> int:
+    """docs/ guarda o plano historico e e isento; a raiz fala pelo projeto hoje."""
+    falhas = 0
+    for f in sorted(root.glob("*.md")):
+        txt = f.read_text(encoding="utf-8", errors="ignore")
+        plano = txt.replace("\n", " ")
+        for padrao, era, virou in MD_PROIBIDOS:
+            for m in re.finditer(padrao, plano):
+                linha = txt[:m.start()].count("\n") + 1
+                print(f"  FALHA {f.name}:{linha}  {era} -> deveria ser {virou}")
+                falhas += 1
+        if re.search(MD_PREREG, txt, re.I) and not any(r in txt for r in MD_RESSALVA):
+            m = re.search(MD_PREREG, txt, re.I)
+            linha = txt[:m.start()].count("\n") + 1
+            print(f"  FALHA {f.name}:{linha}  toca em pre-registro sem a ressalva "
+                  f"que o manuscrito declara")
+            falhas += 1
+        # mesmo offset: substituimos a citacao por espacos, nao a removemos
+        sem_citacao = CITADO.sub(lambda m: " " * len(m.group(0)), plano)
+        for padrao in MD_AFIRMA:
+            for m in re.finditer(padrao, sem_citacao, re.I):
+                linha = txt[:m.start()].count("\n") + 1
+                print(f"  FALHA {f.name}:{linha}  afirma pre-registro "
+                      f"(\"{m.group(0)}\") — o plano nunca foi depositado")
+                falhas += 1
+    return falhas
 
 
 def fmt(v: float, casas: int, sinal: bool = False) -> str:
@@ -176,7 +242,12 @@ def main() -> int:
             print(f"  FALHA {rotulo:22s} {valor:>8s}  ausente de: {', '.join(faltam)}")
             ausentes += 1
 
-    total = falhas + ausentes
+    print("\n(C) markdown da raiz contradiz o manuscrito?")
+    md = checa_markdown_raiz(ROOT)
+    if md == 0:
+        print("  nenhum")
+
+    total = falhas + ausentes + md
     print(f"\n{'GATE LIMPO' if total == 0 else f'GATE FALHOU: {total} problema(s)'}")
     return 1 if total else 0
 
