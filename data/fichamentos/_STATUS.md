@@ -1,4 +1,4 @@
-# Verificação de referências — estado final desta rodada
+# Verificação de referências — estado após a rodada de 27/08/2026
 
 Gate SA-QG-010 (HOUSE-RULES R1): citar exige fichamento com leitura registrada.
 
@@ -11,27 +11,26 @@ rodada não havia nenhum fichamento; o que existia era checagem de sintaxe
 
 | profundidade | quantas | o que significa |
 |---|---|---|
-| texto integral / fonte primária | 11 | PDF ou API oficial lidos |
-| abstract ou metadados conferidos | 26 | a alegação que atribuímos está no trecho conferido |
-| **não verificadas** | **4** | fonte inacessível ou não consultada |
+| texto integral / fonte primária | 36 | PDF, XML de repositório ou API oficial lidos |
+| abstract ou metadados conferidos | 7 | a alegação que atribuímos está no trecho conferido |
+| **não verificadas** | **1** | fonte inacessível |
 
-### As 4 não verificadas — e por quê
+### A não verificada
 
-- **`unctad2024classification`** — `unctadstat.unctad.org` devolve HTTP 403 a
-  ferramentas automatizadas. **É a mais séria da lista**: a divisão Norte/Sul da
-  UNCTAD é a espinha dorsal do desenho amostral e do achado principal. Precisa de
-  conferência manual.
-- **`who2021aqg`** — repositório IRIS da OMS devolve 403. A afirmação que ela
-  sustenta também se apoia em `gbd2019risk`, que foi confirmado.
-- **`patton2015qualitative`** — livro, sem localizador digital.
-- **`opuszko2026unraveling`** — capítulo Springer atrás de paywall; o título
-  sustenta o tema, não o achado específico que lhe atribuímos.
+- **`patton2015qualitative`** — livro, sem localizador digital. Sustenta o termo
+  "amostragem teórica", não um número nem um achado.
 
-Parciais que merecem nota: **`kozlakidis2026medical`** (o abstract confirma o
-tema, não a frase específica sobre ambientes regulatórios; o texto é aberto na
-Frontiers e cabe numa próxima rodada) e **`vanderweele2017evalue`** (paywall; a
-definição e a prática de reportar dois E-values foram confirmadas por fontes que
-descrevem o método).
+### As 7 ainda em abstract — e por quê
+
+Quatro são artigos do próprio GIQ (`aoki2024explainable`, `kim2026genai`,
+`robinson2026opensource`, `choroszewicz2026crumple`): são open access CC-BY, mas o
+ScienceDirect recusa acesso automatizado, e a única versão em repositório
+localizada (`robinson2026opensource`, OPUS4) não expõe o arquivo. `requia2024shortterm`
+e `opuszko2026unraveling` estão atrás de paywall sem versão verde localizada.
+`mollick2025personas` é SSRN, cujo download exige sessão de navegador.
+
+Em todas, o que o manuscrito atribui está no título e no abstract conferidos —
+nenhuma sustenta número nosso.
 
 ## Correções que saíram da leitura
 
@@ -85,3 +84,41 @@ Sete entradas não tinham DOI nem URL e foram localizadas no CrossRef:
 `abadji2022oscar`, `myung2024blend`, `kozlakidis2026medical`, `opuszko2026unraveling`,
 `almeida2025portuguese`, `semopy`, `quijano2000coloniality`. Quatro DOIs do arXiv
 davam 404 no CrossRef — não é erro: o arXiv deposita no DataCite. Todos existem.
+
+## Correções da rodada de 27/08/2026 (leitura integral de mais 14 fontes)
+
+11. **`unctad2024classification` — rótulo atribuído à fonte errada.** O texto dizia
+    "a divisão Norte/Sul Global da UNCTAD". A UNCTAD **não usa** esses termos: sua
+    classificação é *developing (1400) / developed (1500) economies*. O Norte/Sul é
+    enquadramento nosso, vindo da colonialidade. Corrigido em corpo e suplemento nos
+    dois idiomas. A conferência trouxe também um reforço: a regra verbatim da UNCTAD
+    ("developed economies broadly comprise Northern America and Europe, Israel, Japan,
+    the Republic of Korea, Australia, and New Zealand") foi aplicada país a país aos
+    25 e **não há uma divergência sequer** — Coreia do Sul inclusive, que era o caso
+    de risco. A regra foi transcrita no suplemento para o revisor conferir.
+
+12. **`gbd2019risk` — afirmação mais forte que a fonte.** A introdução dizia que o
+    material particulado fino é *o* principal fator de risco ambiental. O GBD 2019
+    classifica por níveis e o principal fator global de mortes atribuíveis é pressão
+    arterial sistólica alta. Corrigido para "entre os principais". A OMS sustenta a
+    forma forte para *poluição do ar* ("the leading environmental risk factor
+    globally"), não para o material particulado isolado.
+
+13. **`cordella2024regulating` — inferência nossa atribuída aos autores.** O texto
+    dizia que eles argumentam que arcabouços neutros "deixam a verificação no ponto
+    de uso como o controle operante". Essa segunda metade não existe no artigo.
+    Reescrito para o que eles de fato defendem.
+
+14. **`oecd2024governing` — usos não documentados.** Atribuíamos ao relatório
+    implantações que ajudam servidores a "buscar normas e redigir sínteses técnicas".
+    O relatório documenta o "Albert" francês, que auxilia atendentes a acessar
+    informação e as fontes por trás dela. Corrigido para isso.
+
+15. **`vanderweele2017evalue` — rota de conversão não declarada.** O código usa
+    RR≈exp(0.91·d), que é exatamente a aproximação prescrita pela fonte para efeitos
+    padronizados. Estava correta, mas invisível no manuscrito; agora declarada nos
+    métodos junto com a ressalva de que herda os pressupostos da aproximação.
+
+16. **`benjamini1995fdr` — garantia condicional não declarada.** O procedimento é
+    provado "for independent test statistics"; nossos testes F3 não são independentes.
+    A ressalva foi declarada nos métodos.

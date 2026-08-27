@@ -5,10 +5,10 @@ Modelos de linguagem de grande porte passaram de curiosidade de pesquisa a
 infraestrutura de trabalho da administração pública em menos de cinco anos: um
 levantamento da OCDE sobre funções centrais de governo documenta a adoção de IA
 generativa na formulação de políticas e na prestação de serviços, incluindo
-implantações que ajudam servidores a buscar normas e redigir sínteses
-técnicas~\citep{oecd2024governing}. A política de poluição do ar é um domínio em
+assistentes que ajudam atendentes de serviços públicos a recuperar informação e as
+fontes por trás dela~\citep{oecd2024governing}. A política de poluição do ar é um domínio em
 que isso carrega consequências diretas de saúde pública. O material particulado
-fino é o principal fator de risco ambiental para mortalidade
+fino está entre os principais fatores de risco ambiental para mortalidade
 prematura~\citep{gbd2019risk,who2021aqg}, e a carga recai desproporcionalmente
 sobre o Sul Global. Quando um gestor ambiental público em São Paulo, Lagos ou
 Jacarta pergunta a um LLM sobre um padrão de qualidade do ar, um prazo de
@@ -21,14 +21,16 @@ com a mesma confiabilidade com que servem ao Norte Global, e se a forma de
 enquadrar a consulta muda a resposta. Ambas as premissas estão estabelecidas. O
 viés factual geográfico é real e mensurável: as taxas de erro são $1{,}5\times$
 maiores para países da África Subsaariana do que para norte-americanos em 20
-modelos~\citep{moayeri2024worldbench}, avaliações zero-shot correlacionam-se com
-nível de renda até $\rho=0{,}70$~\citep{manvi2024llm}, e os modelos privilegiam
+modelos~\citep{moayeri2024worldbench}, avaliações do modelo sobre tópicos
+subjetivos sensíveis acompanham condições socioeconômicas até
+$\rho=0.70$~\citep{manvi2024llm}, e os modelos privilegiam
 sistematicamente afirmações sobre o Norte Global~\citep{mirza2024global}. E a
 assimetria linguística por trás disso é estrutural: os idiomas da maioria dos
 países do Sul Global ficam nas classes sub-atendidas da hierarquia de
-recursos~\citep{joshi2020state}, e o argumento contra ingerir a web inteira em vez
-de curar e documentar o que entra no corpus foi feito
-cedo~\citep{bender2021stochastic}. A assimetria reproduz a infraestrutura
+recursos~\citep{joshi2020state}, e grandes corpora derivados da internet
+``super-representam pontos de vista hegemônicos e codificam vieses potencialmente
+danosos a populações marginalizadas''~\citep{bender2021stochastic}. A assimetria
+reproduz a infraestrutura
 epistêmica desigual que a literatura decolonial analisa para sistemas de
 IA~\citep{mohamed2020decolonial}.
 
@@ -95,7 +97,8 @@ reivindicamos pré-registro, e o estudo é relatado como exploratório.
   ativo: perguntar no idioma do próprio país reduz a acurácia em 4.8 pontos
   percentuais, de forma mais acentuada para o idioma de corpus mais escasso.
 \item \emph{Um desenho que separa quem é mal servido de por quê.} Os países são
-  estratificados em eixos independentes --- Norte/Sul da UNCTAD (operacionalizando
+  estratificados em eixos independentes --- a divisão desenvolvidas/em
+  desenvolvimento da UNCTAD (operacionalizando
   a colonialidade~\citep{mohamed2020decolonial}), a taxonomia de recursos
   linguísticos de Joshi~\citep{joshi2020state} e desenvolvimento ---, de modo que
   explicações geográficas, linguísticas e econômicas possam ser distinguidas em

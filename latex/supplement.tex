@@ -76,7 +76,8 @@ computed on the 25-country sample is reported alongside its pre-specified
 extension alone (Section~\ref{sec:s-stats}).
 
 Countries were selected by theoretical sampling triangulated across three
-independent classifications: the UNCTAD Global North/South classification
+independent classifications: the Global North/South distinction, taken from
+UNCTAD's developed/developing economies classification
 (operationalising the coloniality-of-knowledge framing), the Joshi et al.\ (2020)
 six-class linguistic-resource taxonomy~\citep{joshi2020state}, and World Bank
 income groups. The pre-specified 15 (Set ``P'' in Table~\ref{tab:s-cov-country})
@@ -84,8 +85,12 @@ span four world regions, five Joshi classes, and four income groups; the 10
 extension countries (Set ``E'') comprise seven additional Global North references
 (United Kingdom, Canada, Australia, South Korea, France, Italy, Portugal) chosen
 to thicken the high-development end of the gradient, and three additional Global
-South native-language-pair countries (Colombia, Chile, Angola). The full design
-rationale is in \texttt{docs/supplement/s1\_design\_rationale.md}.
+South native-language-pair countries (Colombia, Chile, Angola). UNCTAD states that
+developed economies ``broadly comprise Northern America and Europe, Israel, Japan,
+the Republic of Korea, Australia, and New Zealand'', developing economies being the
+remainder; all 25 countries fall on the side that rule assigns them, South Korea
+included. The full design rationale is in
+\texttt{docs/supplement/s1\_design\_rationale.md}.
 
 % ============================================================
 \section{Deployment-stack roster and serving configuration}
@@ -423,7 +428,7 @@ Permutation test with country as the unit, 10{,}000 relabellings.}
 \toprule
 Partition & Gap (pp) & GN/GS & $p$ \\
 \midrule
-UNCTAD North/South (used throughout) & $+5.06$ & 10/15 & $0.020$ \\
+UNCTAD developed/developing (used throughout) & $+5.06$ & 10/15 & $0.020$ \\
 HDI below the sample median ($0.781$) & $+2.39$ & 13/12 & $0.269$ \\
 HDI $<0.800$ (UNDP ``very high'' cutoff) & $+2.92$ & 12/13 & $0.182$ \\
 HDI $<0.700$ & $+1.53$ & 20/5 & $0.575$ \\

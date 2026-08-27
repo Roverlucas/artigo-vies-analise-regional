@@ -2,7 +2,7 @@
 chave: white2023prompt
 titulo: A Prompt Pattern Catalog to Enhance Prompt Engineering with ChatGPT
 localizador: arXiv:2302.11382
-read_depth: abstract
+read_depth: full-text (PDF arXiv)
 data_leitura: 2026-08-26
 leitor: Claude (verificacao de referencias)
 ---
@@ -11,10 +11,10 @@ leitor: Claude (verificacao de referencias)
 
 o padrao de persona esta catalogado na literatura de padroes de prompt
 
-## Verbatim / metadados conferidos
+## Verbatim conferido no texto completo
 
-> "Prompt engineering is an increasingly important skill set... Prompts are also a form of programming that can customize" — o artigo e um catalogo de padroes de prompt, do qual o Persona Pattern faz parte
+> Secao "E. The Persona Pattern": "The Persona pattern gives the LLM a persona or role"
 
 ## Veredito
 
-CONFIRMA o uso: citamos como catalogo de padroes, que e exatamente o que o artigo e.
+CONFIRMA: o Persona Pattern e uma secao propria do catalogo, exatamente como citamos.

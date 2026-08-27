@@ -1,0 +1,230 @@
+{
+  "id" : "5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2",
+  "uuid" : "5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2",
+  "name" : "WHO global air quality guidelines: particulate matter (PM2.5 and PM10), ozone, nitrogen dioxide, sulfur dioxide and carbon monoxide",
+  "handle" : "10665/345329",
+  "metadata" : {
+    "dc.contributor.author" : [ {
+      "value" : "World Health Organization",
+      "language" : "en_US",
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.coverage.spatial" : [ {
+      "value" : "Geneva",
+      "language" : "en_US",
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.date.accessioned" : [ {
+      "value" : "2021-09-21T12:41:37Z",
+      "language" : "",
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.date.available" : [ {
+      "value" : "2021-09-22T14:30:00Z",
+      "language" : null,
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.date.issued" : [ {
+      "value" : "2021-09-21",
+      "language" : "",
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.description" : [ {
+      "value" : "xxi, 273 p.",
+      "language" : "en_US",
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.description.abstract" : [ {
+      "value" : "These WHO global air quality guidelines present updated evidence-based recommendations to protect public health from the adverse effects of air pollution. Developed in response to substantial advances in scientific evidence since the 2005 guidelines, they provide quantitative air quality guideline (AQG) levels for particulate matter (PM₂.₅ and PM₁₀), ozone, nitrogen dioxide, sulfur dioxide and carbon monoxide, together with interim targets to support progressive reductions in exposure where guideline levels cannot be achieved immediately. The recommendations are based on systematic reviews and rigorous evaluation of the evidence linking air pollution to adverse health outcomes and are intended to inform legislation, policy and air quality management worldwide.\n\nThe guidelines also include good practice statements for black carbon/elemental carbon, ultrafine particles, and particles from sand and dust storms, for which evidence indicates health risks but remains insufficient to establish quantitative guideline levels. Applicable to both outdoor and indoor environments, they serve as a global reference for policy-makers, technical experts, public authorities, researchers and civil society. The document outlines principles for dissemination, implementation, monitoring and evaluation, emphasizes the role of the health sector and intersectoral collaboration, and identifies research priorities to strengthen future evidence and support continued improvements in air quality and population health.",
+      "language" : null,
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.identifier.isbn" : [ {
+      "value" : "9789240034228 (electronic version)",
+      "language" : "",
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    }, {
+      "value" : "9789240034211 (print version)",
+      "language" : "",
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 1
+    } ],
+    "dc.identifier.uri" : [ {
+      "value" : "https://iris.who.int/handle/10665/345329",
+      "language" : "",
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.language" : [ {
+      "value" : "English",
+      "language" : null,
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.language.iso" : [ {
+      "value" : "en",
+      "language" : "en_US",
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.publisher" : [ {
+      "value" : "World Health Organization",
+      "language" : "en_US",
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.relation" : [ {
+      "value" : "Related document (Executive summary):",
+      "language" : null,
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    }, {
+      "value" : "https://iris.who.int/handle/10665/345334",
+      "language" : null,
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 1
+    } ],
+    "dc.relation.hasversion" : [ {
+      "value" : "https://iris.who.int/handle/10665/345334",
+      "language" : null,
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.rights" : [ {
+      "value" : "CC BY-NC-SA 3.0 IGO",
+      "language" : "en_US",
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.rights.holder" : [ {
+      "value" : "World Health Organization",
+      "language" : "en_US",
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.rights.uri" : [ {
+      "value" : "https://creativecommons.org/licenses/by-nc-sa/3.0/igo",
+      "language" : "en_US",
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.subject" : [ {
+      "value" : "WHO guideline",
+      "language" : "en_US",
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.subject.mesh" : [ {
+      "value" : "Air Pollution",
+      "language" : "en_US",
+      "authority" : "655f2302663273722bc0d1ce528c98a9caf017a1",
+      "confidence" : 600,
+      "place" : 0
+    }, {
+      "value" : "Guideline",
+      "language" : "en_US",
+      "authority" : "72d7efd8123a7c364a87b00812ea1eaa81fa509e",
+      "confidence" : 600,
+      "place" : 1
+    }, {
+      "value" : "Environmental Exposure",
+      "language" : "en_US",
+      "authority" : "55df53cac511a6ab0bf914df760b33778e3e1b55",
+      "confidence" : 600,
+      "place" : 2
+    }, {
+      "value" : "Particulate Matter",
+      "language" : "en_US",
+      "authority" : "6a1a746c72d1e3c29bb0184ce2935cd4bef33f78",
+      "confidence" : 600,
+      "place" : 3
+    } ],
+    "dc.subject.meshqualifier" : [ {
+      "value" : "standards",
+      "language" : "en_US",
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.title" : [ {
+      "value" : "WHO global air quality guidelines: particulate matter (PM2.5 and PM10), ozone, nitrogen dioxide, sulfur dioxide and carbon monoxide",
+      "language" : "en_US",
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ],
+    "dc.type" : [ {
+      "value" : "Publications",
+      "language" : "en_US",
+      "authority" : null,
+      "confidence" : -1,
+      "place" : 0
+    } ]
+  },
+  "inArchive" : true,
+  "discoverable" : true,
+  "withdrawn" : false,
+  "lastModified" : "2026-08-01T17:42:47.924+00:00",
+  "entityType" : null,
+  "type" : "item",
+  "_links" : {
+    "accessStatus" : {
+      "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/accessStatus"
+    },
+    "bundles" : {
+      "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/bundles"
+    },
+    "identifiers" : {
+      "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/identifiers"
+    },
+    "mappedCollections" : {
+      "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/mappedCollections"
+    },
+    "owningCollection" : {
+      "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/owningCollection"
+    },
+    "relationships" : {
+      "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/relationships"
+    },
+    "version" : {
+      "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/version"
+    },
+    "templateItemOf" : {
+      "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/templateItemOf"
+    },
+    "thumbnail" : {
+      "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/thumbnail"
+    },
+    "self" : {
+      "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2"
+    }
+  }
+}

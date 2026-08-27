@@ -22,8 +22,9 @@ observações confirmatórias.
 \subsection{Seleção de países}
 
 Os países foram selecionados por amostragem teórica~\citep{patton2015qualitative}
-triangulada em três classificações independentes: a divisão Norte/Sul Global da
-UNCTAD~\citep{unctad2024classification}, que operacionaliza o arcabouço da
+triangulada em três classificações independentes: a distinção Norte/Sul Global,
+operacionalizada pela classificação de economias desenvolvidas/em desenvolvimento
+da UNCTAD~\citep{unctad2024classification}, que carrega o arcabouço da
 colonialidade do saber que motiva o estudo~\citep{mohamed2020decolonial}; a
 taxonomia de seis classes de representação de recursos linguísticos de Joshi et
 al.~\citep{joshi2020state}; e os grupos de renda do Banco
@@ -338,7 +339,8 @@ diferenças de H6.
 Os três testes primários são pré-especificados como uma única família (F1) e
 corrigidos em conjunto por Bonferroni-Holm. Os testes secundários (F2) são
 relatados sem ajuste dentro da família, e os declarados exploratórios (F3) usam FDR
-de Benjamini-Hochberg a $q=0.10$~\citep{benjamini1995fdr}.
+de Benjamini-Hochberg a $q=0.10$~\citep{benjamini1995fdr}, cuja garantia pressupõe
+estatísticas de teste independentes.
 
 \emph{H1 (gradiente geográfico, primário)} regride a acurácia composta média por
 país sobre o gradiente Joshi/IDH via $\rho$ de Spearman, pré-especificado
@@ -357,7 +359,9 @@ Três análises transversais corroboram a lacuna de camada: um modelo linear mis
 gaussiano (MixedLM do \texttt{statsmodels}, REML) com interceptos aleatórios
 cruzados de país e modelo, ajustando para IDH centrado; uma reestimação hierárquica
 bayesiana (\texttt{pymc}~\citep{pymc}); e E-values para robustez a confundimento não
-medido~\citep{vanderweele2017evalue}. O mecanismo de corpus é sondado com um modelo
+medido, pela aproximação $\mathrm{RR}\approx\exp(0.91\,d)$ que
+\citet{vanderweele2017evalue} prescrevem para efeitos padronizados e cujos
+pressupostos ela herda. O mecanismo de corpus é sondado com um modelo
 exploratório de mediação (\texttt{semopy}~\citep{semopy}), e a manipulação de
 persona com uma checagem de reconhecimento do enquadramento. As análises de
 robustez pré-especificadas aparecem na Seção~\ref{sec:res:robustez}.

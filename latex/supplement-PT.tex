@@ -70,7 +70,8 @@ seu valor pré-especificado de 15 países, e nenhuma conclusão pré-especificad
 revista com base apenas na extensão (Seção~\ref{sec:s-stats}).
 
 Os países foram selecionados por amostragem teórica triangulada em três
-classificações independentes: a classificação UNCTAD Norte/Sul Global
+classificações independentes: a distinção Norte/Sul Global, tomada da classificação
+de economias desenvolvidas/em desenvolvimento da UNCTAD
 (operacionalizando o enquadramento da colonialidade do conhecimento), a taxonomia
 de seis classes de recurso linguístico de Joshi et al.\ (2020)~\citep{joshi2020state}
 e os grupos de renda do Banco Mundial. Os 15 pré-especificados (Conjunto ``P'' na
@@ -79,8 +80,12 @@ Joshi e quatro grupos de renda; os 10 países de extensão (Conjunto ``E'')
 compreendem sete referências adicionais do Norte Global (Reino Unido, Canadá,
 Austrália, Coreia do Sul, França, Itália, Portugal) escolhidas para adensar a
 extremidade de alto desenvolvimento do gradiente, e três países adicionais do Sul
-Global com par de idioma nativo (Colômbia, Chile, Angola). A justificativa
-completa do desenho está em \texttt{docs/supplement/s1\_design\_rationale.md}.
+Global com par de idioma nativo (Colômbia, Chile, Angola). A UNCTAD declara que as
+economias desenvolvidas ``compreendem, em linhas gerais, a América do Norte e a
+Europa, Israel, Japão, República da Coreia, Austrália e Nova Zelândia'', sendo as
+demais em desenvolvimento; os 25 países caem todos no lado que essa regra lhes
+atribui, Coreia do Sul inclusive. A justificativa completa do desenho está em
+\texttt{docs/supplement/s1\_design\_rationale.md}.
 
 % ============================================================
 \section{Roster de deployment-stacks e configuração de serving}
@@ -419,7 +424,7 @@ Teste de permutação com o país como unidade, 10.000 reetiquetagens.}
 \toprule
 Partição & Lacuna (pp) & NG/SG & $p$ \\
 \midrule
-UNCTAD Norte/Sul (usada no artigo) & $+5.06$ & 10/15 & $0.020$ \\
+UNCTAD desenvolvidas/em desenvolvimento (usada no artigo) & $+5.06$ & 10/15 & $0.020$ \\
 IDH abaixo da mediana da amostra ($0.781$) & $+2.39$ & 13/12 & $0.269$ \\
 IDH $<0.800$ (corte ``muito alto'' do PNUD) & $+2.92$ & 12/13 & $0.182$ \\
 IDH $<0.700$ & $+1.53$ & 20/5 & $0.575$ \\

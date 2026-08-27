@@ -2,8 +2,8 @@
 chave: kerche2026silicon
 titulo: The silicon gaze: A typology of biases and inequality in LLMs through the lens of place
 url: doi:10.1177/29768624251408919
-read_depth: abstract completo
-data_leitura: 2026-08-26
+read_depth: full-text
+data_leitura: 2026-08-27
 leitor: Claude (verificacao de referencias)
 ---
 
@@ -18,3 +18,7 @@ tipologia de vieses de base territorial situando o vies geografico
 ## Veredito
 
 CONFIRMA. Tipologia territorial, como descrevemos.
+
+## Verificacao na integra (2026-08-27)
+
+PDF integral via Oxford ORA. CONFIRMA 'silicon gaze: A typology of biases and inequality in LLMs through the lens of place' e o argumento de que o vies e caracteristica intrinseca, nao anomalia corrigivel. Confirma o carater conceitual/agregado que o manuscrito atribui.

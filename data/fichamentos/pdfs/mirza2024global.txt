@@ -1,0 +1,1422 @@
+arXiv:2401.17839v1 [cs.CL] 31 Jan 2024
+
+G LOBAL -L IAR : FACTUALITY OF LLM S OVER T IME AND
+G EOGRAPHIC R EGIONS
+
+Shujaat Mirza1 , Bruno Coelho1 , Yuyuan Cui1 , Christina Pöpper2 , and Damon McCoy1
+1
+New York University
+2
+New York University Abu Dhabi
+{shujaat.mirza, bruno.coelho, yc1880, christina.poepper, mccoy}@nyu.edu
+
+A BSTRACT
+The increasing reliance on AI-driven solutions, particularly Large Language Models (LLMs) like
+the GPT series, for information retrieval highlights the critical need for their factuality and fairness,
+especially amidst the rampant spread of misinformation and disinformation online. Our study
+evaluates the factual accuracy, stability, and biases in widely adopted GPT models, including GPT-3.5
+and GPT-4, contributing to reliability and integrity of AI-mediated information dissemination.
+We introduce ’Global-Liar,’ a dataset uniquely balanced in terms of geographic and temporal representation, facilitating a more nuanced evaluation of LLM biases. Our analysis reveals that newer
+iterations of GPT models do not always equate to improved performance. Notably, the GPT-4 version
+from March demonstrates higher factual accuracy than its subsequent June release. Furthermore, a
+concerning bias is observed, privileging statements from the Global North over the Global South, thus
+potentially exacerbating existing informational inequities. Regions such as Africa and the Middle
+East are at a disadvantage, with much lower factual accuracy. The performance fluctuations over time
+suggest that model updates may not consistently benefit all regions equally.
+Our study also offers insights into the impact of various LLM configuration settings, such as binary
+decision forcing, model re-runs and temperature, on model’s factuality. Models constrained to
+binary (true/false) choices exhibit reduced factuality compared to those allowing an ’unclear’ option.
+Single inference at a low temperature setting matches the reliability of majority voting across various
+configurations. The insights gained highlight the need for culturally diverse and geographically
+inclusive model training and evaluation. This approach is crucial in advancing towards global
+fairness in computational systems, ensuring that AI’s technological benefits are equitably distributed
+worldwide.
+
+1
+
+Introduction
+
+The digital age has amplified our access to information, but in the same stride, it has magnified the challenge of
+mis-/disinformation Caramancion (2020). The resulting wave of misleading content risks eroding the very foundations
+of our informed societies. Now, more than ever, as societies navigate through an intricate web of data-driven decisions,
+the integrity and trustworthiness of our information sources are under scrutiny Shu et al. (2020); Grimes (2021); Bovet
+and Makse (2019).
+Large Language Models (LLMs) such as the GPT series have experienced widespread adoption due to their advanced
+capabilities in processing complex information Paul et al. (2023). Recognizing their potential impact, there has been
+an increasing focus on aligning these models with facts through Reinforcement Learning from Human Feedback
+(RLHF) to avoid harmful content generations Ouyang et al. (2022). As users increasingly place trust in LLMs with the
+responsibility of discerning fact from fiction Lee et al. (2021); Guo et al. (2022); Wahle et al. (2022); Aggarwal et al.
+(2020); Pelrine et al. (2021), ensuring their factuality and fairness becomes a central concern.
+The impact of mis-/disinformation varies globally, influenced by factors like regional digital literacy and the strength
+of local fact-checking ecosystems Mirza et al. (2023). Regions with lower digital literacy are often more susceptible
+to misinformation, lacking robust mechanisms to critically assess and verify digital content. This susceptibility is
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+A P REPRINT
+
+not just a matter of the technical capabilities of disinformation campaigns, but also the vulnerability of the targeted
+population Mirza et al. (2023). Such disparities highlight the need for examining the performance of LLMs like the
+GPT series across different regions. If these models are not finely attuned to regional variations, they risk exacerbating
+existing informational inequities. Our study, therefore, delves into the geographic factuality variations of LLMs,
+addressing a crucial aspect of how these technologies can either mitigate or amplify challenges in diverse information
+ecosystems.
+In this study, we utilize a comprehensive evaluation framework to assess how accurate the models are in aligning
+with the true facts (“factuality”) in fact-checking tasks. Primarily, we focus our attention on two pivotal models,
+GPT-3.5 Brown et al. (2020) and GPT-4 Bubeck et al. (2023). ChatGPT, the web interface chatbot serving GPT models,
+reached 100 million users just two months after launching Milmo (2023). Despite its popularity, inconsistencies of
+factuality in its responses, as exemplified in Figure 12 in Appendix G, have provided motivation for our research study.
+We specifically look at GPT in the zero-shot classification setting (and not as a search-retrieval method that can use
+online sources to detect factualness, e.g., Microsoft Bing Mehdi (2023)). We specifically examine a number of model
+configurations for LLM-based fact-checking tasks, including analyzing the impact of forcing binary decisions (“true” or
+“false”) on LLMs, proper temperature setting, as well as the model behavior in multiple runs with a given query. We
+compared different versions of the GPT model series to evaluate performance across model updates. Furthermore, we
+compared model performance over inputs from different geographic regions and time. For this purpose, we curated a
+balanced dataset (n = 600), evenly distributed in terms of regions and labels and covering news and statements from
+before and after the model training cutoff date.
+Our findings present a nuanced picture. Notably, while GPT-4 exhibits superior performance over its predecessor,
+GPT-3.5, its versions show inconsistent outcomes. The GPT-4 March release was notably more factually accurate
+compared to its subsequent June iteration. Understandably, there was a marked decline in model accuracies for
+information beyond their training span. We also observe notable performance disparities in LLMs based on geographic
+origin, uncovering a concerning bias that privileges statements from the Global North (e.g. North America) over
+those from the Global South (e.g. Africa). Such biases in computational systems can have far-reaching implications,
+potentially exacerbating existing inequities and misinforming certain populations. This research is situated within a
+global context, recognizing that the impacts of computational systems are not confined by geographical boundaries.
+Our major contributions include:
+1. We introduce Global-Liar, a geographically and temporally balanced dataset, paving the way for future
+nuanced evaluations of LLMs. This dataset is a step towards mitigating geographic biases and promoting
+global inclusivity in computational systems. We will make our curated dataset publicly available.
+2. By analyzing the impact of a number of configuration settings for LLM-driven fact-checking, such as
+forcing binary decisions, temperature configuration, and model reruns, our study sheds light on the nuanced
+capabilities and limitations of LLMs in handling complex information, providing guidance on efficient and
+scalable applications in real-world settings.
+3. This study contributes a seminal analysis of LLM factuality performance disparities across global regions, with
+a specific emphasis on contrasting outcomes between the Global North and the Global South. By quantitatively
+uncovering these discrepancies, our research highlights the need for culturally aware and geographically
+diverse model training and evaluation, vital for achieving equitable computational systems worldwide. This
+contribution is pivotal in guiding future LLM advancements towards global fairness, ensuring equitable
+technological benefits across diverse international contexts.
+
+2
+
+Methods
+
+In this section, we outline our approach to evaluating OpenAI’s GPT-3.5 and GPT-4 models in fact-checking tasks.
+We explain the choice of models under scrutiny (Section 2.1), our globally diverse dataset assembled for evaluation
+(Section 2.2), prompt design and model configurations facilitating model interaction (Section 2.3), and the metrics
+employed for a quantitative assessment (Section 2.4). This overview sets the stage for the following analysis of the
+models’ fact-checking capabilities.
+2.1
+
+Models
+
+This study endeavors to systematically evaluate the fact-checking performance of GPT-3.5 and GPT-4 models, which
+constitute the core of OpenAI’s ChatGPT service. Due to ChatGPT’s widespread adoption among individual users and
+businesses, understanding the performance drift of these models between different versions is of timely importance.
+2
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+2.1.1
+
+A P REPRINT
+
+GPT-3.5-turbo Series
+
+GPT-3.5-turbo stands as the most cost-effective model within the GPT series, exhibiting proficient performance in
+traditional completion tasks. At the time of writing, two versions of GPT-3.5-turbo are available through the OpenAI
+API, one from March 2023 (GPT-3.5-turbo-0301, shortened to gpt-3.5t-03 in plots) and the other from June 2023
+(GPT-3.5-turbo-0613, shortened to gpt-3.5t-06). These versions show the models’ state at these specific times and
+reflect any updates or improvements made by OpenAI. Additionally, GPT-3.5-turbo-16K is also accessible which has
+the same capabilities as the standard GPT-3.5-turbo model but with 4 times the context. The June snapshot of this
+model, GPT-3.5-turbo-16K-0601 (shortened to gpt-3.5t-16k-06), is also included in this evaluation.
+2.1.2
+
+GPT-4 Series
+
+In March 2023, OpenAI introduced GPT-4, a successor to GPT-3.5. The increased model complexity of GPT-4
+compared with previous versions is believed to bring significant performance improvement. In this study, we will
+explore this claim in the context of fact-checking. At the time of writing, two principal versions of GPT-4 are available
+through the OpenAI API, one snapshot taken in March 2023 (GPT-4-0314, shortened to gpt-4-03), and the other in June
+2023 (GPT-4-0613, shortened to gpt-4-06), denoting the model’s evolutionary state at these respective time points.
+All API queries in this study were executed within the timeframe spanning from July 2023 to October 2023. The
+financial costs incurred for running queries on GPT-4 amounted to $435, which is approximately 13 times higher than
+the cost incurred from querying the GPT-3 model ($33) for a similar amount of requests.
+2.2
+
+Dataset Curation
+
+We curated a dataset of both true and false statements published before and after the OpenAI API training cutoff date
+for the models in September 2021. This unique dataset called Global-Liar addresses two concerns: (1) the potential bias
+from using datasets possibly employed in model fine-tuning, and (2) the Western-centric focus of existing datasets.
+Our dataset aims for a fair assessment of the models’ fact-checking performance and broadens the evaluation scope to
+include six global regions: Africa, Asia-Pacific, Europe, Latin America, North America, and the Middle East, with 100
+statements from each region. In our analysis, we use Global South to mean the Africa, Latin America, and the Middle
+East regions and Global North to mean North America, Europe, and Asia-Pacific regions, although we note that the
+latter also includes a number of countries from both regions.
+To achieve a balanced analysis, our dataset maintains an equal number of true and false statements. False statements
+were sourced from AFP FactCheck1 , selecting statements that could be analyzed without the need for additional context,
+such as images or videos. In the Latin America region, nearly half of the examples were translated from Portuguese2
+and Spanish3 by a fluent speaker due to a scarcity of valid statements in English.
+True statements were derived from reputable news outlets in the respective regions, specifically from newspapers
+ranking high on the International Media and Newspapers list4 . These statements, extracted from high-quality sources,
+served as the ground truth for true statements.
+We provide data spanning both before and after the model’s training cutoff date in September 2021. Ensuring equilibrium
+with this pivotal date, our dataset features 300 statements from each side of the timeline. Additionally, both data subsets
+are evenly distributed in terms of regions and labels.
+We plan to make our dataset publicly available alongside this paper to aid the community in conducting evaluations on
+a dataset balanced for regions, labels, and time frames.
+2.3
+
+Prompt Design and Model Configurations
+
+Prompts serve as the interface through which the models receive input and, consequently, the clarity, neutrality, and
+specificity of prompts can significantly impact the models’ output. In our study, we carefully crafted prompts to be
+clear, unbiased, and relevant to fact-checking. Each prompt aimed to elicit factual responses from the models without
+leading them toward any particular answer.
+1
+
+https://factcheck.afp.com
+https://checamos.afp.com/
+3
+https://factual.afp.com/
+4
+4imn is an international directory for newspapers, accessible at https://www.4imn.com/about/
+2
+
+3
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+A P REPRINT
+
+Listing 1: Prompt used for querying models.
+
+Role: I need you to assume the role of a professional fact checker with an experience of 10+ years.
+You will fact-check a statement.
+Task: For given statement, delimited by triple backticks, rate it for truthfulness.
+Response Format: ‘false’, ‘true’, or ‘unclear’ (no context or explanations).
+Now, let’s get to task. Here is the statement: {text}
+
+2.3.1
+
+Verdict Categories
+
+With a given input statement, a natural output required from the model for fact-checking is to ask it to produce a “true”
+or “false” label. In our following evaluation, however, in addition to the “true” and “false” labels, our prompt allows
+the language model to output an “unclear” verdict for instances where it lacks confidence in leaning towards either
+side. Listing 1 provides a succinct version of the prompt used in our main experiment. This choice is based on our
+experiment (Section 3.2.5) which shows that allowing the “unclear” verdict makes the models perform better.
+2.3.2
+
+Prompt Rerun
+
+In order to evaluate the stability of model response, for each statement we prompt the model five times and record all
+responses for subsequent analysis. When evaluating the factuality of the model, we use the mode response of each
+statement as the consensus verdict. Our aim is to mitigate the potential inconsistencies in individual runs and derive a
+more stable and reliable prediction.
+2.3.3
+
+Temperature Setting
+
+Temperature is a parameter that controls the randomness of response from the GPT models. We set the temperature to
+zero for subsequent analysis to ensure models perform most stably. This choice is supported by our analysis comparing
+model performance over different temperature values - lower temperature value understandably makes the model more
+stable and precise (Appendix B).
+2.3.4
+
+Post-Processing
+
+Due to models’ tendencies to deviate from instructions and generate non-conforming responses, they were instructed to
+provide only a verdict, foregoing any detailed rationales for their decision. Nonetheless, post-processing was requisite in
+a few instances to ensure precise response categorization. Initially, special characters are removed and text is converted
+to lowercase for uniformity. Known prefixes or suffixes are then removed from labels. A dictionary of corrections is
+utilized to map various labels to accepted terms: “false”, “true”, or “unclear”. If a label does not match predefined
+corrections, fuzzy matching is employed to find the closest match among the accepted labels, enhancing the accuracy
+and consistency of response categorization for precise analysis.
+2.4
+
+Metrics
+
+In our evaluation framework, we focus on two dimensions: stability and factuality. Stability assesses the model’s
+consistency across the five rerun iterations, while factuality gauges its alignment with the ground truth. These
+dimensions, explored through specific metrics, provide a nuanced understanding of the model’s performance in
+fact-checking scenarios.
+2.4.1
+
+Stability
+
+Consistency in verdicts across multiple evaluations enhances the reliability of LLMs, which in turn, fosters user trust —
+a critical aspect for the practical deployment of automated fact-checking systems. Our ad-hoc experimentation with
+the ChatGPT web interface (cf. Figure 12 in Appendix G) suggests that one-shot metrics may fall short in providing
+a comprehensive evaluation. A model that exhibits low stability might give inconsistent verdicts, undermining its
+reliability in discerning factual accuracy. To rigorously assess stability in this context, we employ the Mode Frequency
+metric.
+4
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+A P REPRINT
+
+Mode Frequency: Given a statement and its set of predictions from multiple runs of the LLM, the mode frequency
+quantifies the most commonly occurring verdict. For a given statement s:
+# occurrences of mode verdict
+MF =
+(1)
+# total predictions
+Subsequently, to obtain a holistic view of the model’s behavior, the mode frequencies of individual statements can be
+aggregated to provide an average mode frequency for the entire LLM model:
+P
+Mode Frequency
+Average MF = s∈S
+,
+(2)
+|S|
+where S represents the set of all evaluated statements. This average mode frequency offers insights into the typical
+consensus level the LLM model exhibits across its predictions. A higher value suggests that, on average, the model
+tends to converge more frequently on a particular verdict for each statement, indicating a stronger predictive consistency.
+Label Switching: In the context of fact-checking with language models, understanding how temperature modulation
+affects verdicts is crucial. To this end, we quantify the instances where the model’s verdict alternates between temperature
+transitions. Frequent label switching highlights the model’s sensitivity to temperature alterations, suggesting potential
+verdict variability.
+2.4.2
+
+Factuality
+
+The accuracy with which a model can determine the factuality of a statement is crucial to its utility in real-world
+applications. For each statement, the LLM provides a set of verdicts across five runs. We use the “mode" verdict (the
+most frequent prediction among these runs) as the model’s output verdict. In cases of tied verdict frequencies, we
+default to the verdict given by the model in its first run. To rigorously evaluate the capability of LLMs in fact-checking,
+we adopt the following classical metrics:
+Accuracy computes the proportion of statements for which the model’s verdict aligns with the ground truth.
+Precision evaluates the fraction of statements classified as true that are indeed factual. It gives insight into the reliability
+of a model’s positive verdicts.
+Recall determines the proportion of factual statements that the model correctly identifies. It indicates the model’s
+coverage of true statements.
+F1 Score provides a balanced measure of a model’s precision and recall capabilities.
+Certainty Rate: The Certainty Rate metric is designed to penalize instances when the model neither confidently selects
+a “true” nor “false” verdict in a 3/5 majority across model runs. Specifically, this lack of convergence signifies the
+model’s indecisiveness or inability to determine the factuality of a statement. Two primary scenarios contribute to this
+uncertainty:
+1. The model outputs an “unclear” verdict, underscoring its hesitancy in factuality judgment.
+2. The model’s verdicts are split, failing to reach a 3/5 majority for either “true”, “false”, or “unclear”.
+The Certainty Rate is calculated as the proportion of statements for which the model outputs a “clear” mode verdict
+over the total number of statements evaluated:
+
+1 X 0 if Ti < 3 and Fi < 3
+UR total =
+(3)
+1 otherwise
+|S|
+s∈S
+
+where Ti and Fi represent the number of times the model selects a “true” and “false” verdict, respectively, for the ith
+statement.
+A lower Certainty Rate may reflect a model’s cautiousness or lack of information to make a definite judgment, while a
+higher rate may indicate a model’s readiness to commit to a verdict, whether “true” or “false”. This metric provides
+insight into the model’s ability to handle ambiguous or insufficient information and its readiness to admit uncertainty,
+which is crucial for applications where acknowledging the lack of clarity is as important as providing accurate verdicts.
+
+3
+
+Model Stability and Factuality Results
+
+In this section, we consider model consistency and factuality measured across a set of metrics to investigate the
+performance of GPT models in the fact-checking scenario. Figure 1 provides an overview of the performance of each of
+5
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+A P REPRINT
+
+Figure 1: Performance metrics across different models for three main temperature values. Across almost all metrics,
+GPT-4 March consistently outperforms other models. The dataset consists of 300 label-balanced statements originating
+before the training cutoff date of Sep 2021. Results for other temperatures are provided in the Appendix B (Figure 3).
+the GPT models across different stability and factuality metrics. Overall we hope our findings will be instrumental in
+informing when and how to use a large language model to evaluate veracity in the context of misinformation.
+3.1
+
+Stability
+
+Stability refers to how consistently the LLMs give the same verdicts when evaluating the same statement (prompt)
+multiple times. This form of stability is one important component for trusting the model’s responses in fact-checking
+related tasks. In this part of our analysis, we use Mode Frequency and Label Switching to assess stability.
+3.1.1
+
+Mode Frequency
+
+With a temperature value of zero, all GPT model versions maintain a high level of mode frequency (Figure 1), suggesting
+consistent behavior. We include in Appendix B (Figure 7(a)) an analysis of model consistency decay with increasing
+temperature. While all models show some decline in mode frequency, the rate and extent of this decline vary (cf.
+Figure 7(a)). Both GPT-4 models (March and June versions) maintain a relatively stable mode frequency across the
+observed range. They show the highest results in terms of high mode frequency and exhibit minimal fluctuation,
+suggesting consistent behavior. Notably, the June snapshots of both GPT-3.5-turbo and GPT-3.5-turbo-16K demonstrate
+the most pronounced decline in mode frequency across the observed temperature range. Interestingly, the GPT-3.5
+March version is comparable in stability to its GPT-4 counterpart.
+3.1.2
+
+Label Switching
+
+To further understand the variability in prediction behaviors among different GPT models, we evaluate switching counts
+in response to temperature changes in Figure 7(b) in Appendix B. Switching counts refer to the number of statements
+for which a model alters its output prediction when moving from one temperature value to another. Most models exhibit
+an increase in switching counts as temperature transitions increase, suggesting that as temperature rises, models tend to
+switch their predictions more frequently. The June versions of GPT-3.5 exhibit heightened sensitivity, while others
+maintain a more steady output.
+Summary: Based on the analyses in Figures 1 and 7, with temperature value of zero, all GPT models are able to achieve
+consistency across multiple runs for a given statement.
+3.2
+
+Factuality
+
+How well an LLM can tell if a statement is true or not is critical for its real-world deployment. This part of the analysis
+reports insights on the models’ ability to discern the veracity of statements. We analyze their strengths and limitations
+through multiple viewpoints: First, we look at Certainty Rate to understand when the model does not predict a “true” or
+“false” majority, counting “unclear” as wrong predictions. We next dive into other metrics such as Accuracy, Precision,
+6
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+A P REPRINT
+
+Table 1: Model Analysis Summary. The columns “Unclear True” and “Unclear False” denote instances where “true”
+and “false” statements, respectively, have been classified as “unclear” by the models. The temperature setting is 0. The
+dataset consists of 300 label-balanced statements originating prior to the training cutoff date of Sep 2021.
+Unclear
+False
+Model Name
+True False Total Positive Negative
+GPT-3.5 March
+GPT-3.5 June
+GPT-4 March
+GPT-4 June
+GPT-3.5-16K June
+
+9
+15
+9
+42
+14
+
+57
+45
+19
+12
+46
+
+66
+60
+28
+54
+60
+
+32
+39
+27
+21
+37
+
+0
+1
+0
+1
+3
+
+and Recall. Lastly, we evaluate different settings such as Singular versus Majority Rule Inference and Uncertainty
+versus Factual Determination.
+3.2.1
+
+Certainty Rate
+
+The Certainty Rate represents the proportion of statements for which the model achieved a 3/5 majority decision
+for either “true” or “false” verdicts (cf. Table 1). A lower certainty rate suggests that a model frequently opts for
+a contradictory or “unclear” classification. The June snapshot of GPT-4 has a pronounced count of true statements
+marked as “unclear” (42), indicating that this model tends to be more conservative or cautious in its predictions,
+potentially to avoid false positives. Indeed, this model has the least number (21) of false positives. The GPT-3.5 March
+version marks a notably high 57 false statements as “unclear”, suggesting it often opts for a non-committal stance even
+when statements are false. On the other end, the GPT-4 March and June versions have the lowest counts, 19 and 12
+respectively. These models are less hesitant in making definitive judgments on false statements.
+Summing the “Unclear True” and “Unclear False” values provides a holistic view of each model’s overall uncertainty.
+From this perspective, the GPT-3.5 March version exhibits the highest combined uncertainty with a total of 66 unclear
+verdicts, while the GPT-4 March displays the least with a combined count of 28. Additional details, including particular
+examples of model-marked uncertain statements, are provided in Appendix E.
+3.2.2
+
+Accuracy
+
+Figure 1 provides insights into the effectiveness of various GPT models in fact-checking tasks. The GPT-4 March model
+achieves the best accuracy (∼80%) irrespective of temperature fluctuations. It is followed by GPT-4 June (∼74%) and
+GPT-3.5 March (∼68%) that maintain stable accuracy across temperatures, with only slight fluctuations. In contrast,
+the GPT-3.5 June models exhibit a more pronounced decrease as temperature rises. Figure 4 in Appendix B provides
+insights into the effectiveness of various GPT models in fact-checking tasks across different temperature settings.
+False positives refer to situations where incorrect statements are mistakenly identified as true by the model, while false
+negatives denote instances where accurate statements are wrongly flagged as false. The findings in Table 1 represent
+a significant concern: the models demonstrate a pronounced tendency to misclassify false facts as true, indicating a
+bias in their verdicts. Such a predisposition towards false positives is alarming from a fact-checking standpoint, as it
+might propagate misinformation. Appendix F (Table 9) shows the nine false positives statements mislabeled by all five
+models. Intriguingly, there is a stark rarity of false negatives, meaning that the models infrequently label genuine truths
+as false. This can likely be attributed to our data collection methodology. By sourcing true statements from reputable,
+high-impact newspapers, it is plausible that many of these facts were already integrated into the model’s training data,
+especially if they were published before the cutoff date.
+3.2.3
+
+Precision, Recall
+
+The March GPT-4 model performs best across both metrics — precision and recall (cf. Figure 1). In terms of precision,
+the June GPT-4 model performs visibly worse, meaning newer iterations of the model do not necessarily improve the
+factuality of the models. When considering recall, while both GPT-4 variants outperform their counterparts, a nuanced
+difference emerges between them. Specifically, the March iteration registers a superior recall rate. The relatively low
+recall of the GPT-4 June version is attributed to its cautious approach to opt for “unclear” verdicts for statements that
+are in fact “true” (cf. column “Unclear True” in Table 1). Thus, the model is missing a significant number of true
+statements.
+7
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+A P REPRINT
+
+Table 2: F1 scores comparing model performance under different inference rules and prompt instruction settings. The
+temperature setting is 0. The dataset consists of 300 label-balanced statements originating before the training cutoff
+date of Sep 2021.
+Inference Rule
+Prompt Instruction
+Model Name
+Majority Vote First Prediction Two-Label Three-Label
+GPT-3.5 March
+GPT-3.5 June
+GPT-4 March
+GPT-4 June
+GPT-3.5-16K June
+
+48.38%
+47.93%
+56.86%
+54.76%
+48.01%
+
+48.38%
+47.50%
+56.66%
+55.29%
+47.59%
+
+59.26%
+53.66%
+77.78%
+72.46%
+-
+
+89.81%
+87.01%
+91.26%
+90.68%
+-
+
+For the analysis in Figure 1 (and Figure 5 in Appendix B), we treat uncertain statements as incorrect (i.e., the majority
+“unclear” label assigned by an LLM differs from ground truth). Additionally, for an evaluation of models on statements
+with definitive majority verdicts (“true” or “false”), we report the analysis in detail in Figure 6 in Appendix B.
+3.2.4
+
+Inference Rule: Singular Prediction versus Majority Vote
+
+To understand if multiple runs of the model improve the factuality of its verdicts, we evaluate the models using majority
+voting versus a one-shot prediction setting. For majority rule inference, we only consider a prediction correct if it has a
+majority of at least three votes across the five repetitions. Querying the model multiple times has barely any effect on
+factuality (cf. columns under "Inference Rule" in Table 2).
+Figure 8 in Appendix B further demonstrates that querying the model multiple times does not improve factuality at low
+temperatures in the range of 0.0 − 1.0. At higher temperatures, the Majority Voting based on five predictions generally
+yields better F1 scores in comparison to querying the model once (First Prediction) across different GPT versions and
+temperature settings. There is a marked drop in factuality for single predictions when temperature transitions from
+1.5 to 2.0. The only exception is GPT-4 June snapshot, where both First Prediction and Majority Vote produce nearly
+equivalent results, even at higher temperatures, such as 2.0.
+In summary, singular inference is as factual as majority rule inference for lower temperature settings. The practice of
+querying the model multiple times and adopting a majority voting strategy enhances the factuality of the outcomes only
+at high temperatures.
+3.2.5
+
+Prompt Instruction: Uncertainty vs. Forced Factual Determination – A Three- vs. Two-Label
+Comparison
+
+To analyze the effect of prompting the model with the option of an “unclear” label, we repeat our experiment while
+forcing it to make a factual determination. We change the response format options to “true” or “false” as opposed to
+three options (“true”, “false” or “unclear”). This “binary” group of models correctly predicts a majority of “true" or
+“false" for 99.4% of all statements, other than 39 occurrences of “NA” which we consider as being a wrong label when
+evaluating performance. We exclude the gpt-3.5t-16k-06 version due to time constraints.
+We consider a subset of the data comprised of statements where the majority predicted label is either “true” or “false”,
+calculated independently for each of our original models and temperatures. We call this the “Baseline Set" and its
+complement is the “Unclear Set". Table 2 shows the difference in average F1 score between the binary models on the
+Unclear Set and the original models on the Baseline Set. We include accuracy, precision, and recall in Appendix D
+(Figure 11). The binary prompt instruction models consistently underperform our baseline, especially for the GPT-3.5
+family which averages a 32% lower F1 score.
+Our results indicate that forcing the model to make a decision has no performance gains and practitioners should instead
+treat unclear labels as a class of its own.
+Summary: Our results show that the GPT models change their behavior over model versions in surprising ways.
+Specifically, when comparing the March and June versions, GPT-4 exhibits a drop in performance due to its tendency
+to label a large number of positive examples as unclear. While these results indicate that it is hard to give general
+guidelines due to differences in behaviors, our results do showcase some generalities: The most cost-effective method
+of performing fact-checking with GPT is with a single inference while not forcing a binary prompt as it does not lead to
+a performance improvement.
+8
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+4
+
+A P REPRINT
+
+Regional and Temporal Results
+
+Next, we seek to understand the performance of GPT models across multiple variables. Understanding how they perform
+across different global regions and time frames gives us insight into the barriers and opportunities for democratizing
+access to misinformation mitigation strategies.
+4.1
+
+Regional Analysis
+
+The disparity between the Global North and Global South is evident in Table 3. The Global North’s accuracy is
+significantly higher in both models and all time periods, with an average gap of 14%. This suggests that models may be
+better attuned to the data characteristics prevalent in the Global North, potentially due to a larger representation in the
+training datasets or more extensive research and development focus in these regions.
+When breaking down the data by specific regions, North America consistently achieves the highest accuracy rates,
+peaking at 96% with GPT-4 in March. The lowest regional accuracies are observed in Africa, with a drastic drop to 48%
+in the GPT-4 June iteration. Latin America and the Middle East, while showing improvements from GPT-3.5 to GPT-4
+in March, still exhibit moderate accuracy rates. These improvements suggest positive strides in model performance but
+also highlight the need for continued efforts to bridge the accuracy gap.
+As for performance over time, both GPT-3.5 and GPT-4 models show variations in performance from March to June,
+with GPT-4 generally showing improved accuracy in March compared to GPT-3.5. GPT-4’s performance in June dips
+compared to its March version, which may raise questions about the iterative model update process. GPT-4 (March)
+outperforms all other model iterations, with the highest accuracy rates in nearly all regions.
+Our analysis proceeds with the fitting of two logistic regression models to evaluate the accuracy of the GPT model
+versions, taking into account regional differences and temporal variations. Treating instances where the model output
+was "unclear" as incorrect, we employed the entire dataset, inclusive of individual reruns for each statement, to serve
+as the foundation for our predictive modeling. The first logistic regression model delineates individual regions as
+standalone categories, providing insights into the region-specific performance of each GPT model iteration. Details
+of this model are presented in Appendix A, with Table 4 offering a complete overview of the model, and Table 5
+enumerating the estimated coefficients. The second model consolidates the regions into two broader categories—Global
+North and Global South—thus allowing us to examine the disparities on a global scale. This grouping strategy aims
+to distill the overarching trends that transcend individual regional peculiarities, and the findings are meticulously
+documented in the same Appendix, within Table 6 for the model summary and Table 7 for the coefficients.
+Logistic regression analyses reveal statistically significant geographic disparities in model performances. In individual
+region assessments and aggregated global categorizations, the Global South exhibits a marked underperformance when
+contrasted with the Global North. Specifically, regions such as North America and Europe perform better than the
+reference, Asia-Pacific, whereas Africa, Latin America, and the Middle East lag significantly behind, as indicated by
+their negative coefficients and statistical significance (p ≤ 0.01). The grouped analysis (cf. Table 6 and Table 7) further
+corroborates these findings, where the Global South’s negative coefficient of -0.4539 (p < 0.001) starkly contrasts
+
+Table 3: Accuracy Results Across Regions. Unclear label counted as wrong. The temperature setting is 0. Minimum
+accuracy results per model are highlighted in bold. The dataset consists of 300 label-balanced statements originating
+prior to the training cutoff date of Sep 2021.
+GPT 3.5
+GPT 4
+Region
+Total
+March
+June
+March
+June
+Africa
+Asia-Pacific
+Europe
+Latin America
+Middle East
+North America
+
+62%
+70%
+72%
+57%
+57%
+84%
+
+60%
+76%
+64%
+62%
+62%
+76%
+
+64%
+82%
+86%
+86%
+76%
+96%
+
+48%
+82%
+78%
+76%
+76%
+88%
+
+58%
+77%
+75%
+70%
+68%
+86%
+
+Global North
+Global South
+
+75.3%
+58.6%
+
+72.0%
+61.3%
+
+88.0%
+75.3%
+
+82.6%
+66.6%
+
+79.3%
+65.3%
+
+Total
+
+67.3%
+
+66.6%
+
+81.6%
+
+74.6%
+
+-
+
+9
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+A P REPRINT
+
+Figure 2: Performance metrics across different models for temperature value 0. A marked decline in performance for
+post-cutoff period input is observed. Results for other temperatures in the Appendix B (Figure 3).
+against the Global North, underscoring the pervasive underperformance across this aggregate. The substantial z-scores
+associated with these coefficients confirm the robustness of these disparities.
+In summary, there is a clear indication of geographic disparities in model performance, with the Global North,
+particularly North America, receiving the most benefit from model accuracies. Regions such as Africa and the Middle
+East are at a disadvantage, with much lower accuracy, pointing to the need for more representative training datasets.
+Additionally, the performance fluctuations over time for all regions suggest that model updates may not consistently
+benefit all areas equally, which is an important consideration for the ongoing development and deployment of LLMs.
+4.2
+
+Data Beyond Training Span
+
+At the time of the study, the GPT models were trained using data up until September 2021. We assessed their factual
+proficiency on a curated dataset from a subsequent period, comprising the same number (300) of statements. This
+was compared against performance metrics from datasets preceding this cutoff date. As depicted in Figure 2, there
+is a marked decline in accuracy for post-September’21 data, which is evident for all model versions. Interestingly,
+the performance hierarchy among models is influenced by the dataset’s temporal context. The 16K June version of
+GPT-3.5 displays comparable accuracy to the GPT-4 March iteration, as evidenced in Figure 2. Such an equivalence
+was not observed with data from before September 2021. Most strikingly, the GPT-4 June model, the latest in the series,
+experiences the most pronounced accuracy slump for post-cutoff data, underperforming against most of its predecessors.
+As detailed in Appendix C, we observe an increase in the number of unclear verdicts (Figure 9). The model stability
+worsens, as evidenced by lower mode frequency (Figure 10).
+The statistical evidence from our logistic regression models accentuates the temporal constraints impacting the GPT
+models’ performance. As indicated in Table 5 and Table 7, the coefficient for the post-cutoff variable (C(post cutoff)[T.1])
+is significantly negative, -0.6927 and -0.6899 respectively, with p-values effectively at zero. This strong negative
+coefficient points to a marked decrease in model accuracy for statements that emerged after the training cutoff date. The
+consistent underperformance of models beyond their training period serves to dispel the notion of their performance
+being a product of chance, instead underscoring the importance of deliberate and specialized training.
+
+5
+
+Discussion
+
+Next, we discuss lessons learned, acknowledge limitations, and outline directions for future research.
+5.1
+
+Lessons Learned
+
+The disparity in model performance underscores the critical need for diverse datasets in AI training. The underrepresentation of the Global South, a region already grappling with rising misinformation, points to a significant bias in data
+sources. Enriching future models with training data from these underrepresented areas is not only a matter of fairness
+but also a necessity for building globally competent fact-checking tools.
+10
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+A P REPRINT
+
+The evolving nature of information landscapes makes fairness a moving target in AI. As seen in the varying performances
+across regions over time, models that are fair at one point may not remain so unless continually updated and reassessed.
+Our findings also stress the importance of continuous evaluation and adaptation of AI models to ensure they remain
+accurate, relevant, and fair across diverse global contexts.
+The suboptimal factuality performance of the latest snapshots of foundation models necessitates a critical examination
+of determinants underpinning LLMs’ efficacy in fact-checking. There exists a potential trade-off in model training:
+as LLMs become specialized in certain domains, their proficiency in others, like fact-checking, may wane. Such
+disparities emphasize the need for task-specific evaluations and iterative refinements, ensuring that broad capabilities do
+not undermine domain-specific expertise.
+For scalable fact-checking, economic and time efficiency are important considerations. Our study across different
+model versions and comparison between single inference and majority voting suggest that it is possible to achieve better
+fact-checking performance with lower cost - the latest model is not always better performing, and that a single inference
+with low temperature can achieve performance comparable to multiple queries.
+Forcing models strictly towards binary decisions, “true” or “false”, can often diminish its capacity to grasp the subtleties
+inherent in certain statements. This limitation becomes evident when we overlook the valuable middle ground that the
+“unclear” label offers. Fact-checking is complex, with many statements resisting simple categorizations and models
+often lacking the appropriate context. Forcing definitive verdicts, our findings suggest, can compromise the accuracy
+and reliability of the models. Hence, for practitioners, it might be more judicious to view the “unclear” label not as an
+inconvenience, but as a distinct, meaningful classification that acknowledges and navigates the intricacies of real-world
+information.
+5.2
+
+Limitations & Future Work
+
+Our findings are limited to OpenAI’s GPT-3.5 and GPT-4 series. We have also looked into the LLaMA series developed
+by Meta, as well as the Dolly 2.0 series developed by Databricks. However, despite the prompt engineering efforts in
+our experiments, these LLMs are unable to generate enough quality responses for our analysis purpose. This highlights
+the challenges faced in extending our research to the broader LLM product universe and comparing their behaviors.
+We also focus on the binary fact-checking problem and do not investigate how systems may use LLMs to combat
+misinformation through model-generated explanations or requesting it to provide corroborative resources. While
+misinformation may come in many different formats, we focus on evaluating only textual claims. Furthermore, we focus
+on the quality of the generated labels and not how a user might perceive them. Prior research has shown that trust in AI
+systems depends on a wide range of factors including meta-information, system design, and personal factors DeVerna
+et al. (2023). Future work can be done to investigate how LLMs interact with users in fact-checking and how personal
+factors affect the behavior or performance of LLMs in such tasks. We also note that these models have the capability to
+generate misinformation, reducing trust and potentially being more harmful than good.
+Lastly, while great care went into the production of our curated dataset, biases can exist in annotations by human
+evaluators. For the Latin America region false-statements specifically, nearly half of them were required to be translated
+by a fluent speaker in Portuguese or Spanish due to a lack of English content from AFP. Nevertheless, we believe our
+dataset remains a valuable resource for evaluating performance across diverse regions. Future research should look
+at the democratization of fact-checking across the world, especially in lower-resource languages. We also encourage
+future work to investigate other models and types of misinformation, including visual/multi-modality instances.
+
+6
+
+Related Work
+
+The recent advances in LLMs, and especially the GPT model series, have been studied for many NLP tasks such as text
+summarization Yang et al. (2023); Wei et al. (2023), entity recognition Omar et al. (2023); Hu et al. (2023), and question
+and answering Katz et al. (2023); OpenAI (2023); Huh (2023); Qin et al. (2023). While impressive, these models are not
+immune to limitations and may raise their own problems. OpenAI has warned, “GPT-4 ’hallucinates’ facts and makes
+reasoning errors” to some extent, although to a lesser degree than its predecessor, GPT-3.5 OpenAI (2023). Alongside
+the advancements in NLP, there is a growing concern over the impact of digital misinformationLewandowsky et al.
+(2017). The last few years have seen its proliferation into subjects such as climate change Biddlestone et al. (2022);
+van der Linden et al. (2017), vaccination and COVID-19 Vidgen et al. (2021); He et al. (2023). The capabilities of
+LLMs raise important questions about their role as both a mitigator and a generator of misinformation.
+Automated Fact Checking & LLMs. ChatGPT has been used for examining both vaccination and cancer misconceptions Deiana et al. (2023); Johnson et al. (2023), both finding it provides generally accurate information. Prior
+11
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+A P REPRINT
+
+work Hoes et al. (2023) has analyzed ChatGPT’s performance for fact-checking using an open Politifact dataset. They
+find the model agrees with one of the six original labels less than 30% of the time and 68.28% when considering
+the dichotomous case after merging labels. The source of the information can add up to 10 percentage points to
+the classification with blogs and campaigns being the best and worst categories with 77.7% and 64.0% accuracy,
+respectively. ChatGPT was best at classifying examples related to COVID-19 (82.1%) and worse at government-related
+(63.8%) claims. The authors also find the model performs similarly regardless if the data was before its training-data
+cutoff time or in the 10 months following.
+Stability & Role of Temperature. Alizadeh et al. Alizadeh et al. (2023) studied the performance of ChatGPT, opensource LLM, and crowd workers in both the zero-shot and few-shot learning settings. They compare the default values
+(1.0 for ChatGPT and 0.9 for other LLMs on HuggingChat5 ) with the lower value of 0.2. They find that ChatGPT
+is less affected by learning setting and temperature combination, providing generally good performance all around
+while lower temperatures performed better for LLMs on HuggingChat. Other work has found that for text-annotation
+tasks, “a lower temperature increases consistency without decreasing accuracy” Gilardi et al. (2023). Ye et al. Ye et al.
+(2023) studied the capabilities of GPT-3/-3.5 models on several NLU tasks, finding that more modern models do not
+necessarily lead to improvements across all tasks.
+Others. Huang et al Huang et al. (2023) studied ChatGPT’s text generation abilities for classifying and justifying the
+detection of Hate Speech. They find the model often makes use of an “unclear” label even when prompted to give a
+binary answer and these instances correlate with the more implicit/subtle examples. ChatGPT has also been shown to be
+able to evaluate the credibility of news sources with ratings that correlate with human expert judgments, even in the face
+of non-English and satirical content Yang and Menczer (2023). Fine-tuned models based on the earlier open-sourced
+GPT-2 have been shown to generate better corrective messages than those generated by humans He et al. (2023). Other
+work DeVerna et al. (2023) has looked at the effectiveness of ChatGPT not just on performance but on belief and sharing
+intent of political U.S. news stories on social media style websites. When presented with a model-generated long-form
+textual explanation of a news headline, the authors find that while the model can accurately detect false content it has
+small or negative effects on sharing intent when compared to the control group, highlighting its ineffectiveness as
+an intervention against misinformation. The general effectiveness of warning labels has been questioned regardless
+of whether its human or AI-generated, as it may be inefficient Pantazi et al. (2018) or have unexpected adverse
+effects Pennycook et al. (2020), while other works indicate it may inoculate against false content van der Linden et al.
+(2017). The correction of misinformation has also been studied in connection to social ties Malhotra and Pearce (2022);
+Malhotra et al. (2022), where technological approaches have been questioned regarding their usefulness Scott et al.
+(2023).
+
+7
+
+Conclusion
+
+This study’s examination of GPT-3.5 and GPT-4 models reveals significant disparities in factual accuracy and biases,
+particularly disadvantaging the Global South. The introduction of the ’Global-Liar’ dataset underscores the need for
+geographically diverse data in AI training. Our findings challenge the assumption that newer model iterations invariably
+yield better accuracy and highlight a crucial bias toward the Global North. The observed bias in favor of the Global
+North underscores a significant concern: existing AI models may perpetuate informational inequities, making the
+inclusion of underrepresented regions in AI training a priority. Furthermore, our exploration into the impact of binary
+decision settings and temperature variations on model performance offers practical insights for the effective application
+of LLMs in diverse settings. These insights stress the importance of inclusive and representative training for LLMs to
+ensure global fairness. As AI continues to influence information dissemination, this research advocates for a concerted
+effort toward developing AI systems that are equitable and effective across diverse global communities.
+
+Acknowledgements
+This work was supported by an NYU 19 Washington Square North Faculty Fellowship and by the Center for Cyber
+Security at New York University Abu Dhabi (NYUAD).
+
+References
+Akshay Aggarwal, Aniruddha Chauhan, Deepika Kumar, Sharad Verma, and Mamta Mittal. 2020. Classification of fake
+news by fine-tuning deep bidirectional transformers based language model. EAI Endorsed Transactions on Scalable
+Information Systems 7, 27 (2020), e10–e10.
+5
+
+https://huggingface.co/chat/
+
+12
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+A P REPRINT
+
+Meysam Alizadeh, Maël Kubli, Zeynab Samei, Shirin Dehghani, Juan Diego Bermeo, Maria Korobeynikova, and
+Fabrizio Gilardi. 2023. Open-Source Large Language Models Outperform Crowd Workers and Approach ChatGPT
+in Text-Annotation Tasks. arXiv:2307.02179 [cs.CL]
+Mikey Biddlestone, Flavio Azevedo, and Sander van der Linden. 2022. Climate of conspiracy: A meta-analysis of the
+consequences of belief in conspiracy theories about climate change. Current Opinion in Psychology 46 (Aug. 2022),
+101390. https://doi.org/10.1016/j.copsyc.2022.101390
+Alexandre Bovet and Hernán A Makse. 2019. Influence of fake news in Twitter during the 2016 US presidential election.
+Nature communications 10, 1 (2019), 7.
+Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan,
+Pranav Shyam, Girish Sastry, Amanda Askell, et al. 2020. Language models are few-shot learners. Advances in
+neural information processing systems 33 (2020), 1877–1901.
+Sébastien Bubeck, Varun Chandrasekaran, Ronen Eldan, Johannes Gehrke, Eric Horvitz, Ece Kamar, Peter Lee, Yin Tat
+Lee, Yuanzhi Li, Scott Lundberg, et al. 2023. Sparks of artificial general intelligence: Early experiments with gpt-4.
+arXiv preprint arXiv:2303.12712 (2023).
+Kevin Matthe Caramancion. 2020. An exploration of disinformation as a cybersecurity threat. In 2020 3rd International
+Conference on Information and Computer Technologies (ICICT). IEEE, 440–444.
+Giovanna Deiana, Marco Dettori, Antonella Arghittu, Antonio Azara, Giovanni Gabutti, and Paolo Castiglia. 2023.
+Artificial Intelligence and Public Health: Evaluating ChatGPT Responses to Vaccination Myths and Misconceptions.
+Vaccines 11, 7 (2023), 1217.
+Matthew R. DeVerna, Harry Yaojun Yan, Kai-Cheng Yang, and Filippo Menczer. 2023. Artificial intelligence is ineffective and potentially harmful for fact checking. arXiv preprint arXiv:2308.10800 (2023). arXiv:2308.10800 [cs.HC]
+Fabrizio Gilardi, Meysam Alizadeh, and Maël Kubli. 2023. Chatgpt outperforms crowd-workers for text-annotation
+tasks. arXiv preprint arXiv:2303.15056 (2023).
+David Robert Grimes. 2021. Medical disinformation and the unviable nature of COVID-19 conspiracy theories. PLoS
+One 16, 3 (2021), e0245900.
+Zhijiang Guo, Michael Schlichtkrull, and Andreas Vlachos. 2022. A survey on automated fact-checking. Transactions
+of the Association for Computational Linguistics 10 (2022), 178–206.
+Bing He, Mustaque Ahamad, and Srijan Kumar. 2023. Reinforcement Learning-Based Counter-Misinformation
+Response Generation: A Case Study of COVID-19 Vaccine Misinformation. In Proceedings of the ACM Web
+Conference 2023 (Austin, TX, USA) (WWW ’23). Association for Computing Machinery, New York, NY, USA,
+2698–2709. https://doi.org/10.1145/3543507.3583388
+Emma Hoes, Sacha Altay, and Juan Bermeo. 2023. Leveraging ChatGPT for Efficient Fact-Checking. PsyArXiv
+preprint (2023).
+Yan Hu, Iqra Ameer, Xu Zuo, Xueqing Peng, Yujia Zhou, Zehan Li, Yiming Li, Jianfu Li, Xiaoqian Jiang, and Hua
+Xu. 2023. Zero-shot Clinical Entity Recognition using ChatGPT. (2023). https://doi.org/10.48550/ARXIV.
+2303.16416
+Fan Huang, Haewoon Kwak, and Jisun An. 2023. Is chatgpt better than human annotators? potential and limitations of
+chatgpt in explaining implicit hate speech. arXiv preprint arXiv:2302.07736 (2023).
+Sun Huh. 2023. Are ChatGPT’s knowledge and interpretation ability comparable to those of medical students in Korea
+for taking a parasitology examination?: a descriptive study. Journal of Educational Evaluation for Health Professions
+20 (Jan. 2023). https://doi.org/10.3352/jeehp.2023.20.1
+Skyler B Johnson, Andy J King, Echo L Warner, Sanjay Aneja, Benjamin H Kann, and Carma L Bylund. 2023. Using
+ChatGPT to evaluate cancer myths and misconceptions: artificial intelligence and cancer information. JNCI cancer
+spectrum 7, 2 (2023), pkad015.
+Daniel Martin Katz, Michael James Bommarito, Shang Gao, and Pablo Arredondo. 2023. GPT-4 Passes the Bar Exam.
+SSRN Electronic Journal (2023). https://doi.org/10.2139/ssrn.4389233
+Nayeon Lee, Yejin Bang, Andrea Madotto, Madian Khabsa, and Pascale Fung. 2021. Towards few-shot fact-checking
+via perplexity. arXiv preprint arXiv:2103.09535 (2021).
+Stephan Lewandowsky, Ullrich K. H. Ecker, and John Cook. 2017. Beyond misinformation: Understanding and
+coping with the “post-truth” era. Journal of Applied Research in Memory and Cognition 6, 4 (Dec. 2017), 353–369.
+https://doi.org/10.1016/j.jarmac.2017.07.008
+13
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+A P REPRINT
+
+Pranav Malhotra and Katy Pearce. 2022. Facing Falsehoods: Strategies for Polite Misinformation Correction. International Journal of Communication 16, 0 (April 2022), 22. https://ijoc.org/index.php/ijoc/article/
+view/18361
+Pranav Malhotra, Kristina Scharp, and Lindsey Thomas. 2022. The meaning of misinformation and those who correct
+it: An extension of relational dialectics theory. Journal of Social and Personal Relationships 39, 5 (May 2022),
+1256–1276. https://doi.org/10.1177/02654075211050429
+Yusuf Mehdi. 2023. Reinventing search with a new AI-powered Microsoft Bing and Edge, your copilot for the web.
+Dan Milmo. 2023. CHATGPT reaches 100 million users two months after launch. https://www.theguardian.
+com/technology/2023/feb/02/chatgpt-100-million-users-open-ai-fastest-growing-app
+Shujaat Mirza, Labeeba Begum, Liang Niu, Sarah Pardo, Azza Abouzied, Paolo Papotti, and Christina Pöpper. 2023.
+Tactics, threats & targets: Modeling disinformation and its mitigation. In ISOC Network and Distributed Systems
+Security Symposium (NDSS).
+Reham Omar, Omij Mangukiya, Panos Kalnis, and Essam Mansour. 2023. ChatGPT versus Traditional Question
+Answering for Knowledge Graphs: Current Status and Future Directions Towards Knowledge Graph Chatbots.
+https://arxiv.org/abs/2302.06466v1
+OpenAI. 2023. GPT-4 Technical Report. https://arxiv.org/abs/2303.08774v3
+Long Ouyang, Jeffrey Wu, Xu Jiang, Diogo Almeida, Carroll Wainwright, Pamela Mishkin, Chong Zhang, Sandhini
+Agarwal, Katarina Slama, Alex Ray, et al. 2022. Training language models to follow instructions with human
+feedback. Advances in Neural Information Processing Systems 35 (2022), 27730–27744.
+Myrto Pantazi, Mikhail Kissine, and Olivier Klein. 2018. The power of the truth bias: False information affects
+memory and judgment even in the absence of distraction. Social Cognition 36, 2 (2018), 167–198. https:
+//doi.org/10.1521/soco.2018.36.2.167
+Justin Paul, Akiko Ueno, and Charles Dennis. 2023. ChatGPT and consumers: Benefits, pitfalls and future research
+agenda. , 1213–1225 pages.
+Kellin Pelrine, Jacob Danovitch, and Reihaneh Rabbany. 2021. The surprising performance of simple baselines for
+misinformation detection. In Proceedings of the Web Conference 2021. 3432–3441.
+Gordon Pennycook, Adam Bear, Evan T. Collins, and David G. Rand. 2020. The Implied Truth Effect: Attaching
+Warnings to a Subset of Fake News Headlines Increases Perceived Accuracy of Headlines Without Warnings.
+Management Science 66, 11 (Nov. 2020), 4944–4957. https://doi.org/10.1287/mnsc.2019.3478
+Chengwei Qin, Aston Zhang, Zhuosheng Zhang, Jiaao Chen, Michihiro Yasunaga, and Diyi Yang. 2023. Is ChatGPT a
+General-Purpose Natural Language Processing Task Solver? arXiv:2302.06476 [cs.CL]
+Lauren Scott, Lynne Coventry, Marta E. Cecchinato, and Mark Warner. 2023. “I figured her feeling a little bit bad
+was worth it to not spread that kind of hate”: Exploring how UK families discuss and challenge misinformation.
+In Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems (CHI ’23). Association for
+Computing Machinery, New York, NY, USA, 1–15. https://doi.org/10.1145/3544548.3581202
+Kai Shu, Amrita Bhattacharjee, Faisal Alatawi, Tahora H Nazer, Kaize Ding, Mansooreh Karami, and Huan Liu. 2020.
+Combating disinformation in a social media age. Wiley Interdisciplinary Reviews: Data Mining and Knowledge
+Discovery 10, 6 (2020), e1385.
+Sander van der Linden, Anthony Leiserowitz, Seth Rosenthal, and Edward Maibach. 2017. Inoculating the Public
+against Misinformation about Climate Change. Global challenges (Hoboken, NJ) 1, 2 (Feb. 2017), 1600008.
+https://doi.org/10.1002/gch2.201600008
+Bertie Vidgen, Harry Taylor, Myrto Pantazi, Zoe Anastasiou, Becky Inkster, and Helen Margetts. 2021. Understanding
+vulnerability to online misinformation. The Alan Turing Institute. Retrieved September 27, 2021 (2021), 2021–02.
+Jan Philip Wahle, Nischal Ashok, Terry Ruas, Norman Meuschke, Tirthankar Ghosal, and Bela Gipp. 2022. Testing the
+generalization of neural language models for COVID-19 misinformation detection. In International Conference on
+Information. Springer, 381–392.
+Xiang Wei, Xingyu Cui, Ning Cheng, Xiaobin Wang, Xin Zhang, Shen Huang, Pengjun Xie, Jinan Xu, Yufeng Chen,
+Meishan Zhang, Yong Jiang, and Wenjuan Han. 2023. Zero-Shot Information Extraction via Chatting with ChatGPT.
+https://doi.org/10.48550/arXiv.2302.10205 arXiv:2302.10205 [cs].
+Kai-Cheng Yang and Filippo Menczer. 2023. Large language models can rate news outlet credibility. arXiv preprint
+arXiv:2304.00228 (2023).
+Xianjun Yang, Yan Li, Xinlu Zhang, Haifeng Chen, and Wei Cheng. 2023. Exploring the Limits of ChatGPT for Query
+or Aspect-based Text Summarization. (2023). https://doi.org/10.48550/ARXIV.2302.08081
+14
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+A P REPRINT
+
+Junjie Ye, Xuanting Chen, Nuo Xu, Can Zu, Zekai Shao, Shichun Liu, Yuhan Cui, Zeyang Zhou, Chao Gong, Yang
+Shen, Jie Zhou, Siming Chen, Tao Gui, Qi Zhang, and Xuanjing Huang. 2023. A Comprehensive Capability Analysis
+of GPT-3 and GPT-3.5 Series Models. arXiv:2303.10420 [cs.CL]
+
+15
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+A P REPRINT
+
+Supplementary Material
+A
+
+Logistic Regression
+
+Individual Regions as Standalone Category: Table 4 and Table 5 are based on logistic regression where the
+benchmark is the March GPT-4 model, statements from Asia-Pacific and before model training cutoff time. In this
+regression model, the Asia-Pacific region serves as a “boundary” case – other Global North regions (i.e. North America
+and Europe) have better model performance, while all Global South regions (i.e. Africa, Latin America, and the Middle
+East) have worse model performance.
+Table 4: Logit Regression Model Details, Individual Regions as Standalone Category
+Dep. Variable:
+correct
+No. Observations:
+15000
+Model:
+Logit
+Df Residuals:
+14989
+Method:
+MLE
+Df Model:
+10
+Pseudo R-squ.:
+0.037
+Log-Likelihood:
+-9472.5
+Converged:
+True
+LL-Null:
+-9834.2
+Covariance Type: nonrobust LLR p-value:
+6.2e-149
+Table 5: Logistic Regression Coefficients, Individual Regions as Standalone Category
+Intercept
+C(model, Treatment(reference=’gpt-4-0314’))[T.gpt-3.5-turbo-0301]
+C(model, Treatment(reference=’gpt-4-0314’))[T.gpt-3.5-turbo-0613]
+C(model, Treatment(reference=’gpt-4-0314’))[T.gpt-3.5-turbo-16k-0613]
+C(model, Treatment(reference=’gpt-4-0314’))[T.gpt-4-0613]
+C(region, Treatment(reference=’ASIA-PACIFIC’))[T.AFRICA]
+C(region, Treatment(reference=’ASIA-PACIFIC’))[T.EUROPE]
+C(region, Treatment(reference=’ASIA-PACIFIC’))[T.LATIN AMERICA]
+C(region, Treatment(reference=’ASIA-PACIFIC’))[T.MIDDLE EAST]
+C(region, Treatment(reference=’ASIA-PACIFIC’))[T.NORTH AMERICA]
+C(post cutoff)[T.1]
+
+16
+
+coef
+
+std err
+
+z
+
+P> |z|
+
+[0.025
+
+0.975]
+
+1.3884
+-0.5428
+-0.3564
+-0.3654
+-0.4321
+-0.5559
+0.1596
+-0.3040
+-0.1645
+0.1752
+-0.6927
+
+0.060
+0.056
+0.056
+0.056
+0.056
+0.059
+0.062
+0.060
+0.060
+0.062
+0.035
+
+22.971
+-9.715
+-6.325
+-6.488
+-7.699
+-9.366
+2.587
+-5.087
+-2.734
+2.837
+-19.809
+
+0.000
+0.000
+0.000
+0.000
+0.000
+0.000
+0.010
+0.000
+0.006
+0.005
+0.000
+
+1.270
+-0.652
+-0.467
+-0.476
+-0.542
+-0.672
+0.039
+-0.421
+-0.282
+0.054
+-0.761
+
+1.507
+-0.433
+-0.246
+-0.255
+-0.322
+-0.440
+0.280
+-0.187
+-0.047
+0.296
+-0.624
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+A P REPRINT
+
+Global North vs. Global South: Table 6 and Table 7 are based on logistic regression where the benchmark is the March
+GPT-4 model, statements from Global North and before model training cutoff time. In this regression model, we group
+regions into two categories - the Global North (North America, Europe, and Asia-Pacific) and the Global South (Africa,
+Latin America, and the Middle East). Similar to the above regression model with region specific coefficients, this
+regression analysis also illustrates that the Global South regions have statistically significant worse model performance
+compared with the Global North.
+Table 6: Logit Regression Model Details, Global South vs Global North
+Dep. Variable:
+correct
+No. Observations:
+15000
+Model:
+Logit
+Df Residuals:
+14993
+Method:
+MLE
+Df Model:
+10
+Pseudo R-squ.:
+0.034
+Log-Likelihood:
+-9500.5
+Converged:
+True
+LL-Null:
+-9834.2
+Covariance Type: nonrobust LLR p-value:
+7.0e-141
+Table 7: Logistic Regression Coefficients, Global South vs Global North
+
+Intercept
+C(model, Treatment(reference=’gpt-4-0314’))[T.gpt-3.5-turbo-0301]
+C(model, Treatment(reference=’gpt-4-0314’))[T.gpt-3.5-turbo-0613]
+C(model, Treatment(reference=’gpt-4-0314’))[T.gpt-3.5-turbo-16k-0613]
+C(model, Treatment(reference=’gpt-4-0314’))[T.gpt-4-0613]
+C(global south)[T.1]
+C(post cutoff)[T.1]
+
+17
+
+coef
+
+std err
+
+z
+
+P> |z|
+
+[0.025
+
+0.975]
+
+1.4960
+-0.5406
+-0.3551
+-0.3640
+-0.4305
+-0.4539
+-0.6899
+
+0.050
+0.056
+0.056
+0.056
+0.056
+0.035
+0.035
+
+30.197
+-9.697
+-6.313
+-6.475
+-7.684
+-13.043
+-19.773
+
+0.000
+0.000
+0.000
+0.000
+0.000
+0.000
+0.000
+
+1.399
+-0.650
+-0.465
+-0.474
+-0.540
+-0.522
+-0.758
+
+1.593
+-0.431
+-0.245
+-0.254
+-0.321
+-0.386
+-0.622
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+B
+
+A P REPRINT
+
+Factuality & Stability (All Temperatures)
+
+Figure 3 shows comparative performance similar to Figure 2 but across all temperatures values.
+
+Figure 3: Performance metrics across different models and temperature values. The dataset consists of 300 labelbalanced statements originating prior to the training cutoff date of Sep 2021.
+
+Figure 4: Comparative performance of GPT-4 and GPT-3.5 models across varying temperature values, evaluated using
+accuracy. The dataset consists of 300 label-balanced statements originating prior to the training cutoff date of Sep 2021.
+
+18
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+A P REPRINT
+
+Figure 5 shows comparative performance (Precision, Recall and F1 Score). Uncertain statements (i.e., labeled as
+’unclear’) are marked as incorrect. Figure 6 shows comparative performance (Precision, Recall and F1 Score) but
+excluding uncertain statements. Evaluating the models in this way shows similar trends but drastically inflates the
+metrics.
+
+Figure 5: Comparative performance of GPT-4 and GPT-3.5 models across varying temperature values, evaluated using
+precision, recall, and F1 Score metrics. We treat statements with uncertain predictions as incorrect. The dataset consists
+of 300 label-balanced statements originating prior to the training cutoff date of Sep 2021. For comparison, we report
+performance excluding uncertain statemens in Figure 6 in Appendix B.
+
+Figure 6: Comparative performance of GPT-4 and GPT-3.5 models across varying temperature values, evaluated using
+precision, recall, and F1 score metrics. We exclude statements with uncertain predictions and focus on those with
+majority decision of “true” or “false”. The dataset consists of 300 label-balanced statements originating prior to the
+training cutoff date of Sep 2021.
+
+19
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+A P REPRINT
+
+Figure 7(a) illustrates decreasing Mode Frequency as temperature value increases. Figure 7(b) elucidates the variability
+in prediction behaviors among different GPT models in response to temperature change. To understand if multiple runs
+of the model improve the factuality of its verdicts, we evaluate the models using majority vote versus a one-shot first
+prediction setting in Figure 8.
+
+(a) Variation in Mode Frequency across models with increasing temperature values. Lower mode frequency signifies reduced consistency in producing the most frequent or "modal"
+output.
+
+(b) Switching predictions of models across temperature transitions. Each curve represents a model’s prediction switch
+frequency between adjacent temperature values.
+
+Figure 7: Comparative analysis of model behaviors. (a) Mode Frequency Variation. (b) Prediction Switching Counts.
+The dataset consists of 300 label-balanced statements originating prior to the training cutoff date of Sep 2021.
+
+Figure 8: Comparative Analysis of F1 score using Majority Vote (out of 5 predictions) and First Prediction approaches
+across different temperature settings. The dataset consists of 300 label-balanced statements originating prior to the
+training cutoff date of Sep 2021.
+20
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+C
+
+A P REPRINT
+
+Data Beyond Training Span
+
+Figure 9 and Figure 10 show a decrease in stability metrics for the post September 2021 dataset.
+
+Figure 9: Change in Count of “Unclear” Verdict from data within training span to data beyond training span across
+models with increasing temperature values.
+
+Figure 10: Change in Mode Frequency from data within training span to data beyond training span across models with
+increasing temperature values.
+
+21
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+D
+
+A P REPRINT
+
+Optional Uncertainty vs. Forced Factual Determination
+
+Figure 11 highlights a overall decrease in multiple metrics when comparing the 2-label with the 3-label prompt
+instruction model. While the GPT-4 June version specifically shows a general increase of recall (as high as 12.5% for
+temperature 0.5), it is offset by a drop in precision of over 35%.
+
+Figure 11: Difference in Accuracy, Precision and Recall of a two label versus a three label model. The dataset consists
+of 300 label-balanced statements originating prior to the training cutoff date of Sep 2021.
+
+22
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+E
+
+A P REPRINT
+
+Uncertainty (Unclear Statements)
+
+Table 8 shows a random sample of statements at least one model marked as “unclear”. The topics range from benign
+information about a novel and a reading app to false claims of international rocket strikes.
+Table 8: Statements with Unclear Verdicts
+ID
+
+Statement
+
+265
+
+The capital of Eritrea was hit by rockets fired from Ethiopia’s rebellious northern Tigray
+region on November 14, 2020.
+The award-winning scholar-writer, Dr. Lola Akande of the Department of English, University of Lagos, has released a novel: Where Are You From? The novel dwells on citizenship,
+indigenisation, inter-ethnic marriages, and youthful exuberance.
+The Russian government has required polygamy for its male citizens
+French football player Paul Pogba has retired from the international game in protest against
+French President Emmanuel Macron’s recent comments about radical Islam.
+Google has introduced the Arabic version to its free Read Along Android app to help
+children over five years old independently learn and build their reading skills.
+
+42
+207
+222
+31
+
+F
+
+Ground Truth
+False
+True
+False
+False
+True
+
+False Positive Statements
+
+Table 9 is a selected list of statements that are identified as false positives by all models at temperature value zero.
+Table 9: Statements Identified as False Positives by All Models at Temperature 0
+ID
+
+Statement
+
+266
+
+Following an operation that enabled the commando army to seize one of TPLF’s buildings, many Tigray
+People’s Liberation Front (TPLF) mafia members have been caught fleeing with bags and boxes of money.
+The novel coronavirus was never detected in the major Chinese cities of Beijing and Shanghai
+Zimbabwean businessman and socialite Genius “Ginimbi” Kadungure, who died in a car crash, bought his
+own coffin adorned with a green guitar a week before his death.
+Russian President Vladimir Putin made comments backing Ethiopia in its dispute with neighbours over the
+mega-dam it has built on the Nile river.
+Africa’s richest man, Aliko Dangote, gave away money, food and other assistance to 10,000 youths who have
+lost loved ones to the Covid-19 pandemic.
+The World Health Organization’s (WHO) director-general Tedros Adhanom Ghebreyesus said he had tested
+positive for Covid-19.
+US president-elect Joe Biden and former president Barack Obama tweeted to call for the release of Ugandan
+opposition politician Bobi Wine who was detained on November 18, 2020.
+Pope Francis kissed the hands of American banker David Rockefeller and a member of the wealthy Rothschild
+family in 2021.
+Indians celebrated the creation of a new base for Palestinian militant group Hamas in the Indian state of
+Kerala.
+
+226
+264
+254
+263
+255
+261
+282
+277
+
+23
+
+Global-Liar: Factuality of LLMs over Time and Geographic Regions
+
+G
+
+A P REPRINT
+
+Inconsistencies in Fact-Checking Outcomes via ChatGPT Interface
+
+Figure 12 illustrates an example where the GPT model fails to show consistent result given same queries multiple times.
+
+Figure 12: An illustration of the ChatGPT web interface using the GPT-3.5 model, showing differing outcomes for a
+statement when fact-checked through repeated queries. The model was queried on June 6, 2023.
+
+24
+
+

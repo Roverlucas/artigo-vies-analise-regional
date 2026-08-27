@@ -2,8 +2,8 @@
 chave: pymc
 titulo: PyMC (probabilistic programming)
 localizador: doi validado no CrossRef
-read_depth: metadados
-data_leitura: 2026-08-26
+read_depth: full-text
+data_leitura: 2026-08-27
 leitor: Claude (verificacao de referencias)
 ---
 
@@ -18,3 +18,7 @@ ferramenta da reestimacao bayesiana
 ## Veredito
 
 CONFIRMA a ferramenta.
+
+## Verificacao na integra (2026-08-27)
+
+Texto integral via Europe PMC (PMC10495961). CONFIRMA 'PyMC is a probabilistic programming library for Python'. Citacao e atribuicao de software.

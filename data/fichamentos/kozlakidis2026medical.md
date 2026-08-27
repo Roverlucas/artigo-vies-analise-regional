@@ -2,7 +2,7 @@
 chave: kozlakidis2026medical
 titulo: Through the looking glass: ethical considerations regarding LLM-induced hallucinations to medical questions (Front Digit Health 2026)
 localizador: 10.3389/fdgth.2026.1736616
-read_depth: abstract parcial (OpenAlex)
+read_depth: full-text (PDF Frontiers)
 data_leitura: 2026-08-26
 leitor: Claude (verificacao de referencias)
 ---
@@ -11,10 +11,10 @@ leitor: Claude (verificacao de referencias)
 
 alucinacoes carregam risco agudo em ambientes regulatorios com capacidade tecnica limitada; descompasso linguistico e cultural aumenta o erro
 
-## Verbatim / metadados conferidos
+## Verbatim conferido no texto completo
 
-> "LLMs have become rapidly embedded in digital health ecosystems, promising to augment healthcare delivery, research, and patient engagement"
+> "countries with less developed legal and regulatory frameworks... have the potential to face acute challenges managing LLM hallucinations in clinical settings, as this challenge sits at the intersection of technical opacity, limited regulatory capacity, and fragile health systems" / "there is the potential for language and cultural mismatch between globally trained models and local practice increases the risk of errors"
 
 ## Veredito
 
-PARCIAL. O abstract confirma o tema (alucinacoes de LLM em saude, consideracoes eticas), mas a afirmacao especifica sobre ambientes regulatorios de capacidade limitada e sobre descompasso linguistico nao foi localizada no trecho disponivel. Requer leitura do texto integral, que e aberto (Frontiers) e ficou fora desta rodada.
+CONFIRMA em texto integral, e de forma mais completa que o abstract. Sai de PARCIAL para confirmada: a frase do manuscrito ('risco agudo em ambientes regulatorios com capacidade limitada, onde descompasso linguistico e cultural aumenta o erro') e sustentada quase palavra a palavra.

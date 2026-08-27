@@ -21,8 +21,9 @@ contributes no confirmatory observations.
 \subsection{Country selection}
 
 Countries were selected by theoretical sampling~\citep{patton2015qualitative}
-triangulated across three independent classifications: the UNCTAD Global
-North/South split~\citep{unctad2024classification}, which operationalises the
+triangulated across three independent classifications: the Global North/South
+distinction, operationalised through UNCTAD's developed/developing economies
+classification~\citep{unctad2024classification}, which carries the
 coloniality-of-knowledge framework motivating the
 study~\citep{mohamed2020decolonial}; the Joshi et al.\ six-class taxonomy of
 linguistic-resource representation~\citep{joshi2020state}; and World Bank income
@@ -327,7 +328,8 @@ difference-in-differences test.
 The three primary tests are pre-specified as a single family (F1) and corrected
 together with Bonferroni-Holm. Secondary tests (F2) are reported unadjusted within
 family, and declared exploratory tests (F3) use Benjamini-Hochberg FDR at
-$q=0.10$~\citep{benjamini1995fdr}.
+$q=0.10$~\citep{benjamini1995fdr}, whose guarantee assumes independent test
+statistics.
 
 \emph{H1 (geographic gradient, primary)} regresses country-level mean composite
 accuracy on the Joshi/HDI gradient via Spearman $\rho$, pre-specified one-sided at
@@ -346,7 +348,9 @@ Three cross-cutting analyses corroborate the tier gap: a Gaussian linear mixed
 model (\texttt{statsmodels} MixedLM, REML) with crossed random intercepts for
 country and model, adjusting for centred HDI; a Bayesian hierarchical
 re-estimation (\texttt{pymc}~\citep{pymc}, weakly informative priors); and E-values
-for robustness to unmeasured confounding~\citep{vanderweele2017evalue}. The corpus
+for robustness to unmeasured confounding, via the approximation
+$\mathrm{RR}\approx\exp(0.91\,d)$ that \citet{vanderweele2017evalue} prescribe for
+standardised effects and whose assumptions it inherits. The corpus
 mechanism is probed with an exploratory mediation model
 (\texttt{semopy}~\citep{semopy}), and the persona manipulation with a
 role-frame-acknowledgement check. Pre-specified robustness analyses appear in

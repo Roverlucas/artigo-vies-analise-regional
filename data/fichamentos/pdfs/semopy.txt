@@ -1,0 +1,1620 @@
+arXiv:1905.09376v2 [stat.AP] 6 Sep 2019
+
+semopy: A Python package for Structural
+Equation Modeling
+Georgy Meshcheryakov, Anna A. Igolkina
+September 10, 2019
+Abstract
+Structural equation modelling (SEM) is a multivariate statistical technique for estimating complex relationships between observed and latent
+variables. Although numerous SEM packages exist, each of them has limitations. Some packages are not free or open-source; the most popular
+package not having this disadvantage is lavaan, but it is written in R
+language, which is behind current mainstream tendencies that make it
+harder to be incorporated into developmental pipelines (i.e. bioinformatical ones). Thus we developed the Python package semopy to satisfy
+those criteria. The paper provides detailed examples of package usage
+and explains it’s inner clockworks. Moreover, we developed the unique
+generator of SEM models to extensively test SEM packages and demonstrated that semopy significantly outperforms lavaan in execution time
+and accuracy.
+
+1
+
+Introduction
+
+Structural Equation Modelling (SEM) can be defined as a diverse set of tools
+and approaches for describing and estimating causal relationships between variables, whether they be observable or latent. The very early beginnings of SEM
+models (Path analysis) were established in the first half of the 20th century by
+a geneticist and statistician Sewall Green Wright and deal with only observed
+variables [31]. Over the years, approaches for working with latent variables have
+been developed (e.g. factor analysis), and in modern SEM models, researchers
+can specify complex hybrids of path analysis models, confirmatory path analysis models (CFA) [19] and multivariate regression models. Being an umbrella
+term over the statistical approaches, SEM utilises particular statistical methods to estimate relationships between variables describing a variance-covariance
+structure of the data via model parameters [2].
+The first SEM model is LISREL (linear structural relations) and contains
+two parts: (i) the structural part links latent variables to each other via a system
+of linear equations; (ii) the measurement part specifies linear influences of latent
+variables to observed variables [2]. Let η be a vector of latent variables, y be
+1
+
+a vector of observed (manifest) variables, then the two parts of LISREL model
+are as follows:
+(
+η = Bη + ε,
+(1)
+y = Λη + δ,
+where B and Λ are matrices with linear parameters, ε and δ are independent
+error terms. Following the LISREL notation, complex SEM models are traditionally split into two parts: structural and measurement ones. The semopy
+package supports a general SEM model allowing the presence of observed variables in the structural part, as well as provides support for ordinal variables.
+In this paper, we discuss the prerequisites for development of semopy package, explain the user-friendly syntax used for specifying an SEM model and
+provide quick start information on the usage of the semopy package. Then,
+we provide implementation details such as an underlying mathematical model,
+heuristics for choosing starting values, provide a list of objective functions and
+optimization techniques at user’s disposal. We also explain in brief statistics
+such as p-values and fit indices and introduce a testing framework that generates random sets of models and data. In the end, we compare semopy to lavaan
+[12] – the-state-of-the-art CRAN R package that implements SEM functionality.
+
+1.1
+
+Why do we need semopy?
+
+Nowadays SEM is widely used in the fields of economics, psychology, sociology
+and bioinformatics [18, 28, 15] and there is a number of software working with
+SEM models. Most of them are either commercially distributed and non-opensourced or do not cover the whole set of popular programming languages, e.g.
+Python.
+For instance, LISREL[9], Mplus[25] and EQS [1] are proprietary and commercial softwares, hence, any adjustments to them to satisfy researchers needs
+are not possible. OpenMx[26], sem[8], lavaan are free and open-source popular CRAN packages, but they are all written in R. The only Python package
+is pypsy[5], but it is limited to basic SEM functionality and by the lack of
+documentation. Our reasons for developing the new SEM package, semopy,
+are as following:
+• the need for SEM package which could be easily integrated into developmental and research pipelines in Python (especially into bioinformatic
+ones) [4, 3];
+• the wish to outperform in execution time and accuracy the most cited
+open-source package, lavaan;
+• the lack of a profound testing technique for new SEM methods and approaches.
+
+2
+
+1.2
+
+Model syntax
+
+To specify SEM models, The semopy uses the lavaan syntax, which is natural
+to describe regression models in R. The syntax supports three operator symbols
+characterising relationships between variables:
+• ∼ to specify structural part,
+• =∼ to specify measurement part,
+• ∼∼ to specify common variance between variables.
+For example, let a linear equation in the structural part of SEM model take
+the form:
+η3 = β1 x1 + β2 x2 + ε,
+where η3 is a variable dependent on regressors x1 and x2 (Fig. 1 ), β1 and β2
+are parameters, ε is an error term. In semopy syntax it can be rewritten as
+eta3 ∼ x1 + x2
+
+Likewise, to specify a measurement part, which relates manifest variables to
+latent variables, we use a special operator =∼ which can be read as is measured
+by. The left side of the operator contains one latent variable, and the right
+contains its manifest variables separated by plus signs. For example, to define
+a latent variable η1 by three indicators (y1 , y2 and y3 ) (Fig. 1 ), the following
+expression should be used :
+eta1 =∼ y1 + y2 + y3
+
+The third operator, ∼∼, is used to specify a covariance (common variance)
+between a pair of variables from one part:
+x1 ∼∼ x2
+eta ∼∼ x3
+
+Another option in the semopy syntax is fixing parameter values; the values
+should be placed as prefixes before variables:
+eta ∼ 1*x1 + x2
+eta =∼ 2*y1 + y2 + y3
+x1 ∼∼ 5*x2
+
+We designed an example (Fig. 1) to demonstrate the diversity of relationships between variables that can be estimated in semopy. The example contains
+two exogenous latent variable η1 , η2 , endogenous latent variables η3 , η4 (η3 being also an output variable), exogenous observed variables x1 , x2 , endogenous
+observed variables x3 , x4 , x5 (the latter being an output variable) and a set of
+manifest variables y1 , y2 , y3 , y4 , y5 , y6 (take a notice that y3 and y4 are shared
+between η1 , η2 and η3 , η4 respectively). There is also a cycle present in the model
+(x3 → η4 → x4 → x3 ). Moreover, we set additional parameters for covariances
+between [η2 and x2 ] and between [y6 and y5 ].
+
+3
+
+y1
+y2
+
+η1
+
+y3
+
+η2
+
+η4
+
+x3
+y4
+
+x1
+
+x4
+
+x5
+
+y6
+
+η3
+y5
+
+x2
+
+Figure 1: Example model
+The description of the model in the semopy syntax is as follows:
+# Structural part
+eta3 ∼ x1 + x2
+eta4 ∼ x3
+x3 ∼ eta1 + eta2 + x1 + x4
+x4 ∼ eta4
+x5 ∼ x4
+# Measurement part
+eta1 =∼ y1 + y2 + y3
+eta2 =∼ y3
+eta3 =∼ y4 + y5
+eta4 =∼ y4 + y6
+# Additional covariances
+eta2 ∼∼ x2
+y5 ∼∼ y6
+
+In the semopy, we introduced an additional operator, that specifies a statistical type of variables. The ”is” word is reserved as an operator symbol for
+type specification:
+y1, y2 is ordinal
+
+The first line sets y1 , y2 to ordinal type.
+
+1.3
+
+Quickstart
+
+The semopy package is available at PyPi software repository and can be installed by:
+pip install semopy
+
+The pipeline for working with SEM models in semopy consists of three
+steps: (i) specifying a model, (ii) loading a dataset to the model, (iii) estimating parameters of the model. Two main objects required for scpecifying and
+estimating an SEM model are Model and Optimizer .
+4
+
+Model
+
+is responsible for setting up a model from the proposed SEM syntax:
+
+# The first step
+from semopy import Model
+mod = """ x1 ∼ x2 + x3
+x3 ∼ x2 + eta1
+eta1 =∼ y1 + y2 + y3
+eta1 ∼ x1
+"""
+model = Model(mod)
+
+Then a dataset should be provided; at this step the initial values of parameters
+are calculated:
+# The second step
+from pandas import read_csv
+data = read_csv("my_data_file.csv", index_col=0)
+model.load_dataset(data)
+
+To estimate parameters of the model an
+tialised and estimation executed:
+
+Optimizer
+
+object should be ini-
+
+# The third step
+from semopy import Optimizer
+opt = Optimizer(model)
+objective_function_value = opt.optimize()
+
+The default objective function for estimating parameters is the likelihood
+function and the optimisation method is SLSQP (Sequential Least-Squares
+Quadratic Programming). However, the semopy supports a wide range of other
+objective functions and optimisation schemes being specified as parameters in
+the optimize method (see Section 2.4).
+When optimization process is finished, user can check the parameters’ estimates and p-values by using inspect method:
+from semopy import inspect
+inspect(opt)
+
+The important feature of the semopy is that one can run multiple optimization sessions in a row with preservation of previous parameters’ estimates.
+For instance, to use unweighted least squares estimates as a starting point for
+a maximum likelihood estimation, one can run:
+model = Model(mod)
+model.load_dataset(data)
+opt = Optimizer(model)
+opt.optimize(objective=’ULS’)
+opt.optimize(objective=’MLW’)
+
+2
+
+Materials and methods
+
+In this section, we explain in detail the underlying calculations in the semopy.
+We denote latent variables with η, observed variables participating in relationships with latent variables with x and manifest variables with y; let numbers
+5
+
+of these variables be nη , nx and ny , respectively. We also assumed that all
+variables are normally distributed with zero means. Each group of variables,
+η and x, can be split into two categories: (1) exogenous and (2) endogenous;
+let denote them η (1) and η (2) , x(1) and x(2) , respectively. Let the number of
+variables in the obtained four groups are nη(1) and nη(2) , nx(1) and nx(2) , so that
+nη = nη(1) + nη(2) , nx = nx(1) + nx(2) .
+
+2.1
+
+Model
+
+As usual for SEM models, we assume it consisted of two parts: structural and
+measurement ones. We consider the following generalisation of Eq. 1:
+" #
+" #
+
+η
+ η
+=B
++ε
+,
+(2)
+x
+x
+
+
+y
+= Λ̃η + δ
+
+where Λ̃ is a factor loading matrix with linear parameters. We introduce the
+following change of variables:
+ 
+ 
+η
+y
+ω=
+;z =
+,
+x
+x
+and the Eq. 2 can be rewritten as:
+(
+ω
+z
+
+= Bω + ε
+,
+= Λω + δ
+
+(3)
+
+where B and Λ are matrices of parameters, ε and δ are vectors of error terms,
+which are assumed to be independent and normally distributed with zero means
+and covariances Ψ and Θ, respectively.
+Then we can infer covariance matrix of z as a function of model parameters:
+cov(z) = Σ(θ)
+
+(4)
+
+Parameters in B matrix
+The size of B matrix corresponds to the size of ω vector and equals to (nη +
+nx × nη + nx ). The block representation of this matrix is not necessary, and we
+set the initial values of all parameters in B matrix as zeroes.
+Parameters in Λ matrix
+The size of Λ matrix matches to the sizes of z and ω vectors and equals to
+(ny + nx × nη + nx ); the block representation of Λ is:
+
+
+Λ̃(ny × nη ) 0(ny × nx )
+,
+Λ=
+0(nx × nη ) I(nx × nx )
+6
+
+Λ̃ is an adjacency matrix for variables in a measurement part (Eq. 2).
+To define the scale of latent variables, we automatically fix one parameter
+in each column of Λ̃ to 1. To be specific, in a column i this parameter is the
+factor loading for ηi latent variable and it’s a manifest variable which is the first
+in the alphabet order of all manifest variable for ηi ; we called this variable as
+the first indicator. Initial values of the remaining factor loading for the ηi are
+linear regression coefficients between manifest variables and the first indicator
+being as a single regressor.
+Parameters in Ψ matrix
+The matrix Ψ is a square covariance matrix for the error term ε (Eq. 3) and
+it’s size is (nη + nx × nη + nx ) or, in other terms, (nη(1) + nη(2) + nx(1) + nx(2) ×
+nη(1) + nη(2) + nx(1) + nx(2) ). This matrix is symmetric and can be presented in
+the block form:
+
+
+Ψη(1)
+Ψη(1) ,η(2) Ψη(1) ,x(1) Ψη(1) ,x(2)
+
+
+ ⊺
+
+Ψη(1) ,η(2)
+Ψη(2)
+Ψη(2) ,x(1) Ψη(2) ,x(2) 
+
+,
+Ψ=
+
+Ψ⊺η(1) ,x(1) Ψ⊺η(2) ,x(1)
+Ψx(1)
+Ψx(1) ,x(2) 
+
+
+Ψ⊺η(1) ,x(2) Ψ⊺η(2) ,x(2) Ψ⊺x(1) ,x(2)
+Ψx(2)
+
+where blocks reflect covariance matrices of variables mentioned in indexes. By
+default, we assume that the block Ψx(1) is fixed and equals to sample covariance matrix for x(1) variables (exogenous observed variables). For η (1) (exogenous latent variables), we assumed the symmetric Ψη(1) covariance matrix fully
+parametrised. Preventing covariances between x(1) and η (1) by default, we set
+Ψη(1) ,x(1) as zero matrix. We also consider the covariance matrices between
+endogenous and exogenous variables as zero matrices. In the remaining matrices for covariances between endogenous variables (latent and observed) – Ψη(2) ,
+Ψx(2) , Ψη(2) ,x(2) – we set parameters in positions of variances and in positions
+of covariances between variables, which do not play a role of regressors in any
+equation of the structural part.
+Parameters in Theta matrix
+The Θ matrix is symmetric square 4-block matrix of (ny + nx × ny + nx ) size
+having only one non-zero block (Θ̃):
+
+
+Θ̃(ny × ny ) 0(ny × nx )
+.
+Θ=
+0(nx × ny ) 0(nx × nx )
+
+Dy default we initialise Θ̃ as a diagonal matrix, however, the semopy syntax
+allows to parametrise it’s off-diagonal elements. We set the starting values for
+a diagonal element Θ̃i,i as a half of a sample variance for the manifest variable
+yi .
+7
+
+Example
+For the model on Fig. 1, positions of parameters in matrices are presented on
+Fig. 2.
+B matrix
+
+Ψ matrix
+
+η1 η2 η3 η4 x3 x4 x5 x1 x2
+
+η1 η2 η3 η4 x3 x4 x5 x1 x2
+
+η1
+η2
+η3
+η4
+x3
+x4
+x5
+x1
+x2
+
+η1
+η2
+η3
+η4
+x3
+x4
+x5
+x1
+x2
+
+Λ matrix
+
+Θ matrix
+
+η1 η2 η3 η4 x3 x4 x5 x1 x2
+
+y1 y2 y3 y4 y5 y6 x3 x4 x5 x1 x2
+
+y1 1
+y2
+y3
+1
+y4
+1 1
+y5
+y6
+x3
+1
+x4
+1
+x5
+1
+x1
+1
+x2
+1
+
+y1
+y2
+y3
+y4
+y5
+y6
+x3
+x4
+x5
+x1
+x2
+
+Figure 2: Matrices for model on Fig. 1. Gray cells stand for zeros, green cells
+stand for parameters, purple cells stand for values from sample covariance
+matrix.
+
+2.2
+
+Loading the data
+
+The semopy supports SEM models that contain not only continuous variables
+(assumed as normally distributed) but also discrete ones (assumed as ordinal).
+By default, all variables are assumed to be normally distributed. However, it
+is possible to manually specify the type of variables or to allow the automatic
+recognition of types.
+# Providing a list of ordinal variables
+variables = {’y1’, ’y2’}
+model.load_dataset(data, ordcor=variables)
+# Load data with automatically recognition of types
+
+8
+
+model.load_dataset(data, ordcor=True)
+# Check set of ordinal variables
+print(model.vars[’Categorical’])
+
+Presence of ordinal variables makes the sample covariance matrix S ”heterogenous”, i.e. containing polychoric (in-between ordinal) and polyserial (between ordinal and continuous variables) correlations [7] .
+
+2.3
+
+Objective functions
+
+The semopy allows to chose one of three objective (loss) functions for parameters’ estimation. Two of them are based on a least-squares approach, and
+the remaining one (the default) represents the maximum likelihood approach.
+It should be noticed that all objective functions reflect (in different ways) the
+distance between the sample covariance matrix S and the model covariance matrix Σ(θ) for observed variables z. In this section, we present both objective
+functions and their two first derivatives utilised in optimisation methods.
+The objective function can be set as an argument in optimize method of
+Optimizer class:
+opt.optimize(objective=’ULS’) # Unweighted least squares
+opt.optimize(objective=’GLS’) # General least squares
+opt.optimize(objective=’MLW’) # Wishart likelihood function
+
+Unweighted Least Squares (ULS)
+The ULS objective function can be written as follows:
+FULS (θ) = tr [(Σ(θ) − S)(Σ(θ) − S)⊺ ] ,
+
+(5)
+
+where θ is a set of all parameters in an SEM model. To accelerate some optimisation methods, we inferred formulas for components in the gradient and the
+Hessian for FULS (θ).
+General Least Squares (GLS)
+In contrast to ULS loss function, GLS approach considers the following loss
+function:
+
+
+F (θ)GLS = tr (E − Σ(θ)S −1 )2
+
+(6)
+
+After our inference, formulas for components in the gradient and the Hessian
+are available as well.
+
+9
+
+Wishart Maximum Likelihood (MLW)
+The MLW objective function is based on the assumption that the observed
+variables z follow the multivariate normal distribution, therefore, the sample
+covariance matrix of z follows the Wishart distribution:
+e−tr(nSΣ
+
+−1
+|nS|(n−p−1)/2
+−n/2
+∝ e−tr(nSΣ )/2 |Σ|
+,
+n/2
+|Σ|
+
+−1
+
+W (S|n−1 Σ, n) ∝
+
+)/2
+
+where n is number of degrees of freedom (sample size), p is number of parameters
+(= |θ|). In this case, the log likelihood ratio – a natural logarithm of ratio
+of likelihood for any given model to likelihood with a perfectly fitting model
+(Σ = S) – is following:
+
+
+FMLW (θ) = tr SΣ(θ)−1 + ln |Σ(θ)|
+
+(7)
+
+Also, we inferred the analytical gradient and Hessian of FMLW .
+
+2.4
+
+Optimisation methods
+
+To minimise an objective function, semopy has a variety of nonlinear solvers.
+Optimisation method can be selected through method argument to optimize
+function in Optimizer class, for example,
+opt.optimize(method="SLSQP")
+
+The full list of available optimisation methods is the following:
+•
+
+SLSQP – SLSQP (Sequential Least-Squares Quadratic Programming) method
+[21, 22] from scipy;
+
+•
+
+L-BFGS-B – L-BFGS-B (Broyden Fletcher Goldfarb Shanno, limited
+memory) method [27, 32] from scipy;
+
+•
+
+Portmin – FORTRAN PORT optimization library [11] wrapped with
+Python portmin wrapper. It incorporates SMSNO, SUMSL, HUMSL routines for cases when no analytical gradient is available, when analytical
+gradient is available and when both analytical gradient and hessian are
+available respectively;
+
+•
+
+Adam – Stochastic optimisation method Adam[6, 30], our implementation;
+
+•
+
+Nesterov –Stochastic Nesterov Accelerated Gradient method [30], our
+implementation;
+
+•
+
+SGD
+
+2.5
+
+– Stochastic Gradient Descent method [30], our implementation.
+
+Statistics
+
+The semopy provides methods to calculate important statistics: p-values for
+parameter estimates and various measurements of fit.
+10
+
+P-values for parameter estimates
+The semopy utilises the Z-test to calculate p-values for parameter estimates
+under the assumption that parameters are normality distributed; H0 : value of
+a parameter is equal to zero. The approach considers z-score:
+Z(θ̂) =
+
+θ̂
+SE(θ̂)
+
+,
+
+where θ̂ is a vector of parameter estimates, SE(θ̂) is the standard error of
+√
+estimates, which is proportional to variance: SE(θ̂) = var(θ̂)/ n.
+Based on the CramrRao bound,
+var(θ̂) ≥ FIM(θ)−1 ,
+where FIM(θ) is a Fisher information matrix (FIM). The FIM(θ) matrix can be
+defined as an observed or expected FIM. The observed FIM is the Hessian of a
+likelihood function at θ̂, H(θ̂).
+P-values for parameter estimates are based on the Z-test expectation, that
+Z(θ) follows the multivariate normal distribution. By default, expected FIM is
+used, but a user may want to estimate observed FIM instead:
+from semopy.stats import calculate_p_values
+pvals = calculate_p_values(opt, information=’observed’)
+
+Fit indices
+The semopy supports numerous fit indices: χ2 , RMSEA, CFI, TLI, NFI GFI,
+AGFI [20, 17]. Some fit indices compare fitted and baseline (null or independence) models. In semopy, baseline model is a model with all regression coefficients, loading factors, covariances, variances of latent variables set to zero.
+− m, where
+Several methods use the degrees of freedom (df ) metric, df = k(k+1)
+2
+k is a number of observed variables and m is a number of parameters. All
+methods that estimate them require an Optimizer instance as an argument.
+
+11
+
+Table 1: where n is a number of data samples, F (θ̂) is a value that objective
+function attains at optimum, χ2m is a χ2 statistics for the target model, χ2b is a
+χ2 statistics for the baseline model, where dfm is df of target model and dfb is
+df of baseline model, k is a number of parameters and L is a value of a
+likelihood function.
+Fit index
+
+Formula
+
+Method
+
+2
+
+nF (θ̂)
+q
+
+calc_chi2
+
+χ
+
+RMSEA
+GFI
+AGFI
+NFI
+
+χ2 /df −1
+
+n−1
+χ2
+1 − χm2
+b
+1 − k(k+1)
+(1
+− GF I)
+2df
+2
+2
+χb −χm
+χ2b
+χ2
+χ2
+m
+b
+dfb − dfm
+2
+χ
+b
+dfb −1
+χ2m −dfm
+χ2b −dfb
+
+TLI
+
+calc_rmsea
+calc_gfi
+calc_agfi
+calc_nfi
+calc_tli
+
+CFI
+
+1−
+
+AIC
+
+2(k − L)
+
+calc_aic
+
+BIC
+
+(ln)(n)k − 2L
+
+calc_bic
+
+calc_cfi
+
+A fit index can be calculated by invoking a particular method with an
+instance passed as an argument. For example, to calculate AIC or
+BIC one should invoke calculate_aic or calculate_bic method respectively.
+They automatically estimate L as a Wishart likelihood by default. However,
+one might supply extra parameter lh as a value of L:
+Optimizer
+
+from semopy import calc_aic, calc_likelihood
+# Calculate multivariate normal likelihood of model fitted by opt
+l = calc_likelihood(opt, dist=’normal’)
+aic = calc_aic(opt, lh=l)
+
+Alternatively, one might gather all statistics explained above by a single call
+to gather_statistics method:
+from semopy import gather_statistics
+stats = gather_statistics(opt)
+
+2.6
+
+Testing framework
+
+In order to test the semopy package and compare it’s performance with the
+lavaan, we implemented a versatile system to generate benchmark SEM models.
+Based on input parameters, the system randomly generates a skeleton of structural and measurement parts of an SEM model, values of all parameters and
+the dataset appropriate for the model and parameters. The set of generator’s
+parameters includes:
+12
+
+•
+
+n_obs
+
+•
+
+n_lat , number of latent variables in the structural part;
+
+•
+
+n_cycle , minimal number of cycles in the structural part;
+
+•
+
+, total number of variables in the structural part;
+
+n_manif/(l_manif, u_manif) , range of possible numbers of manifest vari-
+
+ables for a latent variable;
+
+•
+
+p_manif , fraction of manifest variables to merge together.
+
+•
+
+scale all parameters sampled from uniform distribution on domain [−1.0, −0.1]∪
+[0.1, 1.0] are multiplied by this value.
+
+•
+
+n_samples
+
+number of samples in a dataset.
+
+In order to generate a model, one should run the following:
+from semopy.model_generator import generate_model
+n_manif = (l_manif, u_manif)
+model, params, data = generate_model(n_obs, n_lat, n_manif,
+p_manif, n_cycles, scale,
+n_samples)
+
+The algorithm generating benchmarks consists of four steps. At the first
+step, we construct a structural part of an SEM model. For this purpose, we randomly generate a directed acyclic graph of ( n_obs + n_lat ) nodes and then
+we add n_cycles extra directed edges between nodes to satisfy the minimal
+number of circles in the structural part. At last, n_lat nodes in the structural
+parts are picked as latent. At the second step, we construct the measurement
+part providing each latent variable with it’s own set of manifest variables, so
+that each latent variable has the random amount of manifest variables from the
+range (l_manif, u_manif) . To allow a fraction of manifest variables measuring several latent variables, we consequently merge pairs of manifest variables
+from different latent variables until the resultant number of manifest variables
+reaches (1-f_manif) of the initial number of manifest variables. At the third
+step, values of parameters in B and Λ are uniformly sampled from the continuous uniform distribution on the symmetric support [−1, −0.1] ∪ [0.1, 1] scaled
+by scale parameter. At the fourth step, we consistently generate values for
+variables starting from exogenous ones, moving along paths in the structural
+part, finishing with manifest variables. For each variable we add a random
+noise error from N (0, 0.1). After a primary dataset is generated, we removed
+the latent variables form it.
+
+3
+
+Results
+
+To compare semopy and lavaan packages to each other we tested them on
+15 benchmark sets of SEM models generated by the model generator explained
+13
+
+above. Sets consist of 1000 random models and different parameters (see Table
+2).
+Table 2: Parameters that were passed to generator for each set. Sets are
+separated into groups with a horizontal line paying respect to our
+representation of tests’ results on graphs. p_manif is set to 0.1 everywhere.
+N
+
+n obs
+
+n lat
+
+n manif
+
+n cycles
+
+scale
+
+n samples
+
+1
+
+5
+
+2
+
+2
+
+0
+
+0.5
+
+500
+
+2
+
+5
+
+2
+
+2
+
+0
+
+0.75
+
+500
+
+3
+
+5
+
+2
+
+2
+
+0
+
+1
+
+500
+
+4
+
+5
+
+2
+
+2
+
+0
+
+1.5
+
+500
+
+5
+
+5
+
+2
+
+2
+
+0
+
+2
+
+500
+
+6
+
+10
+
+0
+
+2
+
+0
+
+1
+
+500
+
+7
+
+10
+
+1
+
+2
+
+0
+
+1
+
+500
+
+8
+
+10
+
+2
+
+2
+
+0
+
+1
+
+500
+
+9
+
+10
+
+4
+
+2
+
+0
+
+1
+
+500
+
+10
+
+10
+
+8
+
+2
+
+0
+
+1
+
+500
+
+11
+
+10
+
+0
+
+2
+
+1
+
+1
+
+500
+
+12
+
+10
+
+1
+
+2
+
+1
+
+1
+
+500
+
+13
+
+10
+
+2
+
+2
+
+1
+
+1
+
+500
+
+14
+
+10
+
+4
+
+2
+
+1
+
+1
+
+500
+
+15
+
+10
+
+8
+
+2
+
+1
+
+1
+
+500
+
+Then, we ran semopy and lavaan on each model from those sets and compared packages on the following measures of accuracy:
+• relative error between the estimated (θ̂) and exact parameter values (θ).
+P
+ˆ
+i|
+;
+As θ is a vector, we consider a mean relative error ∆(θ, θ̂) = n1 ni=1 |θi|θ−θ
+i|
+
+• the obtained value of the objective functions F (θ̂);
+• number of failed optimisation processes.
+• execution time
+
+We consider an optimisation process failed (a package’s estimates diverge
+from true values) if any of the criteria are met:
+
+14
+
+• any parameter has a ”Not-a-Number” (NaN) value;
+• the objective function returns NaN at given point (function with estimated parameters attains undefined value and/or violates innerly-defined
+boundaries).
+• ∆(θ, θ̂) < 0.3
+15 sets of models that we examined in our tests are provided in Table 2. All
+sets of models and their respective data used in the following tests as well as
+the results are available at the repository.
+Next, we provide the results of our tests.
+
+N , number of non-convergent models
+
+MLW
+
+ULS
+
+300
+
+lavaan
+semopy
+
+250
+
+300
+200
+
+200
+200
+
+150
+
+100
+100
+
+100
+
+50
+
+0
+1
+
+2
+
+3
+
+4
+
+5
+
+1
+
+2
+
+N , number of non-convergent models
+
+(A)
+
+3
+
+4
+
+5
+
+1
+
+2
+
+(B)
+
+3
+
+4
+
+5
+
+9
+
+10
+
+14
+
+15
+
+(C)
+300
+
+200
+
+300
+250
+250
+
+150
+
+200
+200
+150
+
+100
+
+150
+100
+100
+
+50
+
+50
+50
+6
+
+7
+
+8
+
+9
+
+10
+
+6
+
+7
+
+(D)
+N , number of non-convergent models
+
+GLS
+300
+
+8
+
+9
+
+10
+
+6
+
+7
+
+(E)
+
+8
+
+(F)
+400
+
+300
+450
+
+350
+
+400
+
+300
+
+250
+
+200
+
+250
+
+350
+150
+
+200
+
+300
+
+150
+
+100
+11
+
+12
+
+13
+
+14
+
+15
+
+11
+
+12
+
+13
+
+Set
+
+(G)
+
+14
+
+15
+
+11
+
+12
+
+13
+
+Set
+
+Set
+
+(H)
+
+(I)
+
+Figure 3: Plots (A)-(C) are for sets 1-5 (varying scale ), (D)-(E) are for sets
+6-10 (no cycles, varying n_lat ), (G)-(I) for sets 11-15 (one cycle, varying
+n_lat ).
+
+15
+
+3.1
+
+Performance
+
+We’ve benchmarked both semopy and lavaan on a mixed set of models. We
+were using a computer with AMD A10-4600M CPU, OS Manjaro 4.14 and
+OpenBLAS as a backend for numpy and scipy.
+7.9
+
+semopy
+lavaan
+
+6.9
+
+6.8
+
+Time (s)
+
+6
+5.8
+
+5.8
+
+5.7
+
+5.7
+
+5.5
+
+5.9
+
+7.1
+
+5.8
+
+5.6
+5.3
+
+4
+3.8
+
+3.7 3.7
+
+4.7
+
+4.6
+
+4.1
+
+3.8
+
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+Set
+
+5.1
+
+5
+
+3.6
+
+4.8
+
+4.5
+
+3.9
+
+3.9
+3.5 3.4 3.6
+
+5.8
+
+5.7
+
+4.2
+
+4.2
+
+3.8
+
+6.3
+
+6.1
+
+5.2
+
+4.3
+
+4
+
+6.6
+
+6.5
+
+6.3 6.4
+5.8
+
+4.9
+
+3.6
+
+6.6
+
+6
+
+5.9
+
+5.7
+
+5.5
+
+5.5
+
+4.7
+
+4.2
+
+6.4
+
+6.3
+6
+
+6
+
+5.2 5.3
+4.7
+
+8.5
+
+8.5
+
+5.1
+
+4.1
+
+10.3
+
+7.7
+
+7.6
+
+6.3
+
+5.3
+
+10.3
+
+9.9
+
+9.8
+
+7.7
+
+4.2
+
+3.6
+
+3.8
+3.7 3.7 3.7 3.7 3.7 3.7
+
+3.3
+
+3.7
+
+3.9
+
+4
+
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+Set
+
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+Set
+
+ULS
+
+GLS
+
+MLW
+
+Figure 4: Performance benchmark, logarithmic scale
+
+3.2
+
+Optimisation methods
+
+All optimisation methods available in the package were also tested against each
+other.
+Table 3: An entry at row i and column j stands for number of models that
+didn’t converge for method i yet did for method j. Diagonal entries stand for
+number of models where methods didn’t converge.
+SLSQP
+
+L-BFGS-B
+
+SMSNO
+
+SUMSL
+
+HUMSL
+
+Adam
+
+SLSQP
+
+133
+
+7
+
+2
+
+4
+
+11
+
+46
+
+L-BFGS-B
+
+609
+
+735
+
+152
+
+595
+
+602
+
+449
+
+SMSNO
+
+603
+
+151
+
+734
+
+583
+
+589
+
+449
+
+SUMSL
+
+23
+
+12
+
+1
+
+152
+
+9
+
+52
+
+HUSML
+
+23
+
+12
+
+0
+
+2
+
+145
+
+49
+
+Adam
+
+255
+
+56
+
+57
+
+242
+
+246
+
+342
+
+As it can be seen from Table 3, SLSQP clearly outperforms other methods,
+however, it has to be noted that there are cases when SLSQP fails to correctly
+estimate parameters whereas other methods successfully find a solution. Thereof
+we conclude that other optimisation methods should be given a shot in case of
+SLSQP’s failure.
+
+16
+
+References
+[1] Peter M. Bentler. EQS structural equations program manual. BMDP Statistical Software, 1989.
+[2] Kenneth A. Bollen. Structural Equations with Latent Variables. WileyInterscience, 1989.
+[3] TIOBE Software BV. Tiobe index, 2019.
+[4] Pierre Carbonnelle. Pypl popularity of programming language, 2019.
+[5] Chris Dai. pypsy: psychometrics package, 2018.
+[6] Jimmy Ba Diederik P. Kingma. Adam: A method for stochastic optimization, December 2014.
+[7] Fritz Drasgow. Polychoric and Polyserial Correlations. American Cancer
+Society, 2006.
+[8] John Fox. Teacher’s corner: Structural equation modeling with the sem
+package in r. Structural Equation Modeling: A Multidisciplinary Journal,
+13(3):465–486, 2006.
+[9] Karl G. Joreskog and Marielle van Thillo. Lisrel: A general computer program for estimating a linear structural equation system involving multiple
+indicators of unmeasured variables. ETS Research Bulletin Series, 1972,
+12 1972.
+[10] Fuchang Gao and Lixing Han. Implementing the nelder-mead simplex algorithm withadaptive parameters. Computational Optimization and Applications, 51(1):259–277, Jan 2012.
+[11] D.M. Gay. Algorithm 611: Subroutines for unconstrained minimization
+using a model/trust-region approach. ACM Transactions on Mathematical
+Software, 9(4):503–524, 1983.
+[12] Google. Google scholar, lavaan: An r package for structural equation modeling and more. version 0.512 (beta), 2019.
+[13] Google. Google scholar, openmx 2.0: Extended structural equation and
+statistical modeling, 2019.
+[14] Google. Google scholar, teacher’s corner: structural equation modeling
+with the sem package in r, 2019.
+[15] James B. Grace. Structural Equation Modeling and Natural Systems. Cambridge University Press, 2006.
+[16] Mamane S. Graczyk P. The fisher information and exponential families
+parametrized by a segment of means. Probability and Mathematical Statistics, 35(1), 2015.
+17
+
+[17] Litze Hu and Peter M. Bentler. Cutoff criteria for fit indexes in covariance
+structure analysis: Conventional criteria versus new alternatives. Structural
+Equation Modeling: A Multidisciplinary Journal, 6(1):1–55, 1999.
+[18] Anna A. Igolkina, Chris Armoskus, Jeremy R. B. Newman, Oleg V. Evgrafov, Lauren M. McIntyre, Sergey V. Nuzhdin, and Maria G. Samsonova.
+Analysis of gene expression variance in schizophrenia using structural equation modeling. Frontiers in Molecular Neuroscience, 11, June 2018.
+[19] K. G. Jöreskog. A general approach to confirmatory maximum likelihood
+factor analysis. Psychometrika, 34(2):183–202, Jun 1969.
+[20] Rex B. Kline. Principles and Practice of Structural Equation Modeling,
+Fourth Edition (Methodology in the Social Sciences). The Guilford Press,
+2015.
+[21] Dieter Kraft. A software package for sequential quadratic programming.
+DFVLR-FB, 88(28), 1988.
+[22] Dieter Kraft. Algorithm 733: Tomp–fortran modules for optimal control
+calculations. ACM Trans. Math. Softw., 20(3):262–281, September 1994.
+[23] R. Mardia, K.; Marshall. Maximum likelihood estimation of models for
+residual covariance in spatial regression. Biometrika, 71(1), 1984.
+[24] Thomas P. Minka. Old and new matrix algebra useful for statistics, December 2000.
+[25] L.K. Muthn and B.O. Muthn. Mplus Users Guide. Sixth Edition. Los
+Angeles, CA: Muthn & Muthn, 2010.
+[26] Michael C. Neale, Michael D. Hunter, Joshua N. Pritikin, Mahsa Zahery,
+Timothy R. Brick, Robert M. Kirkpatrick, Ryne Estabrook, Timothy C.
+Bates, Hermine H. Maes, and Steven M. Boker. OpenMx 2.0: Extended
+structural equation and statistical modeling. Psychometrika, 81(2):535–
+549, 2016.
+[27] Jorge Nocedal and Stephen Wright. Numerical Optimization (Springer
+Series in Operations Research and Financial Engineering). Springer, 2006.
+[28] Bruce H. Pugesek. Structural Equation Modeling: Applications in Ecological and Evolutionary Biology. Cambridge University Press, 2009.
+[29] Yves Rosseel. lavaan: An r package for structural equation modeling. Journal of Statistical Software, Articles, 48(2):1–36, 2012.
+[30] Sebastian Ruder. An overview of gradient descent optimization algorithms.
+[31] S. Wright. Correlation and causation. Agricultural Research, 20:557–558,
+1921.
+
+18
+
+[32] Ciyou Zhu, Richard H. Byrd, Peihuang Lu, and Jorge Nocedal. Algorithm
+778: L-bfgs-b: Fortran subroutines for large-scale bound-constrained optimization. ACM Trans. Math. Softw., 23(4):550–560, December 1997.
+
+19
+
+

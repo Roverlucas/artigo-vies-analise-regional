@@ -1,0 +1,3023 @@
+{
+  "id" : null,
+  "scope" : null,
+  "query" : "9789240034228",
+  "appliedFilters" : null,
+  "sort" : null,
+  "configuration" : null,
+  "type" : "discover",
+  "_links" : {
+    "self" : {
+      "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228"
+    }
+  },
+  "_embedded" : {
+    "searchResult" : {
+      "_embedded" : {
+        "objects" : [ {
+          "hitHighlights" : null,
+          "type" : "discover",
+          "_links" : {
+            "indexableObject" : {
+              "href" : "https://iris.who.int/server/api/core/items/66072e35-c45b-4095-acf0-177b5b8a5637"
+            }
+          },
+          "_embedded" : {
+            "indexableObject" : {
+              "id" : "66072e35-c45b-4095-acf0-177b5b8a5637",
+              "uuid" : "66072e35-c45b-4095-acf0-177b5b8a5637",
+              "name" : "Strengthening air quality standards to protect human health: an overview of the Western Pacific Region",
+              "handle" : "10665/386252",
+              "metadata" : {
+                "dc.contributor.author" : [ {
+                  "value" : "World Health Organization. Regional Office for the Western Pacific",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.coverage.spatial" : [ {
+                  "value" : "Manila",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.accessioned" : [ {
+                  "value" : "2026-05-28T02:20:16Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.available" : [ {
+                  "value" : "2026-05-28T02:20:16Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issued" : [ {
+                  "value" : "2026-05-28",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description" : [ {
+                  "value" : "xi, 45 p.",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.abstract" : [ {
+                  "value" : "This report, Strengthening Air Quality Standards to Protect Human Health: An overview of the Western Pacific Region, provides a comprehensive review of ambient air quality standards across countries and areas of the WHO Western Pacific Region and assesses their alignment with the WHO global air quality guidelines. The publication analyses the national requirements set for major air pollutants, including particulate matter, ozone, nitrogen dioxide, sulfur dioxide, and carbon monoxide, and assesses the potential public health benefits of achieving WHO-recommended health-based guideline levels.",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "This is the first consolidated regional overview of air quality standards alongside modelled estimates of avoidable mortality associated with reductions in fine particulate matter exposure. It emphasizes the urgent need to close the gap between current regulatory standards and the levels required to protect public health and outlines actions to support cleaner air, healthier populations and climate resilience. The report also serves as a reference resource for policy-makers, public health authorities, researchers, and civil society working to advance evidence-informed air quality management and reduce the health burden associated with air pollution.",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.identifier.isbn" : [ {
+                  "value" : "9789290621317",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.uri" : [ {
+                  "value" : "https://iris.who.int/handle/10665/386252",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language" : [ {
+                  "value" : "English",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language.iso" : [ {
+                  "value" : "en",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.publisher" : [ {
+                  "value" : "WHO Regional Office for the Western Pacific",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights" : [ {
+                  "value" : "CC BY-NC-SA 3.0 IGO",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.holder" : [ {
+                  "value" : "World Health Organization",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.uri" : [ {
+                  "value" : "https://creativecommons.org/licenses/by-nc-sa/3.0/igo",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject.mesh" : [ {
+                  "value" : "Air Pollution",
+                  "language" : null,
+                  "authority" : "655f2302663273722bc0d1ce528c98a9caf017a1",
+                  "confidence" : 600,
+                  "place" : 0
+                }, {
+                  "value" : "Environmental Health",
+                  "language" : null,
+                  "authority" : "34aec840e7864c8f7099a6b8b9c07b811b7fd805",
+                  "confidence" : 600,
+                  "place" : 1
+                } ],
+                "dc.subject.meshqualifier" : [ {
+                  "value" : "standards",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.title" : [ {
+                  "value" : "Strengthening air quality standards to protect human health: an overview of the Western Pacific Region",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type" : [ {
+                  "value" : "Publications",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ]
+              },
+              "inArchive" : true,
+              "discoverable" : true,
+              "withdrawn" : false,
+              "lastModified" : "2026-05-29T02:21:48.963+00:00",
+              "entityType" : null,
+              "type" : "item",
+              "_links" : {
+                "accessStatus" : {
+                  "href" : "https://iris.who.int/server/api/core/items/66072e35-c45b-4095-acf0-177b5b8a5637/accessStatus"
+                },
+                "bundles" : {
+                  "href" : "https://iris.who.int/server/api/core/items/66072e35-c45b-4095-acf0-177b5b8a5637/bundles"
+                },
+                "identifiers" : {
+                  "href" : "https://iris.who.int/server/api/core/items/66072e35-c45b-4095-acf0-177b5b8a5637/identifiers"
+                },
+                "mappedCollections" : {
+                  "href" : "https://iris.who.int/server/api/core/items/66072e35-c45b-4095-acf0-177b5b8a5637/mappedCollections"
+                },
+                "owningCollection" : {
+                  "href" : "https://iris.who.int/server/api/core/items/66072e35-c45b-4095-acf0-177b5b8a5637/owningCollection"
+                },
+                "relationships" : {
+                  "href" : "https://iris.who.int/server/api/core/items/66072e35-c45b-4095-acf0-177b5b8a5637/relationships"
+                },
+                "version" : {
+                  "href" : "https://iris.who.int/server/api/core/items/66072e35-c45b-4095-acf0-177b5b8a5637/version"
+                },
+                "templateItemOf" : {
+                  "href" : "https://iris.who.int/server/api/core/items/66072e35-c45b-4095-acf0-177b5b8a5637/templateItemOf"
+                },
+                "thumbnail" : {
+                  "href" : "https://iris.who.int/server/api/core/items/66072e35-c45b-4095-acf0-177b5b8a5637/thumbnail"
+                },
+                "self" : {
+                  "href" : "https://iris.who.int/server/api/core/items/66072e35-c45b-4095-acf0-177b5b8a5637"
+                }
+              }
+            }
+          }
+        }, {
+          "hitHighlights" : null,
+          "type" : "discover",
+          "_links" : {
+            "indexableObject" : {
+              "href" : "https://iris.who.int/server/api/core/items/598cb1c9-f108-49f7-b3fc-4541429e759e"
+            }
+          },
+          "_embedded" : {
+            "indexableObject" : {
+              "id" : "598cb1c9-f108-49f7-b3fc-4541429e759e",
+              "uuid" : "598cb1c9-f108-49f7-b3fc-4541429e759e",
+              "name" : "Mainstreaming action on air pollution into noncommunicable disease prevention and control responses: a technical brief",
+              "handle" : "10665/385272",
+              "metadata" : {
+                "dc.contributor.author" : [ {
+                  "value" : "World Health Organization",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.coverage.spatial" : [ {
+                  "value" : "Geneva",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.accessioned" : [ {
+                  "value" : "2026-04-17T10:12:32Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.available" : [ {
+                  "value" : "2026-12-31T00:00:00Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issued" : [ {
+                  "value" : "2026-04-17",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description" : [ {
+                  "value" : "22 p.",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.abstract" : [ {
+                  "value" : "This technical brief outlines the importance of integrating air pollution into strategies for the prevention and control of noncommunicable diseases (NCDs). It presents air pollution as a major, yet underrecognized, environmental risk factor contributing to a wide range of chronic conditions, including cardiovascular and respiratory diseases, cancer and diabetes. Drawing on recent global policy developments and evidence, the document describes the scale of the health burden attributable to both ambient and household air pollution and explains the mechanisms through which exposure affects multiple organ systems.\n\nThe brief provides guidance on incorporating air pollution into national NCD policies and health system responses through coordinated, multisectoral action. It emphasizes preventive measures targeting emission sources alongside health sector interventions such as risk assessment, clinical management and public health communication. Practical policy options, capacity-building approaches for health workers and recommendations for reducing individual exposure are also presented. Intended for policy-makers, health professionals and other stakeholders, the document supports the development of integrated strategies to improve air quality and reduce the global burden of NCDs.",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.doi" : [ {
+                  "value" : "https://doi.org/10.2471/B09687",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.uri" : [ {
+                  "value" : "https://iris.who.int/handle/10665/385272",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language" : [ {
+                  "value" : "English",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language.iso" : [ {
+                  "value" : "en",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.publisher" : [ {
+                  "value" : "World Health Organization",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights" : [ {
+                  "value" : "CC BY-NC-SA 3.0 IGO",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.holder" : [ {
+                  "value" : "World Health Organization",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.uri" : [ {
+                  "value" : "https://creativecommons.org/licenses/by-nc-sa/3.0/igo",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject.mesh" : [ {
+                  "value" : "Air Pollution",
+                  "language" : null,
+                  "authority" : "655f2302663273722bc0d1ce528c98a9caf017a1",
+                  "confidence" : 600,
+                  "place" : 0
+                }, {
+                  "value" : "Noncommunicable Diseases",
+                  "language" : null,
+                  "authority" : "954f457be0a933934f60583d760fdd35041fa6f0",
+                  "confidence" : 600,
+                  "place" : 1
+                }, {
+                  "value" : "Chronic Disease",
+                  "language" : null,
+                  "authority" : "184298f53db24aa308e296b5457df466c5d8115a",
+                  "confidence" : 600,
+                  "place" : 2
+                }, {
+                  "value" : "Environmental Exposure",
+                  "language" : null,
+                  "authority" : "55df53cac511a6ab0bf914df760b33778e3e1b55",
+                  "confidence" : 600,
+                  "place" : 3
+                }, {
+                  "value" : "Environmental Health",
+                  "language" : null,
+                  "authority" : "34aec840e7864c8f7099a6b8b9c07b811b7fd805",
+                  "confidence" : 600,
+                  "place" : 4
+                }, {
+                  "value" : "Public Health",
+                  "language" : null,
+                  "authority" : "33002d4ea1a6580b094c90c609a8680af8352a94",
+                  "confidence" : 600,
+                  "place" : 5
+                }, {
+                  "value" : "Health Policy",
+                  "language" : null,
+                  "authority" : "b9b38fd6e048685a2bb870388de081143d352794",
+                  "confidence" : 600,
+                  "place" : 6
+                }, {
+                  "value" : "Quality of Life",
+                  "language" : null,
+                  "authority" : "6eeb3d92a69def64979191a08908e2f3375377ac",
+                  "confidence" : 600,
+                  "place" : 7
+                }, {
+                  "value" : "Cost of Illness",
+                  "language" : null,
+                  "authority" : "8d38dae6a96b24fbcf45fc4123d695177a88df12",
+                  "confidence" : 600,
+                  "place" : 8
+                }, {
+                  "value" : "Mortality",
+                  "language" : null,
+                  "authority" : "006f0b5d57de290b9eecd870b36d3c102d8008b7",
+                  "confidence" : 600,
+                  "place" : 9
+                }, {
+                  "value" : "Morbidity",
+                  "language" : null,
+                  "authority" : "cf21968069034b3544d21ad1cd4459125ac0ad6b",
+                  "confidence" : 600,
+                  "place" : 10
+                }, {
+                  "value" : "Pulmonary Disease, Chronic Obstructive",
+                  "language" : null,
+                  "authority" : "49239d5cb5359559b21cf96bf076dd331a8d8e74",
+                  "confidence" : 600,
+                  "place" : 11
+                }, {
+                  "value" : "Cardiovascular Diseases",
+                  "language" : null,
+                  "authority" : "1ec429aa99df16082bdc72b7c3a283e1ee58d53b",
+                  "confidence" : 600,
+                  "place" : 12
+                }, {
+                  "value" : "Neoplasms",
+                  "language" : null,
+                  "authority" : "db426c20bcacc4d82a2f4bf83c7cc4813815ef95",
+                  "confidence" : 600,
+                  "place" : 13
+                }, {
+                  "value" : "Diabetes Mellitus",
+                  "language" : null,
+                  "authority" : "16ce2bf8f223af730daac14131a08948f1afdda5",
+                  "confidence" : 600,
+                  "place" : 14
+                }, {
+                  "value" : "Particulate Matter",
+                  "language" : null,
+                  "authority" : "6a1a746c72d1e3c29bb0184ce2935cd4bef33f78",
+                  "confidence" : 600,
+                  "place" : 15
+                }, {
+                  "value" : "Primary Prevention",
+                  "language" : null,
+                  "authority" : "7a7dd9f3ef7435a0d225572ace83eb8e349e6364",
+                  "confidence" : 600,
+                  "place" : 16
+                }, {
+                  "value" : "Risk Reduction Behavior",
+                  "language" : null,
+                  "authority" : "5cef1b51ca5087430cbaf7602bbc756d53b8edb4",
+                  "confidence" : 600,
+                  "place" : 17
+                }, {
+                  "value" : "Guideline",
+                  "language" : null,
+                  "authority" : "72d7efd8123a7c364a87b00812ea1eaa81fa509e",
+                  "confidence" : 600,
+                  "place" : 18
+                } ],
+                "dc.subject.meshqualifier" : [ {
+                  "value" : "adverse effects",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "prevention and control",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                }, {
+                  "value" : "methods",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 2
+                }, {
+                  "value" : "organization and administration",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 3
+                } ],
+                "dc.title" : [ {
+                  "value" : "Mainstreaming action on air pollution into noncommunicable disease prevention and control responses: a technical brief",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type" : [ {
+                  "value" : "Technical Documents",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ]
+              },
+              "inArchive" : true,
+              "discoverable" : true,
+              "withdrawn" : false,
+              "lastModified" : "2026-04-21T08:42:47.417+00:00",
+              "entityType" : null,
+              "type" : "item",
+              "_links" : {
+                "accessStatus" : {
+                  "href" : "https://iris.who.int/server/api/core/items/598cb1c9-f108-49f7-b3fc-4541429e759e/accessStatus"
+                },
+                "bundles" : {
+                  "href" : "https://iris.who.int/server/api/core/items/598cb1c9-f108-49f7-b3fc-4541429e759e/bundles"
+                },
+                "identifiers" : {
+                  "href" : "https://iris.who.int/server/api/core/items/598cb1c9-f108-49f7-b3fc-4541429e759e/identifiers"
+                },
+                "mappedCollections" : {
+                  "href" : "https://iris.who.int/server/api/core/items/598cb1c9-f108-49f7-b3fc-4541429e759e/mappedCollections"
+                },
+                "owningCollection" : {
+                  "href" : "https://iris.who.int/server/api/core/items/598cb1c9-f108-49f7-b3fc-4541429e759e/owningCollection"
+                },
+                "relationships" : {
+                  "href" : "https://iris.who.int/server/api/core/items/598cb1c9-f108-49f7-b3fc-4541429e759e/relationships"
+                },
+                "version" : {
+                  "href" : "https://iris.who.int/server/api/core/items/598cb1c9-f108-49f7-b3fc-4541429e759e/version"
+                },
+                "templateItemOf" : {
+                  "href" : "https://iris.who.int/server/api/core/items/598cb1c9-f108-49f7-b3fc-4541429e759e/templateItemOf"
+                },
+                "thumbnail" : {
+                  "href" : "https://iris.who.int/server/api/core/items/598cb1c9-f108-49f7-b3fc-4541429e759e/thumbnail"
+                },
+                "self" : {
+                  "href" : "https://iris.who.int/server/api/core/items/598cb1c9-f108-49f7-b3fc-4541429e759e"
+                }
+              }
+            }
+          }
+        }, {
+          "hitHighlights" : null,
+          "type" : "discover",
+          "_links" : {
+            "indexableObject" : {
+              "href" : "https://iris.who.int/server/api/core/items/422c71af-d210-46d3-8828-d8251e56d64d"
+            }
+          },
+          "_embedded" : {
+            "indexableObject" : {
+              "id" : "422c71af-d210-46d3-8828-d8251e56d64d",
+              "uuid" : "422c71af-d210-46d3-8828-d8251e56d64d",
+              "name" : "Climate change and increased risk of respiratory infections in humans",
+              "handle" : "10665/382997",
+              "metadata" : {
+                "dc.contributor.author" : [ {
+                  "value" : "Abrescia, Nicola",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "D’Abbraccio, Maurizio",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                }, {
+                  "value" : "Maddaloni, Adelaide",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 2
+                }, {
+                  "value" : "Molinaro, Gabriella",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 3
+                } ],
+                "dc.coverage.spatial" : [ {
+                  "value" : "Geneva",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.accessioned" : [ {
+                  "value" : "2025-10-01T11:47:48Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.available" : [ {
+                  "value" : "2025-10-01T11:47:48Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issued" : [ {
+                  "value" : "2025-10-01",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issuedOnline" : [ {
+                  "value" : "2025-10-01",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.abstract" : [ {
+                  "value" : "This editorial examines the growing impact of climate change on the transmission, incidence and severity of respiratory infections in humans. It discusses how rising temperatures, altered precipitation patterns, worsening air pollution and increasing frequency of extreme weather events are reshaping infectious disease dynamics worldwide. The article highlights the influence of climatic and environmental changes on the survival and dispersion of airborne pathogens, the expansion of ecological conditions favourable to infectious agents, and the increased exposure of populations to respiratory health risks.\n\nParticular attention is given to the role of air pollution as a key pathway linking climate change and respiratory infections. The authors describe how pollutants such as particulate matter, nitrogen dioxide and ozone damage respiratory tissues, impair immune defences and contribute to chronic inflammation, thereby increasing susceptibility to respiratory pathogens and potentially worsening disease outcomes. Additional factors, including wildfire smoke, dust storms, fungal proliferation and urban heat island effects, are discussed as contributors to the growing burden of respiratory disease. The editorial argues that climate change is creating a convergence of environmental and biological risk factors that threaten respiratory health and calls for coordinated action across environmental policy, public health and clinical practice to mitigate these impacts.",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.endpage" : [ {
+                  "value" : "578A",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.startpage" : [ {
+                  "value" : "578",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.doi" : [ {
+                  "value" : "10.2471/BLT.25.294800",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.issn" : [ {
+                  "value" : "0042-9686",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.pmc" : [ {
+                  "value" : "PMC12477514",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.uri" : [ {
+                  "value" : "https://iris.who.int/handle/10665/382997",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language" : [ {
+                  "value" : "English",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language.iso" : [ {
+                  "value" : "en",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.publisher" : [ {
+                  "value" : "World Health Organization",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.ispartofjournal" : [ {
+                  "value" : "Bulletin of the World Health Organization",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.issue" : [ {
+                  "value" : "10",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.volume" : [ {
+                  "value" : "103",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.holder" : [ {
+                  "value" : "World Health Organization",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.uri" : [ {
+                  "value" : "https://creativecommons.org/licenses/by/3.0/igo/",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject" : [ {
+                  "value" : "Editorials",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.title" : [ {
+                  "value" : "Climate change and increased risk of respiratory infections in humans",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type" : [ {
+                  "value" : "Journal articles",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ]
+              },
+              "inArchive" : true,
+              "discoverable" : true,
+              "withdrawn" : false,
+              "lastModified" : "2026-05-31T06:47:04.392+00:00",
+              "entityType" : null,
+              "type" : "item",
+              "_links" : {
+                "accessStatus" : {
+                  "href" : "https://iris.who.int/server/api/core/items/422c71af-d210-46d3-8828-d8251e56d64d/accessStatus"
+                },
+                "bundles" : {
+                  "href" : "https://iris.who.int/server/api/core/items/422c71af-d210-46d3-8828-d8251e56d64d/bundles"
+                },
+                "identifiers" : {
+                  "href" : "https://iris.who.int/server/api/core/items/422c71af-d210-46d3-8828-d8251e56d64d/identifiers"
+                },
+                "mappedCollections" : {
+                  "href" : "https://iris.who.int/server/api/core/items/422c71af-d210-46d3-8828-d8251e56d64d/mappedCollections"
+                },
+                "owningCollection" : {
+                  "href" : "https://iris.who.int/server/api/core/items/422c71af-d210-46d3-8828-d8251e56d64d/owningCollection"
+                },
+                "relationships" : {
+                  "href" : "https://iris.who.int/server/api/core/items/422c71af-d210-46d3-8828-d8251e56d64d/relationships"
+                },
+                "version" : {
+                  "href" : "https://iris.who.int/server/api/core/items/422c71af-d210-46d3-8828-d8251e56d64d/version"
+                },
+                "templateItemOf" : {
+                  "href" : "https://iris.who.int/server/api/core/items/422c71af-d210-46d3-8828-d8251e56d64d/templateItemOf"
+                },
+                "thumbnail" : {
+                  "href" : "https://iris.who.int/server/api/core/items/422c71af-d210-46d3-8828-d8251e56d64d/thumbnail"
+                },
+                "self" : {
+                  "href" : "https://iris.who.int/server/api/core/items/422c71af-d210-46d3-8828-d8251e56d64d"
+                }
+              }
+            }
+          }
+        }, {
+          "hitHighlights" : null,
+          "type" : "discover",
+          "_links" : {
+            "indexableObject" : {
+              "href" : "https://iris.who.int/server/api/core/items/128485a9-8349-4b79-92bd-8d9c5e090852"
+            }
+          },
+          "_embedded" : {
+            "indexableObject" : {
+              "id" : "128485a9-8349-4b79-92bd-8d9c5e090852",
+              "uuid" : "128485a9-8349-4b79-92bd-8d9c5e090852",
+              "name" : "Air quality standards and WHO's guidance on particulate matter measuring 2.5 μm (PM2.5)",
+              "handle" : "10665/380099",
+              "metadata" : {
+                "dc.contributor.author" : [ {
+                  "value" : "Nazarenko, Yevgen",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Pal, Devendra",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                }, {
+                  "value" : "Dwivedi, Sanjeev",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 2
+                }, {
+                  "value" : "Ariya, Parisa A",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 3
+                } ],
+                "dc.coverage.spatial" : [ {
+                  "value" : "Geneva",
+                  "language" : "",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.accessioned" : [ {
+                  "value" : "2025-01-12T22:00:30Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.available" : [ {
+                  "value" : "2025-01-12T22:00:30Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issued" : [ {
+                  "value" : "2025-01-01",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issuedOnline" : [ {
+                  "value" : "2024-12-03",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.abstract" : [ {
+                  "value" : "This perspective article examines limitations of the current World Health Organization (WHO) ambient air quality guidance based on particulate matter measuring 2.5 μm or less in diameter (PM2.5). While PM2.5 mass concentration is widely used to assess air pollution and inform regulatory standards, the authors argue that this metric does not adequately capture exposure to ultrafine particles, which contribute little to total particle mass but constitute the majority of airborne particles by number and are associated with adverse respiratory and cardiovascular health effects. The paper reviews evidence indicating that PM2.5 concentrations do not reliably reflect ultrafine particle abundance, particularly in environments with elevated pollution levels.\n\nTo address this limitation, the authors propose the introduction of a complementary number-based metric, PN2.5, representing the number concentration of particles within the PM2.5 size fraction. The article discusses the scientific rationale for incorporating particle number measurements into ambient air quality monitoring and outlines the need for standardized methods for measurement, data aggregation and reporting. It highlights challenges related to monitoring infrastructure and spatial variability of ultrafine particles, while emphasizing the importance of international harmonization. The authors advocate further research and collaboration among scientific, regulatory and standardization bodies to support future revisions of WHO air quality guidance and improve assessment of population exposure to harmful particulate pollution.",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.endpage" : [ {
+                  "value" : "72",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.startpage" : [ {
+                  "value" : "71",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.doi" : [ {
+                  "value" : "10.2471/BLT.23.290522",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.issn" : [ {
+                  "value" : "0042-9686",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.pmc" : [ {
+                  "value" : "PMC11704637",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.pubmed" : [ {
+                  "value" : "39781000",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.uri" : [ {
+                  "value" : "https://iris.who.int/handle/10665/380099",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language" : [ {
+                  "value" : "English",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language.iso" : [ {
+                  "value" : "en",
+                  "language" : "",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.publisher" : [ {
+                  "value" : "World Health Organization",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.ispartofjournal" : [ {
+                  "value" : "Bulletin of the World Health Organization",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.issue" : [ {
+                  "value" : "1",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.volume" : [ {
+                  "value" : "103",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.uri" : [ {
+                  "value" : "https://creativecommons.org/licenses/by/3.0/igo/",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject" : [ {
+                  "value" : "Perspectives",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.title" : [ {
+                  "value" : "Air quality standards and WHO's guidance on particulate matter measuring 2.5 μm (PM2.5)",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type" : [ {
+                  "value" : "Journal articles",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ]
+              },
+              "inArchive" : true,
+              "discoverable" : true,
+              "withdrawn" : false,
+              "lastModified" : "2026-05-31T10:03:56.077+00:00",
+              "entityType" : null,
+              "type" : "item",
+              "_links" : {
+                "accessStatus" : {
+                  "href" : "https://iris.who.int/server/api/core/items/128485a9-8349-4b79-92bd-8d9c5e090852/accessStatus"
+                },
+                "bundles" : {
+                  "href" : "https://iris.who.int/server/api/core/items/128485a9-8349-4b79-92bd-8d9c5e090852/bundles"
+                },
+                "identifiers" : {
+                  "href" : "https://iris.who.int/server/api/core/items/128485a9-8349-4b79-92bd-8d9c5e090852/identifiers"
+                },
+                "mappedCollections" : {
+                  "href" : "https://iris.who.int/server/api/core/items/128485a9-8349-4b79-92bd-8d9c5e090852/mappedCollections"
+                },
+                "owningCollection" : {
+                  "href" : "https://iris.who.int/server/api/core/items/128485a9-8349-4b79-92bd-8d9c5e090852/owningCollection"
+                },
+                "relationships" : {
+                  "href" : "https://iris.who.int/server/api/core/items/128485a9-8349-4b79-92bd-8d9c5e090852/relationships"
+                },
+                "version" : {
+                  "href" : "https://iris.who.int/server/api/core/items/128485a9-8349-4b79-92bd-8d9c5e090852/version"
+                },
+                "templateItemOf" : {
+                  "href" : "https://iris.who.int/server/api/core/items/128485a9-8349-4b79-92bd-8d9c5e090852/templateItemOf"
+                },
+                "thumbnail" : {
+                  "href" : "https://iris.who.int/server/api/core/items/128485a9-8349-4b79-92bd-8d9c5e090852/thumbnail"
+                },
+                "self" : {
+                  "href" : "https://iris.who.int/server/api/core/items/128485a9-8349-4b79-92bd-8d9c5e090852"
+                }
+              }
+            }
+          }
+        }, {
+          "hitHighlights" : null,
+          "type" : "discover",
+          "_links" : {
+            "indexableObject" : {
+              "href" : "https://iris.who.int/server/api/core/items/4f4ecf76-7455-448b-b556-3a7cafe5c9c7"
+            }
+          },
+          "_embedded" : {
+            "indexableObject" : {
+              "id" : "4f4ecf76-7455-448b-b556-3a7cafe5c9c7",
+              "uuid" : "4f4ecf76-7455-448b-b556-3a7cafe5c9c7",
+              "name" : "Using time series studies to unravel the short-term health effects of particulate matter air pollution in Eastern Mediterranean Region",
+              "handle" : "10665/381168",
+              "metadata" : {
+                "dc.contributor.author" : [ {
+                  "value" : "Aurelio Tobías",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "Massimo Stafoggia",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                }, {
+                  "value" : "Sophie Gumy",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 2
+                }, {
+                  "value" : "Mazen Malkawi",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 3
+                }, {
+                  "value" : "Heba Safi",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 4
+                } ],
+                "dc.coverage.spatial" : [ {
+                  "value" : "Cairo",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.accessioned" : [ {
+                  "value" : "2025-04-28T13:39:14Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.available" : [ {
+                  "value" : "2025-04-28T13:39:14Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issued" : [ {
+                  "value" : "2025-03-29",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.endpage" : [ {
+                  "value" : "162",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.startpage" : [ {
+                  "value" : "160",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.doi" : [ {
+                  "value" : "https://doi.org/10.26719/2025.31.3.160",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.issn" : [ {
+                  "value" : "1020-3397",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "1687-1634 (online)",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.identifier.uri" : [ {
+                  "value" : "https://iris.who.int/handle/10665/381168",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language" : [ {
+                  "value" : "English",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language.iso" : [ {
+                  "value" : "en",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.publisher" : [ {
+                  "value" : "World Health Organization. Regional Office for the Eastern Mediterranean",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.ispartofjournal" : [ {
+                  "value" : "Eastern Mediterranean Health Journal",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.issue" : [ {
+                  "value" : "3",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.volume" : [ {
+                  "value" : "31",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights" : [ {
+                  "value" : "CC BY-NC-SA 3.0 IGO",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.holder" : [ {
+                  "value" : "World Health Organization",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.uri" : [ {
+                  "value" : "https://creativecommons.org/licenses/by-nc-sa/3.0/igo",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject" : [ {
+                  "value" : "Environmental Health",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject.mesh" : [ {
+                  "value" : "Particulate Matter",
+                  "language" : "en_US",
+                  "authority" : "6a1a746c72d1e3c29bb0184ce2935cd4bef33f78",
+                  "confidence" : 600,
+                  "place" : 0
+                }, {
+                  "value" : "Particle Size",
+                  "language" : "en_US",
+                  "authority" : "df89858675ca42a720338aa611d0c5a6ea0d89f9",
+                  "confidence" : 600,
+                  "place" : 1
+                }, {
+                  "value" : "Public Health",
+                  "language" : "en_US",
+                  "authority" : "33002d4ea1a6580b094c90c609a8680af8352a94",
+                  "confidence" : 600,
+                  "place" : 2
+                }, {
+                  "value" : "Time Factors",
+                  "language" : "en_US",
+                  "authority" : "b7d944900de5bd208850c80bb12b8f766a19eb12",
+                  "confidence" : 600,
+                  "place" : 3
+                }, {
+                  "value" : "Population Density",
+                  "language" : "en_US",
+                  "authority" : "85803eb64505640c1df6fa1b5e4cc53f23be5890",
+                  "confidence" : 600,
+                  "place" : 4
+                }, {
+                  "value" : "Industrial Development",
+                  "language" : "en_US",
+                  "authority" : "681eddc2c25fa585ef89d9d2b81f4edbe854e600",
+                  "confidence" : 600,
+                  "place" : 5
+                }, {
+                  "value" : "Mediterranean Region",
+                  "language" : "en_US",
+                  "authority" : "a5062349ada6ffd7d6eee06a3d7768f149ba174f",
+                  "confidence" : 600,
+                  "place" : 6
+                }, {
+                  "value" : "Outcome Assessment, Health Care",
+                  "language" : "en_US",
+                  "authority" : "c16ad66e61534cf5c8fedcb01eddf927fbb8ffba",
+                  "confidence" : 600,
+                  "place" : 7
+                }, {
+                  "value" : "World Health Organization",
+                  "language" : "en_US",
+                  "authority" : "ddef11512c761706bbe8542a7fa551922d346182",
+                  "confidence" : 600,
+                  "place" : 8
+                } ],
+                "dc.title" : [ {
+                  "value" : "Using time series studies to unravel the short-term health effects of particulate matter air pollution in Eastern Mediterranean Region",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type" : [ {
+                  "value" : "Journal articles",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ]
+              },
+              "inArchive" : true,
+              "discoverable" : true,
+              "withdrawn" : false,
+              "lastModified" : "2025-10-21T17:39:23.781+00:00",
+              "entityType" : null,
+              "type" : "item",
+              "_links" : {
+                "accessStatus" : {
+                  "href" : "https://iris.who.int/server/api/core/items/4f4ecf76-7455-448b-b556-3a7cafe5c9c7/accessStatus"
+                },
+                "bundles" : {
+                  "href" : "https://iris.who.int/server/api/core/items/4f4ecf76-7455-448b-b556-3a7cafe5c9c7/bundles"
+                },
+                "identifiers" : {
+                  "href" : "https://iris.who.int/server/api/core/items/4f4ecf76-7455-448b-b556-3a7cafe5c9c7/identifiers"
+                },
+                "mappedCollections" : {
+                  "href" : "https://iris.who.int/server/api/core/items/4f4ecf76-7455-448b-b556-3a7cafe5c9c7/mappedCollections"
+                },
+                "owningCollection" : {
+                  "href" : "https://iris.who.int/server/api/core/items/4f4ecf76-7455-448b-b556-3a7cafe5c9c7/owningCollection"
+                },
+                "relationships" : {
+                  "href" : "https://iris.who.int/server/api/core/items/4f4ecf76-7455-448b-b556-3a7cafe5c9c7/relationships"
+                },
+                "version" : {
+                  "href" : "https://iris.who.int/server/api/core/items/4f4ecf76-7455-448b-b556-3a7cafe5c9c7/version"
+                },
+                "templateItemOf" : {
+                  "href" : "https://iris.who.int/server/api/core/items/4f4ecf76-7455-448b-b556-3a7cafe5c9c7/templateItemOf"
+                },
+                "thumbnail" : {
+                  "href" : "https://iris.who.int/server/api/core/items/4f4ecf76-7455-448b-b556-3a7cafe5c9c7/thumbnail"
+                },
+                "self" : {
+                  "href" : "https://iris.who.int/server/api/core/items/4f4ecf76-7455-448b-b556-3a7cafe5c9c7"
+                }
+              }
+            }
+          }
+        }, {
+          "hitHighlights" : null,
+          "type" : "discover",
+          "_links" : {
+            "indexableObject" : {
+              "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2"
+            }
+          },
+          "_embedded" : {
+            "indexableObject" : {
+              "id" : "5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2",
+              "uuid" : "5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2",
+              "name" : "WHO global air quality guidelines: particulate matter (PM2.5 and PM10), ozone, nitrogen dioxide, sulfur dioxide and carbon monoxide",
+              "handle" : "10665/345329",
+              "metadata" : {
+                "dc.contributor.author" : [ {
+                  "value" : "World Health Organization",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.coverage.spatial" : [ {
+                  "value" : "Geneva",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.accessioned" : [ {
+                  "value" : "2021-09-21T12:41:37Z",
+                  "language" : "",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.available" : [ {
+                  "value" : "2021-09-22T14:30:00Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issued" : [ {
+                  "value" : "2021-09-21",
+                  "language" : "",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description" : [ {
+                  "value" : "xxi, 273 p.",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.abstract" : [ {
+                  "value" : "These WHO global air quality guidelines present updated evidence-based recommendations to protect public health from the adverse effects of air pollution. Developed in response to substantial advances in scientific evidence since the 2005 guidelines, they provide quantitative air quality guideline (AQG) levels for particulate matter (PM₂.₅ and PM₁₀), ozone, nitrogen dioxide, sulfur dioxide and carbon monoxide, together with interim targets to support progressive reductions in exposure where guideline levels cannot be achieved immediately. The recommendations are based on systematic reviews and rigorous evaluation of the evidence linking air pollution to adverse health outcomes and are intended to inform legislation, policy and air quality management worldwide.\n\nThe guidelines also include good practice statements for black carbon/elemental carbon, ultrafine particles, and particles from sand and dust storms, for which evidence indicates health risks but remains insufficient to establish quantitative guideline levels. Applicable to both outdoor and indoor environments, they serve as a global reference for policy-makers, technical experts, public authorities, researchers and civil society. The document outlines principles for dissemination, implementation, monitoring and evaluation, emphasizes the role of the health sector and intersectoral collaboration, and identifies research priorities to strengthen future evidence and support continued improvements in air quality and population health.",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.isbn" : [ {
+                  "value" : "9789240034228 (electronic version)",
+                  "language" : "",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "9789240034211 (print version)",
+                  "language" : "",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.identifier.uri" : [ {
+                  "value" : "https://iris.who.int/handle/10665/345329",
+                  "language" : "",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language" : [ {
+                  "value" : "English",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language.iso" : [ {
+                  "value" : "en",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.publisher" : [ {
+                  "value" : "World Health Organization",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation" : [ {
+                  "value" : "Related document (Executive summary):",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "https://iris.who.int/handle/10665/345334",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.relation.hasversion" : [ {
+                  "value" : "https://iris.who.int/handle/10665/345334",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights" : [ {
+                  "value" : "CC BY-NC-SA 3.0 IGO",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.holder" : [ {
+                  "value" : "World Health Organization",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.uri" : [ {
+                  "value" : "https://creativecommons.org/licenses/by-nc-sa/3.0/igo",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject" : [ {
+                  "value" : "WHO guideline",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject.mesh" : [ {
+                  "value" : "Air Pollution",
+                  "language" : "en_US",
+                  "authority" : "655f2302663273722bc0d1ce528c98a9caf017a1",
+                  "confidence" : 600,
+                  "place" : 0
+                }, {
+                  "value" : "Guideline",
+                  "language" : "en_US",
+                  "authority" : "72d7efd8123a7c364a87b00812ea1eaa81fa509e",
+                  "confidence" : 600,
+                  "place" : 1
+                }, {
+                  "value" : "Environmental Exposure",
+                  "language" : "en_US",
+                  "authority" : "55df53cac511a6ab0bf914df760b33778e3e1b55",
+                  "confidence" : 600,
+                  "place" : 2
+                }, {
+                  "value" : "Particulate Matter",
+                  "language" : "en_US",
+                  "authority" : "6a1a746c72d1e3c29bb0184ce2935cd4bef33f78",
+                  "confidence" : 600,
+                  "place" : 3
+                } ],
+                "dc.subject.meshqualifier" : [ {
+                  "value" : "standards",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.title" : [ {
+                  "value" : "WHO global air quality guidelines: particulate matter (PM2.5 and PM10), ozone, nitrogen dioxide, sulfur dioxide and carbon monoxide",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type" : [ {
+                  "value" : "Publications",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ]
+              },
+              "inArchive" : true,
+              "discoverable" : true,
+              "withdrawn" : false,
+              "lastModified" : "2026-08-01T17:42:47.924+00:00",
+              "entityType" : null,
+              "type" : "item",
+              "_links" : {
+                "accessStatus" : {
+                  "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/accessStatus"
+                },
+                "bundles" : {
+                  "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/bundles"
+                },
+                "identifiers" : {
+                  "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/identifiers"
+                },
+                "mappedCollections" : {
+                  "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/mappedCollections"
+                },
+                "owningCollection" : {
+                  "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/owningCollection"
+                },
+                "relationships" : {
+                  "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/relationships"
+                },
+                "version" : {
+                  "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/version"
+                },
+                "templateItemOf" : {
+                  "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/templateItemOf"
+                },
+                "thumbnail" : {
+                  "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/thumbnail"
+                },
+                "self" : {
+                  "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2"
+                }
+              }
+            }
+          }
+        }, {
+          "hitHighlights" : null,
+          "type" : "discover",
+          "_links" : {
+            "indexableObject" : {
+              "href" : "https://iris.who.int/server/api/core/items/8a19f53f-2ff3-4f16-be0a-7671a8bf0064"
+            }
+          },
+          "_embedded" : {
+            "indexableObject" : {
+              "id" : "8a19f53f-2ff3-4f16-be0a-7671a8bf0064",
+              "uuid" : "8a19f53f-2ff3-4f16-be0a-7671a8bf0064",
+              "name" : "Eastern Mediterranean Health Journal [2025; Vol.31, Issue 3]",
+              "handle" : "10665/381163",
+              "metadata" : {
+                "dc.contributor.author" : [ {
+                  "value" : "World Health Organization. Regional Office for the Eastern Mediterranean",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.coverage.spatial" : [ {
+                  "value" : "Cairo",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.accessioned" : [ {
+                  "value" : "2025-04-28T09:49:02Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.available" : [ {
+                  "value" : "2025-04-28T09:49:02Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issued" : [ {
+                  "value" : "2025-03-29",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.abstract" : [ {
+                  "value" : "Eastern Mediterranean Health Journal is the official health journal published by the Eastern Mediterranean Regional Office of the World Health Organization. It is a forum for the presentation and promotion of new policies and initiatives in health services; and for the exchange of ideas concepts epidemiological data research findings and other information with special reference to the Eastern Mediterranean Region. It addresses all members of the health profession medical and other health educational institutes interested NGOs WHO Collaborating Centres and individuals within and outside the Region",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.endpage" : [ {
+                  "value" : "203",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.startpage" : [ {
+                  "value" : "157",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.issn" : [ {
+                  "value" : "1020-3397",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "1687-1634 (online)",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.identifier.uri" : [ {
+                  "value" : "https://iris.who.int/handle/10665/381163",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language" : [ {
+                  "value" : "English",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language.iso" : [ {
+                  "value" : "en",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.publisher" : [ {
+                  "value" : "World Health Organization. Regional Office for the Eastern Mediterranean",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.ispartofjournal" : [ {
+                  "value" : "Eastern Mediterranean Health Journal",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.issue" : [ {
+                  "value" : "3",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.relation.volume" : [ {
+                  "value" : "31",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights" : [ {
+                  "value" : "CC BY-NC-SA 3.0 IGO",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.holder" : [ {
+                  "value" : "World Health Organization",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.uri" : [ {
+                  "value" : "https://creativecommons.org/licenses/by-nc-sa/3.0/igo",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject" : [ {
+                  "value" : "Information, Evidence and Research",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject.mesh" : [ {
+                  "value" : "Leadership",
+                  "language" : "en_US",
+                  "authority" : "052fc851f4f56b58135ad14e4fa1079924516e2a",
+                  "confidence" : 600,
+                  "place" : 0
+                }, {
+                  "value" : "Diplomacy",
+                  "language" : "en_US",
+                  "authority" : "0f554c729ea592b79406edfed5159d2fe8d52c43",
+                  "confidence" : 600,
+                  "place" : 1
+                }, {
+                  "value" : "Air Pollution",
+                  "language" : "en_US",
+                  "authority" : "655f2302663273722bc0d1ce528c98a9caf017a1",
+                  "confidence" : 600,
+                  "place" : 2
+                }, {
+                  "value" : "Dengue",
+                  "language" : "en_US",
+                  "authority" : "9711b863cf6f8770b2c6f49b32ed2a4bc2f4ed45",
+                  "confidence" : 600,
+                  "place" : 3
+                }, {
+                  "value" : "Interrupted Time Series Analysis",
+                  "language" : "en_US",
+                  "authority" : "3eeaeebfac4b08861632d98d629ba93883328fa2",
+                  "confidence" : 600,
+                  "place" : 4
+                }, {
+                  "value" : "Elective Surgical Procedures",
+                  "language" : "en_US",
+                  "authority" : "85faf47df30d618e91373d3b64109e8ea119e869",
+                  "confidence" : 600,
+                  "place" : 5
+                }, {
+                  "value" : "Technology Assessment, Biomedical",
+                  "language" : "en_US",
+                  "authority" : "ec94026c9b9a6fd17385c1c16158e2be5ab91e31",
+                  "confidence" : 600,
+                  "place" : 6
+                }, {
+                  "value" : "Patient Safety",
+                  "language" : "en_US",
+                  "authority" : "a28049bf828538af4cea043871d8db3c2a2e54cb",
+                  "confidence" : 600,
+                  "place" : 7
+                }, {
+                  "value" : "Kidney",
+                  "language" : "en_US",
+                  "authority" : "a6f8e072d94f4f15584b6368fe155e413a6c5b60",
+                  "confidence" : 600,
+                  "place" : 8
+                }, {
+                  "value" : "Transplantation",
+                  "language" : "en_US",
+                  "authority" : "7058059a0269f39060bdcd6a56995270bcee7771",
+                  "confidence" : 600,
+                  "place" : 9
+                }, {
+                  "value" : "Advanced Practice Nursing",
+                  "language" : "en_US",
+                  "authority" : "daf71a6bfccff3de8838476cd9fa6845575d4cf4",
+                  "confidence" : 600,
+                  "place" : 10
+                }, {
+                  "value" : "Palliative Care",
+                  "language" : "en_US",
+                  "authority" : "b71038baa6b7959e4adc6d6211701f67577d07f6",
+                  "confidence" : 600,
+                  "place" : 11
+                }, {
+                  "value" : "Food",
+                  "language" : "en_US",
+                  "authority" : "9cd741be71723d8dd25d48fa17e8044eee1eac01",
+                  "confidence" : 600,
+                  "place" : 12
+                }, {
+                  "value" : "Marketing",
+                  "language" : "en_US",
+                  "authority" : "fa6376d7c06dbf6372ddcf9384b47bfae4e70096",
+                  "confidence" : 600,
+                  "place" : 13
+                }, {
+                  "value" : "Mediterranean Region",
+                  "language" : "en_US",
+                  "authority" : "a5062349ada6ffd7d6eee06a3d7768f149ba174f",
+                  "confidence" : 600,
+                  "place" : 14
+                } ],
+                "dc.subject.meshqualifier" : [ {
+                  "value" : "economics",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.title" : [ {
+                  "value" : "Eastern Mediterranean Health Journal [2025; Vol.31, Issue 3]",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type" : [ {
+                  "value" : "Journal articles",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ]
+              },
+              "inArchive" : true,
+              "discoverable" : true,
+              "withdrawn" : false,
+              "lastModified" : "2025-10-21T22:39:34.248+00:00",
+              "entityType" : null,
+              "type" : "item",
+              "_links" : {
+                "accessStatus" : {
+                  "href" : "https://iris.who.int/server/api/core/items/8a19f53f-2ff3-4f16-be0a-7671a8bf0064/accessStatus"
+                },
+                "bundles" : {
+                  "href" : "https://iris.who.int/server/api/core/items/8a19f53f-2ff3-4f16-be0a-7671a8bf0064/bundles"
+                },
+                "identifiers" : {
+                  "href" : "https://iris.who.int/server/api/core/items/8a19f53f-2ff3-4f16-be0a-7671a8bf0064/identifiers"
+                },
+                "mappedCollections" : {
+                  "href" : "https://iris.who.int/server/api/core/items/8a19f53f-2ff3-4f16-be0a-7671a8bf0064/mappedCollections"
+                },
+                "owningCollection" : {
+                  "href" : "https://iris.who.int/server/api/core/items/8a19f53f-2ff3-4f16-be0a-7671a8bf0064/owningCollection"
+                },
+                "relationships" : {
+                  "href" : "https://iris.who.int/server/api/core/items/8a19f53f-2ff3-4f16-be0a-7671a8bf0064/relationships"
+                },
+                "version" : {
+                  "href" : "https://iris.who.int/server/api/core/items/8a19f53f-2ff3-4f16-be0a-7671a8bf0064/version"
+                },
+                "templateItemOf" : {
+                  "href" : "https://iris.who.int/server/api/core/items/8a19f53f-2ff3-4f16-be0a-7671a8bf0064/templateItemOf"
+                },
+                "thumbnail" : {
+                  "href" : "https://iris.who.int/server/api/core/items/8a19f53f-2ff3-4f16-be0a-7671a8bf0064/thumbnail"
+                },
+                "self" : {
+                  "href" : "https://iris.who.int/server/api/core/items/8a19f53f-2ff3-4f16-be0a-7671a8bf0064"
+                }
+              }
+            }
+          }
+        }, {
+          "hitHighlights" : null,
+          "type" : "discover",
+          "_links" : {
+            "indexableObject" : {
+              "href" : "https://iris.who.int/server/api/core/items/3ed76386-f5ef-4807-97eb-a2872c2d6a3f"
+            }
+          },
+          "_embedded" : {
+            "indexableObject" : {
+              "id" : "3ed76386-f5ef-4807-97eb-a2872c2d6a3f",
+              "uuid" : "3ed76386-f5ef-4807-97eb-a2872c2d6a3f",
+              "name" : "Sustainable development goal indicator 3.9.1: mortality attributed to air pollution",
+              "handle" : "10665/379020",
+              "metadata" : {
+                "dc.contributor.author" : [ {
+                  "value" : "World Health Organization",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.coverage.spatial" : [ {
+                  "value" : "Geneva",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.accessioned" : [ {
+                  "value" : "2024-09-23T16:12:40Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.available" : [ {
+                  "value" : "2024-09-23T16:12:40Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issued" : [ {
+                  "value" : "2024-09-23",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description" : [ {
+                  "value" : "vi, 71 p.",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.abstract" : [ {
+                  "value" : "This report presents the methods and results used by the World Health Organization to estimate Sustainable Development Goal (SDG) indicator 3.9.1, which measures mortality attributed to the joint effects of ambient and household air pollution. Focusing on exposure to fine particulate matter (PM2.5), it describes the comparative risk assessment approach used to quantify deaths and disability-adjusted life years (DALYs) associated with acute lower respiratory infections, chronic obstructive pulmonary disease, ischaemic heart disease, stroke and lung cancer. The publication outlines the development of exposure–response functions, estimates of population exposure, counterfactual exposure levels and background disease rates used in the assessment.\n\nUsing 2019 as the baseline year, the report provides global, regional and national estimates of the health burden attributable to ambient air pollution, household air pollution and their combined effects. It highlights the distribution of mortality and DALYs across regions, age groups, sexes and income levels, and discusses sources of uncertainty associated with the estimates. The findings demonstrate the substantial contribution of air pollution to premature mortality and disease worldwide and support the monitoring of progress towards the health-related Sustainable Development Goals through standardized and transparent burden-of-disease estimation methods.",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.isbn" : [ {
+                  "value" : "9789240099142 (electronic version)",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "9789240099159 (print version)",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.identifier.uri" : [ {
+                  "value" : "https://iris.who.int/handle/10665/379020",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language" : [ {
+                  "value" : "English",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language.iso" : [ {
+                  "value" : "en",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.publisher" : [ {
+                  "value" : "World Health Organization",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights" : [ {
+                  "value" : "CC BY-NC-SA 3.0 IGO",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.holder" : [ {
+                  "value" : "World Health Organization",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.uri" : [ {
+                  "value" : "https://creativecommons.org/licenses/by-nc-sa/3.0/igo",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject.mesh" : [ {
+                  "value" : "Health Status Indicators",
+                  "language" : "en_US",
+                  "authority" : "27af0a470fc53b1b5de5fd1456524b13ff0f26d9",
+                  "confidence" : 600,
+                  "place" : 0
+                }, {
+                  "value" : "Sustainable Development",
+                  "language" : "en_US",
+                  "authority" : "abd82b8caadac188ba5637f71c76df52420b7706",
+                  "confidence" : 600,
+                  "place" : 1
+                }, {
+                  "value" : "Air Pollution",
+                  "language" : "en_US",
+                  "authority" : "655f2302663273722bc0d1ce528c98a9caf017a1",
+                  "confidence" : 600,
+                  "place" : 2
+                }, {
+                  "value" : "Air Pollution, Indoor",
+                  "language" : "en_US",
+                  "authority" : "14a375d122364092c0c3e02080018cf39251d0eb",
+                  "confidence" : 600,
+                  "place" : 3
+                }, {
+                  "value" : "Air Pollutants",
+                  "language" : "en_US",
+                  "authority" : "8ad714d1eb1657375247e7a85fee4f3806c9a0d1",
+                  "confidence" : 600,
+                  "place" : 4
+                }, {
+                  "value" : "Particulate Matter",
+                  "language" : "en_US",
+                  "authority" : "6a1a746c72d1e3c29bb0184ce2935cd4bef33f78",
+                  "confidence" : 600,
+                  "place" : 5
+                }, {
+                  "value" : "Environmental Exposure",
+                  "language" : "en_US",
+                  "authority" : "55df53cac511a6ab0bf914df760b33778e3e1b55",
+                  "confidence" : 600,
+                  "place" : 6
+                }, {
+                  "value" : "Noncommunicable Diseases",
+                  "language" : "en_US",
+                  "authority" : "954f457be0a933934f60583d760fdd35041fa6f0",
+                  "confidence" : 600,
+                  "place" : 7
+                }, {
+                  "value" : "Cost of Illness",
+                  "language" : "en_US",
+                  "authority" : "8d38dae6a96b24fbcf45fc4123d695177a88df12",
+                  "confidence" : 600,
+                  "place" : 8
+                }, {
+                  "value" : "Data Collection",
+                  "language" : "en_US",
+                  "authority" : "f54ce72b222a73eb1905d5078854b77407a1e47e",
+                  "confidence" : 600,
+                  "place" : 9
+                }, {
+                  "value" : "Risk Factors",
+                  "language" : "en_US",
+                  "authority" : "dff17955c6cd588b39e2b95052503adaf640528b",
+                  "confidence" : 600,
+                  "place" : 10
+                }, {
+                  "value" : "Mortality",
+                  "language" : "en_US",
+                  "authority" : "006f0b5d57de290b9eecd870b36d3c102d8008b7",
+                  "confidence" : 600,
+                  "place" : 11
+                } ],
+                "dc.subject.meshqualifier" : [ {
+                  "value" : "adverse effects",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "statistics and numerical data",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.title" : [ {
+                  "value" : "Sustainable development goal indicator 3.9.1: mortality attributed to air pollution",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type" : [ {
+                  "value" : "Publications",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ]
+              },
+              "inArchive" : true,
+              "discoverable" : true,
+              "withdrawn" : false,
+              "lastModified" : "2026-06-07T07:13:38.597+00:00",
+              "entityType" : null,
+              "type" : "item",
+              "_links" : {
+                "accessStatus" : {
+                  "href" : "https://iris.who.int/server/api/core/items/3ed76386-f5ef-4807-97eb-a2872c2d6a3f/accessStatus"
+                },
+                "bundles" : {
+                  "href" : "https://iris.who.int/server/api/core/items/3ed76386-f5ef-4807-97eb-a2872c2d6a3f/bundles"
+                },
+                "identifiers" : {
+                  "href" : "https://iris.who.int/server/api/core/items/3ed76386-f5ef-4807-97eb-a2872c2d6a3f/identifiers"
+                },
+                "mappedCollections" : {
+                  "href" : "https://iris.who.int/server/api/core/items/3ed76386-f5ef-4807-97eb-a2872c2d6a3f/mappedCollections"
+                },
+                "owningCollection" : {
+                  "href" : "https://iris.who.int/server/api/core/items/3ed76386-f5ef-4807-97eb-a2872c2d6a3f/owningCollection"
+                },
+                "relationships" : {
+                  "href" : "https://iris.who.int/server/api/core/items/3ed76386-f5ef-4807-97eb-a2872c2d6a3f/relationships"
+                },
+                "version" : {
+                  "href" : "https://iris.who.int/server/api/core/items/3ed76386-f5ef-4807-97eb-a2872c2d6a3f/version"
+                },
+                "templateItemOf" : {
+                  "href" : "https://iris.who.int/server/api/core/items/3ed76386-f5ef-4807-97eb-a2872c2d6a3f/templateItemOf"
+                },
+                "thumbnail" : {
+                  "href" : "https://iris.who.int/server/api/core/items/3ed76386-f5ef-4807-97eb-a2872c2d6a3f/thumbnail"
+                },
+                "self" : {
+                  "href" : "https://iris.who.int/server/api/core/items/3ed76386-f5ef-4807-97eb-a2872c2d6a3f"
+                }
+              }
+            }
+          }
+        }, {
+          "hitHighlights" : null,
+          "type" : "discover",
+          "_links" : {
+            "indexableObject" : {
+              "href" : "https://iris.who.int/server/api/core/items/1187451e-b8e6-4c4f-a93e-3eff8cd9b79b"
+            }
+          },
+          "_embedded" : {
+            "indexableObject" : {
+              "id" : "1187451e-b8e6-4c4f-a93e-3eff8cd9b79b",
+              "uuid" : "1187451e-b8e6-4c4f-a93e-3eff8cd9b79b",
+              "name" : "WHO country cooperation strategy 2024-2028: Lao People's Democratic Republic",
+              "handle" : "10665/374871",
+              "metadata" : {
+                "dc.contributor.author" : [ {
+                  "value" : "World Health Organization. Regional Office for the Western Pacific",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.coverage.spatial" : [ {
+                  "value" : "Manila",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.accessioned" : [ {
+                  "value" : "2023-12-07T12:24:13Z",
+                  "language" : "",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.available" : [ {
+                  "value" : "2023-12-07T12:24:13Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issued" : [ {
+                  "value" : "2023-12-07",
+                  "language" : "",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description" : [ {
+                  "value" : "x, 41 p.",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.govdoc" : [ {
+                  "value" : "WPRO/2023/DPM/002",
+                  "language" : "",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.uri" : [ {
+                  "value" : "https://iris.who.int/handle/10665/374871",
+                  "language" : "",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language" : [ {
+                  "value" : "English",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "ລາວ",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.language.iso" : [ {
+                  "value" : "en",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "lo",
+                  "language" : "",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.publisher" : [ {
+                  "value" : "World Health Organization. Regional Office for the Western Pacific",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject" : [ {
+                  "value" : "Regional Office for the Western Pacific",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "country cooperation strategy",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.subject.mesh" : [ {
+                  "value" : "National Health Programs",
+                  "language" : "en_US",
+                  "authority" : "e993768815860a4dbfadd3b11f6201a03f799c45",
+                  "confidence" : 600,
+                  "place" : 0
+                }, {
+                  "value" : "Health Priorities",
+                  "language" : "en_US",
+                  "authority" : "b7c171a64004b114740a9567137c19224e21b7d3",
+                  "confidence" : 600,
+                  "place" : 1
+                }, {
+                  "value" : "Health Planning",
+                  "language" : "",
+                  "authority" : "7e6fffceeb58517f400f1b8a6a6cd0f6df856af8",
+                  "confidence" : 600,
+                  "place" : 2
+                }, {
+                  "value" : "Health Systems Plans",
+                  "language" : "",
+                  "authority" : "67c90610a70b4965f7d6d6146ef81e6c0763fb8e",
+                  "confidence" : 400,
+                  "place" : 3
+                }, {
+                  "value" : "Laos",
+                  "language" : "",
+                  "authority" : "3913507ef17bc07330f08e89c2f00b5b9da47b9c",
+                  "confidence" : 600,
+                  "place" : 4
+                } ],
+                "dc.title" : [ {
+                  "value" : "WHO country cooperation strategy 2024-2028: Lao People's Democratic Republic",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.title.alternative" : [ {
+                  "value" : "CCS Lao People's Democratic Republic",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type" : [ {
+                  "value" : "Technical Documents",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "who.country.iso" : [ {
+                  "value" : "LA",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "who.docsubtype" : [ {
+                  "value" : "Country Cooperation Strategy",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ]
+              },
+              "inArchive" : true,
+              "discoverable" : true,
+              "withdrawn" : false,
+              "lastModified" : "2025-12-08T18:46:14.197+00:00",
+              "entityType" : null,
+              "type" : "item",
+              "_links" : {
+                "accessStatus" : {
+                  "href" : "https://iris.who.int/server/api/core/items/1187451e-b8e6-4c4f-a93e-3eff8cd9b79b/accessStatus"
+                },
+                "bundles" : {
+                  "href" : "https://iris.who.int/server/api/core/items/1187451e-b8e6-4c4f-a93e-3eff8cd9b79b/bundles"
+                },
+                "identifiers" : {
+                  "href" : "https://iris.who.int/server/api/core/items/1187451e-b8e6-4c4f-a93e-3eff8cd9b79b/identifiers"
+                },
+                "mappedCollections" : {
+                  "href" : "https://iris.who.int/server/api/core/items/1187451e-b8e6-4c4f-a93e-3eff8cd9b79b/mappedCollections"
+                },
+                "owningCollection" : {
+                  "href" : "https://iris.who.int/server/api/core/items/1187451e-b8e6-4c4f-a93e-3eff8cd9b79b/owningCollection"
+                },
+                "relationships" : {
+                  "href" : "https://iris.who.int/server/api/core/items/1187451e-b8e6-4c4f-a93e-3eff8cd9b79b/relationships"
+                },
+                "version" : {
+                  "href" : "https://iris.who.int/server/api/core/items/1187451e-b8e6-4c4f-a93e-3eff8cd9b79b/version"
+                },
+                "templateItemOf" : {
+                  "href" : "https://iris.who.int/server/api/core/items/1187451e-b8e6-4c4f-a93e-3eff8cd9b79b/templateItemOf"
+                },
+                "thumbnail" : {
+                  "href" : "https://iris.who.int/server/api/core/items/1187451e-b8e6-4c4f-a93e-3eff8cd9b79b/thumbnail"
+                },
+                "self" : {
+                  "href" : "https://iris.who.int/server/api/core/items/1187451e-b8e6-4c4f-a93e-3eff8cd9b79b"
+                }
+              }
+            }
+          }
+        }, {
+          "hitHighlights" : null,
+          "type" : "discover",
+          "_links" : {
+            "indexableObject" : {
+              "href" : "https://iris.who.int/server/api/core/items/ddbc229e-03e5-4857-b2c3-88ee9c4cdf6f"
+            }
+          },
+          "_embedded" : {
+            "indexableObject" : {
+              "id" : "ddbc229e-03e5-4857-b2c3-88ee9c4cdf6f",
+              "uuid" : "ddbc229e-03e5-4857-b2c3-88ee9c4cdf6f",
+              "name" : "Building health workforce capacity on air pollution and health: a train-the-trainer pilot workshop in Ghana",
+              "handle" : "10665/373349",
+              "metadata" : {
+                "dc.contributor.author" : [ {
+                  "value" : "World Health Organization",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.coverage.spatial" : [ {
+                  "value" : "Geneva",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.accessioned" : [ {
+                  "value" : "2023-10-12T15:24:06Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.available" : [ {
+                  "value" : "2023-10-12T15:24:06Z",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.date.issued" : [ {
+                  "value" : "2023-10-12",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description" : [ {
+                  "value" : "viii, 34 p.",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.description.abstract" : [ {
+                  "value" : "This report documents the development, implementation and outcomes of the first WHO train-the-trainer pilot workshop on air pollution and health, held in Kumasi, Ghana, in June 2022. The workshop was designed to strengthen the capacity of the health workforce to recognize air pollution as a major health risk, integrate air pollution into clinical and public health practice, and equip participants to train other health professionals. Set against the significant burden of air pollution in Ghana and the wider African Region, the initiative supports WHO efforts to strengthen health sector engagement in preventing and reducing the health impacts of air pollution through education, advocacy and evidence-based action.\n\nThe report describes the workshop objectives, participant profile, training approach, curriculum and interactive learning activities, including pilot testing of WHO training modules covering ambient and household air pollution, health effects, clinical perspectives and the role of health workers. It summarizes participant feedback, evaluation findings and follow-up commitments, highlighting strong support for expanding training, improving health curricula and developing context-specific educational materials. The report concludes with recommendations and a proposed timeline for scaling up a national train-the-trainer programme to build sustainable health workforce capacity on air pollution and health in Ghana.",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.identifier.isbn" : [ {
+                  "value" : "9789240077973 (electronic version)",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                }, {
+                  "value" : "9789240077980 (print version)",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 1
+                } ],
+                "dc.identifier.uri" : [ {
+                  "value" : "https://iris.who.int/handle/10665/373349",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language" : [ {
+                  "value" : "English",
+                  "language" : null,
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.language.iso" : [ {
+                  "value" : "en",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.publisher" : [ {
+                  "value" : "World Health Organization",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights" : [ {
+                  "value" : "CC BY-NC-SA 3.0 IGO",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.holder" : [ {
+                  "value" : "World Health Organization",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.rights.uri" : [ {
+                  "value" : "https://creativecommons.org/licenses/by-nc-sa/3.0/igo",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.subject.mesh" : [ {
+                  "value" : "Health Workforce",
+                  "language" : "en_US",
+                  "authority" : "a6d7305d3df1dd1161e2ed33063fd420f278d5dd",
+                  "confidence" : 600,
+                  "place" : 0
+                }, {
+                  "value" : "Education",
+                  "language" : "en_US",
+                  "authority" : "3328fe2ba977cfdfda41302a46bc6d2e6b34077f",
+                  "confidence" : 600,
+                  "place" : 1
+                }, {
+                  "value" : "Air Pollution",
+                  "language" : "en_US",
+                  "authority" : "655f2302663273722bc0d1ce528c98a9caf017a1",
+                  "confidence" : 600,
+                  "place" : 2
+                }, {
+                  "value" : "Environmental Exposure",
+                  "language" : "en_US",
+                  "authority" : "55df53cac511a6ab0bf914df760b33778e3e1b55",
+                  "confidence" : 600,
+                  "place" : 3
+                }, {
+                  "value" : "Environmental Health",
+                  "language" : "en_US",
+                  "authority" : "34aec840e7864c8f7099a6b8b9c07b811b7fd805",
+                  "confidence" : 600,
+                  "place" : 4
+                }, {
+                  "value" : "Environment and Public Health",
+                  "language" : "en_US",
+                  "authority" : "eec040cac55c36f0ef9681344ac0a40e95327166",
+                  "confidence" : 600,
+                  "place" : 5
+                }, {
+                  "value" : "Data Collection",
+                  "language" : "en_US",
+                  "authority" : "f54ce72b222a73eb1905d5078854b77407a1e47e",
+                  "confidence" : 600,
+                  "place" : 6
+                }, {
+                  "value" : "Ghana",
+                  "language" : "en_US",
+                  "authority" : "883556c36fa389b192c457523a94c68daa1a41a8",
+                  "confidence" : 600,
+                  "place" : 7
+                } ],
+                "dc.subject.meshqualifier" : [ {
+                  "value" : "prevention and control",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.title" : [ {
+                  "value" : "Building health workforce capacity on air pollution and health: a train-the-trainer pilot workshop in Ghana",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ],
+                "dc.type" : [ {
+                  "value" : "Publications",
+                  "language" : "en_US",
+                  "authority" : null,
+                  "confidence" : -1,
+                  "place" : 0
+                } ]
+              },
+              "inArchive" : true,
+              "discoverable" : true,
+              "withdrawn" : false,
+              "lastModified" : "2026-08-05T18:14:11.906+00:00",
+              "entityType" : null,
+              "type" : "item",
+              "_links" : {
+                "accessStatus" : {
+                  "href" : "https://iris.who.int/server/api/core/items/ddbc229e-03e5-4857-b2c3-88ee9c4cdf6f/accessStatus"
+                },
+                "bundles" : {
+                  "href" : "https://iris.who.int/server/api/core/items/ddbc229e-03e5-4857-b2c3-88ee9c4cdf6f/bundles"
+                },
+                "identifiers" : {
+                  "href" : "https://iris.who.int/server/api/core/items/ddbc229e-03e5-4857-b2c3-88ee9c4cdf6f/identifiers"
+                },
+                "mappedCollections" : {
+                  "href" : "https://iris.who.int/server/api/core/items/ddbc229e-03e5-4857-b2c3-88ee9c4cdf6f/mappedCollections"
+                },
+                "owningCollection" : {
+                  "href" : "https://iris.who.int/server/api/core/items/ddbc229e-03e5-4857-b2c3-88ee9c4cdf6f/owningCollection"
+                },
+                "relationships" : {
+                  "href" : "https://iris.who.int/server/api/core/items/ddbc229e-03e5-4857-b2c3-88ee9c4cdf6f/relationships"
+                },
+                "version" : {
+                  "href" : "https://iris.who.int/server/api/core/items/ddbc229e-03e5-4857-b2c3-88ee9c4cdf6f/version"
+                },
+                "templateItemOf" : {
+                  "href" : "https://iris.who.int/server/api/core/items/ddbc229e-03e5-4857-b2c3-88ee9c4cdf6f/templateItemOf"
+                },
+                "thumbnail" : {
+                  "href" : "https://iris.who.int/server/api/core/items/ddbc229e-03e5-4857-b2c3-88ee9c4cdf6f/thumbnail"
+                },
+                "self" : {
+                  "href" : "https://iris.who.int/server/api/core/items/ddbc229e-03e5-4857-b2c3-88ee9c4cdf6f"
+                }
+              }
+            }
+          }
+        } ]
+      },
+      "page" : {
+        "number" : 0,
+        "size" : 20,
+        "totalPages" : 1,
+        "totalElements" : 10
+      },
+      "_links" : {
+        "self" : {
+          "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228"
+        }
+      }
+    },
+    "facets" : [ {
+      "name" : "author",
+      "facetType" : "text",
+      "facetLimit" : 5,
+      "minValue" : "'t Hoen, Ellen",
+      "maxValue" : "ﻌﻳﺔ اﻟﺻﺣﺔ اﻟﻌﺎﻟﻣﻳﺔ اﻟﺳﺑﻌون ،/٧٠",
+      "page" : {
+        "number" : 0,
+        "size" : 5
+      },
+      "_links" : {
+        "next" : {
+          "href" : "https://iris.who.int/server/api/discover/facets/author?query=9789240034228&page=1&size=5"
+        },
+        "self" : {
+          "href" : "https://iris.who.int/server/api/discover/facets/author?query=9789240034228&size=5"
+        }
+      },
+      "_embedded" : {
+        "values" : [ {
+          "label" : "World Health Organization",
+          "count" : 4,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.author=World%20Health%20Organization,equals"
+            }
+          }
+        }, {
+          "label" : "World Health Organization. Regional Office for the Western Pacific",
+          "count" : 2,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.author=World%20Health%20Organization.%20Regional%20Office%20for%20the%20Western%20Pacific,equals"
+            }
+          }
+        }, {
+          "label" : "Abrescia, Nicola",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.author=Abrescia,%20Nicola,equals"
+            }
+          }
+        }, {
+          "label" : "Ariya, Parisa A",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.author=Ariya,%20Parisa%20A,equals"
+            }
+          }
+        }, {
+          "label" : "Aurelio Tobías",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.author=Aurelio%20Tob%C3%ADas,equals"
+            }
+          }
+        } ]
+      }
+    }, {
+      "name" : "mesh",
+      "facetType" : "text",
+      "facetLimit" : 5,
+      "page" : {
+        "number" : 0,
+        "size" : 5
+      },
+      "_links" : {
+        "next" : {
+          "href" : "https://iris.who.int/server/api/discover/facets/mesh?query=9789240034228&page=1&size=5"
+        },
+        "self" : {
+          "href" : "https://iris.who.int/server/api/discover/facets/mesh?query=9789240034228&size=5"
+        }
+      },
+      "_embedded" : {
+        "values" : [ {
+          "label" : "Air Pollution",
+          "count" : 6,
+          "authorityKey" : "655f2302663273722bc0d1ce528c98a9caf017a1",
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.mesh=655f2302663273722bc0d1ce528c98a9caf017a1,authority"
+            }
+          }
+        }, {
+          "label" : "Environmental Exposure",
+          "count" : 4,
+          "authorityKey" : "55df53cac511a6ab0bf914df760b33778e3e1b55",
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.mesh=55df53cac511a6ab0bf914df760b33778e3e1b55,authority"
+            }
+          }
+        }, {
+          "label" : "Particulate Matter",
+          "count" : 4,
+          "authorityKey" : "6a1a746c72d1e3c29bb0184ce2935cd4bef33f78",
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.mesh=6a1a746c72d1e3c29bb0184ce2935cd4bef33f78,authority"
+            }
+          }
+        }, {
+          "label" : "Environmental Health",
+          "count" : 3,
+          "authorityKey" : "34aec840e7864c8f7099a6b8b9c07b811b7fd805",
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.mesh=34aec840e7864c8f7099a6b8b9c07b811b7fd805,authority"
+            }
+          }
+        }, {
+          "label" : "Cost of Illness",
+          "count" : 2,
+          "authorityKey" : "8d38dae6a96b24fbcf45fc4123d695177a88df12",
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.mesh=8d38dae6a96b24fbcf45fc4123d695177a88df12,authority"
+            }
+          }
+        } ]
+      }
+    }, {
+      "name" : "dateIssued",
+      "facetType" : "date",
+      "facetLimit" : 5,
+      "minValue" : "12/31/2025",
+      "maxValue" : "August",
+      "page" : {
+        "number" : 0,
+        "size" : 5
+      },
+      "_links" : {
+        "self" : {
+          "href" : "https://iris.who.int/server/api/discover/facets/dateIssued?query=9789240034228&size=5"
+        }
+      },
+      "_embedded" : {
+        "values" : [ {
+          "label" : "2000 - 2026",
+          "count" : 10,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.dateIssued=%5B2000%20TO%202026%5D,equals"
+            }
+          }
+        } ]
+      }
+    }, {
+      "name" : "has_content_in_original_bundle",
+      "facetType" : "standard",
+      "facetLimit" : 2,
+      "page" : {
+        "number" : 0,
+        "size" : 2
+      },
+      "_links" : {
+        "self" : {
+          "href" : "https://iris.who.int/server/api/discover/facets/has_content_in_original_bundle?query=9789240034228&size=2"
+        }
+      },
+      "_embedded" : {
+        "values" : [ {
+          "label" : "true",
+          "count" : 10,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.has_content_in_original_bundle=true,equals"
+            }
+          }
+        } ]
+      }
+    }, {
+      "name" : "entityType",
+      "facetType" : "text",
+      "facetLimit" : 5,
+      "_links" : {
+        "self" : {
+          "href" : "https://iris.who.int/server/api/discover/facets/entityType?query=9789240034228"
+        }
+      },
+      "_embedded" : {
+        "values" : [ ]
+      }
+    }, {
+      "name" : "publisher",
+      "facetType" : "text",
+      "facetLimit" : 10,
+      "page" : {
+        "number" : 0,
+        "size" : 10
+      },
+      "_links" : {
+        "self" : {
+          "href" : "https://iris.who.int/server/api/discover/facets/publisher?query=9789240034228&size=10"
+        }
+      },
+      "_embedded" : {
+        "values" : [ {
+          "label" : "World Health Organization",
+          "count" : 6,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.publisher=World%20Health%20Organization,equals"
+            }
+          }
+        }, {
+          "label" : "World Health Organization. Regional Office for the Eastern Mediterranean",
+          "count" : 2,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.publisher=World%20Health%20Organization.%20Regional%20Office%20for%20the%20Eastern%20Mediterranean,equals"
+            }
+          }
+        }, {
+          "label" : "WHO Regional Office for the Western Pacific",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.publisher=WHO%20Regional%20Office%20for%20the%20Western%20Pacific,equals"
+            }
+          }
+        }, {
+          "label" : "World Health Organization. Regional Office for the Western Pacific",
+          "count" : 1,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.publisher=World%20Health%20Organization.%20Regional%20Office%20for%20the%20Western%20Pacific,equals"
+            }
+          }
+        } ]
+      }
+    }, {
+      "name" : "subject",
+      "facetType" : "text",
+      "facetLimit" : 5,
+      "page" : {
+        "number" : 0,
+        "size" : 5
+      },
+      "_links" : {
+        "next" : {
+          "href" : "https://iris.who.int/server/api/discover/facets/subject?query=9789240034228&page=1&size=5"
+        },
+        "self" : {
+          "href" : "https://iris.who.int/server/api/discover/facets/subject?query=9789240034228&size=5"
+        }
+      },
+      "_embedded" : {
+        "values" : [ {
+          "label" : "Air Pollution",
+          "count" : 6,
+          "authorityKey" : "655f2302663273722bc0d1ce528c98a9caf017a1",
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.subject=655f2302663273722bc0d1ce528c98a9caf017a1,authority"
+            }
+          }
+        }, {
+          "label" : "Environmental Exposure",
+          "count" : 4,
+          "authorityKey" : "55df53cac511a6ab0bf914df760b33778e3e1b55",
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.subject=55df53cac511a6ab0bf914df760b33778e3e1b55,authority"
+            }
+          }
+        }, {
+          "label" : "Particulate Matter",
+          "count" : 4,
+          "authorityKey" : "6a1a746c72d1e3c29bb0184ce2935cd4bef33f78",
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.subject=6a1a746c72d1e3c29bb0184ce2935cd4bef33f78,authority"
+            }
+          }
+        }, {
+          "label" : "Environmental Health",
+          "count" : 3,
+          "authorityKey" : "34aec840e7864c8f7099a6b8b9c07b811b7fd805",
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.subject=34aec840e7864c8f7099a6b8b9c07b811b7fd805,authority"
+            }
+          }
+        }, {
+          "label" : "adverse effects",
+          "count" : 2,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.subject=adverse%20effects,equals"
+            }
+          }
+        } ]
+      }
+    }, {
+      "name" : "series",
+      "facetType" : "text",
+      "facetLimit" : 10,
+      "page" : {
+        "number" : 0,
+        "size" : 10
+      },
+      "_links" : {
+        "self" : {
+          "href" : "https://iris.who.int/server/api/discover/facets/series?query=9789240034228&size=10"
+        }
+      },
+      "_embedded" : {
+        "values" : [ {
+          "label" : "Bulletin of the World Health Organization",
+          "count" : 2,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.series=Bulletin%20of%20the%20World%20Health%20Organization,equals"
+            }
+          }
+        }, {
+          "label" : "Eastern Mediterranean Health Journal",
+          "count" : 2,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.series=Eastern%20Mediterranean%20Health%20Journal,equals"
+            }
+          }
+        } ]
+      }
+    }, {
+      "name" : "itemtype",
+      "facetType" : "text",
+      "facetLimit" : 10,
+      "page" : {
+        "number" : 0,
+        "size" : 10
+      },
+      "_links" : {
+        "self" : {
+          "href" : "https://iris.who.int/server/api/discover/facets/itemtype?query=9789240034228&size=10"
+        }
+      },
+      "_embedded" : {
+        "values" : [ {
+          "label" : "Journal articles",
+          "count" : 4,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.itemtype=Journal%20articles,equals"
+            }
+          }
+        }, {
+          "label" : "Publications",
+          "count" : 4,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.itemtype=Publications,equals"
+            }
+          }
+        }, {
+          "label" : "Technical Documents",
+          "count" : 2,
+          "authorityKey" : null,
+          "type" : "discover",
+          "_links" : {
+            "search" : {
+              "href" : "https://iris.who.int/server/api/discover/search/objects?query=9789240034228&f.itemtype=Technical%20Documents,equals"
+            }
+          }
+        } ]
+      }
+    } ]
+  }
+}

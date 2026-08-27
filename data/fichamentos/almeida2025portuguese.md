@@ -2,8 +2,8 @@
 chave: almeida2025portuguese
 titulo: Building High-Quality Datasets for Portuguese LLMs (JBCS 2025)
 url: doi:10.5753/jbcs.2025.5788
-read_depth: abstract completo (CrossRef)
-data_leitura: 2026-08-26
+read_depth: full-text
+data_leitura: 2026-08-27
 leitor: Claude (verificacao de referencias)
 ---
 
@@ -18,3 +18,7 @@ antes: 'snapshots do Common Crawl sub-representam conteudo lusofono'
 ## Veredito
 
 CORRIGIDO. A fonte NAO afirma que o Common Crawl sub-representa o lusofono — isso era inferencia nossa apresentada como achado alheio. O que ela sustenta e que o esforco se concentrou no ingles e que corpora eficazes para outros idiomas seguem em aberto. Texto reescrito para atribuir so o que a fonte diz.
+
+## Verificacao na integra (2026-08-27)
+
+PDF integral (JBCS/SBC). CONFIRMA verbatim corpus ClassiCC-PT de 120B tokens em portugues, competitivo com corpora industriais, motivado pela concentracao do trabalho em ingles.

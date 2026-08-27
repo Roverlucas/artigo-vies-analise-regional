@@ -2,8 +2,8 @@
 chave: broverbs2025
 titulo: BRoverbs — Measuring how much LLMs understand Portuguese proverbs (JBCS 2025)
 url: doi:10.5753/jbcs.2025.5797
-read_depth: abstract completo
-data_leitura: 2026-08-26
+read_depth: full-text
+data_leitura: 2026-08-27
 leitor: Claude (verificacao de referencias)
 ---
 
@@ -18,3 +18,7 @@ benchmark regional de proverbios em portugues brasileiro
 ## Veredito
 
 CONFIRMA.
+
+## Verificacao na integra (2026-08-27)
+
+PDF integral (JBCS/SBC). CONFIRMA dataset de proverbios brasileiros para avaliar compreensao de expressoes regionais/figurativas; enquadramento de desequilibrio linguistico.

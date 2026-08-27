@@ -1,0 +1,2862 @@
+TiEBe: Tracking Language Model Recall of Notable
+Worldwide Events Through Time
+
+arXiv:2501.07482v2 [cs.CL] 20 May 2025
+
+Thales Sales Almeida
+Institute of Computing (IC)
+State University of Campinas
+Maritaca AI
+Campinas, SP, Brazil
+João Guilherme Alves Santos
+Institute of Computing (IC)
+State University of Campinas
+Campinas, SP, Brazil
+
+Giovana Kerche Bonás
+Institute of Computing (IC)
+State University of Campinas
+Maritaca AI
+Campinas, SP, Brazil
+
+Hugo Abonizio
+FEEC
+State University of Campinas
+Maritaca AI
+Campinas, SP, Brazil
+
+Rodrigo Nogueira
+Maritaca AI
+Campinas, SP, Brazil
+
+Abstract
+As the knowledge landscape evolves and large language models (LLMs) become
+increasingly widespread, there is a growing need to keep these models updated with
+current events. While existing benchmarks assess general factual recall, few studies
+explore how LLMs retain knowledge over time or across different regions. To
+address these gaps, we present the Timely Events Benchmark (TiEBe)—a dataset of
+over 23,000 question–answer pairs centered on notable global and regional events,
+spanning more than 10 years of events, 23 regions, and 13 languages. TiEBe leverages structured retrospective data from Wikipedia to identify notable events through
+time. These events are then used to construct a benchmark to evaluate LLMs’ understanding of global and regional developments, grounded in factual evidence beyond
+Wikipedia itself. Our results reveal significant geographic disparities in factual recall, emphasizing the need for more balanced global representation in LLM training.
+We also observe a Pearson correlation of more than 0.7 between models’ performance in TiEBe and various countries’ socioeconomic indicators, such as HDI. In
+addition, we examine the impact of language on factual recall by posing questions
+in the native language of the region where each event occurred, uncovering substantial performance gaps for low-resource languages. TiEBe is publicly available
+at https://huggingface.co/datasets/TimelyEventsBenchmark/TiEBe
+
+1
+
+Introduction
+
+Large language models (LLMs) have rapidly become central to numerous applications [2, 5, 17],
+prompting continuous efforts to refine and update them. Keeping these models’ knowledge timely and
+accurate as the world’s events unfold has grown increasingly important. Continual pretraining [3, 27,
+29] has emerged as a promising paradigm for systematically integrating new information, ensuring
+that models remain current with ongoing global affairs. However, despite clear interest in dynamically
+updating LLMs, there remains a shortage of a dedicated and continuously evolving benchmark to
+measure how well these models capture and retain factual knowledge of major world events over
+time.
+Another critical challenge in evaluating LLMs lies in the significant regional disparities in their
+performance [10, 19]. Research has shown that LLMs often exhibit stronger factual recall for
+Preprint.
+
+content originating in certain regions, typically those well-represented in their training datasets, while
+underperforming on data from less-represented areas [15, 16]. Despite these known disparities, the
+number of benchmarks designed explicitly to assess and quantify these regional gaps is limited. This
+lack of evaluation tools hinders our ability to understand and address the inequalities in how LLMs
+process and recall information about different parts of the world.
+To address these challenges, we introduce the Timely Events Benchmark (TiEBe), a benchmark
+designed to evaluate an LLM’s knowledge of noteworthy events worldwide and at the regional
+level. Our approach leverages structured information from Wikipedia retrospective pages to identify external data sources, which we then use to generate question-answer (QA) pairs that reflect
+notorious occurrences in a given year and a given region. This strategy enables us to continuously
+assess a model’s knowledge of evolving global affairs while also measuring geographical disparities.
+Furthermore, by relying on publicly available Wikipedia data that is naturally updated, TiEBe can
+be easily and regularly updated, ensuring that evaluations remain aligned with current world events
+and that models can be reassessed as new events unfold. Our results demonstrate substantial regional
+disparities in factual recall across all LLMs tested, highlighting the critical need for improvements in
+this area.
+The main contributions of our paper are as follows:
+• We introduce TiEBe, a benchmark of more than 23 thousand question-answer pairs grounded
+on noteworthy events, spanning 10 years, 13 languages and 23 different geographic regions.
+• TiEBe provides the QA pairs for non-English speaking countries in both English and in their
+native languages.
+• We perform various evaluations to measure LLM factual recall over time, different regions,
+and languages, and find some notable performance gaps.
+
+2
+
+Related work
+
+As large language models (LLMs) continue to improve, there is growing interest in evaluating their
+ability to comprehend and recall factual knowledge about the world. Although many studies have
+investigated LLMs’ capacity for general factual recall [14, 20, 23], it has become evident that this
+ability varies significantly based on the geographic or cultural context of the data. For example,
+WorldBench [15] highlights regional disparities in LLM performance, demonstrating that their ability
+to recall facts about local economic and social statistics can differ significantly depending on the
+region. BLEND [16] demonstrates a notable difference in LLM performance when prompted about
+cultural aspects of different countries, both in English and in the native languages of the countries.
+Our work expands on these types of evaluations by focusing on notorious events—historical and
+significant occurrences—associated with specific countries or with global impact. By emphasizing in
+events, our dataset captures a unique dimension of factual knowledge.
+In parallel, the paradigm of continual learning has gained traction as a cost-effective alternative
+to retraining models from scratch [27]. This approach seeks to enable LLMs to incorporate new
+knowledge without forgetting previously learned information, a challenge known as catastrophic
+forgetting [6, 28]. Despite its promise, the field still suffers from a limited number of diverse
+benchmarks for evaluating how well models balance learning new content with retaining existing
+knowledge [7, 24]. To address this, TemporalWiki [8] proposes a benchmark based on tracking
+changes in Wikipedia articles, allowing researchers to assess how well LLMs adapt to evolving
+world knowledge. While TemporalWiki focuses on factual updates in encyclopedic content, our work
+complements it by evaluating LLMs’ understanding of events across time and geography.
+
+3
+
+Methodology
+
+In this section, we describe the pipeline for creating TiEBe, which is illustrated in Figure 1.
+3.1
+
+Data Collection
+
+A Wikipedia retrospective is a page that lists and summarizes notable events from a specific year in a
+given country, domain, or globally. Each event also typically cites a few external sources, usually
+2
+
+1 - Event Retrieval
+
+4 - Evaluation
+
+2022 Day 1 of the 2022 Russian invasion of
+Feb 24 Ukraine.
+
+When was the Lá Linea
+road tunnel in Colombia inaugurated?
+
+2020 Minneapolis police officer Derek
+May 25 Chauvin murders George Floyd, 46...
+23 Regions
+
+10 years
+
++21K events
+
+The La Línea road tunnel was
+inaugurated in September 2020.
+
+2025 Pope Francis, head of the Catholic
+April 21 Church since 2013, dies at the age of 88.
+
+2 - Reference Retrieval
+Filter events
+
+Judgment
+
+Store
+
+Model A
+
+Collect Information
+
+3 - QA Generation
+
+LLM
+
++17,000
+
+The La Línea road tunnel in
+Colombia was inaugurated on
+December 18, 2015.
+
+Model B
+
+open-questions
+in English
+
+Q: When did Brazilian football legend Pelé pass
+away? A: ”Pelé died in December 29, 2022”
+
+Translate to Native Language
+What triggered the riots in France in June 2023?
+[French] Qu'est-ce qui a déclenché les émeutes
+en France en juin 2023 ?
+How many people were killed in the car bombing in
+Ankara on 13 March 2016?
+[Turkish] 13 Mart 2016'da Ankara'da gerçekleşen
+araba bombalı saldırısında kaç kişi hayatını kaybetti?
+
+LLM
+
+The La Línea road tunnel in
+Colombia was inaugurated on
+September 4, 2020.
+
+Model C
+
+LLM
+
+[...] The La Línea Tunnel was
+inaugurated on September 4, 2020.
+Therefore,
+Answer: September 4, 2020.
+
+Figure 1: Illustration of the pipeline used to build TiEBe.
+new articles, providing further context. We leveraged such pages by extracting events and their
+corresponding sources.
+To study factual recall over time, we used a 10-year timespan, covering retrospective pages from 2015
+to April 2025. We selected retrospective pages from 23 regions: 22 countries and one global category
+("World") that includes events of broad international relevance. The countries are grouped as follows:
+• North America – United States, Canada, Mexico
+• South America – Brazil, Argentina, Colombia
+• Asia – India, China, Indonesia
+• Oceania – Australia, Papua New Guinea, New Zealand
+• Western Europe – Germany, United Kingdom, France, Portugal
+• Eastern Europe – Russia, Ukraine, Turkey
+• Africa – Nigeria, Democratic Republic of the Congo, Ethiopia
+We included the three most populous countries from each macro-region, except for Portugal, which
+was added because it shares a language with Brazil, and we are evaluating models specialized in
+Portuguese. Together, the selected countries represent over half of the world’s population.
+We try to retrieve as many sources cited in the events as possible; however, many cited sources are no
+longer available or do not allow scraping of their contents. Overall, we collected 21k events from
+all retrospective pages, but we were able to gather external references for only 17370 events. More
+details about the collection process can be found in the Appendix B.2.
+3.2
+
+Generation of Question-Answer Pairs
+
+From each source document cited in the event descriptions, we generate synthetic question–answer
+(QA) pairs focused on the events discussed. These QA pairs are designed to test whether a model can
+recall the factual information present in the original source document.
+Initially, all QA pairs were generated in English, even when the underlying documents were written
+in other languages. This choice enables us to isolate and evaluate factual recall without confounding
+3
+
+Table 1: TiEBe Question distribution. The totals include questions in both English and the country’s
+native language (for non-English speaking regions)
+Region
+
+Language
+
+2015-2017
+
+2018-2020
+
+2021-2022
+
+2023-2025
+
+Questions
+
+Argentina
+Australia
+Brazil
+Canada
+China
+Colombia
+DR Congo
+Ethiopia
+France
+Germany
+India
+Indonesia
+Mexico
+New Zealand
+Nigeria
+Papua New Guinea
+Portugal
+Russia
+Turkey
+Ukraine
+United Kingdom
+United States
+World
+Total
+
+Spanish
+English
+Portuguese
+English
+Chinese
+Spanish
+French
+Amharic
+French
+German
+Hindi
+Indonesian
+Spanish
+English
+English
+Tok Pisin
+Portuguese
+Russian
+Turkish
+Ukrainian
+English
+English
+—
+—
+
+18
+99
+254
+37
+56
+8
+22
+36
+54
+16
+152
+490
+50
+24
+22
+12
+110
+62
+62
+30
+487
+522
+164
+2787
+
+84
+105
+204
+49
+60
+58
+6
+86
+36
+48
+102
+1052
+1460
+77
+64
+6
+252
+62
+220
+16
+873
+900
+639
+6459
+
+20
+74
+278
+70
+204
+26
+34
+68
+24
+22
+292
+660
+150
+98
+44
+50
+28
+56
+190
+208
+880
+800
+345
+4621
+
+148
+533
+338
+159
+294
+138
+226
+150
+398
+360
+554
+476
+304
+650
+118
+50
+66
+544
+286
+326
+2002
+1006
+453
+9579
+
+270
+811
+1074
+315
+614
+230
+288
+340
+512
+446
+1100
+2678
+1964
+849
+248
+118
+456
+724
+758
+580
+4242
+3228
+1601
+23446
+
+effects from multilingual understanding. To generate the questions, we used DeepSeek-V3 [12],
+providing it with the event description, the corresponding source document, and the date of the event.
+The complete prompt used for this generation process is included in Appendix A.
+Figure 2 presents examples of the generated QA pairs across different regions, illustrating the wide
+range of topics covered.
+To assess the impact of language on model performance, we also translated the questions into the
+native languages of non-English-speaking countries. This allows us to analyze how well models
+perform under language shift. These translations were also produced using DeepSeek-V3, which
+showed stronger performance in our preliminary evaluations. Table 1 shows the question distribution
+per country and year. In total, we arrive at 23446 QA pairs, 17370 in English, and 6076 in the native
+languages of the respective countries.
+Country: China
+
+Year: 2018
+
+Question: What was the sentence given to former Chinese
+Communist Party official Sun Zhengcai in 2018 for
+corruption?
+Answer: Sun Zhengcai was sentenced to life imprisonment
+for corruption in 2018
+Sabiazinho-3: In 2018, former Chinese Communist
+Party official Sun Zhengcai was sentenced to 14
+years in prison for corruption.
+Qwen 2.5 72B: In 2018, former Chinese Communist
+Party official Sun Zhengcai was sentenced to life in
+prison for corruption.
+Llama 4 Maverick: Life imprisonment.
+
+(a) China
+
+Country: Brazil
+
+Year: 2021
+
+Question: How many plants did Ford Motor Company
+announce it would close in Brazil in January 2021?
+Answer: Ford announced it would close three plants in
+Brazil.
+Qwen 2.5 72B: Ford Motor Company announced in
+January 2021 that it would close three plants in
+Brazil. These closures were part of a broader
+restructuring plan aimed at improving the
+company's financial health and focusing on more
+profitable markets. The plants were located in São
+Bernardo do Campo, Camaçari, and Horizonte.
+Sabia-3: Ford Motor Company announced it would
+close all three of its plants in Brazil in January 2021.
+GPT-4o: 3
+
+(b) Brazil
+
+Country: Australia Year: 2021
+Question: What caused the widespread power
+outages in Queensland in May 2021?
+Answer: An explosion and fire at the Callide Power
+Station near Biloela triggered the outages, disrupting
+power to over 470,000
+Qwen 2 72B: The widespread power outages in
+Queensland in May 2021 were caused by severe
+weather conditions, including thunderstorms and
+heavy rainfall, which affected the electricity
+infrastructure in the region.
+Llama 4 Maverick: A severe weather event,
+including heavy rainfall, strong winds, and flooding,
+caused widespread power outages in Queensland
+in May 2021, with many homes and businesses
+affected, particularly in the southern and central
+regions of the state.
+GPT-4.1: The widespread power outages in
+Queensland in May 2021 were caused by a fire at
+the Callide Power Station, which led to the loss of
+several generating units and triggered a cascade of
+outages across the state's electricity network.
+
+(c) Australia
+
+Figure 2: Examples of generated question-answer pairs by country.
+
+4
+
+Table 2: Comparison of Model-as-Judge vs. Human Judgment on 200 Samples.
+% Judged % of divergences
+As Correct
+with human
+Human
+Deepseek
+GPT-4o
+
+3.3
+
+58.5%
+53.0%
+54.5%
+
+11.5%
+9.0%
+
+Model Evaluation
+
+We evaluated nine different models: three open-source—Qwen 2 72B, Qwen 2.5 72B, and Llama 4
+Maverick—and six commercial models. The commercial models include Sabiá-3 and Sabiazinho3 [1] from Maritaca AI, Mistral-large from Mistral, and GPT-4o, GPT-4.1-mini, and GPT-4.1 [18]
+from OpenAI. Several of these models have a regional or linguistic focus. For instance, the Qwen
+models prioritize Chinese data, Sabiá-3 is primarily trained on Brazilian data, and Mistral-large
+highlights strong performance in European languages such as French and German. Llama 4 and the
+OpenAI models serve as strong baselines representing the current state of the art in open-source and
+proprietary systems.
+All models are evaluated in the same manner. Each question is provided to the LLM as a zero-shot
+prompt. We then use an LLM-as-judge [4, 11, 30] to evaluate the answer of each model. In this study,
+we use DeepSeek-V3 as the judge. The judge receives the question, the candidate’s answer provided
+by the LLM, and the expected answer created previously in our QA generation process. The judge
+then decides whether the provided answer is correct or not. The full prompt used for the judge can be
+found in Appendix A.1.
+All model inferences were performed using APIs. For more detailed information about the tested
+models, please refer to Appendix A.2.
+3.4
+
+LLM-as-Judge Performance
+
+To assess the reliability of Deepseek-v3 as an automatic judge of model responses, we manually
+annotated 200 randomly sampled questions from TiEBe. We randomly selected a single answer from
+one of the candidate models for each question.
+Table 2 presents the agreement rates between human annotations and those made by Deepseek-v3
+and GPT-4o. Deepseek-v3 matched human judgment in 88.5% of the cases, while GPT-4o achieved a
+slightly higher agreement rate of 91%. In general, both models tended to be stricter than the human
+annotator, often marking as incorrect answers accepted by the human.
+
+4
+
+Results
+
+This section will discuss the results of the 9 tested models in the TiEBe dataset, exploring overall
+accuracy and their regional and temporal performance.
+4.1
+
+Regional performance
+
+Figure 3 presents the accuracy of each tested model across all regions, under two conditions: (a)
+considering only events that occurred before 2023, and (b) using the full set of events. Focusing
+on pre-2023 events is particularly informative, as all models have a training cutoff after that date,
+ensuring a fairer basis for comparison.
+Large regional performance disparities exist across all models. Among the 22 countries tested in
+TiEBe, 12 show a performance gap of at least 20 percentage points compared to the United States.
+The largest observed gap is 41 points, notably in regions such as the Democratic Republic of Congo.
+Even when focusing only on events that occurred before 2023—thus excluding potential advantages
+from more recent training data—9 countries still show gaps of 20 points or more, with the maximum
+reaching 40 points. These findings highlight a consistent imbalance in factual recall across geographic
+regions in all tested models.
+5
+
+Sabiazinho-3 0.05 0.09 0.12 0.14 0.15 0.10 0.14 0.19 0.15 0.17 0.27 0.16 0.30 0.28 0.23 0.26 0.23 0.20 0.25 0.34 0.24 0.35 0.48 0.21
+Sabia-3 0.06 0.12 0.13 0.18 0.15 0.14 0.17 0.16 0.18 0.23 0.25 0.28 0.26 0.30 0.30 0.25 0.27 0.28 0.36 0.36 0.36 0.52 0.58 0.26
+
+0.7
+
+0.6
+
+Qwen2-72B 0.12 0.17 0.20 0.22 0.22 0.19 0.23 0.22 0.27 0.27 0.27 0.33 0.37 0.33 0.38 0.38 0.31 0.38 0.34 0.34 0.41 0.57 0.59 0.31
+Qwen2.5-72B 0.12 0.18 0.21 0.17 0.26 0.22 0.20 0.27 0.26 0.27 0.31 0.29 0.36 0.35 0.40 0.35 0.31 0.36 0.32 0.38 0.39 0.53 0.61 0.31
+
+0.5
+
+Llama-4-Maverick 0.14 0.18 0.16 0.25 0.25 0.27 0.24 0.32 0.28 0.25 0.24 0.41 0.33 0.36 0.35 0.36 0.40 0.42 0.38 0.40 0.40 0.56 0.65 0.33
+Mistral-large 0.17 0.17 0.20 0.27 0.20 0.22 0.26 0.25 0.32 0.36 0.37 0.41 0.36 0.37 0.35 0.45 0.44 0.46 0.49 0.45 0.47 0.61 0.66 0.36
+GPT-4.1-mini 0.19 0.24 0.28 0.24 0.31 0.35 0.30 0.36 0.35 0.34 0.41 0.38 0.44 0.40 0.40 0.39 0.42 0.47 0.47 0.44 0.45 0.55 0.67 0.38
+
+0.4
+
+0.3
+
+GPT-4o 0.20 0.25 0.25 0.36 0.25 0.32 0.47 0.34 0.44 0.50 0.39 0.47 0.34 0.44 0.44 0.49 0.58 0.53 0.60 0.56 0.56 0.67 0.71 0.44
+GPT-4.1 0.36 0.42 0.47 0.46 0.52 0.57 0.51 0.54 0.60 0.55 0.51 0.61 0.59 0.62 0.63 0.61 0.69 0.65 0.68 0.66 0.69 0.75 0.76 0.58
+
+0.2
+
+World
+
+Averag
+e
+
+0.1
+
+Model
+
+m
+
+States
+United
+
+Brazil
+
+United
+
+Kingdo
+
+a
+
+al
+
+Canad
+
+Portug
+
+ia
+
+Turkey
+
+Ethiop
+
+e
+
+China
+
+na
+
+Ukrain
+
+India
+
+Argenti
+
+Papua
+
+New G
+uinea
+
+lia
+
+Mexico
+
+France
+
+Austra
+
+ny
+
+Indone
+sia
+
+Russia
+
+Germa
+
+ealand
+
+Nigeria
+
+New Z
+
+go
+DR Con
+
+Colom
+bia
+
+Country Average 0.16 0.20 0.22 0.25 0.26 0.26 0.28 0.29 0.32 0.33 0.34 0.37 0.37 0.38 0.39 0.39 0.41 0.42 0.43 0.44 0.44 0.57 0.63 0.35
+
+(a) Accuracy of each model per country, considering all events in TiEBe.
+
+Sabiazinho-3 0.10 0.16 0.17 0.19 0.24 0.24 0.35 0.29 0.27 0.26 0.43 0.36 0.35 0.30 0.25 0.39 0.39 0.34 0.37 0.19 0.39 0.46 0.58 0.31
+Sabia-3 0.19 0.20 0.28 0.27 0.33 0.34 0.44 0.41 0.37 0.44 0.49 0.40 0.54 0.49 0.49 0.49 0.54 0.50 0.59 0.53 0.54 0.71 0.75 0.45
+
+0.8
+
+0.7
+
+Qwen2.5-72B 0.19 0.23 0.28 0.30 0.27 0.38 0.41 0.35 0.36 0.44 0.48 0.48 0.51 0.53 0.45 0.57 0.59 0.51 0.55 0.49 0.58 0.66 0.74 0.45
+Llama-4-Maverick 0.26 0.26 0.33 0.26 0.36 0.45 0.32 0.42 0.50 0.44 0.46 0.51 0.51 0.53 0.58 0.54 0.52 0.60 0.53 0.65 0.63 0.65 0.75 0.48
+Qwen2-72B 0.26 0.26 0.30 0.31 0.39 0.36 0.41 0.38 0.42 0.55 0.45 0.58 0.52 0.58 0.58 0.56 0.64 0.62 0.63 0.60 0.61 0.76 0.76 0.50
+
+0.6
+
+0.5
+
+GPT-4.1-mini 0.32 0.32 0.37 0.36 0.38 0.46 0.50 0.51 0.53 0.51 0.53 0.53 0.57 0.57 0.57 0.66 0.57 0.65 0.59 0.77 0.63 0.66 0.79 0.54
+Mistral-large 0.35 0.30 0.28 0.41 0.46 0.49 0.56 0.55 0.58 0.67 0.58 0.68 0.61 0.60 0.68 0.64 0.62 0.74 0.72 0.72 0.72 0.80 0.82 0.59
+GPT-4o 0.52 0.54 0.48 0.57 0.61 0.72 0.59 0.68 0.76 0.76 0.70 0.73 0.73 0.77 0.79 0.64 0.72 0.81 0.80 0.88 0.82 0.85 0.85 0.71
+
+0.4
+
+0.3
+
+GPT-4.1 0.58 0.54 0.57 0.58 0.60 0.69 0.62 0.71 0.78 0.77 0.74 0.77 0.72 0.76 0.77 0.75 0.78 0.81 0.81 0.88 0.81 0.84 0.84 0.73
+
+World
+
+Averag
+e
+
+0.2
+
+0.1
+
+Model
+
+States
+United
+
+ny
+
+France
+
+Germa
+
+m
+
+a
+Canad
+
+Kingdo
+United
+
+na
+
+China
+
+Argenti
+
+India
+
+e
+
+Russia
+
+ia
+
+Ukrain
+
+Brazil
+
+Ethiop
+
+lia
+Austra
+
+al
+
+Turkey
+
+Portug
+
+uinea
+
+ealand
+
+New G
+
+Papua
+
+Nigeria
+
+New Z
+
+bia
+
+Mexico
+
+Colom
+
+sia
+Indone
+
+DR Con
+
+go
+
+Country Average 0.31 0.31 0.34 0.36 0.40 0.46 0.47 0.48 0.51 0.54 0.54 0.56 0.56 0.57 0.57 0.58 0.60 0.62 0.62 0.63 0.64 0.71 0.76 0.53
+
+(b) Accuracy of each model per country, considering only events before 2023.
+
+Figure 3: Performance of models per country under different subsets of TiEBe.
+
+Model performance is positively correlated with country GDP. When evaluating only the events
+that took place before all models’ training cutoff dates, we find a strong correlation between a country’s
+GDP and model performance. Specifically, the average performance across models correlates with
+GDP at a Spearman coefficient of 0.73. This suggests that models tend to recall information more
+accurately for wealthier countries, indicating possible socioeconomic bias in training data.
+GPT-4.1 achieves the highest performance among all models tested. On the full dataset, GPT-4.1
+significantly outperforms all other models, with a 14-point lead over the second-best model, GPT4o. This advantage is largely due to its more recent training cutoff, as the gap between the two
+models drops to just 2 points when considering only pre-2023 events. This implies that GPT-4.1
+incorporates more recent knowledge but does not significantly improve earlier events. Overall,
+GPT-4.1 outperforms the best non-OpenAI model (Mistral-large) by at least 15 percentage points in
+average accuracy. However, despite the good performance, GPT-4.1 still shows significant regional
+gaps in factual recall.
+4.2
+
+Temporal performance
+
+We also examine how model performance varies across different time periods. Figure 4 shows the
+accuracy and refusal rates of all models across four intervals: 2015–2017, 2018–2020, 2021–2022,
+and 2023–2025. Detailed yearly results for each model are provided in the Appendix C.
+6
+
+1.0
+
+0.77 0.78
+
+0.76 0.77
+0.73 0.73
+0.67
+0.64
+
+0.6
+
+Accuracy
+
+0.57
+
+0.4
+
+0.60 0.59
+
+0.57 0.56
+
+0.55 0.54
+
+0.39
+
+0.64
+
+0.53
+
+0.8
+
+Refusal Rate
+
+0.8
+
+1.0
+
+Sabiazinho-3
+Sabia-3
+Qwen2.5-72B
+Llama-4-Maverick
+Qwen2-72B
+GPT-4.1-mini
+Mistral-large
+GPT-4o
+GPT-4.1
+
+0.56 0.56
+0.53
+
+0.51 0.50
+
+0.50 0.49
+
+0.50
+
+0.37
+
+Sabiazinho-3
+Sabia-3
+Qwen2.5-72B
+Llama-4-Maverick
+Qwen2-72B
+GPT-4.1-mini
+Mistral-large
+GPT-4o
+GPT-4.1
+
+0.82
+
+0.65
+0.61
+
+0.6
+0.44
+
+0.4
+
+0.35
+
+0.33
+0.26
+
+0.24
+
+0.2
+
+0.26
+0.22
+
+0.2
+
+0.19
+0.14
+
+0.16
+
+0.18
+
+0.17
+
+0.11
+0.08
+
+2015-2017
+
+2018-2020
+
+2021-2022
+
+0.02 0.01
+
+0.0
+
+2023-2025
+
+(a) Tested models’ accuracy over time.
+
+0.03
+0.00
+
+0.02
+
+0.03
+
+0.00 0.00
+
+2015-2017
+
+0.10
+
+0.09
+
+0.07
+
+0.05
+
+0.0
+
+0.64
+
+0.53
+
+0.01
+
+0.04
+
+0.03
+
+0.00
+
+0.02 0.02
+
+0.00 0.00
+
+2018-2020
+
+0.09
+
+0.09
+
+0.05
+0.00
+
+0.01 0.00
+
+2021-2022
+
+2023-2025
+
+(b) Tested models’ refusal rates over time.
+
+Figure 4: Accuracy and refusal rates over different time periods.
+Llama-4-Maverick -0.07
+
+-0.12
+
+-0.04
+
+-0.07
+
+-0.06
+
+-0.03
+
+-0.01
+
+0.00
+
+-0.02
+
+-0.01
+
+-0.00
+
+-0.09
+
+0.04
+
+-0.01
+
+0.10
+
+0.16
+
+-0.02
+
+0.5
+
+Mistral-large -0.05
+
+-0.03
+
+-0.00
+
+-0.05
+
+-0.05
+
+0.01
+
+0.01
+
+-0.01
+
+0.02
+
+0.03
+
+-0.02
+
+-0.02
+
+0.01
+
+0.09
+
+0.15
+
+0.44
+
+0.03
+
+0.4
+
+GPT-4o 0.00
+
+0.01
+
+0.01
+
+0.01
+
+0.03
+
+0.00
+
+0.00
+
+-0.01
+
+-0.00
+
+0.05
+
+0.04
+
+0.04
+
+-0.01
+
+0.03
+
+0.10
+
+0.29
+
+0.04
+
+0.3
+
+GPT-4.1 0.01
+
+0.04
+
+-0.00
+
+0.01
+
+0.01
+
+-0.01
+
+0.03
+
+0.00
+
+0.00
+
+0.04
+
+0.06
+
+0.02
+
+0.01
+
+0.01
+
+0.03
+
+0.32
+
+0.04
+
+0.2
+
+Sabia-3 -0.04
+
+-0.02
+
+0.01
+
+-0.01
+
+-0.01
+
+-0.01
+
+-0.03
+
+-0.02
+
+0.02
+
+0.00
+
+0.00
+
+0.09
+
+0.04
+
+0.13
+
+0.22
+
+0.25
+
+0.04
+
+0.1
+
+GPT-4.1-mini 0.01
+
+0.05
+
+-0.00
+
+0.03
+
+0.01
+
+0.00
+
+0.00
+
+-0.01
+
+-0.01
+
+0.04
+
+0.06
+
+-0.01
+
+0.06
+
+0.06
+
+0.14
+
+0.24
+
+0.04
+
+0.0
+
+0.09
+
+0.10
+
+0.22
+
+0.25
+
+0.06
+
+0.1
+
+0.06
+
+0.06
+
+0.11
+
+0.24
+
+0.31
+
+0.06
+
+0.2
+
+0.01
+
+0.09
+
+0.14
+
+0.08
+
+0.16
+
+0.22
+
+0.38
+
+0.11
+
+0.3
+
+0.01
+
+0.02
+
+0.04
+
+0.04
+
+0.04
+
+0.07
+
+0.16
+
+0.29
+
+0.04
+
+0.4
+
+Model
+
+Ethiop
+
+New G
+Papua
+
+Portug
+
+Indone
+
+Argenti
+
+Averag
+e
+
+0.06
+
+0.01
+
+ia
+
+0.13
+
+0.01
+
+uinea
+
+0.06
+
+0.00
+
+al
+
+0.09
+
+0.00
+
+Germa
+
+0.07
+
+0.00
+
+na
+
+0.07
+
+0.00
+
+sia
+
+0.04
+
+0.00
+
+DR Con
+
+0.05
+
+Colom
+
+Qwen2-72B 0.06
+Country Average -0.01
+
+India
+
+0.10
+
+0.06
+
+e
+
+0.04
+
+-0.02
+
+Turkey
+
+0.00
+
+0.01
+
+ny
+
+0.04
+
+0.01
+
+Ukrain
+
+0.02
+
+0.03
+
+go
+
+-0.01
+
+-0.01
+
+Brazil
+
+0.01
+
+0.03
+
+Russia
+
+0.01
+
+0.01
+
+France
+
+0.04
+
+0.01
+
+Mexico
+
+0.01
+
+0.04
+
+bia
+
+-0.01
+
+China
+
+Sabiazinho-3 0.00
+Qwen2.5-72B 0.00
+
+Figure 5: Difference in overall accuracy when prompted in English or the country native language.
+Negative value means the accuracy of the model was lower in the native than in English, while
+positives value indicate that models performed better in the native language.
+
+Among the models, GPT-4o and Mistral-large report a knowledge cutoff in October 2023. Qwen 2
+72B, Qwen 2.5 72B, Sabiá-3, and Sabiazinho-3 list 2023 as their cutoff year without specifying a
+month. LLaMA 4 Maverick reports a cutoff in August 2024, while GPT-4.1 and GPT-4.1 mini are
+current up to July 2024.
+Across the first three time periods (2015–2022), model performance remains relatively stable. However, there is a notable drop in accuracy from 2023 to 2025, which aligns with the models’ training
+cutoffs. During this final period, most models also exhibit a significant increase in refusal rates, as
+they refuse to answer questions beyond their training.
+Notably, the Sabiá-3 model displays unusually high refusal rates, even for events that predate its
+reported cutoff. This behavior contributes to its lower overall performance.
+4.3
+
+The effects of model language
+
+With the translated questions for all non-english speaking regions, we repeated our experiment,
+regenerating all answers from each model and repeating all the judgments. We show in Figure 5
+the difference in accuracy for each model and region, when comparing the accuracy with english
+questions with the accuracy with questions in the countries respective native language. Positive values
+indicate that the model performed better in the native language, while negative values indicate the
+model performed better in English.
+10 out of the 16 countries show an average performance difference of less than 3%. This
+relatively small variation suggests that, for most regions, translating questions into the native language
+did not significantly affect model accuracy. In these cases, the models demonstrated comparable
+7
+
+understanding of the content regardless of whether it was presented in English or the native language,
+indicating a degree of multilingual robustness.
+We notice big performance degradation for Tok Pisin and Amharic, the languages of Papua
+New Guinea and Ethiopia, respectively. These two cases stand out as the most significant drops in
+accuracy across all evaluated models, adding to the body of evidence that current LLMs struggle to
+generalize well to very low-resource languages [9, 13]. The lack of sufficient Tok Pisin and Amharic
+representation in the models’ training data likely contributes to this performance gap. In particular,
+even high-capacity commercial models, which generally maintain robust performance across other
+languages, failed to retain accuracy when answering questions translated into these languages. This
+highlights a broader challenge in building equitable multilingual models that maintain performance
+in underrepresented linguistic contexts.
+Llama4 Maverick was the only model to show a slight performance increase in the native
+languages. Unlike all other models, LLama4 Maverick achieved, on average, marginally better
+results when responding to questions in the respective native languages of the countries evaluated.
+This may reflect more effective multilingual pretraining or fine-tuning strategies, allowing the model
+to handle non-English inputs better.
+Qwen2-72B shows the biggest performance degradation on non-English questions. Upon further
+investigation, we observed that this drop in accuracy is largely driven by an increased refusal rate when
+the model is prompted in non-English languages. Qwen2-72B often declines to respond altogether,
+significantly impacting its measured performance. This behavior suggests that the model may have a
+limited confidence threshold for non-English inputs or lacks sufficient multilingual alignment.
+4.4
+
+Performance Correlation With Socioeconomic Indicators
+
+Table 3: Pearson and Spearman correlations between the average performance of models before 2023
+and numerous socioeconomic indicators. Indications marked with * were used on a log scale for
+Pearson calculations.
+GDP* HDI MYS Population*
+Spearman
+English
+Native languages
+
+0.728
+0.767
+
+0.549
+0.747
+
+0.526
+0.728
+
+0.146
+0.022
+
+0.448
+0.803
+
+0.192
+0.131
+
+Pearson
+English
+Native languages
+
+0.562
+0.765
+
+0.518
+0.791
+
+To further analyze the correlation between the average performance of the tested models in TiEBe,
+we used the subset of questions regarding events before 2023, eliminating the effects of model cutoff
+dates being reached. We considered two scenarios
+• English: Where we considered the average performance of models when prompted in
+English.
+• Native languages: Where we considered the average performance of models when prompted
+in the native language of each region, for example, we consider the performance models had
+in Amharic for Ethiopia.
+Table 3 reports both Spearman and Pearson correlation coefficients for both scenarios between the
+average accuracy of all tested models with events before 2023 and four social and economic indicators,
+Gross Domestic Product (GDP), Human Development Index (HDI), Mean Years of Schooling (MYS),
+and Population. More detailed information about the collected statistics for each country and further
+analyses can be found in the appendix C.
+Model performance shows substantial correlation with economic and educational indicators.
+The average accuracy of models in each country is notably correlated with GDP, HDI, and MYS,
+particularly when questions are presented in the native languages. The Spearman correlation between
+model accuracy and GDP reaches 0.77 in the native language setting, while HDI and MYS correlate
+8
+
+at 0.75 and 0.73, respectively. These results suggest that LLMs tend to perform better in countries
+that are economically and educationally more developed, likely due to the higher availability and
+representation of such regions in the models’ training data.
+Performance correlations are higher in native language evaluations. Across all indicators,
+correlations are consistently stronger when models are evaluated using questions in the native
+language rather than in English. This indicates that regions with higher development levels receive
+more data coverage and more robust multilingual training data. In contrast, lower-resource countries
+may suffer a double penalty: underrepresentation and lack of training for their native languages.
+Population size shows weak correlation with performance in both scenarios. Despite expectations
+that more populous countries might benefit from increased digital presence and, by extension, more
+training data, our analysis shows little correlation between population and model performance on
+TiEBe. Both Spearman and Pearson correlations remain low across English and native-language
+evaluations. This indicates that data representation in training corpora might be shaped more by
+economic and infrastructural factors than by sheer demographic size.
+These findings show the presence of systemic imbalances in current LLMs, where performance is
+notably correlated to socioeconomic factors. Addressing such disparities will be essential for building
+more equitable and globally representative language technologies.
+
+5
+
+Conclusion
+
+In this work, we introduced the Timely Events Benchmark (TiEBe), a large-scale evaluation framework designed to assess factual recall in LLMs across time, regions, and languages. TiEBe comprises
+over 23,000 question–answer pairs grounded in notable events extracted from Wikipedia retrospective
+pages, spanning a 10-year period and 23 geographic regions.
+Our findings show that current LLMs exhibit considerable geographic disparities in factual recall.
+When considering only events before the cutoff date of all models, we observed a notable correlation
+of models’ performance in TiEBe with socioeconomic indicators such as GDP, HDI, and MYS, suggesting that LLMs disproportionately favor wealthier, more digitally represented nations. Finally, we
+showed that while models show reasonably equal performance in most tested languages, performance
+still degrades sharply in low-resource languages, such as Tok Pisin and Amharic.
+
+6
+
+Limitations and Future work
+
+Our dataset uses Wikipedia retrospective pages to identify and extract global and regional events. As
+a result, we cannot include regions where such pages are unavailable or contain too few documented
+events. Additionally, because all source documents are drawn from publicly accessible Wikipedia
+pages, there is a risk that some of the evaluated language models may have been exposed to this
+content during pretraining. While the overall results show substantial variation across models,
+potential contamination may influence performance and obscure true generalization capabilities.
+Future work can address these limitations by incorporating events from broader sources, such as
+regional news archives. This would reduce contamination risks and improve the diversity of events
+and questions.
+
+References
+[1] Hugo Abonizio, Thales Sales Almeida, Thiago Laitz, Roseval Malaquias Junior, Giovana Kerche
+Bonás, Rodrigo Nogueira, and Ramon Pires. Sabiá-3 technical report. arXiv preprint
+arXiv:2410.12049, 2024.
+[2] Tyna Eloundou, Sam Manning, Pamela Mishkin, and Daniel Rock. Gpts are gpts: An early look
+at the labor market impact potential of large language models. arXiv preprint arXiv:2303.10130,
+2023.
+[3] Evangelia Gogoulou, Timothée Lesort, Magnus Boman, and Joakim Nivre. Continual learning
+under language shift. In Text, Speech, and Dialogue: 27th International Conference, TSD 2024,
+9
+
+Brno, Czech Republic, September 9–13, 2024, Proceedings, Part I, page 71–84, Berlin, Heidelberg, 2024. Springer-Verlag. ISBN 978-3-031-70562-5. doi: 10.1007/978-3-031-70563-2_6.
+URL https://doi.org/10.1007/978-3-031-70563-2_6.
+[4] Jiawei Gu, Xuhui Jiang, Zhichao Shi, Hexiang Tan, Xuehao Zhai, Chengjin Xu, Wei Li,
+Yinghan Shen, Shengjie Ma, Honghao Liu, et al. A survey on llm-as-a-judge. arXiv preprint
+arXiv:2411.15594, 2024.
+[5] Muhammad Usman Hadi, Rizwan Qureshi, Abbas Shah, Muhammad Irfan, Anas Zafar, Muhammad Bilal Shaikh, Naveed Akhtar, Jia Wu, Seyedali Mirjalili, et al. A survey on large language
+models: Applications, challenges, limitations, and practical usage. Authorea Preprints, 2023.
+[6] Adam Ibrahim, Benjamin Thérien, Kshitij Gupta, Mats L Richter, Quentin Anthony, Timothée
+Lesort, Eugene Belilovsky, and Irina Rish. Simple and scalable strategies to continually pre-train
+large language models. arXiv preprint arXiv:2403.08763, 2024.
+[7] Naman Jain, King Han, Alex Gu, Wen-Ding Li, Fanjia Yan, Tianjun Zhang, Sida Wang, Armando Solar-Lezama, Koushik Sen, and Ion Stoica. Livecodebench: Holistic and contamination
+free evaluation of large language models for code. arXiv preprint arXiv:2403.07974, 2024.
+[8] Joel Jang, Seonghyeon Ye, Changho Lee, Sohee Yang, Joongbo Shin, Janghoon Han,
+Gyeonghun Kim, and Minjoon Seo. Temporalwiki: A lifelong benchmark for training and
+evaluating ever-evolving language models. In Proceedings of the 2022 Conference on Empirical
+Methods in Natural Language Processing, pages 6237–6250, 2022.
+[9] Pratik Joshi, Sebastin Santy, Amar Budhiraja, Kalika Bali, and Monojit Choudhury. The state
+and fate of linguistic diversity and inclusion in the NLP world. In Proceedings of the 58th
+Annual Meeting of the Association for Computational Linguistics, 2020. doi: 10.18653/v1/2020.
+acl-main.560.
+[10] Anjali Kantharuban, Ivan Vulić, and Anna Korhonen. Quantifying the dialect gap and its
+correlates across languages. arXiv preprint arXiv:2310.15135, 2023.
+[11] Dawei Li, Bohan Jiang, Liangjie Huang, Alimohammad Beigi, Chengshuai Zhao, Zhen Tan,
+Amrita Bhattacharjee, Yuxuan Jiang, Canyu Chen, Tianhao Wu, et al. From generation to
+judgment: Opportunities and challenges of llm-as-a-judge. arXiv preprint arXiv:2411.16594,
+2024.
+[12] Aixin Liu, Bei Feng, Bing Xue, Bingxuan Wang, Bochao Wu, Chengda Lu, Chenggang Zhao,
+Chengqi Deng, Chenyu Zhang, Chong Ruan, et al. Deepseek-v3 technical report. arXiv preprint
+arXiv:2412.19437, 2024.
+[13] Alexandre Magueresse, Vincent Carles, and Evan Heetderks. Low-resource languages: A
+review of past work and future challenges. 2020.
+[14] Alex Mallen, Akari Asai, Victor Zhong, Rajarshi Das, Daniel Khashabi, and Hannaneh Hajishirzi. When not to trust language models: Investigating effectiveness of parametric and
+non-parametric memories. arXiv preprint arXiv:2212.10511, 2022.
+[15] Mazda Moayeri, Elham Tabassi, and Soheil Feizi. Worldbench: Quantifying geographic
+disparities in llm factual recall. In The 2024 ACM Conference on Fairness, Accountability, and
+Transparency, pages 1211–1228, 2024.
+[16] Junho Myung, Nayeon Lee, Yi Zhou, Jiho Jin, Rifki Putri, Dimosthenis Antypas, Hsuvas
+Borkakoty, Eunsu Kim, Carla Perez-Almendros, Abinew Ali Ayele, et al. Blend: A benchmark
+for llms on everyday knowledge in diverse cultures and languages. Advances in Neural
+Information Processing Systems, 37:78104–78146, 2024.
+[17] Shakked Noy and Whitney Zhang. Experimental evidence on the productivity effects of
+generative artificial intelligence. Science, 381(6654):187–192, 2023.
+[18] OpenAI. Gpt-4o system card. arXiv preprint arXiv:2410.21276, 2024.
+10
+
+[19] Vishwas Sathish, Hannah Lin, Aditya K Kamath, and Anish Nyayachavadi. Llempower:
+Understanding disparities in the control and access of large language models. arXiv preprint
+arXiv:2404.09356, 2024.
+[20] Liyan Tang, Tanya Goyal, Alexander R Fabbri, Philippe Laban, Jiacheng Xu, Semih Yavuz,
+Wojciech Kryściński, Justin F Rousseau, and Greg Durrett. Understanding factual errors in
+summarization: Errors, summarizers, datasets, error detectors. arXiv preprint arXiv:2205.12854,
+2022.
+[21] United Nations Development Programme. Human development report 2016: Human development for everyone. Technical report, UNDP, 2016. URL https://hdr.undp.org/system/
+files/documents/2016humandevelopmentreport1.pdf.
+[22] United Nations Development Programme. Human development data center, 2023. URL
+https://hdr.undp.org/data-center. Accessed: 2025-05-15.
+[23] Jason Wei, Nguyen Karina, Hyung Won Chung, Yunxin Joy Jiao, Spencer Papay, Amelia Glaese,
+John Schulman, and William Fedus. Measuring short-form factuality in large language models.
+arXiv preprint arXiv:2411.04368, 2024.
+[24] Colin White, Samuel Dooley, Manley Roberts, Arka Pal, Ben Feuer, Siddhartha Jain, Ravid
+Shwartz-Ziv, Neel Jain, Khalid Saifullah, Siddartha Naidu, et al. Livebench: A challenging,
+contamination-free llm benchmark. arXiv preprint arXiv:2406.19314, 2024.
+[25] World Bank. World development indicators 2016. Technical report, The World Bank, 2016.
+URL https://documents1.worldbank.org/curated/en/805371467990952829/pdf/
+105051-PUB-ADD-DOI-ISBN-PUBLIC-World-Development-Indicators-2016.pdf.
+[26] World Bank. World development indicators, 2023. URL https://data.worldbank.org/.
+Accessed: 2025-05-15.
+[27] Tongtong Wu, Linhao Luo, Yuan-Fang Li, Shirui Pan, Thuy-Trang Vu, and Gholamreza Haffari.
+Continual learning for large language models: A survey. arXiv preprint arXiv:2402.01364,
+2024.
+[28] Yuexiang Zhai, Shengbang Tong, Xiao Li, Mu Cai, Qing Qu, Yong Jae Lee, and Yi Ma.
+Investigating the catastrophic forgetting in multimodal large language models. arXiv preprint
+arXiv:2309.10313, 2023.
+[29] Zihan Zhang, Meng Fang, Ling Chen, and Mohammad-Reza Namazi-Rad. Citb: A benchmark
+for continual instruction tuning. arXiv preprint arXiv:2310.14510, 2023.
+[30] Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang, Zhanghao Wu, Yonghao Zhuang,
+Zi Lin, Zhuohan Li, Dacheng Li, Eric Xing, et al. Judging llm-as-a-judge with mt-bench and
+chatbot arena. Advances in Neural Information Processing Systems, 36:46595–46623, 2023.
+
+A
+
+Execution details
+
+Appendix A expands the execution details to ensure reproducibility.
+The dataset is available at https://huggingface.co/datasets/TimelyEventsBenchmark/
+TiEBe and all relevant code is available at https://github.com/TimelyEventsBenchmark/
+TiEBe.
+A.1
+A.1.1
+
+Prompts
+Prompts for QA generation
+
+We use the following prompt to generate {n_questions} question–answer pairs from each news article,
+avoiding questions about information that changes frequently and direct references to the article itself.
+11
+
+You are an assistant responsible for creating pairs of questions and answers based on news articles.
+These question-answer pairs will be used to construct a dataset for evaluating knowledge from the
+past. Your task is to create up to {n_questions} questions and their corresponding answers based on
+the information in the news article. The questions should be clear and understandable, even for those
+who have not read the article.
+Avoid asking about information that is constantly changing or lacks a definitive answer, such as the
+current death toll of an event or the present status of a specific situation. Focus on questions that will
+remain relevant in the future.
+Use the past tense in the questions. Avoid starting with "What is..." or referring to ongoing events or
+situations. Refrain from asking about the current status of a particular subject, such as an agreement
+or situation that may change over time.
+Additionally, avoid overly specific questions. Instead, focus on broader and more meaningful
+information about significant events. Keep in mind that the reader will not have access to the article
+itself, so do not reference the article directly (e.g. "according to the article"). Emphasize the key
+information the article provides, and specify the point in time when an event occurred, if necessary.
+Write the questions and answers in English, regardless of the language of the article.
+Follow this format:
+Question: {question}
+Answer: {answer}
+Event: {event}
+Date: {date}
+News title: {title}
+News content:
+{content}
+
+A.1.2
+
+Prompts for model generation
+
+We apply the following prompt to every candidate model: each question is posed zero-shot, and the
+model must return an answer in a prescribed format, in the same language as the question.
+Answer the following question:
+"{question}"
+If necessary, consider the context of {region}, Provide your response in the following format:
+"Answer: your answer"
+
+A.1.3
+
+Prompts for model evaluation
+
+We presented the following prompt to the LLM judge: we provided the question, the gold answer,
+and the candidate answer, and asked the judge to produce a brief ’Reasoning:’ followed by ’Correct:
+yes | no’, marking contradictions or refusals as incorrect.
+I will provide a question, an expected answer, and the candidate’s answer. Your task is to verify if the
+candidate’s answer is correct. The expected answer is the ground truth, so if the candidate’s answer
+contradicts the expected answer or refuses to answer, it is incorrect.
+Question: "{question}"
+Expected answer: "{expected_answer}"
+Candidate answer: "{model_answer}"
+Answer in the format
+Reasoning: (your reasoning)
+Correct: (yes|no)
+
+A.1.4
+
+Prompts for question and answer translation
+
+We use the following prompt to translate questions and answers from English into the native language
+of each country:
+12
+
+Model
+
+Table 4: Model details
+Provider
+Specific-version
+
+Execution Date
+
+GPT-4.1
+
+OpenAI
+
+gpt-4.1-2025-04-14
+
+April 23, 2025
+
+GPT-4.1-mini
+
+OpenAI
+
+gpt-4.1-mini-2025-04-14
+
+April 23, 2025
+
+GPT-4o
+
+OpenAI
+
+gpt-4o-2024-08-06
+
+April 23, 2025
+
+Sabiá-3
+
+Maritaca AI
+
+sabia-3-2024-12-11
+
+April 24, 2025
+
+Sabiazinho-3
+
+Maritaca AI
+
+sabiazinho-3-2025-02-06
+
+April 24, 2025
+
+Mistral-Large
+
+Mistral AI
+
+Mistral-Large
+
+April 26, 2025
+
+LLama4 Maverick
+
+Together AI
+
+Llama-4-Maverick-17B-128E
+-Instruct-FP8
+
+April 26, 2025
+
+Qwen 2.5 72B Instruct
+
+Together AI
+
+Qwen/Qwen2.5-72B-Instruct-Turbo
+
+April 26, 2025
+
+Qwen 2 72B Instruct
+
+Together AI
+
+Qwen/Qwen2-72B-Instruct
+
+April 26, 2025
+
+Deepseek V3
+
+Together AI
+
+deepseek-ai/DeepSeek-V3
+
+April 26, 2025
+
+You are a professional translator. Translate the following question and answer from English to
+"{language}", the primary language spoken in "{country}".
+Original Question (English): "{question}"
+Original Answer (English): "{answer}"
+A.2
+
+Model details.
+
+As mentioned previously, we executed all our experiments through APIs. To ensure reproducibility
+of our results, we report in Table 4 the provider used for each model, the specific versions of each
+model, and the data on which the model was used.
+
+B
+
+Dataset statistics
+
+Appendix B compiles the main descriptive statistics of TiEBe, outlining its regional composition and
+overall scale. It also provides a visual overview of the benchmark’s question-type distribution.
+B.1
+
+Event availability in Wikipedia Retrospective pages
+
+Our work uses the retrospective pages of Wikipedia for each country as a starting point, and we
+noticed during development that such pages have a disproportional distribution. Figure 6. shows the
+categorization of all countries based on how many events were listed in retrospective pages in the
+period from 2015 to 2025.
+We can see significant outliers in the US and UK, with an event count many times higher than the
+average. Some regions tend to have especially low event counts, such as Africa, with the majority of
+countries falling in the bottom two tiers of availability. Countries with too few listed events may be
+implausible to add to TiEBe since they would consist of too few questions. This analysis strengthens
+the need for more generic event sampling strategies.
+B.2
+
+Events and Extracted statistics
+
+As mentioned previously, we extracted events from Wikipedia retrospective pages of 23 different
+regions for 10 different years; each event in these pages may contain external references that expand
+upon the event subject. Some events do not present such references, others present more than one.
+However, many of these external references no longer exist, were wrongly input in the page, or do
+not allow scrapers to retrieve their content, reducing the number of usable events we can use in our
+pipeline.
+13
+
+Figure 6: Categorization of countries based on the number of events available in retrospective pages
+between 2015 and 2025.
+
+Table 5 reports the total Wikipedia events extracted, the number of references retrieved, english Q-A
+count and the final Q-A count per region. We retrieved 20,575 unique reference documents for 17,370
+unique events. Overall, we lost around 4k events due to missing external references.
+Table 5: Extraction Statistics for TiEBe.
+
+Region
+
+Events
+
+References
+
+Extracted
+
+QA English
+
+QA Total
+
+Argentina
+Australia
+Brazil
+Canada
+China
+Colombia
+DR Congo
+Ethiopia
+France
+Germany
+India
+Indonesia
+Mexico
+New Zealand
+Nigeria
+Papua New Guinea
+Portugal
+Russia
+Turkey
+Ukraine
+United Kingdom
+United States
+World
+Total
+
+225
+1438
+637
+500
+427
+155
+185
+206
+476
+374
+852
+1501
+1177
+961
+319
+65
+255
+435
+428
+405
+4466
+3843
+1757
+21087
+
+190
+1955
+769
+475
+381
+145
+168
+240
+332
+293
+784
+1647
+1543
+1649
+313
+75
+279
+446
+636
+330
+5443
+4653
+3948
+26694
+
+140
+908
+650
+402
+326
+129
+161
+199
+300
+269
+699
+1552
+1077
+877
+266
+67
+258
+412
+393
+314
+4733
+3924
+2519
+20575
+
+135
+811
+537
+315
+307
+115
+144
+170
+256
+223
+550
+1339
+982
+849
+248
+59
+228
+362
+379
+290
+4242
+3228
+1601
+17370
+
+270
+811
+1074
+315
+614
+230
+288
+340
+512
+446
+1100
+2678
+1964
+849
+248
+118
+456
+724
+758
+580
+4242
+3228
+1601
+23446
+
+B.3
+
+Question Type Distribution
+
+We analyzed the type of questions that constitute TiEBe, Figure 7 shows the percentage of each
+question type; We can see a higher concentration of ’what’ and ’how many’ questions, with the rest
+reasonably well distributed.
+14
+
+other
+9.6%
+
+how
+5.4%
+
+what
+
+how much
+
+1.8%
+38.4%
+
+18.4%
+
+how many
+
+6.9%
+7.9%
+
+3.2%
+
+when
+
+8.3%
+
+why
+
+who
+
+where
+
+Figure 7: Distribution of question types.
+
+C
+
+TiEBe performance x Socieconomic indicators
+
+Appendix C presents a correlation analysis between models’ average accuracy on events before 2023
+and country-level socioeconomic indicators (Table 3).
+These indicators–GDP (Gross Domestic Product), HDI (Human Development Index), MYS (Mean
+Years of Schooling), and population–are widely recognized and historically significant metrics that
+capture essential dimensions of national development: economic output, human development, educational attainment, and demographic scale, respectively. Their global relevance and comparability
+make them foundational benchmarks for cross-country analyses. For this study, we use values
+anchored to the beginning of our study period (2015). GDP and population data were obtained from
+the World Bank Open Data platform, which aggregates and standardizes economic and demographic
+statistics from national statistical offices and international organizations [25, 26]. HDI and MYS
+data were retrieved from the United Nations Development Programme (UNDP) Human Development Reports, which compile national statistics into composite indices reflecting long-term human
+development trends [21, 22].
+Figures 8 and 9 each plot accuracy against GDP, HDI, MYS, and population in panels (a)–(d): the
+former for English prompts and the latter for native-language prompts.
+
+0.8
+United States
+
+0.6
+
+Argentina
+
+Ukraine
+Ethiopia
+
+Türkiye
+
+Portugal
+New Zealand
+
+Papua New Guinea
+
+Germany
+United
+Kingdom
+CanadaFrance
+Russia India
+Brazil
+Australia
+
+Region
+South America
+Oceania
+North America
+Asia
+Africa
+Europe (Western)
+Europe
+
+0.65
+
+China
+
+Nigeria
+
+0.4
+Democratic Republic of the Congo
+
+Mexico
+Indonesia
+
+Colombia
+
+USA
+
+0.70
+
+Avg Acc of all tested models (before 2023)
+
+Avg Acc of all tested models (before 2023)
+
+1.0
+
+0.2
+
+France Germany
+U.K
+Canada
+China
+
+0.60
+0.55
+
+India
+
+Ethiopia
+
+11.0
+
+11.5
+
+12.0
+Log10(GDP)
+
+12.5
+
+Portugal
+
+Papua New Guinea
+
+New Zealand
+
+0.45
+Nigeria
+
+0.40
+
+13.0
+
+Mexico
+Colombia
+Indonesia
+
+DR Congo
+
+0.5
+
+0.6
+
+(a) Accuracy versus GDP
+0.70
+
+Avg Acc of all tested models (before 2023)
+
+0.65
+
+France
+China
+
+0.60
+Ethiopia
+
+0.55
+
+Germany
+United
+Kingdom
+Canada
+
+Argentina
+Ukraine Russia
+
+India
+Brazil
+
+Portugal
+
+Papua New Guinea
+
+New Zealand
+Nigeria
+
+0.40
+
+Mexico
+Colombia
+
+0.35
+
+2
+
+4
+
+6
+
+8
+MYS
+
+10
+
+Canada
+
+0.60
+0.55
+0.50
+0.45
+
+14
+
+Region
+South America
+Oceania
+North America
+Asia
+Africa
+Europe (Western)
+Europe
+
+Brazil
+Türkiye
+
+Portugal
+Papua New Guinea
+New Zealand
+Nigeria
+
+0.40
+Mexico
+Colombia
+DR Congo
+
+7.0
+
+(c) Accuracy versus MYS
+
+China
+India
+
+Russia
+Ethiopia
+
+Australia
+
+0.30
+12
+
+France
+Germany
+U.K
+
+Argentina
+Ukraine
+
+0.35
+
+Indonesiaof the Congo
+Democratic Republic
+
+0.30
+
+0.9
+
+USA
+
+0.65
+
+Australia
+
+0.45
+
+0.8
+
+0.70
+
+Türkiye
+
+0.50
+
+0.7
+HDI
+
+(b) Accuracy versus HDI
+Region
+South America
+Oceania
+North America
+Asia
+Africa
+Europe (Western)
+Europe
+
+Avg Acc of all tested models (before 2023)
+
+United States
+
+Australia
+Türkiye
+
+0.50
+
+0.30
+10.5
+
+Argentina
+
+Brazil
+
+0.35
+0.0
+
+Russia
+
+Ukraine
+
+Region
+South America
+Oceania
+North America
+Asia
+Africa
+Europe (Western)
+Europe
+
+7.5
+
+8.0
+Population (log scale)
+
+Indonesia
+
+8.5
+
+9.0
+
+(d) Accuracy versus Population
+
+Figure 8: Average accuracy of all tested models in english questions of events before 2023 versus
+various socieconomical indicators.
+
+15
+
+Region
+South America
+Oceania
+North America
+Asia
+Africa
+the United States Europe (Western)
+Europe
+
+0.8
+
+0.6
+
+CanadaFrance
+the United Kingdom
+
+Argentina
+Ukraine
+
+New
+Portugal
+Zealand
+
+Turkey
+Nigeria
+
+0.4
+
+Australia
+Brazil
+Russia
+
+China
+
+Germany
+
+India
+
+Mexico
+
+Colombia
+the Democratic Republic of the Congo
+
+Indonesia
+
+Papua New Guinea
+
+0.2
+
+USA
+
+0.7
+
+Avg Acc of all tested models (before 2023)
+
+Avg Acc of all tested models (before 2023)
+
+1.0
+
+Ethiopia
+
+France U.K
+Canada
+
+0.6
+
+China
+
+Argentina
+
+Brazil
+
+0.5
+
+Australia
+Germany
+
+Russia
+
+Region
+South America
+Oceania
+North America
+Asia
+Africa
+Europe (Western)
+Europe
+
+Ukraine
+Turkey
+Portugal
+
+India
+
+New Zealand
+
+Nigeria
+
+0.4
+
+Mexico
+Colombia
+
+0.3
+
+DR Congo
+
+Indonesia
+Papua New Guinea
+
+0.2
+Ethiopia
+
+0.0
+
+10.5
+
+11.0
+
+11.5
+
+12.0
+Log10(GDP)
+
+12.5
+
+13.0
+
+0.5
+
+0.6
+
+(a) Accuracy versus GDP
+Avg Acc of all tested models (before 2023)
+
+France
+
+0.6
+
+China
+
+the United
+CanadaKingdom
+
+Argentina
+
+Brazil
+
+Australia
+Russia
+
+0.5
+
+Germany
+
+Turkey Portugal
+
+India
+
+New Zealand
+
+Nigeria
+Mexico
+Colombia
+the Democratic
+Indonesia
+Republic of the Congo
+
+0.3
+
+0.9
+
+USA
+
+0.7
+
+Ukraine
+
+0.4
+
+0.8
+
+(b) Accuracy versus HDI
+Region
+South America
+Oceania
+North America
+Asia
+Africa
+Europe (Western)
+Europe
+
+Avg Acc of all tested models (before 2023)
+
+the United States
+
+0.7
+
+0.7
+HDI
+
+Papua New Guinea
+
+0.2
+
+Canada
+
+0.6
+
+U.K
+France
+China
+
+Argentina
+Australia
+
+0.5
+
+Germany Russia Brazil
+
+Region
+South America
+Oceania
+North America
+Asia
+Africa
+Europe (Western)
+Europe
+
+Ukraine
+New Zealand Portugal
+
+Turkey
+
+India
+Nigeria
+
+0.4
+Colombia
+
+Mexico
+DR Congo
+
+0.3
+
+Indonesia
+
+Papua New Guinea
+
+0.2
+Ethiopia
+
+2
+
+Ethiopia
+
+4
+
+6
+
+8
+MYS
+
+10
+
+12
+
+14
+
+7.0
+
+(c) Accuracy versus MYS
+
+7.5
+
+8.0
+Population (log scale)
+
+8.5
+
+9.0
+
+(d) Accuracy versus Population
+
+Figure 9: Average accuracy of all tested models of events before 2023 in questions in their respective
+native languages versus various socieconomical indicators.
+
+Table 6: Country-level socioeconomic indicators (2015).
+Country
+Argentina
+Australia
+Brazil
+Canada
+China
+Colombia
+Ethiopia
+France
+Germany
+India
+Indonesia
+Mexico
+New Zealand
+Nigeria
+Papua New Guinea
+Portugal
+Russia
+Turkey
+Ukraine
+DR Congo
+U.K.
+USA
+
+Region
+
+HDI
+
+GDP
+(USD)
+
+Mean Years
+of Schooling
+
+Population
+
+South America
+Oceania
+South America
+North America
+Asia
+South America
+Africa
+Europe (Western)
+Europe (Western)
+Asia
+Asia
+North America
+Oceania
+Africa
+Oceania
+Europe
+Europe
+Europe
+Europe
+Africa
+Europe (Western)
+North America
+
+0.849
+0.946
+0.760
+0.935
+0.788
+0.758
+0.492
+0.910
+0.950
+0.644
+0.713
+0.781
+0.939
+0.548
+0.568
+0.874
+0.821
+0.855
+0.734
+0.481
+0.940
+0.927
+
+$594 749 285 413
+$1 351 296 372 254
+$1 802 212 206 905
+$1 556 508 816 217
+$11 061 572 618 579
+$293 492 370 193
+$64 589 328 551
+$2 442 483 452 643
+$3 423 568 450 957
+$2 103 588 360 045
+$860 854 232 718
+$1 213 294 467 717
+$178 104 220 785
+$493 026 682 801
+$21 723 437 010
+$199 038 523 120
+$1 363 482 182 198
+$864 313 810 469
+$91 030 967 789
+$37 917 706 497
+$2 927 911 140 917
+$18 295 019 000 000
+
+11.14
+12.72
+8.28
+13.86
+8.11
+8.86
+2.39
+11.68
+14.25
+6.57
+8.56
+9.22
+12.94
+7.59
+4.93
+9.58
+12.41
+8.81
+11.12
+7.21
+13.40
+13.57
+
+43 477 012
+23 815 995
+201 675 532
+35 704 498
+1 379 860 000
+46 969 940
+103 867 135
+66 548 272
+81 686 611
+1 328 024 498
+261 799 249
+121 072 306
+4 609 400
+190 671 878
+8 743 246
+10 358 076
+144 640 716
+78 218 479
+45 784 896
+81 035 531
+65 116 219
+320 738 994
+
+16
+
+D
+
+Full results
+
+Appendix D collates every quantitative figure produced by our evaluation pipeline. For each country
+(plus the “World” category) we display a heat-map of accuracy covering the full 2015 – 2025 window.
+Rows correspond to the nine models under test, while columns represent calendar years. Colour
+intensity encodes accuracy, so reading across a row shows how a single model’s recall evolves through
+time, whereas scanning down a column compares different models on the same year’s events.
+D.1
+
+English Questions
+
+In this subsection, every question is asked in English, regardless of the source article’s original
+language. By keeping the language fixed we minimise the impact of multilingual comprehension on
+accuracy, so the heat-maps reflect primarily each model’s factual recall. Because rows are models
+and columns are years, horizontal patterns reveal a model’s temporal drift, whereas vertical patterns
+highlight which years are universally easier or harder across systems.
+
+17
+
+18
+
+19
+
+D.2
+
+Native-Language Questions
+
+Beyond English prompts, we also test each model with questions translated into the official language
+of every non-English country. Using DeepSeek-V3, we translate both the QA pairs and the judge
+prompt, then require the model to answer in that same language. All other evaluation settings remain
+unchanged.
+
+20
+
+21
+
+

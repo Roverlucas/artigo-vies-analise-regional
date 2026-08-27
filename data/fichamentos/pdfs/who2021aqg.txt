@@ -1,0 +1,2762 @@
+WHO global
+air quality
+guidelines
+Particulate matter (PM2.5 and PM10),
+ozone, nitrogen dioxide, sulfur dioxide
+and carbon monoxide
+
+WHO global
+air quality
+guidelines
+Particulate matter (PM2.5 and PM10),
+ozone, nitrogen dioxide, sulfur dioxide
+and carbon monoxide
+
+WHO global air quality guidelines. Particulate matter (PM2.5 and PM10), ozone, nitrogen dioxide,
+sulfur dioxide and carbon monoxide.
+ISBN 9789240034228 (electronic version)
+ISBN 9789240034211 (print version)
+
+© World Health Organization 2021
+Some rights reserved. This work is available under the Creative Commons Attribution-NonCommercialShareAlike 3.0 IGO licence (CC BYNCSA 3.0 IGO ; https://creativecommons.org/licenses/by-nc-sa/3.0/igo).
+Under the terms of this licence, you may copy, redistribute and adapt the work for non-commercial purposes,
+provided the work is appropriately cited, as indicated below. In any use of this work, there should be no
+suggestion that WHO endorses any specific organization, products or services. The use of the WHO logo
+is not permitted. If you adapt the work, then you must license your work under the same or equivalent
+Creative Commons licence. If you create a translation of this work, you should add the following disclaimer
+along with the suggested citation : “This translation was not created by the World Health Organization
+WHO. WHO is not responsible for the content or accuracy of this translation. The original English edition
+shall be the binding and authentic edition”.
+Any mediation relating to disputes arising under the licence shall be conducted in accordance with the
+mediation rules of the World Intellectual Property Organization . (http://www.wipo.int/amc/en/mediation/
+rules/)
+Suggested citation. WHO global air quality guidelines. Particulate matter (PM2.5 and PM10), ozone,
+nitrogen dioxide, sulfur dioxide and carbon monoxide. Geneva: World Health Organization; 2021. Licence:
+CC BYNCSA 3.0 IGO.
+Cataloguing-in-Publication (CIP data. CIP data are available at http://apps.who.int/iris.
+Sales, rights and licensing. To purchase WHO publications, see http://apps.who.int/bookorders. To submit
+requests for commercial use and queries on rights and licensing, see http://www.who.int/about/licensing.
+Third-party materials. If you wish to reuse material from this work that is attributed to a third party, such
+as tables, figures or images, it is your responsibility to determine whether permission is needed for that
+reuse and to obtain permission from the copyright holder. The risk of claims resulting from infringement of
+any third-party-owned component in the work rests solely with the user.
+General disclaimers. The designations employed and the presentation of the material in this publication
+do not imply the expression of any opinion whatsoever on the part of WHO concerning the legal status
+of any country, territory, city or area or of its authorities, or concerning the delimitation of its frontiers or
+boundaries. Dotted and dashed lines on maps represent approximate border lines for which there may not
+yet be full agreement.
+The mention of specific companies or of certain manufacturers’ products does not imply that they are
+endorsed or recommended by WHO in preference to others of a similar nature that are not mentioned.
+Errors and omissions excepted, the names of proprietary products are distinguished by initial capital letters.
+All reasonable precautions have been taken by WHO to verify the information contained in this publication.
+However, the published material is being distributed without warranty of any kind, either expressed or
+implied. The responsibility for the interpretation and use of the material lies with the reader. In no event
+shall WHO be liable for damages arising from its use.
+Cover image: Pellegrini
+
+Contents
+Foreword ..................................................................................................................................v
+Acknowledgements ................................................................................................................ vi
+Glossary................................................................................................................................... ix
+Abbreviations ......................................................................................................................... xii
+Executive summary .............................................................................................................. xiv
+1. Introduction ................................................................................................................ 1
+1.1 Objectives of the guidelines ......................................................................................3
+1.2 Target audience .........................................................................................................4
+1.3 Background and rationale for updated guidelines ..................................................4
+1.4 WHO guidelines relating to air quality .................................................................... 21
+2. Guideline development process .............................................................................25
+2.1 Introduction .............................................................................................................26
+2.2 Groups involved in and general procedures of guideline development .............27
+2.3 Determining the scope of the guidelines and formulation of review questions....... 30
+2.4 Systematic review of the evidence ...................................................................... 49
+2.5 From evidence to recommendations .....................................................................58
+3. Recommendations on classical air pollutants ........................................................73
+3.1 Introduction .............................................................................................................74
+3.2 PM2.5 ........................................................................................................................74
+3.3 PM10 .........................................................................................................................89
+3.4 Ozone.......................................................................................................................97
+3.5 Nitrogen dioxide ..................................................................................................... 111
+3.6 Sulfur dioxide ........................................................................................................ 125
+3.7 Carbon monoxide ..................................................................................................130
+3.8 Summary of recommended air quality guideline levels and interim targets ....134
+3.9 Supporting burden of disease calculations ........................................................139
+4. Good practice statements about other PM types ..................................................143
+4.1 Introduction ...........................................................................................................144
+4.2 Black carbon/elemental carbon ...........................................................................144
+4.3 Ultrafine particles .................................................................................................149
+4.4 Sand and dust storms ..........................................................................................152
+
+iii
+
+5. Dissemination of the guidelines ............................................................................165
+5.1 Tools and approaches to raise awareness of the guidelines .............................166
+5.2 Risk communication .............................................................................................. 167
+5.3 Advocacy and engagement of stakeholders ......................................................168
+6. Implementation of the guidelines .........................................................................169
+6.1 Significance of the guidelines: an evidence-informed decision support tool .. 170
+6.2 Assessment of national needs and capacity-building ....................................... 172
+6.3 Moving from guidelines to air quality standards ................................................ 173
+6.4 Air quality management ....................................................................................... 178
+6.5 Methodological guidance for health risk assessment of air pollution .............. 182
+6.6 Role of the health sector ......................................................................................185
+6.7 Intersectoral and multistakeholder cooperation ................................................186
+7. Monitoring and evaluation of the guidelines ..........................................................189
+7.1 Tracking the implementation of the guidelines ....................................................192
+7.2 Assessing population exposure to ambient pollution .........................................192
+7.3 Health benefits from implementation of the guidelines .....................................193
+8. Future research needs ........................................................................................... 195
+9. Updating the guidelines .........................................................................................199
+References .................................................................................................................201
+Annex 1. Groups engaged during the development of the guidelines ......................225
+Annex 2. Assessment of conflict of interest ............................................................. 241
+Annex 3. Summaries of systematic reviews of evidence informing the air
+quality guideline levels ............................................................................................. 245
+
+iv
+
+Foreword
+Clean air is fundamental to health. Compared to 15 years ago, when the previous edition
+of these guidelines was published, there is now a much stronger body of evidence to
+show how air pollution affects different aspects of health at even lower concentrations
+than previously understood. But here’s what hasn’t changed: every year, exposure to
+air pollution is still estimated to cause millions of deaths and the loss of healthy years
+of life. The burden of disease attributable to air pollution is now estimated to be on
+a par with other major global health risks such as unhealthy diets and tobacco smoking.
+In 2015, the World Health Assembly adopted a landmark resolution on air quality and
+health, recognizing air pollution as a risk factor for noncommunicable diseases such
+as ischaemic heart disease, stroke, chronic obstructive pulmonary disease, asthma
+and cancer, and the economic toll they take. The global nature of the challenge calls
+for an enhanced global response.
+These guidelines, taking into account the latest body of evidence on the health impacts
+of different air pollutants, are a key step in that global response. The next step is for
+policy-makers around the world to use these guidelines to inform evidence-based
+legislation and policies to improve air quality and reduce the unacceptable health
+burden that results from air pollution.
+We are immensely grateful to all the scientists, colleagues and partners around
+the world who have contributed time and resources to the development of these
+guidelines. As with all WHO guidelines, a global group of experts has derived the
+new recommendations based on a robust and comprehensive review of the scientific
+literature, while adhering to a rigorously defined methodology. This process was
+overseen by a steering group hosted and coordinated by the WHO European Centre
+for Environment and Health.
+Although the burden of air pollution is heterogeneous, its impact is ubiquitous.
+These guidelines come at a time of unprecedented challenges, in the face of the
+ongoing COVID19 pandemic and the existential threat of climate change. Addressing
+air pollution will contribute to, and benefit from, the global fight against climate
+change, and must be a key part of the global recovery, as prescribed by the WHO
+Manifesto for a healthy recovery from COVID19.
+A guideline is just a tool. What matters is that countries and partners use it to improve
+air quality and health globally. The health sector must play a key role in monitoring
+health risks from air pollution, synthesizing the evidence, providing the tools and
+resources to support decision-making, and raising awareness of the impacts of air
+pollution on health and the available policy options. But this is not a job for one sector
+alone; it will take sustained political commitment and bold action and cooperation
+from many sectors and stakeholders. The payoff is cleaner air and better health for
+generations to come.
+
+Dr Tedros Adhanom Ghebreyesus
+
+Dr Hans Henri P. Kluge
+
+WHO Director-General
+
+WHO Regional Director for Europe
+
+v
+
+Acknowledgements
+WHO thanks all members of the steering group, guideline development group,
+systematic review team and external review group for their invaluable contributions
+in the guideline development process.
+WHO, through its European Centre for Environment and Health, coordinated the
+development of these guidelines. The work was coordinated by Román Pérez
+Velasco and Dorota Jarosińska, under the overall supervision of Francesca
+Racioppi, Head of the European Centre for Environment and Health and Nino
+Berdzuli, Director of the Division of Country Health Programmes, WHO Regional
+Office for Europe. María Neira, Director of the Department of Environment, Climate
+Change and Health, WHO headquarters provided invaluable advice and support
+throughout the process.
+Members of the WHO steering group were Heather Adair-Rohani, Magaran Monzon
+Bagayoko, Carlos Dora, Sophie Gumy, Mohd Nasir Hassan, Marie-Eve Héroux,
+Dorota Jarosińska, Rok Ho Kim, Dana Loomis, Mazen Malkawi, Guy Mbayo,
+Pierpaolo Mudu, Lesley Jayne Onyon, Elizabet Paunović, Genandrialine Peralta,
+Román Pérez Velasco, Nathalie Röbbel, Agnes Soares da Silva, Nadia Vilahur
+Chiaraviglio and Hanna Yang (see Annex 1, Table A1.1 for membership periods
+and affiliations).
+Members of the guideline development group were Marwan Al-Dimashki,
+Emmanuel K.E. Appoh, Kalpana Balakrishnan, Michael Brauer, Bert Brunekreef,
+Aaron J. Cohen, Francesco Forastiere, Lu Fu, Sarath K. Guttikunda, Mohammad
+Sadegh Hassanvand, Marie-Eve Héroux, Wei Huang, Haidong Kan, Nguyen Thi
+Kim Oanh, Michał Krzyżanowski (co-chair), Nino Künzli, Thomas J. Luben, Lidia
+Morawska (co-chair), Kaye Patdu, Pippa Powell, Horacio Riojas-Rodríguez,
+Jonathan Samet, Martin Williams (co-chair), Caradee Y. Wright, Xia Wan and
+André Zuber (see Annex 1, Table A1.2 for membership periods and affiliations).
+The systematic review team consisted of the following experts: Richard Atkinson,
+Ariel Bardach, Jie Chen, Agustín Ciapponi, Wei-jie Guan, Gerard Hoek, Peijue
+Huangfu, Mei Jiang, Kuan Ken Lee, Hua-liang Lin, Mark R. Miller, Nicholas L. Mills,
+Pablo Orellano, Nancy Quaranta, Julieta Reynoso, Anoop S.V. Shah, Nicholas Spath
+and Xue-yan Zheng (see Annex 1, Table A1.3 for affiliations).
+The external review group was composed of the following individual members,
+who participated at various stages of the guideline development process:
+
+vi
+
+Samir Afandiyev, Mohammad Alolayan, Richard Ballaman, Jill Baumgartner,
+Hanna Boogaard, David M. Broday, Richard T. Burnett, Jacob Burns, Flemming
+Cassee, Evan Coffman, Séverine Deguen, Sagnik Dey, Dimitris Evangelopoulos,
+Mamadou Fall, Neal Fann, Daniela Fecht, Julia Fussell, Davina Ghersi, Otto
+Hänninen, Barbara Hoffmann, Michael Holland, Yun-Chul Hong, Bin Jalaludin,
+Meltem Kutlar Joss, Juleen Lam, Kin Bong Hubert Lam, Puji Lestari, Morton
+Lippmann, Sylvia Medina, Rajen Naidoo, Mark J. Nieuwenhuijsen, Jeongim Park,
+Rita Pavasini, Annette Peters, Vincent-Henri Peuch, C. Arden Pope III, Reginald
+Quansah, Xavier Querol Carceller, Matteo Redaelli, Eva Rehfuess, Alexander
+Romanov, Anumita Roychowdhury, Jason Sacks, Paulo Saldiva, Najat Saliba,
+Andreia C. Santos, Jeremy Sarnat, Paul T.J. Scheepers, Srijan Lal Shrestha, Mónica
+Silva González, Kirk R. Smith, Massimo Stafoggia, David M. Stieb, Jordi Sunyer,
+Duncan C. Thomas, George D. Thurston, Linwei Tian, Aurelio Tobías Garces, Rita
+Van Dingenen, Sotiris Vardoulakis, Giovanni Viegi, Kuku Voyi, Heather Walton, Paul
+Whaley and Takashi Yorifuji (see Annex 1, Table A1.5 for affiliations).
+The following stakeholder organizations were also part of the external review
+group and, in particular, provided comments on the draft guideline document:
+Abu Dhabi Global Environmental Data Initiative, African Centre for Clean Air,
+Association for Emissions Control by Catalyst, Clean Air Asia, ClientEarth,
+Concawe, European Environment Agency, European Environmental Bureau,
+European Federation of Allergy and Airways Diseases Patients’ Associations,
+European Respiratory Society, Health and Environment Alliance, International
+Society for Environmental Epidemiology, International Transport Forum and South
+Asia Co-operative Environment Programme (see Annex 1, Table A1.6 for details).
+Representatives from the European Commission observed the meetings of the
+guideline development group (Frauke Hoss in 2016 and Thomas Henrichs in
+20182020.
+Special thanks are extended to the guideline development group co-chairs,
+the experts who contributed to several methodological working groups:
+Bert Brunekreef, Aaron J. Cohen, Francesco Forastiere, Gerard Hoek, Michał
+Krzyżanowski, Nino Künzli, Lidia Morawska, Xavier Querol Carceller, Jonathan
+Samet, Massimo Stafoggia, Aurelio Tobías Garces, Martin Williams and Caradee
+Y. Wright (see Annex 1, Table A1.7 for details), and the external methodologists
+Rebecca Morgan and Jos Verbeek (see Annex 1, Table A1.4 for details).
+In addition, WHO would like to express special gratitude to the members of
+the guideline development group who largely drafted the guideline document:
+Michael Brauer, Bert Brunekreef, Aaron J. Cohen, Francesco Forastiere, MarieEve Héroux, Wei Huang, Michał Krzyżanowski, Nino Künzli, Thomas J. Luben,
+
+vii
+
+Lidia Morawska, Pippa Powell, Jonathan Samet, Martin Williams and Caradee
+Y. Wright. The guideline development group worked in collaboration with the
+members of the WHO Secretariat – Dorota Jarosińska, Pierpaolo Mudu and
+Román Pérez Velasco to finalize the draft; their contributions are also acknowledged.
+The draft was reviewed and inputs were provided by all members of the guideline
+development group and of the external review group. Special thanks are
+extended to Bert Brunekreef for his continued support in finalizing this task.
+WHO is grateful to the authors of the Multi-Country Multi-City study, led by
+professor Antonio Gasparrini of the London School of Hygiene and Tropical
+Medicine, United Kingdom, for making available detailed air pollution data for
+the calculation of ratios of higher percentiles of daily concentrations to annual
+means, in support of establishing the short-term air quality guideline levels.
+Martin Williams (co-chair, guideline development group) and Kirk R. Smith
+(external review group member) sadly passed away in 2020 before the publication
+of this document. WHO would like to express our heartfelt appreciation for their
+leadership and dedicated support to WHO and, in particular, to the development
+of air quality guidelines throughout the years and of this edition.
+WHO gratefully acknowledges funding and in-kind contributions from the
+European Commission (Directorate-General for Environment), Federal Ministry
+for the Environment, Nature Conservation and Nuclear Safety (Germany), Federal
+Ministry of Health (Germany), Government of the Republic of Korea, Federal
+Office for the Environment (Switzerland) and the United States Environmental
+Protection Agency.
+
+viii
+
+Glossary
+Abatement. The reduction or elimination of pollution, which involves either
+legislative measures or technological procedures, or both.
+Accountability research. Assessment of the effectiveness of interventions.
+Knowledge gained from such assessments can provide valuable feedback for
+improving regulatory or other action.
+AirQ. A software tool for health risk assessment of air pollution that looks at
+the effects of short-term changes in air pollution (based on risk estimates from
+time-series studies) and of long-term exposures (using the life-tables approach
+and based on risk estimates from cohort studies).
+Air quality guidelines. A series of WHO publications that provide evidenceinformed, non-binding recommendations for protecting public health from the
+adverse effects of air pollutants by eliminating or reducing exposure to hazardous
+air pollutants and by guiding national and local authorities in their risk management
+decisions. The current volume is the latest issue of the series.
+Air quality guideline level. A particular form of a guideline recommendation
+consisting of a numerical value expressed as a concentration of a pollutant in
+the air and linked to an averaging time. It is assumed that adverse health effects
+do not occur or are minimal below this concentration level. For the purposes of
+this document, a long-term air quality guideline level is defined as the lowest
+exposure level of an air pollutant above which the guideline development group
+is confident that there is an increase in adverse health effects; the short-term air
+quality guideline level is defined as a high percentile of the distribution of daily
+values, for example the 99th percentiles equivalent to three to four days a year
+exceeding this value.
+Air quality standard. A given level of an air pollutant (for example, a concentration
+or deposition level) that is adopted by a regulatory authority as enforceable. Unlike
+an air quality guideline level, a number of elements in addition to the effect-based
+level and averaging time must be specified in the formulation of an air quality
+standard. These elements include:
+■
+■
+■
+
+measurement technique and strategy
+data handling procedures (including quality assurance/quality control)
+statistics used to derive, from the measurements, the value to be compared
+with the standard.
+
+ix
+
+The numerical value of a standard may also include a permitted number of
+exceedances of a certain numerical value in a given time period.
+Ambient air pollution. Air pollution in the outdoor environment, that is, in outdoor
+air, but which can enter or be present in indoor environments.
+Averaging time. For the purposes of this document, the duration of the exposure
+with a given mean concentration associated with certain health effects.
+Black carbon. An operationally defined term that describes carbon as measured
+by light absorption. As such, it is not the same as elemental carbon, which is
+usually monitored with thermal-optical methods.
+Concentration–response function. A statistical function or model based on the
+results of epidemiological studies to estimate the relative risk from air pollution for
+a disease or health outcome (e.g. premature death, heart attack, asthma attack,
+emergency room visit, hospital admission) in a population per unit concentration
+of an air pollutant.
+Dust storm (or sand storm). A mix of dust and/or sand particles that has been
+elevated to great heights by a strong, turbulent wind and can travel great distances
+and reduce visibility. Dust or sand readily penetrates into buildings, results in
+severe soiling and may also cause considerable erosion. The particles are usually
+lifted to greater heights in a dust storm than in a sand storm.
+Good practice statement. A statement formulated when a guideline development
+group is confident that a large body of diverse evidence, which is hard to
+synthesize, indicates that the desirable effects of a particular course of action
+far outweigh its undesirable effects. In other words, there is high certainty that
+implementing a measure would be beneficial, without the need for conducting
+numerous systematic reviews and detailed assessments of evidence.
+Hot spot. For the purposes of this document, an area where air pollution levels
+are higher than the average levels in the local environment.
+Household fuel combustion. Air pollution generated by the inefficient combustion
+of fuels in the household environment that results in household air pollution and
+contributes to local ambient air pollution.
+
+x
+
+Integrated exposure–response function. Models that combine exposure and
+risk data for different sources of combustion-related pollution, such as outdoor
+air, second-hand tobacco smoke, active smoking and household air pollution.
+Interim target. An air pollutant concentration associated with a specific decrease
+of health risk. Interim targets serve as incremental steps in the progressive
+reduction of air pollution towards the air quality guideline levels and are intended
+for use in areas where air pollution is high. In other words, they are air pollutant
+levels that are higher than the air quality guideline levels, but which authorities
+in highly polluted areas can use to develop pollution reduction policies that are
+achievable within realistic time frames. The interim targets should be regarded
+as steps towards ultimately achieving air quality guideline levels, rather than as
+end targets.
+Particulate matter. A mixture of solid and liquid particles in the air that are small
+enough not to settle out on to the Earth’s surface under the influence of gravity,
+classified by aerodynamic diameter.
+Ultrafine particle. Particles of an aerodynamic diameter less than or equal to
+0.1 μm (that is, 100 nm). Owing to their small mass, their concentrations are most
+commonly measured and expressed in terms of particle number concentration
+per unit volume of air (for example, number of particles per cm).
+
+xi
+
+Abbreviations
+AAQS
+
+ambient air quality standards
+
+ACTRIS
+
+Aerosol, Clouds and Trace Gases Research
+Infrastructure
+
+APM
+
+anthropogenic particulate matter
+
+AQG level
+
+air quality guideline level
+
+BC/EC
+
+black carbon or elemental carbon (an indicator
+of airborne soot-like carbon)
+
+BenMAPCE
+
+Environmental Benefits Mapping and Analysis
+Program – Community Edition
+
+CanCHEC
+
+Canadian Census Health and
+Environment Cohort
+
+CCAC
+
+Climate and Clean Air Coalition
+
+CEN
+
+European Committee for Standardization
+
+CI
+
+confidence interval
+
+CO
+
+carbon monoxide
+
+COMEAP
+
+Committee on the Medical Effects of Air Pollutants
+
+COPD
+
+chronic obstructive pulmonary disease
+
+CRF
+
+concentration–response function
+
+EEA
+
+European Environment Agency
+
+ERG
+
+external review group
+
+EU
+
+European Union
+
+FAO
+
+Food and Agriculture Organization of the
+United Nations
+
+GBD
+
+Global Burden of Disease (study)
+
+GDG
+
+guideline development group
+
+Global update 2005
+
+Air quality guidelines – global update 2005. Particulate
+matter, ozone, nitrogen dioxide and sulfur dioxide
+
+GRADE
+
+Grading of Recommendations Assessment,
+Development and Evaluation
+
+HEI
+
+Health Effects Institute
+
+HR
+
+hazard ratio
+
+ICD10
+
+International Statistical Classification of
+Diseases and Related Health Problems, 10th edition
+
+IHD
+
+ischaemic heart disease
+
+xii
+
+ISA
+
+US EPA Integrated Science Assessment
+
+MCC
+
+Multi-Country Multi-City
+
+NCD
+
+noncommunicable disease
+
+NDPM
+
+net dust particulate matter
+
+NO2
+
+nitrogen dioxide
+
+O3
+
+ozone
+
+PECOS
+
+population, exposure, comparator, outcome and
+study design
+
+PM
+
+particulate matter
+
+PM2.5
+
+particulate matter, where particles have an
+aerodynamic diameter equal to or less than 2.5 μm
+
+PM10
+
+particulate matter, where particles have an
+aerodynamic diameter equal to or less than 10 μm
+
+PNC
+
+particle number concentration
+
+ppb
+
+parts per billion
+
+ppm
+
+parts per million
+
+RBPM
+
+regional background particulate matter
+
+REVIHAAP
+
+Review of evidence on health aspects of air pollution
+(project)
+
+RoB
+
+risk of bias
+
+RR
+
+relative risk
+
+SDG
+
+Sustainable Development Goal
+
+SDS
+
+sand and dust storms
+
+SDSWAS
+
+Sand and Dust Storm Warning Advisory and
+Assessment System
+
+SO2
+
+sulfur dioxide
+
+Swiss TPH
+
+Swiss Tropical and Public Health Institute
+
+UFP
+
+ultrafine particles
+
+UN
+
+United Nations
+
+UNECE
+
+United Nations Economic Commission for Europe
+
+UNEP
+
+United Nations Environment Programme
+
+US EPA
+
+United States Environmental Protection Agency
+
+VOC
+
+volatile organic compound
+
+WMO
+
+World Meteorological Organization
+
+xiii
+
+Executive summary
+The global burden of disease associated with air pollution exposure exacts
+a massive toll on human health worldwide: exposure to air pollution is estimated
+to cause millions of deaths and lost years of healthy life annually. The burden
+of disease attributable to air pollution is now estimated to be on a par with
+other major global health risks such as unhealthy diet and tobacco smoking,
+and air pollution is now recognized as the single biggest environmental threat to
+human health.
+Despite some notable improvements in air quality, the global toll in deaths and
+lost years of healthy life has barely declined since the 1990s. While air quality
+has markedly improved in high-income countries over this period, it has generally
+deteriorated in most low- and middle-income countries, in step with large-scale
+urbanization and economic development. In addition, the global prevalence of
+noncommunicable diseases (NCDs) as a result of population ageing and lifestyle
+changes has grown rapidly, and NCDs are now the leading causes of death and
+disability worldwide. NCDs comprise a broad range of diseases affecting the
+cardiovascular, neurological, respiratory and other organ systems. Air pollution
+increases morbidity and mortality from cardiovascular and respiratory disease
+and from lung cancer, with increasing evidence of effects on other organ systems.
+The burden of disease resulting from air pollution also imposes a significant
+economic burden. As a result, governments worldwide are seeking to improve air
+quality and reduce the public health burden and costs associated with air pollution.
+Since 1987, WHO has periodically issued health-based air quality guidelines to
+assist governments and civil society to reduce human exposure to air pollution and
+its adverse effects. The WHO air quality guidelines were last published in 2006.
+Air quality guidelines – global update 2005. Particulate matter, ozone, nitrogen
+dioxide and sulfur dioxide WHO Regional Office for Europe, 2006 provided
+health-based guideline levels for the major health-damaging air pollutants,
+including particulate matter (PM,1 ozone (O3), nitrogen dioxide (NO2) and sulfur
+dioxide (SO2). Global update 2005 has had a significant impact on pollution
+abatement policies all over the world. Its publication led to the first universal
+frame of reference.
+In various ways, these guidelines have stimulated authorities and civil society
+alike to increase efforts to control and study harmful air pollution exposures.
+1
+
+That is, PM2.5 (particles with an aerodynamic diameter of ≤ 2.5 μm) and PM10 (particles with an aerodynamic diameter
+
+of ≤ 10 μm).
+
+xiv
+
+In response to this growing awareness, the Sixty-eighth World Health Assembly
+adopted resolution WHA68.8, Health and the environment: addressing the
+health impact of air pollution, which was endorsed by 194 Member States in
+2015 WHO,2015. This resolution stated the need to redouble efforts to
+protect populations from the health risks posed by air pollution. In addition, the
+United Nations (UN Sustainable Development Goals (SDGs) were designed
+to address the public health threat posed by air pollution via specific targets
+to reduce air pollution exposure and the disease burden from household and
+ambient exposure.
+More than 15 years have passed since the publication of Global update 2005.
+In that time there has been a marked increase in evidence on the adverse
+health effects of air pollution, built on advances in air pollution measurement
+and exposure assessment and an expanded global database of air pollution
+measurements (discussed in Chapter 1. New epidemiological studies have
+documented the adverse health effects of exposure to high levels of air pollution
+in low- and middle-income countries, and studies in high-income countries with
+relatively clean air have reported adverse effects at much lower levels than had
+previously been studied.
+In view of the many scientific advances and the global role played by the WHO air
+quality guidelines, this update was begun in 2016.
+
+Objectives
+The overall objective of the updated global guidelines is to offer quantitative
+health-based recommendations for air quality management, expressed as long- or
+short-term concentrations for a number of key air pollutants. Exceedance of
+the air quality guideline (AQG levels is associated with important risks to public
+health. These guidelines are not legally binding standards; however, they do
+provide WHO Member States with an evidence-informed tool that they can use to
+inform legislation and policy. Ultimately, the goal of these guidelines is to provide
+guidance to help reduce levels of air pollutants in order to decrease the enormous
+health burden resulting from exposure to air pollution worldwide.
+Specific objectives are the following.
+■
+
+Provide evidence-informed recommendations in the form of AQG levels,
+including an indication of the shape of the concentration–response function
+in relation to critical health outcomes, for PM2.5, PM10, ozone, nitrogen dioxide,
+sulfur dioxide and carbon monoxide for relevant averaging times.
+
+xv
+
+These pollutants were chosen because of their worldwide importance.
+However, this choice does not imply that other air pollutants are irrelevant.
+■
+
+■
+
+Provide interim targets to guide reduction efforts towards the ultimate and
+timely achievement of the AQG levels for countries that substantially exceed
+these levels.
+Provide qualitative statements on good practices for the management of
+certain types of PM (i.e. black carbon or elemental carbon (BC/EC, ultrafine
+particles (UFP, and particles originating from sand and dust storms (SDS
+for which the available information is insufficient to derive AQG levels but
+indicates risk.
+
+Methods used to develop the guidelines
+The guidelines were formulated by following a rigorous process involving several
+groups with defined roles and responsibilities (Chapter 2. In particular, the
+different steps in the development of the AQG levels included:
+■
+
+■
+
+■
+
+■
+
+a determination of the scope of the guidelines and formulation of systematic
+review questions;
+a systematic review of the evidence and meta-analyses of quantitative effect
+estimates to inform updating of the AQG levels;
+an assessment of the level of certainty of the bodies of evidence resulting from
+systematic reviews for the pollutants; and
+the identification of AQG levels, that is, the lowest levels of exposure for which
+there is evidence of adverse health effects.
+
+In addition, the 2005 air quality interim targets were updated to guide the
+implementation of the new AQG levels, and good practice statements were
+formulated to support the management of the specific types of PM of concern.
+Interim targets are air pollutant levels that are higher than the AQG levels, but
+which authorities in highly polluted areas can use to develop pollution reduction
+policies that are achievable within realistic time frames. Therefore, the interim
+targets should be regarded as steps towards the ultimate achievement of AQG
+levels in the future, rather than as end targets. The number and numerical values of
+the interim targets are pollutant specific, and are justified in the relevant sections
+of Chapter 3.
+The process and methods for developing these guidelines are described in detail
+in Chapter 2.
+ An indicator of airborne soot-like carbon.
+
+xvi
+
+The systematic reviews that informed the formulation of AQG levels and other
+related evidence discussed during the process are available in a special issue
+of Environment International, entitled Update of the WHO global air quality
+guidelines: systematic reviews Whaley et al., 2021.
+
+Recommendations on classical air pollutants
+In this guideline update, recommendations on AQG levels are formulated, together
+with interim targets, for the following pollutants: PM2.5, PM10, ozone, nitrogen
+dioxide, sulfur dioxide and carbon monoxide (Table 0.1. The evidence-informed
+derivation of each AQG level and an indication of the reduction in health risk
+associated with the achievement of consecutive interim targets can be found
+in Chapter 3. Only evidence assessed as having high or moderate certainty of
+an association between a pollutant and a specific health outcome was used to
+define the recommended AQG levels, and all recommendations are classified
+as strong according to the adapted Grading of Recommendations Assessment,
+Development and Evaluation (GRADE approach (discussed in Chapter 2.
+
+Table 0.1. Recommended AQG levels and interim targets
+Pollutant
+
+Averaging time
+
+Interim target
+
+AQG level
+
+1
+
+2
+
+3
+
+4
+
+Annual
+
+35
+
+25
+
+15
+
+10
+
+5
+
+24-houra
+
+75
+
+50
+
+37.5
+
+25
+
+15
+
+Annual
+
+70
+
+50
+
+30
+
+20
+
+15
+
+24-houra
+
+150
+
+100
+
+75
+
+50
+
+45
+
+Peak seasonb
+
+100
+
+70
+
+–
+
+–
+
+60
+
+8-houra
+
+160
+
+120
+
+–
+
+–
+
+100
+
+Annual
+
+40
+
+30
+
+20
+
+–
+
+10
+
+24-houra
+
+120
+
+50
+
+–
+
+–
+
+25
+
+SO2, µg/m3
+
+24-houra
+
+125
+
+50
+
+–
+
+–
+
+40
+
+CO, mg/m3
+
+24-houra
+
+7
+
+–
+
+–
+
+–
+
+4
+
+PM2.5, µg/m3
+
+PM10, µg/m3
+
+O3, µg/m3
+
+NO2, µg/m3
+
+ᵃ 99th percentile (i.e. 34 exceedance days per year).
+ᵇ Average of daily maximum 8-hour mean O3 concentration in the six consecutive months with the highest six-month
+running-average O3 concentration.
+
+xvii
+
+It is important to note that the air quality guidelines recommended in previous
+WHO air quality guidelines for pollutants and those averaging times not covered
+in this update remain valid. This includes the short averaging times for nitrogen
+dioxide, sulfur dioxide and carbon monoxide that were included in Global update
+2005 and indoor air quality guidelines from 2010 (and not re-evaluated in this
+update). Table 0.2 shows existing air quality guidelines for nitrogen dioxide,
+sulfur dioxide and carbon monoxide with short averaging times. The reader is
+referred to previous volumes of air quality guidelines – Air quality guidelines for
+Europe WHO Regional Office for Europe, 1987, Air quality guidelines for Europe,
+2nd edition WHO Regional Office for Europe, 2000a); and WHO guidelines for
+indoor air quality: selected pollutants WHO Regional Office for Europe, 2010  for
+other pollutants that are not covered in this 2021 update.
+
+Table 0.2. Air quality guidelines for nitrogen dioxide, sulfur dioxide and
+carbon monoxide (short averaging times) that were not re-evaluated
+and remain valid
+Pollutant
+
+Averaging time
+
+Air quality guidelines that remain valid
+
+NO2, µg/m3
+
+1-hour
+
+200
+
+SO2, µg/m3
+
+10-minute
+
+500
+
+CO, mg/m3
+
+8-hour
+
+10
+
+1-hour
+
+35
+
+15-minute
+
+100
+
+Good practice statements about other PM types
+As yet, insufficient data are available to provide recommendations for AQG
+levels and interim targets for specific types of PM, notably BC/EC, UFP and SDS.
+However, due to health concerns related to these pollutants, actions to enhance
+further research on their risks and approaches for mitigation are warranted.
+Good practice statements for these pollutants are summarized in Table 0.3.
+The full text of and rationales for the statements can be found in Chapter 4.
+
+xviii
+
+Table 0.3. Summary of good practice statements
+Good practice statements
+
+BC/EC
+
+1.
+
+2.
+3.
+
+UFP
+
+1.
+2.
+
+3.
+
+4.
+
+SDS
+
+1.
+
+2.
+
+3.
+
+4.
+
+5.
+
+Make systematic measurements of black carbon and/or elemental carbon.
+Such measurements should not replace or reduce existing monitoring of those
+pollutants for which guidelines currently exist.
+Undertake the production of emission inventories, exposure assessments and
+source apportionment for BC/EC.
+Take measures to reduce BC/EC emissions from within the relevant jurisdiction
+and, where appropriate, develop standards (or targets) for ambient BC/EC
+concentrations.
+
+Quantify ambient UFP in terms of PNC for a size range with a lower limit of
+ 10 nm and no restriction on the upper limit.
+Expand the common air quality monitoring strategy by integrating UFP
+monitoring into the existing air quality monitoring. Include size-segregated
+real-time PNC measurements at selected air monitoring stations in addition to
+and simultaneously with other airborne pollutants and characteristics of PM.
+Distinguish between low and high PNC to guide decisions on the priorities of
+UFP source emission control. Low PNC can be considered < 1 000 particles/
+cm 24-hour mean). High PNC can be considered > 10 000 particles/cm
+24-hour mean) or 20 000 particles/cm 1-hour mean).
+Utilize emerging science and technology to advance approaches to the
+assessment of exposure to UFP for their application in epidemiological
+studies and UFP management.
+
+Maintain suitable air quality management and dust forecasting programmes.
+These should include early warning systems and short-term air pollution action
+plans to alert the population to stay indoors and take personal measures to
+minimize exposure and subsequent short-term health effects during SDS
+incidents with high levels of PM.
+Maintain suitable air quality monitoring programmes and reporting procedures,
+including source apportionment activities to quantify and characterize PM
+composition and the percentage contribution of SDS to the overall ambient
+concentration of PM. This will enable local authorities to target local PM
+emissions from anthropogenic and natural sources for reduction.
+Conduct epidemiological studies, including those addressing the long-term
+effects of SDS, and research activities aimed at better understanding the
+toxicity of the different types of PM. Such studies are especially recommended
+for areas where there is a lack of sufficient knowledge and information about
+the health risk due to frequent exposure to SDS.
+Implement wind erosion control through the carefully planned expansion of
+green spaces that considers and is adjusted to the contextual ecosystem
+conditions. This calls for regional collaboration among countries in the regions
+affected by SDS to combat desertification and carefully manage green areas.
+Clean the streets in those urban areas characterized by a relatively high
+population density and low rainfall to prevent resuspension by road traffic
+as a short-term measure after intense SDS episodes with high dust
+deposition rates.
+
+PNC particle number concentration.
+
+xix
+
+The settings to which these guidelines apply
+The present guidelines are applicable to both outdoor and indoor environments
+globally. Thus, they cover all settings where people spend time. However, as in
+previous editions, these guidelines do not cover occupational settings, owing to
+the specific characteristics of the relevant exposures and risk reduction policies
+and to potential differences in population susceptibility of the adult workforce
+in comparison with the general population.
+
+What these guidelines do not address
+These guidelines do not include recommendations about pollutant mixtures or
+the combined effects of pollutant exposures. In everyday life, people are exposed
+to a mixture of air pollutants that varies in space and time. WHO acknowledges
+the need to develop comprehensive models to quantify the effects of multiple
+exposures on human health. However, as the main body of evidence on air
+quality and health still focuses on the impact of single markers of ambient air
+pollution on the risk of adverse health outcomes, the current guidelines provide
+recommendations for each air pollutant individually. Achievement of the AQG
+levels for all these pollutants is necessary to minimize the health risk of the
+exposure.
+Furthermore, these guidelines do not address specific recommendations on
+policies and interventions because these are largely context specific: what might
+be effective in one setting might not work in another. Lastly, individual-level
+interventions, such as the use of personal respiratory protection (e.g. masks,
+respirators, air purifiers) or behavioural measures, are addressed in another
+document, Personal interventions and risk communication on air pollution
+WHO, 2020a).
+
+Target audience
+The WHO global air quality guidelines aim to protect populations from the adverse
+effects of air pollution. They are designed to serve as a global reference for
+assessing whether, and how much, exposure of a population (including particularly
+vulnerable and/or susceptible subgroups) to various levels of the considered
+air pollutants results in health concerns. The guidelines are a critical tool for the
+following three main groups of users:
+■
+
+xx
+
+policy-makers, lawmakers and technical experts operating at the local, national
+and international levels who are responsible for developing and implementing
+regulations and standards for air quality, air pollution control, urban planning
+and other policy areas;
+
+■
+
+■
+
+national and local authorities and nongovernmental organizations, civil society
+organizations and advocacy groups, such as patients, citizen groups, industrial
+stakeholders and environmental organizations; and
+academics, health and environmental impact assessment practitioners, and
+researchers in the broad field of air pollution.
+
+These groups are the targets of the information, education and communication
+strategies outlined in Chapter 5. The strategies, and the tools to implement
+them, will be essential to ensure that these global guidelines are widely
+disseminated and considered in policy and planning decisions. In addition,
+these groups are addressed in Chapter 6, on implementation of the guidelines.
+This includes the aspects involved in developing air quality standards based on
+the recommendations and general risk management principles, which are built
+on decades of experience.
+
+Implementation of the guidelines
+While achievement of the AQG levels should be the ultimate goal of actions to
+implement the guidelines, this might be a difficult task for many countries and
+regions struggling with high air pollution levels. Therefore, gradual progress in
+improving air quality, marked by the achievement of interim targets, should be
+considered a critical indicator of improving health conditions for populations.
+Key institutional and technical tools supported by human capacity-building are
+necessary to achieve this goal. Implementation of the guidelines requires the
+existence and operation of air pollution monitoring systems; public access to air
+quality data; legally binding, globally harmonized air quality standards; and air
+quality management systems. Policy decisions to set priorities for action will profit
+from the health risk assessment of air pollution.
+While actions to reduce air pollution require cooperation among various sectors
+and stakeholders, health sector involvement is crucial for raising awareness of the
+impacts of air pollution on health and, thus, the economy, and for ensuring that
+protecting health strongly figures in policy discussions. Monitoring and evaluation
+are equally crucial to ensure that guidelines are implemented; they are addressed
+in Chapter 7.
+Currently, the accumulated evidence is sufficient to justify actions to reduce
+population exposure to key air pollutants, not only in particular countries or regions
+but on a global scale. Nevertheless, uncertainties and knowledge gaps remain.
+Future research (discussed in Chapter 8 will further strengthen the scientific
+evidence base for making decisions on clean air policy worldwide.
+
+xxi
+
+1
+
+Introduction
+
+1. Introduction
+1
+
+The WHO air quality guidelines were last published in 2006 Air quality guidelines –
+global update 2005. Particulate matter, ozone, nitrogen dioxide and sulfur dioxide
+(hereafter referred to as Global update 2005) WHO Regional Office for Europe,
+2006. Since they were issued, air pollution has become recognized as the single
+biggest environmental threat to human health based on its notable contribution
+to disease burden. This is particularly true for PM (both PM2.5, i.e. particles with
+an aerodynamic diameter equal to or less than 2.5 μm, and PM10, i.e. particles
+with an aerodynamic diameter of equal to or less than 10 μm). However, other
+commonly measured air pollutants such as ozone (O3), nitrogen dioxide (NO2),
+sulfur dioxide (SO2) and carbon monoxide (CO are also of concern, as are other
+components of air pollution.
+The burden of disease associated with both ambient and household air pollution
+exposure is large and growing. The growth is partly due to increases in exposures
+in low- and middle-income countries,3 but is in part also due to the rapidly
+increasing prevalence of NCDs worldwide as a result of population ageing and
+lifestyle changes. Air pollution especially increases morbidity and mortality
+from the noncommunicable cardiovascular and respiratory diseases that are
+the major causes of global mortality; it also increases the disease burden from
+lower respiratory tract infections and preterm birth and other causes of death
+in children and infants, which remain a major cause of the disease burden in
+low- and middle-income countries. Although air quality has improved gradually in
+high-income countries in the past decades, pollutant concentrations still exceed
+the levels published in Global update 2005 for several pollutants in many areas.
+Air quality has generally deteriorated in most low- and middle-income countries,
+in step with large-scale urbanization and economic development that has largely
+relied on the burning of fossil fuels. Disparities in air pollution exposure are,
+therefore, increasing worldwide.
+Science advances and, since the 2005 air quality guidelines were established,
+many new studies have continued to document the adverse health effects of air
+pollution. During this time, enormous advances have also occurred in measuring
+levels and trends in ground-level air pollution concentrations. In particular, the use
+of satellite remote sensing instruments in combination with advanced chemical
+transport models and ground-based measurements has substantially improved
+the understanding of worldwide pollution levels and trends. Studies conducted
+in low- and middle-income countries where concentrations are high are of great
+importance; however, equally important are studies in very clean areas, which
+answer important questions on the effects of low-level exposures and the
+evaluation of thresholds.
+ Country income groupings of low, lower-middle, upper-middle and high are determined by the World Bank based on
+gross national income per capita (World Bank, 2021.
+
+2
+
+WHO GLOBAL AIR QUALITY GUIDELINES
+
+These studies provide critical information on the benefits that might be expected
+if air pollution levels were reduced worldwide. In view of these many advances,
+revision of Global update 2005 was both timely and necessary. This revision
+benefited from thousands of new studies and from following the rigorous
+process for developing guidelines outlined in the WHO handbook for guideline
+development, 2nd edition WHO, 2014a).
+Global update 2005 has had a significant impact on abatement policies all over
+the world. Its publication led to the first universal frame of reference. In various
+ways, the air quality guidelines have stimulated authorities and civil society alike
+to increase efforts to control harmful air pollution exposures. Major challenges still
+exist, however, and it is hoped that this update of the WHO air quality guidelines
+will continue to inspire and guide pollution reduction policies all over the world.
+
+1.1 Objectives of the guidelines
+The overall objective of these guidelines is to offer quantitative health-based
+recommendations for air quality, expressed as long- or short-term concentrations
+of a number of key air pollutants. Exceedance of the air quality guideline levels
+(hereafter referred to as AQG levels) is associated with important risks to public
+health. These guidelines are not legally binding standards; however, they do
+provide countries with an evidence-informed tool, which they can use to inform
+legislation and policy. In addition, the air quality guidelines will be a key component
+to support air quality policies globally and the development of standards, clean air
+policies and other tools for air quality management. Ultimately, the goal of these
+guidelines is to provide guidance to help reduce levels of air pollutants in order
+to decrease the enormous worldwide health burden resulting from exposure to
+air pollution.
+Specifically, the objectives of these guidelines are the following.
+■
+
+■
+
+Provide evidence-informed recommendations in the form of AQG levels,
+including an indication of the shape of the concentration–response function
+CRF in relation to critical health outcomes, for PM2.5, PM10, nitrogen dioxide,
+ozone, sulfur dioxide and carbon monoxide for relevant averaging time periods.
+These pollutants were chosen in the process described in section 2.3 because
+of their worldwide importance. This choice does not imply that other air
+pollutants are irrelevant.
+Provide interim targets to guide reduction efforts towards the ultimate and
+timely achievement of the AQG levels for those countries that substantially
+exceed the AQG levels.
+
+INTRODUCTION
+
+3
+
+■
+
+Provide qualitative statements on good practices for the management of
+certain types of PM  that is, BC/EC, UFP and particles originating from SDS
+– for which the available information is insufficient to derive AQG levels but
+indicates risk.
+
+1.2 Target audience
+The WHO guidelines to protect populations from the adverse effects of air pollution
+are designed to serve as a global reference for an audience of different groups
+of end-users, including those involved in policy-making, research and advocacy.
+Broadly, three main groups can be identified:
+■
+
+■
+
+■
+
+policy-makers, lawmakers and technical experts at the local, national and
+international levels who are responsible for developing and implementing
+regulations and standards for air quality, air pollution control, urban planning
+and other policy areas;
+national and local authorities and nongovernmental organizations, civil society
+organizations and advocacy groups, such as patients, citizen groups, industrial
+stakeholders and environmental organizations; and
+academics, health and environmental impact assessment practitioners and
+researchers in the broad field of air pollution.
+
+1.3 Background and rationale for updated guidelines
+An update of the global WHO air quality guidelines was required for several reasons.
+More than 15 years have passed since the publication of Global update 2005 and
+in the intervening years knowledge about the exposure of human populations, the
+adverse health effects of this exposure and the public health threat that it poses
+has seen a marked increase. Insight into global concentrations of some pollutants
+such as PM, ozone and nitrogen dioxide has increased dramatically (section 1.3.1.
+This is also true for insights in sources of emissions (section 1.3.2 and in the
+contribution of air pollutants to the global burden of disease (section 1.3.3. Much
+has been learned about the importance of addressing health inequities related
+to air pollution and of protecting vulnerable groups in society (section 1.3.4.
+Enormous advances have occurred since the early 2000s in measuring levels
+and trends in ground-level air pollution concentrations, and section 1.3.5 provides
+a summary of some major trends and achievements. Finally, there have been
+significant advances in the worldwide adoption of the air quality guidelines
+presented in Global update 2005 (section 1.3.6, and mitigating air pollution has
+become more central in WHO and UN activities related to achieving the UN SDGs
+(section 1.3.7.
+
+4
+
+WHO GLOBAL AIR QUALITY GUIDELINES
+
+1.3.1 Global concentrations and trends
+Measurement of air pollutant concentrations at fixed-location monitoring sites has
+been the traditional approach used for air quality management, for assessment
+of trends and to estimate exposure for epidemiological analyses. However,
+despite growth in the numbers of monitoring locations globally, even for the
+most commonly monitored pollutants, coverage is inadequate – that is, it is often
+restricted to major cities – to accurately estimate exposure in the many different
+places where people live. There are two major gaps.
+The first is a lack of monitoring in many countries of the world and inadequate
+monitoring in rural areas or outside of major cities in many countries. Although
+there is increasing coverage of PM monitoring, coverage for other pollutants such
+as ozone, nitrogen dioxide and sulfur dioxide is less extensive. The second gap
+relates to inadequate monitoring to characterize the spatial variation in specific
+air pollutants within cities. In particular, this holds for concentrations of pollutants
+such as nitrogen dioxide and black carbon and UFP (diameter of ≤ 0.1 µm; or
+broader quasi-UFP, as discussed in section 4.3 on UFP, which may vary by an
+order of magnitude over just a few hundred metres (Karner, Eisinger & Niemeier,
+2010. Since 2010, there has been a dramatic improvement in the combination
+of satellite data retrievals and chemical transport models with land-use information
+and ground measurements to estimate concentrations globally, which have been
+used to address the first gap (Shaddick et al., 2018; Brauer et al., 2012, 2016;
+Larkin et al., 2017; de Hoogh et al., 2016; Novotny et al., 2011; Hystad et al., 2011;
+Knibbs et al., 2014; Chang et al., 2019. To address the second gap, land-use
+regression models (Hoek et al., 2008 have been used increasingly – these models
+capture within-city variability, as discussed for example for UFP Morawska et
+al., 2008, and have been scaled up to the global context for nitrogen dioxide
+Larkin et al., 2017.
+Although in many countries, regional and local authorities maintain accessible
+databases of air quality measurements, the only global databases are the
+WHO Global Ambient Air Quality Database and OpenAQ. The WHO Global Ambient
+Air Quality Database provides information on the annual average concentrations
+of PM10 and PM2.5 for specific cities based on available measurements (including
+averages from multiple monitors within a single city, where these are available)
+WHO, 2021a). OpenAQ is a non-profit-making effort to maintain an open-source
+database of aggregated current and archived air quality data gathered in real
+time from government agencies (OpenAQ, 2021. Despite the progress made in
+monitoring and in data access, many publicly funded agencies still do not provide
+easy access to data.
+
+INTRODUCTION
+
+5
+
+Exposure to air pollutants is heavily dependent on their ambient concentrations.
+Ambient PM2.5 concentrations vary substantially between and within regions of
+the world. Importantly, more than 90% of the global population in 2019 lived in
+areas where concentrations exceeded the 2005 WHO air quality guideline of
+10 µg/m3. In 2019 annual population-weighted PM2.5 concentrations were highest
+in the WHO South-East Asia Region, followed by the WHO Eastern Mediterranean
+Region. Elevated concentrations were also observed in some western African
+countries, largely due to the impact of Saharan dust. Windblown desert dust
+sometimes contributes to very high exposures to coarse particles larger than
+2.5 µm or10 µm in diameter. This is a prominent issue in many arid areas in the
+Middle East, northern Africa, the Gobi desert and elsewhere.
+Many of the countries with the lowest national PM2.5 exposure levels were either
+in the WHO Region of the Americas or parts of the WHO European Region.
+Population-weighted PM2.5 concentrations averaged 7 μg/m3 or less in these
+countries. Trends in PM2.5 indicate a relatively stable population-weighted
+global mean concentration, which reflects both decreases in exposure in the
+WHO European Region, the WHO Region of the Americas and the WHO Western
+Pacific Region but increases elsewhere.
+Population-weighted ozone concentrations vary less dramatically than is the case
+for PM2.5, for example ranging from 3050 µg/m3, mostly in small island nations,
+to 120140 µg/m3 in Asia and the Middle East. Among the world’s most populous
+countries in southern Asia, population-weighted seasonal ozone concentrations
+range up to approximately 130 µg/m3. Concentrations in African mega-cities are
+also likely to be high but there is still comparatively little documentation.
+Trends in ozone at a regional scale show little change over time, although
+decreases within North America and Europe and increases in the Middle East
+and much of Asia are apparent.
+The patterns of ambient nitrogen dioxide concentrations are quite different from
+those of PM2.5 and ozone, with the highest population-weighted concentrations
+in eastern Asia, the Middle East, North America and much of Europe, reflecting
+mobile sources (Larkin et al., 2017; Achakulwisut et al., 2019. In addition, nitrogen
+dioxide displays a distinct urban–rural gradient, with higher concentrations in
+more densely populated urban areas. This pattern contrasts distinctly from
+that of ozone, which displays higher concentrations downwind of urban
+areas, and PM2.5, which is more homogeneous regionally due to its longer
+atmospheric lifetime and diversity of (urban, rural and regional) sources. Trends in
+population-weighted nitrogen dioxide concentrations (for 19922012 indicated
+
+6
+
+WHO GLOBAL AIR QUALITY GUIDELINES
+
+sharp decreases (-4.7%/year) in high-income North American countries and
+somewhat lesser decreases in western Europe (-2.5%/year) and high-income
+Asia–Pacific countries (-2.1%/year). In contrast, population-weighted nitrogen
+dioxide concentrations increased dramatically during this period in eastern Asia
+at a rate of 6.7%/year. Judging from satellite observations, concentrations in
+Africa seem to be generally low, with some evidence of increases in northern
+Africa and stable or slightly decreasing levels elsewhere (Geddes et al., 2016.
+However, there are few actual monitoring data on small-scale spatial variability
+within mega-cities in Africa.
+
+1.3.2 Sources of emissions and exposure
+Air pollution originates from numerous sources of emission, both natural and
+anthropogenic, with the latter becoming globally dominant since the beginning
+of industrialization. The process of combustion is the greatest contributor to air
+pollution, in particular, the combustion of fossil fuels and biomass to generate
+energy. In indoor environments, the use of polluting fuels in unvented heating
+and cooking stoves, tobacco combustion and combustion for other purposes,
+such as cultural or religious practices are also important. Fossil and biomass fuel
+burning for domestic heating is also an important source of outdoor air pollution
+in many parts of the world.
+Outdoor combustion sources include land, air and water transportation; industry
+and power generation; and biomass burning, which includes controlled and
+uncontrolled forest and savannah fires and agricultural waste burning, as well
+as waste burning in urban areas. Other sources and processes contributing to
+outdoor pollution are the resuspension of surface dust and construction activities.
+Long-range atmospheric transport of pollutants from distant sources contributes
+to local pollution, particularly urban air pollution. Some of the pollutants are emitted
+directly by combustion sources as primary pollutants (with elemental carbon as the
+main constituent of PM, and some are formed in the air as secondary pollutants
+(such as nitrates, sulfates and organic carbon) through complex physicochemical
+processes involving gaseous precursors originating from combustion sources,
+agriculture (ammonia), other anthropogenic processes and natural processes
+such as biogenic emissions.
+Comprehensive reviews of sources and concentrations of major outdoor air
+pollutants have been published by the United States Environmental Protection
+Agency (US EPA 2010, 2016, 2017, 2019a, 2020. The European Environment
+Agency (EEA every year produces a comprehensive report on air quality in
+Europe; the latest one from 2020 EEA, 2020.
+
+INTRODUCTION
+
+7
+
+In indoor environments, pollution is also generated by combustion sources,
+mainly cooking and heating with polluting fuels such as coal, wood or dung; and
+using candles, incense and kerosene lamps (e.g. for light or religious practices).
+Tobacco smoking is also a significant source of indoor pollution. Non-combustion
+sources and processes also have a significant impact on indoor air pollution,
+particularly those that generate volatile and semi-volatile organic compounds
+VOCs) and/or ozone. These include the renovation of houses, usage of consumer
+products (e.g. cleaning products and insecticides) and operation of electric
+devices such as laser printers. Dust resuspension due to human movement is
+another significant source in some indoor environments, particularly in schools.
+However, indoor air pollution is generated not only from indoor sources but also
+from outdoor air pollutants that are brought indoors in the processes of ventilation
+and penetration through the building envelope. In indoor environments without
+indoor sources of pollution, pollutants from outdoors are the main cause of indoor
+air pollution. Exposure is then further influenced by indoor decay, which is very
+fast for substances such as ozone (which is very reactive) and very slow for
+substances such as carbon monoxide (which is fairly inert).
+Airborne pollutants originating from the sources and processes listed above
+include PM (measured as PM2.5, PM10 and UFP, gaseous pollutants (including
+ammonia (NH3), carbon monoxide, nitrogen dioxide, sulfur dioxide and ozone)
+and organic air pollutants. PM is partly formed in the atmosphere through
+chemical reactions that produce inorganic nitrates and sulfates, as well as
+organic compounds summarized as organic carbon. Other airborne pollutants not
+discussed in this document include radon and its decay products, and biological
+agents. WHO has developed dedicated air quality guidelines for these and for
+other selected pollutants, dampness and mould, and household fuel combustion
+WHO, 2014b; WHO Regional Office for Europe, 2009, 2010.
+The spatial and temporal concentration of pollutants in outdoor air varies according
+to the spatial distribution of the sources and their pattern of operation (e.g. daily
+or seasonal), the characteristics of the pollutants and their dynamics (dispersion,
+deposition, interaction with other pollutants), and meteorological conditions.
+In urban environments, some pollutants are distributed more homogeneously than
+others; for example, PM2.5 concentration has much less spatial variation compared
+with the concentration of UFP or gases directly emitted by local combustion
+sources. Importantly, spatial variation determines to what extent ambient
+concentrations measured at a single fixed site reflect the outdoor concentrations
+at other sites in the area. Temporal variation is a very important feature of ambient
+air pollution.
+
+8
+
+WHO GLOBAL AIR QUALITY GUIDELINES
+
+Emissions often have specific and predictable temporal patterns (e.g. weekdays
+versus weekends). Most importantly, however, meteorological conditions are very
+strong determinants of temporal variations, and can have far larger effects than
+the temporal variation in emission alone. Epidemiological research of short-term
+health effects capitalizes on these short-term temporal variations in ambient
+concentrations. It offers opportunities to investigate whether temporally varying
+markers of health, including the number of adverse health events, correlate with
+the temporal variation in ambient concentrations of pollutants.
+In indoor environments, concentrations of pollutants originating from outdoor
+air are influenced by their outdoor spatiotemporal patterns of concentration
+and, in particular, by the proximity of the building to outdoor sources (e.g. busy
+roads). Furthermore, indoor pollution concentrations depend on the amount of
+air pollution penetrating from outdoors; this is dependent on the penetration
+fraction, the ventilation rate and the decay rate. The penetration coefficient varies
+for different particle size fractions and is highest for PM2.5. Finally, indoor pollution
+concentrations depend on the temporal pattern of operation of outdoor sources
+(e.g. traffic) but also on indoor sources (e.g. the daily cycle of cooking) and the
+decay process (in the case of highly reactive gases such as ozone).
+People are exposed to air pollution in all the microenvironments in which they
+spend time, and the exposure puts them at risk. A microenvironment is defined
+as a three-dimensional space in which the pollutant level is uniform at some
+specified time. Exposure is a product of the pollutant concentration and the time
+over which a person is in contact with that pollutant. Assessment of exposure
+constitutes an element of risk assessment that is schematically represented as a
+chain of events from emissions through air pollution concentrations, population
+exposure, and body burden and pollutant dose at the organ or cellular level,
+to health risk.
+In some locations, pollutant concentrations are low but the overall contribution
+to the exposure is high because of the longer time spent there (e.g. at home); in
+other locations, pollutant concentrations are very high (e.g. at traffic hot spots),
+and even short periods of time spent at such locations result in high exposures.
+When concentration varies with time, the time-averaged concentration is used
+for exposure calculation. For health risk assessment, exposures are defined on
+different time domains as (i) lifetime exposure, which is the sum of exposures that
+occurred in different environments – this is particularly important for carcinogenic
+pollutants; (ii) long-term exposure, measured as a mean of one or several years;
+and (iii) short-term exposure, measured over minutes to days.
+
+INTRODUCTION
+
+9
+
+Considering indoor exposures is important because people spend most of their
+time in various indoor environments, including home, workplace, school and
+commuting (where the microenvironment is a bus, car or train). Indoors is also
+where exposure predominantly occurs for vulnerable population groups, as sick
+and older people may not venture outside much. Although the exposures occur
+indoors, they are caused by both outdoor and indoor sources of emissions, since
+outdoor pollutants penetrate indoors, as discussed above.
+The most accurate assessment of the risk caused by total air pollution would
+be based on the assessment of each individual’s personal exposure, which
+would require pollution measurements in each microenvironment in which the
+individual spends time and an accurate account of the time spent there (time–
+activity diary). Yet, the most accurate assessment of exposure to ambient outdoor
+pollution – which is subject to clean air policy-making – may not necessarily
+be the measurement of personal exposure, unless the measured indicator of
+pollution is clearly and solely of outdoor origin. Presently it is not possible to
+measure all of the relevant pollutants in all microenvironments for each individual;
+therefore, the approach to exposure assessment is pragmatically based on the
+purpose of the assessment. For example, for studies on the long-term impact of
+outdoor air pollution (chronic effects), data are typically sourced from a limited
+number of monitors operating in some central outdoor locations. This has been
+shown to effectively represent population exposure to outdoor pollutants that
+are distributed more homogeneously, such as PM2.5 or ozone. More complicated
+is exposure assessment for studies on the acute effects of air pollution (such as
+mortality or hospital admissions), where spatiotemporal variations in pollution
+need to be taken into account. However, for many pollutants, daily concentrations
+are often very highly correlated temporally across rather large regions and, thus,
+temporal variation may be well captured by single monitors.
+Advanced methods of exposure assessment are available, including not only
+ground base monitoring of pollution but also the use of satellite observations
+and various modelling tools such as chemical transport models and land-use
+regression models. Those modelling approaches have overcome some of the
+former limitations of reliance on only a few monitoring stations to describe
+population exposure in space and time.
+
+1.3.3 Disease and economic burden
+Air pollution is the leading environmental risk factor globally. WHO estimates
+show that around 7 million deaths, mainly from noncommunicable diseases, are
+attributable to the joint effects of ambient and household air pollution (WHO, 2018.
+
+10
+
+WHO GLOBAL AIR QUALITY GUIDELINES
+
+Similar global assessments of ambient air pollution alone suggest between 4 million
+and 9 million deaths annually and hundreds of millions of lost years of healthy life,
+with the greatest attributable disease burden seen in low- and middle-income
+countries (Burnett et al., 2018; GBD 2019 Risk Factors Collaborators, 2020; Vohra
+et al., 2021; WHO, 2018. To date, strong evidence shows causal relationships
+between PM2.5 air pollution exposure and all-cause mortality, as well as acute lower
+respiratory infections, chronic obstructive pulmonary disease (COPD, ischaemic
+heart disease (IHD, lung cancer and stroke (Cohen et al., 2017; WHO, 2018.
+A growing body of evidence also suggests causal relationships for type II diabetes
+and impacts on neonatal mortality from low birth weight and short gestation
+GBD 2019 Risk Factors Collaborators, 2020. Air pollution exposure may
+increase the incidence of and mortality from a larger number of diseases than
+those currently considered, such as Alzheimer’s and other neurological diseases
+Peters et al., 2019. The burden of disease attributable to air pollution is now
+estimated to be competing with other major global health risks such as unhealthy
+diet and tobacco smoking, and was in the top five out of 87 risk factors in the
+global assessment (GBD 2019 Risk Factors Collaborators, 2020.
+At the time of publishing these guidelines, global burden estimates are limited
+to PM2.5 and ozone. Other common pollutants such as nitrogen dioxide and sulfur
+dioxide are not yet included and, therefore, these figures based on exposure
+to PM2.5 and ozone are likely to underestimate the full health toll from ambient air
+pollution. For example, an analysis of the disease burden attributable to nitrogen
+dioxide on one outcome, incident paediatric asthma, indicated that nitrogen
+dioxide pollution was responsible for 13% of the burden (Achakulwisut et al., 2019.
+With a spatial pattern quite different than that for PM2.5, exposure to nitrogen
+dioxide resulted in a comparatively high burden in many high-income countries.
+Air pollution also leads to health-related economic impacts. Such impacts arise
+via two major pathways. The first, human health costs, are those related to the
+incidence of disease and mortality and are estimated by a willingness-to-pay
+approach. The second is due to lost labour productivity. In 2013 the World Bank
+estimated a global economic impact of US$ 143 billion in lost labour income and
+of US$ 3.55 trillion in welfare losses from exposure to PM2.5 World Bank, 2016.
+The welfare losses ranged from an equivalent of 1% of gross domestic product in
+low-income countries to 5% in high-income countries not within the Organisation
+of Economic Co-operation and Development. Apart from the health-related
+burden, air pollution causes additional economic costs such as through its
+impact on agricultural crops or through damage to buildings and infrastructure.
+In addition, there are costs associated with air pollution-related climate change
+and environmental degradation.
+
+INTRODUCTION
+
+11
+
+Although some uncertainty surrounding the exact disease burden remains
+(discussed in Chapter 8, it is clear that the global burden of disease associated
+with air pollution takes a massive toll on human health and the economy worldwide:
+exposure to air pollution is estimated to cause millions of deaths and lost years
+of healthy life, as well as a loss of trillions of dollars annually. Air pollution is
+now recognized as the single largest environmental threat to human health
+and well-being.
+
+1.3.4 Inequities and vulnerable and susceptible groups
+As already discussed, air pollution from both ambient sources and household use
+of polluting fuels is a recognized threat to human health, even at low exposures,
+and causes increased mortality and morbidity worldwide.
+This burden of disease is unevenly distributed, often disproportionately affecting
+the most vulnerable and susceptible populations. The impact of air pollution can
+be seen on vulnerable individuals with greater exposure levels and susceptible
+individuals with chronic conditions (such as asthma, COPD, diabetes, heart failure
+and IHD, as well as children and pregnant women.
+According to WHO, health equity is the “the absence of unfair and avoidable
+or remediable differences in health among population groups defined socially,
+economically, demographically or geographically” WHO, 2020b). Health
+inequities, therefore, involve more than inequality with respect to health
+determinants, access to the resources needed to improve and maintain health,
+and health outcomes. They also entail a failure to avoid or overcome inequalities
+that infringe on fairness and human rights norms.
+The fact that this burden of disease and mortality is unevenly distributed also
+impedes reduction of inequities and progress towards achieving full human rights
+and the UN SDGs. Global efforts to reduce pollution levels will have a positive
+impact on lowering inequity (Universal Declaration of Human Rights, Art. 1 and
+Art. 2 and will promote the right of life and security by ensuring safe and healthy
+environments (as stated in Art. 3 UN, 1948.
+Successful interventions are feasible, effective and compatible with economic
+growth. However, only a few studies have looked at equity in health when
+evaluating intervention delivery. In general, interventions that aim to reduce air
+pollution in urban areas have a positive impact on air quality and mortality rates,
+but the documented effect on equity is less straightforward. There is no evidence
+on whether applied air pollution reduction interventions have reduced health
+inequalities, since results from studies published to date have been mixed and
+
+12
+
+WHO GLOBAL AIR QUALITY GUIDELINES
+
+not all interventions have had a positive distribution of health benefits. Indeed,
+depending on the health outcome(s) under study and intervention type/study
+design (simulations of air pollution concentrations or real interventions),
+more vulnerable groups such as older persons and deprived households
+were found to benefit more, equally or less than their socially better-off
+counterparts. For an in-depth review of published studies until the early 2010s,
+see Benmarhnia et al. 2014.
+The largest inequities in air pollution exposure occur on the global rather
+than the local scale. Indeed, countries with policy-driven improvements in air
+quality have often seen particularly steep declines in pollution at hot spots since
+the 1990s, whereas declines have been gradual in regions with already good
+air quality. However, on a global scale, the steep decline in pollution in the
+vast majority of high-income countries is paralleled by an unprecedented
+increase in low- and middle-income countries. As documented by
+Zhang et al. 2017, the model of globalized movements of goods with
+inequities in emission and air quality standards contributes to inequity in
+air quality (UNEP, 2020. Weak policies in low- and middle-income countries allow
+pollution from the production of goods that are ultimately consumed in part in
+high-income countries.
+
+1.3.5 Progress on scientific evidence
+There has been tremendous progress in the scientific understanding of the health
+effects of air pollution since the early 2000s.
+First of all, health effects of air pollution have now been studied in most
+WHO regions; in contrast, almost all evidence underpinning Global update 2005
+came from studies in Europe and North America. This is especially true for studies
+of short-term effects on mortality and morbidity (Chen et al., 2017; Yang J et al.,
+2020. However, quite a few studies of long-term effects have now also been
+reported, especially from Asia and Oceania. These studies have generally found
+relationships between air pollutants and ill-health that are qualitatively similar
+to those in high-income countries, although the CRFs are sometimes quantitatively
+different, with less steep relationships at high than at low concentrations (Yang
+X et al., 2020; Hanigan et al., 2019.
+Secondly, air pollution has now been implicated in the development or worsening
+of several health conditions not considered in previous research. These
+include, among others, asthma, diabetes, reproductive outcomes and several
+neurocognitive end-points (Yang BY et al., 2020; Paul et al., 2019 Thurston et
+al., 2017.
+
+INTRODUCTION
+
+13
+
+Thirdly, many studies have tried to identify which sources and/or physicochemical
+characteristics of airborne PM contribute most greatly to toxicity. This is a
+challenging area of research, given the great heterogeneity of airborne particles,
+and a definitive set of particle characteristics has yet to be identified. However,
+in its 2013 review of the evidence (WHO Regional Office for Europe, 2013a),
+WHO did point out that a focus on primary combustion particles, secondary
+inorganic aerosols and secondary organic aerosols was warranted (Thurston et
+al., 2016b; US EPA, 2019a; Lippmann et al., 2013; Vedal et al., 2013.
+Lastly, investigators have learned to collaborate on an unprecedented scale. Prior
+to 2005, there were few examples of multicentre studies in the domain of timeseries studies investigating the short-term effects of air pollution; two notable
+examples are the Air Pollution and Health, a European Approach (APHEA studies in
+Europe and the National Morbidity and Mortality Air Pollution Study (NMMAPS in
+the United States of America. These were followed after 2005 by the Air Pollution
+and Health: A European And North American Approach (APHENA study across
+Europe, Canada and United States (Samoli et al., 2008; the ESCALA Estudio de
+Salud y Contaminación del Aire en Latinoamérica) study in Latin America (Romieu
+et al., 2012; and the Public Health and Air Pollution in Asia (PAPA study in Asia
+Wong et al., 2008  all studies of short-term effects. A remarkable culmination
+is the Multi-Country Multi-City (MCC Collaborative Research Network (Chen et
+al., 2021; Liu et al., 2019; Meng et al., 2021; Vicedo-Cabrera et al., 2020, which
+combines multiyear data from 652 cities across the world in a single joint analysis
+of the short-term effects of PM2.5, ozone, nitrogen dioxide and carbon monoxide,
+among other studies. Large collaborations have also emerged in studies of longterm effects such as the European Study of Cohorts for Air Pollution Effects
+ESCAPE, which includes data from 36 different cohorts (Beelen et al., 2014.
+Another example is the Global Exposure Mortality Model (GEMM, which includes
+data from 41 cohorts from 16 countries across the globe (Burnett et al., 2018.
+Finally, an ongoing collaboration is studying the long-term health effects of low
+levels of air pollution in Europe (HEI, 2021, Canada and the United States (Brauer
+et al., 2019; Dominici et al., 2019.
+Collectively, these studies have considerably strengthened the evidence for health
+effects of air pollution by increasing study power and using highly standardized
+preplanned methods of data collection, analyses and reporting (Brauer et al.,
+2019; Di et al., 2017a).
+Methods of assessing exposure to air pollution have become much more refined.
+In 2005 the annual air quality guideline for PM2.5 was largely based on results
+from two studies, the Harvard Six Cities study (Dockery et al., 1993 and the
+
+14
+
+WHO GLOBAL AIR QUALITY GUIDELINES
+
+American Cancer Society Cancer Prevention Study II Pope et al., 2002. In these
+studies, exposure to PM2.5 was assessed from one or a few monitoring sites per
+city. In addition, advanced chemical transport models, land-use regression
+models, satellite observations and much more detailed ground-level monitoring
+have formed the basis for very detailed assessment of exposure to PM2.5 (as
+well as other pollutants) at very fine temporal and spatial scales. This has been
+useful not only for population studies of health effects but also for estimating
+the worldwide health impact of air pollution (Hammer et al., 2020; de Hoogh et
+al., 2018.
+These new methods of exposure assessment have facilitated studies of
+nationwide populations, not only those living in cities but also those living in
+rural areas where air pollution monitoring is sparse or even absent. Often, these
+nationwide studies make use of administrative databases, which have increasingly
+become automated. These include death registers, disease registers, census data
+and population statistics. Such studies have the advantage of often including
+large populations of millions or even tens of millions of subjects. In addition,
+the data included are often more representative of underlying populations than
+regular cohort studies. A disadvantage of such databases is that they usually do
+not contain much information on potential confounding and modifying factors
+such as smoking and diet. However, innovative solutions have been developed
+to deal with this (e.g. survey results in Medicare and indirect adjustment for
+covariates in Canadian census studies) (Crouse et al., 2015; Cesaroni et al., 2013.
+Such databases usually also lack information from biological markers and
+specimens and, thus, cannot shed light on biological pathways to explain the
+observed associations.
+Advances in statistical analyses techniques and conceptualization of causal
+modelling in epidemiology have produced new insights into the robustness
+of epidemiological associations between air pollutants and health effects.
+Machine learning techniques are increasingly being applied to explain patterns
+in complex exposure patterns. Most recently, large collaborative studies of the
+so-called exposome (defined as the totality of exposure individuals experience
+over their lives and how these exposures affect health) have started in an attempt
+to understand the effects of lifelong exposures to complex environmental factors
+on the development of health and disease throughout the life course. In such
+studies, air pollution is regularly included as one of several sets of complex
+environmental exposures and is combined with individual data, ranging from the
+molecular, genetic or cellular level up to the level of social, cultural and lifestyle
+data (Vrijheid et al., 2020.
+
+INTRODUCTION
+
+15
+
+Decision-makers have increasingly asked for reliable estimates of the burden
+of disease caused by air pollution as input for cost–benefit analyses of policy
+alternatives and as a basis for risk communication. Since 2005, major steps forward
+have been taken, especially by WHO and the Global Burden of Disease (GBD
+project. An innovative, integrated exposure–response function was developed,
+integrating insights from studies on outdoor air pollution, on the health effects
+of indoor exposure to household air pollution from solid fuel combustion and
+environmental tobacco smoke, and on active smoking (Burnett et al., 2014. The
+integrated exposure–response function formed the basis for the first-ever truly
+global burden of disease estimate from exposure to PM2.5, ozone and household
+air pollution from solid fuel burning, published in 2012 Lim et al., 2012. These
+estimates used the global exposure estimates mentioned in section 1.3.1 and
+worldwide data on mortality and morbidity. They have been updated several
+times as new exposure estimates became available, and the integrated exposure–
+response function was updated based on new study findings (Cohen et al., 2017.
+The latest version no longer includes studies on active smoking, for instance
+GBD 2019 Risk Factors Collaborators, 2020. Widely available software tools,
+such as WHO AirQ WHO Regional Office for Europe, 2021a) or the US EPA’s
+Environmental Benefits Mapping and Analysis Program – Community Edition
+BenMAPCE US EPA, 2021 facilitate similar analysis on a local (city, region,
+country) level.
+Decision-makers have also sought evidence that measures to reduce air
+pollution actually produce health benefits. So-called accountability research
+(i.e. assessment of the effectiveness of interventions) addresses the
+consequences of policy interventions. An early example is a study from Dublin
+suggesting that a ban on coal burning led to reduced mortality (Clancy et al., 2002;
+Dockery et al., 2013. A nationwide study from the United States found that life
+expectancy increased most in areas where fine particle concentrations decreased
+the most (Pope, Ezzati & Dockery, 2009. A research programme on this subject,
+developed by the United States-based Health Effects Institute (HEI, showed
+promise, as well as pitfalls (Boogaard et al., 2017, while a Cochrane review on
+interventions to reduce ambient air pollution and their effects on health concluded
+that more research is needed in this area to reduce uncertainty (Burns et al., 2019.
+Another issue of great interest to decision-makers is the that the co-benefits of
+policies aimed at reducing greenhouse gases may also have adverse direct or
+indirect health effects (e.g. methane, a powerful greenhouse gas and an ozone
+precursor) or, conversely, that policies aimed at reducing health-relevant air
+pollutants (such as black carbon) may also have climate forcing capabilities.
+
+16
+
+WHO GLOBAL AIR QUALITY GUIDELINES
+
+1.3.6 Adoption of the 2005 air quality guidelines worldwide
+The first two editions of the air quality guidelines in 1987 and 2000 were successful
+in providing guidance, mostly to European countries, and provided the basis
+for the European Union (EU legislation on air quality. Global update 2005 was
+intended to be relevant to the diverse conditions within all WHO regions.
+Evidence-informed guidance on air quality and associated health effects
+is necessary so that countries can use this information in standard setting
+and in providing information to the public. In 2012 a review of the processes
+followed to establish national ambient air quality standards (AAQS for PM10
+and sulfur dioxide (24-hour average) in the period 20072008 concluded that
+WHO air quality guidelines were the resource used most often to establish or
+revise national standards by the relevant authorities (Vahlsing & Smith, 2012.
+At that time, 91% of the countries that responded to a survey planned on using
+Global update 2005 for future revision of their AAQS; however, this information
+was only available for 96 countries. In collaboration with WHO, the Swiss Tropical
+and Public Health Institute (Swiss TPH has compiled information on the existence
+of legally binding AAQS for all UN Member States for PM PM2.5, PM10 and other
+relevant types), ozone, nitrogen dioxide, sulfur dioxide and carbon monoxide
+for different averaging times (both long and short term) (Kutlar Joss et al., 2017;
+WHO, 2021b). This unique update of the current state of AAQS worldwide provides
+a useful insight into the degree to which the 2005 air quality guidelines and
+interim targets are used as a basis for legally binding and non-binding AAQS.
+Information was identified for over 170 countries in the different WHO regions, of
+which 53 did not define any standards (see Table 1.1. In general, standards for
+short-term exposure were set more often than annual limit values. Levels varied
+greatly by country and by air pollutant.
+Daily mean standards for PM10 and sulfur dioxide (averaging time ≤ 24 hours) and
+1-hour maximum values for nitrogen dioxide were most often defined. Although
+compliance with WHO air quality guidelines was rather low, it was generally higher
+for short-term than for long-term standards. Among all countries with standards
+for 24-hour averaging times for PM2.5 and PM10, 21% and 46% met the air quality
+guidelines, respectively. In contrast, only seven countries (2% adopted the
+WHO annual mean air quality guidelines for PM10 and PM2.5. In case of sulfur dioxide
+24 hours), only 7% of countries were in line with the air quality guidelines and
+16% aligned their standard with the 1-hour guidelines for ozone. Adoption rates
+were higher for nitrogen dioxide, sulfur dioxide (10-minute averaging time) and
+carbon monoxide.
+In addition, in the EU, WHO guidelines are referenced in the Ambient Air Quality
+Directive (European Parliament & Council of the European Union, 2008,
+
+INTRODUCTION
+
+17
+
+and several countries use/will use WHO air quality guidelines and/or interim targets
+within existing and forthcoming legislation.
+Analysis of the level of adoption of WHO air quality guidelines (see Table 1.1 shows
+that many countries have guidelines or standards for at least one air pollutant;
+however, there are many countries without standards or where information
+is lacking. The gap between the WHO air quality guidelines and the levels
+adopted in national regulations reflects the policy-making process. Whereas the
+WHO guidelines are evidence-informed, health-oriented recommendations,
+the process of developing legally binding regulations is driven by national
+policy-makers and the willingness to set environmental standards. This process
+involves different actors and may be influenced by a range of considerations.
+
+Table 1.1. Adoption of WHO air quality guidelines in different regions
+WHO region
+
+Countries in
+the region
+(n)
+
+Countries with
+standards for
+at least one
+pollutant and
+averaging time
+
+Countries
+without
+standards
+
+Countries
+with no
+information
+
+n
+
+%
+
+n
+
+%
+
+n
+
+%
+
+African Region
+
+47
+
+17
+
+36
+
+21
+
+45
+
+9
+
+19
+
+Region of the Americas
+
+35
+
+20
+
+57
+
+13
+
+37
+
+2
+
+6
+
+South-East Asian Region
+
+11
+
+7
+
+64
+
+3
+
+27
+
+1
+
+9
+
+European Region
+
+53
+
+50
+
+94
+
+2
+
+4
+
+1
+
+2
+
+Eastern Mediterranean Region
+
+21
+
+11
+
+52
+
+1
+
+5
+
+9
+
+43
+
+Western Pacific Region
+
+27
+
+12
+
+44
+
+13
+
+48
+
+2
+
+7
+
+Total
+
+194
+
+117
+
+60
+
+53
+
+27
+
+24
+
+12
+
+Source Kutlar Joss et al. 2017.
+
+The difficulty of attaining the air quality guidelines for PM and other pollutants
+was recognized in Global update 2005, and a series of interim targets were
+set to provide milestones for countries on the way to achieving the air quality
+guidelines. Interim targets were defined as air pollutant levels that are higher
+than the air quality guidelines, but which authorities in highly polluted areas can
+
+18
+
+WHO GLOBAL AIR QUALITY GUIDELINES
+
+use to develop pollution reduction policies that are achievable within realistic
+time frames. The interim targets should be regarded as steps towards ultimately
+achieving air quality guidelines in the future, rather than as end targets. The
+number and numerical values of the interim targets are pollutant specific and
+they are justified in the relevant sections of Chapter 3.
+
+1.3.7 Air pollution and health in the global agenda
+World Health Assembly resolution and road map
+In May 2015 the Sixty-eighth World Health Assembly adopted resolution WHA68.8,
+Health and the environment: addressing the health impact of air pollution, which was
+endorsed by 194 WHO Member States (WHO, 2015. This resolution stated the need
+to redouble the efforts of Member States and WHO to protect populations from the
+health risks posed by air pollution. Member States were urged to raise public and
+stakeholder awareness on the impacts of air pollution on health; provide measures
+to reduce or avoid exposure; facilitate relevant research; develop policy dialogue,
+strengthen multisectoral cooperation at national, regional and international levels;
+and take effective steps to reduce health inequities related to air pollution.
+Specifically, the resolution recognized the role of the WHO air quality guidelines,
+for both ambient and indoor air quality, in providing guidance and recommendations
+for clean air that protect human health. It requested the Director-General to
+strengthen WHO capacities in the field of air pollution and health through further
+development and regular updating of the WHO air quality guidelines to facilitate
+effective and efficient decision-making, and to provide support and guidance to
+Member States in their efficient implementation. A road map for implementation
+of this resolution on air pollution and health was presented at the Sixty-ninth
+World Health Assembly and approved by Member States (WHO, 2016a).
+UN Sustainable Development Agenda and other UN processes
+The WHO air quality guidelines support the strategic priorities for NCDs
+UN, 2018a), as well as those established in the 2030 Agenda for Sustainable
+Development, which was adopted at the United Nations Sustainable
+Development Summit in 2015 UN, 2015. These priorities emphasize the need
+to strengthen national capacities to reduce modifiable risk factors, including
+air pollution, for NCDs and to accelerate countries’ responses for their
+prevention and control. The 17 SDGs contained in the Agenda present an
+indicator framework for global monitoring and include 169 specific associated
+targets (UN Statistics Division, 2020.
+
+INTRODUCTION
+
+19
+
+These, in turn, are divided into indicators, thereby providing a tool for quantitative
+assessment of achievement towards meeting the goals. This update of the WHO
+air quality guidelines provides evidence-informed benchmarks on the health
+impacts of air pollution, and will help assess the following air pollution-related SDG
+indicators to inform the health trends associated with exposure to air pollution:
+■
+■
+
+■
+
+Indicator 3.9.1 Mortality rate attributed to household and ambient air pollution
+Indicator 7.1.2 Percentage of population with primary reliance on clean fuels
+and technology
+Indicator 11.6.2 Annual mean levels of fine PM (population-weighted).
+
+The health impacts of air pollution are a main driver for action by the environment
+sector. The UN Environment Assembly adopted the following three resolutions
+on the topic.
+■
+
+■
+
+■
+
+Resolution 1/7 from the United Nations Environment Programme (UNEP,
+adopted at its first session in 2014 on Strengthening the role of the United
+Nations Environment Programme in promoting air quality, highlights the effects
+of air pollution, especially from a perspective of sustainable development. In
+particular, it encourages governments to take cross-sectoral action to improve
+air quality and formulate action plans while establishing (and implementing)
+nationally determined air quality and emissions standards, taking into account
+relevant information (e.g. WHO guidelines) (UNEP, 2014.
+Additionally, the UN Environment Assembly presented a resolution, at its
+second session in 2016, requesting the Executive Director to engage with
+all relevant UN entities to promote a coordinated approach to combating the
+challenges of SDS globally by supporting Member States in the identification
+of relevant data and information gaps, best policy measures, and actions to
+address the problem and by inviting them to intensify monitoring data collection
+and knowledge sharing on all relevant aspects of SDS, including their impact
+on ecosystems and on human health and well-being (UNEP, 2016a).
+Finally, the resolution on Preventing and reducing air pollution to improve air
+quality globally calls for Member States to take action across sectors to reduce
+all forms of air pollution. Among its recommendations, the resolution urges
+Member States to:
+consider joining or cooperating with, as appropriate, relevant global initiatives
+such as the Climate and Clean Air Coalition and the Global Methane Initiative;
+[and] facilitate action to reduce air pollution in urban and rural areas including
+by encouraging cities and local governments to consider participating in,
+as appropriate, the BreatheLife campaign (UNEP, 2018.
+
+20
+
+WHO GLOBAL AIR QUALITY GUIDELINES
+
+Lastly, a report from 2019 from the UN Special Rapporteur on the Issue of
+Human Rights Obligations Relating to the Enjoyment of a Safe, Clean, Healthy
+and Sustainable Environment highlighted the different state obligations in
+relation to the right to breathe clean air, as well as the specific obligation to
+protect people and groups in vulnerable situations (UN, 2019a). The Special
+Rapporteur focused on the right to breathe clean air as one of its components
+and describes the negative impact of air pollution on the enjoyment of many
+human rights, in particular the right to life and the right to health, especially by
+vulnerable groups. The Special Rapporteur identified several good practices
+implemented worldwide that have helped to improve air quality; offered a number
+of recommendations to Member States for actions they should consider as
+part of a national air quality action plan; and urged businesses, in order to fulfil
+their responsibility in this regard, to contribute to and support efforts to reduce
+air pollution.
+
+1.4 WHO guidelines relating to air quality
+WHO air quality guidelines have been widely used as a reference tool to help
+decision-makers across the world in setting standards and goals for air quality
+management. Since the mid-1980s, WHO has coordinated the development of
+several editions of air quality guidelines for both ambient and indoor air quality.
+Although the methodologies used and the requirements needed to produce them
+have evolved over time, these guidelines remain in essence manuals aiming to
+provide evidence-informed recommendations in the form of air quality guidelines
+for different averaging times (WHO Regional Office for Europe, 2017.
+Since 2009, WHO has issued a separate series of guidelines for indoor air
+quality, which provide recommendations on biological contaminants of indoor
+air, selected air pollutants typically measured in indoor settings, and household
+fuel combustion.
+Air quality guidelines for Europe (1987
+The first volume of the air quality guidelines created the initial framework for
+the scientific rationale for the series. The expert panel formulated guidelines for
+28 air pollutants on exposure in both outdoor and indoor environments. In specific
+cases (e.g. mercury), a guideline level was formulated for indoor settings only.
+For 19 noncarcinogenic pollutants, recommendations were provided as guideline
+values using the toxicological concepts of the lowest/no observed adverse effect
+level and protection factors. In contrast, ranges were provided for cadmium, lead,
+PM (expressed as black smoke), ozone and sulfur dioxide , with a recommendation
+to use gravimetric methods for measuring particles.
+
+INTRODUCTION
+
+21
+
+Because of the impossibility of identifying no-effect levels of exposure, the
+panel recommended unit risk factors for carcinogenic (genotoxic) pollutants
+WHO Regional Office for Europe, 1987.
+Air quality guidelines for Europe. second edition (2000
+In response to strengthening of the evidence during the 1990s, the revised air
+quality guidelines were published in the year 2000. A total of 35 air pollutants
+were evaluated, including the pollutants covered in the first edition, the additional
+organic pollutants butadiene, polychlorinated biphenyls and polychlorinated
+dibenzodioxins/dibenzofurans, and three indoor air pollutants (anthropogenic
+vitreous fibres, radon and second-hand tobacco smoke). As in the first edition,
+guidelines were presented in the form of levels/ranges for noncarcinogenic
+pollutants and as unit risk factors for carcinogenic substances. In contrast, the
+ozone guideline was formulated as a level and a CRF, whereas the PM guidelines
+were presented as a CRF alone, this time separately from sulfur dioxide.
+To aid implementation, a specific chapter was devoted to air quality management
+and translation of the guidelines into binding standards (WHO Regional Office for
+Europe, 2000a).
+Air quality guidelines – global update 2005. Particulate matter, ozone, nitrogen
+dioxide and sulfur dioxide (2006
+Global update 2005 provided numerical guideline values for the classical pollutants
+ PM, ozone, nitrogen dioxide and sulfur dioxide – based on a comprehensive
+review of all available evidence at the time. Air quality guidelines for PM were
+presented for the first time, while the nitrogen dioxide levels from previous editions
+were retained. In addition, the concept of interim targets as “incremental steps
+in progressive reduction of air pollution” was introduced and used for PM, ozone
+and sulfur dioxide. Acknowledging that exposure to these pollutants occurs in
+both outdoor and indoor settings, the guideline levels were meant to apply in all
+environments, including indoors in households, schools and vehicles. However, the
+guideline panel recognized the significance of indoor air pollution as a stand-alone
+risk factor that needed different management approaches to those employed
+for outdoor air pollution. Therefore, a specific chapter was dedicated to indoor
+air quality, including a framework for the future development of WHO indoor air
+quality guidelines (WHO Regional Office for Europe, 2006.
+WHO guidelines for indoor air quality: dampness and mould (2009
+This first volume of the series aimed to raise awareness and assist users
+in identifying and mitigating the health hazards related to biological
+contamination in all indoor settings. The guidelines included a comprehensive
+assessment of the evidence on the adverse health effects associated with
+
+22
+
+WHO GLOBAL AIR QUALITY GUIDELINES
+
+dampness and biological agents such as bacteria, mould and fungi. The guideline
+panel concluded that the most relevant health outcomes of concern were
+respiratory and immunological, including asthma and allergies. Given a lack of
+exposure–response relationships, recommendations were formulated as indicators
+of health risk, such as the persistence of dampness or presence of mould, rather
+than numerical levels. The guideline panel recommended the prevention/reduction
+of such indicators on interior surfaces and building structures as an overarching
+principle that users could follow to manage risks through specific measures (WHO
+Regional Office for Europe, 2009.
+WHO guidelines for indoor air quality: selected pollutants (2010
+The second volume of the series provided recommendations for nine air pollutants
+either as numerical levels or unit risks, prioritized according to their presence in
+potentially harmful concentrations indoors and the availability of data for risk
+assessment. Thus, comprehensive monographs were prepared for benzene,
+carbon monoxide, formaldehyde, naphthalene, nitrogen dioxide, polycyclic
+aromatic hydrocarbons, radon, trichloroethylene and tetrachloroethylene.
+Guidelines for indoor PM were not formulated, since PM had been covered in
+Global update 2005, which was intended for all environments. Although the
+evidence on indoor nitrogen dioxide was re-evaluated, guideline levels remained
+the same as before due to a lack of new evidence suggesting a threshold of
+effect. In addition, some general measures to reduce exposure indoors were
+proposed, such as controlling sources of emission, ensuring proper ventilation,
+using low-emission materials and, switching to cleaner fuels and technologies for
+indoor combustion (WHO Regional Office for Europe, 2010.
+WHO guidelines for indoor air quality: household fuel combustion (2014
+Building on previous guidelines for PM and carbon monoxide, modelling and
+extensive reviews, the latest volume in the series offered recommendations
+related to household fuel combustion. Using a new WHO guideline development
+approach, as outlined in the WHO handbook for guideline development, 2nd
+edition WHO, 2014a), the guideline panel set emission rate targets for PM2.5
+and carbon monoxide from household fuels combustion, discouraged the use
+of kerosene and unprocessed coal, and provided guidance for transition to the
+sustained adoption of clean fuels (e.g. liquefied petroleum gas) and technologies.
+In addition, risks related to the use of conventional fuels were highlighted,
+including burns, poisoning, house fires and those related to fuel-wood collection.
+As overarching principles, the guidelines highlight the importance of reducing
+outdoor air pollution to achieve indoor air quality guidelines, and of addressing all
+main household energy end uses to maximize health (WHO, 2014b).
+
+INTRODUCTION
+
+23
+
+2
+
+Guideline
+development
+2. Guideline
+process
+development
+process
+25
+
+GUIDELINE DEVELOPMENT PROCESS
+
+2.1 Introduction
+WHO guideline development follows a rigorous process and involves several
+groups of individuals with well-defined roles, responsibilities and tasks
+WHO, 2014a). The process involves the following main steps:
+1.
+2.
+3.
+4.
+5.
+
+formulation of the scope and key questions of the guidelines (section 2.3;
+systematic review of the relevant evidence (section 2.4;
+assessment of the certainty level of the body of evidence resulting from
+systematic reviews (section 2.4.4;
+formulation of the air quality guideline (AQG levels (section 2.5; and
+formulation of other supporting guidance (section 2.5.3.
+
+Throughout the whole process, the principles of the GRADE approach were
+followed (Schünemann et al., 2013.
+The WHO steering group was primarily involved in initiating, structuring and
+executing the guideline development process; the guideline development group
+GDG, composed of leading experts and stakeholders, was mainly responsible
+for determining the scope of the guidelines and formulating AQG levels and
+other guidance; the systematic review team conducted the systematic reviews
+of evidence; and the external review group (ERG provided input and peer review,
+as needed. The WHO Guidelines Review Committee reviewed and approved the
+guideline document prior to publication.
+The process of developing this update of the air quality guidelines started in
+2016. Following WHO procedures, the WHO Regional Office for Europe’s European
+Centre for Environment and Health in Bonn, Germany obtained planning approval
+and established the WHO steering group, the GDG, the systematic review team
+and the ERG.
+Several meetings of the GDG were held in Bonn throughout the guideline
+development process. During the first meeting of the GDG in September 2016,
+GDG members helped define the scope of the guidelines, prioritized air pollutants
+and critical health outcomes, formulated the key questions to be addressed and
+set a timeline for completion of the work.
+In March 2018 and June 2019, the GDG and the systematic review team met to
+discuss the preliminary results of the methods adaptation work and systematic
+reviews of evidence. Revision and publication of the systematic reviews of
+evidence was completed in mid-2020. In February and June 2020, the GDG
+finalized the AQG levels and other elements of guidance.
+
+26
+
+WHO GLOBAL AIR QUALITY GUIDELINES
+
+The external consultation of the draft guideline document took place in November
+and December 2020 through an online survey. In January 2021, the GDG met
+to address the comments from the external consultation of the draft guideline
+document.
+Throughout the guideline development process, several ad hoc working groups
+were established to address specific (methodological) issues. Composed of
+subject matter and methodological experts, these groups worked through remote
+meetings and contributed within the adapted approaches for systematic review
+and guideline development to the air quality and health domain.
+The following sections describe the groups of experts involved in, and the different
+steps of, the guideline development process.
+
+2.2 Groups involved in and general procedures of
+guideline development
+The development of WHO guidelines is carried out by several groups of people
+with defined roles and responsibilities. These are the WHO steering group,
+the GDG, the systematic review team and the ERG comprising WHO staff members,
+external experts and stakeholders. In addition, the process was supported by an
+external guideline methodologist with expertise in systematic review and certainty
+assessment methods, and other external consultants, including experts in risk
+of bias (RoB assessment and environmental epidemiology (shown in Annex 1,
+Tables A1.1A1.7.
+
+2.2.1 WHO steering group
+The WHO steering group is composed of a limited number of WHO staff with
+extensive work experience at technical level in the area of air quality and health, who
+were recruited from all relevant departments, centres and WHO regional offices.
+Members of this group provided input during the different stages of planning,
+selection of members of the other groups, reviewing evidence, formulating draft
+recommendations and guidance, and overseeing peer review. The complete list
+of members of the WHO steering group can be found in Annex 1, Table A1.1.
+
+2.2.2 Guideline development group
+The GDG included subject matter experts who were convened to appraise the
+evidence and formulate recommendations and related guidance. The group was
+selected by the WHO steering group, as informed by the results of a survey of
+WHO expert networks, with the aim to cover the technical skills, perspectives and
+geographical representation needed in a global guideline development process.
+
+GUIDELINE DEVELOPMENT PROCESS
+
+27
+
+The GDG assisted in determining the scope of the guidelines, chose the critical
+health outcomes and defined the key review questions. Members of the GDG
+contributed to drafting the guideline document and responded to peer reviewers.
+Details of the members of the GDG and their specific roles, affiliations and areas
+of expertise are listed in Annex 1, Table A1.2.
+
+2.2.3 Methodological working groups
+Members of this GDG also worked with the guideline methodologist, a RoB
+methodologist and other experts in ad hoc working groups to adapt the methods
+of systematic review and guideline development to the specific field of air quality
+and health. In particular, the following working groups were formed:
+■
+■
+■
+
+■
+
+Working Group on Risk of Bias Assessment;
+Working Group on Certainty of Evidence Assessment;
+Working Group on Derivation of Air Quality Guideline Levels and
+Interim Targets; and
+Working Groups on Good Practice Statements.
+
+The external methodologists are listed in Annex 1, Table A1.4, and members of
+the working groups are listed in Annex 1, Table A1.7.
+
+2.2.4 Systematic review team
+The systematic review team consisted of experts in environmental and clinical
+epidemiology, who were commissioned by WHO to conduct the systematic
+reviews informing the recommendations. The team also provided input into the
+adaptation of systematic review methods and tools. The GDG and WHO steering
+group identified the members of the systematic review team based on their
+publications in the field and their expertise. Members of the systematic review
+team are listed in Annex 1, Table A1.3.
+
+2.2.5 External review group
+The ERG included technical experts and representatives from stakeholders such
+as patient organizations, environmental advocacy groups, industry associations
+and scientific societies. Members were identified among networks of excellence,
+WHO collaborating centres and partner groups such as Cochrane, with support
+from the GDG and online searches.
+Based on several considerations (expertise, sex, geographical representation),
+about 100 individual experts from 38 countries and territories across all WHO
+regions were identified and invited to participate in the ERG. Of these, 65
+experts provided input at different stages of the guideline development process,
+as needed.
+
+28
+
+WHO GLOBAL AIR QUALITY GUIDELINES
+
+In particular, they provided information on specific topics, assessed and translated
+scientific papers, peer-reviewed the evidence base, and/or commented on the
+draft guideline document. Likewise, an inclusive mapping exercise took place of
+stakeholder organizations from all WHO regions, working at either regional or global
+level. Of the 100 identified organizations, 72 were invited to be members of the ERG.
+Ultimately, 14 organizations participated in the external consultation of the draft
+guideline document and provided comments that were all addressed by the GDG and
+WHO steering group. The individual experts and stakeholder organizations are
+listed in Annex 1, Table A1.5 and Table A1.6, respectively.
+
+2.2.6 Management of conflicts of interest
+Conflicts of interest − with or without bias − can undermine the credibility of
+a guideline; hence, their appropriate management is crucial in WHO guideline
+development. The members of the GDG as well as the other experts involved in
+the guideline development process were asked to complete declaration of interest
+forms. In addition, all experts received briefings about the types of conflicts of
+interest (financial, intellectual/academic and non-academic). Declarations from all
+experts were collected and managed according to the relevant WHO procedures.
+No experts had to be excluded from their respective roles. Further information
+about the process for identifying, managing and reporting conflicts of interest
+can be found in the WHO handbook for guideline development, 2nd edition
+WHO, 2014a). A summary of declared conflicts of interest is presented in Annex 2.
+
+2.2.7 Decision-making during the process
+The members of the GDG agreed to make decisions by consensus, through
+discussions moderated by the appointed GDG co-chairs. In (very rare) cases
+where consensus was not possible, informal voting was employed. The view of
+the majority (90% or more of the GDG members, as a result of the discussions to
+reach agreement in the group) was implemented in developing the guidelines.
+Decisions in the ad hoc working groups were made in the same way among the
+participating GDG members, the external guideline methodologist and/or other
+external experts. Consensus could not be reached among the GDG members
+and the methodologist on one aspect of the certainty of evidence assessment.
+This was about whether upgrades of the evidence certainty should be allowed
+in case of downgrades: the GDG members thought so, but the methodologist
+did not. The view of the majority (in this case, the complete GDG was taken.
+The methodologist made the first proposals on derivation of AQG levels and
+interim targets but did not participate in the phase of final formulation of
+recommendations. The GDG, supported by a technical consultant (Annex 1,
+Table A1.7, concluded this work.
+
+GUIDELINE DEVELOPMENT PROCESS
+
+29
+
+The members of the systematic review team conducted the systematic reviews
+independently, with regular interaction with the working groups and the GDG to
+ensure that the most important needs of the GDG were addressed appropriately.
+One member of the systematic review team served as liaison with the GDG and
+supported the methodological work on AQG levels and interim targets.
+
+2.2.8 Document preparation and external review
+The guideline document was drafted in a stepwise manner following the guideline
+development process. The GDG identified the background and other relevant
+supporting information early in the preliminary phase. In their second meeting,
+the WHO steering group and GDG decided on the table of contents, and several
+of their members started drafting specific sections. At a later stage, a designated
+technical editor worked towards ensuring consistency and logical flow.
+The guideline document went through several rounds of extensive internal and
+external review. In particular, the external consultation of the draft document was
+managed through an online survey targeting 71 members of the ERG 48 provided
+comments and were acknowledged). As prescribed, the procedure focused on
+the identification of missing data, unclear information, factual errors and issues
+related to implementation, but not on changing the recommendations. The GDG
+and WHO steering group considered all comments provided during this external
+consultation and revised the guideline document where appropriate.
+
+2.3 Determining the scope of the guidelines and
+formulation of review questions
+Determining the scope of the guidelines involved the selection of air pollutants
+to be considered, as well as the critical health outcomes for each in relation
+to durations and scale of exposure. This was a multistep procedure in which
+experts evaluated the strength of the evidence for the pollutants; the causality
+of pollutant–outcome pairs; and other considerations such as the severity of
+health outcomes, burden of disease, expected increases in exposure and policy
+considerations.
+The present guidelines are applicable to both outdoor and indoor environments.
+Thus, they cover all settings in which people spend a significant portion of
+their time. This has been the case since the publication of the first edition of
+the guidelines in 1987 and was reinforced in Global update 2005 and the 2010
+guidelines for indoor air quality.
+It is important to note that AQG levels recommended in previous WHO air quality
+guidelines for pollutants or averaging times not re-evaluated in this update
+
+30
+
+WHO GLOBAL AIR QUALITY GUIDELINES
+
+remain valid, including those for the short averaging times for nitrogen dioxide,
+sulfur dioxide and carbon monoxide included in the 2005 Global update and indoor
+air quality guidelines from 2010. The reader is referred to previous volumes of air
+quality guidelines (WHO Regional Office for Europe, 1987, 2000a, 2010 for the
+other pollutants not covered in this update. As in previous volumes, the guidelines
+do not cover occupational settings, due to the specific characteristics of the
+relevant exposures and the potential differences in population susceptibility of
+the adult workforce in comparison with the general population.
+Furthermore, the guidelines do not include recommendations about any kind
+of multiple exposures. In everyday life, people are often exposed to a mixture
+of air pollutants at the same time. WHO acknowledges the need to develop
+comprehensive models to quantify the effects of multiple exposures on human
+health. However, as the main body of evidence on air quality and health still
+focuses on the impact of single air pollutants on health outcomes, the current
+guidelines provide recommendations for each air pollutant individually.
+The GDG also decided not to formulate specific recommendations on populationwide interventions because these are largely context specific: what might
+be effective in one setting might not work in another. Instead, general risk
+management principles, based on decades of experience, are summarized in
+Chapter 6, on implementation of the guidelines. In addition, individual-level
+interventions, such as the use of personal respiratory protection (e.g. masks,
+respirators), air purifiers and behavioural measures, are not addressed here but
+in a report from a separate WHO consultation (WHO, 2020a).
+
+2.3.1 Preliminary consultation
+Following the conclusions from the Review of evidence on health aspects of
+air pollution (REVIHAAP project (WHO Regional Office for Europe, 2013a),
+WHO organized an expert consultation in Bonn in September–October 2015 as
+a first step for this update of the air quality guidelines. The objective was to
+gather expert opinion and guidance in order to identify and discuss the latest
+available evidence on health effects of air pollutants and interventions to reduce
+exposure to air pollution for the purpose of informing this update of the air
+quality guidelines.
+Twenty-eight participants – representing a wide array of expertise and
+geographical locations – attended the consultation, which included not only a
+review of the available scientific evidence on a number of ambient air pollutants
+but also methodological issues and the implications of exposure and intervention
+studies. Experts recommended that a focus of these guidelines on pollutant-
+
+GUIDELINE DEVELOPMENT PROCESS
+
+31
+
+specific risk assessment was still appropriate and prioritized 32 air pollutants
+according to four categories to reflect their relative importance in the context of
+updating the air quality guidelines. Since reviewing the evidence systematically
+for all air pollutants was infeasible considering the available resources, experts
+suggested prioritizing the pollutants PM2.5, PM10, ozone, nitrogen dioxide, sulfur
+dioxide and carbon monoxide for this update. This advice was based on the
+large body of new health-related evidence that had been published since
+Global update 2005 WHO Regional Office for Europe, 2016a).
+
+2.3.2 Selection of priority pollutants
+The final selection of air pollutants took place in September 2016, during the first
+meeting of the GDG. Prior to the meeting, WHO surveyed GDG members on the
+final list of air pollutants to be included in this update of the air quality guidelines.
+The air pollutants identified in the global expert consultation, together with
+a number of different health outcomes, were included in the survey. In the ensuing
+discussion, the GDG decided to develop AQG levels for PM10, PM2.5, nitrogen
+dioxide, ozone, sulfur dioxide and carbon monoxide in relation to health outcomes
+critical for decision-making and for relevant averaging times.
+For PM types such as BC/EC and UFP, the GDG agreed that AQG levels for these
+pollutants could not be formulated owing to the absence of clear quantitative
+evidence on independent health effects. However, the results of reviews of
+evidence conducted by other groups would be examined in order to reach a
+better-informed decision about whether recommendations should be formulated
+and in which form. Likewise, for SDS, the GDG agreed that any recommendation
+would likely be qualitative in nature and geared towards guiding countries in
+moving towards mitigation and adaptation measures.
+Following presentations by invited experts, the GDG, at its third meeting,
+decided to include guidance on BC/EC, UFP and SDS in the form of good practice
+statements.
+
+2.3.3 Prioritization of health outcomes
+In order to define the pollutant–outcome pairs that would be systematically
+reviewed to inform the formulation of AQG levels, the GDG developed a
+prioritization framework based on the considerations outlined in Box 2.1.
+
+32
+
+WHO GLOBAL AIR QUALITY GUIDELINES
+
+Box 2.1. Health outcome prioritization framework
+
+■
+
+Evidence on causality for a health outcome would be considered first,
+according to the latest determination (causal or likely causal) from the
+Health Canada, the International Agency for Research on Cancer, US EPA
+or other available integrated science assessments. As mandated by the
+Clean Air Act, the US EPA periodically reviews all scientific evidence about
+the health effects of so-called criteria pollutants, including all five pollutants
+considered in this report. These Integrated Science Assessments (ISAs)
+include a structured analysis of all evidence – including from toxicology –
+that supports a classification of a specific effect being causal, likely causal,
+suggestive of a causal relationship, inadequate to infer a causal relationship
+or not likely to be a causal relationship. For details, see Owens et al. 2017.
+These classifications have been used in support of identification of the
+relevant pollutant–outcome associations addressed in this document.
+
+■
+
+Where causality is not determined to be proven or likely (e.g. suggestive
+causality), the precautionary principle would be used when determining
+which additional most-severe health outcomes could be included. These
+outcomes would be based on other considerations such as contribution
+to burden of disease (e.g. prevalence of disease, disability weight), policy
+implications and expected increase in exposure to a pollutant in the future.
+
+■
+
+Causality determination would supersede the severity of a health outcome
+but, in some cases, two (or more) different health outcomes might be
+systematically evaluated for the same pollutant (e.g. one with a causal or
+likely causal link to the pollutant, and another health outcome for which
+the evidence is suggestive only but which is very severe or prevalent in
+the population). Severity of disease would be informed by considerations
+proposed by the latest update of the joint European Respiratory Society
+and American Thoracic Society policy statement on health effects from air
+pollution (fatality, persistence of effect, susceptible groups and medical/
+functional significance, including loss of autonomy and reduced quality of
+life) (Thurston et al., 2017.
+
+■
+
+Lastly, as health outcomes can be assessed in various ways in studies, the
+specific health outcome measure(s) would be identified, based on evidence
+and the expert judgement of the GDG, to be used for quantitative health
+risk assessment in the guidelines.
+
+GUIDELINE DEVELOPMENT PROCESS
+
+33
+
+By applying the prioritization framework, the GDG identified the following critical
+health outcomes associated with the selected air pollutants:
+■
+
+■
+
+■
+
+■
+
+all-cause (non-accidental) mortality4 (hereafter referred to as all-cause
+mortality);
+cause-specific mortality, as per the International Statistical Classification of
+Diseases and Related Health Problems, 10th edition (ICD10, 2016 version
+WHO, 2016b): cardiovascular (ICD10 codes I00I99, lung cancer
+ICD10 codes C30C39 and respiratory (ICD10 codes J00J99;
+hospital admissions and emergency room visits related to asthma
+ICD10 code J45; and
+hospital admissions and emergency room visits related to IHD
+ICD10 codes I20I25; ultimately restricted to myocardial infarction,
+ICD10 codes I21I22.5
+
+The pollutant–outcome pairs that were included comprise those for which
+there is broad scientific consensus regarding the causal nature of the reported
+relationships; others were chosen based on the strength of the epidemiological
+evidence.
+Table 2.1 gives an overview of the different considerations included in the
+prioritization process. This table was adapted from the document resulting
+from the population, exposure, comparator, outcome and study design (PECOS
+process (see section 2.3.4 finalized in November 2016.
+Since then, it was decided to include one more pollutant–outcome pair: the
+association between exposure to short-term sulfur dioxide and all-cause and
+respiratory mortality. This was done to provide continuity with Global update 2005,
+as explained below.
+The GDG recognizes that associations for many more pollutant–outcome
+pairs have been reported and reviewed in the literature. It would be practically
+impossible, given the resources available for the current guideline update, to
+include all of these for consideration and review.
+
+ In an epidemiological study of air quality and health, all-cause mortality (ICD10 code A00Z99 refers to all deaths,
+and non-accidental mortality (ICD10 code A00R99 includes all deaths with the exception of deaths due to accidents,
+murder, suicide, etc. Although all-cause mortality includes accidental deaths, the proportion of deaths causes by
+accidents, etc. is typically small (< 10% in comparison with the other causes of death.
+ The systematic review by Lee et al. 2020 focused on myocardial infarction (ICD10 codes I21I22 as the only
+IHD outcome because it is not possible to establish the precise time of onset of other IHD outcomes. Further, other
+conditions within the spectrum of IHD are routinely managed in outpatient settings rather than in the emergency room/
+department or hospital wards.
+
+34
+
+WHO GLOBAL AIR QUALITY GUIDELINES
+
+The GDG, however, sees no grounds for assuming that the AQG levels, as
+derived in Chapter 3, would be very different if more outcomes would have been
+considered for the pollutants that were included. Obviously, this does not apply
+to those pollutants that were not considered at all in the current update. A draft
+version of this document has been reviewed by a large number of experts and
+stakeholder organizations, and no examples have been provided that would
+change this assessment.
+The GDG also emphasizes that there has been no separate, independent
+assessment of the mechanistic, toxicological and human clinical studies relating air
+pollution to human health. However, comprehensive evaluations by authoritative
+bodies such the Committee on the Medical Effects of Air Pollutants (COMEAP in
+the United Kingdom, Health Canada and the US EPA were taken into account in
+the development of the AQG levels.
+Information about all the specific pollutant–outcome pairs reviewed can be
+found in the systematic reviews of evidence available in a virtual special issue
+of Environment International entitled Update of the WHO global air quality
+guidelines: systematic reviews Whaley et al., 2021.
+
+GUIDELINE DEVELOPMENT PROCESS
+
+35
+
+36
+
+Health outcomes used in
+Global update 2005
+
+Total, cardiopulmonary and
+lung cancer mortality
+
+Pollutant
+
+PM2.5 and PM10
+
+LONGTERM EXPOSURE
+
+♦
+
+♦
+
+♦
+
+♦
+
+Lung cancer mortality
+
+Respiratory mortality
+(any, COPD, acute lower
+respiratory infections)
+
+PM2.5
+Causal for cardiovascular and respiratory mortality (US EPA, 2009
+♦
+Causal for total and cardiovascular mortality (Health Canada, 2013
+
+♦
+
+PM2.5
+Likely causal for respiratory effects (US EPA, 2009
+♦
+Likely causal for respiratory effects (Health Canada, 2013
+
+OTHER RELEVANT CAUSAL DETERMINATIONS REFERENCE
+
+PM10
+♦
+Health outcome supported by evidence from PM10 and PM2.5
+
+SUPPORTING CONSIDERATIONS
+
+PM
+♦
+Causal for total mortality in relation to PM Health Canada, 2013
+♦
+Group 1ᵇ lung cancer for PM Straif et al., 2013
+♦
+Likely causal for lung cancer mortality in relation to PM Health
+Canada, 2013
+
+♦
+
+CAUSALITY DETERMINATION REFERENCE
+
+Cardiovascular mortality
+(all, cerebrovascular, IHD
+
+Justification for health outcome selection
+
+All-cause mortality
+
+Health outcomes selected
+for updating in the 2021 air
+quality guidelines
+
+Table 2.1. Air pollutants and health outcomes proposed for systematic
+review in the guideline development processa
+
+WHO GLOBAL AIR QUALITY GUIDELINES
+
+

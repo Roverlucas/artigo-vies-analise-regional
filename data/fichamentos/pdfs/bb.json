@@ -1,0 +1,128 @@
+{
+  "_embedded" : {
+    "bundles" : [ {
+      "uuid" : "d7ef8ebc-37dc-496a-8c44-509ba36b9d23",
+      "name" : "ORIGINAL",
+      "handle" : null,
+      "metadata" : {
+        "dc.title" : [ {
+          "value" : "ORIGINAL",
+          "language" : null,
+          "authority" : null,
+          "confidence" : -1,
+          "place" : 0
+        } ]
+      },
+      "type" : "bundle",
+      "_links" : {
+        "item" : {
+          "href" : "https://iris.who.int/server/api/core/bundles/d7ef8ebc-37dc-496a-8c44-509ba36b9d23/item"
+        },
+        "bitstreams" : {
+          "href" : "https://iris.who.int/server/api/core/bundles/d7ef8ebc-37dc-496a-8c44-509ba36b9d23/bitstreams"
+        },
+        "primaryBitstream" : {
+          "href" : "https://iris.who.int/server/api/core/bundles/d7ef8ebc-37dc-496a-8c44-509ba36b9d23/primaryBitstream"
+        },
+        "self" : {
+          "href" : "https://iris.who.int/server/api/core/bundles/d7ef8ebc-37dc-496a-8c44-509ba36b9d23"
+        }
+      }
+    }, {
+      "uuid" : "e1a15fd7-baa1-4900-80dd-f996d4b9a3c0",
+      "name" : "LICENSE",
+      "handle" : null,
+      "metadata" : {
+        "dc.title" : [ {
+          "value" : "LICENSE",
+          "language" : null,
+          "authority" : null,
+          "confidence" : -1,
+          "place" : 0
+        } ]
+      },
+      "type" : "bundle",
+      "_links" : {
+        "item" : {
+          "href" : "https://iris.who.int/server/api/core/bundles/e1a15fd7-baa1-4900-80dd-f996d4b9a3c0/item"
+        },
+        "bitstreams" : {
+          "href" : "https://iris.who.int/server/api/core/bundles/e1a15fd7-baa1-4900-80dd-f996d4b9a3c0/bitstreams"
+        },
+        "primaryBitstream" : {
+          "href" : "https://iris.who.int/server/api/core/bundles/e1a15fd7-baa1-4900-80dd-f996d4b9a3c0/primaryBitstream"
+        },
+        "self" : {
+          "href" : "https://iris.who.int/server/api/core/bundles/e1a15fd7-baa1-4900-80dd-f996d4b9a3c0"
+        }
+      }
+    }, {
+      "uuid" : "96418035-b31c-4dff-9ed2-05a4b6435bda",
+      "name" : "TEXT",
+      "handle" : null,
+      "metadata" : {
+        "dc.title" : [ {
+          "value" : "TEXT",
+          "language" : null,
+          "authority" : null,
+          "confidence" : -1,
+          "place" : 0
+        } ]
+      },
+      "type" : "bundle",
+      "_links" : {
+        "item" : {
+          "href" : "https://iris.who.int/server/api/core/bundles/96418035-b31c-4dff-9ed2-05a4b6435bda/item"
+        },
+        "bitstreams" : {
+          "href" : "https://iris.who.int/server/api/core/bundles/96418035-b31c-4dff-9ed2-05a4b6435bda/bitstreams"
+        },
+        "primaryBitstream" : {
+          "href" : "https://iris.who.int/server/api/core/bundles/96418035-b31c-4dff-9ed2-05a4b6435bda/primaryBitstream"
+        },
+        "self" : {
+          "href" : "https://iris.who.int/server/api/core/bundles/96418035-b31c-4dff-9ed2-05a4b6435bda"
+        }
+      }
+    }, {
+      "uuid" : "20c57cb7-7b29-4b21-aadd-feece9d6eec1",
+      "name" : "THUMBNAIL",
+      "handle" : null,
+      "metadata" : {
+        "dc.title" : [ {
+          "value" : "THUMBNAIL",
+          "language" : null,
+          "authority" : null,
+          "confidence" : -1,
+          "place" : 0
+        } ]
+      },
+      "type" : "bundle",
+      "_links" : {
+        "item" : {
+          "href" : "https://iris.who.int/server/api/core/bundles/20c57cb7-7b29-4b21-aadd-feece9d6eec1/item"
+        },
+        "bitstreams" : {
+          "href" : "https://iris.who.int/server/api/core/bundles/20c57cb7-7b29-4b21-aadd-feece9d6eec1/bitstreams"
+        },
+        "primaryBitstream" : {
+          "href" : "https://iris.who.int/server/api/core/bundles/20c57cb7-7b29-4b21-aadd-feece9d6eec1/primaryBitstream"
+        },
+        "self" : {
+          "href" : "https://iris.who.int/server/api/core/bundles/20c57cb7-7b29-4b21-aadd-feece9d6eec1"
+        }
+      }
+    } ]
+  },
+  "page" : {
+    "number" : 0,
+    "size" : 20,
+    "totalPages" : 1,
+    "totalElements" : 4
+  },
+  "_links" : {
+    "self" : {
+      "href" : "https://iris.who.int/server/api/core/items/5b0ca7ab-830a-44b8-b99f-4ee743b4d7b2/bundles"
+    }
+  }
+}
