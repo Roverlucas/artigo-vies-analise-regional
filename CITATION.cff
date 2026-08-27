@@ -27,10 +27,12 @@ authors:
     role: Supervisor
 repository-code: "https://github.com/Roverlucas/artigo-vies-analise-regional"
 abstract: >-
-  A pre-registered, multi-country, multi-model benchmark quantifying
-  geographic bias in Large Language Models when used for applied research
-  on public policy, socioeconomic reality, and environmental context in
-  the Global South. Covers 25 countries (stratified via UNCTAD, Joshi et
+  A multi-country, multi-model benchmark quantifying geographic bias in
+  Large Language Models when used for applied research on public policy,
+  socioeconomic reality, and environmental context in the Global South.
+  The analysis plan was fixed before data collection but never deposited
+  publicly, so the study claims no pre-registration and is reported as
+  exploratory. Covers 25 countries (stratified via UNCTAD, Joshi et
   al. 2020, World Bank classifications), 14 LLMs (frontier proprietary,
   open-source global, regional), and a sparse factorial matrix of prompt
   languages. All prompts, ground-truth references, code, and responses

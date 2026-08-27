@@ -147,12 +147,20 @@ python3 code/run_all.py --confirmatory
 
 Corresponding author: **Lucas Rover** — UTFPR — `lucasrover@alunos.utfpr.edu.br`
 
-**Authors (signature order) and affiliations:**
+**Authors (signature order) and affiliations** — as in [`latex/main.tex`](latex/main.tex):
 1. **Lucas Rover** — Federal University of Technology — Paraná (UTFPR), Brazil — `lucasrover@alunos.utfpr.edu.br`
-2. **Dr. Eduardo Tadeu Bacalhau** — Federal University of Paraná (UFPR), Brazil — `bacalhau@ufpr.br`
-3. **Dra. Yara de Souza Tadano** — Federal University of Technology — Paraná (UTFPR), Brazil — `yaratadano@utfpr.edu.br`
+2. **Vitor de Melo Dominski** — Faculdade Descomplica, Brazil
+3. **Prof. Anibal Tavares de Azevedo** — University of Campinas (Unicamp), Brazil
+4. **Dr. Eduardo Tadeu Bacalhau** — Federal University of Paraná (UFPR), Brazil — `bacalhau@ufpr.br`
+5. **Dra. Yara de Souza Tadano** — Federal University of Technology — Paraná (UTFPR), Brazil — `yaratadano@utfpr.edu.br`
 
-Validation, supervision, and writing review are shared by Dr. Eduardo Tadeu Bacalhau (UFPR) and Dra. Yara de Souza Tadano (UTFPR).
+CRediT contributions per author are in the manuscript under *Author contributions*.
+Validation, supervision, and writing review are shared by Bacalhau (UFPR) and
+Tadano (UTFPR). ORCID iDs for all five are in
+[`CITATION.cff`](CITATION.cff); they must match the record in `meusdados.capes`
+for the CAPES transformative agreements to apply.
+
+> **Still to fill before submission:** contact e-mails for authors 2 and 3.
 
 ## Citation
 

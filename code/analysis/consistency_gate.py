@@ -120,9 +120,17 @@ CITADO = re.compile(r"[\"“][^\"”\n]{0,200}[\"”]")
 
 
 def checa_markdown_raiz(root: pathlib.Path) -> int:
-    """docs/ guarda o plano historico e e isento; a raiz fala pelo projeto hoje."""
+    """docs/ guarda o plano historico e e isento; a raiz fala pelo projeto hoje.
+
+    CITATION.cff entra junto: e a metadata que o GitHub exibe e que o Zenodo
+    ingere, e o resumo dela dizia "a pre-registered benchmark".
+    """
     falhas = 0
-    for f in sorted(root.glob("*.md")):
+    arquivos = sorted(root.glob("*.md")) + [root / "CITATION.cff",
+                                            root / "preregistration" / "README.md"]
+    for f in arquivos:
+        if not f.exists():
+            continue
         txt = f.read_text(encoding="utf-8", errors="ignore")
         plano = txt.replace("\n", " ")
         for padrao, era, virou in MD_PROIBIDOS:
