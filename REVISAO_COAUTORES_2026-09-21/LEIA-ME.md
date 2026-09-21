@@ -44,7 +44,19 @@ Os gabaritos de T2/T3 eram placeholders e a comparação "o valor está na faixa
 
 1. Ler o manuscrito em inglês (ou a versão PT) e anotar diretamente no PDF ou por e-mail.
 2. Confirmar afiliação, ORCID e **e-mail institucional** (Dominski e Azevedo: ainda não temos).
-3. Dizer se concorda com a força da claim principal (H2) e com o enquadramento exploratório de H1.
+3. Dizer se concorda com a força da claim principal (H2), com o enquadramento exploratório de H1 e com o rebaixamento de H4 (mecanismo identificado só até o par cobertura-ou-desenvolvimento).
 4. Sinalizar qualquer outra ferramenta de IA usada, para a declaração exigida pela Elsevier.
 
 Sem a aprovação explícita dos cinco, não submetemos.
+
+## O que falta antes de submeter, e o pedido concreto
+
+Depois de um parecer externo de duas partes e de uma rodada de correções (rodada 10, `ROUNDS.md`), o manuscrito está internamente consistente: todos os gates mecânicos passam e cada número do texto sai de `freeze_all_effects.json`. O que resta é o que máquina não faz.
+
+**1. Validação humana de ~150 respostas — a pendência que decide.** Todo número do artigo passa por código contra registro ou por um painel de LLMs; nenhuma resposta foi conferida por um humano. Um revisor escreve esse "major" de olhos fechados. Proposta: 150 respostas estratificadas por tarefa × idioma × tier, três avaliadores, a rubrica de cinco itens que já existe, κ entre avaliadores. Uma semana. Resolve de uma vez a objeção de leniência do juiz por idioma (a penalidade de H2 é −8,6 pp nas células do painel e −3,8 nas do código), a prova de que o código não pune resposta certa nas chaves de fonte única (T2/T3) e a confirmação independente do extrator de T1. **Pedimos que dois coautores aceitem ser avaliadores.** O pipeline exporta a amostra e a planilha; o esforço é de leitura, não de análise.
+
+**2. Leitura integral do EN por um humano.** Cerca de 60 números foram trocados por script nesta rodada e três claims foram rebaixadas (H4, H3, T1). Script não vê frase torta.
+
+**3. Congelamento formal dos resultados.** O autor correspondente declara o freeze da rodada 10 após a leitura; a partir dele nenhum número muda sem nova rodada registrada.
+
+O que **não** faremos: re-julgar as respostas duplicadas sob outra regra (muda 0,0001 na média e custa API), acrescentar análises ou países. As decisões pendentes estão em `data/review-log/2026-09-21-artigo-vies-analise-regional-round10.yaml`.
