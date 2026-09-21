@@ -1,0 +1,170 @@
+critical_review:
+  lens: round-9 — adjudicação (SA-QG-019) do parecer externo de 2 partes (manuscrito + suplemento), recebido 2026-09-21
+  role: >-
+    Parecer é hipótese (R3). Cada item foi conferido contra .tex, freeze_all_effects.json,
+    export_corrected_scores.py, judge_scores_confirmatory.jsonl e o registro T1 antes de
+    receber verdito. Nenhuma edição do manuscrito foi feita nesta rodada. A adjudicação
+    encontrou um defeito PIOR do que o parecer apontou (A-0).
+  artifact_id: artigo-vies-analise-regional
+  date: 2026-09-21
+  verdict: >-
+    adjudicated — 31 UPHELD/UPHELD_MODIFIED, 2 REJECTED_FALSE_PREMISE (retirados pelo próprio
+    revisor), 4 DEFERRED (exigem fonte ou decisão do autor). Não submeter antes do P0.
+  gates_run: [SA-QG-019, SA-QG-014, SA-QG-016, SA-QG-009]
+  findings:
+    - id: A-0
+      source: adjudicação (não estava no parecer)
+      issue: >-
+        T1 e T5 'entram intactas' (export_corrected_scores.py:15) e foram pontuadas por DOIS juízes:
+        gpt-5-mini para os 15 países originais e claude-haiku-4-5 para os 10 da extensão (7 GN).
+        Métodos (03_methods.tex:298) e S6 dizem 'juiz único GPT-5-mini'. No T1 neutro: GN/haiku 0,443 ·
+        GN/gpt 0,376 · GS/haiku 0,368 · GS/gpt 0,200. Juiz e tier estão confundidos; o OR 0,22 (T1) é
+        em parte severidade de juiz. Claude Haiku 4.5 tampouco consta na declaração de IA como instrumento.
+      severity: MUST
+      status: open
+      classe: CORREÇÃO
+      resolution: "Passar T1 por código (resolve juiz e confundimento de uma vez); declarar Haiku 4.5."
+    - id: A-1
+      source: parecer P0-1
+      issue: T1 não é adjudicado por código apesar de 'code wherever the correct answer is a published value' (abstract). score_numeric.py só aceita T2/T3.
+      severity: MUST
+      status: open
+      classe: CORREÇÃO
+      resolution: UPHELD. Estender score_numeric.py a T1 com regra de abstenção para VERIFIED_NO_STANDARD; re-freeze (autor declara).
+    - id: A-2
+      source: parecer P0-2 / S-3
+      issue: 5 dos 15 GS têm chave não padrão no T1 (AGO, ARG, NGA sem padrão; BGD, EGY PARTIALLY_VERIFIED; EGY 'value not extracted'), 0 dos 10 GN. supplement.tex:187 afirma 'no reference in the registry is unverified, and no value was carried over from secondary sources' — AGO cita 'World Bank/WHO note'.
+      severity: MUST
+      status: open
+      classe: CORREÇÃO
+      resolution: UPHELD. Reportar OR do T1 sem os 5; corrigir a frase de S-3.
+    - id: A-3
+      source: adjudicação de S-3 (Egito)
+      issue: O juiz recebeu para EGY T1 um gabarito 'annual PM2.5 ~50–70 µg/m³' (rationale em judge_scores_confirmatory.jsonl) que NÃO está no registro (status PARTIALLY_VERIFIED, valor não extraído). EGY fact_acc=0,065 contra chave inventada.
+      severity: MUST
+      status: open
+      classe: CORREÇÃO
+      resolution: UPHELD. Ou extrair o valor do texto oficial em árabe, ou marcar EGY como sem chave e excluir de T1.
+    - id: A-4
+      source: parecer P0-3 (inconsistências numéricas)
+      issue: >-
+        H6 p=0,27 (abstract:25) vs 0,29 (results:217, discussion:31) — freeze diz 0,291;
+        ρ=0,37 (intro:109) vs 0,41 — freeze 0,408;
+        piso δ=−0,47 (results:99) vs −0,45 (discussion:59) — freeze cliff_piso=−0,446 (o −0,47 é o H3, cliff_regional);
+        LOO H2 −4,2..−5,2 (results:153) vs −4,7..−5,0 (results:430);
+        pesos iguais +4,2 (results:234) vs +4,6 (results:431); factual +8,8 vs +9,4;
+        3.5 soma 13 modelos (closed-accessible (2) → 3); 3.10 'N ~300 a 780' vs Tabela 2 261–500;
+        3.2 'Oceania não representada' com Austrália na amostra; 2.3 'open trail closed' com DeepSeek-V3 em 1º (0,680);
+        Tabela 5 caption 'returning the register value' mas o desfecho é factual≥0,5 (glmm_and_manipcheck.py:66) — T5 99,6% é isso;
+        conclusão 'four languages' e 'spoken where air pollution kills the most' vs 5.6:145 'we did not measure it'.
+      severity: MUST
+      status: open
+      classe: CORREÇÃO
+      resolution: UPHELD (todos conferidos). Ampliar o consistency_gate com essas âncoras antes de corrigir, para não voltar.
+    - id: A-5
+      source: parecer S-1
+      issue: S10:597 — resposta usada é 'the first record encountered in alphabetical file order' para 22% das chaves com múltiplas respostas; corpo descreve média de 951 células de escore. Dois níveis de duplicata, duas regras.
+      severity: MUST
+      status: open
+      classe: CORREÇÃO
+      resolution: UPHELD. Regra a priori (1ª resposta válida cronológica), rerun de base única, sensibilidade com todas.
+    - id: A-6
+      source: parecer S-2
+      issue: Tabela 2 (0,680 DeepSeek) vs Tabela S1 roster (0,625; Llama 3.1 8B N=777 vs 500); S12 ρ=0,365; S14 p=0,080 e 0,043 na mesma tabela; IC tier gap [+1,6,+8,5] vs [+2,1,+8,7]; piso 0,417/0,623 vs 0,421/0,612. make_supplement_tables.py gera de base diferente.
+      severity: MUST
+      status: open
+      classe: CORREÇÃO
+      resolution: UPHELD. Regenerar TODAS as tabelas do suplemento do freeze; âncoras no gate.
+    - id: A-7
+      source: parecer S-6 (Methods descreve o planejado)
+      issue: 3.9:259 'human validator + SHA-256' vs S14:491 'no human validator field exists'; 3.3:61 variantes extra vs S14:571 'never collected'; S11:647 'back-translation not performed' vs censo de 90; 3.5 'run locally' vs Groq free; S6:196 'every response scored by the primary judge'; S14:494 'original submission draft' e :553 '+0.04 published' sugerem submissão anterior; 'pre-registered'/'post-registration' em S1/S4 (PDF l.346, 703).
+      severity: MUST
+      status: open
+      classe: CORREÇÃO
+      resolution: UPHELD. Reescrever Métodos para o estudo entregue; 'pre-specified' em todo o suplemento; apagar 'submission draft/published'.
+    - id: A-8
+      source: parecer P1-4 / temperatura
+      issue: 03_methods.tex:268 'temperature 0.3' e :109 'maximum-determinism'; llm_clients.py:222 força temperature=1.0 para a família GPT-5.
+      severity: MUST
+      status: open
+      classe: CORREÇÃO
+      resolution: UPHELD. Declarar quais modelos rodaram a 1,0.
+    - id: A-9
+      source: parecer P1-6 (H3)
+      issue: Pré-especificação (osf_prereg_draft.md:61) — Cabra vs 'scale-matched Llama 3.1 8B' no gap PT/Brasil. Manuscrito compara contra os 14 em 25 países em inglês (δ=−0,47). Llama 3.1 8B = 0,435 vs Cabra 0,347.
+      severity: MUST
+      status: open
+      classe: DECISÃO DO AUTOR (força da claim)
+      resolution: UPHELD como desvio. Reportar o teste pré-especificado (BRA/PRT/AGO em PT vs Llama 3.1 8B); 'all three fixes fail' depende disso.
+    - id: A-10
+      source: parecer P1-3 (H4 intra-país)
+      issue: 'a country's HDI cannot explain a deficit measured within that same country' — efeito fixo absorve o principal, não HDI×tarefa; cobertura e HDI colineares.
+      severity: SHOULD
+      status: open
+      classe: CORREÇÃO da frase + AMPLIAÇÃO (modelo com as duas interações)
+      resolution: UPHELD. Frase é logicamente errada e sai já; rodar as duas interações depende do autor.
+    - id: A-11
+      source: parecer P1-5 / S-5
+      issue: Tier gap e H6 na amostra de 15 não são reportados (S1 promete); 7/10 GN vieram da onda 2; onda = juiz (A-0).
+      severity: MUST
+      status: open
+      classe: CORREÇÃO
+      resolution: UPHELD. Reportar tier gap a n=15 (3 GN) no corpo e o gap dentro da onda 2.
+    - id: A-12
+      source: parecer S-8
+      issue: results:424 'the development gradient fails all of them in the same direction' vs S12 ρ=0,53 sob pesos iguais; loo_rho_max=0,54 no freeze.
+      severity: MUST
+      status: open
+      classe: CORREÇÃO
+      resolution: UPHELD. Frase falsa; dizer que fica abaixo de 0,55 em todas, e quão perto chega.
+    - id: A-13
+      source: parecer P1-4 (extrator por língua)
+      issue: −11,5/−17,7 pp 'imune ao juiz' depende do extrator parsear vírgula decimal, devanágari, unidade por extenso.
+      severity: SHOULD
+      status: open
+      classe: AMPLIAÇÃO pequena (50 respostas nativas 'sem valor' lidas à mão)
+      resolution: Plausível; não verificado nesta rodada. Autor decide; custo ~1h.
+    - id: A-14
+      source: parecer P2 (validação humana 150; variância entre réplicas)
+      issue: Sem human-gold; 2 réplicas a 0,3.
+      severity: SHOULD
+      status: open
+      classe: AMPLIAÇÃO
+      resolution: Autor já decidiu ir sem (cc0e392). Reabrir a decisão à luz de A-0/A-3 — com chaves de fonte única, é a única prova de que o código não pune resposta certa.
+    - id: A-15
+      source: parecer P1-5 (H2 exploratório como manchete)
+      issue: H2 pré-especificado como exploratório; abstract chama de 'central claim'.
+      severity: SHOULD
+      status: open
+      classe: DECISÃO DO AUTOR (enquadramento)
+      resolution: Fato conferido. Enquadramento é fronteira humana.
+    - id: A-16
+      source: parecer S-3 (construto do T1)
+      issue: Registro rotula como 'binding' valores que ele mesmo descreve como meta (UK '10, target by 2040'; AUS '8; 7 target 2025'; CAN CAAQS; PHL 'guideline'; BRA '17 PI-2' com resposta modal 15 e fact_acc=0,019).
+      severity: MUST
+      status: open
+      classe: CORREÇÃO da chave + DEFERRED (valor vigente do UK e etapa do Brasil exigem fonte)
+      resolution: UPHELD_MODIFIED. A chave 'vigente na janela' precisa ser definida antes do T1 por código; UK=20 e BRA PI-3=15 não foram conferidos por mim.
+    - id: A-17
+      source: parecer P3 (refs / nomenclatura)
+      issue: references.bib:201-203, 334, 382, 479 com notas internas; 'accuracy' para composto com factual peso 0,30; Mann-Kendall em corte transversal.
+      severity: NICE
+      status: open
+      classe: PONTUAL
+      resolution: UPHELD.
+    - id: A-18
+      source: parecer S (370 itens)
+      issue: Fórmula do texto (25×5×persona + pares) não dá 370; o arquivo tem 370 linhas.
+      severity: NICE
+      status: open
+      classe: PONTUAL
+      resolution: UPHELD_MODIFIED — o número está certo, a explicação não.
+    - id: A-19
+      source: parecer (Coreia do Sul; 14 modelos)
+      issue: Retirados pelo próprio revisor.
+      severity: NICE
+      status: resolved
+      resolution: REJECTED_FALSE_PREMISE (refutação permanente já existente — UNCTAD lista a República da Coreia como desenvolvida; 14 modelos fecham no suplemento).
+  open_items_at_log_time:
+    - Todos os UPHELD acima estão ABERTOS; nada foi editado
+    - Decisões do autor: A-9, A-10 (modelo), A-13, A-14, A-15, A-16 (chave vigente)
