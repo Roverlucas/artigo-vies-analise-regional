@@ -88,6 +88,10 @@ por_pais = collections.defaultdict(list)
 for x in (g[0] for g in t1_code.values()):
     if x["verdict"] in FACTUAL: por_pais[x["country"]].append(FACTUAL[x["verdict"]])
 out["A"]["t1_rate_by_country"] = {c: round(st.mean(v), 3) for c, v in sorted(por_pais.items())}
+# países sem padrão: distribuição dos vereditos (primeira resposta por célula) — citada no texto (168/256, 33, 31)
+nostd = collections.Counter(g[0]["verdict"] for g in t1_code.values() if g[0]["country"] in ("AGO", "ARG", "NGA"))
+out["A"]["no_standard_verdicts"] = dict(nostd); out["A"]["no_standard_cells"] = sum(nostd.values())
+print("  países sem padrão, vereditos:", dict(nostd), "total", sum(nostd.values()))
 print("  taxa T1 por país:", " ".join(f"{c}:{st.mean(v):.2f}" for c, v in sorted(por_pais.items())))
 
 # ---------- B. tier gap do composto por amostra ----------

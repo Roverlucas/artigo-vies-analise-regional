@@ -17,20 +17,20 @@ no established method exists for checking. We contribute such a protocol and
 report what it finds. It scores answers against official registers, adjudicating
 by code wherever the correct answer is a published value and by a three-vendor
 judge panel elsewhere. We apply it to air pollution regulation across 25
-countries, 14 deployment stacks and four languages (8{,}244 scored cells). The three
+countries, 14 deployment stacks and four languages (\ncells{} scored cells). The three
 fixes an agency can deploy without building anything all fail, and the most
 intuitive one makes the answer worse: querying in the country's own language
-\emph{lowers} accuracy by 5.0 percentage points (mixed model with a random
-intercept per country, $p=6\times10^{-7}$; eight of nine countries negative) and
-makes the model 9.4 points less likely to return a register-checkable value at all; declaring the
-official role does not narrow the gap ($p=0.29$); and a regionally fine-tuned
+\emph{lowers} accuracy by \nnativa{} percentage points (mixed model with a random
+intercept per country, $p=\nhtwomixedcountryp$; \nhtwocneg{} of nine countries negative) and
+makes the model \nverifdiffabs{} points less likely to return a register-checkable value at all; declaring the
+official role does not narrow the gap ($p=\npersonap$); and a regionally fine-tuned
 7B model ranks last of fourteen. Accuracy also collapses on the task that carries
-administrative consequence, retrieving the binding value: 0.39 against 0.61 for
-synthesis and recommendation. A North/South gap persists ($+5.0$~pp, permutation
-$p=0.019$), is larger on the code-adjudicated outcomes no judge touches, and is
+administrative consequence, retrieving the binding value: \ntasktoneshort{} against \nfloorrestshort{} for
+synthesis and recommendation. A North/South gap persists ($\ntiergap$~pp, permutation
+$p=\ntiergapperm$), is larger on the code-adjudicated outcomes no judge touches, and is
 concentrated where answers depend on a national fact --- on the national
 standard, scored by code against the instrument in force, Global South odds are
-0.32 of Global North odds. Scope is
+\nort{} of Global North odds. Scope is
 bounded: we measure agreement with published regulation in one domain, not general
 capability. The protocol transfers to any regulated domain whose correct answer is
 published.

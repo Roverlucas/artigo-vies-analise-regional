@@ -18,6 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CODE = Path(__file__).resolve().parent
+LOG = ROOT / "data" / "processed" / "last_run.log"
 
 
 def step(name: str, cmd: list[str], cwd: Path = CODE) -> None:
@@ -26,7 +27,15 @@ def step(name: str, cmd: list[str], cwd: Path = CODE) -> None:
     print("=" * 70)
     print(f"  $ {' '.join(cmd)}")
     print()
-    result = subprocess.run(cmd, cwd=cwd)
+    # stdout do passo vai para a tela E para data/processed/last_run.log, que o
+    # validador de numeros (C23) le: todo numero do manuscrito precisa existir num
+    # artefato JSON ou neste log.
+    result = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True)
+    sys.stdout.write(result.stdout)
+    if result.stderr:
+        sys.stderr.write(result.stderr)
+    with LOG.open("a", encoding="utf-8") as fh:
+        fh.write(f"\n===== {name}\n{result.stdout}")
     if result.returncode != 0:
         print(f"\n[FAIL] Step {name} failed with code {result.returncode}")
         sys.exit(result.returncode)
@@ -58,6 +67,8 @@ def main():
         # back-translation census (analysis/back_translation_audit.py) are NOT
         # here because they spend API credit; their outputs are committed and
         # these steps consume them.
+        LOG.parent.mkdir(parents=True, exist_ok=True)
+        LOG.write_text("")
         import hashlib
         for _f in ("t1_registry.jsonl", "t2_registry.jsonl", "t3_registry.jsonl", "t4_reference_set.jsonl"):
             _p = ROOT / "data" / "ground_truth" / _f
@@ -102,6 +113,8 @@ def main():
              [glmm_py, "analysis/mediation_h4.py"])
 
         # ---- Outputs and gates ---------------------------------------------
+        step("C16a. Regenerate body tables (per-model, per-task) from the freeze",
+             [py, "analysis/make_body_tables.py"])
         step("C16. Regenerate Supplementary tables",
              [py, "analysis/make_supplement_tables.py"])
         step("C17. Pre-correction baseline still reproduces (historical, NOT the "
@@ -115,8 +128,14 @@ def main():
              [py, "analysis/h4_proxies_corrigido.py"])
         step("C21. Primary family recomputed on the pre-specified 15 countries",
              [py, "analysis/pre15_corrigido.py"])
+        step("C21b. Regenerate latex/numbers.tex (headline numbers as macros; the text never carries a number)",
+             [py, "analysis/make_numbers_tex.py"])
+        step("C21c. Regenerate the README hypothesis table from numbers.tex",
+             [py, "analysis/make_readme_numbers.py"])
         step("C22. Consistency gate (body <-> supplement <-> freeze tell one story)",
              [py, "analysis/consistency_gate.py"])
+        step("C23. Number census: every number in the four PDFs must trace to a JSON artefact or to this run's log",
+             [py, "analysis/validate_numbers.py"])
         print("\n[Confirmatory reproduction complete — QA gate, method audit "
               "and consistency gate passed]")
         return

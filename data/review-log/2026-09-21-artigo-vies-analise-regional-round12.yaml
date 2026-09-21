@@ -1,0 +1,45 @@
+critical_review:
+  lens: round-12 — rodada de validação: por que números desatualizados continuavam passando, e o que muda a classe
+  role: >-
+    Pedido do autor: "esses erros não podem existir". Diagnóstico medido, não impressão:
+    (1) tabelas do corpo eram editadas à mão (Tabela 2 dizia 0,690; freeze 0,687);
+    (2) o gate de consistência conferia ~30 âncoras e isentava seções inteiras;
+    (3) um censo "o número existe em algum artefato?" NÃO pega deltas pequenos — testado
+    por mutação (0,394→0,397 e 5,0→5,3 passaram), porque num conjunto de milhares de
+    números quase todo valor coincide com algo. Presença não é vínculo.
+  artifact_id: artigo-vies-analise-regional
+  date: 2026-09-21
+  verdict: >-
+    revisions-applied — o texto deixou de carregar números-manchete: 303 macros geradas dos
+    artefatos (latex/numbers.tex) usadas em abstract, resultados, discussão, conclusão,
+    tabelas e nos dois suplementos, EN e PT; tabelas por modelo/tarefa geradas; README gerado;
+    pipeline ponta a ponta C0→C23 com exit 0. Validado por mutação nos dois sentidos.
+  gates_run:
+    - SA-QG-014 consistency_gate (expande macros; âncoras lidas de numbers.tex, não constantes)
+    - C23 validate_numbers (censo dos 4 PDFs: 3.325 números, 0 sem caminho reproduzível)
+    - mutação no ARTEFATO (freeze tier_gap 5,05→7,77, nativa −4,95→−9,99): o PDF mudou em 5 pontos sem tocar o texto
+    - mutação no TEXTO (literal +5,4 no lugar da macro): barrado pelo gate
+    - method_audit CLEAN · highlights OK (expandindo macros) · pytest 10/10 · blind sem vazamento
+  findings:
+    - id: R12-1
+      source: validate_numbers (censo)
+      issue: Tabela 2 (por modelo) e Tabela 3 (por tarefa) editadas à mão e desatualizadas após o run 3 (DeepSeek 0,690 vs 0,687; T1 0,394 vs 0,393); H4 tabela dentro do país com +0,045/−0,030 (run 2) em vez de +0,046/−0,031 (run 4); LOCO tier gap [+4,4,+5,9] na seção de robustez em vez de [+4,4,+6,0]; ρ pesos iguais 0,36 em vez de 0,35; suplemento PT com tabelas antigas (tables_pt, 474 vs 391) e taxonomia +5,06.
+      severity: MUST
+      status: resolved
+      resolution: make_body_tables.py gera as tabelas; numbers.tex gera 303 macros; supplement-PT lê as mesmas tabelas geradas; tables_pt removida.
+    - id: R12-2
+      source: mutação
+      issue: Censo por presença não detecta deltas pequenos.
+      severity: MUST
+      status: resolved
+      resolution: Mantido como rede (pega valores órfãos); a garantia passa a ser o vínculo texto→artefato via macros. Gate e highlights expandem macros antes de conferir.
+    - id: R12-3
+      source: EN × PT (comparação em nível de fonte)
+      issue: Nenhuma divergência real entre corpos EN e PT após macroização (diferenças restantes são formatação de milhar).
+      severity: NICE
+      status: resolved
+      resolution: Ambos leem numbers.tex; variantes pt para separador de milhar.
+  open_items_at_log_time:
+    - Literais que restam no corpo são constantes (pesos 0,30/0,25, limiar 0,55, α 0,05, padrões em µg/m³), históricos (ρ=0,51, −2,1, 0,367→, 0,368→0,473) ou de fontes externas (OMS 88.548); nenhum sai do pipeline.
+    - Suplemento: tabelas geradas têm legendas em inglês também na versão PT (uma fonte só).
+    - Decisões do autor inalteradas (freeze do run 7, H3/"três correções", validação humana).

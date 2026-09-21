@@ -233,7 +233,7 @@ human raters ($\alpha\geq0.70$) before scaling the design. \emph{That pilot was
 not run}, and no rater-level $\alpha$ exists for this study; rubric reliability is
 evidenced instead on the confirmatory data itself, by a three-vendor panel over
 every item that required a judge (Section~\ref{sec:results:reliability}), which
-returns $\alpha=0.527$. We report this as a departure from the plan rather than as
+returns $\alpha=\nalpha$. We report this as a departure from the plan rather than as
 a threshold met.
 
 All prompts were authored in English and, for a stratified subset of countries,
@@ -334,8 +334,8 @@ a Hindi numeral, a parenthetical daily value beside the annual one) is fixed by 
 unit-test suite released with the code; a stratified manual audit of native-language
 responses it classified as carrying no value is reported in Supplementary
 Material. Comparing a value with a key is exact, and a language model asked to do
-the same arithmetic can only reproduce it with noise. Code resolves 99.8\% of the
-T1 cells in the analysis (1{,}614 of 1{,}617), 56.3\% of T2 and 71.8\% of T3;
+the same arithmetic can only reproduce it with noise. Code resolves \ncodecovtone\% of the
+T1 cells in the analysis (\ntonecodecells{} of \ntonecells), \ncodecovttwo\% of T2 and \ncodecovtthree\% of T3;
 a T1 response with no extractable value counts as not having returned it. For the
 three no-standard countries, code scores whether the answer states that no
 national standard exists (correct), asserts a value (fabricated) or declines to
@@ -351,7 +351,7 @@ for the fifteen pre-specified countries and Claude Haiku~4.5 for the ten added i
 the extension, and because the extension holds seven of the ten Global North
 countries, judge and tier are confounded in any effect that still rests on those
 scores. This is why T1 was moved to code: on the original scores the Global South
-deficit in T1 was 0.21 against 0.38 under GPT-5-mini but 0.37 against 0.44 under
+deficit in T1 was \njtgsgpt{} against \njtgngpt{} under GPT-5-mini but \njtgshaiku{} against \njtgnhaiku{} under
 Claude Haiku, a difference between judges as large as the difference between tiers
 (Supplementary Material). T5 carries no tier effect in either instrument.
 Reliability is reported as Krippendorff's $\alpha$, the single-judge ICC$(2,1)$
@@ -370,7 +370,7 @@ collection runs were resumed and re-run; the answer that enters the analysis is
 the first stored in run-file order, which is the one the judge scored, and the
 code verdicts are computed on that same answer so that the two instruments
 describe one response. Scoring every stored answer instead and averaging the
-verdicts changes the code verdict in 3.1\% of cells and the mean by 0.0001
+verdicts changes the code verdict in \ndupchange\% of cells and the mean by \ndupmean
 (Supplementary Material). At the score level, 951 cells (11.5\%) carry more than
 one judge score, because the judge was re-run on parts of the set on different
 dates; those are repeated measurements of the same item, not independent

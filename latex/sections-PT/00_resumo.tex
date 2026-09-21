@@ -9,19 +9,19 @@ estabelecido para conferir. Contribuímos com esse protocolo e relatamos o que e
 encontra. Ele pontua respostas contra registros oficiais, decidindo por código
 sempre que a resposta correta é um valor publicado e por um painel de juízes de
 três fornecedores nos demais casos, e o aplicamos à regulação da poluição do ar em
-25 países, 14 configurações de acesso e quatro idiomas (8.244 células pontuadas). As três
+25 países, 14 configurações de acesso e quatro idiomas (\ncellspt{} células pontuadas). As três
 mitigações que um órgão consegue implantar sem construir nada falham, e a mais
 intuitiva piora a resposta: perguntar no idioma do próprio país \emph{reduz} a acurácia em
-5.0 pontos percentuais (modelo misto com intercepto aleatório por país,
-$p=6\times10^{-7}$; oito de nove países negativos) e torna o modelo 9.4 pontos
+\nnativa{} pontos percentuais (modelo misto com intercepto aleatório por país,
+$p=\nhtwomixedcountryp$; \nhtwocneg{} de nove países negativos) e torna o modelo \nverifdiffabs{} pontos
 menos propenso a devolver um valor verificável contra o registro; declarar o papel
-oficial não estreita a lacuna ($p=0.29$); e um modelo de 7B com ajuste
+oficial não estreita a lacuna ($p=\npersonap$); e um modelo de 7B com ajuste
 regional fica em último entre os catorze. A acurácia também despenca na tarefa que carrega
-consequência administrativa, recuperar o valor vinculante: 0.39 contra 0.61 para
-síntese e recomendação. Uma lacuna Norte/Sul persiste ($+5.0$~pp, permutação
-$p=0.019$), é maior nos desfechos adjudicados por código, que nenhum juiz toca, e
+consequência administrativa, recuperar o valor vinculante: \ntasktoneshort{} contra \nfloorrestshort{} para
+síntese e recomendação. Uma lacuna Norte/Sul persiste ($\ntiergap$~pp, permutação
+$p=\ntiergapperm$), é maior nos desfechos adjudicados por código, que nenhum juiz toca, e
 se concentra onde a resposta depende de um fato nacional --- no padrão nacional,
-pontuado por código contra o instrumento em vigor, a chance do Sul Global é 0.32
+pontuado por código contra o instrumento em vigor, a chance do Sul Global é \nort{}
 da chance do Norte. O escopo é
 delimitado: medimos concordância com a regulação publicada em um domínio, não
 capacidade geral. O protocolo se transfere a qualquer domínio regulado cuja

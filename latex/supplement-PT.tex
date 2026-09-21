@@ -37,6 +37,7 @@ recuperada por LLMs para a gestão ambiental pública em 25 países}
 \author{}
 \date{}
 
+\input{numbers}
 \begin{document}
 \maketitle
 
@@ -44,13 +45,15 @@ recuperada por LLMs para a gestão ambiental pública em 25 países}
 (Tabelas~\ref{tab:s-roster}--\ref{tab:s-groundtruth}) é regenerada a partir dos
 artefatos confirmatórios brutos por
 \texttt{code/analysis/make\_supplement\_tables.py}; nenhum valor é digitado à mão.
+Nesta versão de leitura em português as tabelas geradas são as mesmas da versão
+em inglês (com legendas em inglês), para que exista uma única fonte dos números.
 A pontuação é decidida por código onde o registro tem valor (T1; a parte
 resolvível de T2 e T3), pela média de um painel de três fornecedores
 (Gemini~2.5~Pro, Claude Sonnet~4.6, DeepSeek-V3) no resíduo de T2 e T3 e em toda a
 T4, e pelo juiz da coleta em T5 (\texttt{gpt-5-mini-2025-08-07} para os quinze
 países pré-especificados, \texttt{claude-haiku-4-5-20251001} para os dez da
-extensão). O corpus confirmatório analisado é composto por 8.244 células
-pontuadas (6.573 com prompt em inglês; 1.671 em idioma nativo; 951 células
+extensão). O corpus confirmatório analisado é composto por \ncellspt{} células
+pontuadas (\ncellsenpt{} com prompt em inglês; 1.671 em idioma nativo; 951 células
 receberam mais de um escore em reexecuções e foram colapsadas pela média; as 56
 células egípcias de T1, sem chave no registro, foram removidas) sobre 25 países e
 14 deployment-stacks. Todos os insumos, o código
@@ -103,7 +106,7 @@ isoladamente, porque um gestor público interage com a stack servida e qualquer
 lacuna medida é uma propriedade dessa stack. A Tabela~\ref{tab:s-roster} lista as
 14 stacks com suas strings exatas de API/tag e os locais de execução.
 
-\input{supplement/tables_pt/tab_s_roster}
+\input{supplement/tables/tab_s_roster}
 
 \paragraph{Determinismo e tratamento de seed.} Todas as stacks foram consultadas a
 temperatura~0,3 com a configuração de máximo determinismo que cada provedor
@@ -129,7 +132,7 @@ da primeira e da última chamada sem erro por provedor, junto com a documentaç�
 oficial de API consultada; os timestamps completos por chamada são liberados com o
 conjunto de dados.
 
-\input{supplement/tables_pt/tab_s_acquisition}
+\input{supplement/tables/tab_s_acquisition}
 
 % ============================================================
 \section{Cobertura}
@@ -148,9 +151,9 @@ de idioma nativo usados em H2. A matriz de cobertura completa
 modelo~$\times$~país~$\times$~tarefa, com o motivo de cota ou exclusão de cada
 déficit, está incluída no release.
 
-\input{supplement/tables_pt/tab_s_cov_task}
-\input{supplement/tables_pt/tab_s_cov_country}
-\input{supplement/tables_pt/tab_s_native}
+\input{supplement/tables/tab_s_cov_task}
+\input{supplement/tables/tab_s_cov_country}
+\input{supplement/tables/tab_s_native}
 
 % ============================================================
 \section{Covariáveis dos países}
@@ -170,7 +173,7 @@ idioma, razão pela qual H4 isola a cobertura de país para H1 e o tamanho do co
 do idioma para H2. Todas as entidades do Wikidata são identificadas por um QID
 resolvível e foram recuperadas dentro da janela de coleta.
 
-\input{supplement/tables_pt/tab_s_covariates}
+\input{supplement/tables/tab_s_covariates}
 
 % ============================================================
 \section{Registro de gabarito (T1)}
@@ -191,7 +194,7 @@ especialistas: qualquer leitor pode reverificar cada valor a partir da fonte
 oficial citada. Nenhuma referência no registro é não-verificada, e nenhum valor foi
 transposto de fontes secundárias sem confirmação contra o texto primário.
 
-\input{supplement/tables_pt/tab_s_groundtruth}
+\input{supplement/tables/tab_s_groundtruth}
 
 % ============================================================
 \section{Resultado composto e rubrica de pontuação}
@@ -298,13 +301,13 @@ tamanho de efeito pré-especificado $\rho\geq 0,55$ em ambas as amostras.}
 \toprule
 Teste & 15 países (pré-especificado) & 25 países (extensão) \\
 \midrule
-H1 Spearman $\rho$(acc, IDH)        & $+0.079$ ($p=0.78$), ns            & $+0.361$ ($p=0.076$), ns \\
-H1 Mann--Kendall (por IDH)          & $S=3$, $Z=+0.10$, $p=0.92$, ns     & $p=0.065$, ns \\
-H1 Spearman $\rho$(acc, Joshi)      & $+0.131$ ($p=0.64$), ns                      & $-0.061$, ns (desenvolvimento, não linguístico) \\
+H1 Spearman $\rho$(acc, IDH)        & $\nprerho$ ($p=\nprerhop$), ns            & $\nrhothree$ ($p=\nrhop$), ns \\
+H1 Mann--Kendall (por IDH)          & $S=\npremks$, $Z=\npremkz$, $p=\npremkp$, ns     & $p=\nrhomkp$, ns \\
+H1 Spearman $\rho$(acc, Joshi)      & $\nprejoshi$ ($p=\nprejoship$), ns                      & $-0.061$, ns (desenvolvimento, não linguístico) \\
 H1 vs limiar $\rho\geq 0.55$        & não atingido                       & não atingido \\
-H4 $\rho$ parcial (acc, cobertura$\,\vert\,$IDH) & $+0.381$ ($p=0.18$), ns & $+0.190$ ($p=0.37$), ns \\
-H6 DiD persona (SG$-$NG)            & não recomputada em $n=15$          & $+0.47$~pp, perm $p=0.293$, ns \\
-Lacuna de camada (NG$-$SG), composto & $+6.0$~pp, $p=0.13$ (3 NG)        & $+5.0$~pp, $p=0.019$ \\
+H4 $\rho$ parcial (acc, cobertura$\,\vert\,$IDH) & $\nprehfour$ ($p=\nprehfourp$), ns & $\nhfourpartialthree$ ($p=\nsitepartialp$), ns \\
+H6 DiD persona (SG$-$NG)            & não recomputada em $n=15$          & $\ndidtwo$~pp, perm $p=\npersonapthree$, ns \\
+Lacuna de camada (NG$-$SG), composto & $\ntiergappre$~pp, $p=\ntiergapprep$ (3 NG)        & $\ntiergap$~pp, $p=\ntiergapperm$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -322,10 +325,10 @@ O proxy pré-especificado de edição de idioma é nulo.}
 \toprule
 Medida & Família & $\rho$(acc, log medida) & parcial $\,\vert\,$ IDH \\
 \midrule
-Bytes Wikipédia-inglês       & país     & $+0.153$ ($p=0.47$) & $+0.132$ ($p=0.54$) \\
-Sitelinks Wikidata  & país     & $+0.399$ ($p=0.048$) & $+0.194$ ($p=0.36$) \\
-Statements Wikidata          & país     & $+0.296$ ($p=0.15$) & $+0.180$ ($p=0.40$) \\
-Contagem de edições Wikipédia & idioma  & $+0.142$, ns        & ns \\
+Bytes Wikipédia-inglês       & país     & $\nbytesrho$ ($p=\nbytesp$) & $\nbytespartial$ ($p=\nbytespartialp$) \\
+Sitelinks Wikidata  & país     & $\nhfoursitethree$ ($p=\nsitepthree$) & $\nhfourpartialthree$ ($p=\nsitepartialp$) \\
+Statements Wikidata          & país     & $\nstmtrho$ ($p=\nstmtp$) & $\nstmtpartial$ ($p=\nstmtpartialp$) \\
+Contagem de edições Wikipédia & idioma  & $\nhfourwikithree$, ns        & ns \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -339,19 +342,19 @@ leave-one-country-out (LOCO) e de restrição de amplitude.}
 \toprule
 Achado & Estatística \\
 \midrule
-Lacuna de camada (NG$-$SG)         & $+5.0$~pp, IC 95\% $[+1.6,+8.4]$; permutação $p=0.019$ \\
-Lacuna de camada, faixa LOCO       & $[+4.4,+6.0]$~pp, estável \\
-Lacuna de camada, só onda de extensão & $+5.9$~pp $[+2.4,+9.6]$ (7 NG vs 3 SG), perm $p=0.064$ \\
-Lacuna de camada, só desfechos de código (T1; T2, T3 resolvidas) & NG 0.61 vs SG 0.46, $+14.7$~pp $[+5.6,+23.9]$, perm $p=0.012$; RC agregada 0.53 $[0.48,0.58]$ (T1 0.32, T2 0.51, T3 0.65) \\
-H1 \emph{leave-one-country-out} & $\rho\in[+0.30,+0.48]$: nunca atinge o limiar pré-especificado de 0.55 \\
-Piso de tarefa (T1{+}T2 vs T3--T5) & $0.434$ vs $0.612$, $\delta$ de Cliff $=-0.41$ \\
-H3 Cabra-Mistral vs restante       & $0.351$ vs $0.557$, $\delta$ de Cliff $=-0.48$ \\
-H3 pré-especificada (Cabra vs Llama 3.1 8B, prompts em português) & Brasil $0.258$ vs $0.313$, $\delta=-0.26$ ($n=20$ cada); BRA+PRT+AGO $0.304$ vs $0.362$, $\delta=-0.17$ ($n=60$ cada) \\
-H2 nativo vs inglês (todos)        & $\Delta=-5.0$~pp, Wilcoxon $p=5\times10^{-16}$ ($n=839$); modelo misto com intercepto aleatório por país $-5.0$~pp ($p=6\times10^{-7}$), por modelo $-4.8$~pp ($p=3\times10^{-9}$); país como unidade 8/9 negativos, $t=-4.6$, $p=0.002$; modelo como unidade 12/14, Wilcoxon $p=0.058$ \\
-\quad Espanhol / Português / Hindi & $-4.5$ / $-4.2$ / $-11.4$~pp, todos significativos \\
-\quad por instrumento de pontuação & código $-3.8$ ($n=333$), painel $-8.6$ ($n=314$), juiz da coleta $-1.1$~pp ns ($n=192$, T5) \\
-\quad só veredito de código, por idioma & português $-9.1$ ($n=132$, $p=0.019$), espanhol $-2.1$ ($n=165$, ns), todos $-5.0$~pp ($n=318$, $p=0.048$) \\
-H5 aberto vs fechado-acessível     & vantagem fechada de $+12.8$~pp (descritivo) \\
+Lacuna de camada (NG$-$SG)         & $\ntiergap$~pp, IC 95\% $\ntiergapci$; permutação $p=\ntiergapperm$ \\
+Lacuna de camada, faixa LOCO       & $[\nloogapmin,\nloogapmax]$~pp, estável \\
+Lacuna de camada, só onda de extensão & $\ntiergapwave$~pp $\ntiergapwaveci$ (7 NG vs 3 SG), perm $p=\ntiergapwavep$ \\
+Lacuna de camada, só desfechos de código (T1; T2, T3 resolvidas) & NG \ncodegn{} vs SG \ncodegs{}, $\ncodegap$~pp $\ncodegapci$, perm $p=\ncodegapp$; RC agregada \ncodeor{} $\ncodeorci$ (T1 \norcodetone, T2 \norcodettwo, T3 \norcodetthree) \\
+H1 \emph{leave-one-country-out} & $\rho\in[\nloorhomin,\nloorhomax]$: nunca atinge o limiar pré-especificado de 0.55 \\
+Piso de tarefa (T1{+}T2 vs T3--T5) & $\nfloorrecall$ vs $\nfloorrest$, $\delta$ de Cliff $=\nfloordelta$ \\
+H3 Cabra-Mistral vs restante       & $\ncabra$ vs $0.557$, $\delta$ de Cliff $=\nregdelta$ \\
+H3 pré-especificada (Cabra vs Llama 3.1 8B, prompts em português) & Brasil $\nhthreebra$ vs $\nhthreebrallama$, $\delta=\nhthreebradelta$ ($n=20$ cada); BRA+PRT+AGO $\nhthreelus$ vs $\nhthreeluslama$, $\delta=\nhthreelusdelta$ ($n=60$ cada) \\
+H2 nativo vs inglês (todos)        & $\Delta=\nnativasigned$~pp, Wilcoxon $p=\nnativap$ ($n=\nnpares$); modelo misto com intercepto aleatório por país $\nhtwomixedcountry$~pp ($p=\nhtwomixedcountryp$), por modelo $\nhtwomixedmodel$~pp ($p=\nhtwomixedmodelp$); país como unidade \nhtwocneg/9 negativos, $t=\nhtwoct$, $p=\nhtwoctp$; modelo como unidade \nhtwomneg/14, Wilcoxon $p=\nhtwomwp$ \\
+\quad Espanhol / Português / Hindi & $\nnativaes$ / $\nnativapt$ / $\nnativahi$~pp, todos significativos \\
+\quad por instrumento de pontuação & código $\nhtwocode$ ($n=\nhtwocoden$), painel $\nhtwopanel$ ($n=\nhtwopaneln$), juiz da coleta $\nhtwoorig$~pp ns ($n=\nhtwoorign$, T5) \\
+\quad só veredito de código, por idioma & português $\nhtwocodept$ ($n=\nhtwocodeptn$, $p=\nhtwocodeptp$), espanhol $\nhtwocodees$ ($n=\nhtwocodeesn$, ns), todos $\nhtwocodeall$~pp ($n=\nhtwocodealln$, $p=\nhtwocodeallp$) \\
+H5 aberto vs fechado-acessível     & vantagem fechada de $\nhfive$~pp (descritivo) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -363,11 +366,11 @@ H5 aberto vs fechado-acessível     & vantagem fechada de $+12.8$~pp (descritivo
 principal sob a ponderação dos autores, sob pesos iguais e sob ponderação derivada
 por ACP. Os dois efeitos sustentados se mantêm nas três, e o gradiente fica
 abaixo do 0.55 pré-especificado nas três. Sob a ponderação primária a lacuna de
-camada é de $+5.05$~pp e o gradiente $\rho=+0.361$; sob pesos iguais, $+4.22$~pp
-e $\rho=+0.355$; sob ACP, $+4.72$~pp e $\rho=+0.380$. Um modelo misto gaussiano
-com interceptos aleatórios cruzados dá $\beta=-0.063$ ($p=0.086$) para o Sul
-Global; a reestimação bayesiana dá média posterior $-0.049$, HDI de 94\%
-$[-0.088,-0.006]$, $P(\beta<0)=0.987$; o E-value é 1.71 no ponto e 1.31 no
+camada é de $\ngapprimarytwo$~pp e o gradiente $\rho=\nrhoprimarythree$; sob pesos iguais, $\ngapequaltwo$~pp
+e $\rho=\nrhoequalthree$; sob ACP, $\ngappcatwo$~pp e $\rho=\nrhopcathree$. Um modelo misto gaussiano
+com interceptos aleatórios cruzados dá $\beta=\nmixedbeta$ ($p=\nmixedp$) para o Sul
+Global; a reestimação bayesiana dá média posterior $\nbayes$, HDI de 94\%
+$[\nbayeslo,\nbayeshi]$, $P(\beta<0)=\nbayesp$; o E-value é \nevalue{} no ponto e \nevaluelim{} no
 limite do intervalo mais próximo do nulo.
 
 \emph{Poder sobre o nulo do gradiente.} Simulando amostras de 25 países em
@@ -377,10 +380,10 @@ um gradiente da magnitude pré-especificada, mas não um gradiente fraco (poder 
 48\% em $\rho=0.40$).
 
 \emph{Dependência da taxonomia de camada.} A lacuna é significativa sob a
-partição desenvolvidas/em desenvolvimento da UNCTAD (permutação $p=0.019$) e não
+partição desenvolvidas/em desenvolvimento da UNCTAD (permutação $p=\ntiergapperm$) e não
 sob nenhuma partição dos mesmos 25 países traçada apenas por IDH (mediana
-$+2.14$~pp, $p=0.329$; IDH $<0.800$ $+2.78$~pp, $p=0.206$; IDH $<0.700$
-$+1.94$~pp, $p=0.482$). Relatamos isso
+$\ntaxmedtwo$~pp, $p=\ntaxmedp$; IDH $<0.800$ $\ntaxvhtwo$~pp, $p=\ntaxvhp$; IDH $<0.700$
+$\ntaxlowtwo$~pp, $p=\ntaxlowp$). Relatamos isso
 em vez de descansar sobre a partição favorável.
 
 \emph{Duplicatas, em dois níveis.} No nível da resposta, 21,9\% das chaves
@@ -388,7 +391,7 @@ em vez de descansar sobre a partição favorável.
 análise é a primeira na ordem dos arquivos de execução, que é a que o juiz da
 coleta pontuou, e os vereditos de código de T1, T2 e T3 são computados sobre essa
 mesma resposta. Pontuar todas as respostas e tirar a média dos vereditos muda o
-veredito de código em 3,1\% das células e a média em 0,0001. No nível do escore,
+veredito de código em \ndupchange\% das células e a média em \ndupmean. No nível do escore,
 951 células (11.5\%) têm mais de um escore de juiz, provenientes de reexecuções
 em datas diferentes, colapsadas pela \emph{média}: determinística, independente
 da ordem de leitura, e usa toda a informação coletada. As quatro políticas
@@ -446,10 +449,10 @@ Teste de permutação com o país como unidade, 10.000 reetiquetagens.}
 \toprule
 Partição & Lacuna (pp) & NG/SG & $p$ \\
 \midrule
-UNCTAD desenvolvidas/em desenvolvimento (usada no artigo) & $+5.06$ & 10/15 & $0.020$ \\
-IDH abaixo da mediana da amostra ($0.781$) & $+2.39$ & 13/12 & $0.269$ \\
-IDH $<0.800$ (corte ``muito alto'' do PNUD) & $+2.92$ & 12/13 & $0.182$ \\
-IDH $<0.700$ & $+1.53$ & 20/5 & $0.575$ \\
+UNCTAD desenvolvidas/em desenvolvimento (usada no artigo) & $\ntaxunctad$ & 10/15 & $\ntiergapperm$ \\
+IDH abaixo da mediana da amostra ($0.781$) & $\ntaxmedtwo$ & 13/12 & $\ntaxmedp$ \\
+IDH $<0.800$ (corte ``muito alto'' do PNUD) & $\ntaxvhtwo$ & 12/13 & $\ntaxvhp$ \\
+IDH $<0.700$ & $\ntaxlowtwo$ & 20/5 & $\ntaxlowp$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -487,16 +490,16 @@ devolveu o valor correto em inglês e resposta \emph{vazia} à mesma pergunta em
 % ============================================================
 \emph{Modelo misto e reestimação bayesiana.} Um modelo linear misto gaussiano
 (MixedLM do \texttt{statsmodels}, REML) com interceptos aleatórios cruzados de país
-e modelo dá um efeito do Sul Global de $\beta=-0.063$ ($\mathrm{EP}=0.036$,
-$p=0.086$), marginal em vez de convencionalmente significativo porque cobra do
+e modelo dá um efeito do Sul Global de $\beta=\nmixedbeta$ ($\mathrm{EP}=\nmixedse$,
+$p=\nmixedp$), marginal em vez de convencionalmente significativo porque cobra do
 termo de erro a grande heterogeneidade entre países. Uma reestimação hierárquica
 bayesiana com prioris fracamente informativas (\texttt{pymc}; interceptos cruzados
 de país e modelo, \texttt{random\_seed=42}) concorda em magnitude e é decisiva
-quanto ao sinal: média posterior $-0.049$, HDI de 94\% $[-0.088,-0.006]$,
-$P(\beta<0)=0.987$ ($\hat{R}=1.001$).
+quanto ao sinal: média posterior $\nbayes$, HDI de 94\% $[\nbayeslo,\nbayeshi]$,
+$P(\beta<0)=\nbayesp$ ($\hat{R}=\nrhat$).
 
-\emph{E-values.} A lacuna de camada carrega um E-value de $1.71$ na estimativa
-pontual e $1.31$ no limite do intervalo mais próximo do nulo (aproximação de
+\emph{E-values.} A lacuna de camada carrega um E-value de $\nevalue$ na estimativa
+pontual e $\nevaluelim$ no limite do intervalo mais próximo do nulo (aproximação de
 VanderWeele \& Ding 2017 a partir do efeito padronizado); o segundo é o número
 operativo, e é um limiar baixo. Nenhum E-value é relatado para o gradiente de
 desenvolvimento: seu intervalo já inclui o nulo, de modo que o E-value nesse limite
@@ -528,7 +531,7 @@ Os desvios principais, com o efeito de cada um sobre a interpretação:
 
 \begin{itemize}\setlength{\itemsep}{3pt}
 \item Contagem de respostas. Planejadas 33.600; entregues 8.300 (27.5\%), das
-  quais 8.244 entram na análise após remover as células egípcias de T1 sem chave.
+  quais \ncellspt{} entram na análise após remover as células egípcias de T1 sem chave.
   Aciona o próprio teto de 15\% do plano.
 \item Registro público. O plano deveria ser depositado em registro público
   antes da coleta confirmatória; foi fixado em documento sob controle de versão e
@@ -546,10 +549,10 @@ Os desvios principais, com o efeito de cada um sobre a interpretação:
   devolvido é extraível (99.8\%, 56.3\% e 71.8\% das células); o resíduo e toda
   a T4 são repontuados pela média do painel de três fornecedores; T5 mantém as
   pontuações dos juízes da coleta. Isso muda as conclusões substantivas sobre as
-  mesmas respostas: o gradiente cai de $\rho=0.51$ ($p=0.004$) para $\rho=0.36$
-  ($p=0.076$); a penalidade de idioma nativo cresce de $-2.1$~pp para $-5.0$~pp e
+  mesmas respostas: o gradiente cai de $\rho=0.51$ ($p=0.004$) para $\rho=\nrho$
+  ($p=\nrhop$); a penalidade de idioma nativo cresce de $-2.1$~pp para $\nnativasigned$~pp e
   se torna significativa nos três idiomas; a razão de chances de T1 passa de
-  0.22 sob os juízes para 0.32 sob o código.
+  0.22 sob os juízes para \nort{} sob o código.
 \item Chave de T1. A chave do Reino Unido foi corrigida em 21/09/2026 de 10 (meta
   inglesa para 2040) para 20~$\mu$g/m\textsuperscript{3} (valor-limite em vigor
   desde 2020); o Egito não tem valor recuperável e fica fora de T1; Bangladesh foi
@@ -559,7 +562,7 @@ Os desvios principais, com o efeito de cada um sobre a interpretação:
   versões do registro carregam um prefixo SHA-256 (\texttt{t1\_registry} b0e5d9e132aab684,
   \texttt{t2\_registry} 703dcd8122f88448, \texttt{t3\_registry} 902de1bc6af893de, \texttt{t4\_reference\_set}
   77bca4679aedc93a). A comparação entre tiers em T1 é reportada com e sem os três países sem
-  padrão (0.32 e 0.39) e sob a chave tolerante à escada (0.14).
+  padrão (\nort{} e \nortexcl) e sob a chave tolerante à escada (\nortladder).
 \item Ordenação dos achados. O plano tratava H1 como hipótese primária. H2
   passa a ser relatada como achado principal e o gradiente de H1 como exploratório.
   Reordenação post hoc, motivada pela pontuação corrigida e não por reexame dos

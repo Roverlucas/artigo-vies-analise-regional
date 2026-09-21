@@ -16,7 +16,7 @@ identify the channel behind it only where the design has the resolution to do so
 \subsection{Three intuitive remedies, all failing --- and one that harms}
 
 The local language does not help and materially hurts. Asking in the country's own
-language lowers accuracy by $5.0$~pp, significantly in all three languages and
+language lowers accuracy by $\nnativa$~pp, significantly in all three languages and
 with the country as the unit of inference, and
 the penalty scales with the scarcity of the language's corpus, with India --- the
 highest-scoring country of all 25 in English --- falling furthest in Hindi. This
@@ -28,8 +28,8 @@ instrument, nor on translation quality, and it holds on an outcome involving no
 judge at all: the model becomes markedly less likely to produce a checkable number
 in the first place.
 
-The local-manager persona does not narrow the gap (DiD $+0.5$~pp, permutation
-$p=0.29$), consistent with evidence that expert personas do not reliably improve
+The local-manager persona does not narrow the gap (DiD $\ndid$~pp, permutation
+$p=\npersonap$), consistent with evidence that expert personas do not reliably improve
 factual accuracy~\citep{zheng2024helpful,mollick2025personas}. This null carries
 more weight than a null about a folk habit would, because role framing is the
 first thing every major vendor tells its users to do --- Anthropic, OpenAI, Google
@@ -45,8 +45,8 @@ message rather than installed as a system instruction, the channel a public
 servant in a chat interface actually has (Section~\ref{sec:limits}).
 
 The regional model is the \emph{worst} performer of all fourteen
-($\delta=-0.48$), and it also trails its scale-matched peer on the
-Portuguese-language Brazilian prompts it was tuned for ($0.258$ against $0.313$
+($\delta=\nregdelta$), and it also trails its scale-matched peer on the
+Portuguese-language Brazilian prompts it was tuned for ($\nhthreebra$ against $\nhthreebrallama$
 for Llama~3.1~8B, on 20 cells each), so reaching for a locally tuned small model
 trades away the scale and frontier training that carry domain accuracy without
 buying back the local knowledge it promises. Two limits bound this: the narrow
@@ -81,7 +81,7 @@ disappears on the one task with no register value to get right
 (Section~\ref{sec:results:h1}). On the code-adjudicated outcomes alone, where no
 judge can have contributed a deficit of its own, it is larger than on the
 composite. The development gradient stays below the pre-specified threshold on
-every reading, and that null is informative because the design has $77\%$ power
+every reading, and that null is informative because the design has $\npower\%$ power
 at $\rho=0.55$: a gradient of the size we committed to is excluded, a weak one is
 not. The country ordering shows why the two results differ --- India tops all 25
 countries despite being Global South, Canada and France sit low --- so the
@@ -102,11 +102,11 @@ the same proxy.
 Partial resolution comes from changing the unit of variation. Within the nine
 anglophone countries the linguistic channel is not merely controlled but identical
 by construction, and country coverage still predicts the specificity deficit
-($\beta=+0.024$, $p=0.003$): what that coefficient measures cannot be language.
+($\beta=\nhfouranglo$, $p=\nhfouranglop$): what that coefficient measures cannot be language.
 What it can be is development. Entered together with coverage, HDI$\times$task
-dependence takes the signal ($\beta=+0.027$, $p=5\times10^{-5}$) and coverage
-falls to $\beta=+0.012$ ($p=0.063$), because across these 25 countries the two
-correlate at $\rho=0.65$ and the design has no lever that moves one without the
+dependence takes the signal ($\beta=\nhfourjhdi$, $p=\nhfourjhdip$) and coverage
+falls to $\beta=\nhfourjcob$ ($p=\nhfourjcobp$), because across these 25 countries the two
+correlate at $\rho=\nrhocobhdi$ and the design has no lever that moves one without the
 other. The mechanism is therefore identified only up to that pair: the deficit is
 smaller where more about the country is on record, and whether the operative
 record is the encyclopedic footprint or the wider apparatus of a developed state

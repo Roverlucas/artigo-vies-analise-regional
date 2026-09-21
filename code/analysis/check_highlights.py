@@ -25,6 +25,17 @@ def main() -> int:
                        ARQ.read_text(encoding="utf-8"), re.S)
     itens = [re.sub(r"\s+", " ", i).strip() for i in itens]
 
+    # os highlights carregam macros (\\nXXX de latex/numbers.tex); o portal ve o
+    # numero, nao a macro — expandir antes de contar caracteres
+    import re as _re
+    import pathlib as _pl; _nums = _pl.Path(__file__).resolve().parents[2] / "latex" / "numbers.tex"
+    if _nums.exists():
+        _M = dict(_re.findall(r"\\newcommand\{\\(n[a-z]+)\}\{((?:[^{}]|\{[^{}]*\})*)\}", _nums.read_text(encoding="utf-8")))
+        def _exp(t):
+            for k in sorted(_M, key=len, reverse=True):
+                t = _re.sub(r"\\" + k + r"(?![a-zA-Z])(\{\})?", _M[k].replace("{,}", ","), t)
+            return t
+        itens = [_exp(t) for t in itens]
     print(f"HIGHLIGHTS — {len(itens)} marcadores (o GIQ aceita {MIN_ITENS} a {MAX_ITENS})\n")
     falhou = False
     for i, t in enumerate(itens, 1):

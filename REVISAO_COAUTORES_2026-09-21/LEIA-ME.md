@@ -9,8 +9,8 @@
 
 | arquivo | conteúdo | pp |
 |---|---|---|
-| `...MANUSCRITO-EN` | manuscrito completo, inglês (idioma de submissão) — formato `elsarticle [review]`, espaçamento duplo | 66 |
-| `...SUPLEMENTAR-EN` | material suplementar, inglês | 18 |
+| `...MANUSCRITO-EN` | manuscrito completo, inglês (idioma de submissão) — formato `elsarticle [review]`, espaçamento duplo | 67 |
+| `...SUPLEMENTAR-EN` | material suplementar, inglês | 19 |
 | `...MANUSCRITO-PT` | versão de leitura em português | 35 |
 | `...SUPLEMENTAR-PT` | suplemento em português | 16 |
 

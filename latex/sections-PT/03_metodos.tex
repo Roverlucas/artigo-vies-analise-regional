@@ -242,7 +242,7 @@ piloto de 50 prompts pontuado por dois avaliadores humanos independentes
 não existe $\alpha$ de avaliador para este estudo; a confiabilidade da rubrica é
 evidenciada, em vez disso, sobre os próprios dados confirmatórios, por um painel de
 três fornecedores sobre cada item que exigiu juiz (Seção~\ref{sec:res:confiab}), que
-devolve $\alpha=0.527$. Relatamos isso como desvio do plano, e não como limiar
+devolve $\alpha=\nalpha$. Relatamos isso como desvio do plano, e não como limiar
 atingido.
 
 Todos os prompts foram redigidos em inglês e, para um subconjunto estratificado de
@@ -347,8 +347,8 @@ diário entre parênteses ao lado do anual) é fixado por uma suíte de testes
 unitários liberada com o código; uma auditoria manual estratificada das respostas
 em idioma nativo que ele classificou como sem valor está no suplemento. Comparar
 um valor com uma chave é exato, e um modelo de linguagem a quem se pede a mesma
-aritmética só consegue reproduzi-la com ruído. O código resolve 99.8\% das
-células de T1 na análise (1.614 de 1.617), 56.3\% de T2 e 71.8\% de T3; uma
+aritmética só consegue reproduzi-la com ruído. O código resolve \ncodecovtone\% das
+células de T1 na análise (\ntonecodecellspt{} de \ntonecellspt), \ncodecovttwo\% de T2 e \ncodecovtthree\% de T3; uma
 resposta de T1 sem valor extraível conta como não tê-lo devolvido. Para os três
 países sem padrão, o código pontua se a resposta afirma que não existe padrão
 nacional (correto), afirma um valor (fabricado) ou se recusa a responder (nem um
@@ -363,8 +363,8 @@ GPT-5-mini para os quinze países pré-especificados e o Claude Haiku~4.5 para o
 dez acrescentados na extensão, e como a extensão contém sete dos dez países do
 Norte Global, juiz e tier estão confundidos em qualquer efeito que ainda repouse
 sobre essas pontuações. Foi por isso que T1 passou para o código: nas pontuações
-originais o déficit do Sul Global em T1 era 0.21 contra 0.38 sob o GPT-5-mini,
-mas 0.37 contra 0.44 sob o Claude Haiku, uma diferença entre juízes tão grande
+originais o déficit do Sul Global em T1 era \njtgsgpt{} contra \njtgngpt{} sob o GPT-5-mini,
+mas \njtgshaiku{} contra \njtgnhaiku{} sob o Claude Haiku, uma diferença entre juízes tão grande
 quanto a diferença entre tiers (suplemento). T5 não carrega efeito de tier em
 nenhum dos dois instrumentos. A confiabilidade é relatada como $\alpha$ de
 Krippendorff, o ICC$(2,1)$ de juiz único e, como quantidade operativa, o
@@ -384,7 +384,7 @@ resposta que entra na análise é a primeira armazenada na ordem dos arquivos de
 execução, que é a que o juiz pontuou, e os vereditos de código são computados
 sobre essa mesma resposta, para que os dois instrumentos descrevam uma única
 resposta. Pontuar todas as respostas armazenadas e tirar a média dos vereditos
-muda o veredito de código em 3,1\% das células e a média em 0,0001
+muda o veredito de código em \ndupchange\% das células e a média em \ndupmean
 (suplemento). No nível do escore, 951 células (11,5\%) carregam mais de um
 escore de juiz, porque o juiz foi reexecutado sobre partes do conjunto em datas
 diferentes; são medições repetidas do mesmo item, não observações independentes,

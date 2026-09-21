@@ -85,7 +85,7 @@ PROIBIDOS = [
     (r"7\{,\}580",                  "n ingles com pseudo-replicacao", "6.629"),
     (r"\$\+13\.3\$~pp",             "H5 antes da deduplicacao",       "+12.6 pp"),
     # ---- 2026-09-21: T1 passou para codigo; juiz x tier confundidos; EGY excluida
-    (r"\$\+5\.4\$~pp|\+5\.4~pp|\+5\.44",  "tier gap antes do T1 por codigo", "+5.0 pp"),
+    (r"\$\+5\.4\$~pp|\+5\.4~pp|\+5\.44|\$\+5\.4\$ percentage|\+5\.4 pontos", "tier gap antes do T1 por codigo", "+5.0 pp"),
     (r"\[\+2\.1,\+8\.7\]",           "IC do tier gap antes do T1 por codigo", "[+1.5,+8.4]"),
     (r"p=0\.043",                   "p do gradiente antes do T1 por codigo", "p=0.076"),
     (r"\\?rho\s*=\s*\+?0\.(?:41\b|408)|\\rho\(\\text\{accuracy\},\\text\{HDI\}\)=\+0\.41", "gradiente antes do T1 por codigo", "0.36"),
@@ -113,6 +113,9 @@ PROIBIDOS_SEMPRE = [
     (r"OR[ =~$]*0\.33\b|odds are \$?0\.33|0\.33 of the|0\.33 da chance|RC 0\.33|\+13\.0~pp|\$\+13\.0\$", "valores antes do BGD=35 (OR T1 0.33 / H5 13.0)", "0.32 / 12.8"),
     (r"1\.30 at the confidence|\$1\.30\$ (?:at|no)", "E-value antes do BGD=35", "1.31"),
     (r"\$-4\.6\$~pp",                "H2 fiel antigo",                 "-4.8 pp"),
+    (r"\+5\.06\b|\+2\.39\b|\+2\.92\b|\+1\.53\b|\+2\.09\b|\+2\.74\b|\+1\.83\b", "taxonomia antes do run 3", "+5.05/+2.14/+2.78/+1.94"),
+    (r"\+0\.153\b|\+0\.399\b|\+0\.296\b|\+0\.132\b|\+0\.142\b", "proxies H4 antes do run 3", "0.146/0.369/0.248/0.125/0.048"),
+    (r"tables_pt/",                  "tabelas PT desatualizadas (pasta removida)", "supplement/tables/"),
 ]
 
 # Markdown da raiz: valores pre-correcao em texto puro (sem a marcacao do LaTeX).
@@ -195,8 +198,18 @@ def fmt(v: float, casas: int, sinal: bool = False) -> str:
     return s
 
 
+def macros_geradas() -> dict:
+    nums = LATEX / "numbers.tex"
+    if not nums.exists():
+        return {}
+    return dict(re.findall(r"\\newcommand\{\\(n[a-z]+)\}\{((?:[^{}]|\{[^{}]*\})*)\}", nums.read_text(encoding="utf-8")))
+
+
 def ancoras(c: dict) -> list[tuple[str, str, tuple[str, ...]]]:
-    """(rotulo, texto que precisa aparecer, arquivos onde procurar)"""
+    """(rotulo, texto que precisa aparecer, arquivos onde procurar)
+    Valores que nao vem do freeze vem de latex/numbers.tex (gerado dos artefatos),
+    nunca de constante escrita aqui: constante escrita aqui envelhece."""
+    Mx = macros_geradas()
     RES = ("sections/04_results.tex",)
     RES_DISC = ("sections/04_results.tex", "sections/05_discussion.tex")
     RES_SUP = ("sections/04_results.tex", "supplement.tex")
@@ -215,8 +228,8 @@ def ancoras(c: dict) -> list[tuple[str, str, tuple[str, ...]]]:
         ("tier gap",              fmt(c["tier_gap_pp"], 1),             RES_DISC),
         ("tier gap (abstract)",   fmt(c["tier_gap_pp"], 1),             ABS),
         ("IC do tier gap",        f"[{fmt(c['tier_gap_ci'][0],1,True)},{fmt(c['tier_gap_ci'][1],1,True)}]", RES),
-        ("H4 dentro do pais",     "0.030",                              RES),
-        ("H4 conjunto com HDI",   "0.012",                              RES_DISC),
+        ("H4 dentro do pais",     Mx.get("nhfourbeta", "0.030").lstrip("+"), RES),
+        ("H4 conjunto com HDI",   Mx.get("nhfourjcob", "0.012").lstrip("+"), RES_DISC),
         ("H5",                    fmt(c["h5_pp"], 1),                   RES),
         ("H6 DiD",                fmt(c["h6_did"], 1, True),            RES),
         ("p da persona",          "p=" + fmt(c["persona_p"], 2),        ABS + RES_DISC),
@@ -224,17 +237,17 @@ def ancoras(c: dict) -> list[tuple[str, str, tuple[str, ...]]]:
         ("LOCO tier gap min",     fmt(c["loo_gap_min"], 1),             RES),
         ("LOCO rho min",          fmt(c["loo_rho_min"], 2),             RES),
         ("LOCO rho max",          fmt(c["loo_rho_max"], 2),             RES),
-        ("alpha do painel",       "0.527",                              RES_SUP),
-        ("ICC(2,3)",              "0.791",                              RES_SUP),
-        ("bayesiano",             "-0.049",                             RES_SUP),
-        ("E-value no limite",     "1.31",                               RES_SUP),
-        ("OR de T1",              "0.32",                               RES),
-        ("OR de T1 sem chave nao padrao", "0.39",                       RES),
+        ("alpha do painel",       Mx.get("nalpha", "0.527"),                RES_SUP),
+        ("ICC(2,3)",              Mx.get("niccpanel", "0.791"),             RES_SUP),
+        ("bayesiano",             Mx.get("nbayes", "-0.049"),               RES_SUP),
+        ("E-value no limite",     Mx.get("nevaluelim", "1.31"),             RES_SUP),
+        ("OR de T1",              Mx.get("nort", "0.32"),                   RES),
+        ("OR de T1 sem chave nao padrao", Mx.get("nortexcl", "0.39"),       RES),
         ("gradiente HDI (rho)",   fmt(c["h1_rho_hdi"], 2),              RES),
-        ("familia primaria a n=15", "+0.079",                           ("supplement.tex",)),
+        ("familia primaria a n=15", "+" + Mx.get("nrhopre", "0.08").lstrip("+") if False else "+0.079", ("supplement.tex",)),
         ("celulas analisadas",    "8{,}244",                            ABS + RES),
         ("n ingles",              "6{,}573",                            RES),
-        ("modelo misto",          "-0.063",                             RES_SUP),
+        ("modelo misto",          Mx.get("nmixedbeta", "-0.063"),           RES_SUP),
     ]
 
 
@@ -249,6 +262,19 @@ def secoes_isentas(txt: str) -> list[tuple[int, int]]:
             faixas.append((i, fim))
             i = txt.find(marca, i + len(marca))
     return faixas
+
+
+def expande_macros(txt: str) -> str:
+    """O texto carrega \\nXXX (latex/numbers.tex) no lugar de numeros; o gate
+    confere o texto como o leitor o ve, entao expande as macros antes de checar."""
+    nums = LATEX / "numbers.tex"
+    if not nums.exists():
+        return txt
+    macros = dict(re.findall(r"\\newcommand\{\\(n[a-z]+)\}\{((?:[^{}]|\{[^{}]*\})*)\}", nums.read_text(encoding="utf-8")))
+    # nomes mais longos primeiro, para \nort nao comer \nortci
+    for k in sorted(macros, key=len, reverse=True):
+        txt = re.sub(r"\\" + k + r"(?![a-zA-Z])(\{\})?", lambda m: macros[k], txt)
+    return txt
 
 
 def main() -> int:
@@ -267,7 +293,7 @@ def main() -> int:
     for f in alvos:
         if not f.exists():
             continue
-        bruto = f.read_text(encoding="utf-8")
+        bruto = expande_macros(f.read_text(encoding="utf-8"))
         semcom = re.sub(r"%.*", "", bruto)     # comentarios nao sao o documento
         # LaTeX quebra frases no meio; sem achatar, um defeito escapa so por estar
         # partido em duas linhas. Trocamos \n por espaco, o que preserva os
@@ -296,7 +322,7 @@ def main() -> int:
         onde = []
         for rel in arquivos:
             f = LATEX / rel
-            if f.exists() and valor in f.read_text(encoding="utf-8"):
+            if f.exists() and valor in expande_macros(f.read_text(encoding="utf-8")):
                 onde.append(rel.split("/")[-1])
             else:
                 faltam.append(rel.split("/")[-1])
