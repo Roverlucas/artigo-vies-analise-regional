@@ -1,0 +1,66 @@
+critical_review:
+  lens: round-2 — auditoria independente em outro fornecedor (Gemini 2.5 Pro + DeepSeek-V3), 10 pareceres, 37 achados
+  role: >-
+    Reconstrução retroativa (2026-09-21). squad_audit.py rodou as lentes do squad em
+    modelos de outro fornecedor (R7). Cada achado foi conferido na fonte antes de virar
+    edição (R3). Evidência E1: commits 9ebfd2b, 652f35a, 2ad77d0, b3d26ec.
+  artifact_id: artigo-vies-analise-regional
+  date: 2026-08-23
+  verdict: >-
+    revisions-applied — 6 achados UPHELD e corrigidos, 1 REJECTED_FALSE_PREMISE; manuscrito
+    adaptado ao GIQ (abstract 249 palavras, APA, versão cega). 41 pp.
+  gates_run:
+    - SA-QG-019 adjudication (parecer é hipótese)
+    - SA-QG-011 critical review panel
+    - SA-QG-006 formatting (GIQ)
+  findings:
+    - id: R2-1
+      source: code-reviewer (Gemini)
+      issue: score_numeric.py não emitia replicate_idx; réplicas com chave idêntica, ~30% dos vereditos de T2/T3 arbitrários.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Corrigido na raiz e nos consumidores; cobertura do código 1.403→2.446 células; 166 números propagados. (9ebfd2b)
+    - id: R2-2
+      source: statistician
+      issue: Wilcoxon sem correção de empates, copiado em 3 scripts.
+      severity: SHOULD
+      status: resolved
+      resolution: UPHELD. Centralizado em code/analysis/nonparametric.py com correção.
+    - id: R2-3
+      source: senior-scientist
+      issue: Texto dizia que H2 sobrevive 'under each scoring instrument separately'; não sobrevive em 2 dos 3 subconjuntos.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Reescrito para o que é.
+    - id: R2-4
+      source: qa-reviewer
+      issue: Methods negava back-translation que Results descreve; linguagem 'confirmatory' contra protocolo exploratório.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Alinhado.
+    - id: R2-5
+      source: legal-ethics
+      issue: Declaração de IA dizia que nenhum modelo gerou dados; os juízes LLM produzem os escores.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Reescrita separando instrumento de medida e redação.
+    - id: R2-6
+      source: literature-analyst
+      issue: 'Referências fabricadas' alba2026 e amalia2026 (IDs arXiv 2603 'futuros').
+      severity: MUST
+      status: resolved
+      resolution: REJECTED_FALSE_PREMISE — refutação permanente. 2603 = março/2026; ambas existem na API do arXiv (2026-03-27).
+    - id: R2-7
+      source: qa-reviewer
+      issue: Corpo do suplemento carregava números do juiz único (12 blocos).
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Bloco de confiabilidade reescrito para o painel de 3 sobre 3.190 itens. (652f35a)
+    - id: R2-8
+      source: auditoria interna
+      issue: Duplicatas resolvidas pela primeira em ordem alfabética de arquivo; proxy de corpus atribuía Wikipédia inglesa a 9 países (mede história colonial).
+      severity: MUST
+      status: resolved
+      resolution: Política = média (amplitude entre políticas 0,06 pp); H4 identificado dentro do país nos 9 anglófonos (β=+0,0248, p=6e−04). (2ad77d0)
+  open_items_at_log_time:
+    - Conversão para elsarticle.cls e graphical abstract (decisão do autor)

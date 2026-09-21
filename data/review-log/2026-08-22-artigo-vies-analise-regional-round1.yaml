@@ -1,0 +1,73 @@
+critical_review:
+  lens: round-1 — congelamento com painel de 3 juízes e reordenação dos achados
+  role: >-
+    Reconstrução retroativa (2026-09-21) a partir do histórico git. A rodada fechou o
+    painel de juízes (9.574/9.576 escores), reproduziu os números publicados antes de
+    comparar, recomputou todos os efeitos sobre o gabarito corrigido e inverteu a
+    hierarquia dos achados. Evidência E1: commits 41ce420..9cc8e5d, 2026-08-22.
+  artifact_id: artigo-vies-analise-regional
+  date: 2026-08-22
+  verdict: >-
+    revisions-applied — H2 (língua nativa) passa a achado principal; H1 (gradiente IDH)
+    passa a exploratório. Manuscrito 39 pp, 0 refs indefinidas.
+  gates_run:
+    - SA-QG-016 result provenance (reprodução do publicado antes de comparar)
+    - SA-QG-014 numerical coherence
+  findings:
+    - id: R1-1
+      source: 41ce420
+      issue: H2 era testado como diferença de médias marginais; sem pareamento por célula o efeito some (−1,01 pp, p=0,18).
+      severity: MUST
+      status: resolved
+      resolution: Wilcoxon pareado por célula (modelo, prompt), réplicas colapsadas antes de parear.
+    - id: R1-2
+      source: 41ce420
+      issue: Código publicado procurava 'sabia3'; o modelo regional na coleta é cabra_mistral_7b.
+      severity: MUST
+      status: resolved
+      resolution: Chave corrigida em freeze_all_effects.py.
+    - id: R1-3
+      source: 3bbf370
+      issue: ICC 0,89 vinha da amostra de calibração (131 itens, 4 juízes), não da base que produz os efeitos.
+      severity: MUST
+      status: resolved
+      resolution: Reportado ICC(2,3)=0,791, ICC(2,1)=0,558, alpha=0,527 sobre 3.190 itens, 3 juízes.
+    - id: R1-4
+      source: 1ab9131
+      issue: Com o gabarito corrigido a hierarquia inverte (H2 −2,1→−5,0 pp; gradiente ρ 0,51→0,36 ns). Manter H1 em destaque apresentaria como demonstrado o que ficou aberto.
+      severity: MUST
+      status: resolved
+      resolution: Abstract, Results, Discussion e Conclusion reordenados; Methods descreve o instrumento realmente usado.
+    - id: R1-5
+      source: 5783cc0
+      issue: E-value reportado só no ponto; E-value do gradiente (não significativo) publicado como 5,4 seria enganoso.
+      severity: SHOULD
+      status: resolved
+      resolution: E-value no limite do IC acrescentado; E-value do gradiente retirado; bayesiano com 4 cadeias (r-hat 1,000).
+    - id: R1-6
+      source: 76ce31c
+      issue: GLMM binomial parecia falhar; era a extração do parâmetro (cov_params devolve Series). Escondia o resultado mais nítido (T1 OR 0,23).
+      severity: MUST
+      status: resolved
+      resolution: Extração corrigida; tabela de OR por tarefa acrescentada; tier gap descrito como concentrado, não fraco.
+    - id: R1-7
+      source: 7ff9df1, 4e20d28
+      issue: H2 precisava sobreviver a ataque adversarial e à objeção de tradução.
+      severity: SHOULD
+      status: resolved
+      resolution: LOO país/modelo, trimming, desfecho binário sem juiz (−11,5 pp, p=1,9e−10); censo de back-translation 90/90 same_country, fidelidade não prediz o efeito (p=0,42).
+    - id: R1-8
+      source: 9cc8e5d
+      issue: S10 afirmava 4.976 chaves / 1.003 duplicadas; não reproduzia.
+      severity: SHOULD
+      status: resolved
+      resolution: Medido dos artefatos (9.760/2.147) e gerado por robustness_extra.py.
+    - id: R1-9
+      source: 9cc8e5d
+      issue: Tier gap some sob toda partição por HDI dos mesmos 25 países; só UNCTAD produz.
+      severity: MUST
+      status: resolved
+      resolution: Reportado contra o próprio interesse; claim restrita à linha Norte/Sul convencional; leitura declarada post hoc.
+  open_items_at_log_time:
+    - Declaração de IA generativa como placeholder (cc0e392)
+    - Validação humana: vai sem, por decisão do autor (cc0e392)

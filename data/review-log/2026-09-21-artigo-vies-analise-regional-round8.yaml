@@ -1,0 +1,42 @@
+critical_review:
+  lens: round-8 — fechamento retroativo das rodadas 1–7 (SA-QG-018), declaração de IA completada, pacote para coautores
+  role: >-
+    O repo não tinha ROUNDS.md nem data/review-log/: as sete rodadas de 22–27/08
+    existiam só como mensagens de commit, que é exatamente o que R8 proíbe. Esta rodada
+    reconstrói os registros a partir do histórico git (E1), sem tocar em nenhum número do
+    manuscrito, e fecha a pendência da declaração de IA.
+  artifact_id: artigo-vies-analise-regional
+  date: 2026-09-21
+  verdict: >-
+    revisions-applied — 7 review-logs reconstruídos, ROUNDS.md criado, declaração de IA
+    nomeia todas as ferramentas encontradas no repo, PDFs regenerados (59/17/31/16 pp),
+    pacote REVISAO_COAUTORES_2026-09-21/ entregue. consistency_gate LIMPO.
+  gates_run:
+    - SA-QG-018 round persistence (round_close.py --check)
+    - SA-QG-014 (consistency_gate.py LIMPO)
+    - SA-QG-013 desk-reject screen (declaração Elsevier)
+  findings:
+    - id: R8-1
+      source: HOUSE-RULES R8 / round_close.py
+      issue: Nenhuma rodada registrada; commit message não é registro de rodada.
+      severity: MUST
+      status: resolved
+      resolution: review-log round1..round7 reconstruídos com id, fonte (hash), issue, severidade, status, resolução; ROUNDS.md criado.
+    - id: R8-2
+      source: git log + code/analysis/squad_audit.py + ai_writing_detector.py
+      issue: Declaração de IA nomeava só Claude Code e Codex CLI. O repo prova uso de Gemini 2.5 Pro e DeepSeek-V3 (squad_audit.py, rounds 2 e 4), DeepSeek-V3 (ai_writing_detector.py, round 3) e GPT-5.2-pro (second opinion) como revisores do manuscrito — mesma categoria atribuída ao Codex.
+      severity: MUST
+      status: resolved
+      resolution: CORREÇÃO (R4): frase acrescentada em main.tex:191 e main-PT.tex:172 nomeando os três, com o papel (revisores independentes, fornecedor ≠ redator). Resta ao autor confirmar se houve ferramenta fora das sessões versionadas.
+    - id: R8-3
+      source: memória do projeto
+      issue: Path do repo na memória apontava para ~/artigo-vies-analise-regional/ (movido em 29/08).
+      severity: SHOULD
+      status: resolved
+      resolution: Memória corrigida para ~/pesquisa/ativos/artigo-vies-analise-regional/.
+  open_items_at_log_time:
+    - Revisão dos 5 coautores (pacote enviado 21/09) — fronteira humana
+    - E-mails de Dominski e Azevedo
+    - Leitura humana palavra por palavra do EN
+    - Liberar data/confirmatory_PRIVATE/ no dia da submissão
+    - 7 refs em abstract fecham com navegador autenticado (opcional)

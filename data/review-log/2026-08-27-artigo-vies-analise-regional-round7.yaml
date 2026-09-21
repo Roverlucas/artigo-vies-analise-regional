@@ -1,0 +1,44 @@
+critical_review:
+  lens: round-7 — classe de divergência fora do .tex (repo público), autoria de cinco, pré-registro
+  role: >-
+    Reconstrução retroativa (2026-09-21). O consistency_gate.py só varria .tex; por esse
+    ponto cego passaram três markdowns versionados num repo PÚBLICO com números
+    pré-correção e afirmando pré-registro a terceiros. Evidência E1: commits 7bba117, f08ff3d.
+  artifact_id: artigo-vies-analise-regional
+  date: 2026-08-27
+  verdict: >-
+    revisions-applied — gate estendido ao check (C), validado por mutação (7+3 defeitos
+    injetados, 10 pegos); autoria de cinco alinhada; CITATION.cff e preregistration/README.md
+    dizem o que o diretório é. Pronto para revisão dos coautores.
+  gates_run:
+    - SA-QG-014 (check C: markdown da raiz + CITATION.cff + preregistration/README.md)
+    - SA-QG-013 desk-reject screen
+  findings:
+    - id: R7-1
+      source: 7bba117
+      issue: artigo-PT.md, RESULTS_25.md, EXECUTION_GUIDE.md (números pré-correção, 18 menções a 'pré-registrado', aprovação ética inexistente); README com 41 pp e enquadramento vetado.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Substituídos por ponteiros/banner; docs/ isento por construção (é o plano histórico).
+    - id: R7-2
+      source: 7bba117
+      issue: Declaração de IA dizia 'large language models' sem nomear ferramenta (Elsevier exige).
+      severity: MUST
+      status: partial
+      resolution: Nomeados Claude Code e Codex CLI. Round 8 (2026-09-21) acrescenta Gemini 2.5 Pro, DeepSeek-V3 e GPT-5.2-pro, usados por API como revisores (squad_audit.py, ai_writing_detector.py, second opinion).
+    - id: R7-3
+      source: f08ff3d
+      issue: CITATION.cff abria com 'A pre-registered benchmark'; preregistration/ com arquivos osf_prereg_* sem registro OSF.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. CFF declara que o plano nunca foi depositado; preregistration/README.md explica; nada apagado nem renomeado (apagar destrói rastro, renomear parece encobrir).
+    - id: R7-4
+      source: autor
+      issue: Autoria 3 vs 5.
+      severity: MUST
+      status: resolved
+      resolution: Confirmado pelo autor correspondente: cinco, na ordem Rover · Dominski · Azevedo · Bacalhau · Tadano. ORCID no CFF.
+  open_items_at_log_time:
+    - E-mails de Dominski e Azevedo (não existem no repo; não inventar)
+    - Liberar data/confirmatory_PRIVATE/ no dia da publicação
+    - Leitura humana palavra por palavra

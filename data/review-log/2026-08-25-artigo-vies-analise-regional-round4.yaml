@@ -1,0 +1,57 @@
+critical_review:
+  lens: round-4 — corte 85→57 pp, auditoria de 11 lentes em 2 fornecedores, gate de consistência corpo↔suplemento↔congelamento
+  role: >-
+    Reconstrução retroativa (2026-09-21). Segunda e terceira levas de corte, auditoria
+    squad_audit.py (Gemini 2.5 Pro + DeepSeek-V3, 15 pareceres, 10 críticos), criação
+    do consistency_gate.py validado por mutação. Evidência E1: commits 3ef6c47, 3b8303c,
+    2b9f9c1, 0c6527e, a075315, f30c1bc, 3b07127, 3057413.
+  artifact_id: artigo-vies-analise-regional
+  date: 2026-08-25
+  verdict: >-
+    revisions-applied — causa raiz sistêmica (dois caminhos de cálculo) fechada por gate
+    mecânico; 12 números do suplemento corrigidos; 3 claims não aplicadas por decisão do
+    autor. EN 58 pp, PT 31, sup 17/15.
+  gates_run:
+    - SA-QG-019 adjudication
+    - SA-QG-014 numerical coherence (consistency_gate.py, validado por mutação — 6 defeitos injetados, 6 pegos)
+    - SA-QG-016 result provenance (h4_proxies_corrigido.py, pre15_corrigido.py)
+    - anti-slop (93 achados reais, 1 falso positivo)
+  findings:
+    - id: R4-1
+      source: auditoria 11 lentes (a075315)
+      issue: formal_tests.py e h4_corpus_mechanism.py rodavam sobre a pontuação ORIGINAL; S8 do suplemento inteiro documentava a análise pré-correção (Mann-Kendall 0,018→0,072; misto β −0,077→−0,066; H2 −2,1→−4,8 pp; H5 14,1→13,3; E-values 1,85/5,37→1,70/1,31).
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. 12 blocos recomputados; novo script h4_proxies_corrigido.py com caminho reproduzível; citações perdidas no corte restauradas (google2026, xai2026).
+    - id: R4-2
+      source: 0c6527e
+      issue: Suplemento misturava amostra de calibração (131 itens, 4 juízes, GPT-5-mini) com valores do painel completo; 'Applied validity' como subcomponente; 7 linhas de LaTeX quebrado no PT.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Seção reescrita (n=3190, k=3, Pearson entre pares); 43 negritos removidos dos suplementos.
+    - id: R4-3
+      source: senior-scientist (a075315)
+      issue: Reportar o subconjunto adjudicado por código como estimativa primária de H2; tratar mixed model (p=0,069) como inferência primária.
+      severity: SHOULD
+      status: resolved
+      resolution: REJECTED_OUT_OF_SCOPE por decisão do autor (f30c1bc) — são claims, não erros; ressalva do subconjunto-código fica onde está.
+    - id: R4-4
+      source: journal-specialist + didática
+      issue: Abstract escrito para público de ML; risco de desk reject no GIQ.
+      severity: SHOULD
+      status: resolved
+      resolution: UPHELD. Abre pela pergunta do gestor; 249 palavras (teto 250).
+    - id: R4-5
+      source: 3b07127
+      issue: Texto prometia reportar cada efeito a n=25 ao lado do n=15 e só fazia para o gradiente; tabela do suplemento com 'ns' genérico herdado; caption afirmava que H1 rejeita o nulo a n=25.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Família primária a n=15 completa no suplemento (ρ=+0,093, MK p=0,77); p do gradiente padronizado 0,072; gate barra 'p=0.073'. Sanity check pegou tuplas passadas a mann_kendall().
+    - id: R4-6
+      source: 3057413
+      issue: Tabelas de Results ilegíveis (tabcolsep 4pt); tabelas empilhadas no fim.
+      severity: SHOULD
+      status: resolved
+      resolution: UPHELD para legibilidade (8pt, arraystretch 1.15). REJECTED_FALSE_PREMISE para posição: elsarticle [review] agrupa floats no fim por construção; explicação registrada em main.tex.
+  open_items_at_log_time:
+    - pt-discussao com 29 achados anti-slop restantes (prosa densa; reescritas sugeridas removiam informação)

@@ -1,0 +1,57 @@
+critical_review:
+  lens: round-6 — verificação de referências (SA-QG-010 / R1): 44/44 fichadas, 36 em texto integral, 10+6 correções de atribuição
+  role: >-
+    Reconstrução retroativa (2026-09-21). Perguntado se as fontes tinham sido lidas, a
+    resposta era não: 'referências verificadas' significava completude mecânica do .bib.
+    data/fichamentos/ não existia. Rodada leu as 44, por risco. Evidência E1: commits
+    0723986, c20df7c, 2e884c0, c6de989, 670878c; data/fichamentos/_STATUS.md.
+  artifact_id: artigo-vies-analise-regional
+  date: 2026-08-27
+  verdict: >-
+    revisions-applied — 16 correções que só a leitura revelaria; nenhum resultado muda;
+    7 refs ficam em abstract com razão registrada (ScienceDirect 403, paywall, SSRN),
+    1 livro sem localizador. 59 pp inalterado.
+  gates_run:
+    - SA-QG-010 reference access & reading proof
+    - SA-QG-009 claim-evidence integrity
+    - SA-QG-014 (consistency_gate LIMPO)
+  findings:
+    - id: R6-1
+      source: leitura (0723986)
+      issue: Google doc admite papel no system prompt OU no início do prompt do usuário; nossa limitação era mais severa que a fonte. Anthropic: URL 301 e título de seção.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Refinado em Métodos e Limitações; .bib com verbatim conferido.
+    - id: R6-2
+      source: leitura (0723986)
+      issue: zheng2024helpful — abstract diz 'does not improve'; texto completo diz 'small negative effects'. Pelo abstract teríamos enfraquecido frase correta.
+      severity: SHOULD
+      status: resolved
+      resolution: Mantido; caso registrado como justificativa da regra R1.
+    - id: R6-3
+      source: c20df7c
+      issue: zenodo2026dataset citava depósito inexistente (inserida para silenciar aviso de entrada não citada); oecd2024governing ano 2024→2025.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Citação removida; ano corrigido. 28 DOIs + 4 arXiv validados.
+    - id: R6-4
+      source: 2e884c0
+      issue: Tamanhos de corpus (es 429,9 GB, pt 105,0, hi 32,6) creditados a Abadji 2022 (OSCAR 22.01: 381,9/170,3/23,3); rotulados 'deduplicated' sem ser.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Paper credita o corpus; dataset card OSCAR-2301 credita os valores; rótulo corrigido. Ordem es>pt>hi vale em qualquer versão. 7 DOIs recuperados.
+    - id: R6-5
+      source: c6de989
+      issue: lecoz2025 (Norte/Sul não aparece no artigo), bender2021 ('explicação dominante'), almeida2025 (inferência nossa), mollick2025 ('replicação independente'), quijano2000 (DOI da reimpressão 2008).
+      severity: MUST
+      status: resolved
+      resolution: UPHELD (5). Cada atribuição reduzida ao que a fonte sustenta.
+    - id: R6-6
+      source: 670878c (leitura integral de 14 fontes)
+      issue: UNCTAD não usa 'Norte/Sul' (developing/developed); GBD 2019 não sustenta 'principal fator de risco ambiental'; Cordella 'verificação no ponto de uso' inexistente; OECD não documenta 'buscar normas'; conversão RR≈exp(0,91·d) não declarada; BH provado para independentes.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD (6). Regra verbatim da UNCTAD aplicada aos 25 países, zero divergência, entrou no suplemento.
+  open_items_at_log_time:
+    - 7 refs em abstract (aoki, kim, robinson, choroszewicz, requia, opuszko, mollick) — fecham com sessão de navegador autenticada
+    - patton2015qualitative — livro, sustenta só o termo 'amostragem teórica'

@@ -1,0 +1,50 @@
+critical_review:
+  lens: round-5 — auditoria Codex CLI (OpenAI), veredito 4,5/10 'não submeter'; unidade de análise = célula deduplicada
+  role: >-
+    Reconstrução retroativa (2026-09-21). Auditoria adversarial em fornecedor distinto
+    (R7) sobre manuscrito, suplemento, código e repositório. Todos os críticos
+    adjudicados contra a fonte antes de agir; todos procediam. Evidência E1: commit 746d7ad.
+  artifact_id: artigo-vies-analise-regional
+  date: 2026-08-25
+  verdict: >-
+    revisions-applied — três caminhos de dados unificados (8.300 células); ~40 números
+    propagados em 4 documentos; nenhum veredito de hipótese muda. EN 58 pp, PT 31.
+  gates_run:
+    - SA-QG-019 adjudication
+    - SA-QG-016 result provenance
+    - SA-QG-014 numerical coherence (consistency_gate LIMPO)
+    - SA-QG-013 desk-reject screen (versão cega, CITATION.cff)
+  findings:
+    - id: R5-1
+      source: Codex (crítico)
+      issue: judge_scores_confirmatory.jsonl (9.251 linhas) vs judge_scores_corrected.jsonl (8.300 células) conviviam; o freeze estava sozinho na base não deduplicada. 951 células (11,5%) com escore repetido = pseudo-replicação.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Unidade = célula, colapsada pela média. H2 −4,755→−4,753 (indiferente); tier gap 5,1→5,4; ρ 0,37→0,41 (p 0,072→0,043, critério pré-fixado ρ≥0,55 segue não atingido); H5 13,3→12,6; H4 β 0,026→0,028 (n 7.580→6.629).
+    - id: R5-2
+      source: Codex
+      issue: blind/references.bib vazava 'Rover, Lucas and Bacalhau ... and Tadano'; build_blind só varria .tex.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Varre .bib; validado por mutação.
+    - id: R5-3
+      source: Codex
+      issue: qa_reproduce_claims.py declarava '59/59 claims reproduced' validando 6,2 pp / ρ=0,512 / −2,1 pp — a linha de base PRÉ-correção. Falso-positivo no papel de gate.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Escopo documentado; gate dos números atuais é o consistency_gate.
+    - id: R5-4
+      source: Codex
+      issue: Manuscrito prometia `python code/run_all.py` (rota sintética); CITATION.cff afirmava dados 'openly released' (falso no estado versionado).
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. `--confirmatory` em EN e PT; declaração condicional no CFF.
+    - id: R5-5
+      source: Codex
+      issue: README lista 3 autores, manuscrito 5.
+      severity: MUST
+      status: resolved
+      resolution: DEFERRED → fronteira humana; resolvido pelo autor em round 7 (f08ff3d).
+  open_items_at_log_time:
+    - Autoria (3 vs 5) — decisão do autor
+    - Declaração de IA sem nomear ferramentas (Elsevier)

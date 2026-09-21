@@ -1,0 +1,62 @@
+critical_review:
+  lens: round-3 — checkup final de 14 pareceres, anti-slop, formato Elsevier, corte de 85→72 pp
+  role: >-
+    Reconstrução retroativa (2026-09-21). Painel de 14 lentes (média 6,7/10, faixa 4–9),
+    gate anti-slop em outro fornecedor, Highlights, elsarticle, versões PT regeneradas.
+    Evidência E1: commits 8b5f0d3, fa4897d, 729178b, e569341, bf29d98, de7d675, e87232f, 3471cc8.
+  artifact_id: artigo-vies-analise-regional
+  date: 2026-08-24
+  verdict: >-
+    revisions-applied — 3 achados REJECTED após verificação, demais UPHELD; PT reconstruído
+    modular; 184 negritos removidos; 54/58 passagens de slop reescritas. EN 72 pp, PT 45 pp.
+  gates_run:
+    - SA-QG-019 adjudication
+    - SA-QG-014 numerical coherence
+    - SA-QG-006 formatting (Highlights ≤85 chars, elsarticle [review], APA)
+    - anti-slop (ai_writing_detector.py, DeepSeek-V3)
+  findings:
+    - id: R3-1
+      source: painel-14 (numérico)
+      issue: Methods 50,2%/67,3% vs Results 62,5%/83,6%; p da persona 0,22 vs 0,27; títulos 'unresolved' contradizendo o corpo.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Corrigido para 62,5/83,6 e p=0,27. (8b5f0d3)
+    - id: R3-2
+      source: painel-14 (didática, 6 lentes)
+      issue: Leitor de administração pública se perde na densidade estatística.
+      severity: SHOULD
+      status: resolved
+      resolution: UPHELD. ICC, Holm, Cliff's delta, permutação e E-value glosados na 1ª ocorrência; OR de T1 movido de robustez para H1.
+    - id: R3-3
+      source: painel-14
+      issue: 'Teste de sinais não-padrão'; 'bug na correção sob pesos iguais'; 'referências fabricadas'.
+      severity: SHOULD
+      status: resolved
+      resolution: REJECTED_FALSE_PREMISE (3) — binomtest confere (5,03e−06); fórmula algebricamente idêntica; arXiv confirma.
+    - id: R3-4
+      source: tradução (fa4897d)
+      issue: PT era o artigo ANTERIOR (ordem H1→H4→H6→H5→H2, monólito de 1.615 linhas); traduzir expôs 5 resquícios no EN ('unresolved') e 3 números divergentes.
+      severity: MUST
+      status: resolved
+      resolution: sections-PT/ espelha sections/; permutação 0,030→0,020, LOO tier gap, ρ H4 padronizados.
+    - id: R3-5
+      source: autor (729178b)
+      issue: 184 negritos no corpo; gate anti-slop não rodado; achado do checkup listado e não aplicado.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Zero \textbf no corpo; ai_writing_detector.py criado; 54 reescritas.
+    - id: R3-6
+      source: e87232f
+      issue: Texto afirmava que seguir a doc do fornecedor 'arrives at precisely the manipulation we tested'. Falso — guias põem papel no system prompt; testamos turno único de usuário.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Corrigido; limite virou argumento (canal que o servidor público tem) e entrou em Limitações.
+    - id: R3-7
+      source: 3471cc8
+      issue: Tabela 5 inteira desatualizada (OR T1 0,23→0,22, T5 2,67→3,58); bayesiano com dois valores (−0,047/−0,052); 'twenty thousand' vs range(10000); subcomponente 'applied validity' inexistente.
+      severity: MUST
+      status: resolved
+      resolution: UPHELD. Todos contra a fonte reproduzível (glmm_and_manipcheck.py determinístico, seed 42).
+  open_items_at_log_time:
+    - 30 achados anti-slop em pt-resultados
+    - Corte para ~55 pp
