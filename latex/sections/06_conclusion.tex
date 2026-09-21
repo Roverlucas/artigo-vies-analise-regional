@@ -3,54 +3,58 @@
 
 Large language models are becoming working infrastructure for air pollution
 policy, a domain where an inaccurate answer about a binding standard, a measured
-concentration, or an operational response carries direct public-health stakes in
-the Global South, where the PM\textsubscript{2.5} mortality burden is
+concentration, or an operational response carries direct public-health stakes
+in the Global South, where the PM\textsubscript{2.5} mortality burden is
 heaviest~\citep{gbd2019risk,requia2024shortterm}. We measured geographic and
-persona-modulated bias in that domain with a 25-country, 14-model, four-language
-benchmark (English plus the native language of nine countries), scored against
-ground truth anchored to official primary sources --- by code wherever the answer
-is a register value, and by the mean of a three-vendor judge panel elsewhere.
+persona-modulated bias in that domain with a 25-country, 14-model,
+four-language benchmark (English plus the native language of nine countries),
+scored against ground truth anchored to official primary sources, by code
+wherever the answer is a register value and by the mean of a three-vendor judge
+panel elsewhere.
 
-The remedies an agency can try do not work, and the most intuitive one backfires.
-Asking in the country's own language \emph{lowers} accuracy by $\nnativa$~percentage
-points, most sharply where the language is least represented in training corpora;
-a local-manager persona does not narrow the gap; and the regionally fine-tuned 7B model is
-the weakest of all fourteen systems. Accuracy also collapses on the recall of a
-binding value, the task a manager can least afford to have wrong. A Global
-North/South tier gap persists and is highly structured: on returning the binding
-national standard the Global South odds of a correct answer are $\nort$ of the
-Global North's, and the gap shrinks as the answer depends less on a
-country-specific fact, disappearing on the one task with no register value to get
-right. The monotonic development gradient does not reach significance, so we
-report a difference between groups that we can demonstrate and a shape across the
-development range that we cannot. On mechanism, the within-country design rules out
-the language-corpus channel for a gap measured in English, but cannot separate
-country coverage from development, and we claim no more than that.
+The remedies an agency can try do not work, and the most intuitive one
+backfires. Asking in the country's own language lowers accuracy by
+$\nnativa$~percentage points, most sharply for Hindi, the language least
+represented in training corpora; a local-manager persona does not narrow the
+gap and is equivalent to no persona within 2~pp; and the regionally fine-tuned
+7B model is the weakest of all fourteen systems. Accuracy is also lowest on the
+recall of a binding value, the task a manager can least afford to have wrong. A
+Global North/South tier gap persists and is structured: on the outcomes no
+judge touches, Global South countries return the register value
+$\ncodegap$~pp less often, and the gap shrinks as the answer depends less on a
+country-specific fact, disappearing on the one task with no register value to
+get right. The development gradient does not reach significance and its
+interval includes both zero and the pre-specified threshold, so we report a
+difference between groups that we can demonstrate and a shape across the
+development range that we cannot. On mechanism, the within-country design
+points toward country coverage and does not establish it once the country is
+the unit of inference, and we claim no more than that.
 
-For Global South environmental agencies the practical message is cautionary. LLM
-outputs on binding standards and measured data should be treated as drafts checked
-against the official gazette, and none of the cheap prompt- or model-level
-workarounds substitutes for that verification --- least of all switching to the
-local language, which on this evidence makes the answer worse. We read the
-pattern through the coloniality-of-knowledge
-framework~\citep{mohamed2020decolonial}: the penalty falls on the languages
-under-served in training corpora~\citep{joshi2020state}, and it falls hardest on
-Hindi, the scarcest of the three; whether those languages are also spoken where
-the health burden of air pollution is greatest is not something this design
-measures, and the one country-level observation we have (India) points the other
-way (Section~\ref{sec:discussion}).
+For Global South environmental agencies the practical message is cautionary.
+LLM outputs on binding standards and measured data should be treated as drafts
+checked against the official gazette, and none of the cheap prompt- or
+model-level workarounds substitutes for that verification, least of all
+switching to the local language, which on this evidence makes the answer worse.
+The penalty falls on the languages under-served in training
+corpora~\citep{joshi2020state}, hardest on Hindi; whether those languages are
+also spoken where the health burden of air pollution is greatest is not
+something this design measures, and the one country-level observation we have
+(India) points the other way (Section~\ref{sec:discussion}).
 
-One methodological result generalises beyond the domain. Rebuilding two task keys
-from official registers and moving range comparison out of the judge and into code
-changed the substantive conclusions on the same responses. When an effect in this
-literature proves fragile, the ground-truth key deserves the audit before the
-sample does, because a defective key adds \emph{structured} noise that concentrates
-exactly where official data are hardest to obtain.
+One methodological result generalises beyond the domain. Rebuilding two task
+keys from official registers and moving range comparison out of the judge and
+into code changed the substantive conclusions on the same responses, and
+carrying inference at the country rather than the response level changed the
+status of the mechanism test. When an effect in this literature proves
+fragile, the ground-truth key and the unit of inference deserve the audit
+before the sample does, because a defective key adds structured noise that
+concentrates where official data are hardest to obtain, and a response-level
+$p$-value overstates what a handful of countries can show.
 
 Protocol, prompts, official-source ground-truth registries, analysis code, and
 anonymised response data are released openly, with a one-command reproduction
 pipeline and a method-audit gate that recomputes every reported number from the
 raw data. The study also provides a reusable template for applied LLM-equity
-audits --- official-source ground truth, code adjudication wherever the answer is
-a checkable number, and end-to-end reproducibility --- in the high-stakes
-public-sector domains where these systems are now being deployed.
+audits, with official-source ground truth, code adjudication wherever the
+answer is a checkable number, and end-to-end reproducibility, in the
+high-stakes public-sector domains where these systems are now being deployed.

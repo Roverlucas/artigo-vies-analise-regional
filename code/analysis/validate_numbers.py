@@ -32,7 +32,8 @@ def flat(o, out):
 canon = []
 for f in ["freeze_all_effects.json", "t1_wave_sensitivity.json", "h4_within_country.json",
           "pre15_corrigido.json", "panel_reliability_full.json", "freeze_comparison.json",
-          "duplicate_policy.json", "h4_with_gdp.json"]:
+          "duplicate_policy.json", "h4_with_gdp.json", "cluster_inference.json",
+          "cabra_sanity/summary.json"]:
     p = ROOT / "data" / "processed" / f
     if p.exists():
         flat(json.loads(p.read_text()), canon)

@@ -3,134 +3,134 @@
 
 \subsection{Desenho da pesquisa}
 
-Especificamos um experimento de benchmark pré-especificado, fatorial e multipaís,
-quantificando viés geográfico e modulado por persona em 14 modelos de linguagem de
-grande porte em tarefas de política de poluição do ar. O desenho pré-especificado
-cruza 15 países (estratificados em três eixos teoricamente fundamentados), 14 LLMs
-abrangendo cinco camadas de acesso, um domínio, 5 tipos de tarefa e 2 condições de
-persona, com 2 replicações estocásticas por célula; uma extensão post hoc
-(Seção~\ref{sec:expansao}) amplia a amostra para 25 países. O conjunto de estímulos
-cruza as cinco tarefas e as duas personas de cada país em inglês, mais uma versão
-em idioma nativo dentro do país para os nove países com idioma nativo alvo,
-pontuado no composto $[0,1]$. O protocolo fixa, antes da coleta, as hipóteses, os
-modelos primários, o protocolo de persona, os critérios de exclusão e as correções
-para múltiplas comparações. Uma coleta apenas do Brasil, executada sob um desenho
-anterior de três domínios, é reclassificada como piloto estendido e relatada
-separadamente; ela informou a calibração dos prompts, mas não contribui com
-observações confirmatórias.
+O estudo é um experimento de benchmark pré-especificado, fatorial e
+multipaís que quantifica o viés geográfico e o viés modulado por persona em 14
+grandes modelos de linguagem em tarefas de política de poluição do ar. O desenho
+pré-especificado cruza 15 países (estratificados em três eixos com fundamento
+teórico), 14 LLMs em cinco tiers de acesso, um domínio, cinco tipos de tarefa e
+duas condições de persona, com duas replicações estocásticas por célula; uma
+extensão post hoc (Seção~\ref{sec:expansao}) amplia a amostra para 25 países. O
+conjunto de estímulos cruza as cinco tarefas e as duas personas de cada país em
+inglês, mais uma versão em idioma nativo, dentro do país, para os nove países
+com idioma nativo alvo, pontuada no composto $[0,1]$. O protocolo fixou, antes
+da coleta, as hipóteses, os modelos primários, o protocolo de persona, os
+critérios de exclusão e as correções para comparações múltiplas. Uma coleta
+apenas do Brasil executada sob um desenho anterior de três domínios é
+reclassificada como piloto estendido e relatada à parte; ela informou a
+calibração dos prompts e não contribui com observações para a análise
+principal.
 
 \subsection{Seleção de países}
 
 Os países foram selecionados por amostragem teórica~\citep{patton2015qualitative}
-triangulada em três classificações independentes: a distinção Norte/Sul Global,
-operacionalizada pela classificação de economias desenvolvidas/em desenvolvimento
-da UNCTAD~\citep{unctad2024classification}, que carrega o arcabouço da
-colonialidade do saber que motiva o estudo~\citep{mohamed2020decolonial}; a
-taxonomia de seis classes de representação de recursos linguísticos de Joshi et
-al.~\citep{joshi2020state}; e os grupos de renda do Banco
-Mundial~\citep{worldbank2025classification}.
+triangulada em três classificações independentes: a distinção Norte/Sul
+Global, operacionalizada pela classificação de economias desenvolvidas/em
+desenvolvimento da UNCTAD~\citep{unctad2024classification}, que carrega o
+arcabouço da colonialidade do saber que motiva o
+estudo~\citep{mohamed2020decolonial}; a taxonomia de seis classes de
+representação de recursos linguísticos de Joshi et al.~\citep{joshi2020state}; e
+os grupos de renda do Banco Mundial~\citep{worldbank2025classification}.
 
-A amostra pré-especificada de 15 --- Brasil, México, Argentina, Peru; Nigéria,
-África do Sul, Quênia, Egito; Índia, Indonésia, Bangladesh, Filipinas; e Estados
-Unidos, Alemanha, Japão como referências do Norte Global --- cobre quatro regiões
-do mundo e quatro grupos de renda. O eixo de recursos linguísticos revelou-se muito
-menos diferenciado do que se pretendia: os idiomas oficiais dominantes caem em
-apenas três classes de Joshi, doze dos quinze compartilhando a Classe~5, e estender
-para 25 não ajuda, já que dezoito são Classe~5. Isso é propriedade do mundo, e não
-do nosso sorteio, porque os idiomas oficiais da maioria dos Estados são eles
-próprios de alto recurso; mas significa que o eixo linguístico tem variância
-pequena demais para ser separado dos demais, e tratamos os resultados de Joshi de
-acordo (Seção~\ref{sec:res:h1}). Países com governança estatística comprometida ou
-sem padrão nacional publicamente recuperável foram excluídos dos quinze
-pré-especificados; a Oceania entrou apenas com a extensão (Austrália), e idiomas
-de Classe~0 de Joshi não estão representados, o que registramos como limitação de
-escopo.
+A amostra pré-especificada de 15 (Brasil, México, Argentina, Peru; Nigéria,
+África do Sul, Quênia, Egito; Índia, Indonésia, Bangladesh, Filipinas; e
+Estados Unidos, Alemanha e Japão como referências do Norte Global) cobre quatro
+regiões do mundo e quatro grupos de renda. O eixo de recursos linguísticos
+revelou-se muito menos diferenciado do que o pretendido: os idiomas oficiais
+dominantes caem em apenas três classes de Joshi, doze dos quinze partilhando a
+Classe~5, e estender a 25 não ajuda, pois dezoito são Classe~5. Isso é uma
+propriedade do mundo e não do nosso sorteio, porque os idiomas oficiais da
+maioria dos Estados são eles próprios de alto recurso, mas deixa o eixo
+linguístico com variância insuficiente para ser separado dos demais, e tratamos
+os resultados de Joshi de acordo (Seção~\ref{sec:res:h1}). Países com
+governança estatística comprometida ou sem padrão nacional recuperável
+publicamente foram excluídos dos quinze pré-especificados; a Oceania entrou
+apenas com a extensão (Austrália), e idiomas da Classe~0 de Joshi não estão
+representados, o que anotamos como limitação de escopo.
 
-\subsection{Ampliação da amostra após a análise pré-especificada}
+\subsection{Expansão da amostra após a análise pré-especificada}
 \label{sec:expansao}
 
-Após a análise pré-especificada de 15 países, e \emph{relatado aqui como extensão
-post hoc e não como parte do protocolo travado}, a amostra foi ampliada para 25
-países sob procedimentos idênticos, para aumentar o poder dos testes de gradiente e
-de mecanismo e para multiplicar os pares de idioma dentro do país disponíveis para
-H2. O manuscrito relata a amostra de 25 países ao longo de todo o texto; a
-família primária recomputada apenas sobre os 15 pré-especificados está tabulada no
-material suplementar, de modo que o leitor possa ver o que o protocolo travado
-teria concluído. Como a extensão seguiu a observação dos resultados iniciais,
-nenhuma conclusão pré-especificada é revisada apenas com base na extensão, e a
-ampliação é tratada como checagem de poder e robustez, não como novo teste
-confirmatório. Angola, como Nigéria e Argentina, \emph{não} tem padrão nacional de
-PM\textsubscript{2,5}, acrescentando casos sem padrão nos quais um modelo fiel deve
-se recusar a declarar um limiar inexistente. As dez adições e seus papéis estão
-detalhados no suplemento. Duas variantes extras de pergunta por (país, tarefa)
-foram geradas para os pares de H2 na fase de desenho, mas nunca foram coletadas
-nem pontuadas; a análise de H2 usa a única versão em idioma nativo de cada prompt
-em inglês.
+Após a análise pré-especificada de 15 países, e relatada aqui como extensão
+post hoc e não como parte do protocolo fechado, a amostra foi ampliada para 25
+países sob procedimentos idênticos, para elevar o poder dos testes de gradiente
+e de mecanismo e multiplicar os pares de idioma dentro do país disponíveis para
+H2. O manuscrito relata a amostra de 25 países do início ao fim; a família
+primária recomputada apenas sobre os 15 pré-especificados está tabulada no
+material suplementar, para que o leitor veja o que o protocolo fechado teria
+concluído. Como a extensão seguiu à observação dos resultados iniciais, nenhuma
+conclusão pré-especificada é revisada apenas com base na extensão, e a expansão
+é tratada como verificação de poder e robustez, não como teste novo. Angola,
+como a Nigéria e a Argentina, não tem padrão nacional de
+PM\textsubscript{2,5} ambiente, acrescentando casos sem padrão em que um modelo
+fiel precisa declinar de enunciar um limiar inexistente. As dez adições e seus
+papéis estão detalhados no material suplementar. Duas variantes extras de
+pergunta por (país, tarefa) foram geradas para os pares de H2 no momento do
+desenho, mas nunca foram coletadas nem pontuadas; a análise de H2 usa a única
+versão em idioma nativo de cada prompt em inglês.
 
 \subsection{Covariáveis de país}
 \label{sec:covariaveis}
 
-O Índice de Desenvolvimento Humano (PNUD 2023--24) e o PIB per capita indexam a
-posição de desenvolvimento e entram na análise de mecanismo como covariáveis de
-ajuste. As exposições de representação no corpus se dividem segundo uma distinção
-que a análise de mecanismo torna explícita, porque os dois canais se aplicam a
-efeitos diferentes. As medidas de \emph{corpus da língua} quantificam quanto texto
-de pré-treinamento existe \emph{em} um idioma e são o mecanismo candidato para a
-penalidade de idioma nativo: contagem de tokens do mC4~\citep{xue2021mt5}, tamanho
-do corpus OSCAR-2301 (corpus apresentado por \citealp{abadji2022oscar}; os
-valores por idioma vêm do dataset card do OSCAR-2301, cujos totais diferem da
-versão 22.01 descrita naquele artigo) e a classe de
-Joshi~\citep{joshi2020state}. As medidas de \emph{corpus do país} quantificam
-quanto o corpus enciclopédico fala \emph{sobre} um país, independentemente do
-idioma, e são o mecanismo candidato para a lacuna geográfica: tamanho do artigo da
-Wikipédia inglesa, número de edições linguísticas com artigo sobre o país e número
-de declarações do Wikidata sobre a entidade do país.
+O Índice de Desenvolvimento Humano (PNUD 2023--24) e o PIB per capita indexam
+a posição de desenvolvimento e entram na análise de mecanismo como covariáveis
+de ajuste. As exposições de representação no corpus se dividem ao longo de uma
+distinção que a análise de mecanismo torna explícita, porque os dois canais se
+aplicam a efeitos diferentes. As medidas de corpus do idioma quantificam quanto
+texto de pré-treinamento existe em um idioma e são o mecanismo candidato para a
+penalidade do idioma nativo: contagem de tokens do mC4 (\citealp{xue2021mt5},
+Tabela~6), tamanho do corpus OSCAR-2301 (corpus introduzido por
+\citealp{abadji2022oscar}; valores por idioma lidos da ficha do conjunto
+OSCAR-2301, cujos totais diferem da versão 22.01 descrita naquele artigo) e a
+classe de Joshi~\citep{joshi2020state}. As medidas de corpus do país
+quantificam quanto o corpus enciclopédico fala sobre um país, independentemente
+do idioma, e são o mecanismo candidato para a lacuna geográfica: o tamanho do
+artigo da Wikipédia inglesa, o número de edições da Wikipédia com artigo sobre o
+país e o número de declarações do Wikidata sobre a entidade do país.
 
-As duas famílias não são intercambiáveis. Como a lacuna geográfica é medida
-\emph{em inglês}, com o idioma mantido constante entre países, uma lacuna
-Norte/Sul residual não pode ser efeito de corpus da língua. Um ponto merece ser
-dito de forma direta, porque os papéis se confundem com facilidade: a Wikipédia e
-o Wikidata nunca são gabarito aqui, eles são a variável \emph{explicativa}. Aquilo
-contra o que uma resposta é pontuada é sempre um registro oficial
-(Seção~\ref{sec:gabarito}); tivéssemos pontuado contra uma enciclopédia, o estudo
-mediria concordância com uma enciclopédia, que não é a pergunta que uma
-administração pública enfrenta.
+As duas famílias não são intercambiáveis. Como a lacuna geográfica é medida em
+inglês, com o idioma mantido constante entre países, uma lacuna Norte/Sul
+residual não pode ser efeito de corpus do idioma. Wikipédia e Wikidata nunca são
+gabarito aqui; são a variável explicativa. Aquilo contra o que uma resposta é
+pontuada é sempre um registro oficial (Seção~\ref{sec:gabarito}). Se
+tivéssemos pontuado contra uma enciclopédia, o estudo mediria concordância com
+uma enciclopédia, que não é a pergunta que uma administração pública enfrenta.
 
 \subsection{Seleção de modelos}
 
-Catorze LLMs foram avaliados em cinco camadas de acesso, abrangendo cerca de duas
-ordens de magnitude em contagem de parâmetros e quatro geografias de dados de
+Catorze LLMs foram avaliados em cinco tiers de acesso, cobrindo cerca de duas
+ordens de grandeza em número de parâmetros e quatro geografias de dados de
 treinamento (Estados Unidos, China, Europa, Brasil): fronteira de pesos abertos
-(5), pesos abertos médios (3) e pequenos ou regionais (2), fechados acessíveis (3)
-e fechados de fronteira (1). Apenas três dos modelos de pesos abertos foram
-servidos localmente (Ollama, tags fixadas: Phi-4~14B, Qwen3~14B, Cabra-Mistral~7B);
-os outros sete foram servidos por endpoints hospedados (camada gratuita da Groq
-para cinco, APIs da DeepSeek e da Cohere para dois), e os quatro modelos fechados
-pelas APIs de seus fornecedores. A camada pequena inclui um modelo ajustado por instrução em português
-brasileiro (Cabra-Mistral~7B~v3), testado contra um modelo aberto de treinamento
-global de escala equivalente para H3. Cada modelo foi consultado com tag fixada
-idêntica ao longo da janela de coleta. O roster completo está na Tabela~S1 do
-suplemento.
+(5), pesos abertos intermediários (3) e pesos abertos pequenos ou regionais
+(2), fechados acessíveis (3) e fechado de fronteira (1). Três dos modelos de
+pesos abertos foram servidos localmente (Ollama, tags fixadas: Phi-4~14B,
+Qwen3~14B, Cabra-Mistral~7B); os outros sete modelos de pesos abertos foram
+servidos por endpoints hospedados (tier gratuito da Groq para cinco, as APIs
+da DeepSeek e da Cohere para dois), e os quatro modelos fechados pelas APIs dos
+seus fornecedores. O tier pequeno inclui um modelo com ajuste de instrução em
+português brasileiro (Cabra-Mistral~7B~v3, um ajuste fino do
+Mistral-7B-Instruct-v0.3), testado contra um modelo aberto de treinamento
+global e escala pareada para H3. Cada modelo foi consultado com uma tag fixada
+idêntica ao longo de toda a janela de coleta. A lista completa está na Tabela
+Suplementar~S1.
 
-Comparamos \emph{modelos como servidos} por uma pilha de acesso fixa, e não pesos
-idealizados. Infraestrutura do provedor, configuração de serviço e camada de API
-fazem parte do que cada rótulo denota, e uma lacuna residual poderia em princípio
-refletir a pilha em vez dos pesos; mantemos isso constante fixando tags de versão e
-uma configuração de amostragem fixa por provedor ao longo de uma janela fixa
-(Seção~\ref{sec:coleta}).
+Comparamos modelos tal como servidos por uma configuração de acesso fixa, e não
+pesos idealizados. Infraestrutura do provedor, configuração de serviço e camada
+de API fazem parte do que cada rótulo denota, e uma lacuna residual poderia em
+princípio refletir a pilha em vez dos pesos; mantemos isso constante fixando
+tags de versão e uma configuração de amostragem fixa por provedor ao longo de
+uma janela fixa (Seção~\ref{sec:coleta}).
 
 \subsection{Domínio e taxonomia de tarefas}
 \label{sec:tarefas}
 
 O domínio único é a política de poluição do ar, escolhido porque se ancora em
-gabarito oficialmente publicado e verificável e se mapeia a atividades concretas de
-decisão de um gestor ambiental público. As cinco tarefas não foram escritas como um
-questionário genérico de conhecimento: cada uma corresponde a uma pergunta que um
-gestor tem de responder no curso do trabalho ordinário, e cada uma foi redigida de
-modo que uma resposta errada carregasse consequência administrativa, e não apenas a
-perda de um ponto. A Tabela~\ref{tab:tarefas} as traz com o prompt tal como foi
-emitido aos modelos, usando o Brasil como instância trabalhada, ao lado da decisão
-que cada uma representa.
+gabarito oficialmente publicado e verificável e se mapeia a atividades concretas
+de decisão de um gestor ambiental público. Cada uma das cinco tarefas
+corresponde a uma pergunta que um gestor tem de responder no curso do trabalho
+ordinário, e cada uma foi redigida de modo que uma resposta errada carregasse
+consequência administrativa. A Tabela~\ref{tab:tarefas} as traz com o prompt
+tal como foi emitido aos modelos, usando o Brasil como instância trabalhada, ao
+lado da decisão que cada uma representa.
 
 \begin{table}[htbp]
 \centering
@@ -186,264 +186,319 @@ de saúde pública ou viabilidade operacional.''
 \end{tabular}
 \end{table}
 
-As tarefas estão ordenadas por quanto da resposta é fixado por fonte oficial. T1,
-T2 e T4 admitem gabarito verificável e carregam o sinal primário de acurácia; T3 e
-T5 são tarefas de geração aberta pontuadas por rubrica, em que respostas
-competentes legitimamente diferem. É essa ordenação que torna a dimensão de tarefa
-informativa em vez de decorativa: ela permite perguntar se os modelos falham de
-maneira uniforme ou falham especificamente onde é preciso recuperar um valor
-nacional publicado, que é a pergunta sobre a qual os resultados se apoiam. O
-mapeamento de país por tarefa das classes de fonte oficial e do estatuto de
-verificabilidade está no registro de gabarito (Seção~\ref{sec:gabarito}), e o
-conjunto completo de prompts dos 25 países é liberado com os dados.
+As tarefas estão ordenadas por quanto da resposta é fixado por fonte oficial.
+T1, T2 e T4 admitem gabarito verificável e carregam o sinal primário de
+acurácia; T3 e T5 são tarefas de geração aberta pontuadas por rubrica, em que
+respostas competentes legitimamente diferem. A ordenação permite perguntar se
+os modelos falham de maneira uniforme ou especificamente onde é preciso
+recordar um valor nacional publicado, que é a pergunta sobre a qual os
+resultados se apoiam. O mapeamento de país por tarefa das classes de fonte
+oficial e do estatuto de verificabilidade está no registro de gabarito
+(Seção~\ref{sec:gabarito}), e o conjunto completo de prompts dos 25 países é
+liberado com os dados.
 
 \subsection{Manipulação de persona}
 \label{sec:persona}
 
-A persona é um fator dentro do prompt com dois níveis, e a manipulação não é
-arbitrária: atribuir um papel ao modelo é a prática que os próprios fornecedores
-documentam e recomendam (Seção~\ref{sec:related}). A condição neutra apresenta a
-consulta como pedido simples de informação; a condição public\_manager\_env
-antepõe um enquadramento de papel fixo identificando quem pergunta como autoridade
-municipal ou regional de gestão ambiental, mantendo a pergunta substantiva
-idêntica. Para a T1 do Brasil, o enquadramento é a frase única \emph{``Sou o gestor
-ambiental municipal de São Paulo, Brasil, e preciso informar tomadores de
-decisão.''} Um único modelo é aplicado de forma uniforme entre países e tarefas,
-traduzido quando o idioma do prompt não é o inglês, de modo que qualquer diferença
-entre condições seja atribuível ao enquadramento e não à redação da pergunta. A
-ordem das personas dentro de cada célula é aleatorizada, e uma checagem de
-manipulação verifica se o enquadramento é reconhecido na resposta. Redação exata,
-procedimento de tradução e codificação da checagem estão no suplemento.
+A persona é um fator intra-prompt com dois níveis, e a manipulação segue a
+prática que os próprios fornecedores documentam e recomendam
+(Seção~\ref{sec:related}). A condição neutra apresenta a consulta como pedido
+simples de informação; a condição public\_manager\_env antepõe um enquadramento
+de papel fixo que identifica o solicitante como servidor de gestão ambiental
+municipal ou regional, mantendo idêntica a pergunta substantiva. Para a T1 do
+Brasil, o enquadramento é a frase única \emph{``I am the municipal
+environmental management official of São Paulo, Brazil, and I need to brief
+decision-makers.''} Um único modelo de frase é aplicado uniformemente a países e
+tarefas, traduzido onde o idioma do prompt não é o inglês, de modo que qualquer
+diferença entre condições seja atribuível ao enquadramento e não à redação da
+pergunta. A ordem das personas dentro de cada célula prompt-modelo é
+aleatorizada, e uma checagem de manipulação verifica se o enquadramento é
+reconhecido na resposta. Redação exata, procedimento de tradução e codificação
+da checagem de manipulação estão no material suplementar.
 
-Um detalhe de implementação importa para a leitura do resultado. Toda requisição
-neste estudo é enviada como turno único de usuário, sem prompt de sistema, de modo
-que o enquadramento de papel é anteposto à mensagem do usuário em vez de instalado
-como instrução de sistema. Três dos quatro guias o colocam ali; o do Google é
-explícito ao dizer que ele cabe \emph{ou} na instrução de sistema \emph{ou} ``no
-princípio do prompt do usuário''~\citep{google2026promptingstrategies}, que é
-exatamente o canal que testamos. A
-escolha é deliberada: a via do prompt de sistema exige acesso por API e um
+Um detalhe de implementação importa para a leitura do resultado. Toda
+requisição neste estudo é enviada como um único turno de usuário, sem prompt de
+sistema, de modo que o enquadramento de papel é prefixado à mensagem do usuário
+em vez de instalado como instrução de sistema. Três dos quatro guias de
+fornecedor colocam o papel no prompt de sistema; o da Google afirma que ele cabe
+na instrução de sistema ou ``no início do prompt do
+usuário''~\citep{google2026promptingstrategies}, que é o canal que testamos. A
+escolha é deliberada: a via do prompt de sistema exige acesso à API e um
 desenvolvedor para configurá-la, enquanto os servidores públicos cujas decisões
-motivam este estudo alcançam esses modelos pela interface de conversa de consumo,
-na qual o único canal disponível é a mensagem que digitam. Testamos, portanto, o
-enquadramento de papel tal como o setor de fato o executa, e a
-Seção~\ref{sec:limites} declara o que permanece não testado. A persona é a base de
-H6.
+motivam este estudo chegam a esses modelos pela interface de chat do consumidor,
+em que o único canal disponível é a mensagem que digitam. Testamos, portanto, o
+enquadramento de papel tal como o setor o pratica, e a Seção~\ref{sec:limites}
+declara o que permanece sem teste. A persona é a base de H6.
 
 \subsection{Construção e validação dos prompts}
 
-Os prompts foram redigidos para o domínio pela equipe de pesquisa com supervisão de
-domínio e validados contra o registro de gabarito antes de entrar no conjunto
-confirmatório de estímulos, com a exigência de que toda afirmação factual de uma
-entrada do registro resolvesse para uma URL de fonte oficial ou um DOI revisado por
-pares antes que o prompt correspondente fosse admitido. O plano de análise previa um
-piloto de 50 prompts pontuado por dois avaliadores humanos independentes
-($\alpha\geq0.70$) antes de escalar o desenho. \emph{Esse piloto não foi rodado}, e
-não existe $\alpha$ de avaliador para este estudo; a confiabilidade da rubrica é
-evidenciada, em vez disso, sobre os próprios dados confirmatórios, por um painel de
-três fornecedores sobre cada item que exigiu juiz (Seção~\ref{sec:res:confiab}), que
-devolve $\alpha=\nalpha$. Relatamos isso como desvio do plano, e não como limiar
-atingido.
+Os prompts foram redigidos para o domínio pela equipe de pesquisa com
+supervisão de domínio e validados contra o registro de gabarito antes de entrar
+no conjunto principal de estímulos, com toda afirmação factual de uma entrada
+do registro obrigada a resolver para uma URL de fonte oficial ou um DOI revisado
+por pares antes de o prompt correspondente ser admitido. O plano de análise
+previa um piloto de 50 prompts pontuado por dois avaliadores humanos
+independentes ($\alpha\geq0,70$) antes de escalar o desenho. Esse piloto não
+foi executado, e não existe $\alpha$ no nível de avaliador para este estudo; a
+confiabilidade da rubrica é evidenciada, em vez disso, nos próprios dados
+principais, por um painel de três fornecedores sobre todo item que exigiu juiz
+(Seção~\ref{sec:res:confiab}), que devolve $\alpha=\nalpha$. Relatamos isso como
+desvio do plano, e não como limiar atingido.
 
-Todos os prompts foram redigidos em inglês e, para um subconjunto estratificado de
-países, adicionalmente em um idioma nativo relevante (Seção~S3 do suplemento). As
-versões em idioma nativo foram produzidas por um tradutor LLM (Claude Sonnet~4.6)
-instruído a preservar o significado, o enquadramento de persona, nomes próprios e
-siglas, com o gabarito factual mantido em inglês, já que o valor-alvo é invariante
-ao idioma. Não empregamos tradutores humanos nativos, o que permanece uma limitação
-(Seção~\ref{sec:limites}); auditamos, porém, as versões após o fato,
-retrotraduzindo todos os 90 prompts nativos com um modelo diferente e tendo dois
-outros modelos comparando cada um contra o original em inglês
-(Seção~\ref{sec:res:h2}).
+Todos os prompts foram redigidos em inglês e, para um subconjunto estratificado
+de países, adicionalmente em um idioma nativo relevante (Seção
+Suplementar~S3). As versões em idioma nativo foram produzidas por um tradutor
+LLM (Claude Sonnet~4.6) instruído a preservar significado, enquadramento de
+persona, nomes próprios e siglas, com o gabarito factual mantido em inglês, já
+que o valor alvo é invariante ao idioma. Não empregamos tradutores humanos
+nativos, o que permanece uma limitação (Seção~\ref{sec:limites}); auditamos as
+versões depois do fato, retrotraduzindo todos os 90 prompts nativos com outro
+modelo e fazendo dois outros modelos compararem cada um com o original em inglês
+(Seção~\ref{sec:res:h2}). O idioma nativo é o idioma do usuário, não
+necessariamente o do instrumento: os padrões do Brasil, de Portugal e dos cinco
+países hispanófonos são publicados no idioma do prompt, enquanto as normas
+nacionais de qualidade do ar da Índia são publicadas em inglês, de modo que a
+condição em hindi pergunta num idioma que o texto oficial não usa.
 
 \subsection{Gabarito e registro de gabarito}
 \label{sec:gabarito}
 
 O gabarito é um conjunto de quatro registros específicos por tarefa, liberados
-com os dados, e descrevemos cada um como foi construído, não como foi planejado
-(a Tabela~S14 do suplemento registra os desvios). Para T1 a chave é o valor anual
-de PM\textsubscript{2,5} em vigor durante a janela de coleta, tomado do próprio
-instrumento nacional (lei, decreto, regulamento ou diário oficial) e armazenado
-com a fonte, um trecho literal e uma marca de status. Vinte e um países têm chave
-numérica. Três (Angola, Argentina, Nigéria) não têm padrão nacional de
-PM\textsubscript{2,5}, de modo que a resposta correta é dizê-lo, e um valor
-afirmado é pontuado como fabricado. O Egito não tem chave alguma, porque o texto oficial em árabe não pôde ser
-recuperado, e fica, portanto, fora de T1 (56 células). Bangladesh é pontuado
-contra os 35~$\mu$g/m\textsuperscript{3} de suas Air Pollution (Control) Rules
-2022, que substituíram os 15 do diário oficial de 2005; uma versão anterior do
-registro trazia o valor de 2005, e a correção está registrada com os arquivos
-liberados.
-Onde um instrumento fixa uma escada de valores em etapas (as cinco etapas do
-CONAMA no Brasil, o limite europeu de 25 com 10 a partir de 2030, o limite de 20
-do Reino Unido com meta inglesa de 10 até 2040, os 9,0 dos Estados Unidos que
-sucederam os 12,0, os 35 de Bangladesh que sucederam os 15), o registro
-armazena a escada inteira além do valor em vigor,
+com os dados, e descrevemos cada um tal como foi construído, e não como foi
+planejado (a Tabela Suplementar~S14 registra os desvios). Para T1 a chave é o
+valor anual de PM\textsubscript{2,5} em vigor durante a janela de coleta, tomado
+do próprio instrumento nacional (lei, decreto, regulamento ou diário oficial) e
+armazenado com a fonte, um trecho literal e um indicador de status. Vinte e um
+países têm chave numérica. Três (Angola, Argentina, Nigéria) não têm padrão
+nacional de PM\textsubscript{2,5}, de modo que a resposta correta é dizer isso,
+e um valor enunciado é pontuado como fabricado. O Egito não tem chave, porque o
+texto oficial em árabe não pôde ser recuperado, e fica fora de T1 (56 células).
+Bangladesh é pontuado contra os 35~$\mu$g/m\textsuperscript{3} das suas Air
+Pollution (Control) Rules de 2022, que substituíram os 15 do diário oficial de
+2005; uma versão anterior do registro carregava o valor de 2005, e a correção
+está registrada junto com os arquivos liberados. Onde um instrumento fixa uma
+escada de valores por etapas (as cinco etapas do CONAMA no Brasil, o limite de
+25 da UE com 10 a partir de 2030, os 20 do Reino Unido com meta inglesa de 10
+até 2040, os 9,0 dos Estados Unidos sucedendo 12,0, os 35 de Bangladesh
+sucedendo 15), o registro armazena a escada inteira além do valor em vigor,
 para que citar uma etapa vizinha possa ser separado de fabricação
-(Seção~\ref{sec:res:t1}). Os CAAQS do Canadá e o valor filipino são objetivos, e
+(Seção~\ref{sec:res:t1}). O CAAQS do Canadá e o valor filipino são objetivos e
 não limites juridicamente vinculantes; são os únicos valores nacionais de
 referência que esses países publicam e são tratados como chave, o que o texto
-anota onde importa.
+anota onde importa. O registro não guarda a data em que cada instrumento entrou
+em vigor, de modo que a distância entre essa data e o corte de treinamento de
+um modelo não pôde entrar como covariável; a análise da escada na
+Seção~\ref{sec:res:t1} é o substituto mais próximo disponível.
 
-Para T2 a chave é a concentração média anual de PM\textsubscript{2,5} mais recente
-que a base WHO Ambient Air Quality Database (v6.1, 2024) registra para a cidade
-do prompt, compilando os valores reportados por agências nacionais e
+Para T2 a chave é a concentração média anual de PM\textsubscript{2,5} mais
+recente que a WHO Ambient Air Quality Database (v6.1, 2024) registra para a
+cidade do prompt, que compila os valores reportados por agências nacionais e
 subnacionais; qualquer ano reportado é aceito dentro de $\pm 20\%$, de modo que
-um modelo que cite um valor da agência de outro ano não é penalizado pelo ano.
-Duas cidades não têm entrada de PM\textsubscript{2,5} (Luanda, Cairo) e essas
-células ficam com o juiz. Para T3 a chave é a estimativa do WHO Global Health
-Observatory de mortes atribuíveis à poluição do ar ambiente (indicador AIR\_41,
-2021), com o intervalo de incerteza alargado em metade de cada lado como faixa
-aceita, mais a ordem publicada das causas; o indicador cobre a poluição do ar
-ambiente como um todo, enquanto o prompt pergunta por PM\textsubscript{2,5}, e um
-modelo que cite outro estudo de carga (o GBD, uma coorte nacional) é pontuado
-pelo juiz quanto a se sua cifra e fontes são defensáveis, não contra o número da
-OMS. Para T4 o conjunto de referência é o catálogo UNEP Global Air Pollution
-Legislation de cada país, com correções manuais onde está desatualizado. O
-registro anota fonte, URL, data de acesso e status por entrada, mas não tem campo
-de validador humano nem hash por documento: a verificação foi documental, pelos
-autores, contra o texto primário. Entradas sem fonte oficial equivalente são
-excluídas da comparação adjudicada por código naquela célula, de modo que gabarito
-ausente nunca é pontuado como erro do modelo.
+um modelo que cita um valor de agência de outro ano não é penalizado pelo ano.
+A janela não é neutra quanto ao tier por construção, porque as cidades do Norte
+Global têm séries mais longas na OMS (\nttwoyearsgn{} anos aceitos em média
+contra \nttwoyearsgs{}), mas a faixa de valores que ela admite é semelhante nos
+dois tiers (razão entre o maior e o menor valor aceito de \nttwospreadgn{} contra
+\nttwospreadgs{}). Duas cidades não têm entrada de PM\textsubscript{2,5}
+(Luanda, Cairo) e essas células vão para o juiz. Para T3 a chave é a estimativa
+do Observatório Global de Saúde da OMS de óbitos atribuíveis à poluição do ar
+ambiente (indicador AIR\_41, 2021), com o intervalo de incerteza alargado pela
+metade de cada lado como faixa aceita, mais a ordenação publicada das causas; o
+indicador cobre a poluição do ar ambiente como um todo enquanto o prompt
+pergunta sobre PM\textsubscript{2,5}, e um modelo que cita outro estudo de
+carga (o GBD, uma coorte nacional) é pontuado pelo juiz quanto a se seu valor e
+suas fontes são defensáveis, e não contra o número da OMS. Para T4 o conjunto
+de referência é o catálogo Global Air Pollution Legislation do PNUMA para cada
+país, com substituições manuais onde está desatualizado. O registro guarda
+fonte, URL, data de acesso e status por entrada, mas não tem campo de validador
+humano nem hash por documento: a verificação foi documental, pelos autores,
+contra o texto primário. Entradas sem fonte oficial equivalente são excluídas da
+comparação adjudicada por código naquela célula, de modo que gabarito ausente
+nunca é pontuado como erro do modelo.
 
 \subsection{Coleta de dados}
 \label{sec:coleta}
 
-As chamadas foram executadas a temperatura~0.3 com semente fixa onde o provedor a
-honra (os três modelos servidos via Ollama), com 2 replicações por combinação de
-prompt, modelo e persona, dentro de uma janela fixa para minimizar confundimento
-por atualização de modelo; as acurácias relatadas são, portanto, estimativas
-pontuais no tempo. Duas exceções são declaradas: a família GPT-5 rejeita qualquer
-temperatura diferente da padrão, de modo que GPT-5 e GPT-5-mini rodaram a
-temperatura~1.0; e nenhum provedor oferece configuração que torne a saída
-determinística, de modo que duas réplicas a 0.3 delimitam, sem remover, a
-variância intramodelo (o suplemento compara os efeitos principais com essa
-variância). Toda resposta foi
-armazenada com metadados completos da requisição --- tag fixada, timestamp,
-contagem de tokens, motivo de término, condição de persona --- sob checksums
-SHA-256. Gates de qualidade excluíram respostas truncadas e respostas em idioma
-divergente do da requisição, ambas retidas e analisadas separadamente.
+As chamadas foram executadas a temperatura~0,3, com duas replicações por
+combinação prompt-modelo-persona, dentro de uma janela fixa para minimizar
+confundimentos por atualização de modelo; as acurácias relatadas são, portanto,
+estimativas pontuais no tempo. Duas exceções são declaradas. A família GPT-5
+rejeita qualquer temperatura diferente da padrão, de modo que GPT-5 e
+GPT-5-mini rodaram a temperatura~1,0 com esforço de raciocínio mínimo; e
+nenhuma semente foi enviada a provedor algum, ao contrário do que uma versão
+anterior afirmava, de modo que as duas réplicas a temperatura~0,3 limitam, em
+vez de remover, a variância intra-modelo (o material suplementar compara os
+efeitos-manchete com essa variância). Toda resposta foi armazenada com
+metadados completos da requisição (tag fixada, carimbo de tempo, contagens de
+tokens, motivo de término, condição de persona) sob somas de verificação
+SHA-256. Nenhuma resposta foi excluída pelo comprimento ou pelo idioma:
+respostas vazias são pontuadas como não tendo devolvido valor, e uma resposta em
+idioma diferente do solicitado é pontuada pelo conteúdo. Respostas vazias são
+mais frequentes sob prompts em idioma nativo (\nemptyen\% das respostas em
+inglês nas três tarefas pontuadas por código contra \nemptyes\% em espanhol,
+\nemptypt\% em português e \nemptyhi\% em hindi), o que faz parte do efeito do
+idioma, e não de atrito em relação a ele.
 
 A cobertura por célula não é uniforme: endpoints gratuitos e com limite de taxa
-devolveram menos respostas admissíveis do que as APIs medidas, de modo que o número de
-células pontuadas com prompt em inglês varia de 261 a 500 por modelo (777 para
-o modelo com mais pares em idioma nativo, quando estes são contados). Relatamos o $N$ realizado de cada
-modelo ao lado de sua pontuação (Tabela~\ref{tab:conf-modelo}) em vez de descartar
-silenciosamente células sub-cobertas, e a matriz completa de cobertura, com as
-razões de cota e exclusão de cada falta, está no suplemento.
+devolveram menos respostas admissíveis do que APIs pagas, de modo que o número
+de células pontuadas com prompt em inglês vai de 261 a 500 por modelo (777 para
+o modelo com mais pares em idioma nativo, quando estes são contados). Relatamos
+o $N$ realizado de cada modelo ao lado da sua pontuação
+(Tabela~\ref{tab:conf-modelo}) em vez de descartar células subcobertas, a lacuna
+de tier é reestimada sobre os prompts que todos os modelos responderam
+(Seção~\ref{sec:res:h1}), e a matriz de cobertura completa, com cota e motivo de
+exclusão para cada déficit, está no material suplementar.
 
 \subsection{Medidas}
 
 A pontuação atribui a cada tarefa o instrumento mais confiável que ela admite.
 
-\emph{Onde a resposta é um número em registro oficial, o código decide.} Para
-T1, T2 e T3, o valor devolvido é extraído e comparado com o registro por um
-pontuador determinístico, com guardas de plausibilidade que rejeitam extrações
-implausíveis --- um ano de quatro dígitos lido como contagem de óbitos, uma
-população nacional lida como cifra de mortalidade, um valor de 24 horas lido como
-anual. O extrator normaliza dígitos devanágari, vírgulas decimais e unidades
-escritas por extenso, e seu comportamento nos casos que importam para a
-comparação entre idiomas (uma vírgula decimal, um numeral em hindi, um valor
-diário entre parênteses ao lado do anual) é fixado por uma suíte de testes
-unitários liberada com o código; uma auditoria manual estratificada das respostas
-em idioma nativo que ele classificou como sem valor está no suplemento. Comparar
-um valor com uma chave é exato, e um modelo de linguagem a quem se pede a mesma
-aritmética só consegue reproduzi-la com ruído. O código resolve \ncodecovtone\% das
-células de T1 na análise (\ntonecodecellspt{} de \ntonecellspt), \ncodecovttwo\% de T2 e \ncodecovtthree\% de T3; uma
-resposta de T1 sem valor extraível conta como não tê-lo devolvido. Para os três
-países sem padrão, o código pontua se a resposta afirma que não existe padrão
-nacional (correto), afirma um valor (fabricado) ou se recusa a responder (nem um
-nem outro), e a comparação primária entre tiers é reportada com e sem eles.
+Onde a resposta é um número em registro oficial, o código decide. Para T1, T2 e
+T3 o valor devolvido é extraído e comparado com o registro por um pontuador
+determinístico, com salvaguardas de plausibilidade que rejeitam extrações
+implausíveis (um ano de quatro dígitos lido como contagem de óbitos, uma
+população nacional lida como cifra de mortalidade, um valor de 24 horas lido
+como anual). O extrator normaliza dígitos devanágari, vírgulas decimais e
+unidades escritas por extenso, e seu comportamento nos casos que importam para
+a comparação entre idiomas (uma vírgula decimal, um numeral em hindi, um valor
+diário entre parênteses ao lado do anual) está fixado por uma suíte de testes
+unitários liberada com o código; uma auditoria manual estratificada das
+respostas de T1 em idioma nativo que ele classificou como sem valor é relatada
+no material suplementar, e nenhuma auditoria equivalente foi feita para T2 e
+T3. Comparar um valor com uma chave é exato, ao passo que um modelo de
+linguagem convidado a fazer a mesma aritmética a reproduz com ruído. O código
+resolve \ncodecovtone\% das células de T1 na análise (\ntonecodecellspt{} de
+\ntonecellspt), \ncodecovttwo\% de T2 e \ncodecovtthree\% de T3; uma resposta de T1
+sem valor extraível conta como não o tendo devolvido. Para os três países sem
+padrão, o código pontua se a resposta afirma que não existe padrão nacional
+(correto), afirma um valor (fabricado) ou declina de responder (nenhum dos
+dois), e a comparação de tier é relatada com e sem eles.
 
-\emph{Onde se exige julgamento, um painel de três fornecedores decide pela média.}
-O resíduo de T2 e T3, com toda a T4, é pontuado por Gemini~2.5~Pro, Claude
-Sonnet~4.6 e DeepSeek-V3, escolhidos por diversidade de fornecedor para que a
-correlação intrafornecedor não infle a concordância aparente. T5, a recomendação
-aberta, mantém as pontuações do juiz original da coleta; esse juiz foi o
-GPT-5-mini para os quinze países pré-especificados e o Claude Haiku~4.5 para os
-dez acrescentados na extensão, e como a extensão contém sete dos dez países do
-Norte Global, juiz e tier estão confundidos em qualquer efeito que ainda repouse
-sobre essas pontuações. Foi por isso que T1 passou para o código: nas pontuações
-originais o déficit do Sul Global em T1 era \njtgsgpt{} contra \njtgngpt{} sob o GPT-5-mini,
-mas \njtgshaiku{} contra \njtgnhaiku{} sob o Claude Haiku, uma diferença entre juízes tão grande
-quanto a diferença entre tiers (suplemento). T5 não carrega efeito de tier em
+O veredito de código substitui um subcomponente do composto, a acurácia factual
+(peso $0,30$); os outros quatro subcomponentes de uma célula de T1, T2 ou T3
+continuam sendo os atribuídos pelo juiz que a pontuou. Para T1 esse juiz é o
+juiz da coleta, de modo que o composto em T1 ainda carrega o confundimento
+entre juiz e tier descrito abaixo em $0,70$ do seu peso. Por essa razão, o
+desfecho primário para a comparação de tier nas tarefas com valor de registro é
+o próprio veredito binário de código, se a resposta devolveu o valor em vigor,
+e o composto é relatado como desfecho secundário (Seção~\ref{sec:res:h1}).
+
+Onde é preciso julgamento, um painel de três fornecedores decide pela média. O
+resíduo de T2 e T3, com toda a T4, é pontuado por Gemini~2.5~Pro, Claude
+Sonnet~4.6 e DeepSeek-V3, escolhidos pela diversidade de fornecedores, para que
+a correlação intra-fornecedor não infle a concordância aparente. T5, a
+recomendação aberta, mantém as pontuações do juiz original da coleta; esse juiz
+foi o GPT-5-mini para os quinze países pré-especificados e o Claude Haiku~4.5
+para os dez acrescentados na extensão, e como a extensão contém sete dos dez
+países do Norte Global, juiz e tier estão confundidos em qualquer efeito que
+ainda se apoie nessas pontuações. É por isso que o veredito factual de T1 foi
+movido para código: nas pontuações originais, o déficit do Sul Global em T1 era
+de \njtgsgpt{} contra \njtgngpt{} sob o GPT-5-mini, mas de \njtgshaiku{} contra
+\njtgnhaiku{} sob o Claude Haiku, uma diferença entre juízes tão grande quanto a
+diferença entre tiers (material suplementar). T5 não carrega efeito de tier em
 nenhum dos dois instrumentos. A confiabilidade é relatada como $\alpha$ de
-Krippendorff, o ICC$(2,1)$ de juiz único e, como quantidade operativa, o
-ICC$(2,3)$ da média do painel --- um coeficiente de efeitos aleatórios de dois
-fatores e concordância absoluta, de modo que as severidades distintas dos juízes
-contam contra ele --- computados sobre cada item que o painel pontuou em vez de
-sobre um subconjunto de calibração. Um membro do painel (DeepSeek-V3) é também
-um modelo avaliado, e testamos o autofavorecimento diretamente. Nenhuma camada
-humana de padrão-ouro foi coletada; o gabarito está ancorado, em vez disso, em
-fontes oficiais primárias (Seção~\ref{sec:gabarito}).
+Krippendorff, ICC$(2,1)$ de juiz único e, como grandeza operativa, o ICC$(2,3)$
+da média do painel, um coeficiente de efeitos aleatórios em duas vias e
+concordância absoluta em que as diferentes severidades dos juízes contam contra
+ele, computado sobre todo item que o painel pontuou, e não sobre um subconjunto
+de calibração. Juízes baseados em modelo de linguagem
+concordam com avaliadores humanos mais ou menos no nível em que humanos
+concordam entre si em tarefas abertas~\citep{zheng2023judging}, mas carregam
+vieses de posição, verbosidade e autofavorecimento, e os modelos reconhecem as
+próprias saídas o bastante para
+preferi-las~\citep{zheng2023judging,panickssery2024self}. Um membro do painel
+(DeepSeek-V3) é também um modelo avaliado, e testamos o autofavorecimento
+diretamente; os outros dois juízes pertencem a
+fornecedores cujos modelos estão na lista (Anthropic, Google), de modo que uma
+preferência no nível do fornecedor não pode ser excluída por esse teste. Nenhuma
+camada humana de padrão-ouro foi coletada; o gabarito está ancorado em fontes
+primárias oficiais (Seção~\ref{sec:gabarito}).
 
-\emph{A unidade de análise é a célula pontuada, não a linha de log.} A
-duplicação existe em dois níveis, e cada um tem uma regra declarada. No nível da
-resposta, 21,9\% das chaves (modelo, prompt, réplica) têm mais de uma resposta
-armazenada, porque as rodadas de coleta foram retomadas e reexecutadas; a
-resposta que entra na análise é a primeira armazenada na ordem dos arquivos de
-execução, que é a que o juiz pontuou, e os vereditos de código são computados
-sobre essa mesma resposta, para que os dois instrumentos descrevam uma única
-resposta. Pontuar todas as respostas armazenadas e tirar a média dos vereditos
-muda o veredito de código em \ndupchange\% das células e a média em \ndupmean
-(suplemento). No nível do escore, 951 células (11,5\%) carregam mais de um
-escore de juiz, porque o juiz foi reexecutado sobre partes do conjunto em datas
-diferentes; são medições repetidas do mesmo item, não observações independentes,
-e são colapsadas pela média, restando 8.300 células, ou 8.244 uma vez removidas
-as 56 células egípcias de T1 sem chave (6.573 com prompt em inglês). Tratar
-reexecuções como independentes seria pseudo-replicação: infla o $n$ e dá peso
-extra às células que por acaso foram reprocessadas. A escolha é metodológica e
-não depende do resultado.
+A unidade de análise é a célula pontuada, não a linha de log. A duplicação
+existe em dois níveis e cada um tem regra declarada. No nível da resposta,
+21,9\% das chaves (modelo, prompt, réplica) têm mais de uma resposta armazenada,
+porque as rodadas de coleta foram retomadas e reexecutadas; a resposta que
+entra na análise é a primeira armazenada na ordem dos arquivos de execução, que
+é a que o juiz pontuou, e os vereditos de código são computados sobre essa
+mesma resposta, de modo que os dois instrumentos descrevem uma única resposta.
+Pontuar todas as respostas armazenadas e tirar a média dos vereditos muda o
+veredito de código em \ndupchange\% das células e a média em \ndupmean{} (material
+suplementar). No nível da pontuação, 951 células (11,5\%) carregam mais de uma
+pontuação de juiz, porque o juiz foi reexecutado sobre partes do conjunto em
+datas diferentes; são medições repetidas do mesmo item e são colapsadas pela
+média, restando 8.300 células, ou 8.244 uma vez removidas as 56 células
+egípcias de T1 sem chave (6.573 com prompt em inglês). Tratar reexecuções como
+independentes inflaria o $n$ e daria peso extra às células que por acaso foram
+reprocessadas. A regra foi fixada por razões metodológicas e não depende do
+resultado.
 
-O composto primário combina cinco subcomponentes pré-especificados (Seção~S6 do
-suplemento), cada um normalizado para $[0,1]$: acurácia factual contra a entrada do
-registro (peso 0.30), completude contextual (0.25), qualidade de citação (0.15),
-calibração (0.15) e ausência de alucinação (0.15). Cada efeito principal é
-recomputado sob pesos iguais e sob uma ponderação derivada por ACP, e uma conclusão
-só conta como robusta se sua direção for estável nas três. O composto é computado
-por célula (país, modelo, persona) para viabilizar o teste de diferença em
-diferenças de H6.
+O composto primário combina cinco subcomponentes pré-especificados (Seção
+Suplementar~S6), cada um normalizado para $[0,1]$: acurácia factual contra a
+entrada do registro (peso $0,30$), completude contextual ($0,25$), qualidade de
+citação ($0,15$), calibração ($0,15$) e ausência de alucinação ($0,15$). Todo
+efeito-manchete é recomputado sob pesos iguais e sob uma ponderação derivada de
+PCA, e uma conclusão conta como robusta apenas se sua direção for estável nas
+três. O composto é computado por célula (país, modelo, persona) para sustentar o
+teste de diferença-em-diferenças de H6.
 
 \subsection{Estratégia analítica}
 
 Os três testes primários são pré-especificados como uma única família (F1) e
 corrigidos em conjunto por Bonferroni-Holm. Os testes secundários (F2) são
-relatados sem ajuste dentro da família, e os declarados exploratórios (F3) usam FDR
-de Benjamini-Hochberg a $q=0.10$~\citep{benjamini1995fdr}, cuja garantia pressupõe
-estatísticas de teste independentes.
+relatados sem ajuste dentro da família, e os testes declarados exploratórios
+(F3) usam FDR de Benjamini-Hochberg a $q=0,10$~\citep{benjamini1995fdr}, cuja
+garantia vale sob dependência positiva; a correção de Benjamini-Yekutieli,
+válida sob dependência arbitrária, devolve as mesmas decisões nesta família,
+pois os testes de F3 que ela cobre têm valores de $p$ várias ordens de grandeza
+abaixo do limiar.
 
-\emph{H1 (gradiente geográfico, primário)} regride a acurácia composta média por
-país sobre o gradiente Joshi/IDH via $\rho$ de Spearman, pré-especificado
-unilateral em $\rho\geq0.55$, com um teste de tendência de Mann-Kendall como
-complemento obrigatório de não monotonicidade. \emph{H4 (mecanismo de corpus,
-primário)} relaciona representação no corpus à acurácia por $\rho$ de Spearman
-parcial ajustando para IDH e log do PIB per capita, com contagens da Wikipédia como
-proxy pré-especificado. \emph{H6 (persona, primário)} é uma diferença em diferenças
-no nível do país, sustentada se a condição de persona reduzir a lacuna do Sul
-Global em ao menos 0.05 no composto, com inferência por teste de permutação de
-5.000 iterações. \emph{H3 (secundária)} é um contraste unilateral de Mann-Whitney
-($\delta$ de Cliff). \emph{H2 e H5 (exploratórias)} são relatadas descritivamente
-sob correção F3.
+H1 (gradiente geográfico, primária) regride a acurácia composta média por país
+sobre o gradiente Joshi/IDH via $\rho$ de Spearman, pré-especificado unilateral
+em $\rho\geq0,55$, com um teste de tendência de Mann-Kendall como complemento
+obrigatório de não monotonicidade. O contraste binário Norte/Sul Global sobre
+as mesmas médias por país foi pré-especificado como análise de sensibilidade de
+H1, e sua decomposição por tarefa (Seção~\ref{sec:res:h1}) não foi
+pré-especificada e é exploratória. H4 (mecanismo de corpus, primária) relaciona
+a representação no corpus à acurácia por $\rho$ de Spearman parcial ajustando
+por IDH e log do PIB per capita, com contagens da Wikipédia como proxy
+pré-especificado e cobertura do Wikidata como complemento exploratório. H6
+(persona, primária) é uma diferença-em-diferenças no nível do país,
+$\Delta_{\mathrm{GS}}-\Delta_{\mathrm{GN}}$, sustentada se a condição de
+persona reduzir a lacuna do Sul Global em ao menos $0,05$ no composto, com
+inferência por teste de permutação no nível do país com 5.000 permutações; como
+o teste pré-especificado não distingue um nulo de um resultado inconclusivo,
+acrescentamos um teste de equivalência, dois testes unilaterais sobre a
+distribuição bootstrap por país da diferença-em-diferenças com margens de
+$\pm2$ e $\pm5$~pp. H3 (secundária) é um contraste unilateral de Mann-Whitney
+($\delta$ de Cliff). H2 e H5 (exploratórias) são relatadas descritivamente sob
+correção F3.
 
-Três análises transversais corroboram a lacuna de camada: um modelo linear misto
-gaussiano (MixedLM do \texttt{statsmodels}, REML) com interceptos aleatórios
-cruzados de país e modelo, ajustando para IDH centrado; uma reestimação hierárquica
-bayesiana (\texttt{pymc}~\citep{pymc}); e E-values para robustez a confundimento não
-medido, pela aproximação $\mathrm{RR}\approx\exp(0.91\,d)$ que
-\citet{vanderweele2017evalue} prescrevem para efeitos padronizados e cujos
-pressupostos ela herda. O mecanismo de corpus é sondado com um modelo
-exploratório de mediação (\texttt{semopy}~\citep{semopy}), e a manipulação de
-persona com uma checagem de reconhecimento do enquadramento. As análises de
-robustez pré-especificadas aparecem na Seção~\ref{sec:res:robustez}.
+Sempre que um teste nos Resultados é rodado primeiro sobre respostas, também o
+relatamos com o país ou o modelo como unidade, porque as respostas estão
+aninhadas em 25 países e 14 modelos e um valor de $p$ no nível da resposta
+superestima a evidência para qualquer contraste que varie entre países. Três
+análises transversais corroboram a lacuna de tier: um modelo linear misto
+gaussiano (\texttt{statsmodels} MixedLM, REML) com interceptos aleatórios
+cruzados para país e modelo, ajustando por IDH centrado; uma reestimação
+hierárquica bayesiana (\texttt{pymc}~\citep{pymc}, priors fracamente
+informativas); e E-values para robustez a confundimento não medido, computados
+para a diferença de médias padronizada da acurácia composta entre tiers pela
+aproximação $\mathrm{RR}\approx\exp(0,91\,d)$ que \citet{vanderweele2017evalue}
+prescrevem para efeitos padronizados e cujos pressupostos ela herda. O
+mecanismo de corpus é sondado com um modelo de mediação exploratório
+(\texttt{semopy}~\citep{semopy}), e a manipulação de persona com uma checagem de
+reconhecimento do enquadramento de papel. As análises de robustez
+pré-especificadas aparecem na Seção~\ref{sec:res:robustez}.
 
 \subsection{Protocolo do estudo e ética}
 
-O conjunto analítico de dados, após os gates de qualidade mas antes do ajuste dos
-modelos, é congelado e hasheado, de modo que a análise confirmatória possa ser
-auditada contra a especificação travada em vez de aceita por confiança. Os termos de
-liberação estão declarados ao fim do artigo.
+O conjunto de dados analítico, após os filtros de qualidade mas antes do ajuste
+de modelos, é congelado e verificado por hash, de modo que a análise possa ser
+auditada contra a especificação fechada em vez de aceita por confiança. Os
+termos de liberação são declarados ao fim do artigo.
 
-Nenhum dado pessoal de usuários finais de LLMs foi coletado; o estudo analisa saídas
-de modelo para perguntas de política de relevância pública. Os termos de serviço dos
-provedores foram revisados e respeitados, e as respostas são redistribuídas
-exclusivamente para pesquisa sob provisões de uso justo e reprodutibilidade,
-excluídas de qualquer aplicação comercial.
+Nenhum dado pessoal de usuários finais de LLMs foi coletado; o estudo analisa
+saídas de modelos a perguntas de política de relevância pública. Os termos de
+serviço dos provedores foram revisados e respeitados, e as respostas são
+redistribuídas exclusivamente para pesquisa sob disposições de uso justo e
+reprodutibilidade, excluída qualquer aplicação comercial.

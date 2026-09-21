@@ -1,0 +1,224 @@
+critical_review:
+  lens: round-13 — parecer de painel (3 revisores, decisão editorial "Major Revision") + pedido do autor de remover traços de IA e deixar a prosa fluida e formal
+  role: >-
+    R3: parecer é hipótese. Cada item foi conferido na fonte (código, JSON, registro,
+    Modelfile, model card do Cabra) antes de qualquer edição. Verditos: UPHELD ·
+    UPHELD_MODIFIED · REJECTED_FALSE_PREMISE · DEFERRED (decisão do autor ou coleta nova).
+  artifact_id: artigo-vies-analise-regional
+  date: 2026-09-21
+  verdict: >-
+    revisions-applied — inferência no nível do cluster acrescentada (cluster_inference.py,
+    passo C21a; 70 macros novas), H4 rebaixado a "não estabelecido", desfecho só-código
+    passa a primário da lacuna Norte/Sul, ORs por tarefa com IC bootstrap por país, TOST
+    de H6, verificação de serviço do Cabra contra a própria base (local, sem custo), cinco
+    referências lidas na íntegra e citadas, duas afirmações falsas dos Métodos corrigidas
+    (seed nunca enviada; nenhum filtro de idioma), título "Recalled", abstract ≤250 palavras,
+    passada anti-slop EN+PT (7 seções × 2 idiomas reescritas), suplementos atualizados.
+  gates_run:
+    - consistency_gate (ampliado com 7 padrões da rodada 13) — LIMPO
+    - validate_numbers C23 — ver round-13 close
+    - check_highlights — ver round-13 close
+    - pytest — ver round-13 close
+  findings:
+    # ---------------- P0 ----------------
+    - id: R13-1
+      source: R1/R2 (P0) — inferência no nível do cluster para H4 e Tabela 5
+      premise_checked: >-
+        h4_within_country.py ajusta y ~ C(pais)+dep+dep:cob_z com RE de modelo; SE trata 6.573
+        respostas como independentes num contraste que só varia entre 25 países. O próprio JSON
+        já continha o teste por país (rho_deficit=-0.37, p=0.069; parcial HDI -0.16, p=0.44).
+        Tabela 5: BinomialBayesMixedGLM (VB) dá IC [0.27,0.39] para T1, irrealista com 24 clusters.
+      verdict: UPHELD
+      severity: MUST
+      status: resolved
+      resolution: >-
+        cluster_inference.py: SE agrupado por país (cobertura sozinha p=0.099; conjunta com HDI
+        p=0.69/0.35; anglófonos p=0.47); 25 déficits por país; ORs brutas por tarefa com bootstrap
+        por país (T1 0.44 [0.18,1.05], perm p=0.062). Texto: H4 "não estabelecido"; Tabela 5 com
+        RC condicional e bruta + IC por país; abstract, resumo, discussão, conclusão e síntese
+        atualizados. Lição registrada na Discussão §5.5.
+    - id: R13-2
+      source: R1 (P0) — composto de T1 ainda 70% juiz; desfecho só-código como primário
+      premise_checked: >-
+        export_corrected_scores.py substitui só factual_accuracy (peso 0.30); as outras quatro
+        notas da célula de T1 continuam do juiz da coleta (verificado em judge_scores_corrected:
+        T1 code rows carregam judge_model gpt-5-mini/haiku). Verdadeiro.
+      verdict: UPHELD
+      severity: MUST
+      status: resolved
+      resolution: >-
+        Métodos declaram quem pontua cada subcomponente; desfecho primário da lacuna passa a ser o
+        veredito binário de código (+14.7 pp [5.6,23.9], perm p=0.012, país como unidade); o
+        composto vira secundário. Repontuar os 4 subcomponentes de T1 pelo painel: DEFERRED (custo de API, decisão do autor).
+    - id: R13-3
+      source: R1/R3 (P0) — validação humana cega (~150 itens)
+      verdict: DEFERRED
+      severity: MUST
+      status: open
+      resolution: Decisão do autor/coautores (dois avaliadores). Já listada nas rodadas 10–12. O pipeline exporta a amostra.
+    - id: R13-4
+      source: R2 (P0) — "ρ=0,55 excluído" é falso; IC de Fisher [-0,04, 0,66]
+      premise_checked: computado em cluster_inference.py seção G — [-0.04, +0.66] em n=25; [-0.45, +0.57] em n=15. O revisor está certo.
+      verdict: UPHELD
+      severity: MUST
+      status: resolved
+      resolution: Frase removida; texto diz que o intervalo inclui zero e o limiar; poder reescrito como "não estreita o intervalo". Macros nrhocilo/nrhocihi/nrhoprecilo/nrhoprecihi.
+    # ---------------- P1 ----------------
+    - id: R13-5
+      source: R2 — lacuna de tier não pré-especificada; Tabela 7 exploratória
+      premise_checked: >-
+        osf_prereg_v7_full.md linha 185: "UNCTAD ... used for H1 and H6 sensitivity". O contraste
+        binário ESTAVA no protocolo como análise de sensibilidade; a decomposição por tarefa não estava.
+      verdict: UPHELD_MODIFIED
+      severity: MUST
+      status: resolved
+      resolution: Métodos: contraste binário = sensibilidade pré-especificada de H1; decomposição por tarefa rotulada exploratória (texto e legenda).
+    - id: R13-6
+      source: R2 — vote-counting (8/9, 12/14)
+      verdict: UPHELD_MODIFIED
+      status: resolved
+      resolution: Contagens mantidas como descrição ao lado dos testes com o cluster como unidade; removidas do abstract.
+    - id: R13-7
+      source: R2 — H6 sem teste de equivalência
+      verdict: UPHELD
+      status: resolved
+      resolution: TOST por bootstrap de país: IC90 da DiD [-0.4,+1.6] pp, dentro de ±2 e ±5 pp; efeito principal da persona −0.62 pp (p=0.003; por país p=0.062).
+    - id: R13-8
+      source: R2 — regressão à média no hindi
+      verdict: UPHELD_MODIFIED
+      status: resolved
+      resolution: Ressalva no texto (um único país em hindi; não separável). Não é estimável com n=1.
+    - id: R13-9
+      source: R2 — piso/H3 sem clustering
+      verdict: UPHELD
+      status: resolved
+      resolution: Piso por modelo (14/14, p=0.001) e por país (25/25, p=1e-5); H3 por país (25/25) e por prompt PT (20/30, p=0.002).
+    - id: R13-10
+      source: R1/R3 — título "LLM-Retrieved" sem recuperação; braço com busca
+      premise_checked: nenhuma chamada usa busca/RAG (llm_clients.py). Verdadeiro.
+      verdict: UPHELD_MODIFIED
+      status: resolved
+      resolution: >-
+        Título → "LLM-Recalled" (EN/PT/suplementos); Introdução explica "recalled, not retrieved";
+        limitação "No retrieval arm" em primeiro lugar. Braço com busca: DEFERRED (coleta nova, custo de API; autor decide).
+    - id: R13-11
+      source: R2 — idioma do instrumento oficial (NAAQS da Índia em inglês)
+      verdict: UPHELD
+      status: resolved
+      resolution: Métodos e Limitações: para a Índia o instrumento é em inglês; penalidade do hindi é pelo idioma do usuário. Como covariável: não estimável (só a Índia difere).
+    - id: R13-12
+      source: R2 — "monotonically" errado (es>pt no mC4, penalidade es≥pt)
+      premise_checked: mC4 es > pt; penalidades es −4.5, pt −4.2 → não monotônico. Verdadeiro.
+      verdict: UPHELD
+      status: resolved
+      resolution: Reescrito: hindi menor corpus/maior penalidade; es e pt indistinguíveis. Padrão proibido no gate.
+    - id: R13-13
+      source: R2/R3 — colonialidade afirmada; "gap tracks world-system position"
+      verdict: UPHELD_MODIFIED
+      status: resolved
+      resolution: Reescrito como interpretação ("offers one interpretation"; "one reading is"); sem afirmação causal.
+    - id: R13-14
+      source: R3 — nenhuma evidência sobre gestores ("question a manager most often brings")
+      verdict: UPHELD
+      status: resolved
+      resolution: Frase removida; substituída por "the task with administrative consequence".
+    - id: R13-15
+      source: R1/R3 — literatura ausente (X-FACTR, mLAMA, Dahl 2024, Zheng 2023, Panickssery 2024)
+      verdict: UPHELD
+      status: resolved
+      resolution: >-
+        Cinco artigos baixados do arXiv e lidos na íntegra (fichamentos em data/fichamentos/,
+        read_depth full-text); citados em Trabalhos Relacionados (§2.1, §2.3), Métodos (validade
+        do juiz) e Resultados (confiabilidade). mLAMA Fig. 6 (sem tendência Wikipédia×desempenho)
+        é antecedente direto do nulo do proxy de idioma.
+    - id: R13-16
+      source: R1 — abstract > 250 palavras
+      verdict: UPHELD
+      status: resolved
+      resolution: 229 palavras com macros expandidas.
+    - id: R13-17
+      source: R1/R3 — cortar 25–30%
+      verdict: UPHELD_MODIFIED
+      status: partial
+      resolution: Passada anti-slop reescreveu as sete seções; contagem final no fechamento. Corte adicional é decisão do autor.
+    # ---------------- P2 ----------------
+    - id: R13-18
+      source: R2 — UE como um cluster
+      verdict: UPHELD
+      status: resolved
+      resolution: +5.5 pp [+1.6,+9.3], p=0.029 (7 unidades do Norte vs 15).
+    - id: R13-19
+      source: R2 — subconjunto balanceado de modelos
+      verdict: UPHELD
+      status: resolved
+      resolution: 104/248 prompts respondidos por todos os 14 modelos: +5.1 pp [-2.7,+12.8], p=0.32 (mesma estimativa, menos precisão).
+    - id: R13-20
+      source: R2 — data de revisão do instrumento vs cutoff como covariável em T1
+      premise_checked: t1_registry.jsonl não guarda data de entrada em vigor.
+      verdict: DEFERRED
+      status: open
+      resolution: Exige coletar datas por país (AMPLIAÇÃO). Declarado nos Métodos; a análise da escada é o substituto.
+    - id: R13-21
+      source: R2 — neutralidade de tier da tolerância de T2
+      premise_checked: anos aceitos GN 7.8 vs GS 5.6; amplitude max/min 1.46 vs 1.43.
+      verdict: UPHELD_MODIFIED
+      status: resolved
+      resolution: Declarado nos Métodos com os números (macros).
+    - id: R13-22
+      source: R2/autor — sanity check do Cabra (template) e base Mistral 7B nos mesmos itens
+      premise_checked: >-
+        Modelfile "[INST] {{ .Prompt }} [/INST]" == chat_template do tokenizer_config.json
+        (botbot-ai/CabraMistral-v3-7b-32k); base Mistral-7B-Instruct-v0.3; mistral:7b do Ollama
+        é o mesmo blob de 7b-instruct-v0.3-q4_K_M; Cabra também Q4_K_M. Resposta em PT coerente.
+      verdict: UPHELD
+      status: resolved
+      resolution: cabra_sanity_check.py — 30 prompts PT × 2 réplicas × {Cabra, base, Llama 3.1 8B}, T1–T3 por código; resultado no suplemento e em Robustez (macros cabsanity*).
+    - id: R13-23
+      source: R2 — exclusões por idioma divergente
+      premise_checked: >-
+        Não existe filtro de idioma no código (grep em code/): a frase dos Métodos era falsa.
+        Também não havia seed (config random_seed=42 é da análise; clientes nunca enviam seed),
+        contradizendo Métodos e §"Determinism and seed handling" do suplemento.
+      verdict: UPHELD (com achado adicional)
+      severity: MUST
+      status: resolved
+      resolution: Métodos reescritos como executado; vazias por idioma (en 4.2%, es 11.4%, pt 13.9%, hi 11.5%) reportadas como parte de H2; duas linhas na tabela de desvios; seed retirada com correção declarada.
+    - id: R13-24
+      source: R3 — autofavorecimento só testado para o DeepSeek
+      verdict: UPHELD
+      status: resolved
+      resolution: Métodos anotam que Anthropic e Google têm modelos na lista e o teste não cobre preferência no nível do fornecedor (cita Panickssery 2024).
+    - id: R13-25
+      source: R3 — GPT-5 com raciocínio
+      premise_checked: llm_clients.py: reasoning_effort="minimal", temperature 1.0.
+      verdict: UPHELD
+      status: resolved
+      resolution: Declarado nos Métodos e no suplemento.
+    - id: R13-26
+      source: R3 — auditoria do extrator só em T1
+      verdict: UPHELD
+      status: resolved
+      resolution: Declarado nos Métodos e nas Limitações.
+    - id: R13-27
+      source: R1/R3 — inconsistências (12.9 vs 12.8; 31.0 vs 30.9; Tabela 5 vs S11; S1 cinco classes; "post registration"; S7 "partial" Bangladesh; "confirmatory"; estimando do E-value; BH vs BY)
+      verdict: UPHELD
+      status: resolved
+      resolution: >-
+        12.9 → macro; 31.0 não localizado (macros só); Tabela 5 vs S11 explicado (RC condicional vs bruta) e ambos exibidos; S1 três classes; "post registration" removido; S7 legenda corrigida (Bangladesh verificado); "confirmatory" → "main/primary" na prosa (nomes de arquivo mantidos); E-value com estimando explícito; BY dá as mesmas decisões, declarado. Padrões no gate.
+    - id: R13-28
+      source: R1/R3 — figuras; repositório anonimizado; escolha de figuras
+      verdict: DEFERRED
+      status: open
+      resolution: AMPLIAÇÃO/decisão de submissão (autor).
+    - id: R13-29
+      source: autor — remover traços de IA, prosa fluida e formal
+      verdict: UPHELD
+      status: resolved
+      resolution: >-
+        Reescrita integral das sete seções EN e PT: travessões removidos, ênfases em itálico
+        retiradas, frases de anúncio e tríades decorativas cortadas, "não X mas Y" reduzido,
+        sentenças longas divididas; números continuam macros; gate limpo.
+  refutations: []
+  open_items_at_log_time:
+    - Decisões do autor: validação humana (~150); repontuar T1 pelo painel (API); braço com busca (API); Sabiá-3; corte adicional; figuras; repositório anonimizado; ratificar freeze (run 7 + cluster_inference).
+    - Datas de entrada em vigor por país (para a covariável de revisão vs cutoff).

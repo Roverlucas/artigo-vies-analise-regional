@@ -206,10 +206,13 @@ def load_registry(task: str) -> dict:
     return {json.loads(l)["country"]: json.loads(l) for l in f.open(encoding="utf-8")}
 
 
-def score(task: str) -> list[dict]:
+def score(task: str, files: list[str] | None = None) -> list[dict]:
+    """`files` permite pontuar outro conjunto de respostas com as MESMAS regras
+    (usado pelo sanity check do Cabra em cabra_sanity_check.py)."""
     reg = load_registry(task)
     out = []
-    for ordem, f in enumerate(sorted(glob.glob(str(RESP / "run_confirmatory_*.jsonl")))):
+    arquivos = files if files is not None else sorted(glob.glob(str(RESP / "run_confirmatory_*.jsonl")))
+    for ordem, f in enumerate(arquivos):
         for line in open(f, encoding="utf-8"):
             try:
                 r = json.loads(line)

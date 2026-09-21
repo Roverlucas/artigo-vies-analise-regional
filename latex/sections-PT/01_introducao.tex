@@ -1,129 +1,121 @@
 \section{Introdução}
 \label{sec:intro}
 
-Modelos de linguagem de grande porte passaram de curiosidade de pesquisa a
-infraestrutura de trabalho da administração pública em menos de cinco anos: um
-levantamento da OCDE sobre funções centrais de governo documenta a adoção de IA
-generativa na formulação de políticas e na prestação de serviços, incluindo
-assistentes que ajudam atendentes de serviços públicos a recuperar informação e as
-fontes por trás dela~\citep{oecd2024governing}. A política de poluição do ar é um domínio em
-que isso carrega consequências diretas de saúde pública. O material particulado
-fino está entre os principais fatores de risco ambiental para mortalidade
-prematura~\citep{gbd2019risk,who2021aqg}, e a carga recai desproporcionalmente
-sobre o Sul Global. Quando um gestor ambiental público em São Paulo, Lagos ou
-Jacarta pergunta a um LLM sobre um padrão de qualidade do ar, um prazo de
-atendimento ou a evidência por trás de uma intervenção, uma resposta imprecisa não
-é um erro benigno. Ela pode se propagar para um parecer regulatório, uma decisão
-de compra ou uma resposta emergencial durante um episódio de poluição.
+Os grandes modelos de linguagem tornaram-se infraestrutura de trabalho da
+administração pública em poucos anos. Um levantamento da OCDE sobre funções
+centrais de governo documenta a adoção de IA generativa em formulação de
+políticas e prestação de serviços, incluindo assistentes que ajudam assessores
+do serviço público a recuperar informação e as fontes por trás
+dela~\citep{oecd2024governing}. A política de poluição do ar é um domínio em que
+isso tem consequência direta para a saúde pública. O material particulado fino
+está entre os principais fatores de risco ambiental para mortalidade prematura
+no mundo~\citep{gbd2019risk,who2021aqg}, e a carga recai de forma
+desproporcional sobre o Sul Global. Quando um gestor ambiental pergunta a um
+modelo sobre um padrão de qualidade do ar, um prazo de atendimento ou a
+evidência por trás de uma intervenção, uma resposta imprecisa pode se propagar
+para um parecer regulatório, uma decisão de compra ou uma resposta de emergência
+durante um episódio de poluição.
 
-Este artigo pergunta se os LLMs servem à política de poluição do ar do Sul Global
-com a mesma confiabilidade com que servem ao Norte Global, e se a forma de
-enquadrar a consulta muda a resposta. Ambas as premissas estão estabelecidas. O
-viés factual geográfico é real e mensurável: as taxas de erro são $1{,}5\times$
-maiores para países da África Subsaariana do que para norte-americanos em 20
-modelos~\citep{moayeri2024worldbench}, avaliações do modelo sobre tópicos
-subjetivos sensíveis acompanham condições socioeconômicas até
-$\rho=0.70$~\citep{manvi2024llm}, e os modelos privilegiam
-sistematicamente afirmações sobre o Norte Global~\citep{mirza2024global}. E a
-assimetria linguística por trás disso é estrutural: os idiomas da maioria dos
-países do Sul Global ficam nas classes sub-atendidas da hierarquia de
-recursos~\citep{joshi2020state}, e grandes corpora derivados da internet
-``super-representam pontos de vista hegemônicos e codificam vieses potencialmente
-danosos a populações marginalizadas''~\citep{bender2021stochastic}. A assimetria
-reproduz a infraestrutura
-epistêmica desigual que a literatura decolonial analisa para sistemas de
-IA~\citep{mohamed2020decolonial}.
+Este artigo pergunta se os modelos respondem a essas questões com a mesma
+confiabilidade para países do Sul Global e do Norte Global, e se a forma de
+enquadrar a consulta muda a resposta. As duas premissas têm apoio. O viés
+factual geográfico é mensurável: as taxas de erro são $1,5\times$ maiores para
+países da África Subsaariana do que para a América do Norte em 20
+modelos~\citep{moayeri2024worldbench}, as avaliações dos modelos sobre temas
+subjetivos acompanham condições socioeconômicas até
+$\rho=0,70$~\citep{manvi2024llm}, e os modelos privilegiam sistematicamente
+afirmações sobre o Norte Global~\citep{mirza2024global}. A assimetria linguística
+por trás disso é estrutural: os idiomas da maioria dos países do Sul Global
+ocupam as classes mal servidas da hierarquia de recursos~\citep{joshi2020state},
+e grandes corpora derivados da Internet ``super-representam pontos de vista
+hegemônicos e codificam vieses potencialmente danosos a populações
+marginalizadas''~\citep{bender2021stochastic}. A produção decolonial lê essa
+assimetria como uma infraestrutura epistêmica desigual reproduzida pelos
+sistemas de IA~\citep{mohamed2020decolonial}.
 
-Três lacunas permanecem abertas para um domínio como este, e elas organizam o
-estudo. Nenhum benchmark tem por alvo a informação regulatória com gabarito
-oficial: as avaliações existentes usam recuperação de indicadores do Banco
-Mundial, avaliações subjetivas, checagem jornalística ou conhecimento cultural
-cotidiano, e nenhuma delas mede as tarefas que um gestor de fato delega ---
-declarar um padrão vinculante, recuperar uma concentração oficialmente medida,
-sintetizar a evidência de carga de saúde, identificar instrumentos legais e órgãos
-executores, recomendar uma resposta operacional. O enquadramento por persona não é
-examinado como alavanca experimental, embora profissionais rotineiramente
-anteponham um papel e os próprios fornecedores o recomendem
-(Seção~\ref{sec:related}); se ele \emph{reduz} a lacuna, ao orientar para
-respostas em conformidade com a norma, ou a \emph{amplifica}, ao convidar à
-fabricação confiante, não foi testado em desenho pré-especificado. E o mecanismo
-de representação no corpus é afirmado em vez de medido contra confundidores, e
-raramente separado em seus dois canais --- tamanho do \emph{corpus da língua}
-\citep{xue2021mt5,abadji2022oscar} contra a amplitude da \emph{cobertura do país}
----, distinção que importa aqui porque a lacuna geográfica é medida em inglês.
+Três lacunas organizam o estudo. Nenhum benchmark visa informação regulatória
+com gabarito oficial: as avaliações existentes usam recordação de indicadores do
+Banco Mundial, avaliações subjetivas, checagem jornalística ou conhecimento
+cultural cotidiano, e nenhuma mede as tarefas que um gestor delega, como
+enunciar um padrão vinculante, recuperar uma concentração medida oficialmente,
+resumir a evidência de carga de doença, identificar instrumentos legais e órgãos
+executores ou recomendar uma resposta operacional. O enquadramento por persona
+não foi examinado como alavanca experimental, embora os praticantes prefixem um
+papel rotineiramente e os fornecedores o recomendem (Seção~\ref{sec:related});
+se ele reduz a lacuna, ao direcionar para respostas conformes à regulação, ou a
+amplia, ao convidar à fabricação confiante, não foi testado em desenho
+pré-especificado. E o mecanismo de representação no corpus costuma ser afirmado
+em vez de medido contra confundidores, e raramente é separado em seus dois
+canais, o tamanho do corpus do idioma~\citep{xue2021mt5,abadji2022oscar} e a
+amplitude da cobertura do país, distinção que importa aqui porque a lacuna
+geográfica é medida em inglês.
 
 \subsection*{Objetivos e escopo}
 
-O estudo tem três objetivos delimitados. \emph{Primeiro, estabelecer um protocolo
-de auditoria de informação regulatória}: o objeto é a concordância entre a
+O estudo tem três objetivos delimitados. O primeiro é estabelecer um protocolo
+de auditoria de informação regulatória. Seu objeto é a concordância entre a
 resposta de um modelo e o valor publicado no registro oficial, para tarefas que
-uma agência ambiental de fato delega --- não a capacidade geral do modelo, a
-qualidade do raciocínio ou a utilidade para qualquer outro fim. O protocolo é a
-contribuição que se transfere; o domínio é onde o demonstramos. \emph{Segundo,
-testar as mitigações disponíveis a uma administração}: um órgão público diante de
-respostas ruins sobre o próprio país pode realisticamente declarar o papel oficial
-no prompt, perguntar no idioma nacional ou rodar um modelo aberto com ajuste
-regional, e testamos os três como fatores do desenho em vez de discuti-los. O
-modelo regional que conseguimos rodar é um fine-tune comunitário de uma base de
-7B em português brasileiro, do tipo que um órgão pode baixar, não um modelo de
-fronteira brasileiro comercial; o achado é sobre essa classe, e o protocolo é
-liberado para que qualquer outro candidato passe por ele. Não
-testamos geração aumentada por recuperação, ajuste fino ou verificação humana no
-circuito, que exigem capacidade que a maior parte das agências da nossa amostra do
-Sul Global não tem. \emph{Terceiro, localizar onde a confiabilidade difere e, até
-onde o desenho permite, por quê}: testamos a explicação de representação no corpus
-no nível em que a medida tem resolução, e não reivindicamos identificação causal.
+um órgão ambiental delega; ele não mede capacidade geral do modelo, qualidade de
+raciocínio ou utilidade para outros fins. O protocolo é a contribuição que se
+transfere, e o domínio é onde o demonstramos. O segundo é testar as mitigações
+disponíveis a uma administração. Um órgão público diante de respostas ruins
+sobre o próprio país pode declarar o papel oficial no prompt, perguntar no
+idioma nacional ou rodar um modelo aberto com ajuste regional, e testamos as
+três como fatores de desenho. O modelo regional que pudemos rodar é um ajuste
+comunitário de uma base de 7B em português brasileiro, do tipo que um órgão
+consegue baixar; o achado diz respeito a essa classe, e o protocolo liberado
+permite testar qualquer outro candidato. Não testamos recuperação aumentada,
+ajuste fino ou verificação com humano no circuito, que exigem capacidade que a
+maioria dos órgãos da nossa amostra do Sul Global não tem. Todas as consultas
+são respondidas a partir da memória paramétrica do modelo, sem busca na web nem
+recuperação de documentos, e por isso o título fala em informação recordada, e
+não recuperada. O terceiro objetivo é localizar onde a confiabilidade difere e,
+até onde o desenho permite, por quê; testamos a explicação por representação no
+corpus e não reivindicamos identificação causal.
 
-Ao longo de todo o estudo, a unidade de análise é o modelo \emph{como servido} ---
-pesos, fornecedor e infraestrutura de serviço alcançados por um endpoint fixado
----, porque é com essa pilha que o gestor público interage e qualquer lacuna
-medida é propriedade dela. Hipóteses, marco amostral e plano de análise foram
-fixados antes da coleta~\citep{nosek2018preregistration} para 15 países e depois
-estendidos a 25; o plano nunca foi depositado publicamente, de modo que não
-reivindicamos pré-registro, e o estudo é relatado como exploratório.
+Ao longo do texto, a unidade de análise é o modelo tal como servido, isto é,
+pesos, fornecedor e infraestrutura de serviço alcançados por um endpoint fixado,
+porque o gestor público interage com essa configuração e qualquer lacuna medida é
+propriedade dela. Hipóteses, amostragem e plano de análise foram fixados antes
+da coleta~\citep{nosek2018preregistration} para 15 países e depois estendidos a
+25; o plano nunca foi depositado publicamente, portanto não reivindicamos
+pré-registro, e o estudo é relatado como exploratório do início ao fim.
 
 \subsection*{Contribuições deste trabalho}
 
 \begin{enumerate}\setlength{\itemsep}{2pt}
-\item \emph{Um protocolo de auditoria de informação regulatória, não um benchmark
-  de trivialidades.} A pergunta que uma administração enfrenta não é se o modelo
-  escreve bem sobre política, mas se o valor que ele devolve corresponde ao
-  registro oficial. Construímos cinco tipos de tarefa a partir do trabalho
-  cotidiano de uma agência ambiental (Tabela~\ref{tab:tarefas}), cada uma
-  chaveada a uma fonte oficial, de modo que a correção é adjudicável em vez de
-  matéria de impressão de especialista. O protocolo se transfere a qualquer
-  domínio regulado cuja resposta correta seja publicada.
-\item \emph{As três mitigações de localização a que as agências recorrem, testadas
-  em vez de presumidas --- e todas as três falham.} Enquadramento por persona,
-  prompt em idioma nativo e modelo com ajuste regional são, cada um, uma decisão
-  de compra ou de fluxo de trabalho, e cada um circula como sabedoria recebida.
-  Nenhum funciona, e o que um gestor tem mais chance de tentar primeiro causa dano
-  ativo: perguntar no idioma do próprio país reduz a acurácia em \nnativa{} pontos
-  percentuais, de forma mais acentuada para o idioma de corpus mais escasso.
-\item \emph{Um desenho que separa quem é mal servido de por quê.} Os países são
-  estratificados em eixos independentes --- a divisão desenvolvidas/em
-  desenvolvimento da UNCTAD (operacionalizando
-  a colonialidade~\citep{mohamed2020decolonial}), a taxonomia de recursos
-  linguísticos de Joshi~\citep{joshi2020state} e desenvolvimento ---, de modo que
-  explicações geográficas, linguísticas e econômicas possam ser distinguidas em
-  vez de confundidas. Entre países, cobertura e desenvolvimento são colineares e
-  não podem ser separados; dentro dos países, o contraste no nível da tarefa
-  descarta o canal do corpus da língua, mas ainda não consegue escolher entre
-  cobertura e desenvolvimento, e dizemos isso. Registramos também que o proxy de corpus pré-especificado é defeituoso
-  de um modo que vale conhecer para quem já o usou: ele atribui a Wikipédia
-  inglesa a todo país da amostra que tenha o inglês como idioma oficial, indexando
-  história colonial em vez de tamanho de corpus.
-\item \emph{Gabarito adjudicado por código, e o que isso muda.} Onde a resposta
-  correta é um número em registro oficial, o veredito é computado contra esse
-  registro em vez de delegado a um modelo de linguagem. Sobre as mesmas respostas,
-  reconstruir duas chaves de tarefa a partir de registros oficiais e passar a
-  comparação para o código reduziu o gradiente de desenvolvimento de $\rho=0.51$
-  para $\rho=\nrho$ e mais que dobrou a penalidade do idioma nativo; passar a
-  terceira tarefa com valor de registro de um juiz para o código removeu um
-  confundimento entre juiz e tier que as pontuações julgadas carregavam. Nesta
-  literatura, a chave de gabarito, e não o tamanho amostral, é a restrição
-  vinculante.
-\item \emph{Recursos abertos.} Protocolo, prompts, registros de gabarito com suas
-  fontes oficiais, código de análise e o log de desvios são liberados sob
-  CC-BY-4.0 e MIT, com pipeline de reprodução em um comando.
+\item \emph{Um protocolo de auditoria para informação regulatória.} A pergunta
+  que uma administração enfrenta é se o valor que o modelo devolve corresponde
+  ao registro oficial. Construímos cinco tipos de tarefa a partir do trabalho
+  cotidiano de um órgão ambiental (Tabela~\ref{tab:tarefas}), cada um atrelado a
+  uma fonte oficial, de modo que a correção é adjudicável em vez de uma questão
+  de impressão de especialista, e o protocolo se transfere a qualquer domínio
+  regulado em que a resposta correta é publicada.
+\item \emph{As três correções de localização a que os órgãos recorrem,
+  testadas em vez de presumidas.} Enquadramento por persona, prompt em idioma
+  nativo e modelo com ajuste regional são, cada um, uma decisão de compra ou de
+  fluxo de trabalho. Nenhum funciona, e perguntar no idioma do próprio país
+  reduz a acurácia em $\nnativa$ pontos percentuais, de forma mais acentuada
+  para o idioma de corpus mais escasso.
+\item \emph{Um desenho que separa quem é mal servido de por quê, e relata onde
+  não consegue.} Os países são estratificados pela divisão desenvolvido/em
+  desenvolvimento da UNCTAD, pela taxonomia de recursos linguísticos de Joshi e
+  pelo desenvolvimento, de modo que explicações geográficas, linguísticas e
+  econômicas possam ser distinguidas. Entre países, cobertura e desenvolvimento
+  são colineares; dentro dos países, o contraste por tarefa que sugere um
+  efeito de cobertura no nível da resposta não sobrevive à inferência no nível
+  do país, e relatamos o mecanismo como não estabelecido. Documentamos também
+  que o proxy de corpus pré-especificado atribui a Wikipédia inglesa a todo
+  país da amostra com inglês como língua oficial, de modo que ele acompanha a
+  história colonial e não o tamanho do corpus.
+\item \emph{Gabarito adjudicado por código, e o que isso muda.} Reconstruir
+  duas chaves de tarefa a partir de registros oficiais e mover a comparação de
+  faixa para código reduziu o gradiente de desenvolvimento de $\rho=0,51$ para
+  $\rho=\nrho$ e mais que dobrou a penalidade do idioma nativo nas mesmas
+  respostas; mover a terceira tarefa com valor de registro de um juiz para
+  código removeu um confundimento entre juiz e tier. Nesta literatura, a chave
+  de gabarito, e não o tamanho da amostra, é a restrição que vincula.
+\item \emph{Recursos abertos.} Protocolo, prompts, registros de gabarito com
+  suas fontes oficiais, código de análise e o registro de desvios são liberados
+  sob CC-BY-4.0 e MIT, com pipeline de reprodução em um comando.
 \end{enumerate}

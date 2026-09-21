@@ -37,7 +37,7 @@
 \captionsetup{labelsep=period}
 
 \title{Supplementary Information\\[0.3em]
-\large Whose Regulation Does the Model Know? Reliability of LLM-Retrieved\\
+\large Whose Regulation Does the Model Know? Reliability of LLM-Recalled\\
 Regulatory Information for Public Environmental Management in 25 Countries}
 \author{}
 \date{}
@@ -55,7 +55,7 @@ the mean of a three-vendor judge panel (Gemini~2.5~Pro, Claude Sonnet~4.6,
 DeepSeek-V3) elsewhere; T5 retains the scores of the collection judge
 (\texttt{gpt-5-mini-2025-08-07} for the pre-specified fifteen countries,
 \texttt{claude-haiku-4-5-20251001} for the ten added in the extension). The
-analysed confirmatory corpus comprises \ncells{} scored cells (\ncellsen{}
+analysed main corpus comprises \ncells{} scored cells (\ncellsen{}
 English-prompt; 1{,}671 native-language) over 25 countries and 14 deployment
 stacks, after removing the 56 Egyptian T1 cells for which the registry holds no
 key. All inputs, the scoring code, the
@@ -70,7 +70,7 @@ publication under CC-BY-4.0 (data/prompts) and MIT (code).
 
 The hypotheses, primary models, persona protocol, exclusion criteria,
 multiple-comparison corrections, and the country sampling frame were specified in
-advance of confirmatory data collection. The pre-specified design covers
+advance of the main data collection. The pre-specified design covers
 15 countries; the sample was subsequently extended, \emph{post
 registration}, to 25 countries to gain power for the development gradient
 (H1) and the corpus-mechanism tests (H4) and to multiply the within-country
@@ -85,7 +85,7 @@ UNCTAD's developed/developing economies classification
 (operationalising the coloniality-of-knowledge framing), the Joshi et al.\ (2020)
 six-class linguistic-resource taxonomy~\citep{joshi2020state}, and World Bank
 income groups. The pre-specified 15 (Set ``P'' in Table~\ref{tab:s-cov-country})
-span four world regions, five Joshi classes, and four income groups; the 10
+span four world regions, three Joshi classes (twelve of the fifteen in Class~5), and four income groups; the 10
 extension countries (Set ``E'') comprise six additional Global North references
 (United Kingdom, Canada, Australia, South Korea, France, Italy) chosen to thicken
 the high-development end of the gradient, and four additional native-language-pair
@@ -111,16 +111,15 @@ API/tag strings and execution venues.
 \input{supplement/tables/tab_s_roster}
 
 \paragraph{Determinism and seed handling.} All stacks were queried at
-temperature~0.3 with the maximum-determinism configuration each provider
-documents, not an identical parameter surface, because the surfaces differ. Seed
-support is heterogeneous: locally served stacks (Ollama) honour a fixed seed;
-OpenAI exposes an advisory seed; Anthropic's Messages API exposes no seed
-parameter; and for the remaining hosted endpoints a seed is either advisory or
-not exposed. For every call we record the requested seed and a
-\texttt{seed\_status} field (\texttt{sent}, \texttt{logged-only}, or
-\texttt{not-supported}) in the released run metadata, so that the determinism
-actually achieved is auditable rather than assumed. Two stochastic replications
-per (prompt, model, persona) cell estimate within-cell variability.
+temperature~0.3, except the GPT-5 family, which rejects any temperature other
+than its default and ran at 1.0 with reasoning effort set to minimal. No seed
+was sent to any provider: an earlier version of this supplement described a
+per-call \texttt{seed\_status} field, but the collection client never set a
+seed and the released run metadata carry no such field. The correction is
+logged in Table~\ref{tab:s-deviations}. Two stochastic replications per
+(prompt, model, persona) cell therefore bound, rather than remove, within-cell
+variability, and Section~\ref{sec:s-extra} compares the headline effects with
+that variability.
 
 \paragraph{Acquisition window.} Served-model behaviour can drift as vendors update
 infrastructure, so the reported accuracies are point-in-time estimates relative to
@@ -288,13 +287,16 @@ leniency offset cancels and does not threaten those contrasts --- which is
 precisely why the analysis uses the panel \emph{mean} rather than any single
 judge, whose reliability alone would be ICC$(2,1)=0.56$.
 
-\section{Statistical methods and full confirmatory test outputs}\label{sec:s-stats}
+\section{Statistical methods and full test outputs}\label{sec:s-stats}
 % ============================================================
 
-The three primary confirmatory tests form a single family (F1) corrected together
+The three primary tests form a single family (F1) corrected together
 with the Bonferroni--Holm step-down procedure ($\alpha=0.05$). Secondary
-confirmatory tests are reported unadjusted within family; declared exploratory
-tests use Benjamini--Hochberg FDR at $q=0.10$. Rank correlations use Spearman
+tests are reported unadjusted within family; declared exploratory
+tests use Benjamini--Hochberg FDR at $q=0.10$, whose guarantee holds under
+positive dependence; Benjamini--Yekutieli, valid under arbitrary dependence,
+returns the same decisions because the exploratory $p$-values it covers are
+several orders of magnitude below the threshold. Rank correlations use Spearman
 $\rho$; monotonic-trend robustness uses the Mann--Kendall test; the persona effect
 uses a country-level permutation test (5{,}000 permutations). All outputs below are
 regenerated by \texttt{formal\_tests.py}, \texttt{robust\_tests.py} and
@@ -389,7 +391,7 @@ primary author-specified weighting, equal weights, and a PCA-derived weighting
 conclusions stable in direction (Table~\ref{tab:s-weighting}).
 
 \begin{table}[h]\centering
-\caption{Headline effects under three composite weightings (English confirmatory,
+\caption{Headline effects under three composite weightings (English main sample,
 $n=6{,}573$). Direction is stable throughout; the HDI gradient stays below the
 pre-specified $0.55$ under all three.}
 \label{tab:s-weighting}
@@ -417,8 +419,10 @@ sign: posterior mean $\nbayes$, 94\% HDI $[\nbayeslo,\nbayeshi]$, $P(\beta<0)=\n
 
 \paragraph{E-values.} The tier gap carries an E-value of $\nevalue$ at the point
 estimate and $\nevaluelim$ at the confidence limit nearest the null (VanderWeele \& Ding
-2017 approximation from the standardized effect); the second is the operative
-number, and it is a low bar. No E-value is reported for the development gradient:
+2017 approximation $\mathrm{RR}\approx\exp(0.91\,d)$ applied to the standardised
+mean difference in composite accuracy between tiers, so the estimand is that
+standardised difference, not a risk ratio measured directly); the second is the
+operative number, and it is a low bar. No E-value is reported for the development gradient:
 its interval already includes the null, so the E-value at that limit is $1.00$ and
 no confounder at all is required.
 
@@ -467,7 +471,7 @@ HDI $<0.700$ & $\ntaxlowtwo$ & 20/5 & $\ntaxlowp$ \\
 \section{Deviations from the pre-specified analysis plan}\label{sec:s-deviations}
 
 The analysis plan required that departures be logged and classified, and set a
-ceiling on them: confirmatory status is retained only if deviations affect no
+ceiling on them: the pre-specified status is retained only if deviations affect no
 more than 15\% of planned cells. The table below reports every departure we
 identified. The delivered scope is 27.5\% of the planned response count, so the
 ceiling is exceeded by a wide margin, and the study is reported as exploratory
@@ -490,7 +494,7 @@ $\times$ 2 replicates) &
 Triggers the plan's own 15\% ceiling. The study is reported as exploratory. \\
 
 Public registration &
-Plan deposited in a public registry before confirmatory collection &
+Plan deposited in a public registry before the main collection &
 Plan fixed in a version-controlled document; never deposited &
 Timing cannot be verified independently of repository history. We do not claim
 pre-registration. \\
@@ -499,7 +503,7 @@ Rubric pilot &
 50-prompt pilot scored by two independent human raters, Krippendorff's
 $\alpha \geq 0.70$ required before scaling &
 Not run. No rater-level $\alpha$ exists &
-Rubric reliability is evidenced only after the fact, on confirmatory data, at
+Rubric reliability is evidenced only after the fact, on the main data, at
 $\alpha = 0.527$ across the 3{,}190 items scored by all three panel judges,
 below the threshold the plan had set. \\
 
@@ -533,7 +537,7 @@ The collection judge was not single: GPT-5-mini scored the pre-specified fifteen
 countries and Claude Haiku~4.5 the ten extension countries, which hold seven of
 the ten Global North countries, so judge and tier were confounded in the judged
 scores. T1, T2 and T3 are now adjudicated by code against official registers
-where the returned value is extractable (99.8\%, 56.3\% and 71.8\% of cells);
+where the returned value is extractable (\ncodecovtone\%, \ncodecovttwo\% and \ncodecovtthree\% of cells);
 the residual and all of T4 re-scored by the three-vendor panel mean; T5 keeps
 the collection judges' scores &
 Changes the substantive conclusions on the same responses. The development
@@ -623,6 +627,31 @@ Per-country means are computed over different model sets; the leave-one-model-ou
 re-estimates of H2 (Section~4 of the main text) and the per-model $N$ in
 Table~\ref{tab:s-roster} are the checks reported. \\
 
+Seed &
+A fixed seed sent wherever the provider honours one, with a per-call
+\texttt{seed\_status} field &
+No seed was sent to any provider; no such field exists in the run metadata. The
+earlier description was wrong and is withdrawn &
+Replicates at temperature~0.3 bound within-cell variance; Section~\ref{sec:s-extra}
+compares it with the headline effects. \\
+
+Language and truncation gates &
+Responses in a language other than the one requested, and truncated responses,
+excluded and analysed separately &
+No response was excluded on either ground; empty responses are scored as
+returning no value (\nemptyen\% of English responses on the code-scored tasks,
+\nemptyes\% Spanish, \nemptypt\% Portuguese, \nemptyhi\% Hindi) &
+The higher empty rate under native prompts is part of the H2 effect and is
+reported as such. \\
+
+Level of inference for H4 &
+Country-level partial Spearman $\rho$ &
+Response-level interaction model added post hoc; reported with standard errors
+clustered by country and with the 25 country-level deficits
+(Section~\ref{sec:s-cluster}) &
+The response-level $p$-value overstates the evidence; H4 is reported as not
+established at the country level. \\
+
 \bottomrule
 \end{longtable}
 \normalsize
@@ -658,6 +687,61 @@ language. The extractor's handling of decimal commas, Devanagari numerals and
 units written in words is fixed by 13 unit tests released with the code. The
 audit was performed by the analysis pipeline's author rather than by an
 independent reader, and is recorded as such.
+
+% ============================================================
+\section{Cluster-level inference and serving check}\label{sec:s-cluster}
+% ============================================================
+
+Responses are nested in 25 countries and 14 models, so every test the main text
+first runs on responses is re-run here with the country or the model as the
+unit. All values are regenerated by \texttt{code/analysis/cluster\_inference.py}.
+
+\begin{table}[h]
+\centering
+\footnotesize
+\caption{Cluster-level versions of the response-level tests in the main text.
+Country bootstrap = 10{,}000 resamples of countries within tier; permutation =
+10{,}000 permutations of the tier label with the country as the unit.
+\label{tab:s-cluster}}
+\begin{tabular}{p{5.6cm}p{4.0cm}p{4.4cm}}
+\toprule
+Quantity & Response-level & Cluster-level \\
+\midrule
+H4 coverage$\times$dependence, alone & $\beta=\nhfourbeta$, $p=\nhfourp$ & SE $\nhfourclse$ clustered by country, $p=\nhfourclp$; 25 deficits $\rho=\nhfourctryrho$, $p=\nhfourctryp$ \\
+H4 with HDI$\times$dependence: coverage & $p=\nhfourjcobp$ & $p=\nhfourjcobclp$ \\
+\quad HDI & $p=\nhfourjhdip$ & $p=\nhfourjhdiclp$ \\
+H4 HDI$\times$dependence alone & --- & $\beta=\nhfourhdialonebeta$, $p=\nhfourhdialoneclp$ \\
+H4 anglophone subset (9) & $p=\nhfouranglop$ & $p=\nhfouranglclp$ \\
+T1 OR GS/GN & $\nortone$ $\nortoneci$ (conditional) & raw $\norrawone$, country CI $\norrawoneci$, $p=\norrawonep$ \\
+T2 OR & $\norttwo$ $\norttwoci$ & $\norrawtwo$ $\norrawtwoci$, $p=\norrawtwop$ \\
+T3 OR & $\nortthree$ $\nortthreeci$ & $\norrawthree$ $\norrawthreeci$, $p=\norrawthreep$ \\
+T4 OR & $\nortfour$ $\nortfourci$ & $\norrawfour$ $\norrawfourci$, $p=\norrawfourp$ \\
+T5 OR & $\nortfive$ $\nortfiveci$ & $\norrawfive$ $\norrawfiveci$, $p=\norrawfivep$ \\
+Composite tier gap, EU as one unit & --- & $\ngapeu$~pp $\ngapeuci$, $p=\ngapeup$ \\
+Composite tier gap, prompts answered by all models (\ngapbalprompts{} of \ngapbaltotal) & --- & $\ngapbal$~pp $\ngapbalci$, $p=\ngapbalp$ \\
+H6 persona main effect & $\npersonamain$~pp, $p=\npersonamainp$ (\npersonamainn{} pairs) & country $t$-test $p=\npersonamainctryp$ \\
+H6 DiD equivalence & DiD $\ndid$~pp & 90\% country CI $\ndidcinety$, inside $\pm2$ and $\pm5$~pp \\
+Recall floor (T1--T2 minus T3--T5) & $\delta=\nfloordelta$ & by model $\nfloorbymodel$~pp, \nfloorbymodelneg/14, $p=\nfloorbymodelp$; by country $\nfloorbyctry$~pp, \nfloorbyctryneg/25, $p=\nfloorbyctryp$ \\
+H3 Cabra minus rest & $\delta=\nregdelta$ & by country $\nhthreebyctry$~pp, \nhthreebyctryneg/25, $p=\nhthreebyctryp$ \\
+H3 Cabra minus Llama 3.1 8B, Portuguese & $\delta=\nhthreelusdelta$ & by prompt $\nhthreenarrow$~pp, \nhthreenarrowneg/\nhthreenarrown, $p=\nhthreenarrowp$ \\
+$\rho$(accuracy, HDI) & $\rho=\nrho$, $p=\nrhop$ & Fisher 95\% CI $[\nrhocilo,\nrhocihi]$; $n=15$: $[\nrhoprecilo,\nrhoprecihi]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Serving check on the regional model.} The Ollama Modelfile for
+Cabra-Mistral~7B uses the template \texttt{[INST] \{\{ .Prompt \}\} [/INST]},
+which is the \texttt{chat\_template} published in the model's
+\texttt{tokenizer\_config.json} (botbot-ai/CabraMistral-v3-7b-32k, read on
+2026-09-21); its \texttt{config.json} names Mistral-7B-Instruct-v0.3 as the
+base, and both are served at Q4\_K\_M. The 30 Portuguese prompts (Brazil,
+Portugal, Angola; five tasks, two personas) were re-served with two replicates
+to Cabra, to the base model and to Llama~3.1~8B, and T1--T3 were scored with the
+study's extractor (\texttt{code/analysis/cabra\_sanity\_check.py}). Among the
+code-resolved items, Cabra returns the register value on \ncabsanitycabra\%
+(\ncabsanityn{} factual verdicts; \ncabsanityorig\% in the original collection),
+the base model on \ncabsanitybase\% and Llama~3.1~8B on \ncabsanityllama\%.
+\ncabrasanitysentence{}
 
 \section{Prompt construction, persona template, and verbatim examples}
 
@@ -699,7 +783,7 @@ question in Hindi. \\
 
 Prompts were authored in English for the air pollution policy domain with domain
 supervision (PPGSAU/UTFPR) and validated against the ground-truth registry before
-entering the confirmatory stimulus set. The plan required a two-rater pilot to
+entering the main stimulus set. The plan required a two-rater pilot to
 reach Krippendorff's $\alpha\geq 0.70$ before scaling; that pilot was not run,
 and the deviation is logged in Section~\ref{sec:s-deviations}. Native-language
 renderings (Portuguese, Spanish, Hindi) were produced by a high-quality LLM

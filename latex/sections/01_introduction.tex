@@ -1,121 +1,115 @@
 \section{Introduction}
 \label{sec:intro}
 
-Large language models have moved from research curiosity to working
-infrastructure of public administration in under five years: an OECD survey of
-core government functions documents generative-AI adoption across policymaking
-and service delivery, including assistants that help public-service advisers
-retrieve information and the sources behind it~\citep{oecd2024governing}. Air
-pollution policy is
-a domain where this carries direct stakes for public health. Fine particulate
-matter is among the leading environmental risk factors for premature mortality
-worldwide~\citep{gbd2019risk,who2021aqg}, and the burden falls
-disproportionately on the Global South. When a public environmental manager in
-S\~ao Paulo, Lagos, or Jakarta asks an LLM about an ambient air quality standard,
-an attainment deadline, or the evidence behind an intervention, an inaccurate
-answer is not a benign error. It can propagate into a regulatory brief, a
+Large language models have become working infrastructure of public
+administration within a few years. An OECD survey of core government functions
+documents generative-AI adoption across policymaking and service delivery,
+including assistants that help public-service advisers retrieve information and
+the sources behind it~\citep{oecd2024governing}. Air pollution policy is a domain
+where this carries direct stakes for public health. Fine particulate matter is
+among the leading environmental risk factors for premature mortality
+worldwide~\citep{gbd2019risk,who2021aqg}, and the burden falls disproportionately
+on the Global South. When a public environmental manager asks a model about an
+ambient air quality standard, an attainment deadline, or the evidence behind an
+intervention, an inaccurate answer can propagate into a regulatory brief, a
 procurement decision, or an emergency response during a pollution episode.
 
-This paper asks whether LLMs serve Global South air pollution policy as reliably
-as they serve the Global North, and whether the way a query is framed changes the
-answer. Both premises are established. Geographic factual bias is real and
-measurable: error rates are $1.5\times$ higher for Sub-Saharan African than North
-American countries across 20 models~\citep{moayeri2024worldbench}, model ratings
-on sensitive subjective topics track socioeconomic conditions up to
-$\rho=0.70$~\citep{manvi2024llm}, and
-models systematically privilege statements about the Global
-North~\citep{mirza2024global}. And the linguistic asymmetry behind it is
-structural: the languages of most Global South countries sit in the under-served
-classes of the resource hierarchy~\citep{joshi2020state}, and large
+This paper asks whether models answer such questions as reliably for Global
+South countries as for Global North ones, and whether the way a query is framed
+changes the answer. Both premises have support. Geographic factual bias is
+measurable: error rates are $1.5\times$ higher for Sub-Saharan African than for
+North American countries across 20 models~\citep{moayeri2024worldbench}, model
+ratings on subjective topics track socioeconomic conditions up to
+$\rho=0.70$~\citep{manvi2024llm}, and models systematically privilege statements
+about the Global North~\citep{mirza2024global}. The linguistic asymmetry behind
+it is structural: the languages of most Global South countries occupy the
+under-served classes of the resource hierarchy~\citep{joshi2020state}, and large
 Internet-derived corpora ``overrepresent hegemonic viewpoints and encode biases
 potentially damaging to marginalized populations''~\citep{bender2021stochastic}.
-The asymmetry
-reproduces the uneven epistemic infrastructure decolonial scholarship has
-analysed for AI systems~\citep{mohamed2020decolonial}.
+Decolonial scholarship reads that asymmetry as an uneven epistemic
+infrastructure reproduced by AI systems~\citep{mohamed2020decolonial}.
 
-Three gaps remain open for a domain like this one, and they organise the study.
-No benchmark targets regulatory information with official ground truth: existing
-evaluations use World Bank recall, subjective ratings, journalistic
-fact-checking, or everyday cultural knowledge, none of which measures the tasks a
-manager actually delegates --- stating a binding standard, retrieving an
-officially measured concentration, summarising health-burden evidence,
-identifying legal instruments and executing agencies, recommending an operational
-response. Persona framing is unexamined as an experimental lever, although
-practitioners routinely prefix a role and the vendors themselves advise it
-(Section~\ref{sec:related}); whether it \emph{reduces} the gap by steering toward
-regulation-compliant answers or \emph{amplifies} it by inviting confident
-fabrication has not been tested in a pre-specified design. And the
-corpus-representation mechanism is asserted rather than measured against
-confounders, and rarely separated into its two channels --- \emph{language-corpus}
-size~\citep{xue2021mt5,abadji2022oscar} against \emph{country-coverage} breadth
---- a distinction that matters here because the geographic gap is measured in
-English.
+Three gaps organise the study. No benchmark targets regulatory information with
+official ground truth: existing evaluations use World Bank recall, subjective
+ratings, journalistic fact-checking, or everyday cultural knowledge, none of
+which measures the tasks a manager delegates, such as stating a binding
+standard, retrieving an officially measured concentration, summarising
+health-burden evidence, identifying legal instruments and executing agencies, or
+recommending an operational response. Persona framing is unexamined as an
+experimental lever, although practitioners routinely prefix a role and the
+vendors advise it (Section~\ref{sec:related}); whether it reduces the gap by
+steering toward regulation-compliant answers or amplifies it by inviting
+confident fabrication has not been tested in a pre-specified design. And the
+corpus-representation mechanism is usually asserted rather than measured against
+confounders, and rarely separated into its two channels, the size of the
+language corpus~\citep{xue2021mt5,abadji2022oscar} and the breadth of
+country coverage, a distinction that matters here because the geographic gap is
+measured in English.
 
 \subsection*{Objectives and scope}
 
-The study has three bounded objectives. \emph{First, to establish a protocol for
-auditing regulatory information}: the object is agreement between a model's answer
-and the value published in the official register, for tasks an environmental
-agency actually delegates --- not model capability in general, reasoning quality,
-or usefulness for any other purpose. The protocol is the contribution that
-transfers; the domain is where we demonstrate it. \emph{Second, to test the
-mitigations available to an administration}: a public body facing poor answers
-about its own country can realistically declare the official role in the prompt,
-ask in the national language, or run a regionally fine-tuned open model, and we
-test all three as designed factors rather than discussing them. The regional
-model we could run is a community fine-tune of a 7B base on Brazilian Portuguese,
-the kind an agency can download, not a commercial Brazilian frontier model; the
-finding is about that class, and the protocol is released so that any other
-candidate can be put through it. We do not test retrieval
-augmentation, fine-tuning, or human-in-the-loop verification, which require
-capacity most agencies in our Global South sample do not have. \emph{Third, to
-locate where reliability differs and, as far as the design allows, why}: we test
-the corpus-representation account at the level where the measurement has
-resolution, and claim no causal identification.
+The study has three bounded objectives. The first is to establish a protocol
+for auditing regulatory information. Its object is agreement between a model's
+answer and the value published in the official register, for tasks an
+environmental agency delegates; it does not measure model capability in general,
+reasoning quality, or usefulness for other purposes. The protocol is the
+contribution that transfers, and the domain is where we demonstrate it. The
+second is to test the mitigations available to an administration. A public body
+facing poor answers about its own country can declare the official role in the
+prompt, ask in the national language, or run a regionally fine-tuned open
+model, and we test all three as designed factors. The regional model we could
+run is a community fine-tune of a 7B base on Brazilian Portuguese, the kind an
+agency can download; the finding concerns that class, and the released protocol
+allows any other candidate to be tested. We do not test retrieval augmentation,
+fine-tuning, or human-in-the-loop verification, which require capacity most
+agencies in our Global South sample do not have. All queries are answered from
+the model's parametric memory, without web search or document retrieval, which
+is why the title speaks of recalled rather than retrieved information. The third
+objective is to locate where reliability differs and, as far as the design
+allows, why; we test the corpus-representation account and claim no causal
+identification.
 
-Throughout, the unit of analysis is the model \emph{as served} --- weights,
-vendor, and serving infrastructure reached through a pinned endpoint --- because a
-public manager interacts with that stack and any measured gap is a property of it.
-Hypotheses, sampling and analysis plan were fixed before data
-collection~\citep{nosek2018preregistration} for 15 countries and then extended to
-25; the plan was never deposited publicly, so we do not claim pre-registration,
-and the study is reported as exploratory throughout.
+Throughout, the unit of analysis is the model as served, that is, weights,
+vendor and serving infrastructure reached through a pinned endpoint, because a
+public manager interacts with that stack and any measured gap is a property of
+it. Hypotheses, sampling and analysis plan were fixed before data
+collection~\citep{nosek2018preregistration} for 15 countries and then extended
+to 25; the plan was never deposited publicly, so we do not claim
+pre-registration, and the study is reported as exploratory throughout.
 
 \subsection*{Contributions of this work}
 
 \begin{enumerate}\setlength{\itemsep}{2pt}
-\item \emph{An auditing protocol for regulatory information, not a trivia
-  benchmark.} The question an administration faces is not whether a model writes
-  well about policy but whether the value it returns matches the official
-  register. We build five task types from the everyday work of an environmental
-  agency (Table~\ref{tab:tasks}), each keyed to an official source, so correctness
-  is adjudicable rather than a matter of expert impression, and the protocol
-  transfers to any regulated domain where the correct answer is published.
+\item \emph{An auditing protocol for regulatory information.} The question an
+  administration faces is whether the value a model returns matches the
+  official register. We build five task types from the everyday work of an
+  environmental agency (Table~\ref{tab:tasks}), each keyed to an official
+  source, so that correctness is adjudicable rather than a matter of expert
+  impression, and the protocol transfers to any regulated domain where the
+  correct answer is published.
 \item \emph{The three localisation fixes agencies reach for, tested rather than
-  assumed --- and all three fail.} Persona framing, native-language prompting and
-  a regionally tuned model are each a procurement or workflow decision, and each
-  circulates as received wisdom. None works, and the one a manager is most likely
-  to try first does active harm: asking in the country's own language lowers
-  accuracy by $\nnativa$ percentage points, most sharply for the language with the
-  scarcest corpus.
-\item \emph{A design that separates who is poorly served from why.} Countries are
-  stratified on independent axes --- the UNCTAD developed/developing split, the Joshi
-  linguistic-resource taxonomy, and development --- so geographic, linguistic and
-  economic explanations can be told apart. Between countries, coverage and
-  development are collinear and cannot be separated; within countries, the
-  task-level contrast rules out the language-corpus channel but still cannot
-  choose between coverage and development, and we say so. We also flag that the pre-specified corpus
-  proxy is defective in a way worth knowing for anyone who has used it: it assigns
-  the English Wikipedia to every sample country with English as an official
-  language, indexing colonial history rather than corpus size.
+  assumed.} Persona framing, native-language prompting and a regionally tuned
+  model are each a procurement or workflow decision. None works, and asking in
+  the country's own language lowers accuracy by $\nnativa$ percentage points,
+  most sharply for the language with the scarcest corpus.
+\item \emph{A design that separates who is poorly served from why, and reports
+  where it cannot.} Countries are stratified on the UNCTAD developed/developing
+  split, the Joshi linguistic-resource taxonomy, and development, so that
+  geographic, linguistic and economic explanations can be told apart. Between
+  countries, coverage and development are collinear; within countries, the
+  task-level contrast that suggests a coverage effect at the response level does
+  not survive inference at the country level, and we report the mechanism as
+  not established. We also document that the pre-specified corpus proxy
+  assigns the English Wikipedia to every sample country with English as an
+  official language, so that it tracks colonial history rather than corpus size.
 \item \emph{Ground truth adjudicated by code, and what that changes.} Rebuilding
-  two task keys from official registers and moving range comparison into code cut
-  the development gradient from $\rho=0.51$ to $\rho=\nrho$ and more than doubled
-  the native-language penalty, on the same responses; moving the third
-  register-valued task from a judge to code removed a confound between judge
-  and tier that the judged scores had carried. In this literature the
-  ground-truth key, not the sample size, is the binding constraint.
-\item \emph{Open resources.} Protocol, prompts, ground-truth registries with their
-  official sources, analysis code, and the deviation log are released under
-  CC-BY-4.0 and MIT, with a one-command reproduction pipeline.
+  two task keys from official registers and moving range comparison into code
+  cut the development gradient from $\rho=0.51$ to $\rho=\nrho$ and more than
+  doubled the native-language penalty on the same responses; moving the third
+  register-valued task from a judge to code removed a confound between judge and
+  tier. In this literature the ground-truth key, not the sample size, is the
+  binding constraint.
+\item \emph{Open resources.} Protocol, prompts, ground-truth registries with
+  their official sources, analysis code, and the deviation log are released
+  under CC-BY-4.0 and MIT, with a one-command reproduction pipeline.
 \end{enumerate}

@@ -79,7 +79,9 @@ PROIBIDOS = [
     # 0.07248 arredonda para 0.072; 0.073 era arredondamento errado, e circulava
     # em sete pontos entre corpo, suplemento e as duas linguas.
     (r"p=0\.073|p=0\.072",         "p de H1 antes da deduplicacao",  "p=0.043"),
-    (r"\$\+5\.1\$~pp",              "tier gap antes da deduplicacao", "+5.4 pp"),
+    # "+5.1 pp" voltou a ser legitimo (subconjunto balanceado, macro \\ngapbal); o valor
+    # antigo circulava como "$+5.1$~pp" no texto do tier gap, hoje sempre macro.
+    (r"a gap of \$\+5\.1\$~pp|lacuna de \$\+5\.1\$~pp", "tier gap antes da deduplicacao", "+5.4 pp"),
     (r"\[\+1\.6,\+8\.5\]",           "IC do tier gap pre-dedup",       "[+2.1,+8.7]"),
     (r"9\{,\}251",                  "n com pseudo-replicacao",        "8.300 celulas"),
     (r"7\{,\}580",                  "n ingles com pseudo-replicacao", "6.629"),
@@ -94,7 +96,7 @@ PROIBIDOS = [
     (r"-11\.1~pp|\$-11\.1\$|11\.1~pp", "hindi antes do T1 por codigo", "-11.4 pp"),
     (r"\+12\.6~pp|\$\+12\.6\$",      "H5 antes do T1 por codigo",     "+13.0 pp"),
     (r"& 0\.22 &|OR[ =~$]*0\.22\b|odds are \$?0\.22|0\.22 of the|0\.22 das",  "OR de T1 sob o juiz original", "0.33"),
-    (r"8\{,\}300 (?:scored|cells)|8\{,\}300 células|8\{,\}300 respostas", "celulas antes de excluir EGY em T1", "8,244"),
+    (r"8\{,\}300 scored|8\{,\}300 células pontuadas|8\{,\}300 respostas", "celulas antes de excluir EGY em T1", "8,244"),
     (r"6\{,\}629",                 "n ingles antes de excluir EGY em T1", "6,573"),
     (r"p=0\.27\b",                  "p da persona (valor errado que circulava)", "p=0.29"),
     (r"\\delta=-0\.45\b|\\delta=-0\.47\).*floor", "piso antes do T1 por codigo", "-0.41"),
@@ -108,7 +110,8 @@ PROIBIDOS = [
 PROIBIDOS_SEMPRE = [
     (r"6\{,\}629|6\.629",             "n ingles antes de excluir EGY",  "6,573"),
     (r"62\.5\\% of T2|62\.5\\% de T2|83\.6\\%", "cobertura de codigo T2/T3 antiga", "56.3% / 71.8%"),
-    (r"p=0\.069|p=0\.42\b",         "p do modelo misto / permutacao antigos", "p=0.087 / p=0.80"),
+    # p=0.069 saiu da lista: e hoje o p legitimo de H4 no nivel do pais (\\nhfourctryp).
+    (r"p=0\.42\b",                 "p de permutacao antigo",          "p=0.80"),
     (r"0\.994|-0\.052|-0\.066|\[-0\.092,-0\.016\]|-0\.048|\[-0\.090,-0\.009\]|p=0\.087", "bayesiano/misto desatualizados", "0.987 / -0.049 / -0.063 / p=0.086"),
     (r"OR[ =~$]*0\.33\b|odds are \$?0\.33|0\.33 of the|0\.33 da chance|RC 0\.33|\+13\.0~pp|\$\+13\.0\$", "valores antes do BGD=35 (OR T1 0.33 / H5 13.0)", "0.32 / 12.8"),
     (r"1\.30 at the confidence|\$1\.30\$ (?:at|no)", "E-value antes do BGD=35", "1.31"),
@@ -116,6 +119,14 @@ PROIBIDOS_SEMPRE = [
     (r"\+5\.06\b|\+2\.39\b|\+2\.92\b|\+1\.53\b|\+2\.09\b|\+2\.74\b|\+1\.83\b", "taxonomia antes do run 3", "+5.05/+2.14/+2.78/+1.94"),
     (r"\+0\.153\b|\+0\.399\b|\+0\.296\b|\+0\.132\b|\+0\.142\b", "proxies H4 antes do run 3", "0.146/0.369/0.248/0.125/0.048"),
     (r"tables_pt/",                  "tabelas PT desatualizadas (pasta removida)", "supplement/tables/"),
+    # rodada 13 (parecer de painel): afirmacoes falsas como executado ou refutadas
+    (r"12\.9 points|12\.9 pontos|by 12\.9",  "H5 digitado a mao (12.9 vs macro 12.8)", "\\nhfive"),
+    (r"five Joshi classes|cinco classes de\s*\n?\s*Joshi", "classes de Joshi (sao tres)", "three Joshi classes"),
+    (r"honou?r a fixed seed|honram uma seed fixa|\\texttt\{seed\\_status\} field \(|campo \\texttt\{seed\\_status\} \(", "seed nunca foi enviada", "no seed was sent"),
+    (r"falls monotonically with mC4|cai monotonicamente com", "es>pt no mC4 mas penalidade es>pt: nao e monotono", "Hindi smallest corpus, largest penalty"),
+    (r"committed to is excluded|nos comprometemos (?:é|e) excluíd", "IC de Fisher inclui 0,55", "interval includes both zero and the threshold"),
+    (r"LLM-Retrieved|recuperada por LLMs", "titulo: nao ha retrieval", "LLM-Recalled / que os LLMs recordam"),
+    (r"identified only up to that pair|identificado apenas até esse par", "H4 nao se estabelece no nivel do pais", "not established"),
 ]
 
 # Markdown da raiz: valores pre-correcao em texto puro (sem a marcacao do LaTeX).
@@ -229,7 +240,11 @@ def ancoras(c: dict) -> list[tuple[str, str, tuple[str, ...]]]:
         ("tier gap (abstract)",   fmt(c["tier_gap_pp"], 1),             ABS),
         ("IC do tier gap",        f"[{fmt(c['tier_gap_ci'][0],1,True)},{fmt(c['tier_gap_ci'][1],1,True)}]", RES),
         ("H4 dentro do pais",     Mx.get("nhfourbeta", "0.030").lstrip("+"), RES),
-        ("H4 conjunto com HDI",   Mx.get("nhfourjcob", "0.012").lstrip("+"), RES_DISC),
+        ("H4 conjunto com HDI",   Mx.get("nhfourjcob", "0.012").lstrip("+"), RES),
+        ("H4 rho no nivel do pais", Mx.get("nhfourctryrho", "-0.37"),   RES_DISC),
+        ("H4 p no nivel do pais", "p=" + Mx.get("nhfourctryp", "0.069"), RES_DISC),
+        ("OR bruta de T1 (pais)", Mx.get("norrawone", "0.44"),           ABS + RES),
+        ("IC de Fisher do rho",   Mx.get("nrhocihi", "+0.66"),           RES_DISC),
         ("H5",                    fmt(c["h5_pp"], 1),                   RES),
         ("H6 DiD",                fmt(c["h6_did"], 1, True),            RES),
         ("p da persona",          "p=" + fmt(c["persona_p"], 2),        ABS + RES_DISC),

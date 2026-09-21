@@ -1,38 +1,30 @@
 % O GIQ, como o resto da Elsevier, quer o abstract em BLOCO UNICO, sem quebra de
-% paragrafo. As transicoes abaixo foram escritas para o texto correr como um
-% paragrafo so.
-%
-% A ABERTURA E DELIBERADA. Duas lentes independentes da auditoria externa
-% (journal-specialist e didatica) leram a versao anterior — que abria pelo
-% protocolo e pelas estatisticas — como escrita para um publico de ML, com risco
-% de desk rejection numa revista de administracao publica. Esta versao abre pela
-% pergunta que o gestor faz, e so entao diz como medimos. Os numeros sao os
-% mesmos; o que mudou foi a ordem de entrada.
+% paragrafo, e em ate 250 palavras (contadas com as macros expandidas por
+% code/analysis/check_highlights.py). A abertura pela pergunta do gestor e
+% deliberada: duas lentes da auditoria externa leram a versao que abria pelo
+% protocolo como escrita para um publico de ML.
 \begin{abstract}
 
-A municipal environmental manager in S\~ao Paulo, Lagos, or Jakarta asks a
-language model what the binding PM\textsubscript{2.5} standard is in their
-country. Nothing in the answer says whether it matches the official register, and
-no established method exists for checking. We contribute such a protocol and
-report what it finds. It scores answers against official registers, adjudicating
+A municipal environmental manager asks a language model what the binding
+PM\textsubscript{2.5} standard is in their country, and nothing in the answer
+says whether it matches the official register. We propose a protocol for that
+check and report what it finds. Answers are scored against official registers,
 by code wherever the correct answer is a published value and by a three-vendor
-judge panel elsewhere. We apply it to air pollution regulation across 25
-countries, 14 deployment stacks and four languages (\ncells{} scored cells). The three
-fixes an agency can deploy without building anything all fail, and the most
-intuitive one makes the answer worse: querying in the country's own language
-\emph{lowers} accuracy by \nnativa{} percentage points (mixed model with a random
-intercept per country, $p=\nhtwomixedcountryp$; \nhtwocneg{} of nine countries negative) and
-makes the model \nverifdiffabs{} points less likely to return a register-checkable value at all; declaring the
-official role does not narrow the gap ($p=\npersonap$); and a regionally fine-tuned
-7B model ranks last of fourteen. Accuracy also collapses on the task that carries
-administrative consequence, retrieving the binding value: \ntasktoneshort{} against \nfloorrestshort{} for
-synthesis and recommendation. A North/South gap persists ($\ntiergap$~pp, permutation
-$p=\ntiergapperm$), is larger on the code-adjudicated outcomes no judge touches, and is
-concentrated where answers depend on a national fact --- on the national
-standard, scored by code against the instrument in force, Global South odds are
-\nort{} of Global North odds. Scope is
-bounded: we measure agreement with published regulation in one domain, not general
-capability. The protocol transfers to any regulated domain whose correct answer is
-published.
+judge panel elsewhere, across 25 countries, 14 deployment stacks and four
+languages (\ncells{} scored cells). The three fixes an agency can deploy without
+building anything all fail. Asking in the country's own language lowers accuracy
+by \nnativa{} percentage points (mixed model with a random intercept per country,
+$p=\nhtwomixedcountryp$) and makes the model \nverifdiffabs{} points less likely
+to return a register-checkable value; declaring the official role changes
+nothing ($p=\npersonap$); and a regionally fine-tuned 7B model ranks last of
+fourteen. Accuracy is lowest on the task with administrative consequence,
+recalling the binding value (\ntasktoneshort{} against \nfloorrestshort{} for
+synthesis and recommendation). A North/South gap of $\ntiergap$~pp persists
+(permutation over countries, $p=\ntiergapperm$), is larger on the outcomes no
+judge touches, and is concentrated on tasks whose answer is a national fact; on
+the national standard the odds ratio is \norrawone{} with a country-level
+interval of $\norrawoneci$. A corpus-coverage mechanism is not established once
+inference is carried at the country level. The protocol transfers to any
+regulated domain whose correct answer is published.
 
 \end{abstract}

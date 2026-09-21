@@ -43,6 +43,7 @@ M["tiergappre"] = pp(B["pre15"]["gap_pp"]); M["tiergappreci"] = f"[{pp(B['pre15'
 I = S["I"]; cg = I["country_level_gap"]
 M["codegap"] = pp(cg["gap_pp"]); M["codegapci"] = f"[{pp(cg['ci'][0])},{pp(cg['ci'][1])}]"; M["codegapp"] = f"{cg['perm_p']:.3f}"
 M["codegn"] = f"{cg['acc_gn']:.2f}"; M["codegs"] = f"{cg['acc_gs']:.2f}"
+M["codegapabs"] = f"{abs(cg['gap_pp']):.1f}"
 M["codeor"] = f"{I['pooled']['OR']:.2f}"; M["codeorci"] = f"[{I['pooled']['ci'][0]:.2f},{I['pooled']['ci'][1]:.2f}]"
 # --- T1 OR
 A = S["A"]
@@ -158,6 +159,61 @@ M["tonecodecellspt"] = f"{_by['T1']['code']:,}".replace(",", "."); M["tonecellsp
 import statistics as _st
 M["restmean"] = f"{_st.mean(r['composite'] for r in _rows if r['model_id'] != 'cabra_mistral_7b' and not r['prompt_id'].endswith(('_pt','_es','_hi'))):.3f}"
 M["dupresp"] = "21.9"; M["dupscore"] = "11.5"  # medidos em robustness_extra / export (constantes da coleta)
+
+# --- inferencia no nivel do cluster (cluster_inference.json; parecer de painel 2026-09-21)
+K = json.loads((P / "cluster_inference.json").read_text())
+M["hfourclp"] = f"{K['A']['cob_alone']['dep:cob_z']['p']:.3f}"; M["hfourclse"] = f"{K['A']['cob_alone']['dep:cob_z']['se']:.3f}"
+M["hfourjcobclp"] = f"{K['A']['joint_hdi']['dep:cob_z']['p']:.2f}"; M["hfourjhdiclp"] = f"{K['A']['joint_hdi']['dep:hdi_z']['p']:.2f}"
+M["hfourhdialonebeta"] = f"{K['A']['hdi_alone']['dep:hdi_z']['beta']:+.3f}"; M["hfourhdialoneclp"] = f"{K['A']['hdi_alone']['dep:hdi_z']['p']:.3f}"
+M["hfouranglclp"] = f"{K['A']['anglo']['dep:cob_z']['p']:.2f}"
+M["hfourctryrho"] = f"{K['A']['country_level']['rho']:+.2f}"; M["hfourctryp"] = f"{K['A']['country_level']['p']:.3f}"
+M["hfourctrypartial"] = f"{K['A']['country_level']['rho_partial_hdi']:+.2f}"; M["hfourctrypartialp"] = f"{K['A']['country_level']['p_partial']:.2f}"
+for t in ("T1", "T2", "T3", "T4", "T5"):
+    b = K["B"][t]; w = {"T1": "one", "T2": "two", "T3": "three", "T4": "four", "T5": "five"}[t]
+    M["orraw" + w] = f"{b['OR_raw']:.2f}"; M["orraw" + w + "ci"] = f"[{b['ci_country_boot'][0]:.2f},{b['ci_country_boot'][1]:.2f}]"; M["orraw" + w + "p"] = f"{b['perm_p_country']:.3f}"
+M["gapeu"] = pp(K["C"]["gap_pp"]); M["gapeuci"] = f"[{pp(K['C']['ci'][0])},{pp(K['C']['ci'][1])}]"; M["gapeup"] = f"{K['C']['perm_p']:.3f}"; M["gapeuunits"] = str(K["C"]["n_gn_units"])
+M["gapbal"] = pp(K["D"]["gap_pp"]); M["gapbalci"] = f"[{pp(K['D']['ci'][0])},{pp(K['D']['ci'][1])}]"; M["gapbalp"] = f"{K['D']['perm_p']:.2f}"; M["gapbalprompts"] = str(K["D"]["prompts_balanced"]); M["gapbaltotal"] = str(K["D"]["prompts_total"])
+M["personamain"] = pp(K["E"]["main_effect_pp"], 2); M["personamainp"] = pexp(K["E"]["main_effect_p"]); M["personamainn"] = f"{K['E']['main_effect_n_pairs']:,}".replace(",", "{,}"); M["personamainctryp"] = f"{K['E']['main_effect_country_t_p']:.3f}"
+M["didcinety"] = f"[{pp(K['E']['did_ci90_country'][0])},{pp(K['E']['did_ci90_country'][1])}]"; M["didcininetyfive"] = f"[{pp(K['E']['did_ci95_country'][0])},{pp(K['E']['did_ci95_country'][1])}]"
+M["floorbymodel"] = pp(K["F"]["floor_by_model"]["mean_pp"]); M["floorbymodelp"] = pexp(K["F"]["floor_by_model"]["wilcoxon_p"]); M["floorbymodelneg"] = str(K["F"]["floor_by_model"]["neg"])
+M["floorbyctry"] = pp(K["F"]["floor_by_country"]["mean_pp"]); M["floorbyctryp"] = pexp(K["F"]["floor_by_country"]["wilcoxon_p"]); M["floorbyctryneg"] = str(K["F"]["floor_by_country"]["neg"])
+M["hthreebyctry"] = pp(K["F"]["h3_by_country"]["mean_pp"]); M["hthreebyctryp"] = pexp(K["F"]["h3_by_country"]["wilcoxon_p"]); M["hthreebyctryneg"] = str(K["F"]["h3_by_country"]["neg"])
+M["hthreenarrow"] = pp(K["F"]["h3_narrow_by_prompt"]["mean_pp"]); M["hthreenarrowp"] = pexp(K["F"]["h3_narrow_by_prompt"]["wilcoxon_p"]); M["hthreenarrowneg"] = str(K["F"]["h3_narrow_by_prompt"]["neg"]); M["hthreenarrown"] = str(K["F"]["h3_narrow_by_prompt"]["n"])
+M["rhocilo"] = f"{K['G']['ci25'][0]:+.2f}"; M["rhocihi"] = f"{K['G']['ci25'][1]:+.2f}"; M["rhoprecilo"] = f"{K['G']['ci15'][0]:+.2f}"; M["rhoprecihi"] = f"{K['G']['ci15'][1]:+.2f}"
+M["ttwoyearsgn"] = f"{K['I']['years_gn']:.1f}"; M["ttwoyearsgs"] = f"{K['I']['years_gs']:.1f}"; M["ttwospreadgn"] = f"{K['I']['spread_gn']:.2f}"; M["ttwospreadgs"] = f"{K['I']['spread_gs']:.2f}"
+for lg in ("en", "es", "pt", "hi"):
+    M["empty" + lg] = f"{K['H'][lg]['pct']:.1f}"; M["empty" + lg + "n"] = str(K["H"][lg]["empty"])
+
+# --- sanity check do Cabra (data/processed/cabra_sanity/summary.json)
+CS = json.loads((P / "cabra_sanity" / "summary.json").read_text())
+def _rate(k): return CS[k]["rate"]
+_c, _b, _l, _co = _rate("cabra_mistral_7b|all"), _rate("mistral_7b_instruct_v03_base|all"), _rate("llama31_8b_reserved|all"), _rate("cabra_mistral_7b_ORIGINAL|all")
+M["cabsanitycabra"] = f"{100*_c:.0f}"; M["cabsanitybase"] = f"{100*_b:.0f}"; M["cabsanityllama"] = f"{100*_l:.0f}"; M["cabsanityorig"] = f"{100*_co:.0f}"
+M["cabsanityn"] = str(CS["cabra_mistral_7b|all"]["n_factual"])
+if _c <= _b + 0.02:
+    _s = (f"Re-served, Cabra returns the register value on {M['cabsanitycabra']}\\% of the code-resolved Portuguese items "
+          f"({M['cabsanityorig']}\\% in the original collection), its base model on {M['cabsanitybase']}\\% and "
+          f"Llama~3.1~8B on {M['cabsanityllama']}\\%. On {M['cabsanityn']} items per model the three are within a few answers of one another: "
+          f"the fine-tune does not outperform the base it was trained from, the serving stack does not explain its rank, and the "
+          f"composite margin against Llama~3.1~8B comes from the judged tasks and subcomponents rather than from the register values.")
+else:
+    _s = (f"Re-served, Cabra returns the register value on {M['cabsanitycabra']}\\% of the code-resolved Portuguese items "
+          f"({M['cabsanityorig']}\\% in the original collection), its base model on {M['cabsanitybase']}\\% and "
+          f"Llama~3.1~8B on {M['cabsanityllama']}\\%: the fine-tune improves on its base on these items, and its rank reflects "
+          f"the scale class rather than the serving stack.")
+M["cabrasanitysentence"] = _s
+if _c <= _b + 0.02:
+    _sp = (f"Reservido, o Cabra devolve o valor do registro em {M['cabsanitycabra']}\\% dos itens em português resolvidos por código "
+           f"({M['cabsanityorig']}\\% na coleta original), seu modelo-base em {M['cabsanitybase']}\\% e o "
+           f"Llama~3.1~8B em {M['cabsanityllama']}\\%. Com {M['cabsanityn']} itens por modelo, os três ficam a poucas respostas um do outro: "
+           f"o ajuste fino não supera a base de que foi treinado, a pilha de serviço não explica sua posição, e a margem do composto "
+           f"contra o Llama~3.1~8B vem das tarefas e dos subcomponentes julgados, não dos valores de registro.")
+else:
+    _sp = (f"Reservido, o Cabra devolve o valor do registro em {M['cabsanitycabra']}\\% dos itens em português resolvidos por código "
+           f"({M['cabsanityorig']}\\% na coleta original), seu modelo-base em {M['cabsanitybase']}\\% e o "
+           f"Llama~3.1~8B em {M['cabsanityllama']}\\%: o ajuste fino supera a base nesses itens, e sua posição reflete "
+           f"a classe de escala e não a pilha de serviço.")
+M["cabrasanitysentencept"] = _sp
 # derivadas de apresentacao
 M["verifdiffabs"] = f"{abs(float(M['verifdiff'])):.1f}"
 M["taskt1short"] = f"{c['por_task']['T1'][0]:.2f}"; M["floorrestshort"] = f"{c['acc_resto']:.2f}"

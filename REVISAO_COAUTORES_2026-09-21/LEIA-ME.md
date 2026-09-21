@@ -1,33 +1,35 @@
 # Pacote para revisão dos coautores — 21/09/2026
 
-**Artigo:** *Whose Regulation Does the Model Know? Reliability of LLM-Retrieved Regulatory Information for Public Environmental Management in 25 Countries*
+**Artigo:** *Whose Regulation Does the Model Know? Reliability of LLM-Recalled Regulatory Information for Public Environmental Management in 25 Countries*
 **Autores (ordem de assinatura):** Lucas Rover (UTFPR) · Vitor de Melo Dominski (Descomplica) · Anibal Tavares de Azevedo (Unicamp) · Eduardo Tadeu Bacalhau (UFPR) · Yara de Souza Tadano (UTFPR)
 **Alvo:** *Government Information Quarterly* (Elsevier)
-**Repositório (público):** https://github.com/Roverlucas/artigo-vies-analise-regional (commit `f08ff3d`)
+**Repositório (público):** https://github.com/Roverlucas/artigo-vies-analise-regional (branch `main`, commit da rodada 13 no `ROUNDS.md`)
 
 ## Arquivos
 
 | arquivo | conteúdo | pp |
 |---|---|---|
-| `...MANUSCRITO-EN` | manuscrito completo, inglês (idioma de submissão) — formato `elsarticle [review]`, espaçamento duplo | 67 |
-| `...SUPLEMENTAR-EN` | material suplementar, inglês | 19 |
-| `...MANUSCRITO-PT` | versão de leitura em português | 35 |
-| `...SUPLEMENTAR-PT` | suplemento em português | 16 |
+| `...MANUSCRITO-EN` | manuscrito completo, inglês (idioma de submissão) — formato `elsarticle [review]`, espaçamento duplo | 72 |
+| `...SUPLEMENTAR-EN` | material suplementar, inglês | 21 |
+| `...MANUSCRITO-PT` | versão de leitura em português | 38 |
+| `...SUPLEMENTAR-PT` | suplemento em português | 18 |
 
 A versão em inglês é a autoritativa. As 66 páginas são efeito do espaçamento duplo exigido na submissão (13 delas são referências); a métrica que o GIQ avalia é a contagem de palavras, ~11.800 no corpo.
+
+**Versão de 21/09 (v5, após parecer de painel com três revisores, decisão "Major Revision", e pedido de prosa sem traços de IA):** a rodada 13 mudou o que o artigo afirma em três pontos. (1) **Inferência no nível do país**: todo teste antes rodado sobre respostas foi refeito com o país ou o modelo como unidade (`cluster_inference.py`). **H4 deixa de ser "identificado até o par" e passa a "não estabelecido"** (SE agrupado por país p = 0,099; 25 déficits por país ρ = −0,37, p = 0,069). A razão de chances de T1 por tarefa fica marginal com o país como unidade (bruta 0,44, IC [0,18, 1,05], p = 0,062); por isso **o desfecho só-código (+14,7 pp) passa a ser o primário da lacuna Norte/Sul** e a decomposição por tarefa é rotulada exploratória. H6 ganha teste de equivalência (DiD dentro de ±2 pp). (2) **Dois erros de Métodos "como executado" corrigidos**: nenhuma seed foi enviada a provedor algum (o suplemento descrevia um campo `seed_status` inexistente) e nenhum filtro de idioma ou truncamento existe no código; ambos estão na tabela de desvios. (3) **Título passa a "LLM-Recalled"** (não há recuperação; todas as respostas vêm da memória paramétrica), abstract cortado a 229 palavras, "ρ = 0,55 excluído" retirado (o IC de Fisher inclui 0 e 0,55), "monotonically" retirado, cinco referências novas lidas na íntegra (X-FACTR, mLAMA, Dahl 2024, Zheng 2023, Panickssery 2024), Cabra verificado contra o próprio modelo-base nos mesmos itens (serving não explica a posição; só nos valores de registro, Cabra, base e Llama ficam a poucas respostas um do outro), e as sete seções reescritas em EN e PT sem travessões, itálicos de ênfase e frases de anúncio. O texto **cresceu** ~1.100 palavras com as análises que os revisores pediram; o corte de 25–30% que o editor sugere é decisão dos autores sobre o que sai.
 
 **Versão de 21/09 (v4, após rodada de validação):** todos os números-manchete do texto, das tabelas e dos dois suplementos passam a ser gerados dos artefatos (303 macros em `latex/numbers.tex`); tabelas por modelo e por tarefa geradas; pipeline ponta a ponta com censo de 3.325 números, zero sem caminho reproduzível. Nenhum achado mudou; mudou a garantia de que o número impresso é o número computado. **v3:** chave de Bangladesh corrigida na fonte (35, Rules 2022), H2 reportado com o país como unidade de inferência, lacuna Norte/Sul também nos desfechos só de código (+14,7 pp), modelo regional descrito como fine-tune comunitário de 7B, Discussão compactada, hash de versão dos registros. **Versão v2:** incorpora a rodada 10 — T1 adjudicado por código, dois juízes de coleta declarados, chave do Reino Unido corrigida (20, não 10), Egito excluído de T1, H4 rebaixado, Métodos reescritos para o estudo entregue e ~60 números propagados. Descarte o pacote enviado mais cedo no mesmo dia, se o recebeu.
 
 ## O que o artigo afirma (todos os números saem de `data/processed/freeze_all_effects.json`, reproduzível com `python code/run_all.py --confirmatory`)
 
 - **Achado principal (H2):** perguntar na língua do país **piora** a acurácia em **−5,0 pp** (modelo misto com intercepto por país p = 6×10⁻⁷; 8 de 9 países negativos, t = −4,6, p = 0,002; Wilcoxon sobre as 839 células p = 5×10⁻¹⁶). Hindi −11,4 pp, espanhol −4,5, português −4,2. Resiste a leave-one-out de país e de modelo, trimming, reponderação do composto e separação por instrumento de pontuação.
-- **Lacuna Norte/Sul (H1):** +5,0 pp [+1,5, +8,4] (permutação p = 0,021) sob a partição developing/developed da UNCTAD; mesmo tamanho só dentro da onda de extensão e nos 15 pré-especificados. O gradiente com IDH (ρ = 0,36, p = 0,076) fica **abaixo do critério pré-fixado (ρ ≥ 0,55)** e é exploratório.
-- **T1 por código:** no padrão nacional, a chance do Sul Global é **0,32** da do Norte [0,27, 0,39]; 0,39 sem os três países sem padrão; 0,14 sob chave tolerante à escada (o Norte é que tem escadas). Sob os juízes originais era 0,22 — e os dois juízes estavam divididos pela mesma linha dos tiers. Só nos desfechos de código (nenhum juiz), a lacuna por país é +14,7 pp [5,6, 23,9].
-- **Modelo regional (H3):** o pior dos 14 (δ = −0,48); e perde para o Llama 3.1 8B também em português no Brasil (0,258 vs 0,313, n = 20).
-- **Persona de gestor local (H6):** não ajuda (+0,5 pp, p = 0,29).
+- **Lacuna Norte/Sul (H1):** desfecho primário = só código (nenhum juiz): o Sul devolve o valor do registro **14,7 pp** menos vezes [5,6, 23,9], permutação por país p = 0,012. Composto: +5,0 pp [+1,6, +8,4] (p = 0,019); mesmo tamanho na onda de extensão, nos 15 pré-especificados e com a UE como um cluster (+5,5, p = 0,029). O gradiente com IDH (ρ = 0,36, p = 0,076; IC de Fisher [−0,04, +0,66]) **nem se estabelece nem exclui o critério ρ ≥ 0,55**.
+- **T1 por código (exploratório por tarefa):** no padrão nacional, a razão de chances bruta Sul/Norte é **0,44 com IC bootstrap por país [0,18, 1,05]** (permutação p = 0,062); o GLMM condicional dá 0,32 [0,27, 0,39], intervalo irrealista para 24 países. Sob os juízes originais era 0,22, e os dois juízes estavam divididos pela mesma linha dos tiers. A lacuna é concentrada nas tarefas de fato nacional e ausente em T5, mas só o agregado só-código está estabelecido com o país como unidade.
+- **Modelo regional (H3):** o pior dos 14 (δ = −0,48; abaixo da média dos demais em 25/25 países); perde para o Llama 3.1 8B em português (20 de 30 prompts, −5,9 pp, p = 0,002). Verificação de serviço: template do Ollama = chat_template publicado; reservido nos 30 prompts PT, Cabra 47%, base Mistral-7B-Instruct-v0.3 50%, Llama 43% nos valores de registro — a margem do composto vem das tarefas julgadas.
+- **Persona de gestor local (H6):** não ajuda (+0,5 pp, p = 0,29) e é equivalente a nenhuma persona em até ±2 pp (IC90 por país [−0,4, +1,6]); efeito principal −0,6 pp.
 - **Aberto vs. fechado (H5):** +12,8 pp a favor dos fechados.
 - **Piso de recuperação factual:** T1+T2 0,435 contra 0,612 em síntese/recomendação (δ = −0,41); T1 sozinha 0,394.
-- **H4 (mecanismo):** dentro do país, cobertura×tarefa e IDH×tarefa são colineares (ρ = 0,65); juntas, o IDH fica (β = +0,027) e a cobertura não (β = +0,012, p = 0,063). O texto agora diz que o mecanismo é identificado só até o par cobertura-ou-desenvolvimento.
+- **H4 (mecanismo): não estabelecido.** A interação cobertura×tarefa tem p = 6×10⁻¹⁰ no nível da resposta, mas p = 0,099 com erro-padrão agrupado por país; os 25 déficits por país correlacionam com cobertura a ρ = −0,37 (p = 0,069) e a −0,16 dado o IDH. A direção é a prevista; nada alcança significância com o país como unidade. Coloquei a lição na Discussão: p no nível da resposta superestima o que 25 países mostram.
 
 ## A virada metodológica que define o artigo
 
@@ -44,7 +46,7 @@ Os gabaritos de T2/T3 eram placeholders e a comparação "o valor está na faixa
 
 1. Ler o manuscrito em inglês (ou a versão PT) e anotar diretamente no PDF ou por e-mail.
 2. Confirmar afiliação, ORCID e **e-mail institucional** (Dominski e Azevedo: ainda não temos).
-3. Dizer se concorda com a força da claim principal (H2), com o enquadramento exploratório de H1, com o rebaixamento de H4 (mecanismo identificado só até o par cobertura-ou-desenvolvimento) e com manter "as três correções falham" no abstract sendo o modelo regional um fine-tune comunitário de 7B (a alternativa é coletar um Sabiá-3).
+3. Dizer se concorda com a força da claim principal (H2), com o desfecho só-código como primário da lacuna Norte/Sul, com **H4 relatado como não estabelecido**, com o título "LLM-Recalled" e com manter "as três correções falham" no abstract sendo o modelo regional um fine-tune comunitário de 7B (a alternativa é coletar um Sabiá-3).
 4. Sinalizar qualquer outra ferramenta de IA usada, para a declaração exigida pela Elsevier.
 
 Sem a aprovação explícita dos cinco, não submetemos.

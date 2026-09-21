@@ -1,0 +1,182 @@
+{
+ "cabra_mistral_7b|T1": {
+  "n_factual": 11,
+  "correct": 2,
+  "rate": 0.18181818181818182,
+  "verdicts": {
+   "INCORRECT": 5,
+   "CORRECT": 2,
+   "FABRICATED": 3,
+   "UNRESOLVED": 1,
+   "NO_VALUE": 1
+  }
+ },
+ "cabra_mistral_7b|T2": {
+  "n_factual": 7,
+  "correct": 6,
+  "rate": 0.8571428571428571,
+  "verdicts": {
+   "CORRECT": 6,
+   "EXCLUDED": 4,
+   "INCORRECT": 1,
+   "UNRESOLVED": 1
+  }
+ },
+ "cabra_mistral_7b|T3": {
+  "n_factual": 12,
+  "correct": 6,
+  "rate": 0.5,
+  "verdicts": {
+   "INCORRECT": 6,
+   "CORRECT": 6
+  }
+ },
+ "cabra_mistral_7b|all": {
+  "n_factual": 30,
+  "correct": 14,
+  "rate": 0.4666666666666667,
+  "verdicts": {
+   "INCORRECT": 12,
+   "CORRECT": 14,
+   "FABRICATED": 3,
+   "UNRESOLVED": 2,
+   "NO_VALUE": 1,
+   "EXCLUDED": 4
+  }
+ },
+ "llama31_8b_reserved|T1": {
+  "n_factual": 12,
+  "correct": 2,
+  "rate": 0.16666666666666666,
+  "verdicts": {
+   "INCORRECT": 6,
+   "CORRECT": 2,
+   "DONT_KNOW": 4
+  }
+ },
+ "llama31_8b_reserved|T2": {
+  "n_factual": 7,
+  "correct": 6,
+  "rate": 0.8571428571428571,
+  "verdicts": {
+   "UNRESOLVED": 1,
+   "CORRECT": 6,
+   "INCORRECT": 1,
+   "EXCLUDED": 4
+  }
+ },
+ "llama31_8b_reserved|T3": {
+  "n_factual": 11,
+  "correct": 5,
+  "rate": 0.45454545454545453,
+  "verdicts": {
+   "INCORRECT": 6,
+   "CORRECT": 5,
+   "UNRESOLVED": 1
+  }
+ },
+ "llama31_8b_reserved|all": {
+  "n_factual": 30,
+  "correct": 13,
+  "rate": 0.43333333333333335,
+  "verdicts": {
+   "INCORRECT": 13,
+   "CORRECT": 13,
+   "DONT_KNOW": 4,
+   "UNRESOLVED": 2,
+   "EXCLUDED": 4
+  }
+ },
+ "mistral_7b_instruct_v03_base|T1": {
+  "n_factual": 12,
+  "correct": 2,
+  "rate": 0.16666666666666666,
+  "verdicts": {
+   "INCORRECT": 6,
+   "CORRECT": 2,
+   "FABRICATED": 4
+  }
+ },
+ "mistral_7b_instruct_v03_base|T2": {
+  "n_factual": 6,
+  "correct": 5,
+  "rate": 0.8333333333333334,
+  "verdicts": {
+   "CORRECT": 5,
+   "UNRESOLVED": 2,
+   "INCORRECT": 1,
+   "EXCLUDED": 4
+  }
+ },
+ "mistral_7b_instruct_v03_base|T3": {
+  "n_factual": 12,
+  "correct": 8,
+  "rate": 0.6666666666666666,
+  "verdicts": {
+   "INCORRECT": 4,
+   "CORRECT": 8
+  }
+ },
+ "mistral_7b_instruct_v03_base|all": {
+  "n_factual": 30,
+  "correct": 15,
+  "rate": 0.5,
+  "verdicts": {
+   "INCORRECT": 11,
+   "CORRECT": 15,
+   "FABRICATED": 4,
+   "UNRESOLVED": 2,
+   "EXCLUDED": 4
+  }
+ },
+ "cabra_mistral_7b_ORIGINAL|T1": {
+  "n_factual": 11,
+  "correct": 0,
+  "rate": 0.0
+ },
+ "cabra_mistral_7b_ORIGINAL|T2": {
+  "n_factual": 7,
+  "correct": 5,
+  "rate": 0.7142857142857143
+ },
+ "cabra_mistral_7b_ORIGINAL|T3": {
+  "n_factual": 12,
+  "correct": 6,
+  "rate": 0.5
+ },
+ "cabra_mistral_7b_ORIGINAL|all": {
+  "n_factual": 30,
+  "correct": 11,
+  "rate": 0.36666666666666664
+ },
+ "llama31_8b_ORIGINAL|T1": {
+  "n_factual": 12,
+  "correct": 0,
+  "rate": 0.0
+ },
+ "llama31_8b_ORIGINAL|T2": {
+  "n_factual": 6,
+  "correct": 3,
+  "rate": 0.5
+ },
+ "llama31_8b_ORIGINAL|T3": {
+  "n_factual": 10,
+  "correct": 9,
+  "rate": 0.9
+ },
+ "llama31_8b_ORIGINAL|all": {
+  "n_factual": 28,
+  "correct": 12,
+  "rate": 0.42857142857142855
+ },
+ "exemplo": {
+  "cabra_T1_BRA": "1. O padrão nacional atual para a média anual de PM2.5 no Brasil é de 15 µg/m³, conforme estabelecido pelo Decreto nº 9.641, de 2018.\n2. Essa meta intermediária visa reduzir a poluição do ar e melhorar a qualidade do ar no Brasil."
+ },
+ "template_check": {
+  "ollama_modelfile_template": "[INST] {{ .Prompt }} [/INST] ",
+  "hf_chat_template": "[INST] {content} [/INST]",
+  "base": "Mistral-7B-Instruct-v0.3",
+  "quantization_both": "Q4_K_M",
+  "verified": "2026-09-21"
+ }
+}

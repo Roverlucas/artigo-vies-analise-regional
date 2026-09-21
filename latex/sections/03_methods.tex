@@ -3,20 +3,21 @@
 
 \subsection{Research design}
 
-We specify a pre-specified, factorial, multi-country benchmark experiment
+The study is a pre-specified, factorial, multi-country benchmark experiment
 quantifying geographic and persona-modulated bias in 14 large language models on
 air pollution policy tasks. The pre-specified design crosses 15 countries
 (stratified on three theoretically grounded axes), 14 LLMs spanning five access
-tiers, one domain, 5 task types and 2 persona conditions, with 2 stochastic
-replications per cell; a post-hoc extension (Section~\ref{sec:expansion}) enlarges
-the sample to 25 countries. The stimulus set crosses each country's five tasks and
-two personas in English, plus a within-country native-language rendering for the
-nine countries with a target native language, scored on the $[0,1]$ composite. The
-protocol fixes, in advance of collection, the hypotheses, primary models, persona
-protocol, exclusion criteria and multiple-comparison corrections. A Brazil-only
-collection executed under an earlier three-domain design is reclassified as an
-extended pilot and reported separately; it informed prompt calibration but
-contributes no confirmatory observations.
+tiers, one domain, five task types and two persona conditions, with two
+stochastic replications per cell; a post-hoc extension
+(Section~\ref{sec:expansion}) enlarges the sample to 25 countries. The stimulus
+set crosses each country's five tasks and two personas in English, plus a
+within-country native-language rendering for the nine countries with a target
+native language, scored on the $[0,1]$ composite. The protocol fixed, before
+collection, the hypotheses, primary models, persona protocol, exclusion criteria
+and multiple-comparison corrections. A Brazil-only collection executed under an
+earlier three-domain design is reclassified as an extended pilot and reported
+separately; it informed prompt calibration and contributes no observations to
+the main analysis.
 
 \subsection{Country selection}
 
@@ -29,100 +30,100 @@ study~\citep{mohamed2020decolonial}; the Joshi et al.\ six-class taxonomy of
 linguistic-resource representation~\citep{joshi2020state}; and World Bank income
 groups~\citep{worldbank2025classification}.
 
-The pre-specified sample of 15 --- Brazil, Mexico, Argentina, Peru; Nigeria,
-South Africa, Kenya, Egypt; India, Indonesia, Bangladesh, the Philippines; and
-the United States, Germany, Japan as Global North references --- covers four world
+The pre-specified sample of 15 (Brazil, Mexico, Argentina, Peru; Nigeria, South
+Africa, Kenya, Egypt; India, Indonesia, Bangladesh, the Philippines; and the
+United States, Germany, Japan as Global North references) covers four world
 regions and four income groups. The linguistic-resource axis turned out far less
-differentiated than intended: the dominant official languages fall into only three
-Joshi classes, twelve of the fifteen sharing Class~5, and extending to 25 does not
-help since eighteen are Class~5. This is a property of the world rather than of
-our draw, because the official languages of most states are themselves
-high-resource, but it means the linguistic axis has too little variance to be
-separated from the others, and we treat the Joshi results accordingly
-(Section~\ref{sec:results:h1}). Countries with compromised statistical governance
-or without a publicly retrievable national standard were excluded from the
-pre-specified fifteen; Oceania entered only with the extension (Australia), and
-Joshi Class~0 languages are not represented, which we note as a scope limitation.
+differentiated than intended: the dominant official languages fall into only
+three Joshi classes, twelve of the fifteen sharing Class~5, and extending to 25
+does not help, since eighteen are Class~5. This is a property of the world
+rather than of our draw, because the official languages of most states are
+themselves high-resource, but it leaves the linguistic axis too little variance
+to be separated from the others, and we treat the Joshi results accordingly
+(Section~\ref{sec:results:h1}). Countries with compromised statistical
+governance or without a publicly retrievable national standard were excluded
+from the pre-specified fifteen; Oceania entered only with the extension
+(Australia), and Joshi Class~0 languages are not represented, which we note as a
+scope limitation.
 
 \subsection{Sample expansion after the pre-specified analysis}
 \label{sec:expansion}
 
-After the pre-specified 15-country analysis, and \emph{reported here as a post-hoc
-extension rather than part of the locked protocol}, the sample was enlarged to 25
-countries under identical procedures, to raise power for the gradient and
+After the pre-specified 15-country analysis, and reported here as a post-hoc
+extension rather than as part of the locked protocol, the sample was enlarged
+to 25 countries under identical procedures, to raise power for the gradient and
 mechanism tests and to multiply the within-country language pairs available for
 H2. The manuscript reports the 25-country sample throughout; the primary family
 recomputed on the pre-specified 15 alone is tabulated in Supplementary Material,
-so a reader can see what the locked protocol would have concluded. Because the
-extension followed observation of the initial results, no pre-specified conclusion
-is revised on the extension alone, and the expansion is treated as a
-power-and-robustness check rather than a new confirmatory test. Angola, like Nigeria and Argentina, has \emph{no} national
-ambient PM\textsubscript{2.5} standard, adding no-standard cases in which a
-faithful model must decline to state a non-existent threshold. The ten additions and
-their roles are detailed in Supplementary Material. Two extra question variants
-per (country, task) were generated for the H2 pairs at design time but were never
-collected or scored; the H2 analysis uses the single native-language rendering of
-each English prompt.
+so that a reader can see what the locked protocol would have concluded. Because
+the extension followed observation of the initial results, no pre-specified
+conclusion is revised on the extension alone, and the expansion is treated as a
+power-and-robustness check rather than as a new test. Angola, like Nigeria and
+Argentina, has no national ambient PM\textsubscript{2.5} standard, adding
+no-standard cases in which a faithful model must decline to state a non-existent
+threshold. The ten additions and their roles are detailed in Supplementary
+Material. Two extra question variants per (country, task) were generated for
+the H2 pairs at design time but were never collected or scored; the H2 analysis
+uses the single native-language rendering of each English prompt.
 
 \subsection{Country covariates}
 \label{sec:covariates}
 
 Human Development Index (UNDP 2023--24) and GDP per capita index developmental
 position and enter the mechanism analysis as adjustment covariates. The
-corpus-representation exposures divide along a distinction the mechanism analysis
-makes explicit, because the two channels apply to different effects.
-\emph{Language-corpus} measures quantify how much pretraining text exists \emph{in}
-a language and are the candidate mechanism for the native-language penalty: mC4
-token count (\citealp{xue2021mt5}, Table~6), OSCAR-2301 corpus size (corpus
-introduced by \citealp{abadji2022oscar}; per-language figures read from the
-OSCAR-2301 dataset card, whose totals differ from the 22.01 release described in
-that paper), and
-the Joshi class~\citep{joshi2020state}. \emph{Country-corpus} measures quantify how
-much the encyclopedic corpus is \emph{about} a country, independent of language,
-and are the candidate mechanism for the geographic gap: the English Wikipedia
-article length, the number of Wikipedia language editions with an article on the
-country, and the number of Wikidata statements on the country entity.
+corpus-representation exposures divide along a distinction the mechanism
+analysis makes explicit, because the two channels apply to different effects.
+Language-corpus measures quantify how much pretraining text exists in a language
+and are the candidate mechanism for the native-language penalty: mC4 token count
+(\citealp{xue2021mt5}, Table~6), OSCAR-2301 corpus size (corpus introduced by
+\citealp{abadji2022oscar}; per-language figures read from the OSCAR-2301
+dataset card, whose totals differ from the 22.01 release described in that
+paper), and the Joshi class~\citep{joshi2020state}. Country-corpus measures
+quantify how much the encyclopedic corpus is about a country, independent of
+language, and are the candidate mechanism for the geographic gap: the English
+Wikipedia article length, the number of Wikipedia language editions with an
+article on the country, and the number of Wikidata statements on the country
+entity.
 
-The two families are not interchangeable. Because the geographic gap is measured
-\emph{in English}, with language held constant across countries, a residual
-North/South gap cannot be a language-corpus effect. One point deserves stating
-plainly, because the roles are easy to conflate: Wikipedia and Wikidata are never
-ground truth here, they are the \emph{explanatory} variable. What an answer is
-scored against is always an official register
-(Section~\ref{sec:groundtruth}); had we scored against an encyclopedia, the study
-would measure agreement with an encyclopedia, which is not the question a public
-administration faces.
+The two families are not interchangeable. Because the geographic gap is
+measured in English, with language held constant across countries, a residual
+North/South gap cannot be a language-corpus effect. Wikipedia and Wikidata are
+never ground truth here; they are the explanatory variable. What an answer is
+scored against is always an official register (Section~\ref{sec:groundtruth}).
+Had we scored against an encyclopedia, the study would measure agreement with an
+encyclopedia, which is not the question a public administration faces.
 
 \subsection{Model selection}
 
 Fourteen LLMs were benchmarked across five access tiers, spanning roughly two
-orders of magnitude in parameter count and four training-data geographies (United
-States, China, Europe, Brazil): open-weight frontier (5), open-weight mid (3) and
-open-weight small or regional (2), closed-accessible (3) and closed-frontier (1).
-Only three of the open-weight models were served locally (Ollama, pinned tags:
-Phi-4~14B, Qwen3~14B, Cabra-Mistral~7B); the other seven open-weight models were
-served through hosted endpoints (Groq free tier for five, the DeepSeek and Cohere
-APIs for two), and the four closed models through their vendors' APIs. The small tier
-includes a Brazilian-Portuguese instruction-tuned model (Cabra-Mistral~7B~v3),
-tested against a scale-matched globally trained open model for H3. Each model was
-queried with an identical pinned tag throughout the collection window. The full
-roster is in Supplementary Table~S1.
+orders of magnitude in parameter count and four training-data geographies
+(United States, China, Europe, Brazil): open-weight frontier (5), open-weight
+mid (3) and open-weight small or regional (2), closed-accessible (3) and
+closed-frontier (1). Three of the open-weight models were served locally
+(Ollama, pinned tags: Phi-4~14B, Qwen3~14B, Cabra-Mistral~7B); the other seven
+open-weight models were served through hosted endpoints (Groq free tier for
+five, the DeepSeek and Cohere APIs for two), and the four closed models through
+their vendors' APIs. The small tier includes a Brazilian-Portuguese
+instruction-tuned model (Cabra-Mistral~7B~v3, a fine-tune of
+Mistral-7B-Instruct-v0.3), tested against a scale-matched globally trained open
+model for H3. Each model was queried with an identical pinned tag throughout the
+collection window. The full roster is in Supplementary Table~S1.
 
-We compare \emph{models as served} through a fixed access stack, not idealised
-weights. Provider infrastructure, serving configuration and API layer are part of
-what each label denotes, and a residual gap could in principle reflect the stack
-rather than the weights; we hold this constant by pinning version tags and a fixed sampling
-configuration per provider throughout a fixed window (Section~\ref{sec:collection}).
+We compare models as served through a fixed access stack, not idealised
+weights. Provider infrastructure, serving configuration and API layer are part
+of what each label denotes, and a residual gap could in principle reflect the
+stack rather than the weights; we hold this constant by pinning version tags and
+a fixed sampling configuration per provider throughout a fixed window
+(Section~\ref{sec:collection}).
 
 \subsection{Domain and task taxonomy}
 \label{sec:tasks}
 
 The single domain is air pollution policy, chosen because it anchors to
 officially published, verifiable ground truth and maps to concrete decision
-activities of a public environmental manager. The five tasks were not written as a
-generic knowledge quiz: each corresponds to a question a manager has to answer in
-the course of ordinary work, and each was drafted so that a wrong answer would
-carry an administrative consequence rather than merely lose a point.
+activities of a public environmental manager. Each of the five tasks corresponds
+to a question a manager has to answer in the course of ordinary work, and each
+was drafted so that a wrong answer would carry an administrative consequence.
 Table~\ref{tab:tasks} gives them with the prompt exactly as issued to the models,
 using Brazil as the worked instance, alongside the decision each stands in for.
 
@@ -180,72 +181,77 @@ operational feasibility.''
 \end{table}
 
 The tasks are ordered by how much of the answer is fixed by an official source.
-T1, T2 and T4 admit verifiable ground truth and carry the primary accuracy signal;
-T3 and T5 are rubric-scored open-generation tasks, where competent answers
-legitimately differ. That ordering is what makes the task dimension informative
-rather than decorative: it lets us ask whether models fail uniformly or fail
-specifically where a published national value has to be recalled, which is the
-question the results turn on. The country-by-task mapping of official source
-classes and verifiability status is in the ground-truth registry
-(Section~\ref{sec:groundtruth}), and the full 25-country prompt set is released
-with the data.
+T1, T2 and T4 admit verifiable ground truth and carry the primary accuracy
+signal; T3 and T5 are rubric-scored open-generation tasks, where competent
+answers legitimately differ. The ordering lets us ask whether models fail
+uniformly or specifically where a published national value has to be recalled,
+which is the question the results turn on. The country-by-task mapping of
+official source classes and verifiability status is in the ground-truth
+registry (Section~\ref{sec:groundtruth}), and the full 25-country prompt set is
+released with the data.
 
 \subsection{Persona manipulation}
 \label{sec:persona}
 
-Persona is a within-prompt factor with two levels, and the manipulation is not
-arbitrary: assigning a role to the model is the practice the vendors themselves
-document and recommend (Section~\ref{sec:related}). The neutral condition presents
-the query as a plain information request; the public\_manager\_env condition
-prepends a fixed role frame identifying the requester as a municipal or regional
-environmental management official, holding the substantive question identical. For
-Brazil's T1 the frame is the single sentence \emph{``I am the municipal
-environmental management official of São Paulo, Brazil, and I need to brief
+Persona is a within-prompt factor with two levels, and the manipulation follows
+the practice the vendors themselves document and recommend
+(Section~\ref{sec:related}). The neutral condition presents the query as a plain
+information request; the public\_manager\_env condition prepends a fixed role
+frame identifying the requester as a municipal or regional environmental
+management official, holding the substantive question identical. For Brazil's
+T1 the frame is the single sentence \emph{``I am the municipal environmental
+management official of São Paulo, Brazil, and I need to brief
 decision-makers.''} A single template is applied uniformly across countries and
-tasks, translated where the prompt language is non-English, so any
-between-condition difference is attributable to the frame rather than to question
-wording. Persona order within each prompt-model cell is randomised, and a
-manipulation check verifies that the frame is acknowledged in the response. Exact
-wording, translation procedure and manipulation-check coding are in Supplementary
-Material.
+tasks, translated where the prompt language is non-English, so that any
+between-condition difference is attributable to the frame rather than to
+question wording. Persona order within each prompt-model cell is randomised,
+and a manipulation check verifies that the frame is acknowledged in the
+response. Exact wording, translation procedure and manipulation-check coding are
+in Supplementary Material.
 
-One implementation detail matters for how the result should be read. Every request
-in this study is sent as a single user turn with no system prompt, so the role
-frame is prefixed to the user message rather than installed as a system
-instruction. Three of the four vendor guides place the role there; Google's is
-explicit that it belongs \emph{either} in the system instruction \emph{or} ``at the
-very beginning of the user prompt''~\citep{google2026promptingstrategies}, which
-is exactly the channel we test. This is deliberate: the
-system-prompt route requires API access and a developer to configure it, while the
-public servants whose decisions motivate this study reach these models through the
-consumer chat interface, where the only available channel is the message they
-type. We therefore test role framing as the sector actually performs it, and
-Section~\ref{sec:limits} states what remains untested. Persona is the basis of H6.
+One implementation detail matters for how the result should be read. Every
+request in this study is sent as a single user turn with no system prompt, so
+the role frame is prefixed to the user message rather than installed as a
+system instruction. Three of the four vendor guides place the role in the system
+prompt; Google's states that it belongs either in the system instruction or
+``at the very beginning of the user prompt''~\citep{google2026promptingstrategies},
+which is the channel we test. The choice is deliberate: the system-prompt route
+requires API access and a developer to configure it, while the public servants
+whose decisions motivate this study reach these models through the consumer
+chat interface, where the only available channel is the message they type. We
+therefore test role framing as the sector performs it, and
+Section~\ref{sec:limits} states what remains untested. Persona is the basis of
+H6.
 
 \subsection{Prompt construction and validation}
 
-Prompts were authored for the domain by the research team with domain supervision
-and validated against the ground-truth registry before entering the confirmatory
-stimulus set, with every factual claim in a registry entry required to resolve to
-an official source URL or a peer-reviewed DOI before the corresponding prompt was
-admitted. The analysis plan called for a 50-prompt pilot scored by two independent
-human raters ($\alpha\geq0.70$) before scaling the design. \emph{That pilot was
-not run}, and no rater-level $\alpha$ exists for this study; rubric reliability is
-evidenced instead on the confirmatory data itself, by a three-vendor panel over
-every item that required a judge (Section~\ref{sec:results:reliability}), which
-returns $\alpha=\nalpha$. We report this as a departure from the plan rather than as
-a threshold met.
+Prompts were authored for the domain by the research team with domain
+supervision and validated against the ground-truth registry before entering the
+main stimulus set, with every factual claim in a registry entry required to
+resolve to an official source URL or a peer-reviewed DOI before the
+corresponding prompt was admitted. The analysis plan called for a 50-prompt
+pilot scored by two independent human raters ($\alpha\geq0.70$) before scaling
+the design. That pilot was not run, and no rater-level $\alpha$ exists for this
+study; rubric reliability is evidenced instead on the main data, by a
+three-vendor panel over every item that required a judge
+(Section~\ref{sec:results:reliability}), which returns $\alpha=\nalpha$. We
+report this as a departure from the plan rather than as a threshold met.
 
 All prompts were authored in English and, for a stratified subset of countries,
 additionally in a relevant native language (Supplementary Section~S3).
-Native-language renderings were produced by an LLM translator (Claude Sonnet~4.6)
-prompted to preserve meaning, persona frame, proper nouns and acronyms, with the
-factual ground truth held in English since the target value is
-language-invariant. We did not employ human native-speaker translators, which
-remains a limitation (Section~\ref{sec:limits}); we did audit the renderings after
+Native-language renderings were produced by an LLM translator (Claude
+Sonnet~4.6) prompted to preserve meaning, persona frame, proper nouns and
+acronyms, with the factual ground truth held in English since the target value
+is language-invariant. We did not employ human native-speaker translators, which
+remains a limitation (Section~\ref{sec:limits}); we audited the renderings after
 the fact by back-translating all 90 native prompts with a different model and
 having two further models compare each against the English original
-(Section~\ref{sec:results:h2}).
+(Section~\ref{sec:results:h2}). The native language is the language of the
+user, not necessarily of the instrument: Brazil's, Portugal's and the five
+Spanish-speaking countries' standards are published in the prompt language,
+whereas India's National Ambient Air Quality Standards are published in
+English, so the Hindi condition asks in a language the official text does not
+use.
 
 \subsection{Ground truth and the ground-truth registry}
 \label{sec:groundtruth}
@@ -253,170 +259,217 @@ having two further models compare each against the English original
 Ground truth is a set of four task-specific registries, released with the data,
 and we describe each as it was built rather than as it was planned
 (Supplementary Table~S14 records the deviations). For T1 the key is the annual
-PM\textsubscript{2.5} value in force during the collection window, taken from the
-national instrument itself (statute, decree, regulation or gazette) and stored
-with the source, a verbatim excerpt and a status flag. Twenty-one countries have a
-numeric key. Three (Angola, Argentina, Nigeria) have no national
-PM\textsubscript{2.5} standard, so the correct answer is to say so, and a stated
-value is scored as fabricated. Egypt has no key at all, because the official
-Arabic text could not be retrieved, and is therefore excluded from T1 (56
+PM\textsubscript{2.5} value in force during the collection window, taken from
+the national instrument itself (statute, decree, regulation or gazette) and
+stored with the source, a verbatim excerpt and a status flag. Twenty-one
+countries have a numeric key. Three (Angola, Argentina, Nigeria) have no
+national PM\textsubscript{2.5} standard, so the correct answer is to say so,
+and a stated value is scored as fabricated. Egypt has no key, because the
+official Arabic text could not be retrieved, and is excluded from T1 (56
 cells). Bangladesh is scored against the 35~$\mu$g/m\textsuperscript{3} of its
 Air Pollution (Control) Rules 2022, which replaced the 15 of the 2005 gazette;
-an earlier version of the registry carried the 2005 value, and the correction is
-logged with the released files. Where an instrument
-sets a ladder of staged values (Brazil's five CONAMA stages, the EU limit of 25
-with 10 from 2030, the United Kingdom's 20 with an English target of 10 by 2040,
-the United States' 9.0 succeeding 12.0, Bangladesh's 35 succeeding 15), the
-registry stores the whole ladder as
-well as the value in force, so that citing a neighbouring stage can be separated
-from fabrication (Section~\ref{sec:results:t1}). Canada's CAAQS and the
-Philippine value are objectives rather than legally binding limits; they are the
-only national reference values those countries publish and are treated as the
-key, which the text notes where it matters.
+an earlier version of the registry carried the 2005 value, and the correction
+is logged with the released files. Where an instrument sets a ladder of staged
+values (Brazil's five CONAMA stages, the EU limit of 25 with 10 from 2030, the
+United Kingdom's 20 with an English target of 10 by 2040, the United States'
+9.0 succeeding 12.0, Bangladesh's 35 succeeding 15), the registry stores the
+whole ladder as well as the value in force, so that citing a neighbouring stage
+can be separated from fabrication (Section~\ref{sec:results:t1}). Canada's
+CAAQS and the Philippine value are objectives rather than legally binding
+limits; they are the only national reference values those countries publish and
+are treated as the key, which the text notes where it matters. The registry
+does not record the date on which each instrument entered into force, so the
+distance between that date and a model's training cut-off could not be entered
+as a covariate; the ladder analysis in Section~\ref{sec:results:t1} is the
+nearest available substitute.
 
-For T2 the key is the most recent annual mean PM\textsubscript{2.5} concentration
-that the WHO Ambient Air Quality Database (v6.1, 2024) records for the prompted
-city, which compiles the values reported by national and subnational agencies;
-any reported year is accepted within $\pm 20\%$, so a model citing an agency
-value from a different year is not penalised for the year. Two cities have no
-PM\textsubscript{2.5} entry (Luanda, Cairo) and those cells fall to the judge.
-For T3 the key is the WHO Global Health Observatory estimate of deaths
-attributable to ambient air pollution (indicator AIR\_41, 2021) with its
-uncertainty interval widened by half on each side as the accepted range, plus the
-published ordering of causes; the indicator covers ambient air pollution as a
-whole while the prompt asks about PM\textsubscript{2.5}, and a model citing a
-different burden study (the GBD, a national cohort) is scored by the judge on
-whether its figure and sources are defensible, not against the WHO number. For
-T4 the reference set is the UNEP Global Air Pollution Legislation catalogue for
-each country, with manual overrides where it is stale. The registry records
-source, URL, access date and status per entry, but it has no human-validator
-field and no per-document hash: verification was documentary, by the authors,
-against the primary text. Entries without an equivalent official source are
-excluded from the code-adjudicated comparison for that cell, so missing ground
-truth is never scored as a model error.
+For T2 the key is the most recent annual mean PM\textsubscript{2.5}
+concentration that the WHO Ambient Air Quality Database (v6.1, 2024) records
+for the prompted city, which compiles the values reported by national and
+subnational agencies; any reported year is accepted within $\pm 20\%$, so that a
+model citing an agency value from a different year is not penalised for the
+year. The window is not tier-neutral by construction, because Global North
+cities have longer WHO series (\nttwoyearsgn{} accepted years on average against
+\nttwoyearsgs{}), but the range of values it admits is similar in the two tiers
+(ratio of the largest to the smallest accepted value \nttwospreadgn{} against
+\nttwospreadgs{}). Two cities have no PM\textsubscript{2.5} entry (Luanda,
+Cairo) and those cells fall to the judge. For T3 the key is the WHO Global
+Health Observatory estimate of deaths attributable to ambient air pollution
+(indicator AIR\_41, 2021) with its uncertainty interval widened by half on each
+side as the accepted range, plus the published ordering of causes; the
+indicator covers ambient air pollution as a whole while the prompt asks about
+PM\textsubscript{2.5}, and a model citing a different burden study (the GBD, a
+national cohort) is scored by the judge on whether its figure and sources are
+defensible, not against the WHO number. For T4 the reference set is the UNEP
+Global Air Pollution Legislation catalogue for each country, with manual
+overrides where it is stale. The registry records source, URL, access date and
+status per entry, but it has no human-validator field and no per-document hash:
+verification was documentary, by the authors, against the primary text. Entries
+without an equivalent official source are excluded from the code-adjudicated
+comparison for that cell, so that missing ground truth is never scored as a
+model error.
 
 \subsection{Data collection}
-
 \label{sec:collection}
-Calls were executed at temperature~0.3 with a fixed seed where the provider
-honours one (the three Ollama-served models), with 2 replications per
+
+Calls were executed at temperature~0.3, with two replications per
 prompt-model-persona combination, inside a fixed window to minimise model-update
 confounds; the reported accuracies are therefore point-in-time estimates. Two
-exceptions are declared: the GPT-5 family rejects any temperature other than the
-default, so GPT-5 and GPT-5-mini ran at temperature~1.0; and no provider offers a
-setting that makes output deterministic, so two replicates at 0.3 bound, rather
-than remove, within-model variance (Supplementary Material compares the
-headline effects with that variance). Every response was stored with complete request metadata
---- pinned tag, timestamp, token counts, finish reason, persona condition --- under
-SHA-256 checksums. Quality gates excluded truncated responses and responses in a
-language divergent from the request, both retained and analysed separately.
+exceptions are declared. The GPT-5 family rejects any temperature other than the
+default, so GPT-5 and GPT-5-mini ran at temperature~1.0 with reasoning effort
+set to minimal; and no seed was sent to any provider, an earlier draft having
+stated otherwise, so the two replicates at temperature~0.3 bound, rather than
+remove, within-model variance (Supplementary Material compares the headline
+effects with that variance). Every response was stored with complete request
+metadata (pinned tag, timestamp, token counts, finish reason, persona condition)
+under SHA-256 checksums. No response was excluded for its length or its
+language: empty responses are scored as returning no value, and a response in a
+language other than the one requested is scored on its content. Empty responses
+are more frequent under native-language prompts (\nemptyen\% of English
+responses on the three code-scored tasks against \nemptyes\% in Spanish,
+\nemptypt\% in Portuguese and \nemptyhi\% in Hindi), which is part of the
+language effect rather than attrition from it.
 
-Per-cell coverage is not uniform: free and rate-limited endpoints returned fewer
-admissible responses than metered APIs, so the number of scored English-prompt cells ranges from 261 to 500 per model
-(777 for the model with the most native-language pairs when those are counted).
-We report each model's realised $N$ alongside its score
-(Table~\ref{tab:conf-model}) rather than silently dropping under-covered cells,
-and the full coverage matrix, with quota and exclusion reasons for every
-shortfall, is in Supplementary Material.
+Per-cell coverage is not uniform: free and rate-limited endpoints returned
+fewer admissible responses than metered APIs, so the number of scored
+English-prompt cells ranges from 261 to 500 per model (777 for the model with
+the most native-language pairs when those are counted). We report each model's
+realised $N$ alongside its score (Table~\ref{tab:conf-model}) rather than
+dropping under-covered cells, the tier gap is re-estimated on the prompts every
+model answered (Section~\ref{sec:results:h1}), and the full coverage matrix,
+with quota and exclusion reasons for every shortfall, is in Supplementary
+Material.
 
 \subsection{Measures}
 
 Scoring assigns each task the most reliable instrument it admits.
 
-\emph{Where the answer is a number in an official register, code decides.} For
-T1, T2 and T3 the returned value is extracted and compared with the registry by a
-deterministic scorer, with plausibility guards that reject implausible extractions
---- a four-digit year read as a death count, a national population read as a
-mortality figure, a 24-hour value read as an annual one. The extractor normalises
-Devanagari digits, decimal commas and units written out in words, and its
-behaviour on the cases that matter for the language comparison (a comma decimal,
-a Hindi numeral, a parenthetical daily value beside the annual one) is fixed by a
-unit-test suite released with the code; a stratified manual audit of native-language
-responses it classified as carrying no value is reported in Supplementary
-Material. Comparing a value with a key is exact, and a language model asked to do
-the same arithmetic can only reproduce it with noise. Code resolves \ncodecovtone\% of the
-T1 cells in the analysis (\ntonecodecells{} of \ntonecells), \ncodecovttwo\% of T2 and \ncodecovtthree\% of T3;
-a T1 response with no extractable value counts as not having returned it. For the
-three no-standard countries, code scores whether the answer states that no
-national standard exists (correct), asserts a value (fabricated) or declines to
-answer (neither), and the primary tier comparison is reported with and without
-them.
+Where the answer is a number in an official register, code decides. For T1, T2
+and T3 the returned value is extracted and compared with the registry by a
+deterministic scorer, with plausibility guards that reject implausible
+extractions (a four-digit year read as a death count, a national population
+read as a mortality figure, a 24-hour value read as an annual one). The
+extractor normalises Devanagari digits, decimal commas and units written out in
+words, and its behaviour on the cases that matter for the language comparison
+(a comma decimal, a Hindi numeral, a parenthetical daily value beside the
+annual one) is fixed by a unit-test suite released with the code; a stratified
+manual audit of native-language T1 responses it classified as carrying no value
+is reported in Supplementary Material, and no equivalent audit was run for T2
+and T3. Comparing a value with a key is exact, whereas a language model asked to
+do the same arithmetic reproduces it with noise. Code resolves \ncodecovtone\%
+of the T1 cells in the analysis (\ntonecodecells{} of \ntonecells),
+\ncodecovttwo\% of T2 and \ncodecovtthree\% of T3; a T1 response with no
+extractable value counts as not having returned it. For the three no-standard
+countries, code scores whether the answer states that no national standard
+exists (correct), asserts a value (fabricated) or declines to answer (neither),
+and the tier comparison is reported with and without them.
 
-\emph{Where judgement is required, a three-vendor panel decides by its mean.} The
+The code verdict replaces one subcomponent of the composite, factual accuracy
+(weight $0.30$); the other four subcomponents of a T1, T2 or T3 cell remain
+those assigned by the judge that scored it. For T1 that judge is the collection
+judge, so the composite on T1 still carries the judge-and-tier confound
+described below in $0.70$ of its weight. For that reason the primary outcome
+for the tier comparison on the register-valued tasks is the binary code verdict
+itself, whether the answer returned the value in force, and the composite is
+reported as the secondary outcome (Section~\ref{sec:results:h1}).
+
+Where judgement is required, a three-vendor panel decides by its mean. The
 residual of T2 and T3, with all of T4, is scored by Gemini~2.5~Pro, Claude
 Sonnet~4.6 and DeepSeek-V3, chosen for vendor diversity so that intra-vendor
 correlation does not inflate apparent agreement. T5, the open recommendation,
 retains the scores of the original collection judge; that judge was GPT-5-mini
-for the fifteen pre-specified countries and Claude Haiku~4.5 for the ten added in
-the extension, and because the extension holds seven of the ten Global North
+for the fifteen pre-specified countries and Claude Haiku~4.5 for the ten added
+in the extension, and because the extension holds seven of the ten Global North
 countries, judge and tier are confounded in any effect that still rests on those
-scores. This is why T1 was moved to code: on the original scores the Global South
-deficit in T1 was \njtgsgpt{} against \njtgngpt{} under GPT-5-mini but \njtgshaiku{} against \njtgnhaiku{} under
-Claude Haiku, a difference between judges as large as the difference between tiers
+scores. This is why the factual verdict on T1 was moved to code: on the original
+scores the Global South deficit in T1 was \njtgsgpt{} against \njtgngpt{} under
+GPT-5-mini but \njtgshaiku{} against \njtgnhaiku{} under Claude Haiku, a
+difference between judges as large as the difference between tiers
 (Supplementary Material). T5 carries no tier effect in either instrument.
 Reliability is reported as Krippendorff's $\alpha$, the single-judge ICC$(2,1)$
-and, as the operative quantity, the ICC$(2,3)$ of the panel mean --- a two-way
-random-effects, absolute-agreement coefficient, so that the judges' different
-severities count against it --- computed on every item the panel scored rather
-than on a calibration subset. One panel member (DeepSeek-V3) is also an evaluated
-model, and we test for self-favouring directly. No human gold-standard layer was
-collected; ground truth is anchored instead to official primary sources
+and, as the operative quantity, the ICC$(2,3)$ of the panel mean, a two-way
+random-effects, absolute-agreement coefficient in which the judges' different
+severities count against it, computed on every item the panel scored rather
+than on a calibration subset. Language-model judges agree with human raters at
+roughly the level humans agree with each other on open-ended
+tasks~\citep{zheng2023judging}, but they carry position, verbosity and
+self-enhancement biases, and models recognise their own outputs well enough to
+prefer them~\citep{zheng2023judging,panickssery2024self}. One panel member
+(DeepSeek-V3) is also an evaluated model, and we test for self-favouring
+directly; the other two judges
+belong to vendors whose models are in the roster (Anthropic, Google), so a
+vendor-level preference cannot be excluded by that test. No human gold-standard
+layer was collected; ground truth is anchored to official primary sources
 (Section~\ref{sec:groundtruth}).
 
-\emph{The unit of analysis is the scored cell, not the log line.} Duplication
-exists at two levels and each has a stated rule. At the response level, 21.9\% of
-(model, prompt, replicate) keys have more than one stored answer, because
-collection runs were resumed and re-run; the answer that enters the analysis is
-the first stored in run-file order, which is the one the judge scored, and the
-code verdicts are computed on that same answer so that the two instruments
-describe one response. Scoring every stored answer instead and averaging the
-verdicts changes the code verdict in \ndupchange\% of cells and the mean by \ndupmean
-(Supplementary Material). At the score level, 951 cells (11.5\%) carry more than
-one judge score, because the judge was re-run on parts of the set on different
-dates; those are repeated measurements of the same item, not independent
-observations, and are collapsed by their mean, leaving 8{,}300 cells, or 8{,}244 once the
-56 Egyptian T1 cells without a key are removed (6{,}573 English-prompt).
-Treating re-runs as independent would be pseudo-replication: it inflates $n$ and
-gives extra weight to whichever cells happened to be reprocessed. The choice is
-made on methodological grounds and does not depend on the result.
+The unit of analysis is the scored cell, not the log line. Duplication exists at
+two levels and each has a stated rule. At the response level, 21.9\% of (model,
+prompt, replicate) keys have more than one stored answer, because collection
+runs were resumed and re-run; the answer that enters the analysis is the first
+stored in run-file order, which is the one the judge scored, and the code
+verdicts are computed on that same answer so that the two instruments describe
+one response. Scoring every stored answer instead and averaging the verdicts
+changes the code verdict in \ndupchange\% of cells and the mean by \ndupmean
+(Supplementary Material). At the score level, 951 cells (11.5\%) carry more
+than one judge score, because the judge was re-run on parts of the set on
+different dates; those are repeated measurements of the same item and are
+collapsed by their mean, leaving 8{,}300 cells, or 8{,}244 once the 56 Egyptian
+T1 cells without a key are removed (6{,}573 English-prompt). Treating re-runs
+as independent would inflate $n$ and give extra weight to whichever cells
+happened to be reprocessed. The rule was fixed on methodological grounds and
+does not depend on the result.
 
 The primary composite combines five pre-specified subcomponents (Supplementary
 Section~S6), each normalised to $[0,1]$: factual accuracy against the registry
 entry (weight $0.30$), contextual completeness ($0.25$), citation quality
-($0.15$), calibration ($0.15$) and hallucination absence ($0.15$). Every headline
-effect is recomputed under equal weights and a PCA-derived weighting, and a
-conclusion counts as robust only if its direction is stable across all three. The
-composite is computed per (country, model, persona) cell to support the H6
-difference-in-differences test.
+($0.15$), calibration ($0.15$) and hallucination absence ($0.15$). Every
+headline effect is recomputed under equal weights and a PCA-derived weighting,
+and a conclusion counts as robust only if its direction is stable across all
+three. The composite is computed per (country, model, persona) cell to support
+the H6 difference-in-differences test.
 
 \subsection{Analytical strategy}
 
 The three primary tests are pre-specified as a single family (F1) and corrected
-together with Bonferroni-Holm. Secondary tests (F2) are reported unadjusted within
-family, and declared exploratory tests (F3) use Benjamini-Hochberg FDR at
-$q=0.10$~\citep{benjamini1995fdr}, whose guarantee assumes independent test
-statistics.
+together with Bonferroni-Holm. Secondary tests (F2) are reported unadjusted
+within family, and declared exploratory tests (F3) use Benjamini-Hochberg FDR
+at $q=0.10$~\citep{benjamini1995fdr}, whose guarantee holds under positive
+dependence; the Benjamini-Yekutieli correction, valid under arbitrary
+dependence, returns the same decisions on this family, since the F3 tests it
+covers have $p$-values several orders of magnitude below the threshold.
 
-\emph{H1 (geographic gradient, primary)} regresses country-level mean composite
-accuracy on the Joshi/HDI gradient via Spearman $\rho$, pre-specified one-sided at
-$\rho\geq0.55$, with a Mann-Kendall trend test as a mandatory non-monotonicity
-complement. \emph{H4 (corpus mechanism, primary)} relates corpus representation to
-accuracy by partial Spearman $\rho$ adjusting for HDI and log GDP per capita, with
-Wikipedia counts as the pre-specified proxy and Wikidata coverage as exploratory
-complements. \emph{H6 (persona, primary)} is a country-level
-difference-in-differences, $\Delta_{\mathrm{GS}}-\Delta_{\mathrm{GN}}$, supported
-if the persona condition reduces the Global South gap by at least $0.05$ on the
-composite, with inference by a 5{,}000-permutation country-level test. \emph{H3
-(secondary)} is a one-sided Mann-Whitney contrast (Cliff's $\delta$). \emph{H2 and
-H5 (exploratory)} are reported descriptively under F3 correction.
+H1 (geographic gradient, primary) regresses country-level mean composite
+accuracy on the Joshi/HDI gradient via Spearman $\rho$, pre-specified one-sided
+at $\rho\geq0.55$, with a Mann-Kendall trend test as a mandatory
+non-monotonicity complement. The binary Global North/South contrast on the same
+country means was pre-specified as a sensitivity analysis of H1, and its
+decomposition by task (Section~\ref{sec:results:h1}) was not pre-specified and
+is exploratory. H4 (corpus mechanism, primary) relates corpus representation to
+accuracy by partial Spearman $\rho$ adjusting for HDI and log GDP per capita,
+with Wikipedia counts as the pre-specified proxy and Wikidata coverage as
+exploratory complements. H6 (persona, primary) is a country-level
+difference-in-differences, $\Delta_{\mathrm{GS}}-\Delta_{\mathrm{GN}}$,
+supported if the persona condition reduces the Global South gap by at least
+$0.05$ on the composite, with inference by a 5{,}000-permutation country-level
+test; because the pre-specified test cannot distinguish a null from an
+inconclusive result, we add an equivalence test, two one-sided tests on the
+country-level bootstrap distribution of the difference-in-differences with
+margins of $\pm2$ and $\pm5$~pp. H3 (secondary) is a one-sided Mann-Whitney
+contrast (Cliff's $\delta$). H2 and H5 (exploratory) are reported descriptively
+under F3 correction.
 
-Three cross-cutting analyses corroborate the tier gap: a Gaussian linear mixed
-model (\texttt{statsmodels} MixedLM, REML) with crossed random intercepts for
-country and model, adjusting for centred HDI; a Bayesian hierarchical
-re-estimation (\texttt{pymc}~\citep{pymc}, weakly informative priors); and E-values
-for robustness to unmeasured confounding, via the approximation
-$\mathrm{RR}\approx\exp(0.91\,d)$ that \citet{vanderweele2017evalue} prescribe for
-standardised effects and whose assumptions it inherits. The corpus
+Wherever a test in the Results is first run on responses, we also report it
+with the country or the model as the unit, because responses are nested in 25
+countries and 14 models and a response-level $p$-value overstates the evidence
+for any contrast that varies between countries. Three cross-cutting analyses
+corroborate the tier gap: a Gaussian linear mixed model (\texttt{statsmodels}
+MixedLM, REML) with crossed random intercepts for country and model, adjusting
+for centred HDI; a Bayesian hierarchical re-estimation
+(\texttt{pymc}~\citep{pymc}, weakly informative priors); and E-values for
+robustness to unmeasured confounding, computed for the standardised mean
+difference in composite accuracy between tiers through the approximation
+$\mathrm{RR}\approx\exp(0.91\,d)$ that \citet{vanderweele2017evalue} prescribe
+for standardised effects and whose assumptions it inherits. The corpus
 mechanism is probed with an exploratory mediation model
 (\texttt{semopy}~\citep{semopy}), and the persona manipulation with a
 role-frame-acknowledgement check. Pre-specified robustness analyses appear in
@@ -424,12 +477,13 @@ Section~\ref{sec:results:robust}.
 
 \subsection{Study protocol and ethics}
 
-The analytic dataset, after quality gates but before model fitting, is frozen and
-hashed, so the confirmatory analysis can be audited against the locked
-specification rather than taken on trust. Release terms are stated at the end of
-the paper.
+The analytic dataset, after quality gates but before model fitting, is frozen
+and hashed, so that the analysis can be audited against the locked
+specification rather than taken on trust. Release terms are stated at the end
+of the paper.
 
-No personal data from end-users of LLMs were collected; the study analyses model
-outputs to publicly relevant policy questions. Provider terms of service were
-reviewed and respected, and responses are redistributed solely for research under
-fair-use and reproducibility provisions, excluded from any commercial application.
+No personal data from end-users of LLMs were collected; the study analyses
+model outputs to publicly relevant policy questions. Provider terms of service
+were reviewed and respected, and responses are redistributed solely for
+research under fair-use and reproducibility provisions, excluded from any
+commercial application.

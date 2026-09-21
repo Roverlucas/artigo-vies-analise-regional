@@ -1,30 +1,28 @@
-% Bloco unico, como a Elsevier exige. A abertura pela cena do gestor e
-% deliberada — ver a nota em sections/00_abstract.tex.
+% Bloco unico, como a Elsevier exige, e ate 250 palavras. A abertura pela cena
+% do gestor e deliberada; ver a nota em sections/00_abstract.tex.
 \begin{abstract}
 
-Um gestor ambiental municipal em São Paulo, Lagos ou Jacarta pergunta a um modelo
-de linguagem qual é o padrão vinculante de PM\textsubscript{2,5} em seu país. Nada
-na resposta diz se ela corresponde ao registro oficial, e não existe método
-estabelecido para conferir. Contribuímos com esse protocolo e relatamos o que ele
-encontra. Ele pontua respostas contra registros oficiais, decidindo por código
-sempre que a resposta correta é um valor publicado e por um painel de juízes de
-três fornecedores nos demais casos, e o aplicamos à regulação da poluição do ar em
-25 países, 14 configurações de acesso e quatro idiomas (\ncellspt{} células pontuadas). As três
-mitigações que um órgão consegue implantar sem construir nada falham, e a mais
-intuitiva piora a resposta: perguntar no idioma do próprio país \emph{reduz} a acurácia em
-\nnativa{} pontos percentuais (modelo misto com intercepto aleatório por país,
-$p=\nhtwomixedcountryp$; \nhtwocneg{} de nove países negativos) e torna o modelo \nverifdiffabs{} pontos
-menos propenso a devolver um valor verificável contra o registro; declarar o papel
-oficial não estreita a lacuna ($p=\npersonap$); e um modelo de 7B com ajuste
-regional fica em último entre os catorze. A acurácia também despenca na tarefa que carrega
-consequência administrativa, recuperar o valor vinculante: \ntasktoneshort{} contra \nfloorrestshort{} para
-síntese e recomendação. Uma lacuna Norte/Sul persiste ($\ntiergap$~pp, permutação
-$p=\ntiergapperm$), é maior nos desfechos adjudicados por código, que nenhum juiz toca, e
-se concentra onde a resposta depende de um fato nacional --- no padrão nacional,
-pontuado por código contra o instrumento em vigor, a chance do Sul Global é \nort{}
-da chance do Norte. O escopo é
-delimitado: medimos concordância com a regulação publicada em um domínio, não
-capacidade geral. O protocolo se transfere a qualquer domínio regulado cuja
+Um gestor ambiental municipal pergunta a um modelo de linguagem qual é o padrão
+vinculante de PM\textsubscript{2,5} em seu país, e nada na resposta diz se ela
+corresponde ao registro oficial. Propomos um protocolo para essa conferência e
+relatamos o que ele encontra. As respostas são pontuadas contra registros
+oficiais, por código sempre que a resposta correta é um valor publicado e por um
+painel de juízes de três fornecedores nos demais casos, em 25 países, 14
+configurações de acesso e quatro idiomas (\ncellspt{} células pontuadas). As três
+mitigações que um órgão consegue implantar sem construir nada falham. Perguntar
+no idioma do próprio país reduz a acurácia em \nnativa{} pontos percentuais
+(modelo misto com intercepto aleatório por país, $p=\nhtwomixedcountryp$) e torna
+o modelo \nverifdiffabs{} pontos menos propenso a devolver um valor conferível
+contra o registro; declarar o papel oficial não muda nada ($p=\npersonap$); e um
+modelo de 7B com ajuste regional fica em último entre os catorze. A acurácia é
+mais baixa na tarefa com consequência administrativa, recordar o valor
+vinculante (\ntasktoneshort{} contra \nfloorrestshort{} para síntese e
+recomendação). Uma lacuna Norte/Sul de $\ntiergap$~pp persiste (permutação por
+país, $p=\ntiergapperm$), é maior nos desfechos que nenhum juiz toca e se
+concentra nas tarefas cuja resposta é um fato nacional; no padrão nacional a
+razão de chances é \norrawone{}, com intervalo por país de $\norrawoneci$. Um
+mecanismo de cobertura de corpus não se estabelece quando a inferência é feita
+no nível do país. O protocolo se transfere a qualquer domínio regulado cuja
 resposta correta seja publicada.
 
 \end{abstract}

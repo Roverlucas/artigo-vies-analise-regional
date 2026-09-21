@@ -1,128 +1,144 @@
 \section{Trabalhos Relacionados}
 \label{sec:related}
 
-A literatura prévia corre por quatro fios: a medição do viés factual geográfico,
-extensões multilíngues e culturais, tentativas de mitigação, e o uso de LLMs em
-contextos de decisão de política e saúde.
+A literatura prévia corre por quatro fios: a medição do viés factual
+geográfico, extensões multilíngues e culturais, tentativas de mitigação, e o uso
+de LLMs em contextos de decisão de política e saúde.
 
 \subsection{Viés factual geográfico e extensões multilíngues}
 
 \citet{manvi2024llm} estabeleceram que LLMs de fronteira carregam vieses
 sistemáticos contra regiões de condições socioeconômicas mais baixas, com
-correlações de até 0.70 entre avaliações geradas pelo modelo e um proxy dessas
-condições --- ainda que o espaço de desfecho sejam avaliações subjetivas, o que
-deixa em aberto se o mesmo viés aparece na recuperação objetiva de fatos
-regulatórios. \citet{moayeri2024worldbench} quantificaram a recuperação factual
-contra indicadores do Banco Mundial em 20 LLMs, documentando erro relativo
-absoluto $1{,}5\times$ maior para a África Subsaariana do que para a América do
-Norte; seu desenho é limitado pelo espaço de indicadores macroeconômicos, enquanto
-um gestor ambiental faz perguntas mais estreitas e específicas de fonte, cujo
-gabarito vive em conselhos ambientais e agências de monitoramento, e não em uma
-única base agregada. \citet{mirza2024global} mostraram que versões mais novas do
-GPT-4 não melhoram monotonicamente e que o privilégio de afirmações sobre o Norte
-Global persiste.
+correlações de até 0,70 entre avaliações geradas pelo modelo e um proxy dessas
+condições; o espaço de desfecho são avaliações subjetivas, o que deixa em aberto
+se o mesmo viés aparece na recordação objetiva de fatos regulatórios.
+\citet{moayeri2024worldbench} quantificaram a recordação factual contra
+indicadores do Banco Mundial em 20 LLMs, documentando erro relativo absoluto
+$1{,}5\times$ maior para a África Subsaariana do que para a América do Norte; o
+desenho é limitado pelo espaço de indicadores macroeconômicos, enquanto um
+gestor ambiental faz perguntas mais estreitas e específicas de fonte, cujo
+gabarito vive em conselhos ambientais e agências de monitoramento.
+\citet{mirza2024global} mostraram que versões mais novas do GPT-4 não melhoram
+monotonicamente e que o privilégio de afirmações sobre o Norte Global persiste.
 
-Do lado multilíngue, \citet{myung2024blend} cobriram 16 países e 13 idiomas em
-conhecimento cultural cotidiano, constatando que os LLMs têm melhor desempenho nos
-idiomas nativos de culturas de alto recurso e pior nos de baixo recurso --- achado
-que motiva H2 e se conecta à hierarquia de recursos de \citet{joshi2020state}.
-Benchmarks regionais proliferaram: BRoverbs~\citep{broverbs2025},
-TiEBe~\citep{almeida2025tiebe}, ALBA~\citep{alba2026} e AMALIA~\citep{amalia2026}
-documentam falhas concretas em tarefas culturalmente ancoradas, mas não tratam do
-uso aplicado em política. O trabalho sobre construção de corpus em português é
-explícito ao dizer que o esforço se concentrou no inglês e que montar corpora
-eficazes para outros idiomas segue em aberto: \citet{almeida2025portuguese}
-montam um corpus de 120B tokens em português justamente porque são necessários
-pipelines específicos do idioma para alcançar qualidade industrial. É essa
-assimetria de quanto texto existe por idioma que H4 testa.
+A literatura de sondagem multilíngue estabeleceu cedo que o que um modelo
+recorda depende do idioma da consulta. \citet{jiang2020xfactr} sondaram fatos
+em formato cloze em 23 idiomas e encontraram acurácia abaixo de 15\% mesmo em
+inglês e espanhol e abaixo de 5\% em marathi e iorubá, com metade dos fatos
+corretamente recordados recordados em um único idioma; \citet{kassner2021mlama}
+traduziram os mesmos benchmarks para 53 idiomas e encontraram o mBERT abaixo
+de 60\% do seu desempenho em inglês em 32 deles, um viés para entidades do
+idioma da consulta e nenhuma relação clara entre o tamanho da Wikipédia de um
+idioma e sua recordação. Esses resultados dizem respeito a codificadores
+mascarados de 2020; a pergunta que levantam, se a recordação em um idioma
+acompanha o corpus desse idioma, é a que H2 e H4 fazem a modelos generativos.
+\citet{myung2024blend} cobriram 16 países e 13 idiomas em conhecimento
+cultural cotidiano, constatando que os LLMs têm melhor desempenho
+nos idiomas nativos de culturas de alto recurso e pior nos de baixo recurso, o
+achado que motiva H2 e se conecta à hierarquia de recursos de
+\citet{joshi2020state}. Benchmarks regionais proliferaram:
+BRoverbs~\citep{broverbs2025}, TiEBe~\citep{almeida2025tiebe},
+ALBA~\citep{alba2026} e AMALIA~\citep{amalia2026} documentam falhas concretas
+em tarefas culturalmente situadas, mas não tratam do uso aplicado em política
+pública. O trabalho de construção de corpora em português é explícito em que o
+esforço se concentrou no inglês: \citet{almeida2025portuguese} montam um corpus
+de 120 bilhões de tokens em português porque pipelines específicos por idioma
+são necessários para alcançar qualidade industrial. Essa assimetria na
+quantidade de texto por idioma é o que H4 testa.
 
 Esses estudos estabelecem que o fenômeno existe e é mensurável. Nenhum isola um
-domínio aplicado único com gabarito oficial verificável, e nenhum trata o
+único domínio aplicado com gabarito oficial verificável, e nenhum trata o
 enquadramento do prompt como fator manipulável.
 
 \subsection{Mitigação, persona e condicionamento por papel}
 
-\citet{opuszko2026unraveling} constataram que raciocínio ajuda em agregado mas não
-elimina disparidades regionais, e \citet{kerche2026silicon} propuseram uma
-tipologia de base territorial situando o viés geográfico em um panorama
-sociotécnico mais amplo. Ambos são conceituais e agregados.
+\citet{opuszko2026unraveling} constataram que o raciocínio ajuda no agregado,
+mas não elimina as disparidades regionais, e \citet{kerche2026silicon}
+propuseram uma tipologia baseada em lugar que situa o viés geográfico num
+panorama sociotécnico mais amplo. Ambos são conceituais e agregados.
 
-O condicionamento por papel não é uma prática folclórica, mas o que os
-fornecedores instruem seus próprios usuários a fazer: a Anthropic documenta a
-definição de papel no prompt de sistema~\citep{anthropic2026systemprompts}, o guia
-da OpenAI abre a estrutura de mensagem recomendada com um bloco de
-identidade~\citep{openai2026promptengineering}, a documentação do Gemini pede que
-definições de papel --- que ela chama de persona --- fiquem na instrução de
-sistema~\citep{google2026promptingstrategies}, o exemplo padrão da xAI inicia toda
-conversa com um prompt de sistema que atribui papel~\citep{xai2026chatguide}, e o
-padrão está catalogado na literatura de prompting~\citep{white2023prompt}. A evidência sistemática sobre se
-isso ajuda é desalentadora: em quatro famílias de LLM e 2.410 perguntas factuais,
-personas de especialista não melhoraram a acurácia frente a um controle sem
-persona e a \emph{reduziram} ligeiramente em 162 papéis~\citep{zheng2024helpful}.
-Um estudo independente com desenho diferente --- seis modelos em questões de
-múltipla escolha de nível de pós-graduação --- chega à mesma conclusão: casar a
-persona de especialista ao tipo do problema não teve efeito significativo sobre o
-desempenho~\citep{mollick2025personas}. Se o
-condicionamento por persona ajuda ou prejudica a confiabilidade factual em
-domínios de alto risco é, portanto, questão em aberto e, até onde sabemos, não
-testada para equidade geográfica. Tratamos persona como fator experimental
-pré-especificado e testamos tanto a hipótese de Conformidade Normativa (a persona
-reduz a lacuna) quanto a de Vácuo de Persona (a persona a amplifica).
+O condicionamento por papel é o que os fornecedores instruem os próprios
+usuários a fazer. A Anthropic documenta a definição de papel no prompt de
+sistema~\citep{anthropic2026systemprompts}, o guia da OpenAI abre a estrutura
+de mensagem recomendada com um bloco de identidade~\citep{openai2026promptengineering},
+a documentação do Gemini, da Google, pede que definições de papel, que ela
+chama de persona, sejam colocadas na instrução de
+sistema~\citep{google2026promptingstrategies}, o exemplo padrão da xAI inicia
+toda conversa com um prompt de sistema que atribui um
+papel~\citep{xai2026chatguide}, e o padrão está catalogado na literatura de
+prompting~\citep{white2023prompt}. A evidência sistemática sobre se isso ajuda
+é negativa: em quatro famílias de LLM e 2.410 perguntas factuais, personas de
+especialista não melhoraram a acurácia em relação a um controle sem persona e
+a reduziram ligeiramente em 162 papéis~\citep{zheng2024helpful}. Um estudo
+independente com seis modelos em questões de múltipla escolha de nível de
+pós-graduação chega à mesma conclusão: casar uma persona de especialista com o
+tipo de problema não teve efeito significativo no
+desempenho~\citep{mollick2025personas}. Se o condicionamento por persona ajuda
+ou prejudica a confiabilidade factual em domínios de alto risco é, portanto,
+questão em aberto e, até onde sabemos, não testada para equidade geográfica.
+Tratamos a persona como fator experimental pré-especificado e testamos tanto a
+hipótese de conformidade à norma (a persona reduz a lacuna) quanto a hipótese
+do vácuo de persona (a persona a amplia).
 
 \subsection{LLMs em política, saúde e na administração}
 
-\citet{lecoz2025policymaking} avaliaram recomendações de política de LLMs para
-situação de rua em quatro cidades --- Barcelona, Joanesburgo, South Bend e Macau
---- e leem o padrão como ``uma rigidez cega ao contexto e um possível viés
-ancorado no discurso online publicado sobre situação de rua nas regiões do mundo
-com dados super-representados nos LLMs'', contra especialistas que ajustaram suas
-decisões a realidades localmente codificadas. É um domínio e um tipo de tarefa,
-que generalizamos para cinco tipos abrangendo recuperação, síntese e
-recomendação. Em saúde, \citet{kozlakidis2026medical} argumentam que
-alucinações carregam risco agudo em ambientes regulatórios com capacidade técnica
-limitada, onde o descompasso linguístico e cultural aumenta o erro --- risco que se
-encontra com a carga de mortalidade documentada pelas estimativas do Global Burden
-of Disease~\citep{gbd2019risk}.
+\citet{lecoz2025policymaking} avaliaram recomendações de política de LLMs
+para a situação de rua em quatro cidades (Barcelona, Joanesburgo, South Bend e
+Macau) e leram o padrão como ``uma rigidez cega ao contexto e um viés potencial
+baseado no discurso online publicado sobre a situação de rua nas regiões do
+mundo com dados super-representados nos LLMs'', em contraste com especialistas
+que ajustaram as decisões a realidades codificadas localmente. Trata-se de um
+domínio e um tipo de tarefa, que generalizamos para cinco tipos de tarefa
+cobrindo recordação, síntese e recomendação. O precedente mais próximo num
+domínio regulado é \citet{dahl2024legal}, que fizeram a quatro modelos públicos
+perguntas verificáveis sobre casos federais dos Estados Unidos e encontraram
+taxas de alucinação entre 58\% e 88\%, mais altas para as cortes inferiores e
+as jurisdições menos proeminentes, e mais altas de novo para os casos mais
+antigos e os mais recentes, de modo que o conhecimento dos modelos fica atrás
+da doutrina em vigor; nosso piso de recordação e a análise da escada na
+Seção~\ref{sec:res:t1} são a contraparte ambiental desses dois gradientes. Na
+saúde, \citet{kozlakidis2026medical} argumentam que alucinações carregam risco agudo
+em ambientes regulatórios com capacidade técnica limitada, onde o descompasso
+de idioma e cultura aumenta o erro, um risco que encontra a carga de
+mortalidade documentada pelas estimativas do Global Burden of
+Disease~\citep{gbd2019risk}.
 
-A questão da implantação já não é hipotética. \citet{kim2026genai} estima efeitos
-de produtividade burocrática da IA generativa de forma quase-experimental, e
-\citet{robinson2026opensource} documenta que escolher qual modelo uma agência
-executa é hoje uma decisão explícita de compra entre opções de pesos abertos e
-hospedadas por fornecedor. Nossos dois achados no nível do modelo falam
-diretamente a ela: os modelos de pesos abertos, como grupo, ficam 12.9 pontos
-atrás dos fechados no composto, ainda que um modelo aberto (DeepSeek-V3) lidere
-o roster, e o modelo português com ajuste regional é o mais fraco dos catorze, de
-modo que as duas escolhas que uma agência poderia fazer por razões de soberania ou
-localidade são as duas que mais custam acurácia. Dois outros fios enquadram por que
-uma resposta errada importa administrativamente, e não apenas tecnicamente:
-\citet{choroszewicz2026crumple} mostra que ferramentas de apoio por IA generativa
-posicionam profissionais de linha de frente como ``zonas morais de amassamento'',
-absorvendo responsabilidade por falhas originadas a montante --- a posição de um
-servidor que protocola um parecer citando um limite de emissão revogado --- e
-\citet{cordella2024regulating}, analisando a primeira medida vinculante que um
-regulador impôs a um serviço de IA generativa --- a intervenção da Itália sobre o
-ChatGPT ---, argumentam que arcabouços neutros quanto à tecnologia não alcançam o
-que esses sistemas têm de específico e que reguladores precisam se envolver
-diretamente com o funcionamento técnico deles. A literatura sobre recepção é correspondentemente
-desenvolvida: \citet{aoki2024explainable} testam se o tipo de explicação muda a
-percepção de acurácia, justiça e confiabilidade entre os afetados.
+A questão da implantação já não é hipotética. \citet{kim2026genai} estima
+efeitos de produtividade burocrática da IA generativa de forma
+quase-experimental, e \citet{robinson2026opensource} documenta que escolher
+qual modelo um órgão roda é hoje uma decisão explícita de compra entre opções
+de pesos abertos e hospedadas pelo fornecedor. Nossos achados no nível do
+modelo falam a essa decisão: os modelos de pesos abertos, como grupo, ficam
+$\nhfive$~pontos abaixo dos fechados no composto, ainda que um modelo de pesos
+abertos (DeepSeek-V3) lidere a lista, e o modelo português com ajuste regional
+seja o mais fraco dos catorze. Dois outros fios enquadram por que uma resposta
+errada importa administrativamente. \citet{choroszewicz2026crumple} mostra que
+ferramentas de apoio com IA generativa posicionam os profissionais da linha de
+frente como ``zonas de deformação moral'', absorvendo a responsabilidade por
+falhas originadas a montante, e \citet{cordella2024regulating}, ao analisar a
+primeira medida vinculante que um regulador impôs a um serviço de IA generativa
+(a intervenção italiana sobre o ChatGPT), argumentam que arcabouços
+tecnologicamente neutros ignoram o que é específico desses sistemas e que os
+reguladores precisam engajar diretamente seu funcionamento técnico. Sobre a
+recepção, \citet{aoki2024explainable} testam se o tipo de explicação muda a
+acurácia, a justiça e a confiabilidade percebidas entre os afetados.
 
-O que nada disso estabelece é se a resposta subjacente está \emph{correta}, e se a
-correção se distribui igualmente entre os Estados que dela dependem.
-Confiabilidade percebida e acurácia medida são quantidades diferentes, e um
-sistema pode ser bem explicado, bem governado, bem recebido e errado. É essa a
-lacuna que este estudo aborda, em um domínio em que a resposta correta é publicada
-em registro oficial e pode ser conferida.
+Nada disso estabelece se a resposta subjacente está correta, nem se a correção
+se distribui de forma uniforme entre os Estados que dependem dela.
+Confiabilidade percebida e acurácia medida são grandezas diferentes, e um
+sistema pode ser bem explicado, bem governado, bem recebido e errado. Essa é a
+lacuna que este estudo enfrenta, num domínio em que a resposta correta está
+publicada num registro oficial e pode ser conferida.
 
 \subsection{Posicionamento do presente trabalho}
 
-Nosso desenho difere do trabalho prévio em quatro pontos: (i) um domínio aplicado
-único de alto risco com gabarito oficial verificável, em vez de trivialidades
-numéricas ou conhecimento cultural; (ii) persona como fator intrassujeito
-pré-especificado, em vez de escolha de enquadramento não controlada; (iii)
-amostragem de países orientada por teoria em eixos independentes (colonialidade da
-UNCTAD, recurso linguístico de Joshi, desenvolvimento), em vez de conveniência
-regional; e (iv) um teste explícito de mecanismo de representação no corpus com
-análise de sensibilidade. Nenhum estudo prévio combina um domínio regulado de
-saúde pública, uma manipulação de persona e um teste de mecanismo
-pré-especificado.
+O desenho difere do trabalho prévio em quatro aspectos: um único domínio
+aplicado de alto risco com gabarito oficial verificável, em vez de trivialidades
+numéricas ou conhecimento cultural; persona como fator intra-sujeito
+pré-especificado, em vez de escolha de enquadramento não controlada; amostragem
+de países orientada por teoria em eixos independentes (a divisão
+desenvolvido/em desenvolvimento da UNCTAD, recursos linguísticos de Joshi,
+desenvolvimento), em vez de conveniência regional; e um teste explícito do
+mecanismo de representação no corpus com análise de sensibilidade. Nenhum
+estudo anterior combina um domínio regulado de saúde pública, uma manipulação
+de persona e um teste de mecanismo pré-especificado.

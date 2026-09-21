@@ -128,6 +128,9 @@ def main():
              [py, "analysis/h4_proxies_corrigido.py"])
         step("C21. Primary family recomputed on the pre-specified 15 countries",
              [py, "analysis/pre15_corrigido.py"])
+        step("C21a. Cluster-level inference (country as the unit: H4 cluster-robust SEs, per-task OR "
+             "country bootstrap, EU as one cluster, balanced prompts, H6 TOST, floor/H3 by cluster, Fisher CI)",
+             [glmm_py, "analysis/cluster_inference.py"])
         step("C21b. Regenerate latex/numbers.tex (headline numbers as macros; the text never carries a number)",
              [py, "analysis/make_numbers_tex.py"])
         step("C21c. Regenerate the README hypothesis table from numbers.tex",

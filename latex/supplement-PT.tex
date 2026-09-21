@@ -33,7 +33,7 @@
 
 \title{Material Suplementar\\[0.3em]
 \large De qual regulação o modelo sabe? Confiabilidade da informação regulatória\\
-recuperada por LLMs para a gestão ambiental pública em 25 países}
+que os LLMs recordam para a gestão ambiental pública em 25 países}
 \author{}
 \date{}
 
@@ -52,7 +52,7 @@ resolvível de T2 e T3), pela média de um painel de três fornecedores
 (Gemini~2.5~Pro, Claude Sonnet~4.6, DeepSeek-V3) no resíduo de T2 e T3 e em toda a
 T4, e pelo juiz da coleta em T5 (\texttt{gpt-5-mini-2025-08-07} para os quinze
 países pré-especificados, \texttt{claude-haiku-4-5-20251001} para os dez da
-extensão). O corpus confirmatório analisado é composto por \ncellspt{} células
+extensão). O corpus principal analisado é composto por \ncellspt{} células
 pontuadas (\ncellsenpt{} com prompt em inglês; 1.671 em idioma nativo; 951 células
 receberam mais de um escore em reexecuções e foram colapsadas pela média; as 56
 células egípcias de T1, sem chave no registro, foram removidas) sobre 25 países e
@@ -68,9 +68,9 @@ na publicação sob CC-BY-4.0 (dados/prompts) e MIT (código).
 
 As hipóteses, os modelos primários, o protocolo de persona, os critérios de
 exclusão, as correções de comparações múltiplas e o quadro amostral de países
-foram especificados antes da coleta confirmatória de dados. O desenho
+foram especificados antes da coleta principal de dados. O desenho
 pré-especificado cobre 15 países; a amostra foi subsequentemente estendida,
-\emph{post registration}, para 25 países a fim de ganhar poder para o
+após a análise pré-especificada, para 25 países a fim de ganhar poder para o
 gradiente de desenvolvimento (H1) e para os testes de mecanismo de corpus (H4) e
 multiplicar os pares de idioma intra-país (H2). Ao longo do manuscrito e deste
 suplemento, todo efeito calculado na amostra de 25 países é reportado ao lado de
@@ -83,8 +83,8 @@ de economias desenvolvidas/em desenvolvimento da UNCTAD
 (operacionalizando o enquadramento da colonialidade do conhecimento), a taxonomia
 de seis classes de recurso linguístico de Joshi et al.\ (2020)~\citep{joshi2020state}
 e os grupos de renda do Banco Mundial. Os 15 pré-especificados (Conjunto ``P'' na
-Tabela~\ref{tab:s-cov-country}) abrangem quatro regiões do mundo, cinco classes de
-Joshi e quatro grupos de renda; os 10 países de extensão (Conjunto ``E'')
+Tabela~\ref{tab:s-cov-country}) abrangem quatro regiões do mundo, três classes de
+Joshi (doze dos quinze na Classe~5) e quatro grupos de renda; os 10 países de extensão (Conjunto ``E'')
 compreendem sete referências adicionais do Norte Global (Reino Unido, Canadá,
 Austrália, Coreia do Sul, França, Itália, Portugal) escolhidas para adensar a
 extremidade de alto desenvolvimento do gradiente, e três países adicionais do Sul
@@ -109,25 +109,23 @@ lacuna medida é uma propriedade dessa stack. A Tabela~\ref{tab:s-roster} lista 
 \input{supplement/tables/tab_s_roster}
 
 \paragraph{Determinismo e tratamento de seed.} Todas as stacks foram consultadas a
-temperatura~0,3 com a configuração de máximo determinismo que cada provedor
-documenta, e não com uma superfície idêntica de parâmetros, porque as superfícies
-diferem. O suporte a seed é heterogêneo: stacks servidas localmente (Ollama)
-honram uma seed fixa; a OpenAI expõe uma seed advisory; a Messages API da
-Anthropic não expõe parâmetro de seed; e, para os demais endpoints hospedados, a
-seed é advisory ou não é exposta. Para cada chamada registramos a seed solicitada
-e um campo \texttt{seed\_status} (\texttt{sent}, \texttt{logged-only} ou
-\texttt{not-supported}) nos metadados de execução liberados, de modo que o
-determinismo de fato alcançado seja auditável em vez de presumido. Duas replicações
-estocásticas por célula (prompt, modelo, persona) estimam a variabilidade
-intra-célula.
+temperatura~0,3, exceto a família GPT-5, que rejeita qualquer temperatura
+diferente da padrão e rodou a 1,0 com esforço de raciocínio mínimo. Nenhuma
+seed foi enviada a provedor algum: uma versão anterior deste suplemento
+descrevia um campo \texttt{seed\_status} por chamada, mas o cliente de coleta
+nunca definiu seed e os metadados de execução liberados não carregam tal campo.
+A correção está registrada na Tabela~\ref{tab:s-desvios-pt}. Duas replicações
+estocásticas por célula (prompt, modelo, persona) limitam, portanto, em vez de
+remover, a variabilidade intra-célula, e a Seção~\ref{sec:s-extra} compara os
+efeitos-manchete com essa variabilidade.
 
 \paragraph{Janela de aquisição.} O comportamento do modelo servido pode derivar à
 medida que fornecedores atualizam a infraestrutura, de modo que as acurácias
 reportadas são estimativas point-in-time relativas à janela de coleta. A tag
 fixada, a string de versão e o timestamp de aquisição são registrados para cada
-chamada. A coleta confirmatória ocorreu de 2026-04-26 a 2026-06-12 (UTC),
+chamada. A coleta principal ocorreu de 2026-04-26 a 2026-06-12 (UTC),
 abrangendo o piloto, a coleta pré-especificada de 15 países e a extensão
-post-registration para 25 países. A Tabela~\ref{tab:s-acquisition} dá o timestamp
+após a análise pré-especificada, para 25 países. A Tabela~\ref{tab:s-acquisition} dá o timestamp
 da primeira e da última chamada sem erro por provedor, junto com a documentação
 oficial de API consultada; os timestamps completos por chamada são liberados com o
 conjunto de dados.
@@ -277,13 +275,16 @@ deslocamento de brandura de um juiz se cancela e não ameaça esses contrastes -
 que é precisamente a razão de a análise usar a \emph{média} do painel em vez de
 qualquer juiz isolado, cuja confiabilidade sozinha seria ICC$(2,1)=0.56$.
 
-\section{Métodos estatísticos e saídas completas dos testes confirmatórios}\label{sec:s-stats}
+\section{Métodos estatísticos e saídas completas dos testes}\label{sec:s-stats}
 % ============================================================
 
-Os três testes confirmatórios primários formam uma única família (F1) corrigida em
+Os três testes primários formam uma única família (F1) corrigida em
 conjunto pelo procedimento step-down de Bonferroni--Holm ($\alpha=0,05$). Os testes
-confirmatórios secundários são reportados sem ajuste dentro da família; os testes
-declarados exploratórios usam FDR de Benjamini--Hochberg a $q=0,10$. As
+secundários são reportados sem ajuste dentro da família; os testes
+declarados exploratórios usam FDR de Benjamini--Hochberg a $q=0,10$, cuja
+garantia vale sob dependência positiva; Benjamini--Yekutieli, válida sob
+dependência arbitrária, devolve as mesmas decisões porque os valores de $p$
+exploratórios que ela cobre estão várias ordens de grandeza abaixo do limiar. As
 correlações de postos usam Spearman $\rho$; a robustez de tendência monotônica usa
 o teste de Mann--Kendall; o efeito de persona usa um teste de permutação em nível
 de país (5{,}000 permutações). Todas as saídas a seguir são regeneradas por
@@ -292,7 +293,7 @@ de país (5{,}000 permutações). Todas as saídas a seguir são regeneradas por
 
 \begin{table}[h]\centering
 \caption{Família primária (Bonferroni--Holm): valores pré-especificados de 15 países
-ao lado da extensão post-registration de 25 países. H1-por-IDH é o único teste
+ao lado da extensão post hoc de 25 países. H1-por-IDH é o único teste
 primário que rejeita sua hipótese nula a $n=25$; permanece abaixo do limiar de
 tamanho de efeito pré-especificado $\rho\geq 0,55$ em ambas as amostras.}
 \label{tab:s-primary}
@@ -360,7 +361,7 @@ H5 aberto vs fechado-acessível     & vantagem fechada de $\nhfive$~pp (descriti
 \end{table}
 
 % ============================================================
-\section{Análises adicionais de robustez e corroboração}
+\section{Análises adicionais de robustez e corroboração}\label{sec:s-extra}
 
 \emph{Sensibilidade da ponderação do composto.} Recomputamos cada efeito
 principal sob a ponderação dos autores, sob pesos iguais e sob ponderação derivada
@@ -500,8 +501,10 @@ $P(\beta<0)=\nbayesp$ ($\hat{R}=\nrhat$).
 
 \emph{E-values.} A lacuna de camada carrega um E-value de $\nevalue$ na estimativa
 pontual e $\nevaluelim$ no limite do intervalo mais próximo do nulo (aproximação de
-VanderWeele \& Ding 2017 a partir do efeito padronizado); o segundo é o número
-operativo, e é um limiar baixo. Nenhum E-value é relatado para o gradiente de
+VanderWeele \& Ding 2017, $\mathrm{RR}\approx\exp(0,91\,d)$, aplicada à diferença
+de médias padronizada da acurácia composta entre tiers, de modo que o estimando
+é essa diferença padronizada, e não uma razão de risco medida diretamente); o
+segundo é o número operativo, e é um limiar baixo. Nenhum E-value é relatado para o gradiente de
 desenvolvimento: seu intervalo já inclui o nulo, de modo que o E-value nesse limite
 é $1.00$ e nenhum confundidor é necessário.
 
@@ -518,11 +521,67 @@ público, de modo que o nulo de persona (H6) não é artefato de o enquadramento
 universalmente ignorado.
 
 % ============================================================
+\section{Inferência no nível do cluster e verificação de serviço}\label{sec:s-cluster}
+% ============================================================
+
+As respostas estão aninhadas em 25 países e 14 modelos, de modo que todo teste
+que o texto principal roda primeiro sobre respostas é rodado aqui de novo com o
+país ou o modelo como unidade. Todos os valores são regenerados por
+\texttt{code/analysis/cluster\_inference.py}.
+
+\begin{table}[h]
+\centering
+\footnotesize
+\caption{Versões no nível do cluster dos testes no nível da resposta do texto
+principal. Bootstrap por país = 10.000 reamostragens de países dentro do tier;
+permutação = 10.000 permutações do rótulo de tier com o país como unidade.
+\label{tab:s-cluster}}
+\begin{tabular}{p{5.6cm}p{4.0cm}p{4.4cm}}
+\toprule
+Grandeza & Nível da resposta & Nível do cluster \\
+\midrule
+H4 cobertura$\times$dependência, sozinha & $\beta=\nhfourbeta$, $p=\nhfourp$ & EP $\nhfourclse$ agrupado por país, $p=\nhfourclp$; 25 déficits $\rho=\nhfourctryrho$, $p=\nhfourctryp$ \\
+H4 com IDH$\times$dependência: cobertura & $p=\nhfourjcobp$ & $p=\nhfourjcobclp$ \\
+\quad IDH & $p=\nhfourjhdip$ & $p=\nhfourjhdiclp$ \\
+H4 IDH$\times$dependência sozinho & --- & $\beta=\nhfourhdialonebeta$, $p=\nhfourhdialoneclp$ \\
+H4 subconjunto anglófono (9) & $p=\nhfouranglop$ & $p=\nhfouranglclp$ \\
+RC T1 GS/GN & $\nortone$ $\nortoneci$ (condicional) & bruta $\norrawone$, IC país $\norrawoneci$, $p=\norrawonep$ \\
+RC T2 & $\norttwo$ $\norttwoci$ & $\norrawtwo$ $\norrawtwoci$, $p=\norrawtwop$ \\
+RC T3 & $\nortthree$ $\nortthreeci$ & $\norrawthree$ $\norrawthreeci$, $p=\norrawthreep$ \\
+RC T4 & $\nortfour$ $\nortfourci$ & $\norrawfour$ $\norrawfourci$, $p=\norrawfourp$ \\
+RC T5 & $\nortfive$ $\nortfiveci$ & $\norrawfive$ $\norrawfiveci$, $p=\norrawfivep$ \\
+Lacuna de tier do composto, UE como uma unidade & --- & $\ngapeu$~pp $\ngapeuci$, $p=\ngapeup$ \\
+Lacuna de tier do composto, prompts respondidos por todos os modelos (\ngapbalprompts{} de \ngapbaltotal) & --- & $\ngapbal$~pp $\ngapbalci$, $p=\ngapbalp$ \\
+H6 efeito principal da persona & $\npersonamain$~pp, $p=\npersonamainp$ (\npersonamainn{} pares) & teste $t$ por país $p=\npersonamainctryp$ \\
+H6 equivalência da DiD & DiD $\ndid$~pp & IC 90\% por país $\ndidcinety$, dentro de $\pm2$ e $\pm5$~pp \\
+Piso de recordação (T1--T2 menos T3--T5) & $\delta=\nfloordelta$ & por modelo $\nfloorbymodel$~pp, \nfloorbymodelneg/14, $p=\nfloorbymodelp$; por país $\nfloorbyctry$~pp, \nfloorbyctryneg/25, $p=\nfloorbyctryp$ \\
+H3 Cabra menos demais & $\delta=\nregdelta$ & por país $\nhthreebyctry$~pp, \nhthreebyctryneg/25, $p=\nhthreebyctryp$ \\
+H3 Cabra menos Llama 3.1 8B, português & $\delta=\nhthreelusdelta$ & por prompt $\nhthreenarrow$~pp, \nhthreenarrowneg/\nhthreenarrown, $p=\nhthreenarrowp$ \\
+$\rho$(acurácia, IDH) & $\rho=\nrho$, $p=\nrhop$ & IC 95\% de Fisher $[\nrhocilo,\nrhocihi]$; $n=15$: $[\nrhoprecilo,\nrhoprecihi]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Verificação de serviço do modelo regional.} O Modelfile do Ollama
+para o Cabra-Mistral~7B usa o template \texttt{[INST] \{\{ .Prompt \}\} [/INST]},
+que é o \texttt{chat\_template} publicado no \texttt{tokenizer\_config.json} do
+modelo (botbot-ai/CabraMistral-v3-7b-32k, lido em 21/09/2026); seu
+\texttt{config.json} nomeia o Mistral-7B-Instruct-v0.3 como base, e ambos são
+servidos em Q4\_K\_M. Os 30 prompts em português (Brasil, Portugal, Angola;
+cinco tarefas, duas personas) foram reservidos com duas réplicas ao Cabra, ao
+modelo-base e ao Llama~3.1~8B, e T1--T3 foram pontuadas com o extrator do estudo
+(\texttt{code/analysis/cabra\_sanity\_check.py}). Entre os itens resolvidos por
+código, o Cabra devolve o valor do registro em \ncabsanitycabra\%
+(\ncabsanityn{} vereditos factuais; \ncabsanityorig\% na coleta original), o
+modelo-base em \ncabsanitybase\% e o Llama~3.1~8B em \ncabsanityllama\%.
+\ncabrasanitysentencept{}
+
+% ============================================================
 \section{Desvios em relação ao plano de análise pré-especificado}
 \label{sec:s-desvios-pt}
 
 O plano de análise exigia que os afastamentos fossem registrados e classificados, e
-fixava um teto para eles: o estatuto confirmatório só se mantém se os desvios
+fixava um teto para eles: o estatuto pré-especificado só se mantém se os desvios
 afetarem no máximo 15\% das células planejadas. O escopo entregue é de 27.5\% da
 contagem planejada de respostas, de modo que o teto é excedido por larga margem, e
 o estudo é relatado como exploratório do começo ao fim.
@@ -534,7 +593,7 @@ Os desvios principais, com o efeito de cada um sobre a interpretação:
   quais \ncellspt{} entram na análise após remover as células egípcias de T1 sem chave.
   Aciona o próprio teto de 15\% do plano.
 \item Registro público. O plano deveria ser depositado em registro público
-  antes da coleta confirmatória; foi fixado em documento sob controle de versão e
+  antes da coleta principal; foi fixado em documento sob controle de versão e
   nunca depositado. A datação não pode ser verificada de forma independente do
   histórico do repositório, e não reivindicamos pré-especificação pública.
 \item Piloto de rubrica. Previsto piloto de 50 prompts com dois
@@ -546,7 +605,7 @@ Os desvios principais, com o efeito de cada um sobre a interpretação:
   Haiku~4.5 os dez da extensão, que contêm sete dos dez países do Norte Global,
   de modo que juiz e tier estavam confundidos nas pontuações julgadas. T1, T2 e
   T3 passam a ser adjudicadas por código contra registros oficiais onde o valor
-  devolvido é extraível (99.8\%, 56.3\% e 71.8\% das células); o resíduo e toda
+  devolvido é extraível (\ncodecovtone\%, \ncodecovttwo\% e \ncodecovtthree\% das células); o resíduo e toda
   a T4 são repontuados pela média do painel de três fornecedores; T5 mantém as
   pontuações dos juízes da coleta. Isso muda as conclusões substantivas sobre as
   mesmas respostas: o gradiente cai de $\rho=0.51$ ($p=0.004$) para $\rho=\nrho$
@@ -576,6 +635,24 @@ Os desvios principais, com o efeito de cada um sobre a interpretação:
 \item Cobertura de modelos. A cobertura não é uniforme; dois modelos estão
   ausentes de vários países após limitação de taxa e esgotamento de crédito. As
   médias por país são computadas sobre conjuntos de modelos distintos.
+\item Seed. O plano previa seed fixa onde o provedor a honrasse, com campo
+  \texttt{seed\_status} por chamada. Nenhuma seed foi enviada a provedor
+  algum e o campo não existe nos metadados; a descrição anterior estava errada
+  e é retirada. As réplicas a temperatura~0,3 limitam a variância intracélula, e
+  a Seção~\ref{sec:s-extra} a compara com os efeitos-manchete.
+\item Filtros de idioma e truncamento. O plano previa excluir e analisar à parte
+  respostas em idioma diferente do solicitado e respostas truncadas. Nenhuma
+  resposta foi excluída por esses motivos; respostas vazias são pontuadas como
+  não tendo devolvido valor (\nemptyen\% das respostas em inglês nas tarefas
+  pontuadas por código, \nemptyes\% em espanhol, \nemptypt\% em português,
+  \nemptyhi\% em hindi). A taxa maior de vazias sob prompts nativos faz parte do
+  efeito de H2 e é relatada como tal.
+\item Nível de inferência de H4. O plano previa $\rho$ de Spearman parcial no
+  nível do país. O modelo de interação no nível da resposta foi acrescentado
+  post hoc e é relatado com erros-padrão agrupados por país e com os 25
+  déficits por país (Seção~\ref{sec:s-cluster}); o valor de $p$ no nível da
+  resposta superestima a evidência, e H4 é relatada como não estabelecida no
+  nível do país.
 \end{itemize}
 
 Uma propriedade adicional do corpus de respostas, que não é desvio do plano mas
@@ -591,7 +668,7 @@ os efeitos em no máximo 0.06~pp.
 
 Os prompts foram autorados em inglês para o domínio de política de poluição do ar
 com supervisão de domínio (PPGSAU/UTFPR) e validados contra o registro de gabarito
-antes de entrar no conjunto de estímulos confirmatório; um subconjunto-piloto
+antes de entrar no conjunto de estímulos principal; um subconjunto-piloto
 atingiu um limiar inter-avaliadores de $\alpha$ de Krippendorff $\geq 0,70$ antes da
 escala. As versões em idioma nativo (português, espanhol, hindi) foram traduzidas e
 retrotraduzidas por falantes nativos; qualquer prompt cuja retrotradução produzisse
@@ -628,7 +705,7 @@ OMS 2021 de 5~$\mu$g/m\textsuperscript{3}'' (fonte: Resolução CONAMA 506/2024)
 prompts em idioma nativo aplicam o mesmo template, traduzido; por exemplo, o prompt
 T1 em hindi para a Índia é a fiel renderização em devanágari do item neutro em
 inglês, reproduzido verbatim no conjunto de prompts liberado. O conjunto completo de
-prompts (370 itens confirmatórios: 25 países $\times$ 5 tarefas $\times$ persona,
+prompts (370 itens do conjunto principal: 25 países $\times$ 5 tarefas $\times$ persona,
 mais os pares de idioma nativo) é liberado como
 \texttt{prompts\_confirmatory.jsonl} com o gabarito, a fonte e a rubrica por item.
 
