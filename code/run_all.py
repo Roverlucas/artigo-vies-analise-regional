@@ -58,6 +58,11 @@ def main():
         # back-translation census (analysis/back_translation_audit.py) are NOT
         # here because they spend API credit; their outputs are committed and
         # these steps consume them.
+        import hashlib
+        for _f in ("t1_registry.jsonl", "t2_registry.jsonl", "t3_registry.jsonl", "t4_reference_set.jsonl"):
+            _p = ROOT / "data" / "ground_truth" / _f
+            if _p.exists():
+                print(f"  registry {_f}: sha256 {hashlib.sha256(_p.read_bytes()).hexdigest()[:16]}")
         step("C0. Deterministic scoring of T1 (annual PM2.5 standard vs official register; "
              "abstention where no standard exists)",
              [py, "analysis/score_numeric.py", "--task", "T1"])

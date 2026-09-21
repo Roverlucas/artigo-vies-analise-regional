@@ -1,0 +1,82 @@
+critical_review:
+  lens: round-11 — segundo parecer externo (4 pontos "que derrubam", 2 de registro, 1 de corte); adjudicação + aplicação no mesmo fechamento
+  role: >-
+    Parecer é hipótese (R3). Cada item conferido contra fonte antes de editar. O item de
+    Bangladesh foi verificado no DoE (Tabela 3) e na S.R.O. 255-Law/2022; a chave estava
+    errada e o pipeline foi rodado de novo (run 3). Nenhuma chamada de API.
+  artifact_id: artigo-vies-analise-regional
+  date: 2026-09-21
+  verdict: >-
+    revisions-applied — 6 de 7 itens UPHELD e aplicados; o corte de 35–40% foi aplicado
+    parcialmente (Discussão §5.2–5.3 e §5.5 reescritas sem repetir números; OR de T1 de 10
+    menções para 5) e o restante fica como decisão do autor. Nenhum veredito muda. Gates limpos.
+  gates_run: [SA-QG-019, SA-QG-014 (gate ampliado: PROIBIDOS_SEMPRE cobre seções isentas; varredura dos 4 PDFs), SA-QG-010 (BGD na fonte), SA-QG-016, pytest 10/10, blind, highlights, method_audit]
+  findings:
+    - id: R11-1
+      source: parecer 2, item 1 (números que não batem)
+      issue: 62.5/83.6 vs 56.3/71.8; 6.629 vs 6.573; −4.6 (p=0.42) vs −4.8 (p=0.80); misto 0.087 vs 0.069; posterior 0.987 vs 0.994.
+      severity: MUST
+      status: resolved
+      resolution: >-
+        UPHELD — todos existiam (Métodos:335, S14 duas linhas, suplemento-PT). Causa: a seção "unit of
+        analysis" era ISENTA no gate e a S14 narra "de X para Y". Corrigidos; gate ganhou PROIBIDOS_SEMPRE
+        (vale mesmo em seção isenta) e uma varredura dos quatro PDFs em texto fechou a classe.
+    - id: R11-2
+      source: parecer 2, item 2 (abstract confirmatório; 839 células aninhadas)
+      issue: p=5e−16 trata células aninhadas em país×modelo como independentes.
+      severity: MUST
+      status: resolved
+      resolution: >-
+        UPHELD_MODIFIED. Modelo misto sobre diferenças pareadas com intercepto aleatório por país: −5.0 pp
+        (EP 1.0, p=6e−7); por modelo −4.8 (p=3e−9); país como unidade 8/9 negativos, t=−4.6, p=0.002;
+        modelo como unidade 12/14, Wilcoxon p=0.058. Abstract passa a citar o modelo misto por país e o 8/9.
+        (A versão com os dois componentes cruzados numa única group do statsmodels dá EP instável e não é reportada.)
+    - id: R11-3
+      source: parecer 2, item 3 (viés geográfico do juiz em T4)
+      issue: OR 0.33 em T4 soma déficit do modelo com déficit do juiz; em português o desfecho livre de juiz é +3.5 e o composto −4.2.
+      severity: MUST
+      status: resolved
+      resolution: >-
+        UPHELD para T4 (caveat no texto; re-julgar exige API — não feito). Lacuna só em desfechos de código:
+        GN 0.61 vs GS 0.46, +14.7 pp [+5.6,+23.9], perm p=0.012; OR agregada 0.53 (T1 0.32, T2 0.51, T3 0.65) —
+        maior que no composto, logo não é artefato de juiz. Português: o "+3.5" é taxa de devolver um número;
+        no veredito de código o português dá −9.1 pp (p=0.019) — devolve número igual, errado mais vezes.
+        Corrigida a leitura do revisor no texto.
+    - id: R11-4
+      source: parecer 2, item 4 (H3 / Cabra hobbista)
+      issue: "modelo regional fica em último" é trivial de escala; nenhuma agência compraria Cabra.
+      severity: SHOULD
+      status: partial
+      resolution: >-
+        UPHELD_MODIFIED. Texto passa a descrever o modelo como fine-tune comunitário de base 7B, não modelo
+        comercial procurável; para esses o achado é predição, não resultado. Manter "as três correções falham"
+        no abstract ou coletar Sabiá-3 (API, dado novo) é DECISÃO DO AUTOR.
+    - id: R11-5
+      source: parecer 2, registro (Bangladesh)
+      issue: Rules 2022 fixam PM2.5 anual em 35, não 15.
+      severity: MUST
+      status: resolved
+      resolution: >-
+        UPHELD — conferido no DoE, Ambient Air Quality in Bangladesh (2024), Tabela 3 (md5 844191d1…) e na S.R.O.
+        255-Law/2022 (md5 beb00bd2…). Chave 35, escada [35,15]. Pipeline rodado de novo: T1 OR 0.33→0.32,
+        BGD T1 0.39→0.30 (a maioria cita o valor superado), H5 12.8, E-value 1.31, 281/759 na escada.
+        Caso incorporado à lição metodológica (§5.5).
+    - id: R11-6
+      source: parecer 2, registro (hash de versão)
+      issue: registro se movendo no dia da submissão.
+      severity: SHOULD
+      status: resolved
+      resolution: UPHELD. SHA-256 (16 hex) dos 4 registros no suplemento (S-3 e S14), no README e impresso por run_all.py.
+    - id: R11-7
+      source: parecer 2, corte 35–40%
+      issue: §4.9 ≈ §5.5; §5.1–5.3 repetem §4.3–4.6; OR 0.33 sete vezes.
+      severity: SHOULD
+      status: partial
+      resolution: >-
+        PONTUAL aplicado: §5.2, §5.3 e §5.5 reescritas como interpretação sem repetir números; OR de T1 cai
+        de 10 para 5 menções no corpo. Corte de 35–40% do artigo inteiro é AMPLIAÇÃO de escopo editorial —
+        decisão do autor (corpo hoje ≈ 11,8 mil palavras).
+  open_items_at_log_time:
+    - Autor: manter "três correções" no abstract vs coletar Sabiá-3; corte adicional; ratificar freeze (run 3)
+    - Re-julgar T4 com o registro na prompt ou validação humana (API/humano)
+    - Validação humana ~150 respostas (inalterada como pendência decisiva)

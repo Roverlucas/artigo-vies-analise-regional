@@ -103,6 +103,18 @@ PROIBIDOS = [
 ]
 
 
+# Valores que NAO podem aparecer nem nas secoes isentas: nao sao "de X para Y",
+# sao simplesmente o numero errado. (O 6.629 escapou por estar numa secao isenta.)
+PROIBIDOS_SEMPRE = [
+    (r"6\{,\}629|6\.629",             "n ingles antes de excluir EGY",  "6,573"),
+    (r"62\.5\\% of T2|62\.5\\% de T2|83\.6\\%", "cobertura de codigo T2/T3 antiga", "56.3% / 71.8%"),
+    (r"p=0\.069|p=0\.42\b",         "p do modelo misto / permutacao antigos", "p=0.087 / p=0.80"),
+    (r"0\.994|-0\.052|-0\.066|\[-0\.092,-0\.016\]|-0\.048|\[-0\.090,-0\.009\]|p=0\.087", "bayesiano/misto desatualizados", "0.987 / -0.049 / -0.063 / p=0.086"),
+    (r"OR[ =~$]*0\.33\b|odds are \$?0\.33|0\.33 of the|0\.33 da chance|RC 0\.33|\+13\.0~pp|\$\+13\.0\$", "valores antes do BGD=35 (OR T1 0.33 / H5 13.0)", "0.32 / 12.8"),
+    (r"1\.30 at the confidence|\$1\.30\$ (?:at|no)", "E-value antes do BGD=35", "1.31"),
+    (r"\$-4\.6\$~pp",                "H2 fiel antigo",                 "-4.8 pp"),
+]
+
 # Markdown da raiz: valores pre-correcao em texto puro (sem a marcacao do LaTeX).
 MD_PROIBIDOS = [
     (r"\+6[.,]2\s*pp",           "tier gap pre-correcao",    "+5.4 pp"),
@@ -193,10 +205,10 @@ def ancoras(c: dict) -> list[tuple[str, str, tuple[str, ...]]]:
     return [
         ("penalidade de idioma",  fmt(abs(c["nativa_pp"]), 1),          RES_DISC),
         ("penalidade (abstract)", fmt(abs(c["nativa_pp"]), 1),          ABS),
-        ("gradiente HDI",         fmt(c["h1_rho_hdi"], 2),              RES_DISC),
+        ("gradiente HDI",         fmt(c["h1_rho_hdi"], 2),              RES),
         ("p do gradiente",        "p=" + fmt(c["h1_p"], 3),             RES),
-        ("piso T1+T2",            fmt(c["acc_t1t2"], 3),                RES_DISC),
-        ("piso delta",            fmt(c["cliff_piso"], 2),              RES_DISC),
+        ("piso T1+T2",            fmt(c["acc_t1t2"], 3),                RES),
+        ("piso delta",            fmt(c["cliff_piso"], 2),              RES),
         ("hindi",                 fmt(abs(c["hindi_pp"]), 1),           RES),
         ("n de pares H2",         "839",                                RES),
         ("gradiente a n=15",      fmt(c["h1_rho_pre15"], 2),            RES),
@@ -214,9 +226,9 @@ def ancoras(c: dict) -> list[tuple[str, str, tuple[str, ...]]]:
         ("LOCO rho max",          fmt(c["loo_rho_max"], 2),             RES),
         ("alpha do painel",       "0.527",                              RES_SUP),
         ("ICC(2,3)",              "0.791",                              RES_SUP),
-        ("bayesiano",             "-0.048",                             RES_SUP),
-        ("E-value no limite",     "1.30",                               RES_SUP),
-        ("OR de T1",              "0.33",                               RES),
+        ("bayesiano",             "-0.049",                             RES_SUP),
+        ("E-value no limite",     "1.31",                               RES_SUP),
+        ("OR de T1",              "0.32",                               RES),
         ("OR de T1 sem chave nao padrao", "0.39",                       RES),
         ("gradiente HDI (rho)",   fmt(c["h1_rho_hdi"], 2),              RES),
         ("familia primaria a n=15", "+0.079",                           ("supplement.tex",)),
@@ -266,6 +278,11 @@ def main() -> int:
             for m in re.finditer(padrao, txt):
                 if any(a <= m.start() < b for a, b in isentas):
                     continue
+                linha = semcom[:m.start()].count("\n") + 1
+                print(f"  FALHA {f.parent.name}/{f.name}:{linha}  {era} -> deveria ser {virou}")
+                falhas += 1
+        for padrao, era, virou in PROIBIDOS_SEMPRE:
+            for m in re.finditer(padrao, txt):
                 linha = semcom[:m.start()].count("\n") + 1
                 print(f"  FALHA {f.parent.name}/{f.name}:{linha}  {era} -> deveria ser {virou}")
                 falhas += 1

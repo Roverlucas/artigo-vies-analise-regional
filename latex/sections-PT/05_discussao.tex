@@ -16,7 +16,8 @@ apenas onde o desenho tem resolução para tanto.
 \subsection{Três mitigações intuitivas, todas falhando --- e uma que prejudica}
 
 O idioma local não ajuda e prejudica materialmente. Perguntar no idioma do próprio
-país reduz a acurácia em 5.0~pp, de forma significativa nos três idiomas, e a
+país reduz a acurácia em 5.0~pp, de forma significativa nos três idiomas e com o
+país como unidade de inferência, e a
 penalidade escala com a escassez do corpus daquele idioma, com a Índia --- país de
 maior pontuação entre os 25 em inglês --- caindo mais em hindi. Este é o mecanismo
 que a hierarquia de recursos prevê~\citep{joshi2020state,xue2021mt5}, e a medida
@@ -49,8 +50,11 @@ também fica atrás de seu par de escala equivalente nos prompts brasileiros em
 português para os quais foi ajustado (0.258 contra 0.313 do Llama~3.1~8B, em 20
 células cada), de modo que recorrer a um modelo pequeno com ajuste local troca a
 escala e o treinamento de fronteira que sustentam a acurácia no domínio sem
-comprar de volta o conhecimento local que promete; o teste estreito é pequeno, e
-pesamos a afirmação de acordo.
+comprar de volta o conhecimento local que promete. Dois limites delimitam isso:
+o teste estreito é pequeno, e o modelo que conseguimos rodar é um fine-tune
+comunitário de uma base de 7B, não um modelo regional de fronteira comercial do
+tipo que um órgão de fato compraria --- para esses o achado é uma predição, não
+um resultado, e o protocolo liberado é como testá-la.
 
 Profissionais implantam as três como soluções; nenhuma funciona, e a que um gestor
 tem mais chance de tentar primeiro causa dano ativo. Para as agências ambientais do
@@ -59,46 +63,31 @@ verificar o valor vinculante na fonte oficial.
 
 \subsection{O piso de recuperação recai sobre os valores que vinculam}
 
-A acurácia despenca nas tarefas que exigem devolver um valor específico em vigor:
-0.435 para recuperação normativa e de dado local, contra 0.612 para síntese e
-recomendação ($\delta=-0.41$), sendo mais profundo no próprio padrão nacional (T1,
-0.394). O risco recai de forma desigual: um gestor que redige prosa sobre política
-de qualidade do ar é comparativamente bem servido, enquanto um gestor que recupera
-o limite regulatório do qual depende uma decisão está na pior célula do desenho, e
-pior ainda se perguntar em um idioma de menos recursos. O piso é genuíno, e não
-artefato de pontuação: as duas tarefas de recuperação são agora decididas por
-código contra o registro, a T2 subiu de 0.368 para 0.473 quando sua chave de
-preenchimento foi reconstruída, e a T1, uma vez passada de dois juízes de coleta
-de severidades distintas para o código, continua a tarefa mais difícil em 0.394,
-com um terço de suas respostas erradas citando um valor da própria escada oficial
-do país e não um inventado.
+O risco recai de forma desigual. Um gestor que redige prosa sobre política de
+qualidade do ar é comparativamente bem servido; um gestor que recupera o limite
+regulatório do qual depende uma decisão está na pior célula do desenho
+(Seção~\ref{sec:res:tarefa}), e pior ainda se perguntar em um idioma de menos
+recursos. O piso não é artefato de pontuação: as duas tarefas de recuperação são
+decididas por código contra o registro, e mais de um terço das respostas erradas
+sobre o padrão nacional cita um valor da própria escada oficial do país, e não
+um inventado --- os modelos conhecem a escada, não o degrau que vincula.
 
 \subsection{Uma diferença de camada que podemos mostrar, e um gradiente que não}
 
-A H1 foi pré-especificada em duas partes, e a pontuação corrigida as separa: a
-lacuna de camada se sustenta e o gradiente monotônico não.
-
-Lida no composto, a lacuna parece modesta ($+5.0$~pp, IC bootstrap
-$[+1.5,+8.4]$), e tem o mesmo tamanho só dentro da onda de extensão e nos quinze
-pré-especificados, de modo que a onda que a coletou não a explica. Estimada
-tarefa a tarefa no desfecho binário de devolver o valor de registro, não é
-modesta: a lacuna escala com o quanto a resposta depende de um fato específico
-daquele país, de uma razão de chances de 0.33 no padrão nacional vinculante ---
-0.39 uma vez deixados de lado os países sem padrão ou com padrão não confirmado
---- até nenhuma lacuna na recomendação aberta, a única tarefa sem valor de
-registro a acertar. A desvantagem é concentrada, e mediar cinco tarefas em um
-composto a dilui com tarefas em que ela não existe. Na pergunta que um gestor de
-fato leva a esses sistemas --- qual é o padrão em vigor aqui ---, um país do Sul
-Global é servido a um terço das chances de um do Norte.
-
-O gradiente fica abaixo do limiar pré-especificado em toda leitura, e o nulo é informativo em vez de vazio porque o
-desenho tem 77\% de poder no $\rho=0.55$ pré-especificado: um gradiente da
-magnitude com que nos comprometemos está excluído, ao passo que um fraco não está.
-A Índia lidera os 25 países apesar de ser Sul Global; África do Sul e Indonésia superam a maior parte
-do Norte Global; Canadá e França ficam abaixo. A desvantagem é uma diferença de
-camada sobreposta a uma idiossincrasia substancial de cada país, e é essa
-idiossincrasia que uma correlação de postos sobre 25 países não tem resolução para
-atravessar.
+O achado geográfico é uma diferença entre grupos, não uma inclinação. A lacuna
+Norte/Sul no composto é modesta, tem o mesmo tamanho dentro da onda de extensão
+e nos quinze pré-especificados, e é concentrada: escala com o quanto a resposta
+depende de um fato específico do país e desaparece na única tarefa sem valor de
+registro a acertar (Seção~\ref{sec:res:h1}). Só nos desfechos adjudicados por
+código, em que nenhum juiz pode ter contribuído com um déficit próprio, ela é
+maior do que no composto. O gradiente de desenvolvimento fica abaixo do limiar
+pré-especificado em toda leitura, e esse nulo é informativo porque o desenho tem
+77\% de poder em $\rho=0.55$: um gradiente do tamanho com que nos comprometemos
+está excluído, um fraco não está. A ordenação dos países mostra por que os dois
+resultados diferem --- a Índia lidera os 25 países apesar de ser Sul Global,
+Canadá e França ficam abaixo ---, de modo que a desvantagem é uma diferença de
+camada sobreposta a uma idiossincrasia de cada país que uma correlação de postos
+sobre 25 países não consegue atravessar.
 
 \subsection{O mecanismo, onde o desenho tem resolução}
 
@@ -125,23 +114,29 @@ Estado desenvolvido, este estudo não consegue dizer.
 
 \subsection{A lição metodológica: a chave importa mais que a amostra}
 
-As mesmas células pontuadas sustentam conclusões substantivas diferentes conforme o
-instrumento usado para pontuá-las, e o tamanho dessa diferença é a lição. Pontuar
-duas das cinco tarefas contra gabarito de preenchimento, e delegar a um modelo de
-linguagem a aritmética de decidir se um número devolvido cai dentro de uma faixa
-autorizada, produz um gradiente de desenvolvimento de $\rho=0.51$ ($p=0.004$) e uma
-penalidade de idioma nativo de $-2.1$~pp. Reconstruir essas chaves a partir de
-registros oficiais e passar a comparação para o código reduz o gradiente a
-$\rho=0.36$, abaixo do limiar pré-especificado, mais que dobra a penalidade de
-idioma para $-5.0$~pp e converte o espanhol de nulo em dano significativo. Passar
-a terceira tarefa com valor de registro, T1, de um juiz para o código mudou a
-razão de chances-manchete dessa tarefa de 0.22 para 0.33, porque os dois juízes
-da coleta tinham sido divididos pela mesma linha que os tiers. O conjunto de dados não mudou; apenas o
-instrumento de medida. O instinto do campo, quando um efeito de viés geográfico se
-mostra frágil, é acrescentar países, mas o gabarito merece o escrutínio primeiro:
-uma chave defeituosa não apenas acrescenta ruído, ela acrescenta ruído
-\emph{estruturado}, porque os defeitos se concentram onde o dado oficial é mais
-difícil de obter --- que é exatamente onde a hipótese vive.
+As mesmas células pontuadas sustentam conclusões substantivas diferentes conforme
+o instrumento usado para pontuá-las, e o tamanho dessa diferença é a lição.
+Pontuar duas tarefas contra chaves de preenchimento e delegar a aritmética de
+faixa a um juiz produziu um gradiente de desenvolvimento significativo e uma
+penalidade de idioma pequena; reconstruir as chaves a partir de registros
+oficiais e passar a comparação para o código reduziu o gradiente à metade e mais
+que dobrou a penalidade (Seções~\ref{sec:res:h1} e \ref{sec:res:h2}). Passar a
+terceira tarefa com valor de registro de dois juízes de coleta para o código
+mudou sua razão de chances-manchete em um terço, porque os juízes tinham sido
+divididos pela mesma linha que os tiers. E a própria chave seguiu se movendo sob
+escrutínio: a entrada do Reino Unido trazia uma meta para 2040 no lugar do
+limite em vigor, e a de Bangladesh trazia o valor de 2005 depois que as Rules de
+2022 o haviam elevado, de modo que um modelo que citava o padrão vigente correto
+de um país do Sul Global estava sendo pontuado como errado até que um leitor
+externo o pegasse. O conjunto de dados nunca mudou; apenas o instrumento. O
+instinto do campo, quando um efeito de viés geográfico se mostra frágil, é
+acrescentar países, mas o gabarito merece o escrutínio primeiro: uma chave
+defeituosa não apenas acrescenta ruído, acrescenta ruído \emph{estruturado},
+porque os defeitos se concentram onde os textos oficiais são mais difíceis de
+obter ou foram revisados mais recentemente --- exatamente onde vive a hipótese.
+O registro liberado carrega, por isso, um hash de conteúdo (material
+suplementar), para que qualquer leitor saiba contra qual versão da chave cada
+número foi computado.
 
 \subsection{Por que o domínio importa}
 

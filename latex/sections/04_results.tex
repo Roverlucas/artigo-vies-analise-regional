@@ -105,7 +105,7 @@ task by a wide margin is T1 (technical-standard recall, 0.394) --- the
 task that requires returning the national annual PM\textsubscript{2.5} standard
 in force. The open recommendation task (T5) scores highest (0.769) because its
 rubric rewards plausible, well-structured policy advice that does not hinge on a
-single fact. Pooling the two recall tasks (T1, T2; mean $0.435$) against
+single fact. Pooling the two recall tasks (T1, T2; mean $0.434$) against
 synthesis and recommendation (T3--T5, $0.612$), the difference is large
 (Mann-Whitney $p\approx 0$, Cliff's $\delta=-0.41$, roughly two and a half
 losses for every win). LLMs are weakest exactly where applied environmental management
@@ -118,8 +118,8 @@ once each returned concentration is compared with the authorised range by code:
 the correction moved the task whose key was defective. T1 always had an official
 key but was scored by two collection judges of different severity, and moving it
 to code raises it from $0.367$ to $0.394$ while keeping it the hardest task;
-the code verdict also shows what the judges could not, that a third of the
-wrong T1 answers (259 of 754) cite a value that sits on the country's official
+the code verdict also shows what the judges could not, that more than a third of
+the wrong T1 answers (281 of 759) cite a value that sits on the country's official
 ladder --- a superseded value or a future stage --- rather than a fabricated
 one (Section~\ref{sec:results:t1}). The floor is real, shallower than first
 reported, and concentrated in normative recall (T1).
@@ -156,9 +156,17 @@ within-country and within-model. Replicates are averaged within each (model,
 prompt) cell before pairing, since pairing replicate-to-replicate would inflate
 $n$ and make the test anticonservative. Across the 839 matched cells,
 native-language prompting \emph{lowers} mean composite accuracy by 5.0 percentage
-points (Wilcoxon signed-rank $p=5\times10^{-16}$). The penalty tracks the resource
-level of the language, and all three are significant (Table~\ref{tab:h2}): Hindi
-$-11.4$~pp, Spanish $-4.5$~pp, Portuguese $-4.2$~pp. India, which scores highest
+points (Wilcoxon signed-rank $p=5\times10^{-16}$). That test treats cells as
+independent, and they are nested in nine countries and fourteen models, so we
+also report the inference that respects the nesting: a mixed model on the paired
+differences with a random intercept per country gives $-5.0$~pp
+(SE $1.0$, $p=6\times10^{-7}$), with a random intercept per model $-4.8$~pp
+($p=3\times10^{-9}$); with the country as the unit ($n=9$) the penalty is
+negative in eight of nine and averages $-5.1\pm1.1$~pp ($t=-4.6$, $p=0.002$);
+with the model as the unit ($n=14$) it is negative in twelve of fourteen
+(Wilcoxon $p=0.058$). The penalty tracks the resource level of the language,
+and all three are significant (Table~\ref{tab:h2}): Hindi $-11.4$~pp, Spanish
+$-4.5$~pp, Portuguese $-4.2$~pp. India, which scores highest
 of all 25 countries in English, drops the furthest in Hindi.
 
 Because H2 carries the study's central claim, we tried to make it disappear rather
@@ -178,9 +186,15 @@ Spanish-language number is not penalised for its notation
 the time and native-language prompts $62.5\%$, a paired difference of $-9.4$~pp,
 with the native version worse in 134 of the 218 discordant pairs (sign test
 $p=9\times10^{-4}$): Hindi $-39.5$~pp, Spanish $-13.4$~pp, while Portuguese, the
-best-resourced of the three, shows no such loss ($+3.5$~pp). Asking in the local
-language does not merely lower a judged score; where the language is scarce it
-makes the model substantially less likely to return a checkable number at all.
+best-resourced of the three, shows no such loss ($+3.5$~pp). Portuguese
+responses return a number as readily as English ones; the number is more often
+wrong. On the code verdict itself (native minus English, cells adjudicated by
+code in both languages) the Portuguese penalty is $-9.1$~pp ($n=132$, $p=0.019$)
+and the Spanish one $-2.1$~points ($n=165$, not significant), $-5.0$~pp overall
+($n=318$, $p=0.048$). Asking in the local language does not merely lower a
+judged score; where the language is scarce it makes the model less likely to
+return a checkable number at all, and where the language is well resourced it
+makes the number returned less often right.
 
 The second is that the native prompts, produced by an LLM translator, might simply
 ask something different. We tested this on all 90 unique native prompts --- a
@@ -253,16 +267,22 @@ H1 was pre-specified in two parts, and they separate cleanly.
 
 The ten Global North countries average $0.572$ against
 $0.521$ for the fifteen Global South countries, a gap of $+5.0$ percentage points
-whose 95\% bootstrap confidence interval over countries is $[+1.5,+8.4]$~pp and
+whose 95\% bootstrap confidence interval over countries is $[+1.6,+8.4]$~pp and
 \emph{excludes zero} (permutation of the tier label, country as unit,
-$p=0.021$). It is stable to dropping any single country (leave-one-out
-$[+4.4,+5.9]$~pp) and to the composite weighting ($+4.2$~pp under equal weights,
-$+8.7$~pp on the factual subcomponent, where it widens). Because seven of the ten
+$p=0.019$). It is stable to dropping any single country (leave-one-out
+$[+4.4,+6.0]$~pp) and to the composite weighting ($+4.2$~pp under equal weights,
+$+8.7$~pp on the factual subcomponent, where it widens). It does not depend on
+the judges: on the code-adjudicated outcomes alone (all of T1 and the resolved
+part of T2 and T3), where no model scored anything, Global North countries
+return the register value $0.61$ of the time and Global South countries
+$0.46$, a gap of $+14.7$~pp $[+5.6,+23.9]$ (permutation $p=0.012$), and the
+pooled odds ratio is $0.53$ $[0.48,0.58]$. Whatever the panel adds on the judged
+tasks, the gap is there before any judge is consulted. Because seven of the ten
 Global North countries entered with the extension, we also report the gap where
 the wave cannot explain it: within the extension alone (seven Global North
-against Colombia, Chile and Angola) it is $+5.9$~pp $[+2.3,+9.6]$, and on the
+against Colombia, Chile and Angola) it is $+5.9$~pp $[+2.4,+9.6]$, and on the
 pre-specified fifteen (three Global North against twelve) $+6.0$~pp
-$[+1.7,+10.2]$, a point estimate of the same size on a sample too small to make
+$[+1.8,+10.3]$, a point estimate of the same size on a sample too small to make
 it significant by permutation ($p=0.13$). The gap is a property of the data, not
 of the wave that collected it.
 
@@ -273,15 +293,18 @@ coded as returning the register value, with crossed random intercepts for countr
 and model --- shows the disadvantage scaling with how much the task depends on a
 fact specific to that country (Table~\ref{tab:tier-by-task}). On the binding
 national standard (T1), scored by code against the instrument in force, the
-Global South odds of returning the register value are $0.33$ of the Global
-North's ($50.7\%$ versus $31.6\%$ raw), and on policy instruments (T4) also
+Global South odds of returning the register value are $0.32$ of the Global
+North's ($50.7\%$ versus $30.9\%$ raw), and on policy instruments (T4)
 $0.33$; on health-evidence synthesis (T3), where the answer is an international
 estimate rather than a national one, the ratio rises to $0.69$; and on open
 recommendation (T5), the one task with no register value to get right, the gap
 disappears entirely. The T1 ratio survives the two objections its composition
-invites (Section~\ref{sec:results:t1}): setting aside the four Global South
-countries whose key is not a plainly verified national value it is $0.39$
-$[0.31,0.50]$, and on the pre-specified fifteen it is $0.27$ $[0.21,0.34]$. The
+invites (Section~\ref{sec:results:t1}): setting aside the three Global South
+countries with no national standard it is $0.39$ $[0.32,0.49]$, and on the
+pre-specified fifteen it is $0.27$ $[0.21,0.34]$. T4 is the one task in the
+table scored entirely by the panel, so its ratio could carry a judge's own
+ignorance of Southern instruments as well as the model's; the code-only
+estimates above are the ones free of that. The
 gap is not weak --- it is \emph{concentrated}, and the composite dilutes it by
 averaging tasks where it is severe with a task where it does not exist. On the
 question a public manager most often brings to these systems, what is the
@@ -304,7 +327,7 @@ country and model.}
 \toprule
 Task & Answer is & GN & GS & OR & 95\% interval \\
 \midrule
-T1 (technical standard)     & a national value        & 50.7\% & 31.6\% & 0.33 & $[0.27,0.40]$ \\
+T1 (technical standard)     & a national value        & 50.7\% & 30.9\% & 0.32 & $[0.27,0.39]$ \\
 T4 (policy instruments)     & national instruments    & 62.0\% & 44.7\% & 0.33 & $[0.26,0.40]$ \\
 T2 (local measured datum)   & a national value        & 50.7\% & 37.8\% & 0.47 & $[0.39,0.55]$ \\
 T3 (health-evidence synth.) & an international estimate& 59.1\% & 52.3\% & 0.69 & $[0.59,0.80]$ \\
@@ -319,7 +342,7 @@ $\rho(\text{accuracy},\text{HDI})=+0.36$ does not reach conventional significanc
 $\rho\geq0.55$ threshold, which is the criterion H1 was fixed against. At the
 pre-specified $n=15$ it is essentially absent ($\rho=+0.08$), and no
 leave-one-country-out re-estimate reaches $0.55$ either (range $[+0.30,+0.48]$);
-under equal weights it is $0.35$ and under PCA weights $0.37$. We
+under equal weights it is $0.36$ and under PCA weights $0.38$. We
 therefore report a tier difference we can demonstrate and a development gradient
 we cannot: the disadvantage is established as a difference between groups, while
 its shape across the development range remains exploratory. Under Bonferroni-Holm
@@ -419,7 +442,7 @@ remains descriptive.
 \subsection{H5 --- open versus closed-accessible}
 \label{sec:results:h5}
 
-Closed-accessible models average $+13.0$~pp above open-weight ones, against the
+Closed-accessible models average $+12.8$~pp above open-weight ones, against the
 optimistic H5 framing. The open arm includes larger models, so the gap is not
 attributable to scale alone, although DeepSeek-V3 ranks first overall. H5 is
 interpreted descriptively.
@@ -435,12 +458,16 @@ UNEP Global Assessment of Air Pollution Legislation. Three countries have \emph{
 national PM\textsubscript{2.5} standard, confirmed from the official text ---
 Nigeria regulates PM\textsubscript{10} only, Argentina has no binding federal
 value, Angola no national legislation --- which is where a faithful model must
-decline to state a non-existent threshold. Two keys are not fully verified
-(Bangladesh, scored against its 2005 gazette; Egypt, with no retrievable value
-and therefore no T1 key), and all five of these cases are Global South, so the
-composition of the key is itself a candidate explanation for the T1 gap. It is
-not: set them aside and the Global South odds on T1 are $0.39$ $[0.31,0.50]$ of
-the Global North's, against $0.33$ with them. The full registry is in
+decline to state a non-existent threshold. Egypt has no retrievable value and therefore no T1 key. All four of these cases
+are Global South, so the composition of the key is itself a candidate
+explanation for the T1 gap. It is not: set the three no-standard countries
+aside and the Global South odds on T1 are $0.39$ $[0.32,0.49]$ of the Global
+North's, against $0.32$ with them. The key also moved under review, in the
+Southern direction the argument of Section~\ref{sec:discussion} predicts:
+Bangladesh's entry carried the 15~$\mu$g/m\textsuperscript{3} of its 2005
+gazette until an external reader pointed to the 2022 Rules, which set 35, and
+with the corrected key Bangladesh's T1 accuracy \emph{falls} from $0.39$ to
+$0.30$, because most models cite the superseded value. The full registry is in
 Supplementary Material. Wikipedia and Wikidata appear only as the explanatory
 variable of the mechanism test; no answer is scored against them.
 
@@ -449,19 +476,20 @@ ladder of values rather than one: Brazil's CONAMA 506/2024 runs 20, 17, 15, 10,
 5~$\mu$g/m\textsuperscript{3} across five stages, of which 17 has been in force
 since January 2025; the European limit is 25 with 10 from 2030; the United
 Kingdom's limit value is 20 with an English target of 10 by 2040; the United
-States moved from 12.0 to 9.0 in 2024. The T1 key is the value in force in the
+States moved from 12.0 to 9.0 in 2024; Bangladesh from 15 to 35 in 2022. The T1
+key is the value in force in the
 collection window, and it is exacting: no model returns 17 for Brazil (the modal
 answer is 15, the next stage), almost none returns 20 for the United Kingdom
 (most return the 2040 target or the superseded 25), and fewer than a quarter
-return 9.0 for the United States. Of the 754 wrong T1 answers, 259 cite a value
+return 9.0 for the United States. Of the 759 wrong T1 answers, 281 cite a value
 that sits somewhere on the country's official ladder --- a stage not yet in
 force or a value since replaced --- which is confusion about \emph{which} value
 binds, not fabrication, and is the failure a training cut-off would produce. The
 distinction does not rescue the tier comparison, it sharpens it: scoring any
 ladder value as correct raises Global North accuracy on T1 from $0.51$ to $0.77$
-and Global South accuracy only from $0.32$ to $0.40$, because the staged
-instruments are mostly in the North, and the odds ratio falls to $0.12$
-$[0.10,0.15]$. Where the register offers several plausible numbers the models
+and Global South accuracy only from $0.31$ to $0.42$, because the staged
+instruments are mostly in the North, and the odds ratio falls to $0.14$
+$[0.11,0.16]$. Where the register offers several plausible numbers the models
 know them; where it offers one, they often do not.
 
 \subsection{Qualitative failure modes}
@@ -521,14 +549,14 @@ roughly ten standard errors from the noise two replicates leave unresolved.
 permutation test shuffles the North/South labels among the 25 countries ten
 thousand times and counts how often chance alone produces a gap this large; it
 assumes nothing about the distribution and treats the country, not the answer, as
-the independent unit. Chance clears the observed gap $2.1\%$ of the time
-($p=0.021$). A Bayesian hierarchical model with crossed random intercepts agrees
-($\beta=-0.048$, 94\% HDI $[-0.090,-0.009]$, $P(\beta<0)=0.987$), while a
+the independent unit. Chance clears the observed gap $1.9\%$ of the time
+($p=0.019$). A Bayesian hierarchical model with crossed random intercepts agrees
+($\beta=-0.049$, 94\% HDI $[-0.088,-0.006]$, $P(\beta<0)=0.987$), while a
 frequentist mixed model returns the same magnitude and sign but leaves it marginal
-($\beta=-0.063$, $p=0.087$), because it charges the large between-country
+($\beta=-0.063$, $p=0.086$), because it charges the large between-country
 heterogeneity to the error term. Two of three tests clear zero and all three agree
 on magnitude, so we report the gap as supported and specification-sensitive, with
-an E-value of $1.70$ at the point estimate and $1.30$ at the confidence limit
+an E-value of $1.71$ at the point estimate and $1.31$ at the confidence limit
 nearest the null~\citep{vanderweele2017evalue} --- a country-level confounder of
 modest strength would suffice to explain it away.
 
@@ -581,7 +609,7 @@ Hypothesis & Finding & Mechanism \\
 \addlinespace[2pt]
 H2 language        & $-5.0$~pp; Hindi $-11.4$    & language corpus \\
 H3 regional model  & $\delta=-0.48$, worst of 14 & scale over tuning \\
-H1 tier gap        & $+5.0$~pp; OR $0.33$ on T1  & tier \\
+H1 tier gap        & $+5.0$~pp; OR $0.32$ on T1  & tier \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Supported, mechanism not separable}} \\
 \addlinespace[2pt]
@@ -595,7 +623,7 @@ H6 persona         & DiD $+0.5$~pp, $p=0.29$     & --- \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Descriptive only}} \\
 \addlinespace[2pt]
-H5 open/closed     & $+13.0$~pp for closed       & access type \\
+H5 open/closed     & $+12.8$~pp for closed       & access type \\
 \bottomrule
 \end{tabular}
 

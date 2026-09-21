@@ -16,16 +16,16 @@
 
 A versão em inglês é a autoritativa. As 66 páginas são efeito do espaçamento duplo exigido na submissão (13 delas são referências); a métrica que o GIQ avalia é a contagem de palavras, ~11.800 no corpo.
 
-**Versão de 21/09 à noite (v2):** incorpora a rodada 10 — T1 adjudicado por código, dois juízes de coleta declarados, chave do Reino Unido corrigida (20, não 10), Egito excluído de T1, H4 rebaixado, Métodos reescritos para o estudo entregue e ~60 números propagados. Descarte o pacote enviado mais cedo no mesmo dia, se o recebeu.
+**Versão de 21/09 (v3, após o 2º parecer externo):** chave de Bangladesh corrigida na fonte (35, Rules 2022), H2 reportado com o país como unidade de inferência, lacuna Norte/Sul também nos desfechos só de código (+14,7 pp), modelo regional descrito como fine-tune comunitário de 7B, Discussão compactada, hash de versão dos registros. **Versão v2:** incorpora a rodada 10 — T1 adjudicado por código, dois juízes de coleta declarados, chave do Reino Unido corrigida (20, não 10), Egito excluído de T1, H4 rebaixado, Métodos reescritos para o estudo entregue e ~60 números propagados. Descarte o pacote enviado mais cedo no mesmo dia, se o recebeu.
 
 ## O que o artigo afirma (todos os números saem de `data/processed/freeze_all_effects.json`, reproduzível com `python code/run_all.py --confirmatory`)
 
-- **Achado principal (H2):** perguntar na língua do país **piora** a acurácia em **−5,0 pp** (Wilcoxon p = 5×10⁻¹⁶, n = 839 pares). Hindi −11,4 pp, espanhol −4,5, português −4,2. Resiste a leave-one-out de país e de modelo, trimming, reponderação do composto e separação por instrumento de pontuação.
+- **Achado principal (H2):** perguntar na língua do país **piora** a acurácia em **−5,0 pp** (modelo misto com intercepto por país p = 6×10⁻⁷; 8 de 9 países negativos, t = −4,6, p = 0,002; Wilcoxon sobre as 839 células p = 5×10⁻¹⁶). Hindi −11,4 pp, espanhol −4,5, português −4,2. Resiste a leave-one-out de país e de modelo, trimming, reponderação do composto e separação por instrumento de pontuação.
 - **Lacuna Norte/Sul (H1):** +5,0 pp [+1,5, +8,4] (permutação p = 0,021) sob a partição developing/developed da UNCTAD; mesmo tamanho só dentro da onda de extensão e nos 15 pré-especificados. O gradiente com IDH (ρ = 0,36, p = 0,076) fica **abaixo do critério pré-fixado (ρ ≥ 0,55)** e é exploratório.
-- **T1 por código:** no padrão nacional, a chance do Sul Global é **0,33** da do Norte [0,27, 0,40]; 0,39 sem os países de chave não padrão; 0,12 sob chave tolerante à escada (o Norte é que tem escadas). Sob os juízes originais era 0,22 — e os dois juízes estavam divididos pela mesma linha dos tiers.
+- **T1 por código:** no padrão nacional, a chance do Sul Global é **0,32** da do Norte [0,27, 0,39]; 0,39 sem os três países sem padrão; 0,14 sob chave tolerante à escada (o Norte é que tem escadas). Sob os juízes originais era 0,22 — e os dois juízes estavam divididos pela mesma linha dos tiers. Só nos desfechos de código (nenhum juiz), a lacuna por país é +14,7 pp [5,6, 23,9].
 - **Modelo regional (H3):** o pior dos 14 (δ = −0,48); e perde para o Llama 3.1 8B também em português no Brasil (0,258 vs 0,313, n = 20).
 - **Persona de gestor local (H6):** não ajuda (+0,5 pp, p = 0,29).
-- **Aberto vs. fechado (H5):** +13,0 pp a favor dos fechados.
+- **Aberto vs. fechado (H5):** +12,8 pp a favor dos fechados.
 - **Piso de recuperação factual:** T1+T2 0,435 contra 0,612 em síntese/recomendação (δ = −0,41); T1 sozinha 0,394.
 - **H4 (mecanismo):** dentro do país, cobertura×tarefa e IDH×tarefa são colineares (ρ = 0,65); juntas, o IDH fica (β = +0,027) e a cobertura não (β = +0,012, p = 0,063). O texto agora diz que o mecanismo é identificado só até o par cobertura-ou-desenvolvimento.
 
@@ -44,7 +44,7 @@ Os gabaritos de T2/T3 eram placeholders e a comparação "o valor está na faixa
 
 1. Ler o manuscrito em inglês (ou a versão PT) e anotar diretamente no PDF ou por e-mail.
 2. Confirmar afiliação, ORCID e **e-mail institucional** (Dominski e Azevedo: ainda não temos).
-3. Dizer se concorda com a força da claim principal (H2), com o enquadramento exploratório de H1 e com o rebaixamento de H4 (mecanismo identificado só até o par cobertura-ou-desenvolvimento).
+3. Dizer se concorda com a força da claim principal (H2), com o enquadramento exploratório de H1, com o rebaixamento de H4 (mecanismo identificado só até o par cobertura-ou-desenvolvimento) e com manter "as três correções falham" no abstract sendo o modelo regional um fine-tune comunitário de 7B (a alternativa é coletar um Sabiá-3).
 4. Sinalizar qualquer outra ferramenta de IA usada, para a declaração exigida pela Elsevier.
 
 Sem a aprovação explícita dos cinco, não submetemos.

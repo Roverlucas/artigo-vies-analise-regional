@@ -16,7 +16,8 @@ identify the channel behind it only where the design has the resolution to do so
 \subsection{Three intuitive remedies, all failing --- and one that harms}
 
 The local language does not help and materially hurts. Asking in the country's own
-language lowers accuracy by $5.0$~pp, significantly in all three languages, and
+language lowers accuracy by $5.0$~pp, significantly in all three languages and
+with the country as the unit of inference, and
 the penalty scales with the scarcity of the language's corpus, with India --- the
 highest-scoring country of all 25 in English --- falling furthest in Hindi. This
 is the mechanism the resource hierarchy
@@ -48,8 +49,11 @@ The regional model is the \emph{worst} performer of all fourteen
 Portuguese-language Brazilian prompts it was tuned for ($0.258$ against $0.313$
 for Llama~3.1~8B, on 20 cells each), so reaching for a locally tuned small model
 trades away the scale and frontier training that carry domain accuracy without
-buying back the local knowledge it promises; the narrow test is small, and we
-weight the claim accordingly.
+buying back the local knowledge it promises. Two limits bound this: the narrow
+test is small, and the model we could run is a community fine-tune of a 7B base,
+not a commercial regional frontier model of the kind an agency might actually
+procure --- for those the finding is a prediction, not a result, and the
+released protocol is how to test it.
 
 Practitioners deploy all three as fixes; none works, and the one a manager is most
 likely to try first does active damage. For Global South environmental agencies,
@@ -58,46 +62,31 @@ value against the official source.
 
 \subsection{The recall floor sits on the values that bind}
 
-Accuracy collapses on the tasks that require returning a specific value in force:
-$0.435$ for normative and local-datum recall against $0.612$ for synthesis and
-recommendation ($\delta=-0.41$), deepest on the national standard itself
-($0.394$). The risk falls unevenly: a manager drafting prose about air quality
-policy is comparatively well served, a manager retrieving the regulatory cutoff a
-decision turns on is in the worst cell of the design, and worse still if they ask
-in a lower-resource language. The floor is genuine rather than an artefact of
-scoring: both recall tasks are now decided by code against the register, T2
-rose from $0.368$ to $0.473$ when its placeholder key was rebuilt, and T1, once
-moved from two collection judges of different severity to code, stays the hardest
-task at $0.394$, with a third of its wrong answers citing a value from the
-country's own official ladder rather than an invented one.
+The risk falls unevenly. A manager drafting prose about air quality policy is
+comparatively well served; a manager retrieving the regulatory cutoff a decision
+turns on is in the worst cell of the design (Section~\ref{sec:results:task}),
+and worse still if they ask in a lower-resource language. The floor is not an
+artefact of scoring: both recall tasks are decided by code against the register,
+and a third of the wrong answers on the national standard cite a value from the
+country's own official ladder rather than an invented one --- the models know the
+ladder and not which rung binds.
 
 \subsection{A tier difference we can show, and a gradient we cannot}
 
-H1 was pre-specified in two parts, and the corrected scoring separates them: the
-tier gap holds and the monotonic gradient does not.
-
-Read on the composite the gap looks modest ($+5.0$~pp, bootstrap CI
-$[+1.5,+8.4]$), and it is the same size inside the extension wave alone and on
-the pre-specified fifteen, so the wave that collected it does not explain it.
-Estimated task by task on the binary outcome of returning the register value, it
-is not modest: the gap scales with how much the answer depends on a fact specific
-to that country, from an odds ratio of $0.33$ on the binding national standard
---- $0.39$ once the countries with no or unconfirmed standard are set aside ---
-to no gap at all on open recommendation, the one task with no register value to
-get right. The disadvantage is concentrated, and averaging five tasks into one
-composite dilutes it with tasks where it does not exist. On the question a
-manager actually brings to these systems --- what is the standard in force here
---- a Global South country is served at a third of the odds of a Global North
-one. That is the faithful statement of the geographic finding.
-
-The gradient stays below the pre-specified threshold on every reading, and the null is informative rather than empty
-because the design has $77\%$ power at the pre-specified $\rho=0.55$: a gradient
-of the magnitude we committed to is excluded, while a weak one is not. The country
-ordering shows why the two results differ. India tops all 25 countries despite
-being Global South; South Africa and Indonesia outrank most of the Global North;
-Canada and France sit low. The disadvantage is a tier difference layered over
-substantial country-specific idiosyncrasy, and that idiosyncrasy is what a rank
-correlation over 25 countries lacks the resolution to see through.
+The geographic finding is a difference between groups, not a slope. The
+North/South gap on the composite is modest, is the same size inside the
+extension wave and on the pre-specified fifteen, and is concentrated: it scales
+with how much the answer depends on a fact specific to the country, and
+disappears on the one task with no register value to get right
+(Section~\ref{sec:results:h1}). On the code-adjudicated outcomes alone, where no
+judge can have contributed a deficit of its own, it is larger than on the
+composite. The development gradient stays below the pre-specified threshold on
+every reading, and that null is informative because the design has $77\%$ power
+at $\rho=0.55$: a gradient of the size we committed to is excluded, a weak one is
+not. The country ordering shows why the two results differ --- India tops all 25
+countries despite being Global South, Canada and France sit low --- so the
+disadvantage is a tier difference layered over country-specific idiosyncrasy
+that a rank correlation over 25 countries cannot see through.
 
 \subsection{The mechanism, where the design has resolution}
 
@@ -126,22 +115,26 @@ this study cannot say.
 \subsection{The methodological lesson: the key matters more than the sample}
 
 The same scored cells support different substantive conclusions depending on
-the instrument used to score them, and the size of that difference is the lesson.
-Scoring two of the five tasks against placeholder ground truth, and delegating to
-a language model the arithmetic of deciding whether a returned number fell inside
-an authorised range, yields a development gradient of $\rho=0.51$ ($p=0.004$) and
-a native-language penalty of $-2.1$~pp. Rebuilding those keys from official
-registers and moving the comparison into code cuts the gradient to $\rho=0.36$,
-below the pre-specified threshold, more than doubles the language penalty to
-$-5.0$~pp, and converts Spanish from a null into a significant harm. Moving the
-third register-valued task, T1, from a judge to code changed the headline odds
-ratio on that task from $0.22$ to $0.33$, because the two collection judges had
-been split along the same line as the tiers. The dataset did not change; only the
-measuring instrument did. The field's instinct when a geographic-bias effect
-proves fragile is to add countries, but the ground truth deserves the scrutiny
-first: a defective key does not merely add noise, it adds \emph{structured} noise,
-because the defects concentrate wherever official data are hardest to obtain ---
-which is exactly where the hypothesis lives.
+the instrument used to score them, and the size of that difference is the
+lesson. Scoring two tasks against placeholder keys and delegating range
+arithmetic to a judge yielded a significant development gradient and a small
+language penalty; rebuilding the keys from official registers and moving the
+comparison into code halved the gradient and more than doubled the penalty
+(Section~\ref{sec:results:h1}, \ref{sec:results:h2}). Moving the third
+register-valued task from two collection judges to code changed its headline
+odds ratio by a third, because the judges had been split along the same line as
+the tiers. And the key itself kept moving under scrutiny: the United Kingdom
+entry carried a 2040 target in place of the limit in force, and the Bangladesh
+entry carried the 2005 value after the 2022 Rules had raised it, so that a model
+citing the correct current standard for a Global South country was being scored
+wrong until an external reader caught it. The dataset never changed; only the
+instrument did. The field's instinct when a geographic-bias effect proves
+fragile is to add countries, but the ground truth deserves the scrutiny first: a
+defective key does not merely add noise, it adds \emph{structured} noise,
+because the defects concentrate wherever official texts are hardest to obtain or
+most recently revised --- which is exactly where the hypothesis lives. The
+released registry therefore carries a content hash (Supplementary Material) so
+that any reader can tell which version of the key a number was computed against.
 
 \subsection{Why the domain matters}
 
@@ -229,7 +222,7 @@ separate the two, which the per-call provenance we release already enables.
 
 The three fixes practitioners reach for first fail together:
 the local language actively harms, the persona frame does nothing, and the
-regional model is the single worst performer of fourteen. A benchmark's most
+regionally fine-tuned 7B model is the single worst performer of fourteen. A benchmark's most
 useful output is often telling the field what does not work, with effect sizes
 behind it. The methodological result
 is that in this literature the ground-truth key, not the sample size, is the

@@ -107,7 +107,7 @@ difícil por larga margem é a T1 (recuperação do padrão técnico, 0.394), qu
 devolver o padrão nacional de média anual de PM\textsubscript{2,5} em vigor. A
 recomendação aberta (T5) tem a maior pontuação (0.769) porque sua rubrica premia
 conselho de política plausível e bem estruturado, que não depende de um fato único.
-Agrupando as duas tarefas de recuperação (T1, T2; média 0.435) contra síntese e
+Agrupando as duas tarefas de recuperação (T1, T2; média 0.434) contra síntese e
 recomendação (T3--T5, 0.612), a diferença é grande (Mann-Whitney $p\approx 0$,
 $\delta$ de Cliff $=-0.41$, cerca de duas perdas e meia para cada vitória). Os
 LLMs são mais fracos exatamente onde a gestão ambiental aplicada mais precisa
@@ -119,8 +119,8 @@ concentração devolvida passa a ser comparada por código com a faixa autorizad
 correção moveu a tarefa cuja chave era defeituosa. A T1 sempre teve chave oficial,
 mas era pontuada por dois juízes de coleta de severidades distintas, e passá-la
 ao código a eleva de 0.367 para 0.394 mantendo-a como a tarefa mais difícil; o
-veredito de código também mostra o que os juízes não podiam: um terço das
-respostas erradas de T1 (259 de 754) cita um valor que está na escada oficial do
+veredito de código também mostra o que os juízes não podiam: mais de um terço
+das respostas erradas de T1 (281 de 759) cita um valor que está na escada oficial do
 país --- um valor superado ou uma etapa futura --- e não um valor inventado
 (Seção~\ref{sec:res:t1}). O piso é real, mais raso do que se relatou primeiro, e
 concentrado na recuperação normativa (T1).
@@ -155,7 +155,15 @@ país e dentro do modelo. As replicações são mediadas dentro de cada célula 
 prompt) antes do pareamento, já que parear replicação a replicação inflaria o $n$ e
 tornaria o teste anticonservador. Nas 839 células casadas, o prompt em idioma
 nativo \emph{reduz} a acurácia composta média em 5.0 pontos percentuais (Wilcoxon
-$p=5\times10^{-16}$). A penalidade acompanha o nível de recurso do idioma, e as
+$p=5\times10^{-16}$). Esse teste trata as células como independentes, e elas
+estão aninhadas em nove países e catorze modelos, de modo que reportamos também
+a inferência que respeita o aninhamento: um modelo misto sobre as diferenças
+pareadas com intercepto aleatório por país dá $-5.0$~pp (EP 1.0,
+$p=6\times10^{-7}$), com intercepto aleatório por modelo $-4.8$~pp
+($p=3\times10^{-9}$); com o país como unidade ($n=9$) a penalidade é negativa
+em oito de nove e tem média $-5.1\pm1.1$~pp ($t=-4.6$, $p=0.002$); com o modelo
+como unidade ($n=14$) é negativa em doze de catorze (Wilcoxon $p=0.058$). A
+penalidade acompanha o nível de recurso do idioma, e as
 três são significativas (Tabela~\ref{tab:h2}): hindi $-11.4$~pp, espanhol
 $-4.5$~pp, português $-4.2$~pp. A Índia, que pontua mais alto entre os 25 em
 inglês, é a que mais cai em hindi.
@@ -177,10 +185,15 @@ que um número em hindi ou em espanhol não é penalizado pela notação
 das vezes e em idioma nativo em 62.5\%, uma diferença pareada de $-9.4$~pp, com
 a versão nativa pior em 134 dos 218 pares discordantes (teste de sinais
 $p=9\times10^{-4}$): hindi $-39.5$~pp, espanhol $-13.4$~pp, enquanto o
-português, o mais bem provido dos três, não mostra tal perda ($+3.5$~pp).
+português, o mais bem provido dos três, não mostra tal perda ($+3.5$~pp). As
+respostas em português devolvem um número tão prontamente quanto as em inglês; o
+número é errado com mais frequência. No próprio veredito de código (nativo menos
+inglês, células adjudicadas por código nos dois idiomas) a penalidade do
+português é de $-9.1$~pp ($n=132$, $p=0.019$) e a do espanhol de $-2.1$ pontos
+($n=165$, não significativa), $-5.0$~pp no geral ($n=318$, $p=0.048$).
 Perguntar no idioma local não apenas reduz uma nota julgada; onde o idioma é
-escasso, torna o modelo substancialmente menos propenso a devolver um número
-conferível.
+escasso, torna o modelo menos propenso a devolver um número conferível, e onde o
+idioma é bem provido torna o número devolvido menos vezes certo.
 
 O segundo é que os prompts nativos, produzidos por um tradutor LLM, poderiam
 simplesmente perguntar outra coisa. Testamos isso em todos os 90 prompts nativos
@@ -253,15 +266,21 @@ sustenta e a outra não.
 
 A lacuna de camada se sustenta. Os dez países do Norte Global têm média de 0.572
 contra 0.521 dos quinze do Sul Global, uma lacuna de $+5.0$ pontos percentuais cujo
-intervalo de confiança bootstrap de 95\% entre países é $[+1.5,+8.4]$~pp e
+intervalo de confiança bootstrap de 95\% entre países é $[+1.6,+8.4]$~pp e
 \emph{exclui o zero} (permutação do rótulo de camada, país como unidade,
-$p=0.021$). Ela é estável à remoção de qualquer país isolado
-(leave-one-out $[+4.4,+5.9]$~pp) e à ponderação do composto ($+4.2$~pp sob pesos
-iguais, $+8.7$~pp apenas no subcomponente factual, onde se amplia). Como sete dos
+$p=0.019$). Ela é estável à remoção de qualquer país isolado
+(leave-one-out $[+4.4,+6.0]$~pp) e à ponderação do composto ($+4.2$~pp sob pesos
+iguais, $+8.7$~pp apenas no subcomponente factual, onde se amplia). Ela não
+depende dos juízes: só nos desfechos adjudicados por código (toda a T1 e a parte
+resolvida de T2 e T3), em que nenhum modelo pontuou nada, os países do Norte
+Global devolvem o valor de registro em 0.61 das vezes e os do Sul Global em
+0.46, uma lacuna de $+14.7$~pp $[+5.6,+23.9]$ (permutação $p=0.012$), e a razão
+de chances agregada é 0.53 $[0.48,0.58]$. O que quer que o painel acrescente nas
+tarefas julgadas, a lacuna já está lá antes de qualquer juiz ser consultado. Como sete dos
 dez países do Norte Global entraram com a extensão, reportamos também a lacuna
 onde a onda não pode explicá-la: só dentro da extensão (sete do Norte contra
-Colômbia, Chile e Angola) ela é de $+5.9$~pp $[+2.3,+9.6]$, e nos quinze
-pré-especificados (três do Norte contra doze) de $+6.0$~pp $[+1.7,+10.2]$, uma
+Colômbia, Chile e Angola) ela é de $+5.9$~pp $[+2.4,+9.6]$, e nos quinze
+pré-especificados (três do Norte contra doze) de $+6.0$~pp $[+1.8,+10.3]$, uma
 estimativa pontual do mesmo tamanho numa amostra pequena demais para
 significância por permutação ($p=0.13$). A lacuna é propriedade dos dados, não
 da onda que os coletou.
@@ -273,15 +292,18 @@ codificado como devolver o valor de registro, com interceptos aleatórios cruzad
 país e modelo ---, a desvantagem escala com o quanto a tarefa depende de um fato
 específico daquele país (Tabela~\ref{tab:camada-por-tarefa}). No padrão nacional
 vinculante (T1), pontuado por código contra o instrumento em vigor, a chance de
-o Sul Global devolver o valor de registro é 0.33 da chance do Norte (50.7\%
-contra 31.6\% em taxa bruta), e nos instrumentos de política (T4) também 0.33;
+o Sul Global devolver o valor de registro é 0.32 da chance do Norte (50.7\%
+contra 30.9\% em taxa bruta), e nos instrumentos de política (T4) 0.33;
 na síntese de evidência em saúde (T3), em que a resposta é uma estimativa
 internacional e não nacional, a razão sobe para 0.69; e na recomendação aberta
 (T5), a única tarefa sem valor de registro a acertar, a lacuna desaparece
 inteiramente. A razão de T1 sobrevive às duas objeções que sua composição convida
-(Seção~\ref{sec:res:t1}): deixando de lado os quatro países do Sul Global cuja
-chave não é um valor nacional plenamente verificado ela é 0.39 $[0.31,0.50]$, e
-nos quinze pré-especificados é 0.27 $[0.21,0.34]$. A lacuna não é fraca --- ela
+(Seção~\ref{sec:res:t1}): deixando de lado os três países do Sul Global sem
+padrão nacional ela é 0.39 $[0.32,0.49]$, e nos quinze pré-especificados é 0.27
+$[0.21,0.34]$. A T4 é a única tarefa da tabela pontuada inteiramente pelo
+painel, de modo que sua razão pode carregar a ignorância do próprio juiz sobre
+os instrumentos do Sul além da do modelo; as estimativas só de código acima são
+as livres disso. A lacuna não é fraca --- ela
 é \emph{concentrada}, e o composto a dilui ao mediar tarefas em que é severa com
 uma tarefa em que não existe. Na pergunta que um gestor público mais leva a esses
 sistemas, qual é o padrão em vigor aqui, um país do Sul Global é servido a um
@@ -301,7 +323,7 @@ interceptos aleatórios cruzados para país e modelo.}
 \toprule
 Tarefa & A resposta é & NG & SG & RC & Intervalo 95\% \\
 \midrule
-T1 (padrão técnico)          & um valor nacional      & 50.7\% & 31.6\% & 0.33 & $[0.27,0.40]$ \\
+T1 (padrão técnico)          & um valor nacional      & 50.7\% & 30.9\% & 0.32 & $[0.27,0.39]$ \\
 T4 (instrumentos)            & instrumentos nacionais & 62.0\% & 44.7\% & 0.33 & $[0.26,0.40]$ \\
 T2 (dado medido local)       & um valor nacional      & 50.7\% & 37.8\% & 0.47 & $[0.39,0.55]$ \\
 T3 (síntese de evid.\ saúde) & estimativa internac.   & 59.1\% & 52.3\% & 0.69 & $[0.59,0.80]$ \\
@@ -316,7 +338,7 @@ entre acurácia e IDH é de $+0.36$ e não alcança a significância convenciona
 pré-especificado $\rho\geq0.55$, que é o critério contra o qual H1 foi fixada.
 No $n=15$ pré-especificado ele está essencialmente ausente ($\rho=+0.08$), e
 nenhuma reestimação \emph{leave-one-country-out} alcança o limiar de $0.55$
-(faixa $[+0.30,+0.48]$); sob pesos iguais é $0.35$ e sob pesos de ACP $0.37$. Relatamos, portanto, uma diferença de camada que
+(faixa $[+0.30,+0.48]$); sob pesos iguais é $0.36$ e sob pesos de ACP $0.38$. Relatamos, portanto, uma diferença de camada que
 conseguimos demonstrar e um gradiente de desenvolvimento que não: a desvantagem
 está estabelecida como diferença entre grupos, enquanto sua forma ao longo da faixa
 de desenvolvimento permanece exploratória. Sob Bonferroni-Holm na família primária
@@ -414,7 +436,7 @@ permaneça descritivo.
 \subsection{H5 --- abertos versus fechados acessíveis}
 \label{sec:res:h5}
 
-Modelos fechados acessíveis têm média $+13.0$~pp acima dos de pesos abertos, contra
+Modelos fechados acessíveis têm média $+12.8$~pp acima dos de pesos abertos, contra
 o enquadramento otimista de H5. O braço aberto inclui modelos maiores, de modo que
 a lacuna não é atribuível apenas à escala, ainda que o DeepSeek-V3 lidere no geral.
 H5 é interpretada descritivamente.
@@ -430,12 +452,16 @@ e T4 do Global Assessment of Air Pollution Legislation do PNUMA. Três países
 \emph{não} têm padrão nacional de PM\textsubscript{2,5}, confirmado no texto
 oficial --- a Nigéria regula apenas PM\textsubscript{10}, a Argentina não tem valor
 federal vinculante, Angola não tem legislação nacional ---, e é aí que um modelo
-fiel deve se recusar a declarar um limiar inexistente. Duas chaves não estão
-plenamente verificadas (Bangladesh, pontuado contra seu diário oficial de 2005;
-Egito, sem valor recuperável e portanto sem chave de T1), e todos esses cinco
-casos são do Sul Global, de modo que a composição da chave é ela própria uma
-explicação candidata para a lacuna de T1. Não é: deixando-os de lado, a chance do
-Sul Global em T1 é 0.39 $[0.31,0.50]$ da do Norte, contra 0.33 com eles. O
+fiel deve se recusar a declarar um limiar inexistente. O Egito não tem valor recuperável e, portanto, não tem chave de T1. Todos esses
+quatro casos são do Sul Global, de modo que a composição da chave é ela própria
+uma explicação candidata para a lacuna de T1. Não é: deixando de lado os três
+países sem padrão, a chance do Sul Global em T1 é 0.39 $[0.32,0.49]$ da do
+Norte, contra 0.32 com eles. A chave também se moveu sob revisão, na direção
+que o argumento da Seção~\ref{sec:discussao} prevê: a entrada de Bangladesh
+trazia os 15~$\mu$g/m\textsuperscript{3} do diário oficial de 2005 até que um
+leitor externo apontasse as Rules de 2022, que fixam 35, e com a chave corrigida
+a acurácia de Bangladesh em T1 \emph{cai} de 0.39 para 0.30, porque a maioria
+dos modelos cita o valor superado. O
 registro completo está no suplemento. Wikipédia e Wikidata aparecem apenas como
 variável explicativa do teste de mecanismo; nenhuma resposta é pontuada contra
 elas.
@@ -445,19 +471,20 @@ escada de valores em vez de um só: a Resolução CONAMA 506/2024 do Brasil perc
 20, 17, 15, 10, 5~$\mu$g/m\textsuperscript{3} em cinco etapas, das quais 17 está
 em vigor desde janeiro de 2025; o limite europeu é 25 com 10 a partir de 2030; o
 valor-limite do Reino Unido é 20 com uma meta inglesa de 10 até 2040; os Estados
-Unidos passaram de 12,0 para 9,0 em 2024. A chave de T1 é o valor em vigor na
+Unidos passaram de 12,0 para 9,0 em 2024; Bangladesh de 15 para 35 em 2022. A
+chave de T1 é o valor em vigor na
 janela de coleta, e ela é exigente: nenhum modelo devolve 17 para o Brasil (a
 resposta modal é 15, a etapa seguinte), quase nenhum devolve 20 para o Reino
 Unido (a maioria devolve a meta de 2040 ou o 25 superado), e menos de um quarto
-devolve 9,0 para os Estados Unidos. Das 754 respostas erradas de T1, 259 citam um
+devolve 9,0 para os Estados Unidos. Das 759 respostas erradas de T1, 281 citam um
 valor que está em algum degrau da escada oficial do país --- uma etapa ainda não
 vigente ou um valor já substituído ---, o que é confusão sobre \emph{qual} valor
 vincula, não fabricação, e é a falha que um corte de treinamento produziria. A
 distinção não salva a comparação entre tiers, ela a aguça: pontuar qualquer valor
 da escada como correto eleva a acurácia do Norte Global em T1 de 0.51 para 0.77 e
-a do Sul Global apenas de 0.32 para 0.40, porque os instrumentos escalonados
-estão em sua maioria no Norte, e a razão de chances cai para 0.12
-$[0.10,0.15]$. Onde o registro oferece vários números plausíveis os modelos os
+a do Sul Global apenas de 0.31 para 0.42, porque os instrumentos escalonados
+estão em sua maioria no Norte, e a razão de chances cai para 0.14
+$[0.11,0.16]$. Onde o registro oferece vários números plausíveis os modelos os
 conhecem; onde oferece um só, com frequência não.
 
 \subsection{Modos qualitativos de falha}
@@ -518,14 +545,14 @@ duas réplicas deixam por resolver.
 famílias de modelo.} Um teste de permutação embaralha os rótulos Norte/Sul entre os
 25 países dez mil vezes e conta com que frequência o acaso sozinho produz uma lacuna
 desse tamanho; ele não assume nada sobre a distribuição e trata o país, e não a
-resposta, como unidade independente. O acaso supera a lacuna observada em 2.1\% das
-vezes ($p=0.021$). Um modelo hierárquico bayesiano com interceptos aleatórios
-cruzados concorda ($\beta=-0.048$, HDI de 94\% $[-0.090,-0.009]$,
+resposta, como unidade independente. O acaso supera a lacuna observada em 1.9\% das
+vezes ($p=0.019$). Um modelo hierárquico bayesiano com interceptos aleatórios
+cruzados concorda ($\beta=-0.049$, HDI de 94\% $[-0.088,-0.006]$,
 $P(\beta<0)=0.987$), enquanto um modelo misto frequentista devolve a mesma magnitude
-e sinal mas o deixa marginal ($\beta=-0.063$, $p=0.087$), porque cobra do termo de
+e sinal mas o deixa marginal ($\beta=-0.063$, $p=0.086$), porque cobra do termo de
 erro a grande heterogeneidade entre países. Dois dos três testes excluem o zero e os
 três concordam em magnitude, de modo que relatamos a lacuna como sustentada e
-sensível à especificação, com E-value de 1.70 na estimativa pontual e 1.30 no limite
+sensível à especificação, com E-value de 1.71 na estimativa pontual e 1.31 no limite
 do intervalo mais próximo do nulo~\citep{vanderweele2017evalue} --- um confundidor
 de país de força modesta bastaria para explicá-la, e o leitor tem o direito de pesar
 isso.
@@ -580,7 +607,7 @@ Hipótese & Achado & Mecanismo \\
 \addlinespace[2pt]
 H2 idioma           & $-5.0$~pp; hindi $-11.4$     & corpus do idioma \\
 H3 modelo regional  & $\delta=-0.48$, pior de 14   & escala sobre ajuste \\
-H1 lacuna de camada & $+5.0$~pp; RC 0.33 em T1     & camada \\
+H1 lacuna de camada & $+5.0$~pp; RC 0.32 em T1     & camada \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Sustentada, mecanismo não separável}} \\
 \addlinespace[2pt]
@@ -594,7 +621,7 @@ H6 persona          & DiD $+0.5$~pp, $p=0.29$      & --- \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Apenas descritiva}} \\
 \addlinespace[2pt]
-H5 aberto/fechado   & $+13.0$~pp para fechados     & tipo de acesso \\
+H5 aberto/fechado   & $+12.8$~pp para fechados     & tipo de acesso \\
 \bottomrule
 \end{tabular}
 

@@ -9,50 +9,50 @@
   "diferenca": 0.3985381877915658,
   "p_permutacao": 0.15758424157584242,
   "rho_controle_lingua": -0.06727412629052379,
-  "acc_dependentes": 0.462399074547998,
+  "acc_dependentes": 0.4620376287648654,
   "acc_independentes": 0.6577237356701452,
-  "interacao_beta": 0.03033055980774959,
-  "interacao_se": 0.004952437794272315,
-  "interacao_p": 9.104330108141957e-10,
+  "interacao_beta": 0.03076542474732323,
+  "interacao_se": 0.004979067761632144,
+  "interacao_p": 6.452817757961767e-10,
   "n_respostas": 6573,
-  "controle_lingua_beta": 0.006811814595902993,
-  "controle_lingua_p": 0.17001744419312848,
-  "ajuste_mutuo_cob_beta": 0.029946750919411524,
-  "ajuste_mutuo_cob_p": 1.80087320916143e-09,
-  "ajuste_mutuo_lang_beta": 0.0037431219934755604,
-  "ajuste_mutuo_lang_p": 0.45202349690284127,
+  "controle_lingua_beta": 0.007269888456727197,
+  "controle_lingua_p": 0.14524324770190974,
+  "ajuste_mutuo_cob_beta": 0.030338765374162094,
+  "ajuste_mutuo_cob_p": 1.352580920792919e-09,
+  "ajuste_mutuo_lang_beta": 0.004161024598288367,
+  "ajuste_mutuo_lang_p": 0.40566576975257684,
   "corr_entre_proxies": 0.21413119670230282,
-  "hdi_dep_beta_sozinho": 0.03522466344743055,
-  "hdi_dep_p_sozinho": 1.0606428519483781e-12,
-  "conjunto_cob_beta": 0.012344475559972524,
-  "conjunto_cob_p": 0.0625476120361315,
-  "conjunto_hdi_beta": 0.02701078530789899,
-  "conjunto_hdi_p": 4.569933907182649e-05,
+  "hdi_dep_beta_sozinho": 0.03560252446936221,
+  "hdi_dep_p_sozinho": 8.054311673898115e-13,
+  "conjunto_cob_beta": 0.01267351911509914,
+  "conjunto_cob_p": 0.05719572461444951,
+  "conjunto_hdi_beta": 0.027169704567116187,
+  "conjunto_hdi_p": 4.52966689282909e-05,
   "rho_cobertura_hdi": 0.6462781423647014,
   "sensibilidade_classificacao": {
     "principal (T1,T2,T4 vs T3,T5)": {
-      "beta": 0.03033055980774959,
-      "p": 9.104330108141957e-10
+      "beta": 0.03076542474732323,
+      "p": 6.452817757961767e-10
     },
     "extremos (T1 vs T5)": {
-      "beta": 0.045062933137866405,
-      "p": 2.4631156337953656e-11
+      "beta": 0.046359876619243894,
+      "p": 1.1257704753146054e-11
     },
     "sem T5, que tem teto de 99,7%": {
-      "beta": 0.026039956815325106,
-      "p": 3.1211251526524296e-05
+      "beta": 0.026475617904856287,
+      "p": 2.63438830196122e-05
     },
     "sem T4, a mais interpretativa": {
-      "beta": 0.03355711068947482,
-      "p": 1.0205321772339295e-09
+      "beta": 0.03420781836248338,
+      "p": 6.009879035988506e-10
     },
     "PLACEBO (rotulos invertidos)": {
-      "beta": -0.03033055980774939,
-      "p": 9.104330108144971e-10
+      "beta": -0.03076542474732347,
+      "p": 6.452817757959863e-10
     }
   },
-  "grupo_lingua_beta": 0.009544712190138367,
-  "grupo_lingua_p": 0.12466129155003473,
+  "grupo_lingua_beta": 0.009556688045012265,
+  "grupo_lingua_p": 0.12631071306912436,
   "so_anglofonos_beta": 0.02387406931939833,
   "so_anglofonos_p": 0.002621584469497444,
   "n_anglofonos": 9

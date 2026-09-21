@@ -32,7 +32,7 @@ ANA = os.path.join(ROOT, "data/confirmatory_PRIVATE/analysis")
 GN = {"USA","DEU","JPN","UK","CAN","AUS","KOR","FRA","ITA","PRT"}
 PRE15 = {"BRA","MEX","ARG","PER","NGA","ZAF","KEN","EGY","IND","IDN","BGD","PHL","USA","DEU","JPN"}
 WAVE2 = {"COL","CHL","AGO","UK","CAN","AUS","KOR","FRA","ITA","PRT"}
-NONSTD = {"AGO","ARG","NGA","BGD","EGY"}
+NONSTD = {"AGO","ARG","NGA","EGY"}  # BGD saiu em 2026-09-21: chave 35 (2022) verificada
 out = {}
 
 rows = [json.loads(l) for l in open(os.path.join(ANA, "judge_scores_corrected.jsonl"))]
@@ -75,7 +75,7 @@ def frame(sel, ladder=False):
     return pd.DataFrame(recs)
 out["A"] = {
     "all_keyed": or_model(frame(t1), "todos os países com chave (24; EGY fora)"),
-    "excl_nonstandard": or_model(frame([r for r in t1 if r["country_iso3"] not in NONSTD]), "sem AGO/ARG/NGA/BGD (chave não padrão) → 20 países"),
+    "excl_nonstandard": or_model(frame([r for r in t1 if r["country_iso3"] not in NONSTD]), "sem AGO/ARG/NGA (sem padrão) → 21 países"),
     "ladder": or_model(frame(t1, ladder=True), "chave ESCADA (qualquer degrau oficial conta)"),
     "ladder_excl": or_model(frame([r for r in t1 if r["country_iso3"] not in NONSTD], ladder=True), "escada + sem chave não padrão"),
     "pre15": or_model(frame([r for r in t1 if r["country_iso3"] in PRE15]), "só os 15 pré-especificados (3 GN)"),
@@ -177,6 +177,75 @@ sd_within = (st.mean([(d[0] - d[1]) ** 2 for d in rep.values() if 0 in d and 1 i
 out["G"] = {"n_cells_with_2_reps": len(difs), "mean_abs_diff_pp": st.mean(difs) * 100, "sd_within_pp": sd_within * 100,
             "se_of_h2_pp": sd_within * 100 * (2 ** 0.5) / (839 ** 0.5)}
 print(f"  células com 2 réplicas: {len(difs)} · |Δ| médio {st.mean(difs)*100:.1f} pp · DP intra-célula {sd_within*100:.1f} pp · EP implícito para 839 pares ≈ {out['G']['se_of_h2_pp']:.2f} pp")
+
+# ---------- H. H2 com a dependência declarada ----------
+# O Wilcoxon sobre 839 células trata as células como independentes; elas estão
+# aninhadas em 9 países e 14 modelos. Aqui a diferença pareada por (prompt, modelo)
+# entra num modelo misto com intercepto aleatório de PAÍS (a unidade de
+# generalização) e, separadamente, de MODELO; e o país e o modelo entram como
+# unidade num teste t / Wilcoxon. (A versão com os dois componentes cruzados numa
+# única "group" do statsmodels devolve EP instável com 9 países; não é reportada.)
+print("\nH. H2 respeitando o aninhamento (diferença pareada por prompt×modelo)")
+import statsmodels.formula.api as smf
+from scipy.stats import wilcoxon, ttest_1samp
+recs = []
+for (base, model), c in cel.items():
+    if c["en"] and c["nat"]:
+        recs.append({"d": st.mean(c["nat"]) - st.mean(c["en"]), "country": base.split("_")[0], "model": model})
+dfh = pd.DataFrame(recs)
+out["H"] = {"n_pairs": int(len(dfh))}
+for name, grp in (("country", dfh["country"]), ("model", dfh["model"])):
+    m = smf.mixedlm("d ~ 1", dfh, groups=grp).fit(reml=True)
+    b, se, pv = m.params["Intercept"], m.bse["Intercept"], m.pvalues["Intercept"]
+    out["H"][f"re_{name}"] = {"beta_pp": b * 100, "se_pp": se * 100, "p": float(pv)}
+    print(f"  intercepto aleatório de {name:7s}: Δ={b*100:+.2f} pp  EP={se*100:.2f}  p={pv:.2g}")
+pc = dfh.groupby("country").d.mean(); pm = dfh.groupby("model").d.mean()
+t = ttest_1samp(pc, 0)
+out["H"]["country_level"] = {"n": int(len(pc)), "neg": int((pc < 0).sum()), "mean_pp": float(pc.mean() * 100), "se_pp": float(pc.std(ddof=1) / len(pc) ** 0.5 * 100), "t": float(t.statistic), "t_p": float(t.pvalue), "wilcoxon_p": float(wilcoxon(pc).pvalue)}
+out["H"]["model_level"] = {"n": int(len(pm)), "neg": int((pm < 0).sum()), "mean_pp": float(pm.mean() * 100), "wilcoxon_p": float(wilcoxon(pm).pvalue)}
+print(f"  país como unidade (n=9): {int((pc<0).sum())}/9 negativos, média {pc.mean()*100:+.2f} ± {pc.std(ddof=1)/3*100:.2f} pp, t={t.statistic:.2f} p={t.pvalue:.3f}, Wilcoxon p={wilcoxon(pc).pvalue:.3f}")
+print(f"  modelo como unidade (n=14): {int((pm<0).sum())}/14 negativos, média {pm.mean()*100:+.2f} pp, Wilcoxon p={wilcoxon(pm).pvalue:.2g}")
+
+# ---------- I. Desfechos SÓ de código: lacuna de tier e H2 sem juiz nenhum ----------
+# Parecer 2 (2026-09-21): o painel de LLMs pode conhecer menos os instrumentos do Sul,
+# de modo que o gap nas tarefas julgadas (T4 inteira, resíduo de T2/T3) soma déficit
+# do modelo com déficit do juiz. Aqui o desfecho é o veredito de código (T1 todo;
+# T2/T3 onde o código resolveu): nenhum juiz toca nele.
+print("\nI. Só células adjudicadas por código (T1; T2/T3 resolvidas): tier e idioma sem juiz")
+code_rows = [r for r in rows if r.get("score_source") == "code" and r["prompt_id"].split("_")[-1] in ("neutral", "env")]
+dfc = pd.DataFrame([{"y": int(r["factual_accuracy"] >= 0.5), "country": r["country_iso3"], "model": r["model_id"], "task": r["task"], "is_south": int(r["country_iso3"] not in GN)} for r in code_rows])
+out["I"] = {"pooled": or_model(dfc, "T1+T2+T3 por código, todos os países com chave")}
+out["I"]["pooled_excl_nonstd"] = or_model(dfc[~dfc.country.isin(NONSTD)], "idem, sem AGO/ARG/NGA")
+for t in ("T1", "T2", "T3"):
+    out["I"][t] = or_model(dfc[dfc.task == t], f"só {t} por código")
+# lacuna em pp no nível do país (média por país do acerto de código), IC bootstrap por país
+pcm = dfc.groupby("country").y.mean()
+gn = [pcm[c] for c in pcm.index if c in GN]; gs = [pcm[c] for c in pcm.index if c not in GN]
+rng = random.Random(20260921); difs = sorted([(st.mean([rng.choice(gn) for _ in gn]) - st.mean([rng.choice(gs) for _ in gs])) * 100 for _ in range(10000)])
+pool = gn + gs; obs = st.mean(gn) - st.mean(gs); cnt = 0
+for _ in range(10000):
+    rng.shuffle(pool); cnt += abs(st.mean(pool[:len(gn)]) - st.mean(pool[len(gn):])) >= abs(obs)
+out["I"]["country_level_gap"] = {"gap_pp": obs * 100, "ci": [difs[250], difs[9750]], "perm_p": cnt / 10000, "acc_gn": st.mean(gn), "acc_gs": st.mean(gs)}
+print(f"  lacuna por país (acerto de código): GN {st.mean(gn):.3f} vs GS {st.mean(gs):.3f} = {obs*100:+.2f} pp, IC [{difs[250]:+.2f},{difs[9750]:+.2f}], perm p={cnt/10000:.3f}")
+# H2 sem juiz por idioma: veredito de código nativo − inglês, pareado por (prompt, modelo)
+celc = collections.defaultdict(lambda: {"en": [], "nat": []})
+for r in rows:
+    if r.get("score_source") != "code": continue
+    pid = r["prompt_id"]; base, lang = pid, "en"
+    for suf in ("_pt", "_es", "_hi"):
+        if pid.endswith(suf): base, lang = pid[:-len(suf)], "nat"
+    celc[(base, str(r["model_id"]))][lang].append(float(r["factual_accuracy"] >= 0.5))
+out["I"]["h2_code_by_lang"] = {}
+for lg, name in (("pt", "português"), ("es", "espanhol"), ("hi", "hindi"), (None, "todos")):
+    ds = [st.mean(c["nat"]) - st.mean(c["en"]) for (b, m), c in celc.items() if c["en"] and c["nat"] and (lg is None or any(k.endswith("_" + lg) for k in [b + "_" + lg]))]
+    # filtro por idioma via país
+    if lg:
+        paises = {"pt": {"BRA", "PRT", "AGO"}, "es": {"MEX", "ARG", "PER", "COL", "CHL"}, "hi": {"IND"}}[lg]
+        ds = [st.mean(c["nat"]) - st.mean(c["en"]) for (b, m), c in celc.items() if c["en"] and c["nat"] and b.split("_")[0] in paises]
+    if len(ds) >= 10:
+        pv = wilcoxon_p(ds) if len(set(ds)) > 1 else float("nan")
+        out["I"]["h2_code_by_lang"][name] = {"n": len(ds), "pp": st.mean(ds) * 100, "p": pv}
+        print(f"  H2 só código, {name:9s}: n={len(ds):3d}  {st.mean(ds)*100:+.1f} pp  p={pv:.2g}")
 
 json.dump(out, open(os.path.join(ROOT, "data/processed/t1_wave_sensitivity.json"), "w"), indent=1, ensure_ascii=False)
 print("\nescrito: data/processed/t1_wave_sensitivity.json")

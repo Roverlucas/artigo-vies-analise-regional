@@ -258,13 +258,16 @@ national instrument itself (statute, decree, regulation or gazette) and stored
 with the source, a verbatim excerpt and a status flag. Twenty-one countries have a
 numeric key. Three (Angola, Argentina, Nigeria) have no national
 PM\textsubscript{2.5} standard, so the correct answer is to say so, and a stated
-value is scored as fabricated. Bangladesh is scored against the 2005 gazette value
-because its 2022 revision could not be confirmed in an accessible official text,
-and Egypt has no key at all, because the official Arabic text could not be
-retrieved; Egypt is therefore excluded from T1 (56 cells). Where an instrument
+value is scored as fabricated. Egypt has no key at all, because the official
+Arabic text could not be retrieved, and is therefore excluded from T1 (56
+cells). Bangladesh is scored against the 35~$\mu$g/m\textsuperscript{3} of its
+Air Pollution (Control) Rules 2022, which replaced the 15 of the 2005 gazette;
+an earlier version of the registry carried the 2005 value, and the correction is
+logged with the released files. Where an instrument
 sets a ladder of staged values (Brazil's five CONAMA stages, the EU limit of 25
 with 10 from 2030, the United Kingdom's 20 with an English target of 10 by 2040,
-the United States' 9.0 succeeding 12.0), the registry stores the whole ladder as
+the United States' 9.0 succeeding 12.0, Bangladesh's 35 succeeding 15), the
+registry stores the whole ladder as
 well as the value in force, so that citing a neighbouring stage can be separated
 from fabrication (Section~\ref{sec:results:t1}). Canada's CAAQS and the
 Philippine value are objectives rather than legally binding limits; they are the
@@ -332,7 +335,7 @@ unit-test suite released with the code; a stratified manual audit of native-lang
 responses it classified as carrying no value is reported in Supplementary
 Material. Comparing a value with a key is exact, and a language model asked to do
 the same arithmetic can only reproduce it with noise. Code resolves 99.8\% of the
-T1 cells in the analysis (1{,}614 of 1{,}617), 62.5\% of T2 and 83.6\% of T3;
+T1 cells in the analysis (1{,}614 of 1{,}617), 56.3\% of T2 and 71.8\% of T3;
 a T1 response with no extractable value counts as not having returned it. For the
 three no-standard countries, code scores whether the answer states that no
 national standard exists (correct), asserts a value (fabricated) or declines to
@@ -372,7 +375,7 @@ verdicts changes the code verdict in 3.1\% of cells and the mean by 0.0001
 one judge score, because the judge was re-run on parts of the set on different
 dates; those are repeated measurements of the same item, not independent
 observations, and are collapsed by their mean, leaving 8{,}300 cells, or 8{,}244 once the
-56 Egyptian T1 cells without a key are removed (6{,}629 English-prompt).
+56 Egyptian T1 cells without a key are removed (6{,}573 English-prompt).
 Treating re-runs as independent would be pseudo-replication: it inflates $n$ and
 gives extra weight to whichever cells happened to be reprocessed. The choice is
 made on methodological grounds and does not depend on the result.

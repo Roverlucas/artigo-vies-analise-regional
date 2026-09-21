@@ -187,16 +187,21 @@ the official text (Nigeria's NESREA regulates PM\textsubscript{10} only; Argenti
 has no binding federal value; Angola has no national air-quality legislation); in
 those cases a faithful model must decline to state a non-existent threshold rather
 than fabricate one. This provenance is more reproducible than expert assertion:
-any reader can re-verify each value from the cited official source. Two entries are
-not fully verified and are flagged as such: Bangladesh (15~$\mu$g/m\textsuperscript{3}
-per the 2005 gazette; a 2022 revision could not be confirmed in an accessible
-official text) and Egypt (the official Arabic text could not be retrieved, so no
-value is stored and Egypt is excluded from T1). Angola's no-standard status rests
+any reader can re-verify each value from the cited official source. One entry has no
+value: Egypt, whose official Arabic text could not be retrieved, so nothing is
+stored and Egypt is excluded from T1. Angola's no-standard status rests
 on a World Bank/WHO country note rather than on a national instrument, because no
 national air-quality instrument exists to cite. Every other value was confirmed
 against the primary text. The United Kingdom entry was corrected on 2026-09-21
 from 10 (the English 2040 target) to 20~$\mu$g/m\textsuperscript{3}, the limit
-value in force since 2020, after checking DEFRA's national objectives table.
+value in force since 2020, after checking DEFRA's national objectives table; and
+the Bangladesh entry was corrected the same day from 15 (S.R.O. 220-Law/2005) to
+35~$\mu$g/m\textsuperscript{3} (Air Pollution (Control) Rules 2022, S.R.O.
+255-Law/2022), after an external reader flagged the revision. Because the
+registry moved under scrutiny, every number in the manuscript is tied to a
+registry version: the released files carry SHA-256 prefixes
+\texttt{t1\_registry} b0e5d9e132aab684, \texttt{t2\_registry} 703dcd8122f88448, \texttt{t3\_registry} 902de1bc6af893de,
+\texttt{t4\_reference\_set} 77bca4679aedc93a, and the analysis pipeline prints them.
 
 \input{supplement/tables/tab_s_groundtruth}
 
@@ -315,7 +320,7 @@ H1 Spearman $\rho$(acc, Joshi)      & $+0.131$ ($p=0.64$), ns            & $-0.0
 H1 vs threshold $\rho\geq 0.55$     & not met                            & not met \\
 H4 partial $\rho$(acc, coverage$\,\vert\,$HDI) & $+0.381$ ($p=0.18$), ns & $+0.190$ ($p=0.37$), ns \\
 H6 DiD persona (GS$-$GN)            & not recomputed at $n=15$           & $+0.47$~pp, perm $p=0.293$, ns \\
-Tier gap (GN$-$GS), composite       & $+6.0$~pp, $p=0.13$ (3 GN)         & $+5.0$~pp, $p=0.021$ \\
+Tier gap (GN$-$GS), composite       & $+6.0$~pp, $p=0.13$ (3 GN)         & $+5.0$~pp, $p=0.019$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -350,17 +355,19 @@ Wikipedia-edition count      & language & $+0.048$, ns        & ns \\
 \toprule
 Finding & Statistic \\
 \midrule
-Tier gap (GN$-$GS)                 & $+5.0$~pp, 95\% CI $[+1.5,+8.4]$; permutation $p=0.021$ \\
-Tier gap, LOCO range               & $[+4.4,+5.9]$~pp, stable \\
-Tier gap, extension wave only      & $+5.9$~pp $[+2.3,+9.6]$ (7 GN vs 3 GS), perm $p=0.061$ \\
+Tier gap (GN$-$GS)                 & $+5.0$~pp, 95\% CI $[+1.6,+8.4]$; permutation $p=0.019$ \\
+Tier gap, LOCO range               & $[+4.4,+6.0]$~pp, stable \\
+Tier gap, extension wave only      & $+5.9$~pp $[+2.4,+9.6]$ (7 GN vs 3 GS), perm $p=0.064$ \\
+Tier gap, code-adjudicated outcomes only (T1; resolved T2, T3) & GN $0.61$ vs GS $0.46$, $+14.7$~pp $[+5.6,+23.9]$, perm $p=0.012$; pooled OR $0.53$ $[0.48,0.58]$ (T1 $0.32$, T2 $0.51$, T3 $0.65$) \\
 H1 leave-one-country-out range & $\rho\in[+0.30,+0.48]$: never reaches the pre-specified $0.55$ \\
-Task floor (T1{+}T2 vs T3--T5)     & $0.435$ vs $0.612$, Cliff's $\delta=-0.41$ \\
+Task floor (T1{+}T2 vs T3--T5)     & $0.434$ vs $0.612$, Cliff's $\delta=-0.41$ \\
 H3 Cabra-Mistral vs rest           & $0.351$ vs $0.557$, Cliff's $\delta=-0.48$ \\
 H3 pre-specified (Cabra vs Llama 3.1 8B, Portuguese prompts) & Brazil $0.258$ vs $0.313$, $\delta=-0.26$ ($n=20$ each); BRA+PRT+AGO $0.304$ vs $0.362$, $\delta=-0.17$ ($n=60$ each) \\
-H2 native vs English (all)         & $\Delta=-5.0$~pp, Wilcoxon $p=5\times10^{-16}$ ($n=839$) \\
+H2 native vs English (all)         & $\Delta=-5.0$~pp, Wilcoxon $p=5\times10^{-16}$ ($n=839$); mixed model, random intercept per country $-5.0$~pp ($p=6\times10^{-7}$), per model $-4.8$~pp ($p=3\times10^{-9}$); country as unit 8/9 negative, $t=-4.6$, $p=0.002$; model as unit 12/14, Wilcoxon $p=0.058$ \\
 \quad Spanish / Portuguese / Hindi & $-4.5$ / $-4.2$ / $-11.4$~pp, all significant \\
 \quad by scoring instrument       & code $-3.8$ ($n=333$), panel $-8.6$ ($n=314$), collection judge $-1.1$~pp ns ($n=192$, T5) \\
-H5 open vs closed-accessible       & $+13.0$~pp closed advantage (descriptive) \\
+\quad code verdict only, by language & Portuguese $-9.1$ ($n=132$, $p=0.019$), Spanish $-2.1$ ($n=165$, ns), all $-5.0$~pp ($n=318$, $p=0.048$) \\
+H5 open vs closed-accessible       & $+12.8$~pp closed advantage (descriptive) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -390,25 +397,25 @@ pre-specified $0.55$ under all three.}
 \toprule
 Weighting & Tier gap (pp) & $\rho$(HDI) & Floor $\delta$ & H3 $\delta$ \\
 \midrule
-Author-specified (primary) & $+5.01$ & $+0.361$ & $-0.408$ & $-0.477$ \\
-Equal                      & $+4.20$ & $+0.345$ & $-0.384$ & $-0.508$ \\
-PCA-derived                & $+4.68$ & $+0.369$ & $-0.435$ & $-0.486$ \\
+Author-specified (primary) & $+5.05$ & $+0.361$ & $-0.408$ & $-0.476$ \\
+Equal                      & $+4.22$ & $+0.355$ & $-0.383$ & $-0.507$ \\
+PCA-derived                & $+4.72$ & $+0.380$ & $-0.435$ & $-0.485$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \paragraph{Mixed model and Bayesian re-estimation.} A Gaussian linear mixed model
 (\texttt{statsmodels} MixedLM, REML) with crossed random intercepts for country and
-model gives a Global South effect of $\beta=-0.063$ ($\mathrm{SE}=0.037$,
-$p=0.087$), marginal rather than conventionally significant because it charges the
+model gives a Global South effect of $\beta=-0.063$ ($\mathrm{SE}=0.036$,
+$p=0.086$), marginal rather than conventionally significant because it charges the
 large between-country heterogeneity to the error term. A Bayesian hierarchical
 re-estimation with weakly informative priors (\texttt{pymc}; crossed country/model
 intercepts, \texttt{random\_seed=42}) agrees on magnitude and is decisive about the
-sign: posterior mean $-0.048$, 94\% HDI $[-0.090,-0.009]$, $P(\beta<0)=0.987$
+sign: posterior mean $-0.049$, 94\% HDI $[-0.088,-0.006]$, $P(\beta<0)=0.987$
 ($\hat{R}=1.001$).
 
-\paragraph{E-values.} The tier gap carries an E-value of $1.70$ at the point
-estimate and $1.30$ at the confidence limit nearest the null (VanderWeele \& Ding
+\paragraph{E-values.} The tier gap carries an E-value of $1.71$ at the point
+estimate and $1.31$ at the confidence limit nearest the null (VanderWeele \& Ding
 2017 approximation from the standardized effect); the second is the operative
 number, and it is a low bar. No E-value is reported for the development gradient:
 its interval already includes the null, so the E-value at that limit is $1.00$ and
@@ -447,10 +454,10 @@ Permutation test with country as the unit, 10{,}000 relabellings.}
 \toprule
 Partition & Gap (pp) & GN/GS & $p$ \\
 \midrule
-UNCTAD developed/developing (used throughout) & $+5.01$ & 10/15 & $0.020$ \\
-HDI below the sample median ($0.781$) & $+2.09$ & 13/12 & $0.339$ \\
-HDI $<0.800$ (UNDP ``very high'' cutoff) & $+2.74$ & 12/13 & $0.212$ \\
-HDI $<0.700$ & $+1.83$ & 20/5 & $0.507$ \\
+UNCTAD developed/developing (used throughout) & $+5.05$ & 10/15 & $0.019$ \\
+HDI below the sample median ($0.781$) & $+2.14$ & 13/12 & $0.329$ \\
+HDI $<0.800$ (UNDP ``very high'' cutoff) & $+2.78$ & 12/13 & $0.206$ \\
+HDI $<0.700$ & $+1.94$ & 20/5 & $0.482$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -478,7 +485,7 @@ Item & Planned & Delivered & Effect on interpretation \\
 Response count &
 \num{33600} responses (600 prompts $\times$ 14 models $\times$ 2 personas
 $\times$ 2 replicates) &
-\num{9251} scored responses (27.5\%) &
+\num{9251} judge scores over 8{,}300 cells (27.5\% of the planned count), 8{,}244 analysed &
 Triggers the plan's own 15\% ceiling. The study is reported as exploratory. \\
 
 Public registration &
@@ -532,18 +539,18 @@ Changes the substantive conclusions on the same responses. The development
 gradient falls from $\rho=0.51$ ($p=0.004$) to $\rho=0.36$ ($p=0.076$); the
 native-language penalty grows from $-2.1$~pp to $-5.0$~pp and becomes significant
 in all three languages; the T1 odds ratio moves from $0.22$ under the judges to
-$0.33$ under code. The findings are reported in the revised order. \\
+$0.32$ under code. The findings are reported in the revised order. \\
 
 T1 key &
 Value in force per national instrument &
 United Kingdom key corrected on 2026-09-21 from 10 (English target for 2040) to
 20~$\mu$g/m\textsuperscript{3} (limit value in force since 2020); Egypt has no
-retrievable value and is excluded from T1; Bangladesh scored against its 2005
-gazette; official ladders (Brazil, EU, UK, US, Canada, Australia, Colombia) stored
-alongside the value in force &
-Tier comparison on T1 reported with and without the five Global South countries
-whose key is absent or not plainly verified ($0.33$ and $0.39$), and under the
-ladder-tolerant key ($0.12$). \\
+retrievable value and is excluded from T1; Bangladesh corrected from the 2005
+gazette (15) to the 2022 Rules (35) after external review; official ladders
+(Brazil, EU, UK, US, Canada, Australia, Colombia, Bangladesh) stored alongside
+the value in force; registry versions carry a SHA-256 prefix &
+Tier comparison on T1 reported with and without the three no-standard
+countries ($0.32$ and $0.39$), and under the ladder-tolerant key ($0.14$). \\
 
 Ordering of findings &
 Plan treated H1 (geographic gradient) as the primary hypothesis &
@@ -567,8 +574,8 @@ Mixed model, Bayesian re-estimation and E-values reported alongside the primary
 tests &
 Recomputed on the corrected scoring &
 All three are weaker than the single-judge versions. The mixed model falls from
-$p=0.007$ to $p=0.069$; the Bayesian posterior from $P(\beta<0)=1.00$ to $0.994$;
-the tier-gap E-value from $1.85$ to $1.70$ at the point and $1.31$ at the
+$p=0.007$ to $p=0.086$; the Bayesian posterior from $P(\beta<0)=1.00$ to $0.987$;
+the tier-gap E-value from $1.85$ to $1.71$ at the point and $1.31$ at the
 confidence limit. The tier gap is reported as supported but
 specification-sensitive. \\
 
@@ -598,8 +605,8 @@ against the English original on five items, one flag marks the prompt divergent 
 Partially resolved. No human translator and no bilingual adjudication, so the
 plan is not met. But the artefact the plan guarded against is measured and
 absent: $90/90$ preserve the country and the requested quantity, $88/90$ the
-question, and H2 is unchanged among verified-faithful prompts ($-4.6$~pp;
-fidelity does not predict effect size, permutation $p=0.42$). \\
+question, and H2 is unchanged among verified-faithful prompts ($-4.8$~pp;
+fidelity does not predict effect size, permutation $p=0.80$). \\
 
 Extra H2 variants &
 Two additional question variants per (country, task), rendered in both languages &
