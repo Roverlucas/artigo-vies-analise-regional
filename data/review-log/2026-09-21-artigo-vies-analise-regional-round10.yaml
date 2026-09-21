@@ -1,0 +1,105 @@
+critical_review:
+  lens: round-10 — aplicação dos itens UPHELD da adjudicação (round 9) do parecer externo; T1 por código; re-freeze
+  role: >-
+    Executa tudo que a adjudicação classificou como CORREÇÃO ou PONTUAL, mais as
+    ampliações pequenas que cabiam nos dados existentes (H4 com HDI×dependência, H3
+    pré-especificado, variância entre réplicas, auditoria do extrator). Nenhuma chamada
+    de API; tudo recomputado dos artefatos commitados. Freeze regenerado — a declaração
+    formal do congelamento (SA-QG-020) fica com o autor.
+  artifact_id: artigo-vies-analise-regional
+  date: 2026-09-21
+  verdict: >-
+    revisions-applied — T1 adjudicado por código (99.8% das células), juiz×tier
+    desconfundido, chave do Reino Unido corrigida na fonte, Egito excluído de T1, base
+    única para corpo e suplemento, Métodos descrevendo o estudo entregue, H4 rebaixado,
+    ~60 números propagados em 4 documentos, gate ampliado e validado por mutação (10/10).
+    Nenhum veredito de hipótese muda. EN 66/18 pp, PT 35/16 pp. Todos os gates limpos.
+  gates_run:
+    - SA-QG-014 consistency_gate (ampliado: +14 proibidos, +18 âncoras; mutação 10/10)
+    - SA-QG-016 result provenance (freeze_all_effects, t1_and_wave_sensitivity, h4_within_country)
+    - SA-QG-013 desk-reject screen (blind sem vazamento, highlights OK, method_audit CLEAN)
+    - SA-QG-010 (chaves UK/BRA/USA/CAN conferidas na fonte oficial; PDFs em data/ground_truth/sources/)
+    - pytest 10/10
+  findings:
+    - id: R10-1
+      source: A-0, A-1
+      issue: T1 pontuado por dois juízes divididos pela onda (= tier); abstract prometia código onde o valor é publicado.
+      severity: MUST
+      status: resolved
+      resolution: >-
+        score_numeric.py ganha extract_t1 (devanágari, vírgula decimal, unidade por extenso, contexto anual vs 24 h;
+        13 testes) e regras NO_STANDARD/EXCLUDE_NO_KEY; code_verdicts.py unifica a regra para freeze e exportador;
+        run_all.py C0. OR de T1: 0.22 (juízes) → 0.33 [0.27,0.40] (código). Tier gap 5.44 → 5.01; H2 −4.75 → −4.95;
+        ρ 0.41 → 0.36 (p=0.076). Nenhum veredito muda.
+    - id: R10-2
+      source: A-2, A-3, A-16
+      issue: Egito pontuado contra chave inventada; UK com meta 2040 como limite; 5 GS com chave não padrão.
+      severity: MUST
+      status: resolved
+      resolution: >-
+        UK = 20 µg/m³ (DEFRA Air_Quality_Objectives_Update_20230403.pdf, md5 b81535d8…); Brasil PI-2 = 17 confirmado
+        (CONAMA 506/2024 Anexo I, md5 0ef2f6c5…); USA 9.0/12.0/15.0 (EPA timeline); CAN 8.8/8.0 (CCME). EGY excluído
+        (56 células). OR sem os 5: 0.39 [0.31,0.50]; escada tolerante: 0.12 (o Norte é que tem escadas). 259/754
+        erros de T1 são confusão de etapa, não fabricação — reportado.
+    - id: R10-3
+      source: A-4 (inconsistências numéricas)
+      issue: 15 divergências internas.
+      severity: MUST
+      status: resolved
+      resolution: Todas corrigidas do freeze; gate ampliado para cobri-las (H6 p, δ piso, LOO, pesos, OR, N por modelo, células, Oceania, 13 vs 14 modelos, Tabela 5 desfecho, conclusão).
+    - id: R10-4
+      source: A-5, A-6
+      issue: Regra de resposta duplicada não declarada; suplemento em base diferente.
+      severity: MUST
+      status: resolved
+      resolution: >-
+        Regra declarada (primeira em ordem de arquivo = a que o juiz viu; código na mesma resposta); sensibilidade
+        "todas as respostas" muda 3,1% dos vereditos e a média em 0,0001. make_supplement_tables.py passa a ler
+        judge_scores_corrected.jsonl (Tabela S1 = Tabela 2). Re-julgar sob regra cronológica exigiria API — não feito.
+    - id: R10-5
+      source: A-7, A-8
+      issue: Métodos descrevia o planejado; temperatura.
+      severity: MUST
+      status: resolved
+      resolution: Registro descrito como construído (4 registros, sem validador humano/hash); serving (3 Ollama, 5 Groq, 2 APIs, 4 fechados); GPT-5 a temperatura 1.0; variantes nunca coletadas; 'pre-specified' em todo o suplemento; 'submission draft'/'published' removidos; S6 e S11 corrigidos; título do suplemento = manuscrito.
+    - id: R10-6
+      source: A-10
+      issue: "HDI cannot explain a deficit measured within the country" — falso.
+      severity: MUST
+      status: resolved
+      resolution: >-
+        Modelo com cobertura×dep e IDH×dep juntos: IDH β=+0.027 (p=5e−5) sobrevive, cobertura β=+0.012 (p=0.063) não;
+        ρ(cobertura,IDH)=0.65. H4 rebaixado em abstract? (não citava), intro, resultados, discussão, conclusão e
+        tabela-síntese: "identificado só até o par cobertura-ou-desenvolvimento". DECISÃO DO AUTOR ratificar.
+    - id: R10-7
+      source: A-9
+      issue: H3 fora da pré-especificação.
+      severity: MUST
+      status: resolved
+      resolution: Teste pré-especificado reportado (Cabra 0.258 vs Llama 3.1 8B 0.313 no Brasil em PT, δ=−0.26, n=20; lusófonos 0.304 vs 0.362); claim mantida com ressalva de tamanho. DECISÃO DO AUTOR ratificar o peso.
+    - id: R10-8
+      source: A-11, A-12
+      issue: Tier gap a n=15 e por onda; "fails all of them".
+      severity: MUST
+      status: resolved
+      resolution: n=15 +6.0 [1.7,10.2] p=0.13; onda 2 +5.9 [2.3,9.6] p=0.061; frase corrigida (ρ máximo 0.48 em LOO).
+    - id: R10-9
+      source: A-13, A-14 (parcial), A-17, A-18
+      issue: Extrator por língua; réplicas; refs; 370.
+      severity: SHOULD
+      status: resolved
+      resolution: Auditoria censo dos 10 NO_VALUE nativos (10/10 corretos, data/processed/t1_extractor_audit.md — feita pelo agente, confirmação humana pendente); DP intracélula 10.1 pp vs efeito −5.0 (≈10 EP); notas internas da bib removidas; 370 = 250+90+30 explicado; 'balanced-subset' substituído pelo que existe.
+    - id: R10-10
+      source: R7 / declaração
+      issue: Claude Haiku 4.5 não constava como instrumento.
+      severity: MUST
+      status: resolved
+      resolution: Declaração de IA (EN+PT) nomeia GPT-5-mini e Claude Haiku 4.5 como juízes da coleta.
+  open_items_at_log_time:
+    - Decisões do autor — ratificar o freeze (SA-QG-020), o rebaixamento de H4, a ressalva de H3, H2 exploratório como manchete
+    - Validação humana (~150 respostas, 3 avaliadores) — segue sendo a única prova de que o código não pune resposta certa; decisão do autor
+    - Re-julgar duplicatas sob regra cronológica — exige API; não feito
+    - Auditoria do extrator confirmada por humano
+    - Leitura humana palavra por palavra do EN (66 pp)
+    - E-mails de Dominski e Azevedo; envio do pacote v2 aos coautores
+    - Liberar data/confirmatory_PRIVATE/ na submissão

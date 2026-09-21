@@ -101,6 +101,16 @@ def main() -> None:
     bloco("todos os pares", todos)
     bloco("so traducoes FIEIS", fiel)
     bloco("so traducoes DIVERGENTES", div)
+    # a diferenca fiel-divergente e distinguivel de zero? permutacao do rotulo
+    import random, statistics
+    rng = random.Random(20260921)
+    obs = abs(statistics.mean(fiel) - statistics.mean(div))
+    junto = fiel + div; cnt = 0
+    for _ in range(10000):
+        rng.shuffle(junto)
+        if abs(statistics.mean(junto[:len(fiel)]) - statistics.mean(junto[len(fiel):])) >= obs:
+            cnt += 1
+    print(f"  diferenca fiel-divergente {(statistics.mean(fiel)-statistics.mean(div))*100:+.2f} pp · permutacao p={cnt/10000:.2f}")
 
     print("\n  Leitura: se a traducao explicasse o efeito, ele estaria concentrado")
     print("  no bloco divergente e ausente no fiel.")

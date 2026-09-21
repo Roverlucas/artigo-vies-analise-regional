@@ -1,7 +1,7 @@
 {
-  "judge_model": "gpt-5-mini-2025-08-07",
-  "n_total": 9251,
-  "n_english": 7580,
+  "judge_model": "code (T1; part of T2, T3) / three-vendor panel (rest of T2, T3; T4) / collection judge (T5)",
+  "n_total": 8244,
+  "n_english": 6573,
   "n_native": 1671,
   "n_models": 14,
   "n_countries": 25,

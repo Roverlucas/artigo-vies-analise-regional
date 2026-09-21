@@ -40,7 +40,8 @@ our draw, because the official languages of most states are themselves
 high-resource, but it means the linguistic axis has too little variance to be
 separated from the others, and we treat the Joshi results accordingly
 (Section~\ref{sec:results:h1}). Countries with compromised statistical governance
-or without a publicly retrievable national standard were excluded; Oceania and
+or without a publicly retrievable national standard were excluded from the
+pre-specified fifteen; Oceania entered only with the extension (Australia), and
 Joshi Class~0 languages are not represented, which we note as a scope limitation.
 
 \subsection{Sample expansion after the pre-specified analysis}
@@ -57,9 +58,11 @@ extension followed observation of the initial results, no pre-specified conclusi
 is revised on the extension alone, and the expansion is treated as a
 power-and-robustness check rather than a new confirmatory test. Angola, like Nigeria and Argentina, has \emph{no} national
 ambient PM\textsubscript{2.5} standard, adding no-standard cases in which a
-faithful model must decline to state a non-existent threshold. The ten additions,
-their roles, and the two extra question variants generated per (country, task) for
-the H2 pairs are detailed in Supplementary Material.
+faithful model must decline to state a non-existent threshold. The ten additions and
+their roles are detailed in Supplementary Material. Two extra question variants
+per (country, task) were generated for the H2 pairs at design time but were never
+collected or scored; the H2 analysis uses the single native-language rendering of
+each English prompt.
 
 \subsection{Country covariates}
 \label{sec:covariates}
@@ -95,8 +98,11 @@ administration faces.
 Fourteen LLMs were benchmarked across five access tiers, spanning roughly two
 orders of magnitude in parameter count and four training-data geographies (United
 States, China, Europe, Brazil): open-weight frontier (5), open-weight mid (3) and
-open-weight small or regional (2) run locally under pinned tags, and
-closed-accessible (2) and closed-frontier (1) via official APIs. The small tier
+open-weight small or regional (2), closed-accessible (3) and closed-frontier (1).
+Only three of the open-weight models were served locally (Ollama, pinned tags:
+Phi-4~14B, Qwen3~14B, Cabra-Mistral~7B); the other seven open-weight models were
+served through hosted endpoints (Groq free tier for five, the DeepSeek and Cohere
+APIs for two), and the four closed models through their vendors' APIs. The small tier
 includes a Brazilian-Portuguese instruction-tuned model (Cabra-Mistral~7B~v3),
 tested against a scale-matched globally trained open model for H3. Each model was
 queried with an identical pinned tag throughout the collection window. The full
@@ -105,9 +111,8 @@ roster is in Supplementary Table~S1.
 We compare \emph{models as served} through a fixed access stack, not idealised
 weights. Provider infrastructure, serving configuration and API layer are part of
 what each label denotes, and a residual gap could in principle reflect the stack
-rather than the weights; we hold this constant by pinning version tags and the
-maximum-determinism configuration available per provider throughout a fixed
-window.
+rather than the weights; we hold this constant by pinning version tags and a fixed sampling
+configuration per provider throughout a fixed window (Section~\ref{sec:collection}).
 
 \subsection{Domain and task taxonomy}
 \label{sec:tasks}
@@ -245,37 +250,68 @@ having two further models compare each against the English original
 \subsection{Ground truth and the ground-truth registry}
 \label{sec:groundtruth}
 
-Ground truth for the verifiable tasks was drawn from official sources of record:
-national air quality standards and the agencies issuing them (T1),
-environmental-agency monitoring reports (T2), and federal policy programs with
-their executing agencies and legal instruments (T4). For T3 the reference is a
-curated set of peer-reviewed epidemiological studies with resolvable DOIs rather
-than a single number.
+Ground truth is a set of four task-specific registries, released with the data,
+and we describe each as it was built rather than as it was planned
+(Supplementary Table~S14 records the deviations). For T1 the key is the annual
+PM\textsubscript{2.5} value in force during the collection window, taken from the
+national instrument itself (statute, decree, regulation or gazette) and stored
+with the source, a verbatim excerpt and a status flag. Twenty-one countries have a
+numeric key. Three (Angola, Argentina, Nigeria) have no national
+PM\textsubscript{2.5} standard, so the correct answer is to say so, and a stated
+value is scored as fabricated. Bangladesh is scored against the 2005 gazette value
+because its 2022 revision could not be confirmed in an accessible official text,
+and Egypt has no key at all, because the official Arabic text could not be
+retrieved; Egypt is therefore excluded from T1 (56 cells). Where an instrument
+sets a ladder of staged values (Brazil's five CONAMA stages, the EU limit of 25
+with 10 from 2030, the United Kingdom's 20 with an English target of 10 by 2040,
+the United States' 9.0 succeeding 12.0), the registry stores the whole ladder as
+well as the value in force, so that citing a neighbouring stage can be separated
+from fabrication (Section~\ref{sec:results:t1}). Canada's CAAQS and the
+Philippine value are objectives rather than legally binding limits; they are the
+only national reference values those countries publish and are treated as the
+key, which the text notes where it matters.
 
-Because the validity of the geographic gradient depends on ground truth being
-equally available and equally verifiable across countries, we built a per-country
-registry recording, for each (country, task) pair, the class of equivalent
-official source, the resolvable URL, the gold value or rubric key, the reference
-date, the human validator and a validation flag. Entries are versioned by access
-date, source URL and a SHA-256 hash of the retrieved document. Entries whose
-official source is unavailable or non-equivalent for a country are flagged and
-excluded from the primary comparison for that cell, so missing ground truth is
-never scored as a model error. The registry design and cross-country equivalence
-criteria are in Supplementary Material.
+For T2 the key is the most recent annual mean PM\textsubscript{2.5} concentration
+that the WHO Ambient Air Quality Database (v6.1, 2024) records for the prompted
+city, which compiles the values reported by national and subnational agencies;
+any reported year is accepted within $\pm 20\%$, so a model citing an agency
+value from a different year is not penalised for the year. Two cities have no
+PM\textsubscript{2.5} entry (Luanda, Cairo) and those cells fall to the judge.
+For T3 the key is the WHO Global Health Observatory estimate of deaths
+attributable to ambient air pollution (indicator AIR\_41, 2021) with its
+uncertainty interval widened by half on each side as the accepted range, plus the
+published ordering of causes; the indicator covers ambient air pollution as a
+whole while the prompt asks about PM\textsubscript{2.5}, and a model citing a
+different burden study (the GBD, a national cohort) is scored by the judge on
+whether its figure and sources are defensible, not against the WHO number. For
+T4 the reference set is the UNEP Global Air Pollution Legislation catalogue for
+each country, with manual overrides where it is stale. The registry records
+source, URL, access date and status per entry, but it has no human-validator
+field and no per-document hash: verification was documentary, by the authors,
+against the primary text. Entries without an equivalent official source are
+excluded from the code-adjudicated comparison for that cell, so missing ground
+truth is never scored as a model error.
 
 \subsection{Data collection}
 
-Calls were executed at temperature~0.3 with deterministic seeds where available,
-with 2 replications per prompt-model-persona combination, inside a fixed window to
-minimise model-update confounds; the reported accuracies are therefore
-point-in-time estimates. Every response was stored with complete request metadata
+\label{sec:collection}
+Calls were executed at temperature~0.3 with a fixed seed where the provider
+honours one (the three Ollama-served models), with 2 replications per
+prompt-model-persona combination, inside a fixed window to minimise model-update
+confounds; the reported accuracies are therefore point-in-time estimates. Two
+exceptions are declared: the GPT-5 family rejects any temperature other than the
+default, so GPT-5 and GPT-5-mini ran at temperature~1.0; and no provider offers a
+setting that makes output deterministic, so two replicates at 0.3 bound, rather
+than remove, within-model variance (Supplementary Material compares the
+headline effects with that variance). Every response was stored with complete request metadata
 --- pinned tag, timestamp, token counts, finish reason, persona condition --- under
 SHA-256 checksums. Quality gates excluded truncated responses and responses in a
 language divergent from the request, both retained and analysed separately.
 
 Per-cell coverage is not uniform: free and rate-limited endpoints returned fewer
-admissible responses than metered APIs, so the scored $N$ ranges from roughly 300
-to 780 per model. We report each model's realised $N$ alongside its score
+admissible responses than metered APIs, so the number of scored English-prompt cells ranges from 261 to 500 per model
+(777 for the model with the most native-language pairs when those are counted).
+We report each model's realised $N$ alongside its score
 (Table~\ref{tab:conf-model}) rather than silently dropping under-covered cells,
 and the full coverage matrix, with quota and exclusion reasons for every
 shortfall, is in Supplementary Material.
@@ -284,35 +320,62 @@ shortfall, is in Supplementary Material.
 
 Scoring assigns each task the most reliable instrument it admits.
 
-\emph{Where the answer is a number in an official register, code decides.} For T2
-and T3 the returned value is extracted and compared with the authorised range by a
+\emph{Where the answer is a number in an official register, code decides.} For
+T1, T2 and T3 the returned value is extracted and compared with the registry by a
 deterministic scorer, with plausibility guards that reject implausible extractions
 --- a four-digit year read as a death count, a national population read as a
-mortality figure. Comparing a value with a range is exact, and a language model
-asked to do the same arithmetic can only reproduce it with noise. Code resolves
-62.5\% of T2 and 83.6\% of T3.
+mortality figure, a 24-hour value read as an annual one. The extractor normalises
+Devanagari digits, decimal commas and units written out in words, and its
+behaviour on the cases that matter for the language comparison (a comma decimal,
+a Hindi numeral, a parenthetical daily value beside the annual one) is fixed by a
+unit-test suite released with the code; a stratified manual audit of native-language
+responses it classified as carrying no value is reported in Supplementary
+Material. Comparing a value with a key is exact, and a language model asked to do
+the same arithmetic can only reproduce it with noise. Code resolves 99.8\% of the
+T1 cells in the analysis (1{,}614 of 1{,}617), 62.5\% of T2 and 83.6\% of T3;
+a T1 response with no extractable value counts as not having returned it. For the
+three no-standard countries, code scores whether the answer states that no
+national standard exists (correct), asserts a value (fabricated) or declines to
+answer (neither), and the primary tier comparison is reported with and without
+them.
 
 \emph{Where judgement is required, a three-vendor panel decides by its mean.} The
 residual of T2 and T3, with all of T4, is scored by Gemini~2.5~Pro, Claude
 Sonnet~4.6 and DeepSeek-V3, chosen for vendor diversity so that intra-vendor
-correlation does not inflate apparent agreement. T1 and T5 retain the original
-single-judge scores. Reliability is reported as Krippendorff's $\alpha$, the
-single-judge ICC$(2,1)$ and, as the operative quantity, the ICC$(2,3)$ of the panel
-mean, computed on every item the panel scored rather than on a calibration subset.
-One panel member (DeepSeek-V3) is also an evaluated model, and we test for
-self-favouring directly. No human gold-standard layer was collected; ground truth
-is anchored instead to official primary sources (Section~\ref{sec:groundtruth}).
+correlation does not inflate apparent agreement. T5, the open recommendation,
+retains the scores of the original collection judge; that judge was GPT-5-mini
+for the fifteen pre-specified countries and Claude Haiku~4.5 for the ten added in
+the extension, and because the extension holds seven of the ten Global North
+countries, judge and tier are confounded in any effect that still rests on those
+scores. This is why T1 was moved to code: on the original scores the Global South
+deficit in T1 was 0.21 against 0.38 under GPT-5-mini but 0.37 against 0.44 under
+Claude Haiku, a difference between judges as large as the difference between tiers
+(Supplementary Material). T5 carries no tier effect in either instrument.
+Reliability is reported as Krippendorff's $\alpha$, the single-judge ICC$(2,1)$
+and, as the operative quantity, the ICC$(2,3)$ of the panel mean --- a two-way
+random-effects, absolute-agreement coefficient, so that the judges' different
+severities count against it --- computed on every item the panel scored rather
+than on a calibration subset. One panel member (DeepSeek-V3) is also an evaluated
+model, and we test for self-favouring directly. No human gold-standard layer was
+collected; ground truth is anchored instead to official primary sources
+(Section~\ref{sec:groundtruth}).
 
-\emph{The unit of analysis is the scored cell, not the log line.} Of the 9{,}251
-scores the judge produced, 951 cells (11.5\%) carry more than one score, because
-the judge was re-run on parts of the set on different dates. Those are repeated
-measurements of the same item, not independent observations, so we collapse them
-by their mean, leaving 8{,}300 cells (6{,}629 English-prompt). Treating re-runs as
-independent would be pseudo-replication: it inflates $n$ and gives extra weight to
-whichever cells happened to be reprocessed. The choice is made on methodological
-grounds and does not depend on the result; Supplementary Material reports every
-headline effect under both conventions, and the study's central finding is
-indifferent to it ($-4.755$ against $-4.753$~pp).
+\emph{The unit of analysis is the scored cell, not the log line.} Duplication
+exists at two levels and each has a stated rule. At the response level, 21.9\% of
+(model, prompt, replicate) keys have more than one stored answer, because
+collection runs were resumed and re-run; the answer that enters the analysis is
+the first stored in run-file order, which is the one the judge scored, and the
+code verdicts are computed on that same answer so that the two instruments
+describe one response. Scoring every stored answer instead and averaging the
+verdicts changes the code verdict in 3.1\% of cells and the mean by 0.0001
+(Supplementary Material). At the score level, 951 cells (11.5\%) carry more than
+one judge score, because the judge was re-run on parts of the set on different
+dates; those are repeated measurements of the same item, not independent
+observations, and are collapsed by their mean, leaving 8{,}300 cells, or 8{,}244 once the
+56 Egyptian T1 cells without a key are removed (6{,}629 English-prompt).
+Treating re-runs as independent would be pseudo-replication: it inflates $n$ and
+gives extra weight to whichever cells happened to be reprocessed. The choice is
+made on methodological grounds and does not depend on the result.
 
 The primary composite combines five pre-specified subcomponents (Supplementary
 Section~S6), each normalised to $[0,1]$: factual accuracy against the registry

@@ -9,21 +9,25 @@
 
 | arquivo | conteúdo | pp |
 |---|---|---|
-| `...MANUSCRITO-EN` | manuscrito completo, inglês (idioma de submissão) — formato `elsarticle [review]`, espaçamento duplo | 59 |
-| `...SUPLEMENTAR-EN` | material suplementar, inglês | 17 |
-| `...MANUSCRITO-PT` | versão de leitura em português | 31 |
+| `...MANUSCRITO-EN` | manuscrito completo, inglês (idioma de submissão) — formato `elsarticle [review]`, espaçamento duplo | 66 |
+| `...SUPLEMENTAR-EN` | material suplementar, inglês | 18 |
+| `...MANUSCRITO-PT` | versão de leitura em português | 35 |
 | `...SUPLEMENTAR-PT` | suplemento em português | 16 |
 
-A versão em inglês é a autoritativa. As 59 páginas são efeito do espaçamento duplo exigido na submissão; em formato `preprint` o mesmo texto ocupa 42.
+A versão em inglês é a autoritativa. As 66 páginas são efeito do espaçamento duplo exigido na submissão (13 delas são referências); a métrica que o GIQ avalia é a contagem de palavras, ~11.800 no corpo.
+
+**Versão de 21/09 à noite (v2):** incorpora a rodada 10 — T1 adjudicado por código, dois juízes de coleta declarados, chave do Reino Unido corrigida (20, não 10), Egito excluído de T1, H4 rebaixado, Métodos reescritos para o estudo entregue e ~60 números propagados. Descarte o pacote enviado mais cedo no mesmo dia, se o recebeu.
 
 ## O que o artigo afirma (todos os números saem de `data/processed/freeze_all_effects.json`, reproduzível com `python code/run_all.py --confirmatory`)
 
-- **Achado principal (H2):** perguntar na língua do país **piora** a acurácia em **−4,75 pp** (Wilcoxon p = 3×10⁻¹⁵, n = 839 pares). Hindi −11,1 pp, espanhol −4,4, português −3,9. Resiste a leave-one-out de país e de modelo, trimming e reponderação do composto.
-- **Lacuna Norte/Sul (H1):** +5,4 pp (permutação p = 0,020) sob a partição developing/developed da UNCTAD. O gradiente com IDH (ρ = 0,41, p = 0,043) fica **abaixo do critério pré-fixado (ρ ≥ 0,55)** e é reportado como exploratório.
-- **Modelo regional (H3):** o modelo brasileiro é o pior dos 14 (δ = −0,47).
-- **Persona de gestor local (H6):** não ajuda (+0,83 pp, p = 0,27).
-- **Aberto vs. fechado (H5):** +12,6 pp a favor dos fechados.
-- **Piso de recuperação factual:** onde a resposta é um valor publicado (padrão de PM2,5, dado local) a acurácia cai a 0,37 contra 0,61 em síntese.
+- **Achado principal (H2):** perguntar na língua do país **piora** a acurácia em **−5,0 pp** (Wilcoxon p = 5×10⁻¹⁶, n = 839 pares). Hindi −11,4 pp, espanhol −4,5, português −4,2. Resiste a leave-one-out de país e de modelo, trimming, reponderação do composto e separação por instrumento de pontuação.
+- **Lacuna Norte/Sul (H1):** +5,0 pp [+1,5, +8,4] (permutação p = 0,021) sob a partição developing/developed da UNCTAD; mesmo tamanho só dentro da onda de extensão e nos 15 pré-especificados. O gradiente com IDH (ρ = 0,36, p = 0,076) fica **abaixo do critério pré-fixado (ρ ≥ 0,55)** e é exploratório.
+- **T1 por código:** no padrão nacional, a chance do Sul Global é **0,33** da do Norte [0,27, 0,40]; 0,39 sem os países de chave não padrão; 0,12 sob chave tolerante à escada (o Norte é que tem escadas). Sob os juízes originais era 0,22 — e os dois juízes estavam divididos pela mesma linha dos tiers.
+- **Modelo regional (H3):** o pior dos 14 (δ = −0,48); e perde para o Llama 3.1 8B também em português no Brasil (0,258 vs 0,313, n = 20).
+- **Persona de gestor local (H6):** não ajuda (+0,5 pp, p = 0,29).
+- **Aberto vs. fechado (H5):** +13,0 pp a favor dos fechados.
+- **Piso de recuperação factual:** T1+T2 0,435 contra 0,612 em síntese/recomendação (δ = −0,41); T1 sozinha 0,394.
+- **H4 (mecanismo):** dentro do país, cobertura×tarefa e IDH×tarefa são colineares (ρ = 0,65); juntas, o IDH fica (β = +0,027) e a cobertura não (β = +0,012, p = 0,063). O texto agora diz que o mecanismo é identificado só até o par cobertura-ou-desenvolvimento.
 
 ## A virada metodológica que define o artigo
 

@@ -58,6 +58,9 @@ def main():
         # back-translation census (analysis/back_translation_audit.py) are NOT
         # here because they spend API credit; their outputs are committed and
         # these steps consume them.
+        step("C0. Deterministic scoring of T1 (annual PM2.5 standard vs official register; "
+             "abstention where no standard exists)",
+             [py, "analysis/score_numeric.py", "--task", "T1"])
         step("C1. Deterministic scoring of T2 (value vs official register)",
              [py, "analysis/score_numeric.py", "--task", "T2"])
         step("C2. Deterministic scoring of T3 (value vs official register)",

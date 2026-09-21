@@ -36,6 +36,7 @@ from code.analysis.formal_tests import (  # noqa: E402
     mann_kendall,
 )
 from code.analysis.llm_judge import RUBRIC_WEIGHTS as PESOS  # noqa: E402
+from code.analysis.code_verdicts import carregar as carregar_codigo  # noqa: E402
 
 PANEL = ROOT / "data" / "confirmatory_PRIVATE" / "analysis" / "judge_panel_repontuacao.jsonl"
 NUMERIC = ROOT / "data" / "processed"
@@ -56,17 +57,8 @@ def composto(d: dict) -> float:
 def carrega_correcoes(modo="composto"):
     """modo: 'composto' (pesos do instrumento), 'iguais' (pesos iguais),
     'factual' (so a acuracia factual, o subcomponente mais objetivo)."""
-    det = {}
-    for t in ("T2", "T3"):
-        f = NUMERIC / f"numeric_scores_{t}.jsonl"
-        if not f.exists():
-            continue
-        for linha in f.open(encoding="utf-8"):
-            r = json.loads(linha)
-            if r["verdict"] in ("CORRECT", "INCORRECT"):
-                det[(r["prompt_id"], str(r["model_id"]),
-                     int(r.get("replicate_idx", 0)))] = (
-                    1.0 if r["verdict"] == "CORRECT" else 0.0)
+    # T1, T2 e T3 por código, regra única em code_verdicts.py (T1 desde 2026-09-21).
+    det, _excl, _meta = carregar_codigo()
 
     por = collections.defaultdict(list)
     for linha in PANEL.open(encoding="utf-8"):
@@ -88,6 +80,7 @@ def carrega_correcoes(modo="composto"):
 def linhas(corrigir: bool, modo: str = "composto", dedup: bool = True):
     """Todas as respostas com o escore publicado ou o corrigido."""
     det, painel = carrega_correcoes(modo)
+    _d, excluidas, _m = carregar_codigo()
     saida, trocados = [], 0
     for linha in SCORES.open(encoding="utf-8"):
         if not linha.strip():
@@ -104,6 +97,8 @@ def linhas(corrigir: bool, modo: str = "composto", dedup: bool = True):
         else:
             v = r["composite"]
         k = (r.get("prompt_id"), str(r.get("model_id")), int(r.get("replicate_idx", 0)))
+        if corrigir and k in excluidas:
+            continue  # T1 sem chave no registro (EGY): fora da análise
         if corrigir:
             if k in det:
                 if modo == "factual":

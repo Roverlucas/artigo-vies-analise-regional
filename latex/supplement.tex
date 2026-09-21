@@ -37,8 +37,8 @@
 \captionsetup{labelsep=period}
 
 \title{Supplementary Information\\[0.3em]
-\large Geographic and Linguistic Bias in LLMs for Air Pollution Policy:\\
-A 25-Country, 14-Model, 4-Language, 5-Task Benchmark}
+\large Whose Regulation Does the Model Know? Reliability of LLM-Retrieved\\
+Regulatory Information for Public Environmental Management in 25 Countries}
 \author{}
 \date{}
 
@@ -49,12 +49,15 @@ A 25-Country, 14-Model, 4-Language, 5-Task Benchmark}
 (Tables~\ref{tab:s-roster}--\ref{tab:s-groundtruth}) is regenerated from the raw
 confirmatory artifacts by \texttt{code/analysis/make\_supplement\_tables.py}; no
 value is hand-entered. Scoring is adjudicated by code against the official
-register wherever the correct answer is a checkable value (T2, T3), and by the
-mean of a three-vendor judge panel (Gemini~2.5~Pro, Claude Sonnet~4.6,
-DeepSeek-V3) elsewhere; T1 and T5 retain the scores of the original single judge
-(\texttt{gpt-5-mini-2025-08-07}). The analysed confirmatory corpus comprises
-8{,}300 scored responses (6{,}629 English-prompt; 1{,}671 native-language) over 25
-countries and 14 deployment stacks. All inputs, the scoring code, the
+register wherever the correct answer is a checkable value (T1, T2, T3), and by
+the mean of a three-vendor judge panel (Gemini~2.5~Pro, Claude Sonnet~4.6,
+DeepSeek-V3) elsewhere; T5 retains the scores of the collection judge
+(\texttt{gpt-5-mini-2025-08-07} for the pre-specified fifteen countries,
+\texttt{claude-haiku-4-5-20251001} for the ten added in the extension). The
+analysed confirmatory corpus comprises 8{,}244 scored cells (6{,}573
+English-prompt; 1{,}671 native-language) over 25 countries and 14 deployment
+stacks, after removing the 56 Egyptian T1 cells for which the registry holds no
+key. All inputs, the scoring code, the
 ground-truth registry, and the anonymised responses will be released on
 publication under CC-BY-4.0 (data/prompts) and MIT (code).
 
@@ -82,10 +85,11 @@ UNCTAD's developed/developing economies classification
 six-class linguistic-resource taxonomy~\citep{joshi2020state}, and World Bank
 income groups. The pre-specified 15 (Set ``P'' in Table~\ref{tab:s-cov-country})
 span four world regions, five Joshi classes, and four income groups; the 10
-extension countries (Set ``E'') comprise seven additional Global North references
-(United Kingdom, Canada, Australia, South Korea, France, Italy, Portugal) chosen
-to thicken the high-development end of the gradient, and three additional Global
-South native-language-pair countries (Colombia, Chile, Angola). UNCTAD states that
+extension countries (Set ``E'') comprise six additional Global North references
+(United Kingdom, Canada, Australia, South Korea, France, Italy) chosen to thicken
+the high-development end of the gradient, and four additional native-language-pair
+countries (Colombia, Chile, Angola, Portugal), of which Portugal is Global North;
+the extension therefore adds seven Global North and three Global South countries. UNCTAD states that
 developed economies ``broadly comprise Northern America and Europe, Israel, Japan,
 the Republic of Korea, Australia, and New Zealand'', developing economies being the
 remainder; all 25 countries fall on the side that rule assigns them, South Korea
@@ -183,9 +187,16 @@ the official text (Nigeria's NESREA regulates PM\textsubscript{10} only; Argenti
 has no binding federal value; Angola has no national air-quality legislation); in
 those cases a faithful model must decline to state a non-existent threshold rather
 than fabricate one. This provenance is more reproducible than expert assertion:
-any reader can re-verify each value from the cited official source. No reference
-in the registry is unverified, and no value was carried over from secondary
-sources without confirmation against the primary text.
+any reader can re-verify each value from the cited official source. Two entries are
+not fully verified and are flagged as such: Bangladesh (15~$\mu$g/m\textsuperscript{3}
+per the 2005 gazette; a 2022 revision could not be confirmed in an accessible
+official text) and Egypt (the official Arabic text could not be retrieved, so no
+value is stored and Egypt is excluded from T1). Angola's no-standard status rests
+on a World Bank/WHO country note rather than on a national instrument, because no
+national air-quality instrument exists to cite. Every other value was confirmed
+against the primary text. The United Kingdom entry was corrected on 2026-09-21
+from 10 (the English 2040 target) to 20~$\mu$g/m\textsuperscript{3}, the limit
+value in force since 2020, after checking DEFRA's national objectives table.
 
 \input{supplement/tables/tab_s_groundtruth}
 
@@ -193,9 +204,12 @@ sources without confirmation against the primary text.
 \section{Composite outcome and scoring rubric}
 % ============================================================
 
-Every response was scored by the primary judge against the ground-truth registry
-entry (T1, T2, T4) or the validated rubric (T3, T5), producing five subcomponents
-each normalised to $[0,1]$:
+Every response carries five subcomponents each normalised to $[0,1]$. The factual
+subcomponent is decided by code where the registry holds a value (T1, and the
+resolvable part of T2 and T3); the three-vendor panel scores the residual of T2
+and T3 and all of T4; T5 keeps the scores of the collection judge (GPT-5-mini for
+the pre-specified fifteen countries, Claude Haiku~4.5 for the ten added in the
+extension). The subcomponents are:
 \begin{enumerate}\setlength{\itemsep}{1pt}
   \item Factual accuracy against the registry value (binary for T1;
         partial credit for T2--T4).
@@ -211,9 +225,8 @@ contextual~0.25, citation~0.15, calibration~0.15, hallucination~0.15). As a
 sensitivity analysis the headline effects are recomputed under two alternative
 weightings --- equal weights and a PCA-derived set (the first principal component
 of the five subcomponents) --- and a conclusion is treated as robust only if its
-direction holds under all three; all headline effects are stable (tier gap $+4.9$
-to $+4.1$--$+5.4$~pp; HDI gradient $\rho=0.34$--$0.37$; factual floor $\delta$ from $-0.44$
-to $-0.47$; regional-model deficit $\delta$ from $-0.47$ to $-0.51$). The composite is computed per (country, model,
+direction holds under all three; every headline effect keeps its sign under every
+weighting (Table~\ref{tab:s-weighting}). The composite is computed per (country, model,
 persona) cell to support the H6 difference-in-differences test. Each scored record
 also stores the judge's free-text rationale; for example, the
 \texttt{gpt-5-mini} judge scored a Llama~4~Scout reply on Brazil's T1 standard
@@ -278,8 +291,8 @@ confirmatory tests are reported unadjusted within family; declared exploratory
 tests use Benjamini--Hochberg FDR at $q=0.10$. Rank correlations use Spearman
 $\rho$; monotonic-trend robustness uses the Mann--Kendall test; the persona effect
 uses a country-level permutation test (5{,}000 permutations). All outputs below are
-regenerated by \texttt{code/analysis/formal\_tests.py},
-\texttt{robust\_tests.py}, and \texttt{h4\_corpus\_mechanism.py}.
+regenerated by \texttt{formal\_tests.py}, \texttt{robust\_tests.py} and
+\texttt{h4\_corpus\_mechanism.py} under \texttt{code/analysis/}.
 
 \begin{table}[h]\centering
 \caption{Primary family (Bonferroni--Holm): the pre-specified 15-country sample
@@ -291,27 +304,28 @@ $\rho\geq 0.55$ threshold in both --- so the locked protocol and the extension
 agree on the verdict, and the extension buys power rather than a different
 conclusion.}
 \label{tab:s-primary}
-\small
+\footnotesize
 \begin{tabular}{lll}
 \toprule
 Test & 15 countries (pre-specified) & 25 countries (extension) \\
 \midrule
-H1 Spearman $\rho$(acc, HDI)        & $+0.104$ ($p=0.71$), ns            & $+0.409$ ($p=0.043$) \\
-H1 Mann--Kendall (by HDI)           & $S=7$, $Z=+0.30$, $p=0.77$, ns     & $p=0.043$, ns \\
-H1 Spearman $\rho$(acc, Joshi)      & $+0.205$ ($p=0.46$), ns            & $-0.061$, ns (development, not linguistic) \\
+H1 Spearman $\rho$(acc, HDI)        & $+0.079$ ($p=0.78$), ns            & $+0.361$ ($p=0.076$), ns \\
+H1 Mann--Kendall (by HDI)           & $S=3$, $Z=+0.10$, $p=0.92$, ns     & $p=0.065$, ns \\
+H1 Spearman $\rho$(acc, Joshi)      & $+0.131$ ($p=0.64$), ns            & $-0.061$, ns (development, not linguistic) \\
 H1 vs threshold $\rho\geq 0.55$     & not met                            & not met \\
-H4 partial $\rho$(acc, coverage$\,\vert\,$HDI) & $+0.365$ ($p=0.20$), ns & $+0.194$ ($p=0.36$), ns \\
-H6 DiD persona (GS$-$GN)            & not recomputed at $n=15$           & $+0.83$~pp, perm $p=0.292$, ns \\
+H4 partial $\rho$(acc, coverage$\,\vert\,$HDI) & $+0.381$ ($p=0.18$), ns & $+0.190$ ($p=0.37$), ns \\
+H6 DiD persona (GS$-$GN)            & not recomputed at $n=15$           & $+0.47$~pp, perm $p=0.293$, ns \\
+Tier gap (GN$-$GS), composite       & $+6.0$~pp, $p=0.13$ (3 GN)         & $+5.0$~pp, $p=0.021$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \begin{table}[h]\centering
 \caption{H4 corpus mechanism, multi-measure (25 countries). Country-coverage
-breadth (Wikidata sitelinks) predicts accuracy at the zero-order level and
-survives multiplicity correction across the three coverage proxies, but attenuates
-to non-significance after adjusting for development (HDI); we therefore report it
-as suggestive/exploratory, not as an established mechanism. The pre-specified
+breadth (Wikidata sitelinks) is the strongest of the three coverage proxies at
+the zero-order level ($p=0.070$) and attenuates further after adjusting for
+development (HDI); we therefore report it as suggestive/exploratory, not as an
+established mechanism. The pre-specified
 language-edition proxy is null.}
 \label{tab:s-h4}
 \small
@@ -319,10 +333,10 @@ language-edition proxy is null.}
 \toprule
 Measure & Family & $\rho$(acc, log measure) & partial $\,\vert\,$ HDI \\
 \midrule
-English-Wikipedia bytes      & country  & $+0.153$ ($p=0.47$) & $+0.132$ ($p=0.54$) \\
-Wikidata sitelinks  & country  & $+0.399$ ($p=0.048$) & $+0.194$ ($p=0.36$) \\
-Wikidata statements          & country  & $+0.296$ ($p=0.15$) & $+0.180$ ($p=0.40$) \\
-Wikipedia-edition count      & language & $+0.142$, ns        & ns \\
+English-Wikipedia bytes      & country  & $+0.146$ ($p=0.49$) & $+0.125$ ($p=0.56$) \\
+Wikidata sitelinks  & country  & $+0.369$ ($p=0.070$) & $+0.190$ ($p=0.37$) \\
+Wikidata statements          & country  & $+0.248$ ($p=0.23$) & $+0.125$ ($p=0.56$) \\
+Wikipedia-edition count      & language & $+0.048$, ns        & ns \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -332,18 +346,21 @@ Wikipedia-edition count      & language & $+0.142$, ns        & ns \\
 (LOCO) and range-restriction checks.}
 \label{tab:s-robust}
 \small
-\begin{tabular}{ll}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.64\linewidth}}
 \toprule
 Finding & Statistic \\
 \midrule
-Tier gap (GN$-$GS)                 & $+5.4$~pp, 95\% CI $[+1.6,+8.5]$; permutation $p=0.020$ \\
-Tier gap, LOCO range               & $[+4.9,+6.4]$~pp, stable \\
-H1 leave-one-country-out range & $\rho\in[+0.31,+0.49]$: never reaches the pre-specified $0.55$ \\
-Task floor (T1{+}T2 vs T3--T5)     & $0.417$ vs $0.623$, Cliff's $\delta=-0.47$ \\
-H3 Cabra-Mistral vs rest           & $0.347$ vs $0.549$, Cliff's $\delta=-0.47$ \\
-H2 native vs English (all)         & $\Delta=-4.8$~pp, Wilcoxon $p=3\times10^{-15}$ ($n=839$) \\
-\quad Spanish / Portuguese / Hindi & $-4.4$ / $-3.9$ / $-11.1$~pp, all significant \\
-H5 open vs closed-accessible       & $+12.6$~pp closed advantage (descriptive) \\
+Tier gap (GN$-$GS)                 & $+5.0$~pp, 95\% CI $[+1.5,+8.4]$; permutation $p=0.021$ \\
+Tier gap, LOCO range               & $[+4.4,+5.9]$~pp, stable \\
+Tier gap, extension wave only      & $+5.9$~pp $[+2.3,+9.6]$ (7 GN vs 3 GS), perm $p=0.061$ \\
+H1 leave-one-country-out range & $\rho\in[+0.30,+0.48]$: never reaches the pre-specified $0.55$ \\
+Task floor (T1{+}T2 vs T3--T5)     & $0.435$ vs $0.612$, Cliff's $\delta=-0.41$ \\
+H3 Cabra-Mistral vs rest           & $0.351$ vs $0.557$, Cliff's $\delta=-0.48$ \\
+H3 pre-specified (Cabra vs Llama 3.1 8B, Portuguese prompts) & Brazil $0.258$ vs $0.313$, $\delta=-0.26$ ($n=20$ each); BRA+PRT+AGO $0.304$ vs $0.362$, $\delta=-0.17$ ($n=60$ each) \\
+H2 native vs English (all)         & $\Delta=-5.0$~pp, Wilcoxon $p=5\times10^{-16}$ ($n=839$) \\
+\quad Spanish / Portuguese / Hindi & $-4.5$ / $-4.2$ / $-11.4$~pp, all significant \\
+\quad by scoring instrument       & code $-3.8$ ($n=333$), panel $-8.6$ ($n=314$), collection judge $-1.1$~pp ns ($n=192$, T5) \\
+H5 open vs closed-accessible       & $+13.0$~pp closed advantage (descriptive) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -352,44 +369,46 @@ H5 open vs closed-accessible       & $+12.6$~pp closed advantage (descriptive) \
 \section{Additional robustness and corroboration analyses}\label{sec:s-extra}
 % ============================================================
 
-The headline effects were re-tested under several pre-specified analyses, all
-regenerated by \texttt{code/analysis/weighting\_and\_evalue.py},
-\texttt{glmm\_and\_manipcheck.py}, \texttt{bayesian\_reestimation.py}, and
-\texttt{mediation\_h4.py} (wired into \texttt{run\_all.py~-{}-confirmatory}).
+{\sloppy The headline effects were re-tested under several pre-specified
+analyses. All are regenerated by four scripts under \texttt{code/analysis/}
+(\texttt{weighting\_and\_evalue}, \texttt{glmm\_and\_manipcheck},
+\texttt{bayesian\_reestimation}, \texttt{mediation\_h4}), wired into
+\texttt{run\_all.py} with the \texttt{-{}-confirmatory} flag.\par}
 
-\paragraph{Composite-weighting sensitivity.} Recomputing every effect under the
+\paragraph{Composite-weighting sensitivity.}\label{sec:s-weighting} Recomputing every effect under the
 primary author-specified weighting, equal weights, and a PCA-derived weighting
 (first principal component of the five subcomponents) leaves all four headline
 conclusions stable in direction (Table~\ref{tab:s-weighting}).
 
 \begin{table}[h]\centering
 \caption{Headline effects under three composite weightings (English confirmatory,
-$n=6{,}629$). Direction is stable throughout.}
+$n=6{,}573$). Direction is stable throughout; the HDI gradient stays below the
+pre-specified $0.55$ under all three.}
 \label{tab:s-weighting}
 \small
 \begin{tabular}{lrrrr}
 \toprule
 Weighting & Tier gap (pp) & $\rho$(HDI) & Floor $\delta$ & H3 $\delta$ \\
 \midrule
-Author-specified (primary) & $+5.06$ & $+0.365$ & $-0.471$ & $-0.471$ \\
-Equal                      & $+4.85$ & $+0.530$ & $-0.588$ & $-0.524$ \\
-PCA-derived                & $+4.84$ & $+0.375$ & $-0.494$ & $-0.473$ \\
+Author-specified (primary) & $+5.01$ & $+0.361$ & $-0.408$ & $-0.477$ \\
+Equal                      & $+4.20$ & $+0.345$ & $-0.384$ & $-0.508$ \\
+PCA-derived                & $+4.68$ & $+0.369$ & $-0.435$ & $-0.486$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \paragraph{Mixed model and Bayesian re-estimation.} A Gaussian linear mixed model
 (\texttt{statsmodels} MixedLM, REML) with crossed random intercepts for country and
-model gives a Global South effect of $\beta=-0.066$ ($\mathrm{SE}=0.036$,
-$p=0.069$), marginal rather than conventionally significant because it charges the
+model gives a Global South effect of $\beta=-0.063$ ($\mathrm{SE}=0.037$,
+$p=0.087$), marginal rather than conventionally significant because it charges the
 large between-country heterogeneity to the error term. A Bayesian hierarchical
 re-estimation with weakly informative priors (\texttt{pymc}; crossed country/model
 intercepts, \texttt{random\_seed=42}) agrees on magnitude and is decisive about the
-sign: posterior mean $-0.052$, 94\% HDI $[-0.092,-0.016]$, $P(\beta<0)=0.994$
+sign: posterior mean $-0.048$, 94\% HDI $[-0.090,-0.009]$, $P(\beta<0)=0.987$
 ($\hat{R}=1.001$).
 
 \paragraph{E-values.} The tier gap carries an E-value of $1.70$ at the point
-estimate and $1.31$ at the confidence limit nearest the null (VanderWeele \& Ding
+estimate and $1.30$ at the confidence limit nearest the null (VanderWeele \& Ding
 2017 approximation from the standardized effect); the second is the operative
 number, and it is a low bar. No E-value is reported for the development gradient:
 its interval already includes the null, so the E-value at that limit is $1.00$ and
@@ -428,10 +447,10 @@ Permutation test with country as the unit, 10{,}000 relabellings.}
 \toprule
 Partition & Gap (pp) & GN/GS & $p$ \\
 \midrule
-UNCTAD developed/developing (used throughout) & $+5.06$ & 10/15 & $0.020$ \\
-HDI below the sample median ($0.781$) & $+2.39$ & 13/12 & $0.269$ \\
-HDI $<0.800$ (UNDP ``very high'' cutoff) & $+2.92$ & 12/13 & $0.182$ \\
-HDI $<0.700$ & $+1.53$ & 20/5 & $0.575$ \\
+UNCTAD developed/developing (used throughout) & $+5.01$ & 10/15 & $0.020$ \\
+HDI below the sample median ($0.781$) & $+2.09$ & 13/12 & $0.339$ \\
+HDI $<0.800$ (UNDP ``very high'' cutoff) & $+2.74$ & 12/13 & $0.212$ \\
+HDI $<0.700$ & $+1.83$ & 20/5 & $0.507$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -490,25 +509,41 @@ Registry covers T1 for all 25 countries; T2, T3 and T4 were built in a later
 revision from single international sources (WHO AAQD v6.1, WHO GHO AIR\_41, UNEP
 GAAPL Appendix 1); no human validator field exists &
 Ground-truth provenance is now anchored for four of five tasks but is not uniform
-in source class, and the claim of a per-(country, task) registry did not hold in
-the original submission draft. \\
+in source class, and the Methods now describe the four registries as built. \\
 
 Country sample &
 15 countries, fixed in advance &
 15 extended to 25 after the pre-specified analysis was run &
 The extension was made to gain power for the gradient, which nonetheless does not
-reach significance at $n=25$ under the corrected scoring ($\rho=0.37$, $p=0.080$).
-Every effect is reported alongside its 15-country value. \\
+reach significance at $n=25$ under the corrected scoring ($\rho=0.36$, $p=0.076$).
+The primary family and the tier gap are reported alongside their 15-country
+values (Table~\ref{tab:s-primary}). \\
 
 Scoring instrument &
 Single primary judge (GPT-5-mini) scoring all tasks against the registry &
-T2 and T3 adjudicated by code against official registers where the returned value
-is extractable and plausible (62.5\% and 83.6\% of cells); the residual and all
-of T4 re-scored by the three-vendor panel mean; T1 and T5 unchanged &
+The collection judge was not single: GPT-5-mini scored the pre-specified fifteen
+countries and Claude Haiku~4.5 the ten extension countries, which hold seven of
+the ten Global North countries, so judge and tier were confounded in the judged
+scores. T1, T2 and T3 are now adjudicated by code against official registers
+where the returned value is extractable (99.8\%, 56.3\% and 71.8\% of cells);
+the residual and all of T4 re-scored by the three-vendor panel mean; T5 keeps
+the collection judges' scores &
 Changes the substantive conclusions on the same responses. The development
-gradient falls from $\rho=0.51$ ($p=0.004$) to $\rho=0.37$ ($p=0.043$); the
-native-language penalty grows from $-2.1$~pp to $-4.8$~pp and becomes significant
-in all three languages. The findings are reported in the revised order. \\
+gradient falls from $\rho=0.51$ ($p=0.004$) to $\rho=0.36$ ($p=0.076$); the
+native-language penalty grows from $-2.1$~pp to $-5.0$~pp and becomes significant
+in all three languages; the T1 odds ratio moves from $0.22$ under the judges to
+$0.33$ under code. The findings are reported in the revised order. \\
+
+T1 key &
+Value in force per national instrument &
+United Kingdom key corrected on 2026-09-21 from 10 (English target for 2040) to
+20~$\mu$g/m\textsuperscript{3} (limit value in force since 2020); Egypt has no
+retrievable value and is excluded from T1; Bangladesh scored against its 2005
+gazette; official ladders (Brazil, EU, UK, US, Canada, Australia, Colombia) stored
+alongside the value in force &
+Tier comparison on T1 reported with and without the five Global South countries
+whose key is absent or not plainly verified ($0.33$ and $0.39$), and under the
+ladder-tolerant key ($0.12$). \\
 
 Ordering of findings &
 Plan treated H1 (geographic gradient) as the primary hypothesis &
@@ -550,7 +585,7 @@ H4 adjustment set &
 Partial Spearman adjusting for HDI \emph{and} log GDP per capita &
 Originally adjusted for HDI only; GDP did not appear in the analysis code. Now
 executed as specified &
-Resolved. The specified adjustment gives $\rho=+0.02$ against $+0.04$ published;
+Resolved. The specified adjustment gives $\rho=+0.02$ against $+0.04$ with HDI only;
 the two control sets agree because HDI and log GDP correlate at $\rho=0.97$
 across these countries. \\
 
@@ -576,8 +611,9 @@ Model coverage &
 All 14 stacks across all countries and tasks &
 Coverage is not uniform: two stacks are absent from several countries after
 provider rate limiting and credit exhaustion &
-Per-country means are computed over different model sets. A balanced-subset
-check is reported in Section~\ref{sec:s-extra}. \\
+Per-country means are computed over different model sets; the leave-one-model-out
+re-estimates of H2 (Section~4 of the main text) and the per-model $N$ in
+Table~\ref{tab:s-roster} are the checks reported. \\
 
 \bottomrule
 \end{longtable}
@@ -593,10 +629,27 @@ here, figures that predate the extension to 25 countries and that we could not
 reproduce from the released artefacts; the counts above are regenerated by
 \texttt{code/analysis/robustness\_extra.py}. The
 stored answers differ substantially between runs; in one case the same prompt and
-model yielded 307 and \num{3180} characters. The scoring pipeline consumes the
-first record encountered in alphabetical file order, so which of several stored
-answers enters the analysis is determined by filename ordering rather than by an
-analytical rule. We report this rather than leave it implicit.
+model yielded 307 and \num{3180} characters. The answer that enters the analysis is the first stored in run-file order, which
+is the one the collection judge scored (the judge runner reads the run files in
+order and skips keys already scored); the code verdicts for T1, T2 and T3 are
+computed on that same answer, so both instruments describe one response. Scoring
+every stored answer and averaging the verdicts instead changes the code verdict
+in 3.1\% of cells and the mean factual score by 0.0001
+(\texttt{code/analysis/t1\_and\_wave\_sensitivity.py}). Re-judging under a
+chronological rule would require re-running the panel and was not done.
+
+\emph{Extractor audit for T1.} All ten native-language T1 responses that the
+extractor classified as carrying no comparable value were read one by one
+(\texttt{data/processed/t1\_extractor\_audit.md}). None contains an annual
+PM\textsubscript{2.5} value in $\mu$g/m\textsuperscript{3} that the extractor
+missed: seven are degenerate outputs of the regional 7B model (repeated prompt,
+nonsense text), two cite the regulation without a number, and one asks
+permission to look the value up; two further responses state ``15 mg/m\textsuperscript{3}'',
+a value in the wrong unit, which is treated as no comparable value in every
+language. The extractor's handling of decimal commas, Devanagari numerals and
+units written in words is fixed by 13 unit tests released with the code. The
+audit was performed by the analysis pipeline's author rather than by an
+independent reader, and is recorded as such.
 
 \section{Prompt construction, persona template, and verbatim examples}
 
@@ -644,8 +697,10 @@ and the deviation is logged in Section~\ref{sec:s-deviations}. Native-language
 renderings (Portuguese, Spanish, Hindi) were produced by a high-quality LLM
 translator (Claude Sonnet~4.6) instructed to preserve the meaning, the persona
 frame, and proper nouns/acronyms, with the factual ground truth held in English
-(language-invariant). Human native-speaker translation and back-translation
-verification were not performed, and this is noted as a limitation in the main text. Every factual claim in a ground-truth entry was required to
+(language-invariant). Human native-speaker translation was not performed, and this is noted as a
+limitation in the main text; an LLM back-translation census of all 90 native
+prompts, by a model other than the translator, is reported in
+Section~\ref{sec:s-deviations} and in the main text (Section~4). Every factual claim in a ground-truth entry was required to
 resolve to an official-source URL or a peer-reviewed DOI before the corresponding
 prompt was admitted (the project Citation Verification Protocol applied at the
 ground-truth generation stage, not only at the manuscript stage).
@@ -676,9 +731,11 @@ guideline of 5~$\mu$g/m\textsuperscript{3}'' (source: CONAMA Resolution 506/2024
 Native-language prompts apply the same template, translated; for example the Hindi
 T1 prompt for India is the faithful Devanagari rendering of the neutral English
 item, reproduced verbatim in the released prompt set. The complete prompt set
-(370 confirmatory items: 25 countries $\times$ 5 tasks $\times$ persona, plus
-native-language pairs) is released as \texttt{prompts\_confirmatory.jsonl} with the
-per-item ground truth, source, and rubric.
+(370 items: 250 English prompts, 25 countries $\times$ 5 tasks $\times$ 2
+personas; 90 native-language renderings; and 30 additional question variants
+generated at design time and never collected) is released as
+\texttt{prompts\_confirmatory.jsonl} with the per-item ground truth, source, and
+rubric.
 
 % ============================================================
 \bibliography{references}

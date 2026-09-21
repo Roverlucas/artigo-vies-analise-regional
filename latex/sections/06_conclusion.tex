@@ -7,36 +7,38 @@ concentration, or an operational response carries direct public-health stakes in
 the Global South, where the PM\textsubscript{2.5} mortality burden is
 heaviest~\citep{gbd2019risk,requia2024shortterm}. We measured geographic and
 persona-modulated bias in that domain with a 25-country, 14-model, four-language
-benchmark, scored against ground truth anchored to official primary sources ---
-by code wherever the answer is a register value, and by the mean of a
-three-vendor judge panel elsewhere.
+benchmark (English plus the native language of nine countries), scored against
+ground truth anchored to official primary sources --- by code wherever the answer
+is a register value, and by the mean of a three-vendor judge panel elsewhere.
 
 The remedies an agency can try do not work, and the most intuitive one backfires.
-Asking in the country's own language \emph{lowers} accuracy by $4.8$~percentage
+Asking in the country's own language \emph{lowers} accuracy by $5.0$~percentage
 points, most sharply where the language is least represented in training corpora;
 a local-manager persona does not narrow the gap; and the regionally tuned model is
 the weakest of all fourteen systems. Accuracy also collapses on the recall of a
 binding value, the task a manager can least afford to have wrong. A Global
 North/South tier gap persists and is highly structured: on returning the binding
-national standard the Global South odds of a correct answer are $0.22$ of the
+national standard the Global South odds of a correct answer are $0.33$ of the
 Global North's, and the gap shrinks as the answer depends less on a
 country-specific fact, disappearing on the one task with no register value to get
 right. The monotonic development gradient does not reach significance, so we
 report a difference between groups that we can demonstrate and a shape across the
-development range that we cannot. On mechanism, country representation is the
-operative channel for a gap measured in English, identified within countries
-rather than between them, and without a claim to causal identification.
+development range that we cannot. On mechanism, the within-country design rules out
+the language-corpus channel for a gap measured in English, but cannot separate
+country coverage from development, and we claim no more than that.
 
 For Global South environmental agencies the practical message is cautionary. LLM
 outputs on binding standards and measured data should be treated as drafts checked
 against the official gazette, and none of the cheap prompt- or model-level
 workarounds substitutes for that verification --- least of all switching to the
-local language, which on this evidence makes the answer worse. We interpret the
+local language, which on this evidence makes the answer worse. We read the
 pattern through the coloniality-of-knowledge
-framework~\citep{mohamed2020decolonial}: the languages under-served in training
-corpora~\citep{joshi2020state} are spoken where air pollution kills the most
-people, and this study turns that link from a plausible worry into a measured
-effect.
+framework~\citep{mohamed2020decolonial}: the penalty falls on the languages
+under-served in training corpora~\citep{joshi2020state}, and it falls hardest on
+Hindi, the scarcest of the three; whether those languages are also spoken where
+the health burden of air pollution is greatest is not something this design
+measures, and the one country-level observation we have (India) points the other
+way (Section~\ref{sec:discussion}).
 
 One methodological result generalises beyond the domain. Rebuilding two task keys
 from official registers and moving range comparison out of the judge and into code

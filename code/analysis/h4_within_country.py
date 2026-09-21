@@ -323,6 +323,7 @@ def canais_simultaneos() -> None:
     print("  deveria sobreviver. Se sobrevivesse e o de cobertura nao, a leitura")
     print("  do artigo estaria errada.")
 
+
     with SAIDA.open(encoding="utf-8") as f:
         d = json.load(f)
     d.update({"ajuste_mutuo_cob_beta": float(m.params.get("dep:cob_z")),
@@ -330,6 +331,35 @@ def canais_simultaneos() -> None:
               "ajuste_mutuo_lang_beta": float(m.params.get("dep:lang_z")),
               "ajuste_mutuo_lang_p": float(m.pvalues.get("dep:lang_z")),
               "corr_entre_proxies": float(r)})
+    # ------------------------------------------------------------------
+    # HDI x DEPENDENCIA (parecer externo, 2026-09-21). O efeito fixo de pais
+    # absorve o efeito PRINCIPAL do HDI, nao a interacao HDI x dependencia da
+    # tarefa. Como cobertura e HDI sao colineares entre paises, "cobertura x
+    # tarefa" e "HDI x tarefa" precisam entrar JUNTAS para que a cobertura
+    # possa reivindicar algo que o desenvolvimento nao explica.
+    # ------------------------------------------------------------------
+    df["hdi"] = df["pais"].map(lambda c: float(TODAS_COV[c][0]))
+    df["hdi_z"] = (df["hdi"] - df["hdi"].mean()) / df["hdi"].std()
+    r_ch = df.groupby("pais")[["cob_z", "hdi_z"]].first().corr(method="spearman").iloc[0, 1]
+    print("\n" + "=" * 74)
+    print("COBERTURA x DEP e HDI x DEP NO MESMO MODELO (rival: desenvolvimento)")
+    print("=" * 74)
+    print(f"  correlacao cobertura~HDI entre paises: rho = {r_ch:+.3f}")
+    m3 = smf.mixedlm("y ~ C(pais) + dep + dep:cob_z + dep:hdi_z", df,
+                     groups=df["modelo"]).fit(reml=True)
+    for termo, rot in (("dep:cob_z", "cobertura do pais "), ("dep:hdi_z", "HDI               ")):
+        b, se, p = m3.params.get(termo), m3.bse.get(termo), m3.pvalues.get(termo)
+        marca = "  <- sobrevive" if p < 0.05 else "  <- nao sobrevive"
+        print(f"  dep x {rot}: beta={b:+.4f}  SE={se:.4f}  p={p:.4g}{marca}")
+    m4 = smf.mixedlm("y ~ C(pais) + dep + dep:hdi_z", df, groups=df["modelo"]).fit(reml=True)
+    print(f"  (so HDI x dep, sem cobertura): beta={m4.params.get('dep:hdi_z'):+.4f}  p={m4.pvalues.get('dep:hdi_z'):.4g}")
+    d.update({"hdi_dep_beta_sozinho": float(m4.params.get("dep:hdi_z")),
+              "hdi_dep_p_sozinho": float(m4.pvalues.get("dep:hdi_z")),
+              "conjunto_cob_beta": float(m3.params.get("dep:cob_z")),
+              "conjunto_cob_p": float(m3.pvalues.get("dep:cob_z")),
+              "conjunto_hdi_beta": float(m3.params.get("dep:hdi_z")),
+              "conjunto_hdi_p": float(m3.pvalues.get("dep:hdi_z")),
+              "rho_cobertura_hdi": float(r_ch)})
     SAIDA.write_text(json.dumps(d, indent=2), encoding="utf-8")
 
 

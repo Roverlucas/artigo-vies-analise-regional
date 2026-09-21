@@ -17,25 +17,29 @@ pre-specified conclusion is revised on the extension alone; where the two sample
 differ on a hypothesis the paper turns on, we say so in the text. Scoring is
 adjudicated by code wherever the answer is a number checkable against an official
 register, and by the mean of a three-vendor judge panel elsewhere
-(Section~\ref{sec:results:reliability}); the T1 ground truth is anchored to
-official primary sources for all 25 countries (Section~\ref{sec:results:gt}).
+(Section~\ref{sec:results:reliability}); the T1 ground truth is anchored to the
+national instrument in force for 24 countries and has no key for Egypt, which is
+excluded from T1 (Section~\ref{sec:results:gt}).
 }}
 \end{center}
 
 \subsection{Sample and scoring}
 \label{sec:results:sample}
 
-The analysed corpus comprises 8{,}300 scored cells on the $[0,1]$ composite,
-of which 6{,}629 are English-prompt responses across the 25 countries; the
+The analysed corpus comprises 8{,}244 scored cells on the $[0,1]$ composite,
+of which 6{,}573 are English-prompt responses across the 25 countries; the
 remainder are the within-country native-language pairs used for H2. Scoring uses
 the most reliable instrument each task admits: code adjudicates against the
-official register wherever the answer is a published number, resolving 62.5\% of
-T2 and 83.6\% of T3, and the residual, with all of T4, is scored by the mean of a
-three-vendor panel. T1 and T5 retain their original scores. In total 5{,}373 cells
-carry a corrected score.
+official register wherever the answer is a published number, resolving 99.8\% of
+T1, 56.3\% of T2 and 71.8\% of T3 cells, and the residual, with all of T4, is
+scored by the mean of a three-vendor panel. T5 retains the scores of the
+collection judge. In total 6{,}434 cells carry a code or panel score.
 
 The panel mean replaces the single-judge design of the original protocol, in which
-the judge (GPT-5-mini) was itself among the evaluated models. Judges differ sharply
+the collection judge (GPT-5-mini for the pre-specified fifteen countries, Claude
+Haiku~4.5 for the ten extension countries) was itself among the evaluated
+models and, because the extension holds seven of the ten Global North countries,
+was confounded with tier. Judges differ sharply
 in severity (mean composite $0.617$ for Gemini, $0.451$ for Claude, $0.379$ for
 DeepSeek), so a single judge fixes an arbitrary level, and single-judge reliability
 is only ICC$(2,1)=0.56$ against ICC$(2,3)=0.79$ for the panel mean. One panel
@@ -48,12 +52,19 @@ it scores its own outputs \emph{more} harshly relative to the other two judges
 
 Table~\ref{tab:conf-model} orders the 14 models by mean composite: frontier systems
 lead and small open-weight models trail. On H3, the Brazilian-Portuguese regional
-model Cabra-Mistral~7B is the \emph{weakest} of all ($0.347$ versus $0.548$ for the rest; Mann-Whitney $p\approx 0$, Cliff's
-$\delta=-0.47$). Cliff's $\delta$ has a direct reading --- the probability that a
+model Cabra-Mistral~7B is the \emph{weakest} of all ($0.351$ versus $0.557$ for the rest; Mann-Whitney $p\approx 0$, Cliff's
+$\delta=-0.48$). Cliff's $\delta$ has a direct reading --- the probability that a
 randomly drawn answer from one group beats one from the other, rescaled to
-$[-1,+1]$ --- so $-0.47$ means the regional model loses roughly three such
-comparisons for every one it wins. Scale and frontier training dominate regional
-instruction tuning at the 7B level.
+$[-1,+1]$ --- so $-0.48$ means the regional model loses roughly three such
+comparisons for every one it wins. That comparison is against the whole roster,
+which includes frontier systems; the pre-specified test was narrower, Cabra
+against its scale-matched peer Llama~3.1~8B on Portuguese-language prompts, and
+it points the same way with a smaller margin: on Brazil the regional model scores
+$0.258$ against $0.313$ ($\delta=-0.26$, $n=20$ each), and across the three
+Portuguese-speaking countries $0.304$ against $0.362$ ($\delta=-0.17$, $n=60$
+each). Regional instruction tuning at the 7B level does not recover what scale
+and frontier training give, even in the language and country it was tuned for,
+though with 20 Brazilian cells per model the narrow test is descriptive.
 
 \begin{table}[h]
 \centering
@@ -68,20 +79,20 @@ English-prompt responses.}
 \toprule
 Model & $N$ & Mean \\
 \midrule
-DeepSeek-V3      & 500 & 0.680 \\
-GPT-5            & 500 & 0.670 \\
-Gemini~2.5~Flash & 490 & 0.624 \\
-GPT-5-mini       & 499 & 0.619 \\
-Claude Haiku~4.5 & 490 & 0.580 \\
-Qwen3 32B        & 498 & 0.553 \\
-Command~R+       & 500 & 0.526 \\
-Llama~3.3 70B    & 395 & 0.507 \\
-Llama~4 Scout    & 500 & 0.492 \\
-Qwen3 14B        & 500 & 0.480 \\
-Phi-4 14B        & 500 & 0.473 \\
-GPT-OSS 120B     & 261 & 0.472 \\
-Llama~3.1 8B     & 500 & 0.435 \\
-Cabra-Mistral~7B & 496 & 0.347 \\
+DeepSeek-V3      & 496 & 0.690 \\
+GPT-5            & 496 & 0.676 \\
+Gemini~2.5~Flash & 486 & 0.636 \\
+GPT-5-mini       & 495 & 0.628 \\
+Claude Haiku~4.5 & 486 & 0.589 \\
+Qwen3 32B        & 494 & 0.560 \\
+Command~R+       & 496 & 0.530 \\
+Llama~3.3 70B    & 391 & 0.514 \\
+Llama~4 Scout    & 496 & 0.500 \\
+Qwen3 14B        & 496 & 0.485 \\
+GPT-OSS 120B     & 257 & 0.479 \\
+Phi-4 14B        & 496 & 0.475 \\
+Llama~3.1 8B     & 496 & 0.437 \\
+Cabra-Mistral~7B & 492 & 0.351 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -90,33 +101,35 @@ Cabra-Mistral~7B & 496 & 0.347 \\
 \label{sec:results:task}
 
 Difficulty is sharply task-dependent (Table~\ref{tab:conf-task}). The hardest
-task by a wide margin is T1 (technical-standard recall, 0.369) --- the
+task by a wide margin is T1 (technical-standard recall, 0.394) --- the
 task that requires returning the national annual PM\textsubscript{2.5} standard
 in force. The open recommendation task (T5) scores highest (0.769) because its
 rubric rewards plausible, well-structured policy advice that does not hinge on a
-single fact. Pooling the two recall tasks (T1, T2; mean $0.421$) against
+single fact. Pooling the two recall tasks (T1, T2; mean $0.435$) against
 synthesis and recommendation (T3--T5, $0.612$), the difference is large
-(Mann-Whitney $p\approx 0$, Cliff's $\delta=-0.47$, again roughly three losses
-for every win). LLMs are weakest exactly where applied environmental management
+(Mann-Whitney $p\approx 0$, Cliff's $\delta=-0.41$, roughly two and a half
+losses for every win). LLMs are weakest exactly where applied environmental management
 needs them most: recalling the precise
 regulatory threshold in force.
 
-The correction of the ground truth is itself informative here, and provides an
-internal check on it. T1 always had official ground truth, and its score barely
-moves ($0.367$ to $0.369$). T2 was previously scored against a
-placeholder, and it rises from $0.368$ to $0.473$ once each returned
-concentration is compared with the authorised range by code. The correction
-therefore moved exactly the task whose ground truth was defective and left
-untouched the task whose ground truth was sound, which is the behaviour expected
-if the correction is right. It also revises the earlier reading: the floor is
-real but shallower than reported, and it is concentrated in normative recall (T1)
-rather than shared equally with local-datum recall (T2).
+The two corrections of the scoring are themselves informative here. T2 was
+originally scored against a placeholder key and rises from $0.368$ to $0.473$
+once each returned concentration is compared with the authorised range by code:
+the correction moved the task whose key was defective. T1 always had an official
+key but was scored by two collection judges of different severity, and moving it
+to code raises it from $0.367$ to $0.394$ while keeping it the hardest task;
+the code verdict also shows what the judges could not, that a third of the
+wrong T1 answers (259 of 754) cite a value that sits on the country's official
+ladder --- a superseded value or a future stage --- rather than a fabricated
+one (Section~\ref{sec:results:t1}). The floor is real, shallower than first
+reported, and concentrated in normative recall (T1).
 
 \begin{table}[h]
 \centering
-\caption{Composite accuracy by task type (25 countries). T2 and T3 are
-code-adjudicated where the returned value is checkable against the official
-register; T4 is panel-scored; T1 and T5 retain their original scores.}
+\caption{Composite accuracy by task type (25 countries; T1 on 24, Egypt having
+no key). T1, T2 and T3 are code-adjudicated where the returned value is
+checkable against the official register; T4 is panel-scored; T5 retains the
+collection judge's scores.}
 \label{tab:conf-task}
 \footnotesize
 \setlength{\tabcolsep}{8pt}
@@ -129,7 +142,7 @@ T5 (applied recommendation)  & 1{,}320 & 0.769 \\
 T3 (health-evidence synth.)  & 1{,}329 & 0.548 \\
 T4 (policy instruments)      & 1{,}310 & 0.520 \\
 T2 (local factual datum)     & 1{,}335 & 0.473 \\
-T1 (technical standard)      & 1{,}335 & 0.369 \\
+T1 (technical standard)      & 1{,}279 & 0.394 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -142,28 +155,32 @@ both English and the native language with content held fixed, so the contrast is
 within-country and within-model. Replicates are averaged within each (model,
 prompt) cell before pairing, since pairing replicate-to-replicate would inflate
 $n$ and make the test anticonservative. Across the 839 matched cells,
-native-language prompting \emph{lowers} mean composite accuracy by 4.8 percentage
-points (Wilcoxon signed-rank $p=3\times10^{-15}$). The penalty tracks the resource
+native-language prompting \emph{lowers} mean composite accuracy by 5.0 percentage
+points (Wilcoxon signed-rank $p=5\times10^{-16}$). The penalty tracks the resource
 level of the language, and all three are significant (Table~\ref{tab:h2}): Hindi
-$-11.1$~pp, Spanish $-4.4$~pp, Portuguese $-3.9$~pp. India, which scores highest
+$-11.4$~pp, Spanish $-4.5$~pp, Portuguese $-4.2$~pp. India, which scores highest
 of all 25 countries in English, drops the furthest in Hindi.
 
 Because H2 carries the study's central claim, we tried to make it disappear rather
 than to confirm it, and it held under every attack: it is not driven by any one
-country (leave-one-out $-4.2$ to $-5.2$~pp, all significant), by any one model
-($-4.2$ to $-5.1$~pp), or by outlying cells (5\% trimmed $-4.3$~pp,
-$p=5\times10^{-19}$); it survives every weighting of the composite; and it appears
+country (leave-one-out $-4.4$ to $-5.5$~pp, all significant), by any one model
+($-4.5$ to $-5.2$~pp), or by outlying cells (5\% trimmed $-4.5$~pp,
+$p=6\times10^{-20}$); it survives every weighting of the composite; and it appears
 in every task and under both persona conditions.
 
 Two attacks answer the objections a sceptical reader raises first. The first is
 that language-model judges might penalise non-English prose for style rather than
 content, so we test a binary outcome no judge touches: does the response contain a
-value the extractor can compare with the register? English prompts yield a
-verifiable value $66.4\%$ of the time and native-language prompts $48.7\%$, a
-paired difference of $-17.7$~pp, with the native version worse in 122 of the 182
-discordant pairs (sign test $p=5\times10^{-6}$) and the same ordering by language.
-Asking in the local language does not merely lower a judged score; it makes the
-model substantially less likely to return a checkable number at all.
+value the extractor can compare with the register? The extractor reads Devanagari
+numerals, decimal commas and units written out in words, so a Hindi or a
+Spanish-language number is not penalised for its notation
+(Section~\ref{sec:methods}). English prompts yield a verifiable value $71.9\%$ of
+the time and native-language prompts $62.5\%$, a paired difference of $-9.4$~pp,
+with the native version worse in 134 of the 218 discordant pairs (sign test
+$p=9\times10^{-4}$): Hindi $-39.5$~pp, Spanish $-13.4$~pp, while Portuguese, the
+best-resourced of the three, shows no such loss ($+3.5$~pp). Asking in the local
+language does not merely lower a judged score; where the language is scarce it
+makes the model substantially less likely to return a checkable number at all.
 
 The second is that the native prompts, produced by an LLM translator, might simply
 ask something different. We tested this on all 90 unique native prompts --- a
@@ -172,13 +189,20 @@ having two further models audit the result against the English original. On the
 two items that could confound the effect, fidelity is complete: no prompt changed
 the country and none changed the requested quantity ($90/90$ on both). Restricting
 H2 to the prompts verified as faithful leaves it essentially unchanged
-($-4.5$~pp, $p=9\times10^{-8}$) against $-5.2$~pp among the divergent ones, a
-difference not distinguishable from zero (permutation $p=0.42$). Translation
+($-4.8$~pp, $p=2\times10^{-8}$) against $-5.2$~pp among the divergent ones, a
+difference not distinguishable from zero (permutation $p=0.80$). Translation
 fidelity does not predict the size of the penalty, which is what one expects if
-translation is not causing it. The effect is weakest in the code-adjudicated
-subset ($-2.2$~pp, not significant) for a structural reason: code adjudicates only
-where a number exists, so that subset conditions on the model having produced a
-value in \emph{both} languages, selecting away the severest failure mode.
+translation is not causing it. Separating the pairs by the instrument that scored
+the native cell, the penalty is $-3.8$~pp where code decided ($n=333$,
+$p=0.004$), $-8.6$~pp where the panel decided ($n=314$, $p<10^{-21}$) and
+$-1.1$~pp, not significant, where the collection judge's score remains ($n=192$,
+essentially T5, the open recommendation with no register value). The
+code-adjudicated subset is the smaller of the two because code acts only where a
+number exists, so it conditions on the model having produced a value in
+\emph{both} languages and selects away the severest failure mode; the panel
+subset carries that failure mode, which is why judge leniency cannot be assumed
+to cancel across languages and why the judge-free outcome above is the one that
+settles the point.
 
 The applied implication is the opposite of the intuition. A manager who suspects
 an English-language model serves their country poorly, and responds by asking in
@@ -197,11 +221,11 @@ country and model, replicates averaged within cell, 25-country sample).}
 \toprule
 Native language (Joshi class) & Countries & $\Delta$ (pp) & $p$ & $N$ cells \\
 \midrule
-Spanish (5)    & MEX, ARG, PER, COL, CHL & $-4.4$  & $<10^{-4}$        & 457 \\
-Portuguese (4) & BRA, PRT, AGO           & $-3.9$  & $2\times10^{-4}$  & 311 \\
-Hindi (4)      & IND                     & $-11.1$ & $5\times10^{-4}$  & 71 \\
+Spanish (5)    & MEX, ARG, PER, COL, CHL & $-4.5$  & $2\times10^{-10}$ & 457 \\
+Portuguese (4) & BRA, PRT, AGO           & $-4.2$  & $8\times10^{-5}$  & 311 \\
+Hindi (4)      & IND                     & $-11.4$ & $4\times10^{-4}$  & 71 \\
 \midrule
-\multicolumn{2}{l}{Overall}              & $-4.8$  & $3\times10^{-15}$ & 839 \\
+\multicolumn{2}{l}{Overall}              & $-5.0$  & $5\times10^{-16}$ & 839 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -211,8 +235,8 @@ Hindi (4)      & IND                     & $-11.1$ & $5\times10^{-4}$  & 71 \\
 
 The persona factor was fully crossed, so H6 is tested as a
 difference-in-differences. The public-environmental-manager frame leaves the
-North/South gap essentially unchanged: $+5.0$~pp under the neutral frame versus
-$+5.9$~pp under the manager frame, a DiD of $+0.8$~pp, far below the
+North/South gap essentially unchanged: $+4.8$~pp under the neutral frame versus
+$+5.2$~pp under the manager frame, a DiD of $+0.5$~pp, far below the
 pre-specified 5~pp threshold; a country-level permutation test (5{,}000
 permutations of the tier label) gives $p=0.29$. H6 is not supported:
 presenting the query as coming from a public environmental manager neither
@@ -227,12 +251,20 @@ frame, so the null is not an artefact of the frame being universally ignored.
 
 H1 was pre-specified in two parts, and they separate cleanly.
 
-The ten Global North countries average $0.568$ against
-$0.514$ for the fifteen Global South countries, a gap of $+5.4$ percentage points
-whose 95\% bootstrap confidence interval over countries is $[+2.1,+8.7]$~pp and
-\emph{excludes zero}. It is stable to dropping any single country (leave-one-out
-$[+4.9,+6.4]$~pp) and to the composite weighting ($+4.2$~pp under equal weights,
-$+8.8$~pp on the factual subcomponent, where it widens).
+The ten Global North countries average $0.572$ against
+$0.521$ for the fifteen Global South countries, a gap of $+5.0$ percentage points
+whose 95\% bootstrap confidence interval over countries is $[+1.5,+8.4]$~pp and
+\emph{excludes zero} (permutation of the tier label, country as unit,
+$p=0.021$). It is stable to dropping any single country (leave-one-out
+$[+4.4,+5.9]$~pp) and to the composite weighting ($+4.2$~pp under equal weights,
+$+8.7$~pp on the factual subcomponent, where it widens). Because seven of the ten
+Global North countries entered with the extension, we also report the gap where
+the wave cannot explain it: within the extension alone (seven Global North
+against Colombia, Chile and Angola) it is $+5.9$~pp $[+2.3,+9.6]$, and on the
+pre-specified fifteen (three Global North against twelve) $+6.0$~pp
+$[+1.7,+10.2]$, a point estimate of the same size on a sample too small to make
+it significant by permutation ($p=0.13$). The gap is a property of the data, not
+of the wave that collected it.
 
 \emph{Where the gap lives, and why the composite understates it.} The composite
 averages five tasks and the gap is not spread evenly across them. Re-estimating
@@ -240,21 +272,30 @@ the same contrast as a binomial mixed model on each task separately --- outcome
 coded as returning the register value, with crossed random intercepts for country
 and model --- shows the disadvantage scaling with how much the task depends on a
 fact specific to that country (Table~\ref{tab:tier-by-task}). On the binding
-national standard (T1) the Global South odds of a correct answer are $0.22$ of
-the Global North's ($52.2\%$ versus $29.4\%$ raw), and on policy instruments (T4)
+national standard (T1), scored by code against the instrument in force, the
+Global South odds of returning the register value are $0.33$ of the Global
+North's ($50.7\%$ versus $31.6\%$ raw), and on policy instruments (T4) also
 $0.33$; on health-evidence synthesis (T3), where the answer is an international
 estimate rather than a national one, the ratio rises to $0.69$; and on open
 recommendation (T5), the one task with no register value to get right, the gap
-disappears entirely. The gap is not weak --- it is \emph{concentrated}, and the
-composite dilutes it by averaging tasks where it is severe with a task where it
-does not exist. On the question a public manager most often brings to these
-systems, what is the standard in force here, a Global South country is served at
-roughly a quarter of the odds of a Global North one.
+disappears entirely. The T1 ratio survives the two objections its composition
+invites (Section~\ref{sec:results:t1}): setting aside the four Global South
+countries whose key is not a plainly verified national value it is $0.39$
+$[0.31,0.50]$, and on the pre-specified fifteen it is $0.27$ $[0.21,0.34]$. The
+gap is not weak --- it is \emph{concentrated}, and the composite dilutes it by
+averaging tasks where it is severe with a task where it does not exist. On the
+question a public manager most often brings to these systems, what is the
+standard in force here, a Global South country is served at a third of the odds
+of a Global North one.
 
 \begin{table}[h]
 \centering
-\caption{Global South versus Global North odds of returning the register value,
-by task. Binomial mixed model, crossed random intercepts for country and model.}
+\caption{Global South versus Global North odds of a factually correct answer,
+by task. The outcome is factual accuracy $\ge 0.5$: the code verdict where the
+task is adjudicated by code (all of T1; the resolvable part of T2 and T3), the
+panel or judge score otherwise, so for T5, which has no register value, it is the
+judge's factual rating. Binomial mixed model, crossed random intercepts for
+country and model.}
 \label{tab:tier-by-task}
 \footnotesize
 \setlength{\tabcolsep}{8pt}
@@ -263,7 +304,7 @@ by task. Binomial mixed model, crossed random intercepts for country and model.}
 \toprule
 Task & Answer is & GN & GS & OR & 95\% interval \\
 \midrule
-T1 (technical standard)     & a national value        & 52.2\% & 29.4\% & 0.22 & $[0.18,0.27]$ \\
+T1 (technical standard)     & a national value        & 50.7\% & 31.6\% & 0.33 & $[0.27,0.40]$ \\
 T4 (policy instruments)     & national instruments    & 62.0\% & 44.7\% & 0.33 & $[0.26,0.40]$ \\
 T2 (local measured datum)   & a national value        & 50.7\% & 37.8\% & 0.47 & $[0.39,0.55]$ \\
 T3 (health-evidence synth.) & an international estimate& 59.1\% & 52.3\% & 0.69 & $[0.59,0.80]$ \\
@@ -273,31 +314,32 @@ T5 (applied recommendation) & no register value       & 99.6\% & 99.7\% & 3.58 &
 \end{table}
 
 At $n=25$, Spearman
-$\rho(\text{accuracy},\text{HDI})=+0.41$ clears conventional significance
-($p=0.043$; Mann-Kendall $p=0.042$) but stays well below the pre-specified
-$\rho\geq0.55$ threshold, which is the criterion H1 was registered against. At the
-pre-specified $n=15$ it is essentially absent ($\rho=+0.10$), and no
-leave-one-country-out re-estimate reaches $0.55$ either (range $[+0.35,+0.54]$). We
+$\rho(\text{accuracy},\text{HDI})=+0.36$ does not reach conventional significance
+($p=0.076$; Mann-Kendall $p=0.065$) and stays well below the pre-specified
+$\rho\geq0.55$ threshold, which is the criterion H1 was fixed against. At the
+pre-specified $n=15$ it is essentially absent ($\rho=+0.08$), and no
+leave-one-country-out re-estimate reaches $0.55$ either (range $[+0.30,+0.48]$);
+under equal weights it is $0.35$ and under PCA weights $0.37$. We
 therefore report a tier difference we can demonstrate and a development gradient
 we cannot: the disadvantage is established as a difference between groups, while
 its shape across the development range remains exploratory. Under Bonferroni-Holm
 across the primary family $\{$H1-gradient, H4, H6$\}$, no test rejects its null.
 
 The country ordering retains large axis-orthogonal heterogeneity (Supplementary
-Material): India ($0.652$, Global South) tops all countries, South Africa and
-Indonesia outrank most of the Global North, and Canada and France sit low. The
+Material): India ($0.651$, Global South) tops all countries, Indonesia and
+South Africa outrank most of the Global North, and Canada and France sit low. The
 disadvantage is a tier difference layered over substantial country-specific
 variation, and that heterogeneity is itself part of why the gradient does not
 resolve.
 
-\subsection{H4 --- corpus representation: country coverage, not language size}
+\subsection{H4 --- corpus representation: country coverage, inseparable from development}
 \label{sec:results:h4}
 
 The pre-specified mechanism was training-corpus representation, proxied by
-Wikipedia article and edition count. That proxy is null: Spearman $\rho=+0.14$
-($p=0.50$) uncontrolled, and still null partialling out HDI and log GDP per
-capita. A post-hoc country-coverage proxy reaches $\rho=+0.40$ ($p=0.048$) and
-attenuates after adjusting for HDI (partial $\rho=+0.19$, $p=0.36$). At country
+Wikipedia article and edition count. That proxy is null: Spearman $\rho=+0.05$
+($p=0.82$) uncontrolled, and still null partialling out HDI and log GDP per
+capita. A post-hoc country-coverage proxy reaches $\rho=+0.37$ ($p=0.070$) and
+attenuates after adjusting for HDI (partial $\rho=+0.19$, $p=0.37$). At country
 level neither channel is established, because with 25 countries coverage and
 development are collinear.
 
@@ -308,33 +350,41 @@ The obstacle is confounding rather than absence of signal, and the way out does
 not require more countries. Each country answers five tasks that differ in how much
 the answer depends on a fact about \emph{that} country: T1, T2 and T4 do; T3 (an
 international WHO estimate) and T5 (a generic recommendation) do not. Countries
-score $0.454$ on the first block and $0.658$ on the second, a specificity deficit
-of $0.204$. If what limits the model is how much the corpus says about a given
-country, that deficit should be smaller where coverage is greater --- and a
-country's HDI cannot explain a deficit measured \emph{within} that same country.
-Estimating the interaction between coverage and task dependence at the response
-level, with a fixed effect for country that absorbs development, income, official
-language and everything else distinguishing countries, gives $\beta=+0.028$
-(SE $0.005$, $p=7\times10^{-9}$, $n=6{,}629$).
+score $0.462$ on the first block and $0.658$ on the second, a specificity deficit
+of $0.195$. If what limits the model is how much the corpus says about a given
+country, that deficit should be smaller where coverage is greater. Estimating the
+interaction between coverage and task dependence at the response level, with a
+fixed effect for country, gives $\beta=+0.030$ (SE $0.005$,
+$p=9\times10^{-10}$, $n=6{,}573$). The fixed effect absorbs every country-level
+\emph{main} effect --- development, income, official language --- but not their
+interaction with task dependence, and that is where the rival lives: a richer
+country may simply have more of its regulation online, feeding both the model's
+training data and the ease of building the key.
 
-Four checks separate mechanism from artefact (Table~\ref{tab:h4-within}). The
-\emph{purest} contrast --- T1, wholly national, against T5, wholly generic ---
-yields the \emph{largest} coefficient, the dose-response a real effect produces and
-a spurious association does not. Dropping T5 or T4 leaves it intact, and a placebo
-inverting the labels returns the exact mirror image. Entering both candidate
-channels together, country coverage remains strong ($\beta=+0.027$,
-$p=2\times10^{-8}$) while the language-corpus proxy does not survive
-($\beta=+0.008$, $p=0.089$). That prediction was asymmetric and therefore falsifiable: because
-every response here was elicited \emph{in English}, the size of a country's
-local-language corpus has no obvious route to how much the model knows about that
-country, so had the language channel survived and coverage failed, our reading
-would have been wrong.
+Four checks separate the coverage signal from artefact (Table~\ref{tab:h4-within}).
+The \emph{purest} contrast --- T1, wholly national, against T5, wholly generic ---
+yields the \emph{largest} coefficient; dropping T5 or T4 leaves it intact; a
+placebo inverting the labels returns the exact mirror image; and entering the
+language-corpus proxy alongside it, coverage survives ($\beta=+0.030$,
+$p=2\times10^{-9}$) while language does not ($\beta=+0.004$, $p=0.45$). Because
+every response here was elicited in English, that last result was predicted and
+is the falsifiable part of the design. The rival it does not eliminate is
+development. Coverage and HDI correlate at $\rho=0.65$ across the 25 countries,
+and when the two interactions enter the same model the ordering reverses:
+HDI$\times$dependence survives ($\beta=+0.027$, SE $0.007$, $p=5\times10^{-5}$)
+and coverage$\times$dependence does not ($\beta=+0.012$, SE $0.007$,
+$p=0.063$). Within the nine anglophone countries, where the language of the
+question is the same by construction, coverage predicts the deficit at the full
+magnitude ($\beta=+0.024$, $p=0.003$); that removes language as the explanation,
+not development.
 
-The resulting claim is narrower than ``coverage causes the gap''. The design
-removes country-level confounding by construction, not confounding at the level of
-task-by-country. What we can say is that the channel makes a differential
-prediction, that it holds, that it strengthens as the contrast sharpens, and that
-it survives adjustment for the rival channel.
+The resulting claim is therefore narrower than ``coverage causes the gap'', and
+narrower than we first wrote it. What the within-country design establishes is
+that the country-specific deficit is smaller where the world records more about
+the country --- whether that record is measured as encyclopedic coverage or as
+development, which in this sample are two readings of the same variable. It rules
+out the language-corpus channel; it does not pick coverage over development, and
+we report the mechanism as identified only up to that pair.
 
 \begin{table}[h]
 \centering
@@ -349,16 +399,18 @@ deficit on country-dependent tasks.}
 \toprule
 Task classification & $\beta$ & $p$ \\
 \midrule
-T1, T2, T4 versus T3, T5 (primary) & $+0.028$ & $7\times10^{-9}$ \\
-T1 versus T5 (purest contrast)     & $+0.038$ & $2\times10^{-9}$ \\
-Excluding T5 (ceiling at 99.7\%)   & $+0.024$ & $8\times10^{-5}$ \\
-Excluding T4 (most interpretive)   & $+0.031$ & $1\times10^{-8}$ \\
-Placebo: labels inverted           & $-0.028$ & $7\times10^{-9}$ \\
+T1, T2, T4 versus T3, T5 (primary) & $+0.030$ & $9\times10^{-10}$ \\
+T1 versus T5 (purest contrast)     & $+0.045$ & $2\times10^{-11}$ \\
+Excluding T5 (ceiling at 99.7\%)   & $+0.026$ & $3\times10^{-5}$ \\
+Excluding T4 (most interpretive)   & $+0.034$ & $1\times10^{-9}$ \\
+Placebo: labels inverted           & $-0.030$ & $9\times10^{-10}$ \\
+With HDI$\times$dependence: coverage & $+0.012$ & $0.063$ \\
+\quad HDI                          & $+0.027$ & $5\times10^{-5}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The corpus account also shows itself in H2, where the unit is the language: the
+The corpus account shows itself more cleanly in H2, where the unit is the language: the
 per-language penalty falls monotonically with mC4 token
 volume~\citep{xue2021mt5} and OSCAR size~\citep{abadji2022oscar}, with Hindi, the
 smallest corpus, carrying the largest penalty --- though with three languages this
@@ -367,13 +419,14 @@ remains descriptive.
 \subsection{H5 --- open versus closed-accessible}
 \label{sec:results:h5}
 
-Closed-accessible models average $+12.6$~pp above open-weight ones, against the
+Closed-accessible models average $+13.0$~pp above open-weight ones, against the
 optimistic H5 framing. The open arm includes larger models, so the gap is not
 attributable to scale alone, although DeepSeek-V3 ranks first overall. H5 is
 interpreted descriptively.
 
-\subsection{Ground-truth provenance}
+\subsection{Ground-truth provenance, and what the T1 key decides}
 \label{sec:results:gt}
+\label{sec:results:t1}
 
 Every key comes from an official register, anchored by documentary verification
 and reproducible from the cited URLs: T1 from the national regulation, T2 from WHO
@@ -382,21 +435,49 @@ UNEP Global Assessment of Air Pollution Legislation. Three countries have \emph{
 national PM\textsubscript{2.5} standard, confirmed from the official text ---
 Nigeria regulates PM\textsubscript{10} only, Argentina has no binding federal
 value, Angola no national legislation --- which is where a faithful model must
-decline to state a non-existent threshold. The full registry is in Supplementary
-Material. Wikipedia and Wikidata appear only as the explanatory variable of the
-mechanism test; no answer is scored against them.
+decline to state a non-existent threshold. Two keys are not fully verified
+(Bangladesh, scored against its 2005 gazette; Egypt, with no retrievable value
+and therefore no T1 key), and all five of these cases are Global South, so the
+composition of the key is itself a candidate explanation for the T1 gap. It is
+not: set them aside and the Global South odds on T1 are $0.39$ $[0.31,0.50]$ of
+the Global North's, against $0.33$ with them. The full registry is in
+Supplementary Material. Wikipedia and Wikidata appear only as the explanatory
+variable of the mechanism test; no answer is scored against them.
+
+\emph{The key in force, and the ladder around it.} Several instruments set a
+ladder of values rather than one: Brazil's CONAMA 506/2024 runs 20, 17, 15, 10,
+5~$\mu$g/m\textsuperscript{3} across five stages, of which 17 has been in force
+since January 2025; the European limit is 25 with 10 from 2030; the United
+Kingdom's limit value is 20 with an English target of 10 by 2040; the United
+States moved from 12.0 to 9.0 in 2024. The T1 key is the value in force in the
+collection window, and it is exacting: no model returns 17 for Brazil (the modal
+answer is 15, the next stage), almost none returns 20 for the United Kingdom
+(most return the 2040 target or the superseded 25), and fewer than a quarter
+return 9.0 for the United States. Of the 754 wrong T1 answers, 259 cite a value
+that sits somewhere on the country's official ladder --- a stage not yet in
+force or a value since replaced --- which is confusion about \emph{which} value
+binds, not fabrication, and is the failure a training cut-off would produce. The
+distinction does not rescue the tier comparison, it sharpens it: scoring any
+ladder value as correct raises Global North accuracy on T1 from $0.51$ to $0.77$
+and Global South accuracy only from $0.32$ to $0.40$, because the staged
+instruments are mostly in the North, and the odds ratio falls to $0.12$
+$[0.10,0.15]$. Where the register offers several plausible numbers the models
+know them; where it offers one, they often do not.
 
 \subsection{Qualitative failure modes}
 \label{sec:results:qual}
 
 Three failure modes recur behind the composite, with verbatim examples in
 Supplementary Material. Models \emph{fabricate standards that do not exist} for
-the three countries with no national norm, inventing a plausible threshold rather
-than abstaining and disagreeing among replicates about the invented value; they
-\emph{miss the binding value}, answering 15~$\mu$g/m\textsuperscript{3} for Brazil
-where the standard is 17 (CONAMA 506/2024); and they \emph{degrade in the native
-language}, as when GPT-OSS~120B returned India's correct
-40~$\mu$g/m\textsuperscript{3} in English and an \emph{empty} answer in Hindi.
+the three countries with no national norm: in 168 of the 256 scored T1 cells for
+Angola, Argentina and Nigeria the answer asserts a specific national value, in
+33 it correctly states that none exists, and in 31 it declines to answer, and the
+invented values disagree among replicates; they \emph{miss the binding value},
+answering 15~$\mu$g/m\textsuperscript{3} for Brazil where the stage in force is
+17 (CONAMA 506/2024), a confusion of stage rather than an invention; and they
+\emph{degrade in the native language}, as when GPT-OSS~120B returned India's
+correct 40~$\mu$g/m\textsuperscript{3} in English and an \emph{empty} answer in
+Hindi.
 
 \subsection{Inter-judge reliability}
 \label{sec:results:reliability}
@@ -421,29 +502,33 @@ what the judge is asked to compute. Arithmetic belongs to code.
 \label{sec:results:robust}
 
 The two supported effects were tested against seven attacks and survive all of
-them; the development gradient fails all of them in the same direction, which is
+them; the development gradient stays below the pre-specified $0.55$ under every
+one of them (its highest value, $0.48$, is a leave-one-out re-estimate), which is
 what makes its exploratory status a finding rather than an omission. Full outputs
 are in Supplementary Material.
 
 \emph{No single country, and no weighting, carries the result.}
-Leave-one-country-out re-estimation holds the tier gap in $[+4.9,+6.4]$~pp and the
-native-language penalty at $-4.7$ to $-5.0$~pp. Under equal weights the gap is
-$+4.6$~pp and the language penalty $-4.7$~pp; restricting to factual accuracy
-against the register value widens them to $+9.4$ and $-5.4$~pp and deepens the
-recall floor, so both effects grow where the measurement is most objective.
+Leave-one-country-out re-estimation holds the tier gap in $[+4.4,+5.9]$~pp and the
+native-language penalty at $-4.4$ to $-5.5$~pp. Under equal weights the gap is
+$+4.2$~pp and the language penalty $-4.8$~pp; restricting to factual accuracy
+against the register value widens them to $+8.7$ and $-6.1$~pp and deepens the
+recall floor, so both effects grow where the measurement is most objective. The
+two replicates of each cell differ by $8.5$~pp on average (within-cell SD
+$10.1$~pp), so the $-5.0$~pp language penalty, averaged over 839 pairs, stands
+roughly ten standard errors from the noise two replicates leave unresolved.
 
 \emph{The tier gap survives a distribution-free test and two model families.} A
 permutation test shuffles the North/South labels among the 25 countries ten
 thousand times and counts how often chance alone produces a gap this large; it
 assumes nothing about the distribution and treats the country, not the answer, as
-the independent unit. Chance clears the observed gap $2.0\%$ of the time
-($p=0.020$). A Bayesian hierarchical model with crossed random intercepts agrees
-($\beta=-0.052$, 94\% HDI $[-0.092,-0.016]$, $P(\beta<0)=0.994$), while a
+the independent unit. Chance clears the observed gap $2.1\%$ of the time
+($p=0.021$). A Bayesian hierarchical model with crossed random intercepts agrees
+($\beta=-0.048$, 94\% HDI $[-0.090,-0.009]$, $P(\beta<0)=0.987$), while a
 frequentist mixed model returns the same magnitude and sign but leaves it marginal
-($\beta=-0.066$, $p=0.069$), because it charges the large between-country
+($\beta=-0.063$, $p=0.087$), because it charges the large between-country
 heterogeneity to the error term. Two of three tests clear zero and all three agree
 on magnitude, so we report the gap as supported and specification-sensitive, with
-an E-value of $1.70$ at the point estimate and $1.31$ at the confidence limit
+an E-value of $1.70$ at the point estimate and $1.30$ at the confidence limit
 nearest the null~\citep{vanderweele2017evalue} --- a country-level confounder of
 modest strength would suffice to explain it away.
 
@@ -474,8 +559,8 @@ Table~\ref{tab:hyp-summary} maps each hypothesis to its finding, the candidate
 mechanism, and an explicit evidence status, so no claim is read as stronger than
 the data support. Three effects are supported and survive every robustness attack
 in Section~\ref{sec:results:robust}; two pre-specified expectations are not met;
-and the corpus mechanism is identified within countries, where the design has
-resolution, and not between them.
+and the corpus mechanism is identified within countries only up to the pair
+coverage-or-development, which this design cannot separate.
 
 \begin{table}[!ht]
 \centering
@@ -494,23 +579,23 @@ Hypothesis & Finding & Mechanism \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Supported}} \\
 \addlinespace[2pt]
-H2 language        & $-4.8$~pp; Hindi $-11.1$    & language corpus \\
-H3 regional model  & $\delta=-0.47$, worst of 14 & scale over tuning \\
-H1 tier gap        & $+5.4$~pp; OR $0.22$ on T1  & tier \\
+H2 language        & $-5.0$~pp; Hindi $-11.4$    & language corpus \\
+H3 regional model  & $\delta=-0.48$, worst of 14 & scale over tuning \\
+H1 tier gap        & $+5.0$~pp; OR $0.33$ on T1  & tier \\
 \midrule
-\multicolumn{3}{@{}l}{\emph{Supported, but not causally identified}} \\
+\multicolumn{3}{@{}l}{\emph{Supported, mechanism not separable}} \\
 \addlinespace[2pt]
-H4 within country  & $\beta=+0.028$, $p=7\times10^{-9}$ & country coverage \\
+H4 within country  & $\beta=+0.030$ alone; $+0.012$ ($p=0.063$) with HDI & coverage or development \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Not supported}} \\
 \addlinespace[2pt]
-H1 gradient        & $\rho=0.41$, below the $0.55$ threshold & development \\
+H1 gradient        & $\rho=0.36$, below the $0.55$ threshold & development \\
 H4 pre-specified   & language-corpus proxy null  & language corpus \\
-H6 persona         & DiD $+0.8$~pp, $p=0.29$     & --- \\
+H6 persona         & DiD $+0.5$~pp, $p=0.29$     & --- \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Descriptive only}} \\
 \addlinespace[2pt]
-H5 open/closed     & $+12.6$~pp for closed       & access type \\
+H5 open/closed     & $+13.0$~pp for closed       & access type \\
 \bottomrule
 \end{tabular}
 
@@ -518,7 +603,7 @@ H5 open/closed     & $+12.6$~pp for closed       & access type \\
 \begin{minipage}{0.75\linewidth}
 \footnotesize\emph{Note.} H2's mechanism rests on three native languages and is
 descriptive. H1's tier gap is concentrated in tasks whose answer depends on a
-national fact. H4 within country removes country-level confounding by
-construction, which is not causal identification.
+national fact. H4 within country rules out the language-corpus channel but
+cannot separate coverage from development, and is not causal identification.
 \end{minipage}
 \end{table}

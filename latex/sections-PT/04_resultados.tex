@@ -15,26 +15,31 @@ pré-especificada é revisada apenas com base na extensão; onde as duas amostra
 divergem em uma hipótese de que o artigo depende, dizemos isso no texto.
 A pontuação é adjudicada por código sempre que a resposta é um número conferível
 contra registro oficial, e pela média de um painel de juízes de três fornecedores
-nos demais casos (Seção~\ref{sec:res:confiab}).
+nos demais casos (Seção~\ref{sec:res:confiab}); o gabarito de T1 está ancorado
+no instrumento nacional em vigor para 24 países e não tem chave para o Egito,
+que fica fora de T1 (Seção~\ref{sec:res:proveniencia}).
 }}
 \end{center}
 
 \subsection{Amostra e pontuação}
 \label{sec:res:amostra}
 
-O corpus analisado compreende 8.300 células pontuadas no composto $[0,1]$, das
-quais 6.629 são respostas a prompts em inglês nos 25 países; o restante são os
+O corpus analisado compreende 8.244 células pontuadas no composto $[0,1]$, das
+quais 6.573 são respostas a prompts em inglês nos 25 países; o restante são os
 pares em idioma nativo dentro do país usados para H2.
 
-A pontuação usa o instrumento mais confiável que cada tarefa admite. Para T2 e T3,
-em que a resposta correta é um número em registro oficial, o veredito é computado
-por código contra esse registro. O código resolve 62.5\% de T2 e 83.6\% de T3; o
-resíduo, com toda a T4, é pontuado pela média de um painel de três fornecedores.
-T1 e T5 mantêm suas pontuações originais. No total, 5.373 células carregam
-pontuação corrigida.
+A pontuação usa o instrumento mais confiável que cada tarefa admite. Para T1, T2
+e T3, em que a resposta correta é um número em registro oficial, o veredito é
+computado por código contra esse registro. O código resolve 99.8\% das células
+de T1, 56.3\% de T2 e 71.8\% de T3; o resíduo, com toda a T4, é pontuado pela
+média de um painel de três fornecedores. T5 mantém as pontuações do juiz da
+coleta. No total, 6.434 células carregam pontuação de código ou de painel.
 
 A média do painel substitui o desenho de juiz único do protocolo original, no qual
-o juiz (GPT-5-mini) estava ele próprio entre os modelos avaliados. Duas medições
+o juiz da coleta (GPT-5-mini para os quinze países pré-especificados, Claude
+Haiku~4.5 para os dez da extensão) estava ele próprio entre os modelos avaliados
+e, como a extensão contém sete dos dez países do Norte Global, estava confundido
+com o tier. Duas medições
 justificam a mudança: os juízes diferem acentuadamente em severidade (composto
 médio de 0.617 para o Gemini, 0.451 para o Claude e 0.379 para o DeepSeek), de modo
 que um juiz único fixa um nível arbitrário, e a confiabilidade de juiz único é de
@@ -50,13 +55,20 @@ relação aos outros dois juízes ($-0.177$) do que pontua as de qualquer outro 
 A Tabela~\ref{tab:conf-modelo} ordena os 14 modelos pelo composto médio. Sistemas
 de fronteira lideram e modelos pequenos de pesos abertos ficam atrás. Em H3, o
 modelo regional em português brasileiro Cabra-Mistral~7B é o \emph{mais fraco} de
-todos (0.347 contra 0.549 para os demais;
-Mann-Whitney $p\approx 0$, $\delta$ de Cliff $=-0.47$). O $\delta$ de Cliff tem
+todos (0.351 contra 0.557 para os demais;
+Mann-Whitney $p\approx 0$, $\delta$ de Cliff $=-0.48$). O $\delta$ de Cliff tem
 leitura direta: é a probabilidade de uma resposta sorteada de um grupo superar uma
-sorteada do outro, reescalada para variar de $-1$ a $+1$; um valor de $-0.47$
+sorteada do outro, reescalada para variar de $-1$ a $+1$; um valor de $-0.48$
 significa que o modelo regional perde cerca de três dessas comparações para cada
-uma que ganha. Isso contradiz o enquadramento otimista de H3. Escala e treinamento
-de fronteira dominam o ajuste regional por instrução no patamar de 7B.
+uma que ganha. Essa comparação é contra o roster inteiro, que inclui sistemas de
+fronteira; o teste pré-especificado era mais estreito, Cabra contra seu par de
+escala equivalente Llama~3.1~8B em prompts em português, e aponta na mesma
+direção com margem menor: no Brasil o modelo regional pontua 0.258 contra 0.313
+($\delta=-0.26$, $n=20$ cada), e nos três países lusófonos 0.304 contra 0.362
+($\delta=-0.17$, $n=60$ cada). O ajuste regional por instrução no patamar de 7B
+não recupera o que escala e treinamento de fronteira dão, mesmo no idioma e no
+país para os quais foi ajustado, embora com 20 células brasileiras por modelo o
+teste estreito seja descritivo.
 
 \begin{table}[h]
 \centering
@@ -69,20 +81,20 @@ respostas pontuadas a prompts em inglês.}
 \toprule
 Modelo & $N$ & Média \\
 \midrule
-DeepSeek-V3      & 500 & 0.680 \\
-GPT-5            & 500 & 0.670 \\
-Gemini~2.5~Flash & 490 & 0.624 \\
-GPT-5-mini       & 499 & 0.619 \\
-Claude Haiku~4.5 & 490 & 0.580 \\
-Qwen3 32B        & 498 & 0.553 \\
-Command~R+       & 500 & 0.526 \\
-Llama~3.3 70B    & 395 & 0.507 \\
-Llama~4 Scout    & 500 & 0.492 \\
-Qwen3 14B        & 500 & 0.480 \\
-Phi-4 14B        & 500 & 0.473 \\
-GPT-OSS 120B     & 261 & 0.472 \\
-Llama~3.1 8B     & 500 & 0.435 \\
-Cabra-Mistral~7B & 496 & 0.347 \\
+DeepSeek-V3      & 496 & 0.690 \\
+GPT-5            & 496 & 0.676 \\
+Gemini~2.5~Flash & 486 & 0.636 \\
+GPT-5-mini       & 495 & 0.628 \\
+Claude Haiku~4.5 & 486 & 0.589 \\
+Qwen3 32B        & 494 & 0.560 \\
+Command~R+       & 496 & 0.530 \\
+Llama~3.3 70B    & 391 & 0.514 \\
+Llama~4 Scout    & 496 & 0.500 \\
+Qwen3 14B        & 496 & 0.485 \\
+GPT-OSS 120B     & 257 & 0.479 \\
+Phi-4 14B        & 496 & 0.475 \\
+Llama~3.1 8B     & 496 & 0.437 \\
+Cabra-Mistral~7B & 492 & 0.351 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -91,28 +103,34 @@ Cabra-Mistral~7B & 496 & 0.347 \\
 \label{sec:res:tarefa}
 
 A dificuldade depende fortemente da tarefa (Tabela~\ref{tab:conf-tarefa}). A mais
-difícil por larga margem é a T1 (recuperação do padrão técnico, 0.367), que exige
+difícil por larga margem é a T1 (recuperação do padrão técnico, 0.394), que exige
 devolver o padrão nacional de média anual de PM\textsubscript{2,5} em vigor. A
-recomendação aberta (T5) tem a maior pontuação (0.773) porque sua rubrica premia
+recomendação aberta (T5) tem a maior pontuação (0.769) porque sua rubrica premia
 conselho de política plausível e bem estruturado, que não depende de um fato único.
-Agrupando as duas tarefas de recuperação (T1, T2; média 0.417) contra síntese e
-recomendação (T3--T5, 0.623), a diferença é grande (Mann-Whitney $p\approx 0$,
-$\delta$ de Cliff $=-0.47$). Os LLMs são mais fracos exatamente onde a gestão
-ambiental aplicada mais precisa deles: recuperar o limiar regulatório em vigor.
+Agrupando as duas tarefas de recuperação (T1, T2; média 0.435) contra síntese e
+recomendação (T3--T5, 0.612), a diferença é grande (Mann-Whitney $p\approx 0$,
+$\delta$ de Cliff $=-0.41$, cerca de duas perdas e meia para cada vitória). Os
+LLMs são mais fracos exatamente onde a gestão ambiental aplicada mais precisa
+deles: recuperar o limiar regulatório em vigor.
 
-A correção do gabarito é ela própria informativa e oferece uma checagem interna. A
-T1 sempre teve gabarito oficial, e sua pontuação não se move (0.367 antes e
-depois). A T2 era pontuada contra uma chave de preenchimento e sobe de 0.368 para
-0.467 assim que cada concentração devolvida passa a ser comparada por código com a
-faixa autorizada. A correção moveu exatamente a tarefa cujo gabarito era defeituoso
-e não tocou naquela cujo gabarito era sólido, que é o comportamento esperado se a
-correção estiver certa.
+As duas correções da pontuação são elas próprias informativas. A T2 era pontuada
+contra uma chave de preenchimento e sobe de 0.368 para 0.473 assim que cada
+concentração devolvida passa a ser comparada por código com a faixa autorizada: a
+correção moveu a tarefa cuja chave era defeituosa. A T1 sempre teve chave oficial,
+mas era pontuada por dois juízes de coleta de severidades distintas, e passá-la
+ao código a eleva de 0.367 para 0.394 mantendo-a como a tarefa mais difícil; o
+veredito de código também mostra o que os juízes não podiam: um terço das
+respostas erradas de T1 (259 de 754) cita um valor que está na escada oficial do
+país --- um valor superado ou uma etapa futura --- e não um valor inventado
+(Seção~\ref{sec:res:t1}). O piso é real, mais raso do que se relatou primeiro, e
+concentrado na recuperação normativa (T1).
 
 \begin{table}[h]
 \centering
-\caption{Acurácia composta por tipo de tarefa (25 países). T2 e T3 são adjudicadas
-por código onde o valor devolvido é conferível contra o registro oficial; T4 é
-pontuada por painel; T1 e T5 mantêm suas pontuações originais.}
+\caption{Acurácia composta por tipo de tarefa (25 países; T1 em 24, sem chave
+para o Egito). T1, T2 e T3 são adjudicadas por código onde o valor devolvido é
+conferível contra o registro oficial; T4 é pontuada por painel; T5 mantém as
+pontuações do juiz da coleta.}
 \label{tab:conf-tarefa}
 \small
 \begin{tabular}{lrr}
@@ -123,7 +141,7 @@ T5 (recomendação aplicada)      & 1.320 & 0.769 \\
 T3 (síntese de evid.\ em saúde) & 1.329 & 0.548 \\
 T4 (instrumentos de política)   & 1.310 & 0.520 \\
 T2 (dado factual local)         & 1.335 & 0.473 \\
-T1 (padrão técnico)             & 1.335 & 0.369 \\
+T1 (padrão técnico)             & 1.279 & 0.394 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -136,28 +154,33 @@ no idioma nativo, mantendo o conteúdo fixo, de modo que o contraste é dentro d
 país e dentro do modelo. As replicações são mediadas dentro de cada célula (modelo,
 prompt) antes do pareamento, já que parear replicação a replicação inflaria o $n$ e
 tornaria o teste anticonservador. Nas 839 células casadas, o prompt em idioma
-nativo \emph{reduz} a acurácia composta média em 4.8 pontos percentuais (Wilcoxon
-$p=3\times10^{-15}$). A penalidade acompanha o nível de recurso do idioma, e as
-três são significativas (Tabela~\ref{tab:h2}): hindi $-11.1$~pp, espanhol
-$-4.4$~pp, português $-3.9$~pp. A Índia, que pontua mais alto entre os 25 em
+nativo \emph{reduz} a acurácia composta média em 5.0 pontos percentuais (Wilcoxon
+$p=5\times10^{-16}$). A penalidade acompanha o nível de recurso do idioma, e as
+três são significativas (Tabela~\ref{tab:h2}): hindi $-11.4$~pp, espanhol
+$-4.5$~pp, português $-4.2$~pp. A Índia, que pontua mais alto entre os 25 em
 inglês, é a que mais cai em hindi.
 
 Como H2 carrega a afirmação central do estudo, tentamos fazê-la desaparecer em vez
 de confirmá-la, e ela se sustentou sob todo ataque. Não é impulsionada por nenhum
-país (leave-one-out: $-4.2$ a $-5.2$~pp, todos significativos), por nenhum modelo
-($-4.2$ a $-5.1$~pp), nem por células atípicas (5\% aparados: $-4.3$~pp,
-$p=5\times10^{-19}$), e sobrevive a toda ponderação do composto. Aparece em todas
+país (leave-one-out: $-4.4$ a $-5.5$~pp, todos significativos), por nenhum modelo
+($-4.5$ a $-5.2$~pp), nem por células atípicas (5\% aparados: $-4.5$~pp,
+$p=6\times10^{-20}$), e sobrevive a toda ponderação do composto. Aparece em todas
 as tarefas e em ambas as condições de persona.
 
 Dois ataques respondem às objeções que um leitor cético levanta primeiro. O
 primeiro é que juízes-modelo poderiam penalizar prosa não inglesa por estilo, e não
 por conteúdo; testamos então um desfecho binário que nenhum juiz toca: a resposta
-contém um valor que o extrator consegue comparar com o registro? Prompts em inglês
-devolvem valor verificável em 66.4\% das vezes e em idioma nativo em 48.7\%, uma
-diferença pareada de $-17.7$~pp, com a versão nativa pior em 122 dos 182 pares
-discordantes (teste de sinais $p=5\times10^{-6}$) e a mesma ordenação por idioma.
-Perguntar no idioma local não apenas reduz uma nota julgada; torna o modelo
-substancialmente menos propenso a devolver um número conferível.
+contém um valor que o extrator consegue comparar com o registro? O extrator lê
+numerais devanágari, vírgulas decimais e unidades escritas por extenso, de modo
+que um número em hindi ou em espanhol não é penalizado pela notação
+(Seção~\ref{sec:metodos}). Prompts em inglês devolvem valor verificável em 71.9\%
+das vezes e em idioma nativo em 62.5\%, uma diferença pareada de $-9.4$~pp, com
+a versão nativa pior em 134 dos 218 pares discordantes (teste de sinais
+$p=9\times10^{-4}$): hindi $-39.5$~pp, espanhol $-13.4$~pp, enquanto o
+português, o mais bem provido dos três, não mostra tal perda ($+3.5$~pp).
+Perguntar no idioma local não apenas reduz uma nota julgada; onde o idioma é
+escasso, torna o modelo substancialmente menos propenso a devolver um número
+conferível.
 
 O segundo é que os prompts nativos, produzidos por um tradutor LLM, poderiam
 simplesmente perguntar outra coisa. Testamos isso em todos os 90 prompts nativos
@@ -166,16 +189,21 @@ simplesmente perguntar outra coisa. Testamos isso em todos os 90 prompts nativos
 original em inglês. Nos dois itens que poderiam confundir o efeito, a fidelidade é
 completa: nenhum prompt alterou o país e nenhum alterou a quantidade solicitada
 (90/90 em ambos). Restringir H2 aos prompts verificados como fiéis o deixa
-essencialmente inalterado ($-4.5$~pp, $p=9\times10^{-8}$) contra $-5.2$~pp entre os
-divergentes, diferença não distinguível de zero (permutação $p=0.42$). A fidelidade
+essencialmente inalterado ($-4.8$~pp, $p=2\times10^{-8}$) contra $-5.2$~pp entre os
+divergentes, diferença não distinguível de zero (permutação $p=0.80$). A fidelidade
 da tradução não prevê o tamanho da penalidade, que é o que se espera se a tradução
 não a estiver causando.
 
-O efeito é mais fraco no subconjunto adjudicado por código ($-2.2$~pp, não
-significativo) por razão estrutural: o código adjudica apenas onde existe número,
-de modo que esse subconjunto condiciona a que o modelo tenha produzido valor nos
-\emph{dois} idiomas, o que seleciona para fora o modo de falha mais severo, além de
-estar subdimensionado para um efeito desse tamanho.
+Separando os pares pelo instrumento que pontuou a célula nativa, a penalidade é
+de $-3.8$~pp onde o código decidiu ($n=333$, $p=0.004$), $-8.6$~pp onde o painel
+decidiu ($n=314$, $p<10^{-21}$) e $-1.1$~pp, não significativa, onde permanece a
+pontuação do juiz da coleta ($n=192$, essencialmente T5, a recomendação aberta
+sem valor de registro). O subconjunto adjudicado por código é o menor dos dois
+porque o código só age onde existe número, de modo que condiciona a que o modelo
+tenha produzido valor nos \emph{dois} idiomas e seleciona para fora o modo de
+falha mais severo; o subconjunto do painel carrega esse modo de falha, e é por
+isso que a leniência do juiz não pode ser tida como cancelada entre idiomas e por
+isso o desfecho sem juiz acima é o que encerra a questão.
 
 A implicação aplicada é o oposto da intuição. Um gestor que suspeita que um modelo
 em inglês serve mal seu país, e responde perguntando no idioma nacional, torna a
@@ -192,11 +220,11 @@ país e modelo, replicações promediadas dentro da célula, amostra de 25 país
 \toprule
 Idioma nativo (classe Joshi) & Países & $\Delta$ (pp) & $p$ & $N$ células \\
 \midrule
-Espanhol (5)  & MEX, ARG, PER, COL, CHL & $-4.4$  & $<10^{-4}$        & 457 \\
-Português (4) & BRA, PRT, AGO           & $-3.9$  & $2\times10^{-4}$  & 311 \\
-Hindi (4)     & IND                     & $-11.1$ & $5\times10^{-4}$  & 71 \\
+Espanhol (5)  & MEX, ARG, PER, COL, CHL & $-4.5$  & $2\times10^{-10}$ & 457 \\
+Português (4) & BRA, PRT, AGO           & $-4.2$  & $8\times10^{-5}$  & 311 \\
+Hindi (4)     & IND                     & $-11.4$ & $4\times10^{-4}$  & 71 \\
 \midrule
-\multicolumn{2}{l}{Geral}               & $-4.8$  & $3\times10^{-15}$ & 839 \\
+\multicolumn{2}{l}{Geral}               & $-5.0$  & $5\times10^{-16}$ & 839 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -206,8 +234,8 @@ Hindi (4)     & IND                     & $-11.1$ & $5\times10^{-4}$  & 71 \\
 
 O fator persona foi plenamente cruzado, de modo que H6 é testado como diferença em
 diferenças. O enquadramento de gestor ambiental público deixa a lacuna Norte/Sul
-essencialmente inalterada: $+5.0$~pp sob o enquadramento neutro contra $+5.9$~pp
-sob o de gestor, uma DiD de $+0.8$~pp, muito abaixo do limiar pré-especificado de
+essencialmente inalterada: $+4.8$~pp sob o enquadramento neutro contra $+5.2$~pp
+sob o de gestor, uma DiD de $+0.5$~pp, muito abaixo do limiar pré-especificado de
 5~pp; um teste de permutação no nível do país (5.000 permutações do rótulo de
 camada) dá $p=0.29$. H6 não é sustentada: apresentar a consulta como vinda de um
 gestor ambiental público não estreita nem amplifica a desvantagem do Sul Global,
@@ -223,12 +251,20 @@ enquadramento ser universalmente ignorado.
 A H1 foi pré-especificada em duas partes, e elas se separam com nitidez: uma se
 sustenta e a outra não.
 
-A lacuna de camada se sustenta. Os dez países do Norte Global têm média de 0.568
-contra 0.514 dos quinze do Sul Global, uma lacuna de $+5.4$ pontos percentuais cujo
-intervalo de confiança bootstrap de 95\% entre países é $[+2.1,+8.7]$~pp e
-\emph{exclui o zero}. Ela é estável à remoção de qualquer país isolado
-(leave-one-out $[+4.9,+6.4]$~pp) e à ponderação do composto ($+4.2$~pp sob pesos
-iguais, $+8.8$~pp apenas no subcomponente factual, onde se amplia).
+A lacuna de camada se sustenta. Os dez países do Norte Global têm média de 0.572
+contra 0.521 dos quinze do Sul Global, uma lacuna de $+5.0$ pontos percentuais cujo
+intervalo de confiança bootstrap de 95\% entre países é $[+1.5,+8.4]$~pp e
+\emph{exclui o zero} (permutação do rótulo de camada, país como unidade,
+$p=0.021$). Ela é estável à remoção de qualquer país isolado
+(leave-one-out $[+4.4,+5.9]$~pp) e à ponderação do composto ($+4.2$~pp sob pesos
+iguais, $+8.7$~pp apenas no subcomponente factual, onde se amplia). Como sete dos
+dez países do Norte Global entraram com a extensão, reportamos também a lacuna
+onde a onda não pode explicá-la: só dentro da extensão (sete do Norte contra
+Colômbia, Chile e Angola) ela é de $+5.9$~pp $[+2.3,+9.6]$, e nos quinze
+pré-especificados (três do Norte contra doze) de $+6.0$~pp $[+1.7,+10.2]$, uma
+estimativa pontual do mesmo tamanho numa amostra pequena demais para
+significância por permutação ($p=0.13$). A lacuna é propriedade dos dados, não
+da onda que os coletou.
 
 \emph{Onde a lacuna vive, e por que o composto a subestima.} O composto faz a média
 de cinco tarefas, e a lacuna não se distribui igualmente entre elas. Reestimando o
@@ -236,29 +272,36 @@ mesmo contraste como modelo misto binomial em cada tarefa separadamente --- desf
 codificado como devolver o valor de registro, com interceptos aleatórios cruzados de
 país e modelo ---, a desvantagem escala com o quanto a tarefa depende de um fato
 específico daquele país (Tabela~\ref{tab:camada-por-tarefa}). No padrão nacional
-vinculante (T1), a chance de resposta correta do Sul Global é 0.22 da chance do
-Norte (52.2\% contra 29.4\% em taxa bruta), e nos instrumentos de política (T4),
-0.33; na síntese de evidência em saúde (T3), em que a resposta é uma estimativa
+vinculante (T1), pontuado por código contra o instrumento em vigor, a chance de
+o Sul Global devolver o valor de registro é 0.33 da chance do Norte (50.7\%
+contra 31.6\% em taxa bruta), e nos instrumentos de política (T4) também 0.33;
+na síntese de evidência em saúde (T3), em que a resposta é uma estimativa
 internacional e não nacional, a razão sobe para 0.69; e na recomendação aberta
 (T5), a única tarefa sem valor de registro a acertar, a lacuna desaparece
-inteiramente. A lacuna não é fraca --- ela é \emph{concentrada}, e o composto a
-dilui ao mediar tarefas em que é severa com uma tarefa em que não existe. Na
-pergunta que um gestor público mais leva a esses sistemas, qual é o padrão em vigor
-aqui, um país do Sul Global é servido a cerca de um quarto das chances de um do
-Norte.
+inteiramente. A razão de T1 sobrevive às duas objeções que sua composição convida
+(Seção~\ref{sec:res:t1}): deixando de lado os quatro países do Sul Global cuja
+chave não é um valor nacional plenamente verificado ela é 0.39 $[0.31,0.50]$, e
+nos quinze pré-especificados é 0.27 $[0.21,0.34]$. A lacuna não é fraca --- ela
+é \emph{concentrada}, e o composto a dilui ao mediar tarefas em que é severa com
+uma tarefa em que não existe. Na pergunta que um gestor público mais leva a esses
+sistemas, qual é o padrão em vigor aqui, um país do Sul Global é servido a um
+terço das chances de um do Norte.
 
 \begin{table}[h]
 \centering
-\caption{Chances do Sul Global contra o Norte Global de devolver o valor de
-registro, por tarefa. Modelo misto binomial, interceptos aleatórios cruzados para
-país e modelo.}
+\caption{Chances do Sul Global contra o Norte Global de resposta factualmente
+correta, por tarefa. O desfecho é acurácia factual $\ge 0.5$: o veredito de
+código onde a tarefa é adjudicada por código (toda a T1; a parte resolvível de T2
+e T3), a nota do painel ou do juiz nos demais casos, de modo que para T5, que não
+tem valor de registro, é a nota factual do juiz. Modelo misto binomial,
+interceptos aleatórios cruzados para país e modelo.}
 \label{tab:camada-por-tarefa}
 \small
 \begin{tabular}{llrrrl}
 \toprule
 Tarefa & A resposta é & NG & SG & RC & Intervalo 95\% \\
 \midrule
-T1 (padrão técnico)          & um valor nacional      & 52.2\% & 29.4\% & 0.22 & $[0.18,0.27]$ \\
+T1 (padrão técnico)          & um valor nacional      & 50.7\% & 31.6\% & 0.33 & $[0.27,0.40]$ \\
 T4 (instrumentos)            & instrumentos nacionais & 62.0\% & 44.7\% & 0.33 & $[0.26,0.40]$ \\
 T2 (dado medido local)       & um valor nacional      & 50.7\% & 37.8\% & 0.47 & $[0.39,0.55]$ \\
 T3 (síntese de evid.\ saúde) & estimativa internac.   & 59.1\% & 52.3\% & 0.69 & $[0.59,0.80]$ \\
@@ -268,32 +311,32 @@ T5 (recomendação aplicada)   & nenhum valor de reg.   & 99.6\% & 99.7\% & 3.58
 \end{table}
 
 \emph{O gradiente monotônico não se sustenta.} Em $n=25$, o $\rho$ de Spearman
-entre acurácia e IDH é de $+0.41$ e cruza a significância convencional
-($p=0.043$; Mann-Kendall $p=0.042$), mas fica bem abaixo do limiar
-pré-especificado $\rho\geq0.55$, que é o critério contra o qual H1 foi registrada. No $n=15$ pré-especificado ele
-está essencialmente ausente ($\rho=+0.10$), e nenhuma reestimação
-\emph{leave-one-country-out} alcança o limiar de $0.55$
-(faixa $[+0.35,+0.54]$). Relatamos, portanto, uma diferença de camada que
+entre acurácia e IDH é de $+0.36$ e não alcança a significância convencional
+($p=0.076$; Mann-Kendall $p=0.065$), ficando bem abaixo do limiar
+pré-especificado $\rho\geq0.55$, que é o critério contra o qual H1 foi fixada.
+No $n=15$ pré-especificado ele está essencialmente ausente ($\rho=+0.08$), e
+nenhuma reestimação \emph{leave-one-country-out} alcança o limiar de $0.55$
+(faixa $[+0.30,+0.48]$); sob pesos iguais é $0.35$ e sob pesos de ACP $0.37$. Relatamos, portanto, uma diferença de camada que
 conseguimos demonstrar e um gradiente de desenvolvimento que não: a desvantagem
 está estabelecida como diferença entre grupos, enquanto sua forma ao longo da faixa
 de desenvolvimento permanece exploratória. Sob Bonferroni-Holm na família primária
 $\{$H1-gradiente, H4, H6$\}$, nenhum teste rejeita seu nulo.
 
 A ordenação dos países retém grande heterogeneidade ortogonal aos eixos (material
-suplementar): a Índia (0.652, Sul Global) lidera todos os países, África do Sul e
-Indonésia superam a maior parte do Norte Global, e Canadá e França ficam abaixo. A
+suplementar): a Índia (0.651, Sul Global) lidera todos os países, Indonésia e
+África do Sul superam a maior parte do Norte Global, e Canadá e França ficam abaixo. A
 desvantagem é uma diferença de camada sobreposta a variação substancial específica
 de cada país, e essa heterogeneidade é ela própria parte da razão de o gradiente não
 se resolver.
 
-\subsection{H4 --- representação no corpus: cobertura do país, não tamanho da língua}
+\subsection{H4 --- representação no corpus: cobertura do país, inseparável do desenvolvimento}
 \label{sec:res:h4}
 
 O mecanismo pré-especificado era a representação no corpus de treinamento, com
 proxy de contagem de artigos e edições da Wikipédia. Esse proxy é nulo: $\rho$ de
-Spearman $=+0.14$ ($p=0.50$) sem controle, e continua nulo parcializando IDH e log
-do PIB per capita. Um proxy post hoc de cobertura do país alcança $\rho=+0.36$
-($p=0.075$) e se atenua após ajuste por IDH (parcial $\rho=+0.18$, $p=0.41$). No
+Spearman $=+0.05$ ($p=0.82$) sem controle, e continua nulo parcializando IDH e log
+do PIB per capita. Um proxy post hoc de cobertura do país alcança $\rho=+0.37$
+($p=0.070$) e se atenua após ajuste por IDH (parcial $\rho=+0.19$, $p=0.37$). No
 nível do país, nenhum dos canais fica estabelecido, porque com 25 países cobertura
 e desenvolvimento são colineares.
 
@@ -304,32 +347,41 @@ O obstáculo é confundimento, não ausência de sinal, e ele tem saída que nã
 mais países. Cada país responde a cinco tarefas que diferem em quanto a resposta
 depende de um fato sobre \emph{aquele} país: T1, T2 e T4 dependem; T3 (uma
 estimativa internacional da OMS) e T5 (uma recomendação genérica) não. Os países
-pontuam 0.457 no primeiro bloco e 0.663 no segundo, um déficit de especificidade de
-0.206. Se o que limita o modelo é quanto o corpus diz sobre um dado país, esse
-déficit deveria ser menor onde a cobertura é maior --- e o IDH de um país não pode
-explicar um déficit medido \emph{dentro} desse mesmo país. Estimar a interação entre
-cobertura e dependência da tarefa no nível da resposta, com efeito fixo de país que
-absorve desenvolvimento, renda, idioma oficial e tudo mais que distingue países, dá
-$\beta=+0.026$ (EP 0.005, $p=2\times10^{-8}$, $n=7.580$).
+pontuam 0.462 no primeiro bloco e 0.658 no segundo, um déficit de especificidade de
+0.195. Se o que limita o modelo é quanto o corpus diz sobre um dado país, esse
+déficit deveria ser menor onde a cobertura é maior. Estimar a interação entre
+cobertura e dependência da tarefa no nível da resposta, com efeito fixo de país,
+dá $\beta=+0.030$ (EP 0.005, $p=9\times10^{-10}$, $n=6.573$). O efeito fixo
+absorve todo efeito \emph{principal} no nível do país --- desenvolvimento, renda,
+idioma oficial ---, mas não a interação deles com a dependência da tarefa, e é aí
+que mora o rival: um país mais rico pode simplesmente ter mais de sua regulação
+on-line, alimentando tanto os dados de treinamento do modelo quanto a facilidade
+de construir a chave.
 
-Quatro checagens separam mecanismo de artefato (Tabela~\ref{tab:h4-dentro}). O
-contraste \emph{mais puro} --- T1, inteiramente nacional, contra T5, inteiramente
-genérica --- produz o \emph{maior} coeficiente, a dose-resposta que um efeito real
-produz e uma associação espúria não. Retirar T5, cujo teto é 99.7\%, ou T4, a mais
-interpretativa, o deixa intacto, e um placebo que inverte os rótulos devolve a
-imagem espelhada exata. Entrando com os dois canais candidatos juntos, a cobertura
-do país permanece forte ($\beta=+0.025$, $p=4\times10^{-8}$) enquanto o proxy de
-corpus da língua fica marginal ($\beta=+0.010$, $p=0.041$). Essa predição era
-assimétrica e, portanto, falsificável: como toda resposta aqui foi eliciada
-\emph{em inglês}, o tamanho do corpus no idioma local de um país não tem rota óbvia
-até quanto o modelo sabe sobre aquele país, de modo que, se o canal linguístico
-tivesse sobrevivido e a cobertura falhado, nossa leitura estaria errada.
+Quatro checagens separam o sinal de cobertura de artefato
+(Tabela~\ref{tab:h4-dentro}). O contraste \emph{mais puro} --- T1, inteiramente
+nacional, contra T5, inteiramente genérica --- produz o \emph{maior} coeficiente;
+retirar T5 ou T4 o deixa intacto; um placebo que inverte os rótulos devolve a
+imagem espelhada exata; e, entrando com o proxy de corpus da língua ao lado dele,
+a cobertura sobrevive ($\beta=+0.030$, $p=2\times10^{-9}$) e a língua não
+($\beta=+0.004$, $p=0.45$). Como toda resposta aqui foi eliciada em inglês, esse
+último resultado era predito e é a parte falsificável do desenho. O rival que ele
+não elimina é o desenvolvimento. Cobertura e IDH correlacionam a $\rho=0.65$
+entre os 25 países, e quando as duas interações entram no mesmo modelo a ordem se
+inverte: IDH$\times$dependência sobrevive ($\beta=+0.027$, EP 0.007,
+$p=5\times10^{-5}$) e cobertura$\times$dependência não ($\beta=+0.012$, EP
+0.007, $p=0.063$). Dentro dos nove países anglófonos, onde o idioma da pergunta é
+o mesmo por construção, a cobertura prediz o déficit na magnitude plena
+($\beta=+0.024$, $p=0.003$); isso remove a língua como explicação, não o
+desenvolvimento.
 
-A afirmação resultante é mais estreita que ``a cobertura causa a lacuna''. O desenho
-remove por construção o confundimento no nível do país, não o de tarefa por país. O
-que podemos dizer é que o canal faz uma predição diferencial, que ela se sustenta,
-que se fortalece à medida que o contraste se aguça, e que sobrevive ao ajuste pelo
-canal rival.
+A afirmação resultante é, portanto, mais estreita que ``a cobertura causa a
+lacuna'', e mais estreita do que a escrevemos primeiro. O que o desenho dentro do
+país estabelece é que o déficit específico do país é menor onde o mundo registra
+mais sobre o país --- seja esse registro medido como cobertura enciclopédica ou
+como desenvolvimento, que nesta amostra são duas leituras da mesma variável. Ele
+descarta o canal do corpus da língua; não escolhe cobertura sobre
+desenvolvimento, e reportamos o mecanismo como identificado apenas até esse par.
 
 \begin{table}[h]
 \centering
@@ -342,16 +394,18 @@ nas tarefas dependentes do país.}
 \toprule
 Classificação das tarefas & $\beta$ & $p$ \\
 \midrule
-T1, T2, T4 contra T3, T5 (principal) & $+0.026$ & $2\times10^{-8}$ \\
-T1 contra T5 (contraste mais puro)   & $+0.042$ & $3\times10^{-12}$ \\
-Excluindo T5 (teto em 99.7\%)        & $+0.021$ & $4\times10^{-4}$ \\
-Excluindo T4 (mais interpretativa)   & $+0.031$ & $8\times10^{-10}$ \\
-Placebo: rótulos invertidos          & $-0.026$ & $2\times10^{-8}$ \\
+T1, T2, T4 contra T3, T5 (principal) & $+0.030$ & $9\times10^{-10}$ \\
+T1 contra T5 (contraste mais puro)   & $+0.045$ & $2\times10^{-11}$ \\
+Excluindo T5 (teto em 99.7\%)        & $+0.026$ & $3\times10^{-5}$ \\
+Excluindo T4 (mais interpretativa)   & $+0.034$ & $1\times10^{-9}$ \\
+Placebo: rótulos invertidos          & $-0.030$ & $9\times10^{-10}$ \\
+Com IDH$\times$dependência: cobertura & $+0.012$ & $0.063$ \\
+\quad IDH                            & $+0.027$ & $5\times10^{-5}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-A explicação de corpus também se mostra em H2, onde a unidade é o idioma: a
+A explicação de corpus se mostra com mais nitidez em H2, onde a unidade é o idioma: a
 penalidade por idioma cai monotonicamente com o volume de tokens do
 mC4~\citep{xue2021mt5} e o tamanho do OSCAR~\citep{abadji2022oscar}, com o hindi, o
 menor corpus, carregando a maior penalidade --- ainda que, com três idiomas, isso
@@ -360,13 +414,14 @@ permaneça descritivo.
 \subsection{H5 --- abertos versus fechados acessíveis}
 \label{sec:res:h5}
 
-Modelos fechados acessíveis têm média $+12.6$~pp acima dos de pesos abertos, contra
+Modelos fechados acessíveis têm média $+13.0$~pp acima dos de pesos abertos, contra
 o enquadramento otimista de H5. O braço aberto inclui modelos maiores, de modo que
 a lacuna não é atribuível apenas à escala, ainda que o DeepSeek-V3 lidere no geral.
 H5 é interpretada descritivamente.
 
-\subsection{Proveniência do gabarito}
+\subsection{Proveniência do gabarito, e o que a chave de T1 decide}
 \label{sec:res:proveniencia}
+\label{sec:res:t1}
 
 Toda chave vem de um registro oficial, ancorada por verificação documental e
 reproduzível a partir das URLs citadas: T1 da regulação nacional, T2 da Base de
@@ -375,19 +430,48 @@ e T4 do Global Assessment of Air Pollution Legislation do PNUMA. Três países
 \emph{não} têm padrão nacional de PM\textsubscript{2,5}, confirmado no texto
 oficial --- a Nigéria regula apenas PM\textsubscript{10}, a Argentina não tem valor
 federal vinculante, Angola não tem legislação nacional ---, e é aí que um modelo
-fiel deve se recusar a declarar um limiar inexistente. O registro completo está no
-suplemento. Wikipédia e Wikidata aparecem apenas como variável explicativa do teste
-de mecanismo; nenhuma resposta é pontuada contra elas.
+fiel deve se recusar a declarar um limiar inexistente. Duas chaves não estão
+plenamente verificadas (Bangladesh, pontuado contra seu diário oficial de 2005;
+Egito, sem valor recuperável e portanto sem chave de T1), e todos esses cinco
+casos são do Sul Global, de modo que a composição da chave é ela própria uma
+explicação candidata para a lacuna de T1. Não é: deixando-os de lado, a chance do
+Sul Global em T1 é 0.39 $[0.31,0.50]$ da do Norte, contra 0.33 com eles. O
+registro completo está no suplemento. Wikipédia e Wikidata aparecem apenas como
+variável explicativa do teste de mecanismo; nenhuma resposta é pontuada contra
+elas.
+
+\emph{A chave em vigor, e a escada ao redor dela.} Vários instrumentos fixam uma
+escada de valores em vez de um só: a Resolução CONAMA 506/2024 do Brasil percorre
+20, 17, 15, 10, 5~$\mu$g/m\textsuperscript{3} em cinco etapas, das quais 17 está
+em vigor desde janeiro de 2025; o limite europeu é 25 com 10 a partir de 2030; o
+valor-limite do Reino Unido é 20 com uma meta inglesa de 10 até 2040; os Estados
+Unidos passaram de 12,0 para 9,0 em 2024. A chave de T1 é o valor em vigor na
+janela de coleta, e ela é exigente: nenhum modelo devolve 17 para o Brasil (a
+resposta modal é 15, a etapa seguinte), quase nenhum devolve 20 para o Reino
+Unido (a maioria devolve a meta de 2040 ou o 25 superado), e menos de um quarto
+devolve 9,0 para os Estados Unidos. Das 754 respostas erradas de T1, 259 citam um
+valor que está em algum degrau da escada oficial do país --- uma etapa ainda não
+vigente ou um valor já substituído ---, o que é confusão sobre \emph{qual} valor
+vincula, não fabricação, e é a falha que um corte de treinamento produziria. A
+distinção não salva a comparação entre tiers, ela a aguça: pontuar qualquer valor
+da escada como correto eleva a acurácia do Norte Global em T1 de 0.51 para 0.77 e
+a do Sul Global apenas de 0.32 para 0.40, porque os instrumentos escalonados
+estão em sua maioria no Norte, e a razão de chances cai para 0.12
+$[0.10,0.15]$. Onde o registro oferece vários números plausíveis os modelos os
+conhecem; onde oferece um só, com frequência não.
 
 \subsection{Modos qualitativos de falha}
 \label{sec:res:qualitativo}
 
 Três modos de falha recorrem por trás do composto, com exemplos literais no
 suplemento. Os modelos \emph{fabricam padrões inexistentes} para os três países sem
-norma nacional, inventando um limiar plausível em vez de se absterem e discordando
-entre replicações sobre o valor inventado; \emph{erram o valor vinculante},
-respondendo 15~$\mu$g/m\textsuperscript{3} para o Brasil, cujo padrão é 17 (CONAMA
-506/2024); e \emph{degradam em idioma nativo}, como quando o GPT-OSS~120B devolveu
+norma nacional: em 168 das 256 células de T1 pontuadas para Angola, Argentina e
+Nigéria a resposta afirma um valor nacional específico, em 33 afirma corretamente
+que nenhum existe e em 31 se recusa a responder, e os valores inventados
+discordam entre replicações; \emph{erram o valor vinculante}, respondendo
+15~$\mu$g/m\textsuperscript{3} para o Brasil, cuja etapa em vigor é 17 (CONAMA
+506/2024), uma confusão de etapa e não uma invenção; e \emph{degradam em idioma
+nativo}, como quando o GPT-OSS~120B devolveu
 os corretos 40~$\mu$g/m\textsuperscript{3} da Índia em inglês e resposta
 \emph{vazia} em hindi.
 
@@ -414,30 +498,34 @@ aritmética pertence ao código.
 \label{sec:res:robustez}
 
 Os dois efeitos sustentados foram testados contra sete ataques e sobrevivem a todos;
-o gradiente de desenvolvimento falha em todos na mesma direção, o que é o que torna
-seu estatuto exploratório um achado, e não uma omissão. As saídas completas estão no
+o gradiente de desenvolvimento fica abaixo do 0.55 pré-especificado em cada um
+deles (seu valor mais alto, 0.48, é uma reestimação leave-one-out), o que é o que
+torna seu estatuto exploratório um achado, e não uma omissão. As saídas completas estão no
 suplemento.
 
 \emph{Nenhum país isolado, e nenhuma ponderação, carrega o resultado.} A reestimação
-\emph{leave-one-country-out} mantém a lacuna de camada em $[+4.5,+6.0]$~pp e a
-penalidade de idioma nativo entre $-4.7$ e $-5.0$~pp. Reponderar o composto não move
+\emph{leave-one-country-out} mantém a lacuna de camada em $[+4.4,+5.9]$~pp e a
+penalidade de idioma nativo entre $-4.4$ e $-5.5$~pp. Reponderar o composto não move
 as conclusões: sob pesos iguais a lacuna é de $+4.2$~pp e a penalidade de idioma de
-$-4.7$~pp; restringir à acurácia factual contra o valor de registro as amplia para
-$+8.8$ e $-5.4$~pp e aprofunda o piso de recuperação. Os efeitos são mais fortes
-onde a medida é mais objetiva.
+$-4.8$~pp; restringir à acurácia factual contra o valor de registro as amplia para
+$+8.7$ e $-6.1$~pp e aprofunda o piso de recuperação. Os efeitos são mais fortes
+onde a medida é mais objetiva. As duas réplicas de cada célula diferem em 8.5~pp
+em média (DP intracélula de 10.1~pp), de modo que a penalidade de idioma de
+$-5.0$~pp, mediada sobre 839 pares, fica a cerca de dez erros-padrão do ruído que
+duas réplicas deixam por resolver.
 
 \emph{A lacuna de camada sobrevive a um teste livre de distribuição e a duas
 famílias de modelo.} Um teste de permutação embaralha os rótulos Norte/Sul entre os
 25 países dez mil vezes e conta com que frequência o acaso sozinho produz uma lacuna
 desse tamanho; ele não assume nada sobre a distribuição e trata o país, e não a
-resposta, como unidade independente. O acaso supera a lacuna observada em 2.0\% das
-vezes ($p=0.020$). Um modelo hierárquico bayesiano com interceptos aleatórios
-cruzados concorda ($\beta=-0.052$, HDI de 94\% $[-0.092,-0.016]$,
-$P(\beta<0)=0.994$), enquanto um modelo misto frequentista devolve a mesma magnitude
-e sinal mas o deixa marginal ($\beta=-0.066$, $p=0.069$), porque cobra do termo de
+resposta, como unidade independente. O acaso supera a lacuna observada em 2.1\% das
+vezes ($p=0.021$). Um modelo hierárquico bayesiano com interceptos aleatórios
+cruzados concorda ($\beta=-0.048$, HDI de 94\% $[-0.090,-0.009]$,
+$P(\beta<0)=0.987$), enquanto um modelo misto frequentista devolve a mesma magnitude
+e sinal mas o deixa marginal ($\beta=-0.063$, $p=0.087$), porque cobra do termo de
 erro a grande heterogeneidade entre países. Dois dos três testes excluem o zero e os
 três concordam em magnitude, de modo que relatamos a lacuna como sustentada e
-sensível à especificação, com E-value de 1.70 na estimativa pontual e 1.31 no limite
+sensível à especificação, com E-value de 1.70 na estimativa pontual e 1.30 no limite
 do intervalo mais próximo do nulo~\citep{vanderweele2017evalue} --- um confundidor
 de país de força modesta bastaria para explicá-la, e o leitor tem o direito de pesar
 isso.
@@ -470,7 +558,8 @@ candidato e a um estatuto de evidência explícito, de modo que nenhuma afirmaç
 seja lida como mais forte do que os dados sustentam. Três efeitos são sustentados e
 sobrevivem a todo ataque de robustez da Seção~\ref{sec:res:robustez}; duas
 expectativas pré-especificadas não se cumprem; e o mecanismo de corpus é
-identificado dentro dos países, onde o desenho tem resolução, e não entre eles.
+identificado dentro dos países apenas até o par cobertura-ou-desenvolvimento,
+que este desenho não consegue separar.
 
 \begin{table}[!ht]
 \centering
@@ -489,23 +578,23 @@ Hipótese & Achado & Mecanismo \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Sustentadas}} \\
 \addlinespace[2pt]
-H2 idioma           & $-4.8$~pp; hindi $-11.1$     & corpus do idioma \\
-H3 modelo regional  & $\delta=-0.47$, pior de 14   & escala sobre ajuste \\
-H1 lacuna de camada & $+5.4$~pp; RC 0.22 em T1     & camada \\
+H2 idioma           & $-5.0$~pp; hindi $-11.4$     & corpus do idioma \\
+H3 modelo regional  & $\delta=-0.48$, pior de 14   & escala sobre ajuste \\
+H1 lacuna de camada & $+5.0$~pp; RC 0.33 em T1     & camada \\
 \midrule
-\multicolumn{3}{@{}l}{\emph{Sustentada, mas não identificada causalmente}} \\
+\multicolumn{3}{@{}l}{\emph{Sustentada, mecanismo não separável}} \\
 \addlinespace[2pt]
-H4 dentro do país   & $\beta=+0.028$, $p=7\times10^{-9}$ & cobertura do país \\
+H4 dentro do país   & $\beta=+0.030$ sozinha; $+0.012$ ($p=0.063$) com IDH & cobertura ou desenvolvimento \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Não sustentadas}} \\
 \addlinespace[2pt]
-H1 gradiente        & $\rho=0.41$, abaixo de $0.55$ & desenvolvimento \\
+H1 gradiente        & $\rho=0.36$, abaixo de $0.55$ & desenvolvimento \\
 H4 pré-especificada & proxy de corpus do idioma nulo & corpus do idioma \\
-H6 persona          & DiD $+0.8$~pp, $p=0.29$      & --- \\
+H6 persona          & DiD $+0.5$~pp, $p=0.29$      & --- \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Apenas descritiva}} \\
 \addlinespace[2pt]
-H5 aberto/fechado   & $+12.6$~pp para fechados     & tipo de acesso \\
+H5 aberto/fechado   & $+13.0$~pp para fechados     & tipo de acesso \\
 \bottomrule
 \end{tabular}
 
@@ -513,7 +602,7 @@ H5 aberto/fechado   & $+12.6$~pp para fechados     & tipo de acesso \\
 \begin{minipage}{0.75\linewidth}
 \footnotesize\emph{Nota.} O mecanismo de H2 repousa sobre três idiomas nativos e é
 descritivo. A lacuna de camada de H1 é concentrada nas tarefas cuja resposta
-depende de um fato nacional. H4 dentro do país remove o confundimento no nível do
-país por construção, o que não é identificação causal.
+depende de um fato nacional. H4 dentro do país descarta o canal do corpus da
+língua, mas não separa cobertura de desenvolvimento, e não é identificação causal.
 \end{minipage}
 \end{table}

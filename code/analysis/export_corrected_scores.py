@@ -12,7 +12,9 @@ REGRA (identica a de freeze_all_effects.py)
    codigo e recompoe-se o composto com os pesos do instrumento.
 2. Residuo de T2/T3 e T4 inteira: media do painel de tres juizes, tanto no
    composto quanto em cada subcomponente.
-3. T1 e T5 entram intactas.
+3. T1 por código desde 2026-09-21 (valor anual extraído contra t1_registry.jsonl;
+   abstenção correta nos países sem padrão; EGY excluída por falta de chave).
+   T5 entra intacta (juiz original).
 
 O registro de saida preserva todos os campos do original e acrescenta
 `score_source` (original | code | panel), para que qualquer analise possa
@@ -30,6 +32,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
 from code.analysis.llm_judge import RUBRIC_WEIGHTS as PESOS  # noqa: E402
+from code.analysis.code_verdicts import carregar as carregar_codigo  # noqa: E402
 
 ANA = ROOT / "data" / "confirmatory_PRIVATE" / "analysis"
 ORIG = ANA / "judge_scores_confirmatory.jsonl"
@@ -45,18 +48,8 @@ def composto(d: dict) -> float:
 
 
 def main() -> None:
-    det = {}
-    for t in ("T2", "T3"):
-        f = NUMERIC / f"numeric_scores_{t}.jsonl"
-        if not f.exists():
-            continue
-        for linha in f.open(encoding="utf-8"):
-            r = json.loads(linha)
-            if r["verdict"] in ("CORRECT", "INCORRECT"):
-                det[(r["prompt_id"], str(r["model_id"]),
-                     int(r.get("replicate_idx", 0)))] = (
-                    1.0 if r["verdict"] == "CORRECT" else 0.0)
-
+    # T1, T2 e T3 por código — regra única (code_verdicts.py); T1 desde 2026-09-21.
+    det, excluidas, _meta = carregar_codigo()
     por = collections.defaultdict(list)
     for linha in PANEL.open(encoding="utf-8"):
         r = json.loads(linha)
@@ -84,10 +77,13 @@ def main() -> None:
         agrupado[(r.get("prompt_id"), str(r.get("model_id")),
                   int(r.get("replicate_idx", 0)))].append(r)
 
-    n = {"original": 0, "code": 0, "panel": 0}
+    n = {"original": 0, "code": 0, "panel": 0, "excluded": 0}
     n_media = 0
     with SAIDA.open("w", encoding="utf-8") as out:
         for _chave, grupo in agrupado.items():
+            if _chave in excluidas:
+                n["excluded"] += 1
+                continue
             r = dict(grupo[0])
             if len(grupo) > 1:
                 for campo in ("composite", *SUBS):
@@ -117,7 +113,7 @@ def main() -> None:
 
     print(f"escrito: {SAIDA}")
     print(f"  original {n['original']} · codigo {n['code']} · painel {n['panel']}"
-          f"  (total {sum(n.values())})")
+          f" · excluidas {n['excluded']}  (total {sum(n.values())})")
     print(f"  celulas com mais de uma resposta, resolvidas por media: {n_media}")
 
 

@@ -41,8 +41,9 @@ do nosso sorteio, porque os idiomas oficiais da maioria dos Estados são eles
 próprios de alto recurso; mas significa que o eixo linguístico tem variância
 pequena demais para ser separado dos demais, e tratamos os resultados de Joshi de
 acordo (Seção~\ref{sec:res:h1}). Países com governança estatística comprometida ou
-sem padrão nacional publicamente recuperável foram excluídos; Oceania e idiomas de
-Classe~0 de Joshi não estão representados, o que registramos como limitação de
+sem padrão nacional publicamente recuperável foram excluídos dos quinze
+pré-especificados; a Oceania entrou apenas com a extensão (Austrália), e idiomas
+de Classe~0 de Joshi não estão representados, o que registramos como limitação de
 escopo.
 
 \subsection{Ampliação da amostra após a análise pré-especificada}
@@ -60,9 +61,11 @@ nenhuma conclusão pré-especificada é revisada apenas com base na extensão, e
 ampliação é tratada como checagem de poder e robustez, não como novo teste
 confirmatório. Angola, como Nigéria e Argentina, \emph{não} tem padrão nacional de
 PM\textsubscript{2,5}, acrescentando casos sem padrão nos quais um modelo fiel deve
-se recusar a declarar um limiar inexistente. As dez adições, seus papéis e as duas
-variantes extras de pergunta geradas por (país, tarefa) para os pares de H2 estão
-detalhadas no suplemento.
+se recusar a declarar um limiar inexistente. As dez adições e seus papéis estão
+detalhados no suplemento. Duas variantes extras de pergunta por (país, tarefa)
+foram geradas para os pares de H2 na fase de desenho, mas nunca foram coletadas
+nem pontuadas; a análise de H2 usa a única versão em idioma nativo de cada prompt
+em inglês.
 
 \subsection{Covariáveis de país}
 \label{sec:covariaveis}
@@ -98,9 +101,12 @@ administração pública enfrenta.
 Catorze LLMs foram avaliados em cinco camadas de acesso, abrangendo cerca de duas
 ordens de magnitude em contagem de parâmetros e quatro geografias de dados de
 treinamento (Estados Unidos, China, Europa, Brasil): fronteira de pesos abertos
-(5), pesos abertos médios (3) e pequenos ou regionais (2) executados localmente sob
-tags fixadas, e fechados acessíveis (2) e fechados de fronteira (1) via APIs
-oficiais. A camada pequena inclui um modelo ajustado por instrução em português
+(5), pesos abertos médios (3) e pequenos ou regionais (2), fechados acessíveis (3)
+e fechados de fronteira (1). Apenas três dos modelos de pesos abertos foram
+servidos localmente (Ollama, tags fixadas: Phi-4~14B, Qwen3~14B, Cabra-Mistral~7B);
+os outros sete foram servidos por endpoints hospedados (camada gratuita da Groq
+para cinco, APIs da DeepSeek e da Cohere para dois), e os quatro modelos fechados
+pelas APIs de seus fornecedores. A camada pequena inclui um modelo ajustado por instrução em português
 brasileiro (Cabra-Mistral~7B~v3), testado contra um modelo aberto de treinamento
 global de escala equivalente para H3. Cada modelo foi consultado com tag fixada
 idêntica ao longo da janela de coleta. O roster completo está na Tabela~S1 do
@@ -110,8 +116,8 @@ Comparamos \emph{modelos como servidos} por uma pilha de acesso fixa, e não pes
 idealizados. Infraestrutura do provedor, configuração de serviço e camada de API
 fazem parte do que cada rótulo denota, e uma lacuna residual poderia em princípio
 refletir a pilha em vez dos pesos; mantemos isso constante fixando tags de versão e
-a configuração de máximo determinismo disponível por provedor ao longo de uma
-janela fixa.
+uma configuração de amostragem fixa por provedor ao longo de uma janela fixa
+(Seção~\ref{sec:coleta}).
 
 \subsection{Domínio e taxonomia de tarefas}
 \label{sec:tarefas}
@@ -253,38 +259,71 @@ outros modelos comparando cada um contra o original em inglês
 \subsection{Gabarito e registro de gabarito}
 \label{sec:gabarito}
 
-O gabarito para as tarefas verificáveis foi extraído de fontes oficiais de
-registro: padrões nacionais de qualidade do ar e os órgãos que os emitem (T1),
-relatórios de monitoramento de agências ambientais (T2), e programas federais de
-política com seus órgãos executores e instrumentos legais (T4). Para T3, a
-referência é um conjunto curado de estudos epidemiológicos revisados por pares com
-DOIs resolvíveis, e não um número único.
+O gabarito é um conjunto de quatro registros específicos por tarefa, liberados
+com os dados, e descrevemos cada um como foi construído, não como foi planejado
+(a Tabela~S14 do suplemento registra os desvios). Para T1 a chave é o valor anual
+de PM\textsubscript{2,5} em vigor durante a janela de coleta, tomado do próprio
+instrumento nacional (lei, decreto, regulamento ou diário oficial) e armazenado
+com a fonte, um trecho literal e uma marca de status. Vinte e um países têm chave
+numérica. Três (Angola, Argentina, Nigéria) não têm padrão nacional de
+PM\textsubscript{2,5}, de modo que a resposta correta é dizê-lo, e um valor
+afirmado é pontuado como fabricado. Bangladesh é pontuado contra o valor do diário
+oficial de 2005, porque sua revisão de 2022 não pôde ser confirmada em texto
+oficial acessível, e o Egito não tem chave alguma, porque o texto oficial em
+árabe não pôde ser recuperado; o Egito fica, portanto, fora de T1 (56 células).
+Onde um instrumento fixa uma escada de valores em etapas (as cinco etapas do
+CONAMA no Brasil, o limite europeu de 25 com 10 a partir de 2030, o limite de 20
+do Reino Unido com meta inglesa de 10 até 2040, os 9,0 dos Estados Unidos que
+sucederam os 12,0), o registro armazena a escada inteira além do valor em vigor,
+para que citar uma etapa vizinha possa ser separado de fabricação
+(Seção~\ref{sec:res:t1}). Os CAAQS do Canadá e o valor filipino são objetivos, e
+não limites juridicamente vinculantes; são os únicos valores nacionais de
+referência que esses países publicam e são tratados como chave, o que o texto
+anota onde importa.
 
-Como a validade do gradiente geográfico depende de o gabarito estar igualmente
-disponível e igualmente verificável entre países, construímos um registro por país
-que anota, para cada par (país, tarefa), a classe de fonte oficial equivalente, a
-URL resolvível, o valor de referência ou a chave de rubrica, a data de referência,
-o validador humano e uma marca de validação. As entradas são versionadas por data
-de acesso, URL de fonte e um hash SHA-256 do documento recuperado. Entradas cuja
-fonte oficial é indisponível ou não equivalente para um país são sinalizadas e
-excluídas da comparação primária daquela célula, de modo que gabarito ausente nunca
-é pontuado como erro do modelo. O desenho do registro e os critérios de equivalência
-entre países estão no suplemento.
+Para T2 a chave é a concentração média anual de PM\textsubscript{2,5} mais recente
+que a base WHO Ambient Air Quality Database (v6.1, 2024) registra para a cidade
+do prompt, compilando os valores reportados por agências nacionais e
+subnacionais; qualquer ano reportado é aceito dentro de $\pm 20\%$, de modo que
+um modelo que cite um valor da agência de outro ano não é penalizado pelo ano.
+Duas cidades não têm entrada de PM\textsubscript{2,5} (Luanda, Cairo) e essas
+células ficam com o juiz. Para T3 a chave é a estimativa do WHO Global Health
+Observatory de mortes atribuíveis à poluição do ar ambiente (indicador AIR\_41,
+2021), com o intervalo de incerteza alargado em metade de cada lado como faixa
+aceita, mais a ordem publicada das causas; o indicador cobre a poluição do ar
+ambiente como um todo, enquanto o prompt pergunta por PM\textsubscript{2,5}, e um
+modelo que cite outro estudo de carga (o GBD, uma coorte nacional) é pontuado
+pelo juiz quanto a se sua cifra e fontes são defensáveis, não contra o número da
+OMS. Para T4 o conjunto de referência é o catálogo UNEP Global Air Pollution
+Legislation de cada país, com correções manuais onde está desatualizado. O
+registro anota fonte, URL, data de acesso e status por entrada, mas não tem campo
+de validador humano nem hash por documento: a verificação foi documental, pelos
+autores, contra o texto primário. Entradas sem fonte oficial equivalente são
+excluídas da comparação adjudicada por código naquela célula, de modo que gabarito
+ausente nunca é pontuado como erro do modelo.
 
 \subsection{Coleta de dados}
+\label{sec:coleta}
 
-As chamadas foram executadas a temperatura~0.3 com sementes determinísticas quando
-disponíveis, com 2 replicações por combinação de prompt, modelo e persona, dentro
-de uma janela fixa para minimizar confundimento por atualização de modelo; as
-acurácias relatadas são, portanto, estimativas pontuais no tempo. Toda resposta foi
+As chamadas foram executadas a temperatura~0.3 com semente fixa onde o provedor a
+honra (os três modelos servidos via Ollama), com 2 replicações por combinação de
+prompt, modelo e persona, dentro de uma janela fixa para minimizar confundimento
+por atualização de modelo; as acurácias relatadas são, portanto, estimativas
+pontuais no tempo. Duas exceções são declaradas: a família GPT-5 rejeita qualquer
+temperatura diferente da padrão, de modo que GPT-5 e GPT-5-mini rodaram a
+temperatura~1.0; e nenhum provedor oferece configuração que torne a saída
+determinística, de modo que duas réplicas a 0.3 delimitam, sem remover, a
+variância intramodelo (o suplemento compara os efeitos principais com essa
+variância). Toda resposta foi
 armazenada com metadados completos da requisição --- tag fixada, timestamp,
 contagem de tokens, motivo de término, condição de persona --- sob checksums
 SHA-256. Gates de qualidade excluíram respostas truncadas e respostas em idioma
 divergente do da requisição, ambas retidas e analisadas separadamente.
 
 A cobertura por célula não é uniforme: endpoints gratuitos e com limite de taxa
-devolveram menos respostas admissíveis do que as APIs medidas, de modo que o $N$
-pontuado varia de cerca de 300 a 780 por modelo. Relatamos o $N$ realizado de cada
+devolveram menos respostas admissíveis do que as APIs medidas, de modo que o número de
+células pontuadas com prompt em inglês varia de 261 a 500 por modelo (777 para
+o modelo com mais pares em idioma nativo, quando estes são contados). Relatamos o $N$ realizado de cada
 modelo ao lado de sua pontuação (Tabela~\ref{tab:conf-modelo}) em vez de descartar
 silenciosamente células sub-cobertas, e a matriz completa de cobertura, com as
 razões de cota e exclusão de cada falta, está no suplemento.
@@ -293,37 +332,64 @@ razões de cota e exclusão de cada falta, está no suplemento.
 
 A pontuação atribui a cada tarefa o instrumento mais confiável que ela admite.
 
-\emph{Onde a resposta é um número em registro oficial, o código decide.} Para T2 e
-T3, o valor devolvido é extraído e comparado com a faixa autorizada por um
+\emph{Onde a resposta é um número em registro oficial, o código decide.} Para
+T1, T2 e T3, o valor devolvido é extraído e comparado com o registro por um
 pontuador determinístico, com guardas de plausibilidade que rejeitam extrações
 implausíveis --- um ano de quatro dígitos lido como contagem de óbitos, uma
-população nacional lida como cifra de mortalidade. Comparar um valor com uma faixa
-é exato, e um modelo de linguagem a quem se pede a mesma aritmética só consegue
-reproduzi-la com ruído. O código resolve 62.5\% de T2 e 83.6\% de T3.
+população nacional lida como cifra de mortalidade, um valor de 24 horas lido como
+anual. O extrator normaliza dígitos devanágari, vírgulas decimais e unidades
+escritas por extenso, e seu comportamento nos casos que importam para a
+comparação entre idiomas (uma vírgula decimal, um numeral em hindi, um valor
+diário entre parênteses ao lado do anual) é fixado por uma suíte de testes
+unitários liberada com o código; uma auditoria manual estratificada das respostas
+em idioma nativo que ele classificou como sem valor está no suplemento. Comparar
+um valor com uma chave é exato, e um modelo de linguagem a quem se pede a mesma
+aritmética só consegue reproduzi-la com ruído. O código resolve 99.8\% das
+células de T1 na análise (1.614 de 1.617), 56.3\% de T2 e 71.8\% de T3; uma
+resposta de T1 sem valor extraível conta como não tê-lo devolvido. Para os três
+países sem padrão, o código pontua se a resposta afirma que não existe padrão
+nacional (correto), afirma um valor (fabricado) ou se recusa a responder (nem um
+nem outro), e a comparação primária entre tiers é reportada com e sem eles.
 
 \emph{Onde se exige julgamento, um painel de três fornecedores decide pela média.}
 O resíduo de T2 e T3, com toda a T4, é pontuado por Gemini~2.5~Pro, Claude
 Sonnet~4.6 e DeepSeek-V3, escolhidos por diversidade de fornecedor para que a
-correlação intrafornecedor não infle a concordância aparente. T1 e T5 mantêm as
-pontuações originais de juiz único. A confiabilidade é relatada como $\alpha$ de
-Krippendorff, o ICC$(2,1)$ de juiz único e, como quantidade operativa, o ICC$(2,3)$
-da média do painel, computados sobre cada item que o painel pontuou em vez de sobre
-um subconjunto de calibração --- uma correlação intraclasse que responde quanto uma
-nota se moveria se outro juiz a tivesse produzido. Um membro do painel (DeepSeek-V3)
-é também um modelo avaliado, e testamos o autofavorecimento diretamente. Nenhuma
-camada humana de padrão-ouro foi coletada; o gabarito está ancorado, em vez disso,
-em fontes oficiais primárias (Seção~\ref{sec:gabarito}).
+correlação intrafornecedor não infle a concordância aparente. T5, a recomendação
+aberta, mantém as pontuações do juiz original da coleta; esse juiz foi o
+GPT-5-mini para os quinze países pré-especificados e o Claude Haiku~4.5 para os
+dez acrescentados na extensão, e como a extensão contém sete dos dez países do
+Norte Global, juiz e tier estão confundidos em qualquer efeito que ainda repouse
+sobre essas pontuações. Foi por isso que T1 passou para o código: nas pontuações
+originais o déficit do Sul Global em T1 era 0.21 contra 0.38 sob o GPT-5-mini,
+mas 0.37 contra 0.44 sob o Claude Haiku, uma diferença entre juízes tão grande
+quanto a diferença entre tiers (suplemento). T5 não carrega efeito de tier em
+nenhum dos dois instrumentos. A confiabilidade é relatada como $\alpha$ de
+Krippendorff, o ICC$(2,1)$ de juiz único e, como quantidade operativa, o
+ICC$(2,3)$ da média do painel --- um coeficiente de efeitos aleatórios de dois
+fatores e concordância absoluta, de modo que as severidades distintas dos juízes
+contam contra ele --- computados sobre cada item que o painel pontuou em vez de
+sobre um subconjunto de calibração. Um membro do painel (DeepSeek-V3) é também
+um modelo avaliado, e testamos o autofavorecimento diretamente. Nenhuma camada
+humana de padrão-ouro foi coletada; o gabarito está ancorado, em vez disso, em
+fontes oficiais primárias (Seção~\ref{sec:gabarito}).
 
-\emph{A unidade de análise é a célula pontuada, não a linha de log.} Das 9.251
-pontuações que o juiz produziu, 951 células (11,5\%) carregam mais de um escore,
-porque o juiz foi reexecutado sobre partes do conjunto em datas diferentes. São
-medições repetidas do mesmo item, não observações independentes, de modo que as
-colapsamos pela média, restando 8.300 células (6.629 com prompt em inglês). Tratar
-reexecuções como independentes seria pseudo-replicação: infla o $n$ e dá peso extra
-às células que por acaso foram reprocessadas. A escolha é metodológica e não
-depende do resultado; o material suplementar reporta cada efeito principal sob as
-duas convenções, e o achado central do estudo é indiferente a ela ($-4.755$ contra
-$-4.753$~pp).
+\emph{A unidade de análise é a célula pontuada, não a linha de log.} A
+duplicação existe em dois níveis, e cada um tem uma regra declarada. No nível da
+resposta, 21,9\% das chaves (modelo, prompt, réplica) têm mais de uma resposta
+armazenada, porque as rodadas de coleta foram retomadas e reexecutadas; a
+resposta que entra na análise é a primeira armazenada na ordem dos arquivos de
+execução, que é a que o juiz pontuou, e os vereditos de código são computados
+sobre essa mesma resposta, para que os dois instrumentos descrevam uma única
+resposta. Pontuar todas as respostas armazenadas e tirar a média dos vereditos
+muda o veredito de código em 3,1\% das células e a média em 0,0001
+(suplemento). No nível do escore, 951 células (11,5\%) carregam mais de um
+escore de juiz, porque o juiz foi reexecutado sobre partes do conjunto em datas
+diferentes; são medições repetidas do mesmo item, não observações independentes,
+e são colapsadas pela média, restando 8.300 células, ou 8.244 uma vez removidas
+as 56 células egípcias de T1 sem chave (6.573 com prompt em inglês). Tratar
+reexecuções como independentes seria pseudo-replicação: infla o $n$ e dá peso
+extra às células que por acaso foram reprocessadas. A escolha é metodológica e
+não depende do resultado.
 
 O composto primário combina cinco subcomponentes pré-especificados (Seção~S6 do
 suplemento), cada um normalizado para $[0,1]$: acurácia factual contra a entrada do

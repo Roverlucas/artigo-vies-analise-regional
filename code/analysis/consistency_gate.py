@@ -84,6 +84,22 @@ PROIBIDOS = [
     (r"9\{,\}251",                  "n com pseudo-replicacao",        "8.300 celulas"),
     (r"7\{,\}580",                  "n ingles com pseudo-replicacao", "6.629"),
     (r"\$\+13\.3\$~pp",             "H5 antes da deduplicacao",       "+12.6 pp"),
+    # ---- 2026-09-21: T1 passou para codigo; juiz x tier confundidos; EGY excluida
+    (r"\$\+5\.4\$~pp|\+5\.4~pp|\+5\.44",  "tier gap antes do T1 por codigo", "+5.0 pp"),
+    (r"\[\+2\.1,\+8\.7\]",           "IC do tier gap antes do T1 por codigo", "[+1.5,+8.4]"),
+    (r"p=0\.043",                   "p do gradiente antes do T1 por codigo", "p=0.076"),
+    (r"\\?rho\s*=\s*\+?0\.(?:41\b|408)|\\rho\(\\text\{accuracy\},\\text\{HDI\}\)=\+0\.41", "gradiente antes do T1 por codigo", "0.36"),
+    # -4.8 pp aparece legitimamente (subconjunto fiel, pesos iguais); so o 4.75 e proibido
+    (r"-4\.75|4\.75~pp|4\.8 percentage points", "H2 antes do T1 por codigo", "-4.95 pp / 5.0 pp"),
+    (r"-11\.1~pp|\$-11\.1\$|11\.1~pp", "hindi antes do T1 por codigo", "-11.4 pp"),
+    (r"\+12\.6~pp|\$\+12\.6\$",      "H5 antes do T1 por codigo",     "+13.0 pp"),
+    (r"& 0\.22 &|OR[ =~$]*0\.22\b|odds are \$?0\.22|0\.22 of the|0\.22 das",  "OR de T1 sob o juiz original", "0.33"),
+    (r"8\{,\}300 (?:scored|cells)|8\{,\}300 células|8\{,\}300 respostas", "celulas antes de excluir EGY em T1", "8,244"),
+    (r"6\{,\}629",                 "n ingles antes de excluir EGY em T1", "6,573"),
+    (r"p=0\.27\b",                  "p da persona (valor errado que circulava)", "p=0.29"),
+    (r"\\delta=-0\.45\b|\\delta=-0\.47\).*floor", "piso antes do T1 por codigo", "-0.41"),
+    (r"single-judge scores|juiz unico original|original\s+single-judge", "T1 e T5 no juiz original", "T1 por codigo; T5 no juiz da coleta"),
+    (r"\+0\.83~pp|\$\+0\.8\$~pp",    "H6 DiD antes do T1 por codigo",  "+0.5 pp"),
 ]
 
 
@@ -94,6 +110,13 @@ MD_PROIBIDOS = [
     (r"0\.512\b",                "gradiente pre-correcao",   "0.41"),
     (r"[-−]2[.,]1\s*pp",         "H2 pre-correcao",          "-4.8 pp"),
     (r"\+6[.,]7\s*pp",           "tier gap a n=15 pre-corr", "ver congelamento"),
+    # 2026-09-21: valores anteriores ao T1 por codigo que circulavam no README
+    (r"\+5[.,][14]\s*pp",         "tier gap antes do T1 por codigo", "+5.0 pp"),
+    (r"\b0[.,]2[23]\b(?! da chance do Norte| of Global North odds)", "OR de T1 sob os juizes", "0.33"),
+    (r"[-−]4[.,]8\s*pp",         "H2 antes do T1 por codigo", "-5.0 pp"),
+    (r"\+13[.,]3\s*pp",          "H5 antes do T1 por codigo", "+13.0 pp"),
+    (r"9,251|9\.251",            "n com pseudo-replicacao",   "8,244"),
+    (r"T1 and T5 retain|single-judge scores", "T1/T5 no juiz original", "T1 por codigo; T5 juiz da coleta"),
 ]
 
 # O manuscrito declara que o plano nunca foi depositado. Duas regras, porque uma
@@ -166,24 +189,40 @@ def ancoras(c: dict) -> list[tuple[str, str, tuple[str, ...]]]:
     RES_DISC = ("sections/04_results.tex", "sections/05_discussion.tex")
     RES_SUP = ("sections/04_results.tex", "supplement.tex")
     # Cada ancora e exigida SOMENTE onde o artigo de fato defende aquele numero.
+    ABS = ("sections/00_abstract.tex",)
     return [
         ("penalidade de idioma",  fmt(abs(c["nativa_pp"]), 1),          RES_DISC),
+        ("penalidade (abstract)", fmt(abs(c["nativa_pp"]), 1),          ABS),
         ("gradiente HDI",         fmt(c["h1_rho_hdi"], 2),              RES_DISC),
+        ("p do gradiente",        "p=" + fmt(c["h1_p"], 3),             RES),
         ("piso T1+T2",            fmt(c["acc_t1t2"], 3),                RES_DISC),
+        ("piso delta",            fmt(c["cliff_piso"], 2),              RES_DISC),
         ("hindi",                 fmt(abs(c["hindi_pp"]), 1),           RES),
         ("n de pares H2",         "839",                                RES),
         ("gradiente a n=15",      fmt(c["h1_rho_pre15"], 2),            RES),
-        ("H4 dentro do pais",     "0.028",                              RES),
+        ("tier gap",              fmt(c["tier_gap_pp"], 1),             RES_DISC),
+        ("tier gap (abstract)",   fmt(c["tier_gap_pp"], 1),             ABS),
+        ("IC do tier gap",        f"[{fmt(c['tier_gap_ci'][0],1,True)},{fmt(c['tier_gap_ci'][1],1,True)}]", RES),
+        ("H4 dentro do pais",     "0.030",                              RES),
+        ("H4 conjunto com HDI",   "0.012",                              RES_DISC),
         ("H5",                    fmt(c["h5_pp"], 1),                   RES),
+        ("H6 DiD",                fmt(c["h6_did"], 1, True),            RES),
+        ("p da persona",          "p=" + fmt(c["persona_p"], 2),        ABS + RES_DISC),
+        ("H3 delta",              fmt(c["cliff_regional"], 2),          RES_DISC),
         ("LOCO tier gap min",     fmt(c["loo_gap_min"], 1),             RES),
         ("LOCO rho min",          fmt(c["loo_rho_min"], 2),             RES),
+        ("LOCO rho max",          fmt(c["loo_rho_max"], 2),             RES),
         ("alpha do painel",       "0.527",                              RES_SUP),
         ("ICC(2,3)",              "0.791",                              RES_SUP),
-        ("bayesiano",             "-0.052",                             RES_SUP),
-        ("E-value no limite",     "1.31",                               RES_SUP),
-        ("OR de T1",              "0.22",                               RES),
+        ("bayesiano",             "-0.048",                             RES_SUP),
+        ("E-value no limite",     "1.30",                               RES_SUP),
+        ("OR de T1",              "0.33",                               RES),
+        ("OR de T1 sem chave nao padrao", "0.39",                       RES),
         ("gradiente HDI (rho)",   fmt(c["h1_rho_hdi"], 2),              RES),
-        ("familia primaria a n=15", "+0.104",                           ("supplement.tex",)),
+        ("familia primaria a n=15", "+0.079",                           ("supplement.tex",)),
+        ("celulas analisadas",    "8{,}244",                            ABS + RES),
+        ("n ingles",              "6{,}573",                            RES),
+        ("modelo misto",          "-0.063",                             RES_SUP),
     ]
 
 

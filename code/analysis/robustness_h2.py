@@ -138,10 +138,24 @@ def main() -> None:
     print("  Isto tambem explica o bloco 4: a adjudicacao por codigo so age quando HA")
     print("  numero, entao aquele subconjunto esta condicionado a 'houve valor nas duas")
     print("  linguas' e remove justamente o pior modo de falha.")
+    # T1 entrou por codigo em 2026-09-21: "valor extraivel" ali e verdict com valor
+    # (CORRECT/INCORRECT/FABRICATED), nao score_source, porque NO_VALUE tambem vira
+    # veredito de codigo (=0). O extrator de T1 normaliza devanagari, virgula
+    # decimal e unidade por extenso (score_numeric.extract_t1).
+    t1_val = {}
+    f_t1 = ROOT / "data" / "processed" / "numeric_scores_T1.jsonl"
+    if f_t1.exists():
+        for l_ in f_t1.open(encoding="utf-8"):
+            x = json.loads(l_)
+            k_ = (x["prompt_id"], str(x["model_id"]))
+            if k_ not in t1_val:
+                t1_val[k_] = 1 if x["verdict"] in ("CORRECT", "INCORRECT", "FABRICATED") else 0
     verif = collections.defaultdict(list)
     for r in L:
         if r["task"] in ("T2", "T3"):
             verif[(r["pid"], r["modelo"])].append(1 if r["fonte"] == "code" else 0)
+        elif r["task"] == "T1" and (r["pid"], r["modelo"]) in t1_val:
+            verif[(r["pid"], r["modelo"])].append(t1_val[(r["pid"], r["modelo"])])
     med = {k: statistics.mean(v) for k, v in verif.items()}
     ing = {k: v for k, v in med.items() if not k[0].endswith(NATIVAS)}
     duplas = [(v, ing[(k[0].rsplit("_", 1)[0], k[1])], k[0][-3:])

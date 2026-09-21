@@ -32,8 +32,8 @@
 \captionsetup{labelsep=period}
 
 \title{Material Suplementar\\[0.3em]
-\large Viés Geográfico e Linguístico em LLMs para Política de Poluição do Ar:\\
-Um benchmark de 25 países, 14 modelos, 4 idiomas e 5 tarefas}
+\large De qual regulação o modelo sabe? Confiabilidade da informação regulatória\\
+recuperada por LLMs para a gestão ambiental pública em 25 países}
 \author{}
 \date{}
 
@@ -44,11 +44,16 @@ Um benchmark de 25 países, 14 modelos, 4 idiomas e 5 tarefas}
 (Tabelas~\ref{tab:s-roster}--\ref{tab:s-groundtruth}) é regenerada a partir dos
 artefatos confirmatórios brutos por
 \texttt{code/analysis/make\_supplement\_tables.py}; nenhum valor é digitado à mão.
-O juiz primário para todos os compostos reportados é
-\texttt{gpt-5-mini-2025-08-07}. O corpus confirmatório analisado é composto por
-8.300 células pontuadas (6.629 com prompt em inglês; 1.671 em idioma nativo;
-9.251 pontuações no total, das quais 951 células receberam mais de um escore em
-re-execuções e foram colapsadas pela média) sobre 25 países e 14 deployment-stacks. Todos os insumos, o código
+A pontuação é decidida por código onde o registro tem valor (T1; a parte
+resolvível de T2 e T3), pela média de um painel de três fornecedores
+(Gemini~2.5~Pro, Claude Sonnet~4.6, DeepSeek-V3) no resíduo de T2 e T3 e em toda a
+T4, e pelo juiz da coleta em T5 (\texttt{gpt-5-mini-2025-08-07} para os quinze
+países pré-especificados, \texttt{claude-haiku-4-5-20251001} para os dez da
+extensão). O corpus confirmatório analisado é composto por 8.244 células
+pontuadas (6.573 com prompt em inglês; 1.671 em idioma nativo; 951 células
+receberam mais de um escore em reexecuções e foram colapsadas pela média; as 56
+células egípcias de T1, sem chave no registro, foram removidas) sobre 25 países e
+14 deployment-stacks. Todos os insumos, o código
 de pontuação, o registro de gabarito e as respostas anonimizadas serão liberados
 na publicação sob CC-BY-4.0 (dados/prompts) e MIT (código).
 
@@ -229,8 +234,10 @@ estratificado de calibração. Todas as 3.190 respostas que exigiram juiz foram
 pontuadas independentemente pelos três membros do painel, escolhidos por
 diversidade de fornecedor para que a correlação intrafornecedor não infle a
 concordância aparente. O painel substitui o desenho de juiz único do protocolo
-original, no qual o juiz primário (\texttt{gpt-5-mini}) estava ele próprio entre os
-modelos avaliados.
+original, no qual o juiz da coleta (\texttt{gpt-5-mini} para os quinze países
+pré-especificados, \texttt{claude-haiku-4-5} para os dez da extensão) estava ele
+próprio entre os modelos avaliados e, como a extensão contém sete dos dez países
+do Norte Global, estava confundido com o tier.
 
 \begin{table}[h]\centering
 \caption{Confiabilidade entre juízes sobre os 3.190 itens pontuados pelo painel. A
@@ -291,12 +298,13 @@ tamanho de efeito pré-especificado $\rho\geq 0,55$ em ambas as amostras.}
 \toprule
 Teste & 15 países (pré-especificado) & 25 países (extensão) \\
 \midrule
-H1 Spearman $\rho$(acc, IDH)        & $+0.104$ ($p=0.71$), ns            & $+0.409$ ($p=0.043$) \\
-H1 Mann--Kendall (por IDH)          & $S=7$, $Z=+0.30$, $p=0.77$, ns     & $p=0.043$, ns \\
-H1 Spearman $\rho$(acc, Joshi)      & $+0.205$ ($p=0.46$), ns                      & $-0.061$, ns (desenvolvimento, não linguístico) \\
-H1 vs limiar $\rho\geq 0.55$        & não atingido                       & não atingido (significativo, abaixo do tamanho de efeito) \\
-H4 $\rho$ parcial (acc, cobertura$\,\vert\,$IDH) & $+0.365$ ($p=0.20$), ns & $+0.194$ ($p=0.36$), ns \\
-H6 DiD persona (SG$-$NG)            & não recomputada em $n=15$          & $+0.83$~pp, perm $p=0.292$, ns \\
+H1 Spearman $\rho$(acc, IDH)        & $+0.079$ ($p=0.78$), ns            & $+0.361$ ($p=0.076$), ns \\
+H1 Mann--Kendall (por IDH)          & $S=3$, $Z=+0.10$, $p=0.92$, ns     & $p=0.065$, ns \\
+H1 Spearman $\rho$(acc, Joshi)      & $+0.131$ ($p=0.64$), ns                      & $-0.061$, ns (desenvolvimento, não linguístico) \\
+H1 vs limiar $\rho\geq 0.55$        & não atingido                       & não atingido \\
+H4 $\rho$ parcial (acc, cobertura$\,\vert\,$IDH) & $+0.381$ ($p=0.18$), ns & $+0.190$ ($p=0.37$), ns \\
+H6 DiD persona (SG$-$NG)            & não recomputada em $n=15$          & $+0.47$~pp, perm $p=0.293$, ns \\
+Lacuna de camada (NG$-$SG), composto & $+6.0$~pp, $p=0.13$ (3 NG)        & $+5.0$~pp, $p=0.021$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -326,21 +334,22 @@ Contagem de edições Wikipédia & idioma  & $+0.142$, ns        & ns \\
 \caption{Achados secundários robustos (25 países), com verificações de
 leave-one-country-out (LOCO) e de restrição de amplitude.}
 \label{tab:s-robust}
-\small
-\begin{tabular}{ll}
+\footnotesize
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.64\linewidth}}
 \toprule
 Achado & Estatística \\
 \midrule
-Lacuna de camada (NG$-$SG)         & $+5.4$~pp, IC 95\% $[+1.6,+8.5]$; permutação $p=0.020$ \\
-Lacuna de camada, faixa LOCO       & $[+4.9,+6.4]$~pp, estável \\
-Gradiente IDH H1, faixa LOCO       & $\rho\in[+0.48$ (sem NGA)$,\ +0.66$ (sem IND)$]$ \\
-H1 \emph{leave-one-country-out} & $\rho\in[+0.31,+0.49]$: nunca atinge o limiar pré-especificado de 0.55 \\
-Piso de tarefa (T1{+}T2 vs T3--T5) & $0.367$ vs $0.638$, Mann--Whitney, $\delta$ de Cliff $=-0.64$ \\
-H3 Cabra-Mistral vs restante       & $0.347$ vs $0.549$, $\delta$ de Cliff $=-0.47$ \\
-H2 nativo vs inglês (todos)        & $\Delta=-4.8$~pp, Wilcoxon $p=3\times10^{-15}$ ($n=839$) \\
-\quad Espanhol / Português / Hindi & $-1.0$ ($p=0.15$) / $-2.3$ ($p=0.033$) / $-7.8$ ($p=0.013$) \\
-H2 em nível de país (unidade independente, $n=9$) & 9/9 negativos, média $-2.4$~pp, Wilcoxon $p=0.008$ \\
-H5 aberto vs fechado-acessível     & vantagem fechada de $+12.6$~pp (descritivo) \\
+Lacuna de camada (NG$-$SG)         & $+5.0$~pp, IC 95\% $[+1.5,+8.4]$; permutação $p=0.021$ \\
+Lacuna de camada, faixa LOCO       & $[+4.4,+5.9]$~pp, estável \\
+Lacuna de camada, só onda de extensão & $+5.9$~pp $[+2.3,+9.6]$ (7 NG vs 3 SG), perm $p=0.061$ \\
+H1 \emph{leave-one-country-out} & $\rho\in[+0.30,+0.48]$: nunca atinge o limiar pré-especificado de 0.55 \\
+Piso de tarefa (T1{+}T2 vs T3--T5) & $0.435$ vs $0.612$, $\delta$ de Cliff $=-0.41$ \\
+H3 Cabra-Mistral vs restante       & $0.351$ vs $0.557$, $\delta$ de Cliff $=-0.48$ \\
+H3 pré-especificada (Cabra vs Llama 3.1 8B, prompts em português) & Brasil $0.258$ vs $0.313$, $\delta=-0.26$ ($n=20$ cada); BRA+PRT+AGO $0.304$ vs $0.362$, $\delta=-0.17$ ($n=60$ cada) \\
+H2 nativo vs inglês (todos)        & $\Delta=-5.0$~pp, Wilcoxon $p=5\times10^{-16}$ ($n=839$) \\
+\quad Espanhol / Português / Hindi & $-4.5$ / $-4.2$ / $-11.4$~pp, todos significativos \\
+\quad por instrumento de pontuação & código $-3.8$ ($n=333$), painel $-8.6$ ($n=314$), juiz da coleta $-1.1$~pp ns ($n=192$, T5) \\
+H5 aberto vs fechado-acessível     & vantagem fechada de $+13.0$~pp (descritivo) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -350,9 +359,14 @@ H5 aberto vs fechado-acessível     & vantagem fechada de $+12.6$~pp (descritivo
 
 \emph{Sensibilidade da ponderação do composto.} Recomputamos cada efeito
 principal sob a ponderação dos autores, sob pesos iguais e sob ponderação derivada
-por ACP. Os dois efeitos sustentados se mantêm nas três; o gradiente falha nas
-três. Sob pesos iguais a lacuna de camada é de $+4.56$~pp e o gradiente
-$\rho=+0.369$; sob ACP, $+4.84$~pp e $\rho=+0.375$.
+por ACP. Os dois efeitos sustentados se mantêm nas três, e o gradiente fica
+abaixo do 0.55 pré-especificado nas três. Sob a ponderação primária a lacuna de
+camada é de $+5.01$~pp e o gradiente $\rho=+0.361$; sob pesos iguais, $+4.20$~pp
+e $\rho=+0.345$; sob ACP, $+4.68$~pp e $\rho=+0.369$. Um modelo misto gaussiano
+com interceptos aleatórios cruzados dá $\beta=-0.063$ ($p=0.087$) para o Sul
+Global; a reestimação bayesiana dá média posterior $-0.048$, HDI de 94\%
+$[-0.090,-0.009]$, $P(\beta<0)=0.987$; o E-value é 1.70 no ponto e 1.30 no
+limite do intervalo mais próximo do nulo.
 
 \emph{Poder sobre o nulo do gradiente.} Simulando amostras de 25 países em
 correlações conhecidas, o desenho tem 77\% de poder para detectar $\rho=0.55$ e
@@ -361,17 +375,23 @@ um gradiente da magnitude pré-especificada, mas não um gradiente fraco (poder 
 48\% em $\rho=0.40$).
 
 \emph{Dependência da taxonomia de camada.} A lacuna é significativa sob a
-partição Norte/Sul da UNCTAD (permutação $p=0.020$) e não sob nenhuma partição dos
-mesmos 25 países traçada apenas por IDH (mediana $+2.39$~pp, $p=0.269$; IDH
-$<0.800$ $+2.92$~pp, $p=0.182$; IDH $<0.700$ $+1.53$~pp, $p=0.575$). Relatamos isso
+partição desenvolvidas/em desenvolvimento da UNCTAD (permutação $p=0.020$) e não
+sob nenhuma partição dos mesmos 25 países traçada apenas por IDH (mediana
+$+2.09$~pp, $p=0.339$; IDH $<0.800$ $+2.74$~pp, $p=0.212$; IDH $<0.700$
+$+1.83$~pp, $p=0.507$). Relatamos isso
 em vez de descansar sobre a partição favorável.
 
-\emph{Política de desempate entre respostas armazenadas.} De 8.300 células
-pontuadas, 951 (11.5\%) têm mais de um escore, provenientes de reexecuções em datas
-diferentes. A política adotada é a \emph{média}: determinística, independente da
-ordem de leitura, e usa toda a informação coletada. As quatro políticas plausíveis
-(primeira, última, média, aleatória com semente) movem os efeitos em no máximo
-0.06~pp, de modo que a escolha não é consequente.
+\emph{Duplicatas, em dois níveis.} No nível da resposta, 21,9\% das chaves
+(modelo, prompt, réplica) têm mais de uma resposta armazenada; a que entra na
+análise é a primeira na ordem dos arquivos de execução, que é a que o juiz da
+coleta pontuou, e os vereditos de código de T1, T2 e T3 são computados sobre essa
+mesma resposta. Pontuar todas as respostas e tirar a média dos vereditos muda o
+veredito de código em 3,1\% das células e a média em 0,0001. No nível do escore,
+951 células (11.5\%) têm mais de um escore de juiz, provenientes de reexecuções
+em datas diferentes, colapsadas pela \emph{média}: determinística, independente
+da ordem de leitura, e usa toda a informação coletada. As quatro políticas
+plausíveis (primeira, última, média, aleatória com semente) movem os efeitos em
+no máximo 0.06~pp.
 
 
 \subsection{Acurácia composta por país}
@@ -387,19 +407,19 @@ ordem de leitura, e usa toda a informação coletada. As quatro políticas plaus
 \toprule
 País & Camada & Média & País & Camada & Média \\
 \midrule
-Índia         & SG & 0.652 & França        & NG & 0.536 \\
-Japão         & NG & 0.611 & Bangladesh    & SG & 0.534 \\
-Australia     & NG & 0.604 & Colômbia      & SG & 0.530 \\
-Estados Unidos & NG & 0.592 & Chile         & SG & 0.513 \\
-Coreia do Sul   & NG & 0.590 & Canadá        & NG & 0.510 \\
-Indonésia     & SG & 0.584 & México        & SG & 0.507 \\
-África do Sul  & SG & 0.579 & Quênia         & SG & 0.506 \\
-Itália         & NG & 0.577 & Angola        & SG & 0.485 \\
-Reino Unido& NG & 0.573 & Nigéria       & SG & 0.461 \\
-Portugal      & NG & 0.563 & Brasil        & SG & 0.459 \\
-Filipinas   & SG & 0.546 & Egito         & SG & 0.455 \\
-Alemanha       & NG & 0.544 & Argentina     & SG & 0.445 \\
-Peru          & SG & 0.538 &              &    &       \\
+Índia & SG & 0.651 & França & NG & 0.534 \\
+Austrália & NG & 0.617 & Peru & SG & 0.529 \\
+Japão & NG & 0.612 & Colômbia & SG & 0.526 \\
+Coreia do Sul & NG & 0.598 & Chile & SG & 0.520 \\
+Indonésia & SG & 0.592 & Egito & SG & 0.509 \\
+Estados Unidos & NG & 0.587 & Canadá & NG & 0.509 \\
+Itália & NG & 0.586 & Quênia & SG & 0.505 \\
+África do Sul & SG & 0.575 & México & SG & 0.501 \\
+Portugal & NG & 0.562 & Angola & SG & 0.475 \\
+Alemanha & NG & 0.557 & Nigéria & SG & 0.461 \\
+Reino Unido & NG & 0.554 & Brasil & SG & 0.458 \\
+Filipinas & SG & 0.542 & Argentina & SG & 0.433 \\
+Bangladesh & SG & 0.542 &  & &  \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -505,7 +525,8 @@ o estudo é relatado como exploratório do começo ao fim.
 Os desvios principais, com o efeito de cada um sobre a interpretação:
 
 \begin{itemize}\setlength{\itemsep}{3pt}
-\item Contagem de respostas. Planejadas 33.600; entregues 8.300 (27.5\%).
+\item Contagem de respostas. Planejadas 33.600; entregues 8.300 (27.5\%), das
+  quais 8.244 entram na análise após remover as células egípcias de T1 sem chave.
   Aciona o próprio teto de 15\% do plano.
 \item Registro público. O plano deveria ser depositado em registro público
   antes da coleta confirmatória; foi fixado em documento sob controle de versão e
@@ -515,13 +536,26 @@ Os desvios principais, com o efeito de cada um sobre a interpretação:
   avaliadores humanos e $\alpha \geq 0.70$ antes de escalar. Não foi executado. A
   confiabilidade é evidenciada a posteriori, em $\alpha = 0.527$, abaixo do limiar
   que o plano fixara.
-\item Instrumento de pontuação. O plano previa juiz único. T2 e T3 passam
-  a ser adjudicadas por código contra registros oficiais onde o valor devolvido é
-  extraível (62.5\% e 83.6\% das células); o resíduo e toda a T4 são repontuados
-  pela média de um painel de três fornecedores. Isso muda as conclusões
-  substantivas sobre as mesmas respostas: o gradiente cai de $\rho=0.51$
-  ($p=0.004$) para $\rho=0.37$ ($p=0.043$) e a penalidade de idioma nativo cresce
-  de $-2.1$~pp para $-4.8$~pp.
+\item Instrumento de pontuação. O plano previa juiz único. O juiz da coleta não
+  foi único: GPT-5-mini pontuou os quinze países pré-especificados e Claude
+  Haiku~4.5 os dez da extensão, que contêm sete dos dez países do Norte Global,
+  de modo que juiz e tier estavam confundidos nas pontuações julgadas. T1, T2 e
+  T3 passam a ser adjudicadas por código contra registros oficiais onde o valor
+  devolvido é extraível (99.8\%, 56.3\% e 71.8\% das células); o resíduo e toda
+  a T4 são repontuados pela média do painel de três fornecedores; T5 mantém as
+  pontuações dos juízes da coleta. Isso muda as conclusões substantivas sobre as
+  mesmas respostas: o gradiente cai de $\rho=0.51$ ($p=0.004$) para $\rho=0.36$
+  ($p=0.076$); a penalidade de idioma nativo cresce de $-2.1$~pp para $-5.0$~pp e
+  se torna significativa nos três idiomas; a razão de chances de T1 passa de
+  0.22 sob os juízes para 0.33 sob o código.
+\item Chave de T1. A chave do Reino Unido foi corrigida em 21/09/2026 de 10 (meta
+  inglesa para 2040) para 20~$\mu$g/m\textsuperscript{3} (valor-limite em vigor
+  desde 2020); o Egito não tem valor recuperável e fica fora de T1; Bangladesh é
+  pontuado contra seu diário oficial de 2005; as escadas oficiais (Brasil, UE,
+  Reino Unido, EUA, Canadá, Austrália, Colômbia) são armazenadas ao lado do valor
+  em vigor. A comparação entre tiers em T1 é reportada com e sem os cinco países
+  do Sul Global cuja chave é ausente ou não plenamente verificada (0.33 e 0.39) e
+  sob a chave tolerante à escada (0.12).
 \item Ordenação dos achados. O plano tratava H1 como hipótese primária. H2
   passa a ser relatada como achado principal e o gradiente de H1 como exploratório.
   Reordenação post hoc, motivada pela pontuação corrigida e não por reexame dos

@@ -25,7 +25,28 @@ GUARDAS IMPLEMENTADAS, E O QUE CADA UMA PEGOU
 - AMBIGUIDADE: se a resposta traz vários candidatos incompatíveis entre si, o
   código se abstém em vez de escolher.
 
+T1 (acrescentado em 2026-09-21)
+--------------------------------
+T1 pergunta o padrão nacional anual de PM2.5 — um valor publicado. Até esta data
+T1 ficava com o juiz LLM, e o juiz não era um: gpt-5-mini nos 15 países originais e
+claude-haiku-4-5 nos 10 da extensão, que é onde estão 7 dos 10 países do Norte.
+Juiz e tier estavam confundidos. Aqui o veredito é aritmética contra o registro:
+- NUMERIC: valor extraído == chave estrita (±0,5 µg/m³ ou ±5%). `ladder_hit` marca
+  se o valor bate em QUALQUER degrau oficial do país (etapa futura, valor superado):
+  confusão de etapa não é fabricação, e a sensibilidade usa isso.
+- NO_STANDARD (AGO, ARG, NGA): não há valor a acertar. ABSTAIN_CORRECT se a resposta
+  nega a existência de padrão nacional e não afirma valor; FABRICATED se afirma valor.
+  Ficam FORA do desfecho binário principal e entram como descritivo.
+- EXCLUDE_NO_KEY (EGY): sem valor no registro. Excluído.
+- NO_VALUE: resposta sem concentração extraível. No desfecho "devolveu o valor do
+  registro" conta como não-devolveu; a sensibilidade o trata como não resolvido.
+Guardas de língua: dígitos devanágari normalizados, vírgula decimal aceita,
+unidade por extenso (micrograms per cubic metre / microgramos por metro cúbico /
+microgramas por metro cúbico / माइक्रोग्राम प्रति घन मीटर), contexto 24 h descartado
+quando existe candidato anual.
+
 Uso:
+    python code/analysis/score_numeric.py --task T1
     python code/analysis/score_numeric.py --task T2
     python code/analysis/score_numeric.py --task T3 --out data/processed/
 """
@@ -54,6 +75,75 @@ DEATH_RANGE = (10, 3_000_000)
 CONC_RANGE = (0.1, 2000.0)  # µg/m³
 
 ANO = re.compile(r"^(19|20)\d{2}$")
+
+# ---- T1: extração do padrão anual de PM2.5 ----------------------------------
+DEVANAGARI = str.maketrans("०१२३४५६७८९", "0123456789")
+UNIT = (r"(?:\$?\\?mu\s?g|µg|μg|ug|mcg|micrograms?|microgramos|microgramas|माइक्रोग्राम)"
+        r"\s*(?:/|per|por|प्रति)?\s*(?:m\s*[³3]|m\^\{?3\}?|m\s*\^?\s*[⁻-]\s*3|m⁻³|cubic\s*met(?:er|re)|metro\s*c[úu]bico|घन\s*मीटर|निर्गत)?")
+CONC_T1 = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d{1,2})?)\s*" + UNIT, re.I)
+CTX_ANNUAL = re.compile(r"annual|anual|yearly|per year|a year|año|ano|वार्षिक|सालाना", re.I)
+CTX_DAILY = re.compile(r"24[\s-]*(?:h\b|hr|hour|horas|hora|घंटे)|\bdaily\b|\bdiari[oa]s?\b|\bdi[áa]rio\b", re.I)
+CTX_WHO = re.compile(r"\bWHO\b|\bOMS\b|World Health|Organizaci[óo]n Mundial|Organiza[çc][ãa]o Mundial|विश्व स्वास्थ्य|guideline", re.I)
+NO_STD = re.compile(
+    r"(?:does not|doesn't|has not|hasn't|have not|there is no|there's no|has no|have no|lacks?|"
+    r"no (?:national|federal|specific|binding|legally|official|formal|established)|"
+    r"n[ãa]o (?:possui|tem|h[áa]|existe|estabelece|disp[õo]e|adot)|"
+    r"no (?:tiene|existe|cuenta|ha establecido|posee|dispone|ha adoptado)|carece|"
+    r"कोई .{0,40}नहीं है|नहीं है)\W{0,3}(?:\w+\W+){0,12}?"
+    r"(?:standard|est[áa]ndar|padr[ãa]o|norma|limit|l[íi]mite|regulation|regula|valor|मानक)",
+    re.I)
+DONT_KNOW = re.compile(
+    r"\b(?:cannot|can't|can not|unable|not able|could not find|couldn't find|do not have (?:information|access|data|the)|don't have|"
+    r"no information|n[ãa]o h[áa] informa|no hay informaci|n[ãa]o consegui|no pude|no encontr|"
+    r"no (?:tengo|puedo|dispongo)|n[ãa]o (?:tenho|posso|disponho)|"
+    r"as a large language model|मुझे .{0,30}नहीं|जानकारी नहीं)", re.I)
+
+
+def extract_t1(txt: str) -> tuple[float | None, str]:
+    """Valor anual de PM2.5 afirmado como padrão nacional. Devolve (valor, motivo)."""
+    t = txt.translate(DEVANAGARI).replace("\u00a0", " ")
+    cands = []
+    ms = list(CONC_T1.finditer(t))
+    for i, m in enumerate(ms):
+        v = float(m.group(1).replace(",", "."))
+        if not (CONC_RANGE[0] <= v <= 500):
+            continue
+        # janela de contexto de CADA número: do número anterior até o próximo.
+        # Um marcador de período só descreve o número de que está mais perto.
+        lo = ms[i - 1].end() if i else max(0, m.start() - 120)
+        hi = ms[i + 1].start() if i + 1 < len(ms) else min(len(t), m.end() + 40)
+        before = t[max(lo, m.start() - 120):m.start()]
+        after = t[m.end():hi]
+        # `after` só descreve ESTE número até uma conjunção/separador; um parêntese
+        # que contém outro número abre outra cláusula ("(diario 50 µg/m³)").
+        cut = re.search(r"\s(?:and|e|y|et|ou|or|o)\s|[;:]|\.\s|\d", after)
+        after = after[:cut.start()] if cut else after
+        par = re.search(r"\(", after)
+        if par:
+            abre = m.end() + par.start()
+            fecha = t.find(")", abre)
+            dentro = t[abre:fecha if fecha != -1 else abre + 60]
+            if re.search(r"\d", dentro):
+                after = after[:par.start()]
+
+        def last_pos(rx, txt_):
+            found = list(rx.finditer(txt_))
+            return found[-1].end() if found else -1
+        pa, pd = last_pos(CTX_ANNUAL, before), last_pos(CTX_DAILY, before)
+        if CTX_ANNUAL.search(after):
+            pa = len(before) + 1
+        if CTX_DAILY.search(after):
+            pd = len(before) + 1
+        cands.append({"v": v, "annual": pa > pd, "daily": pd > pa,
+                      "who": bool(CTX_WHO.search(before))})
+    if not cands:
+        return None, "no_candidate"
+    pool = [c for c in cands if c["annual"]] or [c for c in cands if not c["daily"]]
+    if not pool:
+        return None, "only_daily_candidates"
+    pref = [c for c in pool if not c["who"]] or pool
+    return pref[0]["v"], "ok"
+
 CONC = re.compile(r"(\d{1,4}(?:[.,]\d+)?)\s*(?:µg|ug|μg)\s*/?\s*m\s*[³3]", re.I)
 DEATH_CTX = re.compile(
     r"(\d{1,3}(?:[.,]\d{3})+|\d{4,7})[^.]{0,60}?(?:deaths|mortes|óbitos|obitos|fatalities|premature)"
@@ -119,7 +209,7 @@ def load_registry(task: str) -> dict:
 def score(task: str) -> list[dict]:
     reg = load_registry(task)
     out = []
-    for f in glob.glob(str(RESP / "run_confirmatory_*.jsonl")):
+    for ordem, f in enumerate(sorted(glob.glob(str(RESP / "run_confirmatory_*.jsonl")))):
         for line in open(f, encoding="utf-8"):
             try:
                 r = json.loads(line)
@@ -128,7 +218,8 @@ def score(task: str) -> list[dict]:
             pid = r.get("prompt_id", "")
             if f"_{task}_" not in pid:
                 continue
-            txt = r.get("response_text") or ""
+            # dígitos devanágari normalizados para TODAS as tarefas (hindi)
+            txt = (r.get("response_text") or "").translate(DEVANAGARI)
             iso = pid.split("_")[0]
             g = reg.get(iso)
             # replicate_idx PRECISA sair daqui. Sem ele, as duas replicatas da
@@ -137,17 +228,46 @@ def score(task: str) -> list[dict]:
             # com vereditos divergentes entre replicatas em 27% das celulas de T2
             # e 36% das de T3, isso tornava arbitrario o veredito aplicado a um
             # terco delas, e deixava a replicata 1 sem veredito de codigo.
+            # `file_order` permite ao exportador escolher a MESMA resposta que o
+            # juiz viu (a primeira em ordem de arquivo, regra do run_judge_confirmatory).
             row = {"prompt_id": pid, "model_id": r.get("model_id"), "country": iso,
-                   "task": task, "replicate_idx": int(r.get("replicate_idx", 0))}
+                   "task": task, "replicate_idx": int(r.get("replicate_idx", 0)),
+                   "file_order": ordem, "timestamp_utc": r.get("timestamp_utc")}
             if not txt:
                 out.append({**row, "verdict": "UNRESOLVED", "reason": "empty_response"})
                 continue
-            if not g or g.get("scoring", "").startswith("EXCLUDE"):
+            if not g or (task != "T1" and g.get("scoring", "").startswith("EXCLUDE")):
                 out.append({**row, "verdict": "EXCLUDED",
                             "reason": g.get("status") if g else "no_registry_entry"})
                 continue
 
-            if task == "T2":
+            if task == "T1":
+                sc = g.get("scoring")
+                if sc == "EXCLUDE_NO_KEY":
+                    out.append({**row, "verdict": "EXCLUDED", "reason": "no_key_in_registry"}); continue
+                val, why = extract_t1(txt)
+                if sc == "NO_STANDARD":
+                    # ABSTAIN_CORRECT exige afirmar a AUSÊNCIA do padrão; "não sei /
+                    # não consigo verificar" é DONT_KNOW, que não acerta nem inventa.
+                    if val is not None:
+                        v = "FABRICATED"
+                    elif NO_STD.search(txt) and not DONT_KNOW.search(txt[:160]):
+                        v = "ABSTAIN_CORRECT"
+                    elif DONT_KNOW.search(txt):
+                        v = "DONT_KNOW"
+                    else:
+                        v = "UNRESOLVED"
+                    out.append({**row, "verdict": v, "extracted": val, "reason": "no_standard_country"}); continue
+                if val is None:
+                    out.append({**row, "verdict": "NO_VALUE", "reason": why}); continue
+                strict = float(g["strict"])
+                tol = max(0.5, 0.05 * strict)
+                hit = abs(val - strict) <= tol
+                ladder_hit = any(abs(val - float(x)) <= max(0.5, 0.05 * float(x)) for x in g.get("ladder", []))
+                out.append({**row, "verdict": "CORRECT" if hit else "INCORRECT", "extracted": val,
+                            "strict": strict, "ladder_hit": ladder_hit,
+                            "registry_status": g.get("status"), "reason": "ok"})
+            elif task == "T2":
                 val, why = extract_concentration(txt)
                 if val is None:
                     out.append({**row, "verdict": "UNRESOLVED", "reason": why}); continue
@@ -168,7 +288,7 @@ def score(task: str) -> list[dict]:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--task", required=True, choices=["T2", "T3"])
+    ap.add_argument("--task", required=True, choices=["T1", "T2", "T3"])
     ap.add_argument("--out", type=pathlib.Path,
                     default=ROOT / "data" / "processed")
     a = ap.parse_args()
@@ -183,7 +303,7 @@ def main() -> None:
     c = collections.Counter(r["verdict"] for r in rows)
     n = len(rows)
     print(f"escrito: {dest}  ({n} respostas de {a.task})")
-    for k in ("CORRECT", "INCORRECT", "UNRESOLVED", "EXCLUDED"):
+    for k in ("CORRECT", "INCORRECT", "NO_VALUE", "ABSTAIN_CORRECT", "FABRICATED", "DONT_KNOW", "UNRESOLVED", "EXCLUDED"):
         if c[k]:
             print(f"  {k:<11} {c[k]:>5}  ({100*c[k]/n:.1f}%)")
     resolvido = c["CORRECT"] + c["INCORRECT"]

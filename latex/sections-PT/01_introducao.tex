@@ -94,7 +94,7 @@ reivindicamos pré-registro, e o estudo é relatado como exploratório.
   prompt em idioma nativo e modelo com ajuste regional são, cada um, uma decisão
   de compra ou de fluxo de trabalho, e cada um circula como sabedoria recebida.
   Nenhum funciona, e o que um gestor tem mais chance de tentar primeiro causa dano
-  ativo: perguntar no idioma do próprio país reduz a acurácia em 4.8 pontos
+  ativo: perguntar no idioma do próprio país reduz a acurácia em 5.0 pontos
   percentuais, de forma mais acentuada para o idioma de corpus mais escasso.
 \item \emph{Um desenho que separa quem é mal servido de por quê.} Os países são
   estratificados em eixos independentes --- a divisão desenvolvidas/em
@@ -103,9 +103,9 @@ reivindicamos pré-registro, e o estudo é relatado como exploratório.
   linguísticos de Joshi~\citep{joshi2020state} e desenvolvimento ---, de modo que
   explicações geográficas, linguísticas e econômicas possam ser distinguidas em
   vez de confundidas. Entre países, cobertura e desenvolvimento são colineares e
-  não podem ser separados; eles se separam quando a unidade de variação passa a
-  ser a tarefa dentro de um país, o que identifica a cobertura do país como canal
-  operante. Registramos também que o proxy de corpus pré-especificado é defeituoso
+  não podem ser separados; dentro dos países, o contraste no nível da tarefa
+  descarta o canal do corpus da língua, mas ainda não consegue escolher entre
+  cobertura e desenvolvimento, e dizemos isso. Registramos também que o proxy de corpus pré-especificado é defeituoso
   de um modo que vale conhecer para quem já o usou: ele atribui a Wikipédia
   inglesa a todo país da amostra que tenha o inglês como idioma oficial, indexando
   história colonial em vez de tamanho de corpus.
@@ -114,7 +114,9 @@ reivindicamos pré-registro, e o estudo é relatado como exploratório.
   registro em vez de delegado a um modelo de linguagem. Sobre as mesmas respostas,
   reconstruir duas chaves de tarefa a partir de registros oficiais e passar a
   comparação para o código reduziu o gradiente de desenvolvimento de $\rho=0.51$
-  para $\rho=0.37$ e mais que dobrou a penalidade do idioma nativo. Nesta
+  para $\rho=0.36$ e mais que dobrou a penalidade do idioma nativo; passar a
+  terceira tarefa com valor de registro de um juiz para o código removeu um
+  confundimento entre juiz e tier que as pontuações julgadas carregavam. Nesta
   literatura, a chave de gabarito, e não o tamanho amostral, é a restrição
   vinculante.
 \item \emph{Recursos abertos.} Protocolo, prompts, registros de gabarito com suas

@@ -14,9 +14,9 @@ deposited publicly, so the study claims no pre-registration and is reported as
 **exploratory** throughout. Adapted to GIQ requirements: abstract within the
 250-word limit, APA author-year citations, and a blinded version for double-blind
 review. QA gate, method audit and consistency gate passing.
-**Manuscript:** [`latex/main.tex`](latex/main.tex) → `latex/main.pdf` (59 pp,
+**Manuscript:** [`latex/main.tex`](latex/main.tex) → `latex/main.pdf` (66 pp,
 `elsarticle [review]` double-spaced submission format)
-**Supplementary:** [`latex/supplement.tex`](latex/supplement.tex) → `latex/supplement.pdf` (17 pp)
+**Supplementary:** [`latex/supplement.tex`](latex/supplement.tex) → `latex/supplement.pdf` (18 pp)
 **Blinded:** regenerate with `python latex/build_blind.py` (checks for identifier leaks)
 
 ---
@@ -33,16 +33,16 @@ Ordered by strength of evidence, not by hypothesis number.
 
 | # | Hypothesis | Finding | Evidence status |
 |---|---|---|---|
-| **H2** | Native-language prompting modulates accuracy | **-4.8 pp** (Wilcoxon p=3e−15, n=839 cells); Hindi -11.1, Spanish -4.4, Portuguese -3.9, all significant. Native prompts also return a register-checkable value only 48.7% of the time vs 66.4% in English (−17.7 pp, sign test p=5e−06) | **Principal finding.** Survives leave-one-out over countries and models, every task, every weighting, and a back-translation census of all 90 native prompts |
-| **H3** | Regional model narrows the gap | Cabra-Mistral 7B is the **weakest** of all 14 (δ=-0.47) | Supported (opposite of optimistic framing) |
-| **H1** (tier) | Global North/South gap | **+5.1 pp** (bootstrap 95% CI [+1.6,+8.5]; permutation p=0.020). Concentrated: on the binding national standard, Global South odds are **0.23** of Global North odds; no gap on the one task with no register value | Supported, but only under the conventional UNCTAD partition — partitions on HDI alone do not reproduce it |
-| **H1** (gradient) | Monotonic development gradient | ρ=0.37 with HDI (p=0.072); ρ=0.09 at the pre-specified n=15 | **Not supported.** Design has 77% power at the pre-specified ρ=0.55, so a strong gradient is excluded; a weak one is not |
-| **H4** | Corpus representation is the mechanism | Between countries, neither channel separates from development (sitelinks ρ=0.36, p=0.075; partial p=0.41). Within countries, coverage predicts the specificity deficit (β=+0.026, p=2e−08), and still does among the 9 countries sharing English as official language (β=+0.025, p=6e−04) | **Identified where the design has resolution.** Not causal: country-level confounding is removed by construction, task-by-country confounding is not |
-| **H5** | Open frontier closes the gap vs closed | Closed advantage **+13.3 pp** | Descriptive |
-| **H6** | Persona narrows the gap | DiD **+0.6 pp** (permutation p=0.27) | Not supported |
+| **H2** | Native-language prompting modulates accuracy | **−5.0 pp** (Wilcoxon p=5e−16, n=839 cells); Hindi −11.4, Spanish −4.5, Portuguese −4.2, all significant. Native prompts return a register-checkable value 62.5% of the time vs 71.9% in English (−9.4 pp, sign test p=9e−04; Hindi −39.5, Spanish −13.4, Portuguese +3.5) | **Principal finding.** Survives leave-one-out over countries and models, every task, every weighting, every scoring instrument (code −3.8, panel −8.6), and a back-translation census of all 90 native prompts |
+| **H3** | Regional model narrows the gap | Cabra-Mistral 7B is the **weakest** of all 14 (δ=−0.48); it also trails its scale-matched peer Llama 3.1 8B on Portuguese-language Brazilian prompts (0.258 vs 0.313, n=20 each) | Supported (opposite of optimistic framing); the narrow pre-specified test is small and descriptive |
+| **H1** (tier) | Global North/South gap | **+5.0 pp** (bootstrap 95% CI [+1.5,+8.4]; permutation p=0.021); same size within the extension wave alone (+5.9) and on the pre-specified 15 (+6.0, 3 GN). Concentrated: on the binding national standard, scored by code, Global South odds are **0.33** [0.27,0.40] of Global North odds (0.39 without the countries whose key is absent or unconfirmed; 0.12 under a ladder-tolerant key); no gap on the one task with no register value | Supported, but only under the conventional UNCTAD partition — partitions on HDI alone do not reproduce it |
+| **H1** (gradient) | Monotonic development gradient | ρ=0.36 with HDI (p=0.076); ρ=0.08 at the pre-specified n=15; never reaches 0.55 in any leave-one-out or weighting | **Not supported.** Design has 77% power at the pre-specified ρ=0.55, so a strong gradient is excluded; a weak one is not |
+| **H4** | Corpus representation is the mechanism | Between countries, neither channel separates from development (sitelinks ρ=0.37, p=0.070; partial p=0.37). Within countries, coverage predicts the specificity deficit (β=+0.030, p=9e−10) and the language-corpus channel does not (β=+0.004, p=0.45); but coverage and HDI correlate at ρ=0.65, and with HDI×dependence in the same model HDI survives (β=+0.027, p=5e−05) and coverage does not (β=+0.012, p=0.063) | **Identified only up to the pair coverage-or-development.** Rules out the language channel; not causal |
+| **H5** | Open frontier closes the gap vs closed | Closed advantage **+13.0 pp** | Descriptive |
+| **H6** | Persona narrows the gap | DiD **+0.5 pp** (permutation p=0.29) | Not supported |
 
 The design was **pre-specified for 15 countries** and extended **post hoc to 25**;
-every effect is reported alongside its 15-country value. The plan was never
+the primary family and the tier gap are reported alongside their 15-country values. The plan was never
 deposited in a public registry, so we do **not** claim pre-registration.
 
 ## Design summary
@@ -62,16 +62,22 @@ deposited in a public registry, so we do **not** claim pre-registration.
   T5 applied recommendation.
 - **2 persona conditions** (neutral vs public environmental manager) × **4 languages**
   (English + native Portuguese/Spanish/Hindi for 9 countries).
-- **9,251 judge-scored responses** (7,580 English-prompt, 1,671 native-language).
+- **8,244 scored cells** (6,573 English-prompt, 1,671 native-language) after collapsing
+  repeated judge runs by their mean and removing the 56 Egyptian T1 cells that have no key.
 - **Scoring:** each task gets the most reliable instrument it admits.
-  - Where the answer is a number in an official register (T2, T3), the verdict is
-    computed **by code** against that register — no judge involved. Resolves 50.2%
-    of T2 and 67.3% of T3.
+  - Where the answer is a number in an official register (T1, T2, T3), the verdict is
+    computed **by code** against that register — no judge involved. Resolves 99.8% of
+    T1 cells, 56.3% of T2 and 71.8% of T3. For the three countries with no national
+    standard, code scores whether the answer says so (correct), asserts a value
+    (fabricated) or declines.
   - The residual and all of T4 are scored by the **mean of a three-vendor panel**
     (Gemini 2.5 Pro, Claude Sonnet 4.6, DeepSeek-V3). Reliability on the 3,190 items
     that produce the effects: ICC(2,3)=0.79, single-judge ICC(2,1)=0.56, α=0.527.
-  - T1 and T5 retain the original single-judge scores (T1 always had official ground
-    truth; T5 is a rubric judgement with no register).
+  - T5 (open recommendation, no register value) retains the collection judge's
+    scores. That judge was **not single**: GPT-5-mini for the 15 pre-specified
+    countries and Claude Haiku 4.5 for the 10 extension countries (7 of the 10 Global
+    North), so judge and tier were confounded in the judged scores — which is why T1
+    moved to code (2026-09-21).
   - Ground truth anchored to official primary sources (WHO AAQD v6.1, WHO GHO AIR_41,
     UNEP GAAPL Appendix 1, national gazettes); **no human-gold layer** (stated as a
     limitation).
