@@ -7,11 +7,21 @@ proprio trabalho compartilha os pontos cegos que produziram o trabalho. Todo o
 material auditado aqui foi produzido em Claude, entao a validacao precisa correr
 em outro fornecedor para que os erros de origem tenham chance de aparecer.
 
-O alvo preferido era GPT-5.2-pro, mas a conta OpenAI estava sem credito e nenhuma
-chamada passou. Gemini 2.5 Pro e DeepSeek-V3 satisfazem o mesmo requisito, e as
-quatro lentes mais criticas rodam nos DOIS, para que um achado isolado possa ser
-distinguido de um achado corroborado. O modelo que produziu cada parecer fica
-registrado no resultado, como o R7 exige.
+O alvo preferido e a OpenAI, e o caminho esta implementado:
+
+    python code/analysis/squad_audit.py --fornecedores openai_gpt-5.2-pro
+
+Em 2026-09-22 a chave autentica e a lista de modelos vem (gpt-5.2-pro existe),
+mas toda chamada devolve HTTP 429 "You have no credits remaining" — o mesmo
+estado de agosto, registrado em data/processed/squad_audit_openai.json (oito
+lentes, oito erros). Por isso o preflight: uma chamada minima por fornecedor
+antes de enviar o material, de modo que uma conta sem saldo custe tres segundos
+e nao onze pareceres de erro salvos como se fossem auditoria.
+
+Gemini 2.5 Pro e DeepSeek-V3 satisfazem o mesmo requisito de R7 (fornecedor
+diferente de quem gerou) e as quatro lentes mais criticas rodam nos DOIS, para
+que um achado isolado possa ser distinguido de um achado corroborado. O modelo
+que produziu cada parecer fica registrado no resultado, como o R7 exige.
 
 O parecer que sai daqui e evidencia E3: hipotese a adjudicar, nao instrucao a
 executar. Cada achado precisa ser conferido na fonte antes de virar edicao.
@@ -34,7 +44,10 @@ import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 SAIDA = ROOT / "data" / "processed" / "squad_audit.json"
-# Lentes criticas rodam nos dois fornecedores; as demais em um so.
+# Lentes criticas rodam em dois fornecedores; as demais em um so. --fornecedores
+# troca a lista sem editar o arquivo: a auditoria na OpenAI e
+#   python code/analysis/squad_audit.py --fornecedores openai_gpt-5.2-pro
+# e ela falha rapido, com a mensagem do provedor, se a conta estiver sem credito.
 CRITICAS = ("orientador", "narrativa", "didatica", "qa-reviewer")
 FORNECEDORES = ("gemini_2_5_pro", "deepseek_v3")
 
@@ -58,10 +71,16 @@ def _post(url: str, payload: dict, headers: dict, timeout: int = 1500) -> dict:
             with urllib.request.urlopen(req, timeout=timeout) as r:
                 return json.loads(r.read())
         except urllib.error.HTTPError as e:
-            if e.code in (429, 500, 502, 503, 504) and tentativa < 3:
+            corpo = e.read().decode()
+            # 429 tem dois significados. Rate limit passa esperando; conta sem
+            # credito nao passa nunca, e esperar 30+60+90s so adia a mesma
+            # mensagem. Separar os dois evita tres minutos de espera inutil.
+            sem_credito = ("insufficient_quota" in corpo or "no credits" in corpo
+                           or "billing_hard_limit" in corpo)
+            if e.code in (429, 500, 502, 503, 504) and tentativa < 3 and not sem_credito:
                 time.sleep(30 * (tentativa + 1))
                 continue
-            raise RuntimeError(f"HTTP {e.code}: {e.read().decode()[:150]}") from None
+            raise RuntimeError(f"HTTP {e.code}: {corpo[:150]}") from None
         except Exception:
             if tentativa < 3:
                 time.sleep(20)
@@ -100,6 +119,30 @@ def call(fornecedor: str, sistema: str, usuario: str) -> str:
                    "messages": [{"role": "system", "content": sistema},
                                 {"role": "user", "content": usuario}]},
                   {"Authorization": f"Bearer {_chave('DEEPSEEK_API_KEY')}"})
+        return d["choices"][0]["message"]["content"]
+    if fornecedor.startswith("openai_"):
+        # O alvo documentado desta auditoria sempre foi a OpenAI; o que faltava era
+        # credito, nao codigo. Os modelos "pro" so atendem pela Responses API e
+        # ignoram temperature; os demais usam chat/completions com
+        # max_completion_tokens (a familia GPT-5 rejeita max_tokens e temperature).
+        modelo = fornecedor.removeprefix("openai_").replace("_", ".").replace("gpt.", "gpt-")
+        chave = {"Authorization": f"Bearer {_chave('OPENAI_API_KEY')}"}
+        if modelo.endswith("-pro"):
+            d = _post("https://api.openai.com/v1/responses",
+                      {"model": modelo, "instructions": sistema, "input": usuario,
+                       "max_output_tokens": SAIDA_MAX,
+                       "reasoning": {"effort": "high"}}, chave)
+            partes = [c.get("text", "") for o in d.get("output", [])
+                      for c in (o.get("content") or []) if c.get("type") == "output_text"]
+            if not partes:
+                raise RuntimeError(f"openai sem texto (status={d.get('status')}, "
+                                   f"incomplete={d.get('incomplete_details')})")
+            return "".join(partes)
+        d = _post("https://api.openai.com/v1/chat/completions",
+                  {"model": modelo, "max_completion_tokens": SAIDA_MAX,
+                   "reasoning_effort": "high",
+                   "messages": [{"role": "system", "content": sistema},
+                                {"role": "user", "content": usuario}]}, chave)
         return d["choices"][0]["message"]["content"]
     raise ValueError(f"fornecedor desconhecido: {fornecedor}")
 
@@ -271,7 +314,38 @@ def chamar(lente: str, instrucao: str, material: str, fornecedor: str) -> dict:
     return parsed
 
 
+def preflight(fornecedores) -> None:
+    """Uma chamada minima por fornecedor antes de gastar o material inteiro.
+
+    Sem isto, uma conta sem credito produz onze pareceres de erro e um JSON que
+    parece auditoria e nao e — foi o que aconteceu em agosto
+    (data/processed/squad_audit_openai.json: oito lentes, oito HTTP 429).
+    """
+    for f in fornecedores:
+        try:
+            call(f, "Responda apenas com a palavra OK.", "OK?")
+            print(f"  preflight {f}: ok")
+        except Exception as e:
+            msg = str(e)
+            if "no credits" in msg or "insufficient_quota" in msg or "429" in msg:
+                raise SystemExit(f"\n  {f} ATENDE mas a conta esta SEM CREDITO.\n"
+                                 f"  Nenhuma lente foi enviada, nada foi gasto.\n"
+                                 f"  Mensagem do provedor: {msg[:200]}")
+            raise SystemExit(f"\n  {f} indisponivel: {msg[:300]}")
+
+
 def main() -> None:
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--fornecedores", default=",".join(FORNECEDORES),
+                    help="lista separada por virgula, p.ex. openai_gpt-5.2-pro")
+    ap.add_argument("--saida", default=str(SAIDA))
+    args = ap.parse_args()
+    fornecedores = tuple(x.strip() for x in args.fornecedores.split(",") if x.strip())
+    globals()["FORNECEDORES"] = fornecedores
+    globals()["SAIDA"] = pathlib.Path(args.saida)
+    print(f"preflight em {len(fornecedores)} fornecedor(es): {', '.join(fornecedores)}")
+    preflight(fornecedores)
     tarefas = []
     for nome, (instr, mat) in LENTES.items():
         alvos = FORNECEDORES if nome in CRITICAS else (FORNECEDORES[1],)
