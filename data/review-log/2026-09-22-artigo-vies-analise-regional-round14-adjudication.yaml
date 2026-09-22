@@ -1,0 +1,194 @@
+critical_review:
+  lens: round-14 — parecer de painel, 2a rodada (3 revisores, "Major Revision" tendendo a Minor) + síntese do autor sobre o que destacar
+  role: >-
+    R3: parecer é hipótese. O diagnóstico central do painel foi conferido e é
+    verdadeiro: depois da rodada 13 o manuscrito passou a ter duas vozes — um corpo
+    que rebaixou H3, a decomposição por tarefa e o mecanismo, e um abstract, uma
+    Discussão e uma Conclusão que ainda os vendiam. A rodada 14 alinha as duas.
+  artifact_id: artigo-vies-analise-regional
+  date: 2026-09-22
+  verdict: >-
+    revisions-applied — abstract, Introdução, 4.2, 4.5, 4.7, 4.12, 4.13, Discussão e
+    Conclusão reescritos com o status real de cada achado; HDI×dependência reportado
+    (é o único resultado de mecanismo que supera 0,05 no nível do país); H3 reenquadrado
+    como "ajuste não supera a própria base"; OR agrupada e contagem de votos removidas;
+    T5 declarada no teto; H2 sem as vazias (−5,15 pp, MAIOR que o total); três figuras;
+    amostra cega de 150 itens exportada; versão cega passa a compilar (bug de anos).
+  gates_run:
+    - consistency_gate (7 padrões novos da rodada 14) — LIMPO
+    - validate_numbers C23 — LIMPA
+    - check_highlights — OK · pytest 10/10
+    - build_blind + compilação da versão cega (main e suplemento) — sem vazamento
+  findings:
+    # ---------------- P0 ----------------
+    - id: R14-1
+      source: banca (P0) — abstract/5.1/5.8/Conclusão vendem o que o corpo rebaixou
+      premise_checked: >-
+        Conferido no fonte: o abstract dizia "three fixes fail" sem qualificar cada um,
+        "concentrated" como estabelecido e trazia um OR cujo IC por país cruza 1.
+      verdict: UPHELD
+      severity: MUST
+      status: resolved
+      resolution: >-
+        Abstract reescrito (241 palavras): H2 forte e não-silêncio; persona equivalente a
+        zero em ±2 pp; ajuste regional sem ganho sobre a base; piso de recordação com a
+        escada; lacuna só-código com o país como unidade e "todo intervalo por tarefa
+        inclui 1". OR retirado do abstract. Mesma correção em 5.1, 5.4, 5.8, Conclusão,
+        contribuições da Introdução e Tabela 7, em EN e PT.
+    - id: R14-2
+      source: R2/R3 (P0) — Tabela S15 tem HDI×dependência sozinho (p=0,027) e o corpo omite
+      premise_checked: >-
+        cluster_inference.py seção A: HDI sozinho β=+0,0356, p=0,027 agrupado por país;
+        cobertura sozinha p=0,099. Nos 25 déficits: ρ(IDH)=−0,397 p=0,049 contra
+        ρ(cobertura)=−0,370 p=0,069. O revisor está certo, e o modelo conjunto é
+        não informativo porque as duas correlacionam a 0,65.
+      verdict: UPHELD
+      severity: MUST
+      status: resolved
+      resolution: >-
+        4.7 reescrita: o que sobrevive no nível do país é a interação do DESENVOLVIMENTO,
+        não a da cobertura. Reconciliado com 4.12 (que trata do NÍVEL de acurácia, onde o
+        IDH é nulo) e com 5.4: são desfechos diferentes — o IDH não prevê quão bem o modelo
+        responde sobre um país, prevê quanto pior ele responde às perguntas sobre aquele
+        país. Tabela 7: linha H4 passa a "estabelecida no nível do país, exposição não
+        separável". Macro nova hfourctryrhohdi/hfourctryphdi.
+    - id: R14-3
+      source: banca (P0) — validação humana cega
+      verdict: UPHELD
+      severity: MUST
+      status: partial
+      resolution: >-
+        export_human_validation.py entrega a amostra pronta: 150 respostas estratificadas
+        por tier × idioma × tarefa (5 tarefas, 14 modelos, 4 idiomas, GN 53 / GS 97), três
+        planilhas em ordens diferentes com prompt, resposta e gabarito oficial e SEM modelo,
+        tier ou nota da máquina, mais LEIA-ME com as quatro regras que evitam divergência boba
+        e a chave privada aberta só depois. Falta o que é humano: dois avaliadores.
+    - id: R14-4
+      source: R2 (P0) — repositório anonimizado; path com nome do autor no manuscrito cego
+      premise_checked: >-
+        build_blind.py existia mas NUNCA havia compilado: o regex de autor deixava um "}"
+        órfão e o de afiliação cortava no primeiro "}" de um argumento aninhado em duas
+        linhas. latex/blind/ não continha PDF algum.
+      verdict: UPHELD (com achado próprio)
+      severity: MUST
+      status: resolved
+      resolution: >-
+        remove_comando() conta chaves em vez de casar regex; o \href do repositório é
+        removido inteiro (antes só a URL saía e o texto visível seguia mostrando o usuário);
+        numbers.tex e as figuras entram na cópia cega. main e suplemento cegos compilam
+        (exit 0) e a varredura por 11 termos identificadores volta limpa. Publicar o
+        snapshot em Zenodo/OSF continua com o autor.
+    # ---------------- P1 ----------------
+    - id: R14-5
+      source: R1 — H3 não diz o que o artigo diz que diz
+      premise_checked: >-
+        cabra_sanity: Cabra 47%, base Mistral-7B-Instruct-v0.3 50%, Llama 3.1 8B 43% nos
+        valores de registro. A margem do composto vem dos subcomponentes julgados pelos
+        juízes da coleta, que o artigo recusa como primários. Verdadeiro.
+      verdict: UPHELD
+      status: resolved
+      resolution: >-
+        4.2 e 5.1 separam as duas leituras: "7B contra fronteira" é escala e não achado;
+        o achado pré-especificado é que o ajuste não melhora a recordação do valor de
+        registro sobre a PRÓPRIA BASE. "Pior dos catorze" sai do abstract, das
+        contribuições, da Conclusão e da Tabela 7 (gate barra as duas formulações).
+    - id: R14-6
+      source: R1 — "concentrated" no abstract; todo IC por tarefa cruza 1
+      verdict: UPHELD
+      status: resolved
+      resolution: Abstract e 4.5 dizem "padrão de estimativas pontuais; todo intervalo por país inclui 1". Figura 1 mostra isso.
+    - id: R14-7
+      source: R1 — T5 é artefato de teto
+      premise_checked: 99,6% vs 99,7%; OR bruta 1,52 [0,22; 10,64], condicional 3,58 [0,84; 15,17].
+      verdict: UPHELD
+      status: resolved
+      resolution: Linha de T5 na Tabela 5 passa a "no teto nos dois tiers; contraste não estimável"; "a lacuna desaparece" vira padrão proibido no gate; T5 fora da Figura 1.
+    - id: R14-8
+      source: R1 — quanto da penalidade de H2 é silêncio?
+      premise_checked: >-
+        Calculado: excluindo toda célula cuja primeira resposta armazenada estava vazia,
+        H2 = −5,15 pp (n=819, p=4e−17) contra −4,95 pp com todas (n=839). O revisor
+        esperava "um terço"; o dado diz o contrário — sem as vazias o efeito é MAIOR.
+      verdict: UPHELD (resultado contrário à expectativa do revisor)
+      status: resolved
+      resolution: Reportado em 4.4 e na tabela do suplemento. "A penalidade está no que o modelo diz, não no que ele deixa de dizer."
+    - id: R14-9
+      source: R1 — o que mais foi reverificado depois do erro do seed?
+      verdict: UPHELD
+      status: resolved
+      resolution: >-
+        Relemos o caminho de despacho de cada provedor e declaramos no suplemento o que de
+        fato é enviado: temperatura 0,3 salvo família GPT-5 (1,0, reasoning_effort minimal);
+        orçamento de saída 800 tokens, elevado por provedor (2.000 GPT-5; 2.500 GPT-OSS/Groq
+        e Gemini; 4.000 Gemini 2.5 Pro com thinkingBudget 1.024); think=false nos Qwen3
+        locais; reasoning_effort=none onde exposto; nenhum campo de seed.
+    - id: R14-10
+      source: R3 — contagem de votos e OR agrupada 0,53
+      verdict: UPHELD
+      status: resolved
+      resolution: >-
+        "Dois de três testes" removido; 4.12 declara cada especificação e o que ela presume:
+        sustentada no só-código (p=0,012) e no composto por permutação (p=0,019); marginal
+        sob o modelo misto (p=0,086) e no subconjunto balanceado (p=0,32). OR agrupada
+        retirada do corpo (o bootstrap por país cobre o mesmo contraste). Padrões no gate.
+    - id: R14-11
+      source: R2 — subconjunto balanceado merece um parágrafo
+      verdict: UPHELD
+      status: resolved
+      resolution: Parágrafo próprio em 4.5 — o efeito não inverte nem encolhe, mas a significância depende das células desbalanceadas.
+    - id: R14-12
+      source: R3 — componentes de variância dos GLMMs da Tabela 5
+      verdict: UPHELD
+      status: resolved
+      resolution: >-
+        Calculados e reportados (SD do intercepto de país 1,60 T1 · 0,97 T2 · 0,95 T3 ·
+        2,85 T4; de modelo 1,14 · 1,32 · 0,62 · 1,82). Explicam o fator ~5 entre os dois
+        intervalos; parágrafo no suplemento e uma linha na legenda da Tabela 5.
+    - id: R14-13
+      source: R2 — "agências do Sul não têm capacidade para RAG" é afirmação sem fonte
+      verdict: UPHELD
+      status: resolved
+      resolution: Cláusula removida; o texto diz apenas que essas vias exigem capacidade de engenharia que as correções no nível do prompt não exigem.
+    - id: R14-14
+      source: R3 — Tabela 7 lista H2 como "Supported" sem qualificar
+      verdict: UPHELD
+      status: resolved
+      resolution: Nota da tabela: significativa com o país como unidade (p=0,002), marginal com o modelo (p=0,058, 12/14).
+    # ---------------- P2/P3 ----------------
+    - id: R14-15
+      source: R2/R3 — três figuras
+      verdict: UPHELD
+      status: resolved
+      resolution: >-
+        make_figures.py (passo C21a2): forest plot da Tabela 5 (condicional vs país), pares
+        EN/nativo por idioma, dot plot de países por tier. Geradas dos mesmos artefatos das
+        macros, conferidas em PNG antes de entrar.
+    - id: R14-16
+      source: R1/R3 — cosméticos
+      verdict: UPHELD
+      status: resolved
+      resolution: >-
+        "Two supported effects" → três (com a ressalva do subconjunto balanceado); frase do
+        Cabra duplicada no S11 removida; "confirmatory" fora das legendas geradas e nota de
+        rodapé explicando que o flag --confirmatory e o path são históricos; S9 passa a
+        trazer H6 em n=15 (−0,39 pp, p=0,63) em vez de "não recomputada"; 31,0 vs 30,9 já
+        era macro.
+    - id: R14-17
+      source: R2 — análise documental sobre adoção de IA generativa pelas agências da amostra
+      verdict: DEFERRED
+      status: open
+      resolution: AMPLIAÇÃO (coleta nova de documentos). Registrado; decisão do autor.
+    - id: R14-18
+      source: R2 — data de revisão do instrumento como covariável
+      verdict: REJECTED_FALSE_PREMISE (parcial)
+      status: closed
+      resolution: O registro não guarda a data de entrada em vigor; declarado nos Métodos desde a rodada 13 e aceito pelo próprio parecer como limitação.
+  refutations:
+    - id: REF-14-1
+      objection: "Boa parte da penalidade de H2 deve ser silêncio (respostas vazias); espero cerca de um terço."
+      answer: >-
+        Medido: excluindo toda célula cuja resposta armazenada estava vazia, a penalidade
+        vai de −4,95 pp para −5,15 pp (n=819, p=4×10⁻¹⁷). O silêncio não explica o efeito;
+        removê-lo o aumenta ligeiramente. Fonte: cluster_inference.py seção J.
+  open_items_at_log_time:
+    - Autor: dois avaliadores para as planilhas; publicar snapshot anonimizado (Zenodo/OSF); corte de 25–30%; repontuar T1 pelo painel (API); braço com busca (API); Sabiá-3; análise documental de adoção.

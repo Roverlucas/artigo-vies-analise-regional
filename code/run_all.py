@@ -131,6 +131,8 @@ def main():
         step("C21a. Cluster-level inference (country as the unit: H4 cluster-robust SEs, per-task OR "
              "country bootstrap, EU as one cluster, balanced prompts, H6 TOST, floor/H3 by cluster, Fisher CI)",
              [glmm_py, "analysis/cluster_inference.py"])
+        step("C21a2. Regenerate the three body figures from the same artefacts",
+             [glmm_py, "analysis/make_figures.py"])
         step("C21b. Regenerate latex/numbers.tex (headline numbers as macros; the text never carries a number)",
              [py, "analysis/make_numbers_tex.py"])
         step("C21c. Regenerate the README hypothesis table from numbers.tex",

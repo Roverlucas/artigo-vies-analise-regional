@@ -90,8 +90,12 @@ def partial(x, y, z):
     ex = rx - np.polyval(np.polyfit(rz, rx, 1), rz); ey = ry - np.polyval(np.polyfit(rz, ry, 1), rz)
     return stats.pearsonr(ex, ey)
 r_p, p_p = partial(cob, deficit, hdi)
-out["A"]["country_level"] = {"n": int(len(deficit)), "rho": float(r_s), "p": float(p_s), "rho_partial_hdi": float(r_p), "p_partial": float(p_p)}
+r_h, p_h = stats.spearmanr(hdi, deficit)
+out["A"]["country_level"] = {"n": int(len(deficit)), "rho": float(r_s), "p": float(p_s),
+                             "rho_partial_hdi": float(r_p), "p_partial": float(p_p),
+                             "rho_hdi": float(r_h), "p_hdi": float(p_h)}
 print(f"  25 déficits por país: rho(cobertura, déficit)={r_s:+.3f} p={p_s:.3f} · parcial HDI {r_p:+.3f} p={p_p:.3f}")
+print(f"                        rho(IDH, déficit)      ={r_h:+.3f} p={p_h:.3f}")
 
 # ---------- B. ORs por tarefa com o país como unidade ----------
 print("\nB. ORs GS/GN por tarefa — bootstrap por país (10k) do OR bruto e permutação do tier")
@@ -243,6 +247,73 @@ gnr = [r for r in t2 if r["country"] in GN]; gsr = [r for r in t2 if r["country"
 out["I"] = {"years_gn": st.mean(len(r["accepted_years"]) for r in gnr), "years_gs": st.mean(len(r["accepted_years"]) for r in gsr),
             "spread_gn": st.mean(spread(r) for r in gnr), "spread_gs": st.mean(spread(r) for r in gsr), "n_gn": len(gnr), "n_gs": len(gsr)}
 print(f"  anos aceitos GN {out['I']['years_gn']:.1f} vs GS {out['I']['years_gs']:.1f} · amplitude GN {out['I']['spread_gn']:.2f} vs GS {out['I']['spread_gs']:.2f}")
+
+
+# ---------- J. H2 sem as respostas vazias ----------
+print("\nJ. H2 excluindo células cuja resposta armazenada estava vazia (quanto da penalidade é silêncio)")
+import glob
+vazias = set()
+primeira = {}
+for ordem, arq in enumerate(sorted(glob.glob(os.path.join(ROOT, "data/confirmatory_PRIVATE/responses/run_confirmatory_*.jsonl")))):
+    for linha in open(arq, encoding="utf-8"):
+        try:
+            r = json.loads(linha)
+        except Exception:
+            continue
+        k = (r.get("prompt_id"), str(r.get("model_id")), int(r.get("replicate_idx", 0)))
+        if k in primeira:      # a análise usa a PRIMEIRA resposta em ordem de arquivo
+            continue
+        primeira[k] = True
+        if not (r.get("response_text") or "").strip():
+            vazias.add(k)
+cel = collections.defaultdict(lambda: {"en": [], "nat": []})
+cel_sv = collections.defaultdict(lambda: {"en": [], "nat": []})
+for r in rows:
+    pid = r["prompt_id"]; base, lang = pid, "en"
+    for suf in ("_pt", "_es", "_hi"):
+        if pid.endswith(suf):
+            base, lang = pid[:-len(suf)], "nat"
+    k = (pid, str(r["model_id"]), int(r.get("replicate_idx", 0)))
+    cel[(base, str(r["model_id"]))][lang].append(r["composite"])
+    if k not in vazias:
+        cel_sv[(base, str(r["model_id"]))][lang].append(r["composite"])
+def h2(d):
+    dif = [st.mean(v["nat"]) - st.mean(v["en"]) for v in d.values() if v["en"] and v["nat"]]
+    return {"n": len(dif), "pp": st.mean(dif) * 100, "p": wilcoxon_p(dif)}
+h2_todas, h2_sv = h2(cel), h2(cel_sv)
+n_vaz_nat = sum(1 for (pid, m, i) in vazias if pid.endswith(("_pt", "_es", "_hi")))
+out["J"] = {"all": h2_todas, "excl_empty": h2_sv, "empty_cells": len(vazias), "empty_native": n_vaz_nat,
+            "share_silence": 1 - h2_sv["pp"] / h2_todas["pp"]}
+print(f"  todas as células : n={h2_todas['n']:3d}  {h2_todas['pp']:+.2f} pp  p={h2_todas['p']:.2g}")
+print(f"  sem as vazias    : n={h2_sv['n']:3d}  {h2_sv['pp']:+.2f} pp  p={h2_sv['p']:.2g}")
+print(f"  vazias: {len(vazias)} respostas ({n_vaz_nat} em idioma nativo) · fração da penalidade que é silêncio: {out['J']['share_silence']:.0%}")
+
+# ---------- K. componentes de variância dos GLMMs por tarefa (Tabela 5) ----------
+print("\nK. Componentes de variância dos modelos binomiais mistos por tarefa (por que o IC condicional é estreito)")
+from statsmodels.genmod.bayes_mixed_glm import BinomialBayesMixedGLM
+out["K"] = {}
+for t in ("T1", "T2", "T3", "T4", "T5"):
+    sel = [r for r in en if r["task"] == t and r["prompt_id"].split("_")[-1] in ("neutral", "env")]
+    if t == "T1":
+        sel = [r for r in sel if r.get("score_source") == "code"]
+    d = pd.DataFrame([{"y": int(r["factual_accuracy"] >= 0.5), "country": r["country_iso3"],
+                       "model": str(r["model_id"]), "is_south": int(r["country_iso3"] not in GN)} for r in sel])
+    if d.y.nunique() < 2:
+        out["K"][t] = {"n": int(len(d)), "note": "sem variação no desfecho"}
+        print(f"  {t}: sem variação no desfecho (n={len(d)})")
+        continue
+    m = BinomialBayesMixedGLM.from_formula("y ~ is_south", {"country": "0+C(country)", "model": "0+C(model)"}, d).fit_vb()
+    sd = [float(np.exp(x)) for x in m.vcp_mean]
+    out["K"][t] = {"n": int(len(d)), "sd_country": sd[0], "sd_model": sd[1] if len(sd) > 1 else None}
+    print(f"  {t}: SD do intercepto por país {sd[0]:.2f} · por modelo {sd[1]:.2f} (n={len(d)})")
+
+# ---------- L. H6 recomputada nos 15 pré-especificados ----------
+print("\nL. H6 (DiD da persona) nos 15 países pré-especificados")
+pc15 = {c: v for c, v in pc.items() if c in PRE15}
+gn15 = [pc15[c] for c in pc15 if c in GN]; gs15 = [pc15[c] for c in pc15 if c not in GN]
+did15 = (st.mean(gn15) - st.mean(gs15)) * 100
+out["L"] = {"did_pp": did15, "perm_p": perm_p(gn15, gs15), "n_gn": len(gn15), "n_gs": len(gs15)}
+print(f"  DiD {did15:+.2f} pp (GN={len(gn15)}, GS={len(gs15)}), permutação p={out['L']['perm_p']:.2f}")
 
 json.dump(out, open(os.path.join(ROOT, "data/processed/cluster_inference.json"), "w"), indent=1, ensure_ascii=False)
 print("\nescrito: data/processed/cluster_inference.json")

@@ -65,8 +65,8 @@ três como fatores de desenho. O modelo regional que pudemos rodar é um ajuste
 comunitário de uma base de 7B em português brasileiro, do tipo que um órgão
 consegue baixar; o achado diz respeito a essa classe, e o protocolo liberado
 permite testar qualquer outro candidato. Não testamos recuperação aumentada,
-ajuste fino ou verificação com humano no circuito, que exigem capacidade que a
-maioria dos órgãos da nossa amostra do Sul Global não tem. Todas as consultas
+ajuste fino ou verificação com humano no circuito, cada um dos quais exige
+capacidade de engenharia que as correções no nível do prompt não exigem. Todas as consultas
 são respondidas a partir da memória paramétrica do modelo, sem busca na web nem
 recuperação de documentos, e por isso o título fala em informação recordada, e
 não recuperada. O terceiro objetivo é localizar onde a confiabilidade difere e,
@@ -94,17 +94,20 @@ pré-registro, e o estudo é relatado como exploratório do início ao fim.
 \item \emph{As três correções de localização a que os órgãos recorrem,
   testadas em vez de presumidas.} Enquadramento por persona, prompt em idioma
   nativo e modelo com ajuste regional são, cada um, uma decisão de compra ou de
-  fluxo de trabalho. Nenhum funciona, e perguntar no idioma do próprio país
-  reduz a acurácia em $\nnativa$ pontos percentuais, de forma mais acentuada
-  para o idioma de corpus mais escasso.
+  fluxo de trabalho. Nenhum deles funciona, e falham de maneiras diferentes:
+  perguntar no idioma do próprio país reduz a acurácia em $\nnativa$ pontos
+  percentuais, de forma mais acentuada para o idioma de corpus mais escasso; o
+  enquadramento de papel equivale a nenhum enquadramento em até dois pontos
+  percentuais; e o modelo com ajuste regional recorda o valor vinculante com a
+  mesma frequência do modelo-base de que partiu.
 \item \emph{Um desenho que separa quem é mal servido de por quê, e relata onde
   não consegue.} Os países são estratificados pela divisão desenvolvido/em
   desenvolvimento da UNCTAD, pela taxonomia de recursos linguísticos de Joshi e
   pelo desenvolvimento, de modo que explicações geográficas, linguísticas e
   econômicas possam ser distinguidas. Entre países, cobertura e desenvolvimento
-  são colineares; dentro dos países, o contraste por tarefa que sugere um
-  efeito de cobertura no nível da resposta não sobrevive à inferência no nível
-  do país, e relatamos o mecanismo como não estabelecido. Documentamos também
+  são colineares; dentro dos países, o que prevê o déficit de especificidade no
+  nível do país é o desenvolvimento, e não a cobertura enciclopédica que o
+  protocolo pré-especificou, e os dois não se separam nesta amostra. Documentamos também
   que o proxy de corpus pré-especificado atribui a Wikipédia inglesa a todo
   país da amostra com inglês como língua oficial, de modo que ele acompanha a
   história colonial e não o tamanho do corpus.

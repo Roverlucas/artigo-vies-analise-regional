@@ -12,23 +12,25 @@ scored against ground truth anchored to official primary sources, by code
 wherever the answer is a register value and by the mean of a three-vendor judge
 panel elsewhere.
 
-The remedies an agency can try do not work, and the most intuitive one
+None of the remedies an agency can try works, and the most intuitive one
 backfires. Asking in the country's own language lowers accuracy by
 $\nnativa$~percentage points, most sharply for Hindi, the language least
-represented in training corpora; a local-manager persona does not narrow the
-gap and is equivalent to no persona within 2~pp; and the regionally fine-tuned
-7B model is the weakest of all fourteen systems. Accuracy is also lowest on the
-recall of a binding value, the task a manager can least afford to have wrong. A
-Global North/South tier gap persists and is structured: on the outcomes no
-judge touches, Global South countries return the register value
-$\ncodegap$~pp less often, and the gap shrinks as the answer depends less on a
-country-specific fact, disappearing on the one task with no register value to
-get right. The development gradient does not reach significance and its
-interval includes both zero and the pre-specified threshold, so we report a
-difference between groups that we can demonstrate and a shape across the
-development range that we cannot. On mechanism, the within-country design
-points toward country coverage and does not establish it once the country is
-the unit of inference, and we claim no more than that.
+represented in training corpora, and the penalty is not an artefact of unanswered
+prompts. A local-manager persona is equivalent to no persona within two
+percentage points. Regional instruction tuning at 7B returns the value in force
+no more often than the base model it was tuned from. Accuracy is lowest on the
+recall of a binding value, the task a manager can least afford to have wrong,
+and a third of the wrong answers cite a rung of the country's own official
+ladder rather than an invented number. A Global North/South gap persists on the
+outcomes no judge touches, where Global South countries return the register
+value $\ncodegap$~pp less often with the country as the unit. Its concentration
+on tasks whose answer is a national fact is a pattern of point estimates:
+every per-task interval at the country level includes~1. The development
+gradient does not reach significance and its interval includes both zero and the
+pre-specified threshold. On mechanism, what predicts the country-specificity
+deficit at the country level is development rather than encyclopedic coverage,
+and the two are too collinear in 25 countries to be told apart; the
+language-corpus channel is excluded.
 
 For Global South environmental agencies the practical message is cautionary.
 LLM outputs on binding standards and measured data should be treated as drafts

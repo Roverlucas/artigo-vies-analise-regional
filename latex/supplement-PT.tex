@@ -114,9 +114,19 @@ diferente da padrão e rodou a 1,0 com esforço de raciocínio mínimo. Nenhuma
 seed foi enviada a provedor algum: uma versão anterior deste suplemento
 descrevia um campo \texttt{seed\_status} por chamada, mas o cliente de coleta
 nunca definiu seed e os metadados de execução liberados não carregam tal campo.
-A correção está registrada na Tabela~\ref{tab:s-desvios-pt}. Duas replicações
-estocásticas por célula (prompt, modelo, persona) limitam, portanto, em vez de
-remover, a variabilidade intra-célula, e a Seção~\ref{sec:s-extra} compara os
+A correção está registrada na Tabela~\ref{tab:s-desvios-pt}. Como o erro foi uma
+descrição escrita antes de ler o cliente, relemos o caminho de despacho de cada
+provedor e declaramos aqui o que de fato é enviado: temperatura $0{,}3$ a todos
+os provedores, exceto a família GPT-5, que a rejeita e roda a $1{,}0$ com
+\texttt{reasoning\_effort} em \texttt{minimal}; orçamento de saída de 800
+tokens, elevado por provedor onde um orçamento de raciocínio é consumido antes
+(2.000 para a família GPT-5, 2.500 para o GPT-OSS na Groq e para o Gemini, 4.000
+para o Gemini~2.5~Pro, cujo orçamento de pensamento é limitado a 1.024);
+pensamento desligado onde o parâmetro existe (\texttt{think=false} nos modelos
+Qwen3 servidos localmente, \texttt{reasoning\_effort=none} onde o endpoint o
+expõe); e nenhum campo de seed em lugar algum. Duas replicações estocásticas por
+célula (prompt, modelo, persona) limitam, portanto, em vez de remover, a
+variabilidade intra-célula, e a Seção~\ref{sec:s-extra} compara os
 efeitos-manchete com essa variabilidade.
 
 \paragraph{Janela de aquisição.} O comportamento do modelo servido pode derivar à
@@ -307,7 +317,7 @@ H1 Mann--Kendall (por IDH)          & $S=\npremks$, $Z=\npremkz$, $p=\npremkp$, 
 H1 Spearman $\rho$(acc, Joshi)      & $\nprejoshi$ ($p=\nprejoship$), ns                      & $-0.061$, ns (desenvolvimento, não linguístico) \\
 H1 vs limiar $\rho\geq 0.55$        & não atingido                       & não atingido \\
 H4 $\rho$ parcial (acc, cobertura$\,\vert\,$IDH) & $\nprehfour$ ($p=\nprehfourp$), ns & $\nhfourpartialthree$ ($p=\nsitepartialp$), ns \\
-H6 DiD persona (SG$-$NG)            & não recomputada em $n=15$          & $\ndidtwo$~pp, perm $p=\npersonapthree$, ns \\
+H6 DiD persona (SG$-$NG)            & $\ndidpre$~pp, perm $p=\ndidprep$, ns & $\ndidtwo$~pp, perm $p=\npersonapthree$, ns \\
 Lacuna de camada (NG$-$SG), composto & $\ntiergappre$~pp, $p=\ntiergapprep$ (3 NG)        & $\ntiergap$~pp, $p=\ntiergapperm$ \\
 \bottomrule
 \end{tabular}
@@ -558,9 +568,22 @@ Piso de recordação (T1--T2 menos T3--T5) & $\delta=\nfloordelta$ & por modelo 
 H3 Cabra menos demais & $\delta=\nregdelta$ & por país $\nhthreebyctry$~pp, \nhthreebyctryneg/25, $p=\nhthreebyctryp$ \\
 H3 Cabra menos Llama 3.1 8B, português & $\delta=\nhthreelusdelta$ & por prompt $\nhthreenarrow$~pp, \nhthreenarrowneg/\nhthreenarrown, $p=\nhthreenarrowp$ \\
 $\rho$(acurácia, IDH) & $\rho=\nrho$, $p=\nrhop$ & IC 95\% de Fisher $[\nrhocilo,\nrhocihi]$; $n=15$: $[\nrhoprecilo,\nrhoprecihi]$ \\
+H2 excluindo respostas vazias & $\nnativasigned$~pp (todas as células) & $\nhtwonoempty$~pp, $n=\nhtwonoemptyn$, $p=\nhtwonoemptyp$ \\
+H6 DiD nos 15 pré-especificados & --- & $\ndidpre$~pp, permutação $p=\ndidprep$ \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\paragraph{Por que os dois intervalos da tabela por tarefa do texto principal
+diferem.} A razão de chances condicional é estimada com interceptos de país e de
+modelo no modelo, de modo que seu intervalo é de um contraste que os mantém
+constantes; o bootstrap por país reamostra países e carrega a dispersão entre
+eles. Essa dispersão é grande: o desvio-padrão do intercepto de país é
+$\nsdctryone$ em T1, $\nsdctrytwo$ em T2, $\nsdctrythree$ em T3 e
+$\nsdctryfour$ em T4, contra desvios-padrão de intercepto de modelo de
+$\nsdmodelone$, $\nsdmodeltwo$, $\nsdmodelthree$ e $\nsdmodelfour$. Com
+variação entre países desse tamanho em 24 clusters, o intervalo por país é o que
+responde a uma pergunta sobre países.
 
 \paragraph{Verificação de serviço do modelo regional.} O Modelfile do Ollama
 para o Cabra-Mistral~7B usa o template \texttt{[INST] \{\{ .Prompt \}\} [/INST]},
@@ -574,7 +597,8 @@ modelo-base e ao Llama~3.1~8B, e T1--T3 foram pontuadas com o extrator do estudo
 código, o Cabra devolve o valor do registro em \ncabsanitycabra\%
 (\ncabsanityn{} vereditos factuais; \ncabsanityorig\% na coleta original), o
 modelo-base em \ncabsanitybase\% e o Llama~3.1~8B em \ncabsanityllama\%.
-\ncabrasanitysentencept{}
+O ajuste fino não supera a base de que foi treinado, de modo que a pilha de
+serviço não é o que o coloca em último no composto.
 
 % ============================================================
 \section{Desvios em relação ao plano de análise pré-especificado}

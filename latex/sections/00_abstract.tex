@@ -1,8 +1,8 @@
 % O GIQ, como o resto da Elsevier, quer o abstract em BLOCO UNICO, sem quebra de
 % paragrafo, e em ate 250 palavras (contadas com as macros expandidas por
-% code/analysis/check_highlights.py). A abertura pela pergunta do gestor e
-% deliberada: duas lentes da auditoria externa leram a versao que abria pelo
-% protocolo como escrita para um publico de ML.
+% code/analysis/check_highlights.py). Cada "fix" e declarado com o status que a
+% inferencia no nivel do pais sustenta — nem mais, nem menos (parecer de painel,
+% rodada 2, P0).
 \begin{abstract}
 
 A municipal environmental manager asks a language model what the binding
@@ -11,20 +11,21 @@ says whether it matches the official register. We propose a protocol for that
 check and report what it finds. Answers are scored against official registers,
 by code wherever the correct answer is a published value and by a three-vendor
 judge panel elsewhere, across 25 countries, 14 deployment stacks and four
-languages (\ncells{} scored cells). The three fixes an agency can deploy without
-building anything all fail. Asking in the country's own language lowers accuracy
-by \nnativa{} percentage points (mixed model with a random intercept per country,
-$p=\nhtwomixedcountryp$) and makes the model \nverifdiffabs{} points less likely
-to return a register-checkable value; declaring the official role changes
-nothing ($p=\npersonap$); and a regionally fine-tuned 7B model ranks last of
-fourteen. Accuracy is lowest on the task with administrative consequence,
-recalling the binding value (\ntasktoneshort{} against \nfloorrestshort{} for
-synthesis and recommendation). A North/South gap of $\ntiergap$~pp persists
-(permutation over countries, $p=\ntiergapperm$), is larger on the outcomes no
-judge touches, and is concentrated on tasks whose answer is a national fact; on
-the national standard the odds ratio is \norrawone{} with a country-level
-interval of $\norrawoneci$. A corpus-coverage mechanism is not established once
-inference is carried at the country level. The protocol transfers to any
-regulated domain whose correct answer is published.
+languages (\ncells{} scored cells). None of the three fixes an agency can
+deploy without building anything works, and the most intuitive one harms.
+Asking in the country's own language lowers accuracy by \nnativa{} percentage
+points (mixed model with a random intercept per country,
+$p=\nhtwomixedcountryp$; negative in \nhtwocneg{} of nine countries) and makes
+the model \nverifdiffabs{} points less likely to return a register-checkable
+value at all. Declaring the official role is equivalent to declaring nothing
+within two percentage points. Regional instruction tuning at 7B does not
+improve on the base model it was tuned from. Accuracy is lowest on the task
+that carries administrative consequence, recalling the binding value
+(\ntasktoneshort{} against \nfloorrestshort{} for synthesis and
+recommendation), and a third of the wrong answers cite a value from the
+country's own official ladder. Global South countries return the register
+value \ncodegapabs{} points less often than Global North ones with the country
+as the unit; the point estimates are largest where the answer is a national
+fact, but every per-task interval includes~1.
 
 \end{abstract}

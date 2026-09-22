@@ -28,8 +28,10 @@ pontuação isolado, nem da qualidade da tradução, e se mantém em um desfecho
 não envolve juiz algum: o modelo fica marcadamente menos propenso a produzir um
 número conferível, e mais propenso a não devolver nada.
 
-A persona de gestor local não estreita a lacuna (DiD $\ndid$~pp, permutação
-$p=\npersonap$, equivalente a zero em até $\pm2$~pp), em consonância com a
+A persona de gestor local equivale a nenhuma persona. A
+diferença-em-diferenças é $\ndid$~pp (permutação $p=\npersonap$) e seu intervalo
+por país cabe dentro de uma margem de $\pm2$~pp, de modo que este é um resultado
+de equivalência e não um nulo sem poder, em consonância com a
 evidência de que personas de especialista não melhoram a acurácia
 factual~\citep{zheng2024helpful,mollick2025personas}, e seu efeito principal é
 uma pequena perda ($\npersonamain$~pp). Esse nulo pesa mais do que pesaria um
@@ -46,23 +48,26 @@ ele não muda o que o modelo sabe. Testamo-lo digitado na mensagem e não
 instalado como instrução de sistema, o canal que um servidor público numa
 interface de chat tem (Seção~\ref{sec:limites}).
 
-O modelo regional é o pior dos catorze ($\delta=\nregdelta$), e fica atrás do
-seu par de escala nos prompts brasileiros em português para os quais foi
-ajustado ($\nhthreebra$ contra $\nhthreebrallama$ do Llama~3.1~8B, em 20
-células cada; $\nhthreenarrow$~pp nos 30 prompts em português), de modo que
-recorrer a um modelo pequeno com ajuste local troca a escala e o treinamento de
-fronteira que carregam a acurácia no domínio sem comprar de volta o
-conhecimento local que promete. Três limites cercam isso: o teste estreito é
-pequeno; só nos valores de registro, reservidos nos mesmos itens em português,
-Cabra, seu modelo-base e o Llama~3.1~8B ficam a poucas respostas um do outro
-(Seção~\ref{sec:res:robustez}), de modo que a margem do composto se apoia nas
-tarefas e nos subcomponentes julgados; e o modelo que pudemos rodar é um ajuste
-comunitário de uma base de 7B, não um modelo regional comercial de fronteira do
-tipo que um órgão poderia adquirir. Para esses, o achado é uma previsão, e o protocolo liberado é o modo
+O modelo regional não compra nada em relação ao modelo de que partiu. Nos
+valores de registro, reservidos nos mesmos itens em português, o Cabra devolve o
+valor em vigor em \ncabsanitycabra\% das vezes e seu modelo-base em
+\ncabsanitybase\%: o ajuste de instrução em português brasileiro não melhorou o
+que o modelo recorda da regulação brasileira. Ele também fica em último entre os
+catorze e atrás do seu par de escala nos prompts em português para os quais foi
+ajustado ($\nhthreebra$ contra $\nhthreebrallama$ do Llama~3.1~8B;
+$\nhthreenarrow$~pp nos 30 prompts em português), mas essas comparações correm
+sobre o composto, cujos subcomponentes julgados vêm dos juízes da coleta, e a
+posição na lista compara um modelo de 7B com sistemas uma ordem de grandeza
+maiores. A afirmação defensável é a estreita, e é a que um órgão precisa: baixar
+um modelo pequeno com ajuste regional não recupera os fatos nacionais que um
+modelo maior erra. Dois limites a cercam: o teste estreito tem 30 itens por
+modelo, e o modelo que pudemos rodar é um ajuste comunitário de uma base de 7B,
+não um modelo regional comercial de fronteira do tipo que um órgão poderia
+adquirir. Para esses, o achado é uma previsão, e o protocolo liberado é o modo
 de testá-la.
 
-Os praticantes implantam os três como correções; nenhum funciona, e o que um
-gestor mais provavelmente tenta primeiro causa dano ativo. Para órgãos
+Os praticantes implantam os três como correções. Um causa dano ativo, um
+equivale a não fazer nada, e um não acrescenta nada ao modelo de que partiu. Para órgãos
 ambientais do Sul Global, nenhum atalho barato no nível do prompt ou do modelo
 substitui a verificação do valor vinculante contra a fonte oficial.
 
@@ -108,16 +113,23 @@ mede se o país tem inglês como língua oficial, o que acompanha a história
 colonial e não o tamanho do corpus. Relatamos isso porque afeta qualquer estudo
 que tenha usado ou venha a usar o mesmo proxy.
 
-Mudar a unidade de variação deu uma associação no nível da resposta na direção
-prevista, com as verificações que um efeito real passaria, e ela não sobrevive à
-inferência com o país como unidade: agrupado por país, o coeficiente tem
-$p=\nhfourclp$, os 25 déficits por país se correlacionam com a cobertura a
-$\rho=\nhfourctryrho$ ($p=\nhfourctryp$), e dado o IDH a associação é
-$\nhfourctrypartial$. Nesses 25 países, cobertura e desenvolvimento se
-correlacionam a $\rho=\nrhocobhdi$, e o desenho não tem alavanca que mova um sem
-o outro. Relatamos, portanto, a explicação por cobertura como compatível com os
-dados e não estabelecida por eles, e a questão cobertura-ou-desenvolvimento
-como aberta.
+Mudar a unidade de variação compra um resultado e recusa outro. No nível do
+país, o déficit nas tarefas específicas do país é previsto pelo desenvolvimento
+($\beta=\nhfourhdialonebeta$, $p=\nhfourhdialoneclp$ agrupado;
+$\rho=\nhfourctryrhohdi$, $p=\nhfourctryphdi$ nos 25 déficits) e não, em níveis
+convencionais, pela cobertura enciclopédica ($p=\nhfourclp$;
+$\rho=\nhfourctryrho$, $p=\nhfourctryp$). As duas se correlacionam a
+$\rho=\nrhocobhdi$ e o desenho não tem alavanca que mova uma sem a outra, de
+modo que isso não identifica o desenvolvimento como o canal operante; diz que a
+exposição que supera o limiar é justamente a que o mecanismo pré-especificado
+pretendia descartar.
+
+O resultado também é mais estreito do que o gradiente com que se parece. O
+desenvolvimento não prevê com que acurácia os modelos respondem sobre um país
+(Seção~\ref{sec:res:h1}); prevê o quanto respondem pior às perguntas cuja
+resposta é um fato daquele país. São desfechos diferentes, e só o segundo tem
+associação no nível do país. O que continua excluído é o canal de corpus do
+idioma, como tem de ser para um contraste medido inteiramente em inglês.
 
 \subsection{A lição metodológica: a chave importa mais que a amostra}
 
@@ -208,10 +220,12 @@ permissivo produziria. Dois resíduos permanecem: os quatro subcomponentes não
 factuais de uma célula de T1 ainda são os do juiz da coleta, razão pela qual o
 veredito de código e não o composto é o desfecho primário de tier, e a
 auditoria manual do extrator cobriu apenas T1. Uma validação cega por
-especialistas humanos de uma amostra estratificada, cerca de 150 respostas
-pontuadas por três avaliadores, que o pipeline liberado exporta diretamente,
-converteria um resultado ancorado em fonte oficial num resultado ancorado em
-padrão-ouro.
+especialistas humanos de uma amostra estratificada converteria um resultado
+ancorado em fonte oficial num resultado ancorado em padrão-ouro. A amostra é
+exportada com a liberação (\texttt{code/analysis/export\_human\_validation.py}):
+150 respostas estratificadas por tier, idioma e tarefa, três planilhas com o
+prompt, a resposta e o gabarito oficial, mas sem o modelo, o tier e a nota da
+máquina, e um arquivo-chave aberto só depois que as planilhas voltarem.
 
 \emph{De um sinal dentro do país a um desenho causal.} Dentro dos países
 removemos o confundimento no nível do país sem remover o confundimento
@@ -253,10 +267,13 @@ que a proveniência por chamada que liberamos permite.
 
 \subsection{O que este estudo contribui}
 
-As três correções a que os praticantes recorrem primeiro falham juntas: o
-idioma local prejudica, o enquadramento de persona não faz nada, e o modelo de
-7B com ajuste regional é o pior dos catorze. O resultado metodológico é que,
-nesta literatura, a chave de gabarito, e o nível em que a inferência é feita,
-importam mais que o tamanho da amostra. E o desenho separa o que 25 países
-conseguem demonstrar do que não conseguem, relatando o segundo conjunto como
-aberto e não como sustentado.
+As três correções a que os praticantes recorrem primeiro falham juntas, cada
+uma à sua maneira: o idioma local prejudica, o enquadramento de persona equivale
+a não usar enquadramento, e o ajuste regional em 7B não acrescenta nada ao
+modelo-base de que partiu. O resultado metodológico é que, nesta literatura, a
+chave de gabarito e o nível em que a inferência é feita importam mais que o
+tamanho da amostra; mudar esses dois, sem tocar em uma única resposta, levou um
+gradiente de desenvolvimento significativo a um nulo, dobrou a penalidade de
+idioma e transformou um mecanismo de corpus estabelecido em questão aberta. E o
+desenho separa o que 25 países conseguem demonstrar do que não conseguem,
+relatando o segundo conjunto como aberto e não como sustentado.

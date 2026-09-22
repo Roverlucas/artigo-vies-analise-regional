@@ -70,12 +70,16 @@ contra $\nhthreebrallama$ ($\delta=\nhthreebradelta$, $n=20$ células cada), e
 nos três países lusófonos $\nhthreelus$ contra $\nhthreeluslama$
 ($\delta=\nhthreelusdelta$, $n=60$ cada); pareado por prompt com as réplicas na
 média, o Cabra perde em \nhthreenarrowneg{} dos \nhthreenarrown{} prompts em
-português, por $\nhthreenarrow$~pp (Wilcoxon $p=\nhthreenarrowp$). O ajuste de
-instrução regional no nível de 7B não recupera o que escala e treinamento de
-fronteira dão, nem mesmo no idioma e no país para os quais foi ajustado. Uma
-verificação de serviço relatada na Seção~\ref{sec:res:robustez} confirma que o
-modelo foi consultado com o template de chat publicado e o compara com seu
-próprio modelo-base nos mesmos itens em português.
+português, por $\nhthreenarrow$~pp (Wilcoxon $p=\nhthreenarrowp$). Duas leituras disso precisam ser separadas, e só uma delas é um achado. Que um
+modelo de 7B fique atrás de sistemas de fronteira uma ordem de grandeza maiores
+é uma afirmação sobre escala. A pergunta pré-especificada era mais estreita e
+tem resposta: ajustar um modelo-base em português brasileiro melhora o que ele
+recorda sobre o Brasil? Reservidos nos mesmos 30 itens em português, o Cabra e o
+modelo-base de que partiu devolvem o valor do registro em \ncabsanitycabra\% e
+\ncabsanitybase\% das vezes (Seção~\ref{sec:res:robustez}). O ajuste de
+instrução regional nessa escala não melhora a recordação do valor de registro
+sobre a própria base, e a margem do composto contra o Llama~3.1~8B vem das
+tarefas e dos subcomponentes julgados, não dos valores que o código confere.
 
 \begin{table}[h]
 \centering
@@ -165,7 +169,13 @@ removê-la: não é impulsionada por nenhum país isolado (deixar-um-de-fora
 $\nloocmin$ a $\nloocmax$~pp, todos significativos), por nenhum modelo isolado
 ($\nloommin$ a $\nloommax$~pp) nem por células extremas (5\% aparado
 $\ntrim$~pp, $p=\ntrimp$); mantém-se sob toda ponderação do composto; e aparece
-em toda tarefa e sob as duas condições de persona.
+em toda tarefa e sob as duas condições de persona. Nem é silêncio. Prompts em
+idioma nativo devolvem resposta vazia com mais frequência que os em inglês, de
+modo que a penalidade poderia em princípio ser uma contagem de respostas que
+nunca vieram; descartar toda célula cuja resposta armazenada estava vazia a
+deixa em $\nhtwonoempty$~pp ($n=\nhtwonoemptyn$ pares, $p=\nhtwonoemptyp$),
+marginalmente maior e não menor. A penalidade está no que o modelo diz, não no
+que ele deixa de dizer.
 
 Duas verificações adicionais respondem às objeções que um leitor cético levanta
 primeiro. A primeira é que juízes baseados em modelo de linguagem poderiam
@@ -236,6 +246,15 @@ Hindi (4)     & IND                     & $\nnativahi$ & $\nnativahip$  & \nnpar
 \end{tabular}
 \end{table}
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.94\linewidth]{../figures/fig2_h2_pairs.pdf}
+\caption{Cada ponto é uma célula (prompt, modelo) pontuada em inglês e no idioma
+nativo do país, com as réplicas na média. Pontos abaixo da diagonal são células
+em que a resposta em idioma nativo pontuou pior.}
+\label{fig:h2-pairs}
+\end{figure}
+
 \subsection{H6: a persona não estreita a lacuna geográfica}
 \label{sec:res:h6}
 
@@ -273,8 +292,7 @@ desfechos adjudicados por código (toda a T1 e a parte resolvida de T2 e T3),
 os países do Norte Global devolvem o valor do registro $\ncodegn$ das vezes e
 os do Sul Global $\ncodegs$, uma lacuna de $\ncodegap$~pp com intervalo
 bootstrap por país de $\ncodegapci$ (permutação do rótulo de tier com o país
-como unidade, $p=\ncodegapp$) e razão de chances agrupada de $\ncodeor$
-$\ncodeorci$. No composto, o desfecho secundário, os dez países do Norte Global
+como unidade, $p=\ncodegapp$). No composto, o desfecho secundário, os dez países do Norte Global
 têm média $\naccgn$ contra $\naccgs$ dos quinze do Sul Global, uma lacuna de
 $\ntiergap$ pontos percentuais cujo intervalo bootstrap de 95\% sobre países é
 $\ntiergapci$~pp (permutação $p=\ntiergapperm$). A lacuna do composto é estável
@@ -291,11 +309,16 @@ contra Colômbia, Chile e Angola) ela é $\ntiergapwave$~pp $\ntiergapwaveci$, e
 nos quinze pré-especificados (três do Norte Global contra doze)
 $\ntiergappre$~pp $\ntiergappreci$, uma estimativa pontual do mesmo tamanho
 numa amostra pequena demais para torná-la significativa por permutação
-($p=\ntiergapprep$). A cobertura é desigual entre modelos, então restringimos
-também a estimativa aos \ngapbalprompts{} dos \ngapbaltotal{} prompts em inglês
-que todos os modelos responderam; a estimativa pontual é a mesma
-($\ngapbal$~pp) e o intervalo, sobre muito menos células, inclui zero
-($\ngapbalci$, $p=\ngapbalp$).
+($p=\ntiergapprep$). A cobertura é desigual entre modelos, e essa desigualdade é o ponto mais fraco
+da lacuna. Restringir a estimativa aos \ngapbalprompts{} dos \ngapbaltotal{}
+prompts em inglês que cada um dos 14 modelos respondeu deixa a estimativa
+pontual inalterada ($\ngapbal$~pp) e o intervalo, sobre muito menos células,
+inclui zero ($\ngapbalci$, $p=\ngapbalp$). A significância da lacuna do
+composto depende, portanto, das células desbalanceadas: o efeito não inverte nem
+encolhe quando a cobertura é equalizada, mas esta amostra não consegue
+demonstrá-lo num desenho balanceado. O contraste adjudicado por código acima,
+que agrupa tarefas em vez de prompts, é o que se sustenta com o país como
+unidade.
 
 \emph{Onde a lacuna mora.} A decomposição por tarefa não foi pré-especificada
 e é exploratória. Reestimar o contraste em cada tarefa separadamente, com o
@@ -312,22 +335,31 @@ bruta do Sul Global de devolver o valor do registro é $\norrawone$ da do Norte
 Global ($\nortgn\%$ contra $\nortgs\%$), com intervalo por país de
 $\norrawoneci$ e permutação por país $p=\norrawonep$; a estimativa condicional
 é $\nortone$ $\nortoneci$. Nos instrumentos de política (T4) a razão bruta é
-$\norrawfour$ $\norrawfourci$; na síntese de evidência em saúde (T3), em que a
+$\norrawfour$ $\norrawfourci$ e na síntese de evidência em saúde (T3), em que a
 resposta é uma estimativa internacional e não nacional, sobe para
-$\norrawthree$ $\norrawthreeci$; e na recomendação aberta (T5), a única tarefa
-sem valor de registro a acertar, a lacuna está ausente ($\norrawfive$,
-$\norrawfiveci$). A razão de T1 mantém sua direção sob as duas objeções que
-sua composição convida (Seção~\ref{sec:res:t1}): deixando de lado os três
-países do Sul Global sem padrão nacional, a estimativa condicional é
-$\nortexcl$ $\nortexclci$, e nos quinze pré-especificados é $\nortpre$
-$\nortpreci$. T4 é a única tarefa da tabela pontuada inteiramente pelo painel,
-de modo que sua razão pode carregar a ignorância do próprio juiz sobre
-instrumentos do Sul além da do modelo; as estimativas só de código são as
-livres disso. A lacuna é concentrada e não fraca: o composto a dilui ao tirar a
-média de tarefas em que ela está presente com uma tarefa em que não existe, e
-os intervalos por tarefa no nível do país são largos o bastante para que apenas
-o contraste agrupado só de código acima esteja estabelecido com o país como
-unidade.
+$\norrawthree$ $\norrawthreeci$. A recomendação aberta (T5) está no teto nos
+dois tiers ($\nortfivegn\%$ contra $\nortfivegs\%$), de modo que nenhum
+contraste é estimável ali e a tarefa é relatada sem razão de chances. A razão de
+T1 mantém sua direção sob as duas objeções que sua composição convida
+(Seção~\ref{sec:res:t1}): deixando de lado os três países do Sul Global sem
+padrão nacional, a estimativa condicional é $\nortexcl$ $\nortexclci$, e nos
+quinze pré-especificados é $\nortpre$ $\nortpreci$. T4 é a única tarefa da
+tabela pontuada inteiramente pelo painel, de modo que sua razão pode carregar a
+ignorância do próprio juiz sobre instrumentos do Sul além da do modelo; as
+estimativas só de código são as livres disso.
+
+Duas leituras desta tabela precisam ser separadas. As estimativas pontuais se
+ordenam pelo quanto a resposta depende de um fato sobre o país, que é o padrão
+previsto pelo argumento do artigo, e o modelo condicional devolve intervalos
+estreitos para cada uma. Mas o intervalo condicional é o de um contraste dentro
+do país e dentro do modelo: só os interceptos de país têm desvio-padrão de
+$\nsdctryone$ em T1 e $\nsdctryfour$ em T4 (material suplementar), de modo que
+os países estão longe de ser permutáveis e quem quiser uma afirmação sobre
+países precisa do intervalo por país. Todos eles incluem~1
+(Figura~\ref{fig:or-task}). Relatamos, portanto, a ordenação por tarefa como um
+padrão de estimativas pontuais e o contraste agrupado adjudicado por código como
+o achado: a lacuna é real no agregado e sua concentração nas tarefas
+específicas do país é exploratória.
 
 \begin{table}[h]
 \centering
@@ -337,9 +369,13 @@ acurácia factual $\ge 0.5$: o veredito de código onde a tarefa é adjudicada
 por código (toda a T1; a parte resolvível de T2 e T3), a pontuação do painel ou
 do juiz nos demais casos, de modo que para T5, que não tem valor de registro,
 é a nota factual do juiz. RC condicional de um modelo binomial misto com
-interceptos aleatórios cruzados para país e modelo; RC bruta com seu intervalo
-bootstrap de 95\% por país e o $p$ de permutação do rótulo de tier com o país
-como unidade.}
+interceptos aleatórios cruzados para país e modelo, intervalo de um contraste
+dentro do país e dentro do modelo; RC bruta com seu intervalo bootstrap de 95\%
+por país e o $p$ de permutação do rótulo de tier com o país como unidade. Os
+dois diferem por cerca de um fator de cinco em largura porque os interceptos de
+país estão longe de ser permutáveis (componentes de variância no material
+suplementar). Todo intervalo por país inclui~1; a decomposição é exploratória e
+é lida como um padrão de estimativas pontuais.}
 \label{tab:camada-por-tarefa}
 \scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -352,10 +388,21 @@ T1 padrão (valor nacional)         & \nortonegn\% & \nortonegs\% & \nortone & \
 T4 instrumentos (nacionais)        & \nortfourgn\% & \nortfourgs\% & \nortfour & \norrawfour\ $\norrawfourci$ & \norrawfourp \\
 T2 dado local (valor nacional)     & \norttwogn\% & \norttwogs\% & \norttwo & \norrawtwo\ $\norrawtwoci$ & \norrawtwop \\
 T3 síntese em saúde (internacional) & \nortthreegn\% & \nortthreegs\% & \nortthree & \norrawthree\ $\norrawthreeci$ & \norrawthreep \\
-T5 recomendação (sem valor de registro) & \nortfivegn\% & \nortfivegs\% & \nortfive & \norrawfive\ $\norrawfiveci$ & \norrawfivep \\
+T5 recomendação (sem valor de registro) & \nortfivegn\% & \nortfivegs\% & \multicolumn{3}{l}{no teto nos dois tiers; contraste não estimável} \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.86\linewidth]{../figures/fig1_or_by_task.pdf}
+\caption{Chances do Sul Global contra o Norte Global de devolver o valor do
+registro, por tarefa, sob os dois níveis de inferência. Azul: razão de chances
+bruta com seu intervalo bootstrap de 95\% por país. Cinza: razão de chances
+condicional do modelo binomial misto. T5 fica de fora porque os dois tiers estão
+no teto. Rótulos em inglês, como no manuscrito de submissão.}
+\label{fig:or-task}
+\end{figure}
 
 Com $n=25$, o $\rho$ de Spearman (acurácia, IDH) $=+\nrho$ não alcança
 significância convencional ($p=\nrhop$; Mann-Kendall $p=\nrhomkp$) e fica
@@ -374,11 +421,20 @@ na família primária $\{$H1-gradiente, H4, H6$\}$, nenhum teste rejeita seu
 nulo.
 
 A ordenação dos países retém grande heterogeneidade ortogonal ao eixo
-(material suplementar): a Índia ($\nindia$, Sul Global) lidera todos os
+(Figura~\ref{fig:countries}): a Índia ($\nindia$, Sul Global) lidera todos os
 países, Indonésia e África do Sul superam a maior parte do Norte Global, e
 Canadá e França ficam baixos. A desvantagem é uma diferença de tier sobreposta
 a variação substancial específica por país, e essa heterogeneidade é parte da
 razão de o gradiente não se resolver.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.86\linewidth]{../figures/fig3_country_dotplot.pdf}
+\caption{Acurácia composta média por país nos prompts em inglês, ordenada. As
+linhas tracejadas marcam as duas médias de tier, cuja diferença é a lacuna do
+composto. Rótulos em inglês, como no manuscrito de submissão.}
+\label{fig:countries}
+\end{figure}
 
 \subsection{H4: a representação no corpus não se estabelece}
 \label{sec:res:h4}
@@ -410,24 +466,32 @@ coeficiente, retirar T5 ou T4 o deixa intacto, e um placebo que inverte os
 rótulos devolve a imagem espelhada exata.
 
 Esse valor de $p$ no nível da resposta não é a evidência, porque a interação
-varia apenas entre 25 países. Com erros-padrão agrupados por país, o mesmo
-coeficiente tem $p=\nhfourclp$; reduzida aos seus 25 déficits por país, a
-cobertura se correlaciona com o déficit a $\rho=\nhfourctryrho$
-($p=\nhfourctryp$) e a $\rho=\nhfourctrypartial$ ($p=\nhfourctrypartialp$) uma
-vez parcializado o IDH. Entrando IDH$\times$dependência ao lado de
-cobertura$\times$dependência, nenhuma das duas sobrevive com erros agrupados
-(cobertura $\beta=\nhfourjcob$, $p=\nhfourjcobclp$; IDH $\beta=\nhfourjhdi$,
-$p=\nhfourjhdiclp$), e dentro dos nove países anglófonos, em que o idioma da
-pergunta é o mesmo por construção, o coeficiente da cobertura é $\nhfouranglo$
-com $p=\nhfouranglclp$ sobre nove clusters. O proxy de corpus do idioma, ao lado
-da cobertura, é nulo em todos os níveis ($\beta=\nhfourlang$,
-$p=\nhfourlangp$), como previsto para respostas obtidas em inglês.
+varia apenas entre 25 países, e no nível do país as duas exposições candidatas
+se separam. Com erros-padrão agrupados por país, a cobertura carrega
+$p=\nhfourclp$; o desenvolvimento carrega $\beta=\nhfourhdialonebeta$ com
+$p=\nhfourhdialoneclp$. Os 25 déficits por país dizem o mesmo: o déficit se
+correlaciona com o IDH a $\rho=\nhfourctryrhohdi$ ($p=\nhfourctryphdi$) e com a
+cobertura a $\rho=\nhfourctryrho$ ($p=\nhfourctryp$), caindo para
+$\rho=\nhfourctrypartial$ ($p=\nhfourctrypartialp$) uma vez parcializado o IDH.
+Entrando juntas, as duas são não informativas, porque se correlacionam a
+$\rho=\nrhocobhdi$ e nenhuma sobrevive (cobertura $\beta=\nhfourjcob$,
+$p=\nhfourjcobclp$; IDH $\beta=\nhfourjhdi$, $p=\nhfourjhdiclp$); dentro dos
+nove países anglófonos, em que o idioma da pergunta é o mesmo por construção, o
+coeficiente da cobertura é $\nhfouranglo$ com $p=\nhfouranglclp$ sobre nove
+clusters. O proxy de corpus do idioma, ao lado da cobertura, é nulo em todos os
+níveis ($\beta=\nhfourlang$, $p=\nhfourlangp$), como previsto para respostas
+obtidas em inglês.
 
-O desenho dentro do país entrega, portanto, uma associação sugestiva e nenhum
-mecanismo estabelecido. A direção é a que a explicação por cobertura prevê, as
-verificações de classificação se comportam como deveriam, e nada disso alcança
-significância quando o país é a unidade de inferência. Relatamos H4 como não
-estabelecida, e a questão cobertura-ou-desenvolvimento como aberta.
+O que sobrevive com o país como unidade é, portanto, a interação do
+desenvolvimento, não a da cobertura. O resultado é mais estreito do que parece,
+e não é o gradiente de H1: o nível de desenvolvimento de um país não prevê com
+que acurácia os modelos respondem sobre ele no geral (Seção~\ref{sec:res:h1}),
+mas prevê o quanto respondem pior às perguntas cuja resposta é um fato daquele
+país. A cobertura aponta na mesma direção e não alcança o limiar, e as duas não
+se separam numa amostra em que se correlacionam a $\nrhocobhdi$. Relatamos o
+mecanismo de corpus pré-especificado como não estabelecido, a interação do
+desenvolvimento como o único resultado de mecanismo no nível do país que supera
+$0{,}05$, e a escolha entre as duas exposições como aberta.
 
 \begin{table}[h]
 \centering
@@ -449,6 +513,7 @@ T1 contra T5 (contraste mais puro)  & $\nhfourtonevsfive$ & $\nhfourtonevsfivep$
 Excluindo T5 (teto em 99,7\%)       & $\nhfournotfive$ & $\nhfournotfivep$ & \\
 Excluindo T4 (a mais interpretativa) & $\nhfournotfour$ & $\nhfournotfourp$ & \\
 Placebo: rótulos invertidos         & $\nhfourplacebo$ & $\nhfourp$ & \\
+IDH$\times$dependência sozinho      & $\nhfourhdialonebeta$ & $\nhfourhdialonep$ & $\nhfourhdialoneclp$ \\
 Com IDH$\times$dependência: cobertura & $\nhfourjcob$ & $\nhfourjcobp$ & $\nhfourjcobclp$ \\
 \quad IDH                           & $\nhfourjhdi$ & $\nhfourjhdip$ & $\nhfourjhdiclp$ \\
 \bottomrule
@@ -555,10 +620,12 @@ aritmética de 70\% para 15\%. Aritmética pertence ao código.
 \subsection{Robustez}
 \label{sec:res:robustez}
 
-Os dois efeitos sustentados foram testados contra sete ataques e sobrevivem a
-todos; o gradiente de desenvolvimento fica abaixo do $0,55$ pré-especificado
-sob cada um (seu valor mais alto, $\nloorhomaxabs$, é uma reestimativa
-deixando um país de fora). As saídas completas estão no material suplementar.
+Os três efeitos sustentados foram testados contra sete ataques. A penalidade do
+idioma nativo e o piso de recordação sobrevivem a todos; a lacuna de tier
+sobrevive a cinco e fica marginal em dois, que o parágrafo seguinte declara com
+exatidão. O gradiente de desenvolvimento fica abaixo do $0,55$ pré-especificado
+sob cada um (seu valor mais alto, $\nloorhomaxabs$, é uma reestimativa deixando
+um país de fora). As saídas completas estão no material suplementar.
 
 \emph{Nenhum país isolado, e nenhuma ponderação, carrega o resultado.} A
 reestimação deixando um país de fora mantém a lacuna de tier do composto em
@@ -572,21 +639,23 @@ objetiva. As duas réplicas de cada célula diferem em $\nrepdiff$~pp em média
 $\nnativasigned$~pp, tirada em média sobre 839 pares, fica a cerca de dez
 erros-padrão do ruído que duas réplicas deixam sem resolver.
 
-\emph{A lacuna de tier sobrevive a um teste livre de distribuição e a duas
-famílias de modelo.} Um teste de permutação embaralha os rótulos Norte/Sul
-entre os 25 países dez mil vezes e conta quantas vezes o acaso sozinho produz
-uma lacuna deste tamanho; ele não presume nada sobre a distribuição e trata o
-país como unidade independente. O acaso supera a lacuna observada
-$\ntiergappermpct\%$ das vezes ($p=\ntiergapperm$). Um modelo hierárquico
-bayesiano com interceptos aleatórios cruzados concorda ($\beta=\nbayes$, HDI de
-94\% $[\nbayeslo,\nbayeshi]$, $P(\beta<0)=\nbayesp$), enquanto um modelo misto
-frequentista devolve a mesma magnitude e o mesmo sinal, mas a deixa marginal
-($\beta=\nmixedbeta$, $p=\nmixedp$), porque atribui a grande heterogeneidade
-entre países ao termo de erro. Dois de três testes superam o zero e os três
-concordam na magnitude, de modo que relatamos a lacuna como sustentada e
-sensível à especificação, com E-value de $\nevalue$ na estimativa pontual e
-$\nevaluelim$ no limite de confiança mais próximo do
-nulo~\citep{vanderweele2017evalue}; um confundidor no nível do país de força
+\emph{Onde a lacuna de tier está estabelecida e onde é marginal.}
+Especificações de um mesmo conjunto de dados não são testes independentes, então
+declaramos cada uma e o que ela presume, em vez de contá-las. O achado é o
+contraste agrupado adjudicado por código, em que nenhum juiz contribui e o país
+é a unidade ($\ncodegap$~pp, $\ncodegapci$, permutação $p=\ncodegapp$). No
+composto, um teste de permutação sobre as 25 médias por país dá
+$p=\ntiergapperm$ e um modelo hierárquico bayesiano com interceptos aleatórios
+cruzados concorda em sinal e magnitude ($\beta=\nbayes$, HDI de 94\%
+$[\nbayeslo,\nbayeshi]$, $P(\beta<0)=\nbayesp$), enquanto o modelo misto
+frequentista, que é a especificação que modela corretamente o desenho
+desbalanceado, a deixa marginal ($\beta=\nmixedbeta$, $p=\nmixedp$) porque
+atribui a grande heterogeneidade entre países ao termo de erro, e o subconjunto
+de prompts balanceados dá $p=\ngapbalp$. A lacuna é, portanto, sustentada no
+desfecho só de código e no composto por permutação, e marginal sob o modelo
+misto e no subconjunto balanceado. Seu E-value é $\nevalue$ na estimativa
+pontual e $\nevaluelim$ no limite de confiança mais próximo do
+nulo~\citep{vanderweele2017evalue}: um confundidor no nível do país de força
 modesta bastaria para explicá-la.
 
 \emph{A lacuna segue a partição da UNCTAD, não as partições por IDH.}
@@ -622,10 +691,11 @@ T1--T3 com o extrator de código do estudo (material suplementar).
 \label{sec:res:sintese}
 
 A Tabela~\ref{tab:sintese-hip} mapeia cada hipótese ao seu achado, ao mecanismo
-candidato e a um status de evidência explícito. Três efeitos são sustentados e
-sobrevivem a todo ataque de robustez da Seção~\ref{sec:res:robustez}; duas
-expectativas pré-especificadas não se cumprem; e o mecanismo de corpus é
-sugestivo dentro dos países e não estabelecido no nível do país.
+candidato e a um status de evidência explícito. Três efeitos são sustentados,
+dois deles sob todos os ataques da Seção~\ref{sec:res:robustez} e a lacuna de
+tier sob cinco de sete; duas expectativas pré-especificadas não se cumprem; e o
+mecanismo de corpus pré-especificado cede lugar a uma interação do
+desenvolvimento que o desenho não consegue separar da cobertura.
 
 \begin{table}[!ht]
 \centering
@@ -644,12 +714,12 @@ Hipótese & Achado & Mecanismo \\
 \multicolumn{3}{@{}l}{\emph{Sustentadas}} \\
 \addlinespace[2pt]
 H2 idioma          & $\nnativasigned$~pp; hindi $\nnativahi$    & corpus do idioma \\
-H3 modelo regional & $\delta=\nregdelta$, pior de 14 & escala acima de ajuste \\
-H1 lacuna de tier  & $\ncodegap$~pp só código; $\ntiergap$~pp composto  & tier \\
+H3 modelo regional & sem ganho sobre a própria base (\ncabsanitycabra\% vs \ncabsanitybase\%) & ajuste não agrega em 7B \\
+H1 lacuna de tier  & $\ncodegap$~pp só código, país como unidade  & tier \\
 \midrule
-\multicolumn{3}{@{}l}{\emph{Não estabelecida}} \\
+\multicolumn{3}{@{}l}{\emph{Estabelecida no nível do país, exposição não separável}} \\
 \addlinespace[2pt]
-H4 dentro do país  & $\rho=\nhfourctryrho$ ($p=\nhfourctryp$) no nível do país & cobertura ou desenvolvimento \\
+H4 dentro do país  & IDH$\times$dependência $\nhfourhdialonebeta$ ($p=\nhfourhdialoneclp$); cobertura $p=\nhfourclp$ & desenvolvimento ou cobertura \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Não sustentadas}} \\
 \addlinespace[2pt]
@@ -665,10 +735,14 @@ H5 aberto/fechado  & $\nhfive$~pp para fechados       & tipo de acesso \\
 
 \vspace{4pt}
 \begin{minipage}{0.75\linewidth}
-\footnotesize\emph{Nota.} O mecanismo de H2 se apoia em três idiomas nativos e
-é descritivo. A lacuna de tier de H1 se concentra em tarefas cuja resposta
-depende de um fato nacional; a decomposição por tarefa é exploratória. H4
-dentro do país aponta na direção prevista e não alcança significância com o
-país como unidade.
+\footnotesize\emph{Nota.} H2 é significativa com o país como unidade
+($p=\nhtwoctp$) e marginal com o modelo como unidade ($p=\nhtwomwp$,
+\nhtwomneg/14 negativos); seu mecanismo se apoia em três idiomas nativos e é
+descritivo. A lacuna do composto de H1 é marginal sob o modelo misto e no
+subconjunto de prompts balanceados; a decomposição por tarefa é exploratória e
+todo intervalo por país inclui~1. H3 é o contraste estreito contra o
+modelo-base; a posição na lista compara 7B com sistemas de fronteira. A
+interação do desenvolvimento em H4 prevê o déficit de especificidade do país,
+não o nível de acurácia.
 \end{minipage}
 \end{table}

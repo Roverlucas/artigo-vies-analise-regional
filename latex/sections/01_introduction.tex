@@ -61,8 +61,8 @@ model, and we test all three as designed factors. The regional model we could
 run is a community fine-tune of a 7B base on Brazilian Portuguese, the kind an
 agency can download; the finding concerns that class, and the released protocol
 allows any other candidate to be tested. We do not test retrieval augmentation,
-fine-tuning, or human-in-the-loop verification, which require capacity most
-agencies in our Global South sample do not have. All queries are answered from
+fine-tuning, or human-in-the-loop verification, each of which requires
+engineering capacity the prompt-level fixes do not. All queries are answered from
 the model's parametric memory, without web search or document retrieval, which
 is why the title speaks of recalled rather than retrieved information. The third
 objective is to locate where reliability differs and, as far as the design
@@ -89,17 +89,20 @@ pre-registration, and the study is reported as exploratory throughout.
   correct answer is published.
 \item \emph{The three localisation fixes agencies reach for, tested rather than
   assumed.} Persona framing, native-language prompting and a regionally tuned
-  model are each a procurement or workflow decision. None works, and asking in
-  the country's own language lowers accuracy by $\nnativa$ percentage points,
-  most sharply for the language with the scarcest corpus.
+  model are each a procurement or workflow decision. None of them works, and
+  they fail differently: asking in the country's own language lowers accuracy
+  by $\nnativa$ percentage points, most sharply for the language with the
+  scarcest corpus; the role frame is equivalent to no frame within two
+  percentage points; and the regionally tuned model recalls the binding value no
+  more often than the base model it was tuned from.
 \item \emph{A design that separates who is poorly served from why, and reports
   where it cannot.} Countries are stratified on the UNCTAD developed/developing
   split, the Joshi linguistic-resource taxonomy, and development, so that
   geographic, linguistic and economic explanations can be told apart. Between
-  countries, coverage and development are collinear; within countries, the
-  task-level contrast that suggests a coverage effect at the response level does
-  not survive inference at the country level, and we report the mechanism as
-  not established. We also document that the pre-specified corpus proxy
+  countries, coverage and development are collinear; within countries, what
+  predicts the country-specificity deficit at the country level is development,
+  not the encyclopedic coverage the protocol pre-specified, and the two cannot
+  be separated in this sample. We also document that the pre-specified corpus proxy
   assigns the English Wikipedia to every sample country with English as an
   official language, so that it tracks colonial history rather than corpus size.
 \item \emph{Ground truth adjudicated by code, and what that changes.} Rebuilding

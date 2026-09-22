@@ -28,8 +28,10 @@ it holds on an outcome involving no judge at all: the model becomes markedly
 less likely to produce a checkable number in the first place, and more likely
 to return nothing.
 
-The local-manager persona does not narrow the gap (DiD $\ndid$~pp, permutation
-$p=\npersonap$, equivalent to zero within $\pm2$~pp), consistent with evidence
+The local-manager persona is equivalent to no persona. The
+difference-in-differences is $\ndid$~pp (permutation $p=\npersonap$) and its
+country-level interval sits inside a $\pm2$~pp margin, so this is an
+equivalence result rather than an underpowered null, consistent with evidence
 that expert personas do not improve factual
 accuracy~\citep{zheng2024helpful,mollick2025personas}, and its main effect is a
 small loss ($\npersonamain$~pp). This null carries more weight than a null
@@ -46,23 +48,25 @@ tested it typed into the message rather than installed as a system
 instruction, the channel a public servant in a chat interface has
 (Section~\ref{sec:limits}).
 
-The regional model is the worst performer of all fourteen
-($\delta=\nregdelta$), and it trails its scale-matched peer on the
-Portuguese-language Brazilian prompts it was tuned for ($\nhthreebra$ against
-$\nhthreebrallama$ for Llama~3.1~8B, on 20 cells each; $\nhthreenarrow$~pp
-across the 30 Portuguese prompts), so that reaching for a locally tuned small
-model trades away the scale and frontier training that carry domain accuracy
-without buying back the local knowledge it promises. Three limits bound this:
-the narrow test is small; on the register values alone, re-served on the same
-Portuguese items, Cabra, its base model and Llama~3.1~8B are within a few
-answers of one another (Section~\ref{sec:results:robust}), so the composite
-margin rests on the judged tasks and subcomponents; and the model we could run
-is a community fine-tune of a 7B base, not a commercial regional frontier model
-of the kind an agency might procure. For those the finding is a prediction, and the released protocol
+The regional model buys nothing over the model it was tuned from. On the
+register values, re-served on the same Portuguese items, Cabra returns the value
+in force \ncabsanitycabra\% of the time and its base model
+\ncabsanitybase\%: instruction tuning on Brazilian Portuguese did not improve
+what the model recalls about Brazilian regulation. It also ranks last of the
+fourteen and trails its scale-matched peer on the Portuguese prompts it was
+tuned for ($\nhthreebra$ against $\nhthreebrallama$ for Llama~3.1~8B;
+$\nhthreenarrow$~pp across the 30 Portuguese prompts), but those comparisons run
+on the composite, whose judged subcomponents come from the collection judges,
+and the roster rank compares a 7B model with systems an order of magnitude
+larger. The defensible claim is the narrow one, and it is the one an agency
+needs: downloading a regionally tuned small model does not recover the national
+facts a larger model misses. Two limits bound it. The narrow test is 30 items
+per model, and the model we could run is a community fine-tune of a 7B base, not
+a commercial regional frontier model of the kind an agency might procure. For those the finding is a prediction, and the released protocol
 is the way to test it.
 
-Practitioners deploy all three as fixes; none works, and the one a manager is
-most likely to try first does active damage. For Global South environmental
+Practitioners deploy all three as fixes. One does active damage, one is
+equivalent to doing nothing, and one adds nothing to the model it started from. For Global South environmental
 agencies, no cheap prompt- or model-level workaround substitutes for verifying
 the binding value against the official source.
 
@@ -109,16 +113,24 @@ an official language, which tracks colonial history rather than corpus size. We
 report this because it bears on any study that has used or will use the same
 proxy.
 
-Changing the unit of variation gave a response-level association in the
-predicted direction, with the checks a real effect would pass, and it does not
-survive inference with the country as the unit: clustered by country the
-coefficient has $p=\nhfourclp$, the 25 country-level deficits correlate with
-coverage at $\rho=\nhfourctryrho$ ($p=\nhfourctryp$), and given HDI the
-association is $\nhfourctrypartial$. Across these 25 countries coverage and
-development correlate at $\rho=\nrhocobhdi$, and the design has no lever that
-moves one without the other. We therefore report the coverage account as
-consistent with the data and not established by them, and the
-coverage-or-development question as open.
+Changing the unit of variation buys one result and refuses another. At the
+country level the deficit on country-specific tasks is predicted by development
+($\beta=\nhfourhdialonebeta$, $p=\nhfourhdialoneclp$ clustered;
+$\rho=\nhfourctryrhohdi$, $p=\nhfourctryphdi$ across the 25 deficits) and not,
+at conventional levels, by encyclopedic coverage ($p=\nhfourclp$;
+$\rho=\nhfourctryrho$, $p=\nhfourctryp$). The two correlate at
+$\rho=\nrhocobhdi$ and the design has no lever that moves one without the
+other, so this does not identify development as the operative channel; it says
+that the exposure which clears the threshold is the one the pre-specified
+mechanism was meant to rule out.
+
+The result is also narrower than the gradient it superficially resembles.
+Development does not predict how accurately models answer about a country
+(Section~\ref{sec:results:h1}); it predicts how much worse they answer the
+questions whose answer is a fact about that country. The two are different
+outcomes, and only the second has a country-level association. What remains
+excluded is the language-corpus channel, as it must be for a contrast measured
+entirely in English.
 
 \subsection{The methodological lesson: the key matters more than the sample}
 
@@ -206,9 +218,12 @@ opposite of what a permissive judge would produce. Two residues remain: the four
 non-factual subcomponents of a T1 cell are still the collection judge's, which
 is why the code verdict and not the composite is the primary tier outcome, and
 the extractor's manual audit covered T1 only. A blinded human-expert validation
-of a stratified sample, roughly 150 responses scored by three raters, which the
-released pipeline exports directly, would convert an official-source-anchored
-result into a gold-standard-anchored one.
+of a stratified sample would convert an official-source-anchored result into a
+gold-standard-anchored one. The sample is exported with the release
+(\texttt{code/analysis/export\_human\_validation.py}): 150 responses
+stratified by tier, language and task, three rating sheets carrying the prompt,
+the answer and the official key but not the model, the tier or the machine's
+score, and a key file opened only after the sheets return.
 
 \emph{From a within-country signal to a causal design.} Within countries we
 remove country-level confounding without removing task-by-country confounding,
@@ -247,10 +262,13 @@ the two for all of them, which the per-call provenance we release enables.
 
 \subsection{What this study contributes}
 
-The three fixes practitioners reach for first fail together: the local language
-harms, the persona frame does nothing, and the regionally fine-tuned 7B model is
-the worst performer of fourteen. The methodological result is that in this
-literature the ground-truth key, and the level at which inference is carried,
-matter more than the sample size. And the design separates what 25 countries can
-demonstrate from what they cannot, reporting the second set as open rather than
-as supported.
+The three fixes practitioners reach for first fail together, each in its own
+way: the local language harms, the persona frame is equivalent to no frame, and
+regional tuning at 7B adds nothing to the base model it started from. The
+methodological result is that in this literature the ground-truth key, and the
+level at which inference is carried, matter more than the sample size; changing
+those two, without touching a single response, moved a significant development
+gradient to a null, doubled the language penalty, and turned an established
+corpus mechanism into an open question. And the design separates what 25
+countries can demonstrate from what they cannot, reporting the second set as
+open rather than as supported.

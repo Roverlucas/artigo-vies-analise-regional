@@ -114,6 +114,7 @@ M["india"] = f"{c['por_pais']['IND'][0]:.3f}"
 M["hfourbeta"] = f"{H['interacao_beta']:+.3f}"; M["hfourse"] = f"{H['interacao_se']:.3f}"; M["hfourp"] = pexp(H["interacao_p"]); M["hfourn"] = f"{H['n_respostas']:,}".replace(",", "{,}")
 M["hfourcob"] = f"{H['ajuste_mutuo_cob_beta']:+.3f}"; M["hfourcobp"] = pexp(H["ajuste_mutuo_cob_p"]); M["hfourlang"] = f"{H['ajuste_mutuo_lang_beta']:+.3f}"; M["hfourlangp"] = f"{H['ajuste_mutuo_lang_p']:.2f}"
 M["hfourjcob"] = f"{H['conjunto_cob_beta']:+.3f}"; M["hfourjcobp"] = f"{H['conjunto_cob_p']:.3f}"; M["hfourjhdi"] = f"{H['conjunto_hdi_beta']:+.3f}"; M["hfourjhdip"] = pexp(H["conjunto_hdi_p"]); M["rhocobhdi"] = f"{H['rho_cobertura_hdi']:.2f}"
+M["hfourhdialonep"] = pexp(H["hdi_dep_p_sozinho"])
 M["hfouranglo"] = f"{H['so_anglofonos_beta']:+.3f}"; M["hfouranglop"] = f"{H['so_anglofonos_p']:.3f}"
 M["hfourdep"] = f"{H['acc_dependentes']:.3f}"; M["hfourind"] = f"{H['acc_independentes']:.3f}"; M["hfourdeficit"] = f"{H['acc_independentes']-H['acc_dependentes']:.3f}"
 M["hfoursite"] = f"{c['h4_rho_sitelinks']:+.2f}"; M["hfoursitep"] = f"{c['h4_p_sitelinks']:.3f}"; M["hfourpartial"] = f"{c['h4_parcial_sitelinks_hdi']:+.2f}"; M["hfourpartialp"] = f"{c['h4_p_parcial']:.2f}"; M["hfourwiki"] = f"{c['h4_rho_wikilang']:+.2f}"; M["hfourwikip"] = f"{c['h4_p_wikilang']:.2f}"
@@ -180,6 +181,13 @@ M["floorbyctry"] = pp(K["F"]["floor_by_country"]["mean_pp"]); M["floorbyctryp"] 
 M["hthreebyctry"] = pp(K["F"]["h3_by_country"]["mean_pp"]); M["hthreebyctryp"] = pexp(K["F"]["h3_by_country"]["wilcoxon_p"]); M["hthreebyctryneg"] = str(K["F"]["h3_by_country"]["neg"])
 M["hthreenarrow"] = pp(K["F"]["h3_narrow_by_prompt"]["mean_pp"]); M["hthreenarrowp"] = pexp(K["F"]["h3_narrow_by_prompt"]["wilcoxon_p"]); M["hthreenarrowneg"] = str(K["F"]["h3_narrow_by_prompt"]["neg"]); M["hthreenarrown"] = str(K["F"]["h3_narrow_by_prompt"]["n"])
 M["rhocilo"] = f"{K['G']['ci25'][0]:+.2f}"; M["rhocihi"] = f"{K['G']['ci25'][1]:+.2f}"; M["rhoprecilo"] = f"{K['G']['ci15'][0]:+.2f}"; M["rhoprecihi"] = f"{K['G']['ci15'][1]:+.2f}"
+M["hfourctryrhohdi"] = f"{K['A']['country_level']['rho_hdi']:+.2f}"; M["hfourctryphdi"] = f"{K['A']['country_level']['p_hdi']:.3f}"
+M["htwonoempty"] = pp(K["J"]["excl_empty"]["pp"], 2); M["htwonoemptyn"] = str(K["J"]["excl_empty"]["n"]); M["htwonoemptyp"] = pexp(K["J"]["excl_empty"]["p"])
+M["emptycells"] = f"{K['J']['empty_cells']:,}".replace(",", "{,}"); M["emptycellspt"] = f"{K['J']['empty_cells']:,}".replace(",", ".")
+M["didpre"] = pp(K["L"]["did_pp"]); M["didprep"] = f"{K['L']['perm_p']:.2f}"
+for t, w in (("T1", "one"), ("T2", "two"), ("T3", "three"), ("T4", "four"), ("T5", "five")):
+    if "sd_country" in K["K"].get(t, {}):
+        M["sdctry" + w] = f"{K['K'][t]['sd_country']:.2f}"; M["sdmodel" + w] = f"{K['K'][t]['sd_model']:.2f}"
 M["ttwoyearsgn"] = f"{K['I']['years_gn']:.1f}"; M["ttwoyearsgs"] = f"{K['I']['years_gs']:.1f}"; M["ttwospreadgn"] = f"{K['I']['spread_gn']:.2f}"; M["ttwospreadgs"] = f"{K['I']['spread_gs']:.2f}"
 for lg in ("en", "es", "pt", "hi"):
     M["empty" + lg] = f"{K['H'][lg]['pct']:.1f}"; M["empty" + lg + "n"] = str(K["H"][lg]["empty"])

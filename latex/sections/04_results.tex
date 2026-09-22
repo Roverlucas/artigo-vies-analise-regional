@@ -70,11 +70,17 @@ Portuguese-speaking countries $\nhthreelus$ against $\nhthreeluslama$
 ($\delta=\nhthreelusdelta$, $n=60$ each); paired by prompt with the replicates
 averaged, Cabra loses on \nhthreenarrowneg{} of the \nhthreenarrown{}
 Portuguese prompts, by $\nhthreenarrow$~pp (Wilcoxon $p=\nhthreenarrowp$).
-Regional instruction tuning at the 7B level does not recover what scale and
-frontier training give, even in the language and country it was tuned for. A
-serving check reported in Section~\ref{sec:results:robust} confirms that the
-model was queried with its published chat template and compares it with its
-own base model on the same Portuguese items.
+Two readings of this have to be separated, and only one of them is a
+finding. That a 7B model trails frontier systems an order of magnitude larger is
+a statement about scale. The pre-specified question was narrower and is
+answerable: does tuning a base model on Brazilian Portuguese improve what it
+recalls about Brazil? Re-served on the same 30 Portuguese items, Cabra and the
+base model it was fine-tuned from return the register value at
+\ncabsanitycabra\% and \ncabsanitybase\% (Section~\ref{sec:results:robust}).
+Regional instruction tuning at this scale does not improve register-value
+recall over its own base, and the composite margin against Llama~3.1~8B comes
+from the judged tasks and subcomponents rather than from the values the code
+checks.
 
 \begin{table}[h]
 \centering
@@ -165,7 +171,12 @@ it: it is not driven by any one country (leave-one-out $\nloocmin$ to
 $\nloocmax$~pp, all significant), by any one model ($\nloommin$ to
 $\nloommax$~pp), or by outlying cells (5\% trimmed $\ntrim$~pp, $p=\ntrimp$);
 it holds under every weighting of the composite; and it appears in every task
-and under both persona conditions.
+and under both persona conditions. Nor is it silence. Native-language prompts
+return an empty response more often than English ones, so the penalty could in
+principle be a count of answers that never came; dropping every cell whose
+stored response was empty leaves it at $\nhtwonoempty$~pp
+($n=\nhtwonoemptyn$ pairs, $p=\nhtwonoemptyp$), marginally larger rather than
+smaller. The penalty is what the model says, not what it fails to say.
 
 Two further checks answer the objections a sceptical reader raises first. The
 first is that language-model judges might penalise non-English prose for style
@@ -235,6 +246,15 @@ Hindi (4)      & IND                     & $\nnativahi$ & $\nnativahip$  & \nnpa
 \end{tabular}
 \end{table}
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.94\linewidth]{../figures/fig2_h2_pairs.pdf}
+\caption{Each point is one (prompt, model) cell scored in English and in the
+country's native language, replicates averaged. Points below the diagonal are
+cells where the native-language answer scored worse.}
+\label{fig:h2-pairs}
+\end{figure}
+
 \subsection{H6: persona does not narrow the geographic gap}
 \label{sec:results:h6}
 
@@ -271,8 +291,7 @@ code-adjudicated outcomes (all of T1 and the resolved part of T2 and T3), Global
 North countries return the register value $\ncodegn$ of the time and Global
 South countries $\ncodegs$, a gap of $\ncodegap$~pp with a country-level
 bootstrap interval of $\ncodegapci$ (permutation of the tier label with the
-country as the unit, $p=\ncodegapp$) and a pooled odds ratio of $\ncodeor$
-$\ncodeorci$. On the composite, the secondary outcome, the ten Global North
+country as the unit, $p=\ncodegapp$). On the composite, the secondary outcome, the ten Global North
 countries average $\naccgn$ against $\naccgs$ for the fifteen Global South
 countries, a gap of $\ntiergap$ percentage points whose 95\% bootstrap interval
 over countries is $\ntiergapci$~pp (permutation $p=\ntiergapperm$). The
@@ -289,11 +308,16 @@ report the gap where the wave cannot explain it: within the extension alone
 $\ntiergapwave$~pp $\ntiergapwaveci$, and on the pre-specified fifteen (three
 Global North against twelve) $\ntiergappre$~pp $\ntiergappreci$, a point
 estimate of the same size on a sample too small to make it significant by
-permutation ($p=\ntiergapprep$). Coverage is uneven across models, so we also
-restrict the estimate to the \ngapbalprompts{} of \ngapbaltotal{} English
-prompts that every model answered; the point estimate is the same
-($\ngapbal$~pp) and the interval, on far fewer cells, includes zero
-($\ngapbalci$, $p=\ngapbalp$).
+permutation ($p=\ntiergapprep$). Coverage is uneven across models, and that
+unevenness is the gap's weakest point. Restricting the estimate to the
+\ngapbalprompts{} of \ngapbaltotal{} English prompts that every one of the 14
+models answered leaves the point estimate unchanged ($\ngapbal$~pp) and the
+interval, on far fewer cells, includes zero ($\ngapbalci$, $p=\ngapbalp$). The
+composite gap's significance therefore depends on the unbalanced cells: the
+effect does not reverse or shrink when coverage is equalised, but this sample
+cannot demonstrate it on a balanced design. The code-adjudicated contrast above,
+which pools tasks rather than prompts, is the one that holds with the country as
+the unit.
 
 \emph{Where the gap lives.} The decomposition by task was not pre-specified and
 is exploratory. Re-estimating the contrast on each task separately, with the
@@ -310,21 +334,31 @@ register value are $\norrawone$ of the Global North's ($\nortgn\%$ against
 $\nortgs\%$), with a country-level interval of $\norrawoneci$ and a
 country-level permutation $p=\norrawonep$; the conditional estimate is
 $\nortone$ $\nortoneci$. On policy instruments (T4) the raw ratio is
-$\norrawfour$ $\norrawfourci$; on health-evidence synthesis (T3), where the
+$\norrawfour$ $\norrawfourci$ and on health-evidence synthesis (T3), where the
 answer is an international estimate rather than a national one, it rises to
-$\norrawthree$ $\norrawthreeci$; and on open recommendation (T5), the one task
-with no register value to get right, the gap is absent ($\norrawfive$,
-$\norrawfiveci$). The T1 ratio holds its direction under the two objections
-its composition invites (Section~\ref{sec:results:t1}): setting aside the three
-Global South countries with no national standard the conditional estimate is
-$\nortexcl$ $\nortexclci$, and on the pre-specified fifteen it is $\nortpre$
-$\nortpreci$. T4 is the one task in the table scored entirely by the panel, so
-its ratio could carry a judge's own ignorance of Southern instruments as well
-as the model's; the code-only estimates are the ones free of that. The gap is
-concentrated rather than weak: the composite dilutes it by averaging tasks
-where it is present with a task where it does not exist, and the per-task
-intervals at the country level are wide enough that only the pooled code-only
-contrast above is established with the country as the unit.
+$\norrawthree$ $\norrawthreeci$. Open recommendation (T5) is at ceiling in both
+tiers ($\nortfivegn\%$ against $\nortfivegs\%$), so no contrast is estimable
+there and the task is reported without an odds ratio. The T1 ratio holds its
+direction under the two objections its composition invites
+(Section~\ref{sec:results:t1}): setting aside the three Global South countries
+with no national standard the conditional estimate is $\nortexcl$
+$\nortexclci$, and on the pre-specified fifteen it is $\nortpre$ $\nortpreci$.
+T4 is the one task in the table scored entirely by the panel, so its ratio
+could carry a judge's own ignorance of Southern instruments as well as the
+model's; the code-only estimates are the ones free of that.
+
+Two readings of this table have to be kept apart. The point estimates order
+themselves by how much the answer depends on a fact about the country, which is
+the pattern the paper's argument predicts, and the conditional model returns
+narrow intervals for each of them. But the conditional interval is an interval
+for a within-country, within-model contrast: the country intercepts alone have
+a standard deviation of $\nsdctryone$ on T1 and $\nsdctryfour$ on T4
+(Supplementary Material), so the countries are far from exchangeable and a
+reader who wants a statement about countries needs the country-level interval.
+Every one of those includes~1 (Figure~\ref{fig:or-task}). We therefore report
+the per-task ordering as a pattern of point estimates and the pooled
+code-adjudicated contrast as the finding: the gap is real in the aggregate and
+its concentration on country-specific tasks is exploratory.
 
 \begin{table}[h]
 \centering
@@ -334,8 +368,12 @@ by task (exploratory decomposition). The outcome is factual accuracy $\ge
 resolvable part of T2 and T3), the panel or judge score otherwise, so for T5,
 which has no register value, it is the judge's factual rating. Conditional OR
 from a binomial mixed model with crossed random intercepts for country and
-model; raw OR with its 95\% country-level bootstrap interval and the
-permutation $p$ of the tier label with the country as the unit.}
+model, an interval for a within-country, within-model contrast; raw OR with its
+95\% country-level bootstrap interval and the permutation $p$ of the tier label
+with the country as the unit. The two differ by roughly a factor of five in
+width because the country intercepts are far from exchangeable (variance
+components in Supplementary Material). Every country-level interval includes~1;
+the decomposition is exploratory and is read as a pattern of point estimates.}
 \label{tab:tier-by-task}
 \scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -348,10 +386,20 @@ T1 standard (national value)      & \nortonegn\% & \nortonegs\% & \nortone & \no
 T4 instruments (national)         & \nortfourgn\% & \nortfourgs\% & \nortfour & \norrawfour\ $\norrawfourci$ & \norrawfourp \\
 T2 local datum (national value)   & \norttwogn\% & \norttwogs\% & \norttwo & \norrawtwo\ $\norrawtwoci$ & \norrawtwop \\
 T3 health synthesis (international) & \nortthreegn\% & \nortthreegs\% & \nortthree & \norrawthree\ $\norrawthreeci$ & \norrawthreep \\
-T5 recommendation (no register value) & \nortfivegn\% & \nortfivegs\% & \nortfive & \norrawfive\ $\norrawfiveci$ & \norrawfivep \\
+T5 recommendation (no register value) & \nortfivegn\% & \nortfivegs\% & \multicolumn{3}{l}{at ceiling in both tiers; no contrast estimable} \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.86\linewidth]{../figures/fig1_or_by_task.pdf}
+\caption{Global South versus Global North odds of returning the register value,
+by task, under the two levels of inference. Blue: raw odds ratio with its 95\%
+country-level bootstrap interval. Grey: conditional odds ratio from the binomial
+mixed model. T5 is omitted because both tiers are at ceiling.}
+\label{fig:or-task}
+\end{figure}
 
 At $n=25$, Spearman $\rho(\text{accuracy},\text{HDI})=+\nrho$ does not reach
 conventional significance ($p=\nrhop$; Mann-Kendall $p=\nrhomkp$) and stays
@@ -367,11 +415,20 @@ disadvantage is established as a difference between groups, while its shape
 across the development range remains open. Under Bonferroni-Holm across the
 primary family $\{$H1-gradient, H4, H6$\}$, no test rejects its null.
 
-The country ordering retains large axis-orthogonal heterogeneity (Supplementary
-Material): India ($\nindia$, Global South) tops all countries, Indonesia and
-South Africa outrank most of the Global North, and Canada and France sit low.
-The disadvantage is a tier difference layered over substantial country-specific
-variation, and that heterogeneity is part of why the gradient does not resolve.
+The country ordering retains large axis-orthogonal heterogeneity
+(Figure~\ref{fig:countries}): India ($\nindia$, Global South) tops all
+countries, Indonesia and South Africa outrank most of the Global North, and
+Canada and France sit low. The disadvantage is a tier difference layered over
+substantial country-specific variation, and that heterogeneity is part of why
+the gradient does not resolve.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.86\linewidth]{../figures/fig3_country_dotplot.pdf}
+\caption{Mean composite accuracy per country on English prompts, ordered.
+Dashed lines mark the two tier means, whose difference is the composite gap.}
+\label{fig:countries}
+\end{figure}
 
 \subsection{H4: corpus representation is not established}
 \label{sec:results:h4}
@@ -403,25 +460,33 @@ largest coefficient, dropping T5 or T4 leaves it intact, and a placebo
 inverting the labels returns the exact mirror image.
 
 That response-level $p$-value is not the evidence, because the interaction
-varies only between 25 countries. With standard errors clustered by country
-the same coefficient has $p=\nhfourclp$; reduced to its 25 country-level
-deficits, coverage correlates with the deficit at $\rho=\nhfourctryrho$
-($p=\nhfourctryp$) and at $\rho=\nhfourctrypartial$ ($p=\nhfourctrypartialp$)
-once HDI is partialled out. Entering HDI$\times$dependence alongside
-coverage$\times$dependence, neither survives with clustered errors (coverage
-$\beta=\nhfourjcob$, $p=\nhfourjcobclp$; HDI $\beta=\nhfourjhdi$,
-$p=\nhfourjhdiclp$), and within the nine anglophone countries, where the
-language of the question is the same by construction, the coverage coefficient
-is $\nhfouranglo$ with $p=\nhfouranglclp$ on nine clusters. The
+varies only between 25 countries, and at the country level the two candidate
+exposures separate. With standard errors clustered by country, coverage carries
+$p=\nhfourclp$; development carries $\beta=\nhfourhdialonebeta$ with
+$p=\nhfourhdialoneclp$. The 25 country-level deficits say the same: the
+deficit correlates with HDI at $\rho=\nhfourctryrhohdi$
+($p=\nhfourctryphdi$) and with coverage at $\rho=\nhfourctryrho$
+($p=\nhfourctryp$), falling to $\rho=\nhfourctrypartial$
+($p=\nhfourctrypartialp$) once HDI is partialled out. Entered together the two
+are uninformative, because they correlate at $\rho=\nrhocobhdi$ and neither
+survives (coverage $\beta=\nhfourjcob$, $p=\nhfourjcobclp$; HDI
+$\beta=\nhfourjhdi$, $p=\nhfourjhdiclp$); within the nine anglophone countries,
+where the language of the question is the same by construction, the coverage
+coefficient is $\nhfouranglo$ with $p=\nhfouranglclp$ on nine clusters. The
 language-corpus proxy entered alongside coverage is null at every level
 ($\beta=\nhfourlang$, $p=\nhfourlangp$), as predicted for responses elicited in
 English.
 
-The within-country design therefore delivers a suggestive association and no
-established mechanism. The direction is the one the coverage account predicts,
-the classification checks behave as they should, and none of it reaches
-significance once the country is the unit of inference. We report H4 as not
-established, and the coverage-or-development question as open.
+What survives with the country as the unit is therefore the development
+interaction, not the coverage one. The result is narrower than it sounds, and
+it is not the gradient of H1: a country's development level does not predict how
+accurately models answer about it overall (Section~\ref{sec:results:h1}), but it
+does predict how much worse they answer the questions whose answer is a fact
+about that country. Coverage points the same way and does not clear the
+threshold, and the two cannot be separated in a sample where they correlate at
+$\nrhocobhdi$. We report the pre-specified corpus mechanism as not established,
+the development interaction as the one country-level mechanism result that
+clears $0.05$, and the choice between the two exposures as open.
 
 \begin{table}[h]
 \centering
@@ -443,6 +508,7 @@ T1 versus T5 (purest contrast)     & $\nhfourtonevsfive$ & $\nhfourtonevsfivep$ 
 Excluding T5 (ceiling at 99.7\%)   & $\nhfournotfive$ & $\nhfournotfivep$ & \\
 Excluding T4 (most interpretive)   & $\nhfournotfour$ & $\nhfournotfourp$ & \\
 Placebo: labels inverted           & $\nhfourplacebo$ & $\nhfourp$ & \\
+HDI$\times$dependence alone        & $\nhfourhdialonebeta$ & $\nhfourhdialonep$ & $\nhfourhdialoneclp$ \\
 With HDI$\times$dependence: coverage & $\nhfourjcob$ & $\nhfourjcobp$ & $\nhfourjcobclp$ \\
 \quad HDI                          & $\nhfourjhdi$ & $\nhfourjhdip$ & $\nhfourjhdiclp$ \\
 \bottomrule
@@ -549,10 +615,12 @@ code.
 \subsection{Robustness}
 \label{sec:results:robust}
 
-The two supported effects were tested against seven attacks and survive all of
-them; the development gradient stays below the pre-specified $0.55$ under every
-one (its highest value, $\nloorhomaxabs$, is a leave-one-out re-estimate). Full
-outputs are in Supplementary Material.
+The three supported effects were tested against seven attacks. The
+native-language penalty and the recall floor survive all of them; the tier gap
+survives five and is marginal under two, which the next paragraph states
+exactly. The development gradient stays below the pre-specified $0.55$ under
+every one (its highest value, $\nloorhomaxabs$, is a leave-one-out re-estimate).
+Full outputs are in Supplementary Material.
 
 \emph{No single country, and no weighting, carries the result.}
 Leave-one-country-out re-estimation holds the composite tier gap in
@@ -566,20 +634,23 @@ average (within-cell SD $\nrepsd$~pp), so the $\nnativasigned$~pp language
 penalty, averaged over 839 pairs, stands roughly ten standard errors from the
 noise two replicates leave unresolved.
 
-\emph{The tier gap survives a distribution-free test and two model families.}
-A permutation test shuffles the North/South labels among the 25 countries ten
-thousand times and counts how often chance alone produces a gap this large; it
-assumes nothing about the distribution and treats the country as the
-independent unit. Chance clears the observed gap $\ntiergappermpct\%$ of the
-time ($p=\ntiergapperm$). A Bayesian hierarchical model with crossed random
-intercepts agrees ($\beta=\nbayes$, 94\% HDI $[\nbayeslo,\nbayeshi]$,
-$P(\beta<0)=\nbayesp$), while a frequentist mixed model returns the same
-magnitude and sign but leaves it marginal ($\beta=\nmixedbeta$, $p=\nmixedp$),
-because it charges the large between-country heterogeneity to the error term.
-Two of three tests clear zero and all three agree on magnitude, so we report
-the gap as supported and specification-sensitive, with an E-value of $\nevalue$
-at the point estimate and $\nevaluelim$ at the confidence limit nearest the
-null~\citep{vanderweele2017evalue}; a country-level confounder of modest
+\emph{Where the tier gap is established and where it is marginal.}
+Specifications of one dataset are not independent tests, so we state each and
+what it assumes rather than counting them. The finding is the pooled
+code-adjudicated contrast, where no judge contributes and the country is the
+unit ($\ncodegap$~pp, $\ncodegapci$, permutation $p=\ncodegapp$). On the
+composite, a permutation test over the 25 country means gives
+$p=\ntiergapperm$ and a Bayesian hierarchical model with crossed random
+intercepts agrees on sign and magnitude ($\beta=\nbayes$, 94\% HDI
+$[\nbayeslo,\nbayeshi]$, $P(\beta<0)=\nbayesp$), while the frequentist mixed
+model, which is the specification that models the unbalanced design correctly,
+leaves it marginal ($\beta=\nmixedbeta$, $p=\nmixedp$) because it charges the
+large between-country heterogeneity to the error term, and the balanced-prompt
+subset gives $p=\ngapbalp$. The gap is therefore supported on the code-only
+outcome and on the composite by permutation, and marginal under the mixed model
+and on the balanced subset. Its E-value is $\nevalue$ at the point estimate and
+$\nevaluelim$ at the confidence limit nearest the
+null~\citep{vanderweele2017evalue}: a country-level confounder of modest
 strength would suffice to explain it away.
 
 \emph{The gap follows the UNCTAD partition, not the HDI partitions.}
@@ -587,10 +658,13 @@ Re-estimated under three development-based partitions of the same 25
 countries, the gap is significant under UNCTAD and non-significant under every
 split drawn on HDI (Supplementary Material). This is consistent with the null
 HDI gradient, since a split on HDI should not then be expected to produce a
-gap. One reading is that position in the world system rather than income is
-the operative variable~\citep{quijano2000coloniality,mohamed2020decolonial};
-the reading is post hoc, and we claim the gap for the North/South distinction
-as conventionally drawn, not as a general statement about development.
+gap, and it concerns the accuracy level rather than the country-specificity
+deficit, where development is the exposure that does clear the threshold
+(Section~\ref{sec:results:h4}). One reading of the first is that position in
+the world system rather than income separates the accuracy
+level~\citep{quijano2000coloniality,mohamed2020decolonial}; the reading is post
+hoc, and we claim the gap for the North/South distinction as conventionally
+drawn, not as a general statement about development.
 
 \emph{What the null gradient does and does not exclude.} Simulating 25-country
 samples at known correlations, the design has $\npower\%$ power at
@@ -615,10 +689,11 @@ extractor (Supplementary Material). \ncabrasanitysentence{}
 \label{sec:results:summary}
 
 Table~\ref{tab:hyp-summary} maps each hypothesis to its finding, the candidate
-mechanism, and an explicit evidence status. Three effects are supported and
-survive every robustness attack in Section~\ref{sec:results:robust}; two
-pre-specified expectations are not met; and the corpus mechanism is suggestive
-within countries and not established at the country level.
+mechanism, and an explicit evidence status. Three effects are supported, two of
+them under every attack in Section~\ref{sec:results:robust} and the tier gap
+under five of seven; two pre-specified expectations are not met; and the
+pre-specified corpus mechanism gives way to a development interaction that the
+design cannot separate from coverage.
 
 \begin{table}[!ht]
 \centering
@@ -637,12 +712,12 @@ Hypothesis & Finding & Mechanism \\
 \multicolumn{3}{@{}l}{\emph{Supported}} \\
 \addlinespace[2pt]
 H2 language        & $\nnativasigned$~pp; Hindi $\nnativahi$    & language corpus \\
-H3 regional model  & $\delta=\nregdelta$, worst of 14 & scale over tuning \\
-H1 tier gap        & $\ncodegap$~pp code-only; $\ntiergap$~pp composite  & tier \\
+H3 regional model  & no gain over its own base (\ncabsanitycabra\% vs \ncabsanitybase\%) & tuning adds nothing at 7B \\
+H1 tier gap        & $\ncodegap$~pp code-only, country as unit  & tier \\
 \midrule
-\multicolumn{3}{@{}l}{\emph{Not established}} \\
+\multicolumn{3}{@{}l}{\emph{Established at country level, exposure not separable}} \\
 \addlinespace[2pt]
-H4 within country  & $\rho=\nhfourctryrho$ ($p=\nhfourctryp$) at country level & coverage or development \\
+H4 within country  & HDI$\times$dependence $\nhfourhdialonebeta$ ($p=\nhfourhdialoneclp$); coverage $p=\nhfourclp$ & development or coverage \\
 \midrule
 \multicolumn{3}{@{}l}{\emph{Not supported}} \\
 \addlinespace[2pt]
@@ -658,10 +733,13 @@ H5 open/closed     & $\nhfive$~pp for closed       & access type \\
 
 \vspace{4pt}
 \begin{minipage}{0.75\linewidth}
-\footnotesize\emph{Note.} H2's mechanism rests on three native languages and is
-descriptive. H1's tier gap is concentrated in tasks whose answer depends on a
-national fact; the per-task decomposition is exploratory. H4 within country
-points in the predicted direction and does not reach significance with the
-country as the unit.
+\footnotesize\emph{Note.} H2 is significant with the country as the unit
+($p=\nhtwoctp$) and marginal with the model as the unit ($p=\nhtwomwp$,
+\nhtwomneg/14 negative); its mechanism rests on three native languages and is
+descriptive. H1's composite gap is marginal under the mixed model and on the
+balanced-prompt subset; the per-task decomposition is exploratory and every
+country-level interval includes~1. H3 is the narrow contrast against the base
+model; the roster rank compares 7B with frontier systems. H4's development
+interaction predicts the country-specificity deficit, not the accuracy level.
 \end{minipage}
 \end{table}

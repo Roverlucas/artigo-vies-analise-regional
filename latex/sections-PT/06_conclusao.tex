@@ -13,24 +13,26 @@ pontuado contra gabarito ancorado em fontes primárias oficiais, por código
 sempre que a resposta é um valor de registro e pela média de um painel de
 juízes de três fornecedores nos demais casos.
 
-Os remédios que um órgão pode tentar não funcionam, e o mais intuitivo sai
+Nenhum dos remédios que um órgão pode tentar funciona, e o mais intuitivo sai
 pela culatra. Perguntar no idioma do próprio país reduz a acurácia em
 $\nnativa$~pontos percentuais, de forma mais acentuada para o hindi, o idioma
-menos representado nos corpora de treinamento; uma persona de gestor local não
-estreita a lacuna e é equivalente a nenhuma persona em até 2~pp; e o modelo de
-7B com ajuste regional é o mais fraco dos catorze sistemas. A acurácia é também
+menos representado nos corpora de treinamento, e a penalidade não é artefato de
+prompts sem resposta. Uma persona de gestor local equivale a nenhuma persona,
+em até dois pontos percentuais. O ajuste de instrução regional em 7B devolve o
+valor em vigor com a mesma frequência do modelo-base de que partiu. A acurácia é
 mais baixa na recordação de um valor vinculante, a tarefa que um gestor menos
-pode se permitir errar. Uma lacuna de tier Norte/Sul Global persiste e é
-estruturada: nos desfechos que nenhum juiz toca, os países do Sul Global
-devolvem o valor do registro $\ncodegap$~pp menos vezes, e a lacuna diminui à
-medida que a resposta depende menos de um fato específico do país,
-desaparecendo na única tarefa sem valor de registro a acertar. O gradiente de
-desenvolvimento não alcança significância e seu intervalo inclui tanto o zero
-quanto o limiar pré-especificado, de modo que relatamos uma diferença entre
-grupos que conseguimos demonstrar e uma forma ao longo da faixa de
-desenvolvimento que não conseguimos. Sobre o mecanismo, o desenho dentro do
-país aponta para a cobertura do país e não a estabelece quando o país é a
-unidade de inferência, e não reivindicamos mais do que isso.
+pode se permitir errar, e um terço das respostas erradas cita um degrau da
+própria escada oficial do país em vez de um número inventado. Uma lacuna
+Norte/Sul persiste nos desfechos que nenhum juiz toca, em que os países do Sul
+Global devolvem o valor do registro $\ncodegap$~pp menos vezes com o país como
+unidade. Sua concentração nas tarefas cuja resposta é um fato nacional é um
+padrão de estimativas pontuais: todo intervalo por tarefa no nível do país
+inclui~1. O gradiente de desenvolvimento não alcança significância e seu
+intervalo inclui tanto o zero quanto o limiar pré-especificado. Sobre o
+mecanismo, o que prevê o déficit de especificidade do país no nível do país é o
+desenvolvimento e não a cobertura enciclopédica, e os dois são colineares demais
+em 25 países para serem distinguidos; o canal de corpus do idioma está
+excluído.
 
 Para os órgãos ambientais do Sul Global, a mensagem prática é de cautela. As
 saídas de LLMs sobre padrões vinculantes e dados medidos devem ser tratadas

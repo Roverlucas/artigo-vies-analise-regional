@@ -1,5 +1,6 @@
-% Bloco unico, como a Elsevier exige, e ate 250 palavras. A abertura pela cena
-% do gestor e deliberada; ver a nota em sections/00_abstract.tex.
+% Bloco unico, como a Elsevier exige, e ate 250 palavras. Cada "fix" declarado
+% com o status que a inferencia no nivel do pais sustenta (parecer de painel,
+% rodada 2, P0).
 \begin{abstract}
 
 Um gestor ambiental municipal pergunta a um modelo de linguagem qual é o padrão
@@ -8,21 +9,21 @@ corresponde ao registro oficial. Propomos um protocolo para essa conferência e
 relatamos o que ele encontra. As respostas são pontuadas contra registros
 oficiais, por código sempre que a resposta correta é um valor publicado e por um
 painel de juízes de três fornecedores nos demais casos, em 25 países, 14
-configurações de acesso e quatro idiomas (\ncellspt{} células pontuadas). As três
-mitigações que um órgão consegue implantar sem construir nada falham. Perguntar
-no idioma do próprio país reduz a acurácia em \nnativa{} pontos percentuais
-(modelo misto com intercepto aleatório por país, $p=\nhtwomixedcountryp$) e torna
-o modelo \nverifdiffabs{} pontos menos propenso a devolver um valor conferível
-contra o registro; declarar o papel oficial não muda nada ($p=\npersonap$); e um
-modelo de 7B com ajuste regional fica em último entre os catorze. A acurácia é
-mais baixa na tarefa com consequência administrativa, recordar o valor
-vinculante (\ntasktoneshort{} contra \nfloorrestshort{} para síntese e
-recomendação). Uma lacuna Norte/Sul de $\ntiergap$~pp persiste (permutação por
-país, $p=\ntiergapperm$), é maior nos desfechos que nenhum juiz toca e se
-concentra nas tarefas cuja resposta é um fato nacional; no padrão nacional a
-razão de chances é \norrawone{}, com intervalo por país de $\norrawoneci$. Um
-mecanismo de cobertura de corpus não se estabelece quando a inferência é feita
-no nível do país. O protocolo se transfere a qualquer domínio regulado cuja
-resposta correta seja publicada.
+configurações de acesso e quatro idiomas (\ncellspt{} células pontuadas).
+Nenhuma das três mitigações que um órgão consegue implantar sem construir nada
+funciona, e a mais intuitiva prejudica. Perguntar no idioma do próprio país
+reduz a acurácia em \nnativa{} pontos percentuais (modelo misto com intercepto
+aleatório por país, $p=\nhtwomixedcountryp$; negativa em \nhtwocneg{} de nove
+países) e torna o modelo \nverifdiffabs{} pontos menos propenso a devolver
+qualquer valor conferível contra o registro. Declarar o papel oficial equivale a
+não declarar nada, em até dois pontos percentuais. O ajuste regional de
+instrução em 7B não melhora o modelo-base de que partiu. A acurácia é mais baixa
+na tarefa com consequência administrativa, recordar o valor vinculante
+(\ntasktoneshort{} contra \nfloorrestshort{} para síntese e recomendação), e um
+terço das respostas erradas cita um valor da própria escada oficial do país. Os
+países do Sul Global devolvem o valor do registro \ncodegapabs{} pontos menos
+vezes que os do Norte com o país como unidade; as estimativas pontuais são
+maiores onde a resposta é um fato nacional, mas todo intervalo por tarefa
+inclui~1.
 
 \end{abstract}
