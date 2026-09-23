@@ -1,0 +1,952 @@
+[
+  {
+    "score": 6.5,
+    "score_rationale": "The paper has a genuine, well-instrumented contribution — a register-anchored audit protocol, three agency-deployable fixes tested, and an unusually honest separation of what 25 countries can and cannot show — and the prose is largely readable for a GIQ audience. It loses points because the through-line is repeatedly interrupted: the Results open with a long scoring/reliability apparatus before the reader has been told what the study found, the H1 section runs the gradient, the tier gap, the task decomposition and the country ordering together, and several numbers (ICC, E-value, Cliff's delta, the ladder odds ratio) arrive without the one clause that would tell a public-administration reader why they are being shown it.",
+    "weaknesses": [
+      {
+        "severity": "major",
+        "location": "Results, opening (04_results.tex, sample note and Section 4.1)",
+        "problem": "The Results begin with a boxed sample note, then a subsection on sample and scoring, then a subsection on accuracy by model, before the reader is told the headline finding. A public-administration reader arriving from the Introduction has been promised three tested fixes and a tier gap; instead they get judge severity means, ICC(2,1) vs ICC(2,3), and a self-favouring check. The thread from 'we asked whether models answer as reliably for the Global South' to 'here is the answer' snaps at the first page of Results.",
+        "fix": "Move the one-sentence headline (none of the three fixes works; the tier gap holds on code-adjudicated outcomes; the gradient does not) to the top of Section 4, and push the judge-severity and ICC material into the reliability subsection where it is already repeated."
+      },
+      {
+        "severity": "major",
+        "location": "Section 4.6 (H1), paragraphs on the composite gap and the balanced-prompt subset",
+        "problem": "The reader is walked through the code-adjudicated gap, then the composite gap, then leave-one-out, then the EU-as-one-unit re-estimate, then the extension-wave re-estimate, then the pre-specified-fifteen re-estimate, then the balanced-prompt subset, then the Bayesian and mixed-model specifications in Section 4.10. Each is a defensible robustness check, but they arrive as a list of numbers with no sentence telling the reader which one is the finding and which are the defences. The thread 'is there a tier gap?' is answered five times and the reader cannot tell which answer to keep.",
+        "fix": "State once, before the list, that the finding is the pooled code-adjudicated contrast with the country as the unit, and label each subsequent estimate explicitly as a robustness check on that finding rather than as a parallel result."
+      },
+      {
+        "severity": "major",
+        "location": "Section 4.6, 'Where the gap lives' and Table 3",
+        "problem": "The per-task odds-ratio table is the most interesting result in the paper for a practitioner — the gap scales with how much the answer is a national fact — but it is introduced as 'exploratory' and then immediately hedged with two levels of inference, a factor-of-five width difference, and the statement that every country-level interval includes 1. A reader who does not already know what a conditional versus a raw odds ratio is will not know what the table is claiming. The thread from 'where does reliability differ' to 'here is where' is buried under the statistical caveat.",
+        "fix": "Lead the subsection with the plain-language claim (the gap is largest on the binding national standard and absent on the open recommendation), then present the two intervals as the reason the claim is a pattern rather than a test."
+      },
+      {
+        "severity": "minor",
+        "location": "Section 4.4 (H2), paragraph beginning 'Two further checks answer the objections'",
+        "problem": "The verifiability outcome is introduced as 'a binary outcome no judge touches' without first telling the reader why a judge-free outcome is needed here. The reason — that a language-model judge might penalise non-English prose for style — appears only in the following clause. The reader is shown a number before being told what question it answers.",
+        "fix": "Reverse the two clauses so the objection is stated before the test that answers it."
+      },
+      {
+        "severity": "minor",
+        "location": "Section 4.10 (Robustness), E-value sentence",
+        "problem": "The E-value is reported as 'a country-level confounder of modest strength would suffice to explain it away' without saying what an E-value is or what scale 'modest' is on. A GIQ reader will not know whether 1.4 is modest or 4.0 is modest.",
+        "fix": "Add one clause giving the E-value and its confidence-limit value and stating the scale (an E-value of X means a confounder would need to be associated with both tier and accuracy by a risk ratio of X to explain the gap)."
+      },
+      {
+        "severity": "minor",
+        "location": "Section 4.2 (Accuracy by model), Cliff's delta sentence",
+        "problem": "Cliff's delta is defined in the text ('the probability that a randomly drawn answer from one group beats one from the other, rescaled to [-1,+1]') but the definition arrives after the number it explains, and the same statistic recurs in Sections 4.3 and 4.4 without re-anchoring. The reader has to hold a definition across three sections.",
+        "fix": "Move the definition to the first use and refer back to it by name thereafter."
+      },
+      {
+        "severity": "minor",
+        "location": "Section 4.6, final paragraph on the country ordering",
+        "problem": "The country dot-plot is introduced with 'India tops all countries, Indonesia and South Africa outrank most of the Global North, and Canada and France sit low' but the reader is not told what to do with this. It is the explanation for why the gradient fails while the tier gap holds, but that connection is made only in the Discussion.",
+        "fix": "Add one sentence at the end of the paragraph stating that this heterogeneity is why a rank correlation over 25 countries does not resolve the gradient."
+      },
+      {
+        "severity": "minor",
+        "location": "Section 3.7 (Ground truth), T2 paragraph",
+        "problem": "The T2 key is described as accepting any reported year within ±20%, then the window is described as 'not tier-neutral by construction' with two numbers (accepted years and value spread) that are not explained. The reader is told the window is biased and then told the bias does not matter, without being shown why.",
+        "fix": "State in one clause that the ±20% band is wide enough that the tier difference in series length does not translate into a tier difference in admissible values, which is what the two spread numbers show."
+      }
+    ],
+    "opportunities": [
+      {
+        "what": "Add a short 'How to read this paper' paragraph at the end of the Introduction that states the three findings in plain language and names the section where each is established.",
+        "payoff": "A public-administration reader can then follow the Results as confirmation of a stated claim rather than as a sequence of tests to be assembled."
+      },
+      {
+        "what": "In the Discussion, add a short subsection addressed directly to the agency procurement decision: given that none of the three fixes works, what should an environmental agency actually do with an LLM today?",
+        "payoff": "The paper's practical payoff is currently stated as a caution ('treat outputs as drafts checked against the gazette'); a paragraph naming the workflow that follows from the findings would make the contribution usable by the practitioner half of the GIQ readership."
+      },
+      {
+        "what": "Consolidate the four separate statements of the tier gap (code-adjudicated, composite, balanced subset, mixed model) into a single short paragraph with a small table, and move the rest to Supplementary Material.",
+        "payoff": "The reader keeps one number and one interval for the headline geographic finding, which is what the abstract and conclusion already promise."
+      },
+      {
+        "what": "In Section 4.6, add one sentence translating the per-task odds ratios into the manager's terms (the gap is largest where the answer is a value published in the country's own gazette and absent where the answer is generic advice).",
+        "payoff": "Connects the exploratory decomposition to the recall-floor finding in Section 4.3, so the two results read as one argument rather than two."
+      }
+    ],
+    "readability": "A public-administration reader can follow the Introduction, the task taxonomy and the Discussion, which are written for them and are the strongest parts of the paper. They will lose the thread in the Results. The opening of Section 4 front-loads scoring apparatus (judge severity means, ICC(2,1) vs ICC(2,3), a self-favouring check) before any finding is stated, so the reader does not know what the section is about until Section 4.2. Section 4.6 then runs the tier gap, the development gradient, the per-task decomposition and the country ordering together, with five re-estimates of the same gap in sequence and no sentence marking which is the finding. The H2 section is the best-organised in the paper and shows what the rest could be: a claim, then the objections, then the tests that answer them. The Discussion recovers the thread and is readable throughout, but by then the reader has had to assemble the argument themselves.",
+    "verdict": "A sound and unusually honest study whose contribution is real but whose Results section needs to be re-ordered so that a public-administration reader is told the finding before being shown the machinery that produced it.",
+    "lente": "narrativa",
+    "auditor": "deepseek_v3"
+  },
+  {
+    "score": 6.5,
+    "score_rationale": "The study is methodologically serious and unusually honest about its own limits, and its central finding — that asking in the national language makes answers worse — is exactly the kind of counter-intuitive, decision-relevant result GIQ exists to publish. But the Results section is written for a methods reader rather than a public-administration one: the headline numbers arrive wrapped in mixed-model, permutation, ICC and E-value machinery that is never translated into what a manager or a programme officer would do differently, and several tables cannot be read without the methods section open beside them.",
+    "weaknesses": [
+      {
+        "severity": "critical",
+        "location": "Results, H1 (Section 4.6) and Table 4",
+        "problem": "The paper's central geographic claim is presented through two competing inferential frames — a conditional odds ratio from a mixed model and a raw country-level odds ratio — and the reader is told the two 'differ by roughly a factor of five in width' without being told which one to believe or what either means in plain terms. The sentence 'the conditional interval is an interval for a within-country, within-model contrast' is the only gloss, and it is not enough for a reader who does not already know what a random intercept does. A public-administration reader will come away unable to say whether the North/South gap is real.",
+        "fix": "Add two plain sentences after Table 4: 'The conditional estimate answers: within a given country and a given model, how much more often does the North return the value? The raw estimate answers: across the 25 countries as they actually are, how much more often? The paper's claim is the second; the first is reported only to show the pattern is not an artefact of which countries were sampled.'"
+      },
+      {
+        "severity": "critical",
+        "location": "Abstract and Results, H2 (Section 4.4)",
+        "problem": "The abstract's headline sentence — 'Asking in the country's own language lowers accuracy by X percentage points' — is stated without the qualifier that this is a composite score on a [0,1] scale whose five subcomponents are never named in the abstract, and without saying what a percentage-point drop means for a manager. A reader cannot tell whether 8 pp is trivial or catastrophic.",
+        "fix": "In the abstract, replace 'lowers accuracy by X percentage points' with 'lowers the study's composite answer-quality score by X points on a 0–100 scale (roughly the difference between a correct and an incorrect regulatory citation)'. In Section 4.4, add one sentence translating the penalty into the task: 'On T1 this is the difference between naming the standard in force and naming a superseded one.'"
+      },
+      {
+        "severity": "major",
+        "location": "Methods, Measures (Section 3.11)",
+        "problem": "The composite is introduced as 'five pre-specified subcomponents ... factual accuracy (0.30), contextual completeness (0.25), citation quality (0.15), calibration (0.15) and hallucination absence (0.15)' with no definition of any of them. 'Calibration' and 'hallucination absence' are terms of art; a public-administration reader will not know what a model scoring 0.7 on calibration means, and the weights are asserted without justification.",
+        "fix": "Add one sentence per subcomponent defining what a high and a low score look like in this domain, e.g. 'Calibration: whether the model's stated confidence matches its accuracy — a model that says \"the standard is 15\" with no hedge scores low if 15 is wrong.'"
+      },
+      {
+        "severity": "major",
+        "location": "Results, H4 (Section 4.7) and Table 5",
+        "problem": "Table 5 reports a 'coverage × task dependence' interaction with a placebo row and a 'purest contrast' row, but the table caption does not say what a positive coefficient means in substantive terms, and the text's explanation ('greater coverage, smaller deficit on country-dependent tasks') is buried in the caption rather than the prose. The reader is asked to interpret a sign on an interaction term with no worked example.",
+        "fix": "Add a sentence before the table: 'Read the coefficient as: for each unit more corpus coverage a country has, its answers to country-specific questions improve by β relative to its answers to generic questions. A positive β is the corpus hypothesis; a zero β means coverage does not help where it should.'"
+      },
+      {
+        "severity": "major",
+        "location": "Results, H6 (Section 4.5)",
+        "problem": "The equivalence test is reported as 'the country-level bootstrap 90% interval of the DiD is X pp, inside both the ±5 pp margin of the hypothesis and a stricter ±2 pp margin, so that the frame is equivalent to no frame within 2 pp on the gap.' This is the correct statistical move but it is stated in a way that will read to a practitioner as 'we proved nothing happened', when the honest reading is 'we can rule out an effect larger than 2 pp'. The distinction matters for the policy implication.",
+        "fix": "Rewrite as: 'We can rule out any effect of the manager frame on the North/South gap larger than 2 percentage points. Smaller effects remain possible; the frame does not close the gap.'"
+      },
+      {
+        "severity": "major",
+        "location": "Results, H1 (Section 4.6), the paragraph beginning 'At n=25, Spearman ρ...'",
+        "problem": "The gradient result is reported as a null with a confidence interval that 'includes both zero and the threshold', and the reader is left to infer what the study can and cannot say. The sentence 'the data neither establish the gradient nor exclude one of the size we committed to' is the right idea but is buried after three statistics.",
+        "fix": "Lead the paragraph with the plain statement: 'We cannot show that model accuracy rises with national development. The data are consistent both with no relationship and with a relationship as strong as the one we pre-specified; the sample is too small to separate them.'"
+      },
+      {
+        "severity": "minor",
+        "location": "Methods, Data collection (Section 3.10)",
+        "problem": "'No seed was sent to any provider, an earlier draft having stated otherwise, so the two replicates at temperature 0.3 bound, rather than remove, within-model variance.' The clause 'an earlier draft having stated otherwise' is a correction note that belongs in a changelog, not the methods; it interrupts the reader and signals internal revision history.",
+        "fix": "Delete the clause and write: 'No seed was sent to any provider, so the two replicates at temperature 0.3 bound, rather than remove, within-model variance.'"
+      },
+      {
+        "severity": "minor",
+        "location": "Results, H2 (Section 4.4), the sentence 'Nor is it silence.'",
+        "problem": "'Nor is it silence' is a rhetorical fragment that a non-native reader may parse as a claim about the data rather than a transition. The following sentence does the work; the fragment adds opacity.",
+        "fix": "Replace with: 'The penalty is not simply a count of empty responses.'"
+      },
+      {
+        "severity": "minor",
+        "location": "Results, H1 (Section 4.6), the sentence 'The country ordering retains large axis-orthogonal heterogeneity'",
+        "problem": "'Axis-orthogonal heterogeneity' is jargon that will stop a public-administration reader cold. The point is simple: countries do not line up neatly by tier.",
+        "fix": "Rewrite: 'Countries do not line up neatly by tier: India tops the ranking, Indonesia and South Africa outrank most of the Global North, and Canada and France sit low.'"
+      },
+      {
+        "severity": "minor",
+        "location": "Results, H4 (Section 4.7), the sentence 'the pattern across classifications is the one a real effect would produce'",
+        "problem": "This is an assertion of robustness that asks the reader to trust the pattern without being told what the pattern is. The following clause lists the checks but not their results.",
+        "fix": "State the results: 'the purest contrast (T1 vs T5) gives the largest coefficient (β=X), dropping T5 or T4 leaves it intact (β=Y, Z), and inverting the labels returns the mirror image (β=−X).'"
+      },
+      {
+        "severity": "minor",
+        "location": "Results, Summary (Table 6)",
+        "problem": "The summary table's 'Mechanism' column contains entries like 'tier' and 'development or coverage' that are not mechanisms in any explanatory sense — they restate the finding. A reader looking for the causal story will not find it here.",
+        "fix": "Either rename the column 'Candidate explanation' and fill it with the actual candidate (e.g. 'training-corpus representation of the country'), or drop the column and let the text carry the mechanism discussion."
+      }
+    ],
+    "opportunities": [
+      {
+        "what": "Add a one-page 'What a manager should do' box after the Discussion, translating each supported finding into a concrete practice: do not switch to the national language expecting improvement; do not add a role frame expecting improvement; verify any recalled standard against the national instrument because a third of wrong answers cite a real but superseded value.",
+        "payoff": "GIQ's practitioner readership will use the paper if it tells them what to do; without this box the findings stay in the benchmark literature."
+      },
+      {
+        "what": "In the T1 ladder analysis, report the modal wrong answer per country alongside the correct value, so the reader can see the specific confusion (Brazil: 15 vs 17; UK: 2040 target vs 20; US: 12.0 vs 9.0).",
+        "payoff": "This is the single most actionable finding in the paper — models know the ladder but not which rung binds — and it is currently compressed into one sentence."
+      },
+      {
+        "what": "Report the native-language penalty separately for the three tasks that carry administrative consequence (T1, T2, T4) versus the two that do not (T3, T5), since the paper's argument is about consequential recall.",
+        "payoff": "If the penalty is concentrated on the consequential tasks, the policy implication is much sharper; if it is uniform, that is also informative and currently unstated."
+      },
+      {
+        "what": "State explicitly, in the Discussion, which of the three tested mitigations an agency could deploy today and which require procurement or developer capacity, since the paper's framing is 'fixes an agency can deploy without building anything'.",
+        "payoff": "The framing promises a deployability distinction that the Results never cash out; making it explicit closes the loop between the abstract's promise and the findings."
+      }
+    ],
+    "readability": "A public-administration reader can follow the argument's spine — the question, the five tasks, the three findings, the two nulls — because the paper is unusually disciplined about stating what each test does and does not show. Where it loses them is the Results: the H1 and H4 sections are written in the register of a statistics seminar, with mixed-model coefficients, permutation p-values, ICCs and E-values arriving faster than they can be translated into what a country's environmental agency would observe. The tables compound this: Table 4 in particular presents two odds ratios per task without telling the reader which one answers the question they care about, and Table 5's interaction coefficient is interpretable only if the reader already knows how to read one. The writing is often harder than the idea requires — 'axis-orthogonal heterogeneity' for 'countries do not line up by tier', 'the conditional interval is an interval for a within-country, within-model contrast' for 'this estimate holds the country fixed' — and these are the passages where a GIQ reader will put the paper down. The fix is not to remove the statistics but to lead each result with its plain-language meaning and let the statistics follow as support.",
+    "verdict": "A methodologically careful and unusually honest study whose central finding is genuinely useful to GIQ's readership, held back from a higher score by a Results section that reports its statistics before it reports what they mean.",
+    "lente": "didatica",
+    "auditor": "deepseek_v3"
+  },
+  {
+    "score": 6.5,
+    "score_rationale": "The study is unusually honest about its own fragility and the ground-truth-key contribution is genuinely useful to GIQ's readership, but the manuscript is written for a methods audience rather than a public-administration one, and the headline claims are hedged so heavily that a busy reader cannot tell from the abstract or the results what the paper actually establishes. It is solid-with-work for this venue, not yet among its better papers.",
+    "weaknesses": [
+      {
+        "severity": "critical",
+        "location": "Abstract and Results (H1, H2, H4)",
+        "problem": "The paper's central claims are stated in a register that a public-administration reader cannot decode. The abstract reports a native-language penalty with a mixed-model p-value and a 'verifdiff' figure, then immediately reports that the tier gap's per-task intervals all include 1 and that the development gradient is null. A reader finishes the abstract unable to say what the paper found. The Results compound this: H1 is 'a tier gap that holds, a gradient that does not', H4 is 'not established', H6 is an equivalence result, and the summary table lists three supported, one partially supported, three unsupported and one descriptive. The through-line is a methodological caution, not a finding about regulatory information, and the abstract does not say so.",
+        "fix": "Rewrite the abstract to lead with the one sentence a practitioner needs ('none of the three prompt- or model-level fixes an agency can deploy improves accuracy, and asking in the national language makes it worse'), then state the tier gap as the second finding with its country-level interval, and demote the gradient and mechanism nulls to a single closing clause. In the Results, open each hypothesis subsection with a plain-language verdict sentence before the statistics."
+      },
+      {
+        "severity": "critical",
+        "location": "Methods, Measures and Analytical strategy",
+        "problem": "The scoring architecture is described in a way that only a reader who already knows the design can follow. The composite has five subcomponents; code replaces one of them (factual accuracy, weight 0.30) on T1-T3; the other four remain judge-scored; T4 is entirely panel-scored; T5 retains the collection judge; the collection judge differs by wave and is confounded with tier; the panel mean is the operative reliability quantity; and the primary tier outcome is the binary code verdict, not the composite. This is at least six distinct scoring regimes, introduced across three subsections, and the reader is asked to hold all of them while reading every subsequent number. The sentence 'For T1 that judge is the collection judge, so the composite on T1 still carries the judge-and-tier confound described below in 0.70 of its weight' is the point at which a non-specialist stops reading.",
+        "fix": "Add a single table at the start of the Measures subsection with one row per task (T1-T5) and columns for: what the answer is, which instrument decides the factual verdict, which instrument decides the remaining subcomponents, and whether the cell enters the primary tier outcome. Then delete the prose that currently reconstructs this table across three paragraphs."
+      },
+      {
+        "severity": "major",
+        "location": "Results, H1 (tier gap) and Robustness",
+        "problem": "The tier gap is reported as supported on the code-only outcome and by permutation, marginal under the mixed model, and non-significant on the balanced-prompt subset, with an E-value the authors themselves describe as modest. The manuscript is transparent about this, but it never tells the reader what to conclude. A practitioner reading 'the gap is real in the aggregate' in the Results and 'marginal under the mixed model and on the balanced subset' in Robustness, with an E-value of modest strength, cannot tell whether to act on it. The paper's own framing ('a tier difference we can show') is stronger than the evidence assembled for it.",
+        "fix": "State explicitly, once, in the Results and again in the Discussion, which specification the authors regard as primary and why, and what a reader should do with the others. If the code-only country-level contrast is the finding, say that the composite gap is reported for completeness and should not be cited as independent support."
+      },
+      {
+        "severity": "major",
+        "location": "Results, H2 (native-language penalty)",
+        "problem": "The H2 result is the paper's strongest and most actionable, but it is buried under robustness checks that a reader cannot rank. The subsection reports a Wilcoxon test, a mixed model with country intercepts, a mixed model with model intercepts, a country-level t-test, a model-level Wilcoxon, leave-one-out by country and by model, a trimmed estimate, a no-empty-response estimate, a judge-free verifiable-value outcome, a code-verdict outcome, a back-translation fidelity check, and a split by scoring instrument. Eleven specifications of one effect, presented as a flat list, with no statement of which is the pre-specified test and which are robustness. The reader cannot tell whether the headline number is the 839-cell Wilcoxon or the country-level mixed model.",
+        "fix": "Lead with the pre-specified test and its estimate, then group the remaining checks under two or three labelled headings ('not driven by one country or model', 'not an artefact of silence or of the judge', 'not an artefact of translation'), each with one sentence and one number. Move the full list to the supplement."
+      },
+      {
+        "severity": "major",
+        "location": "Results, H4 and Discussion, mechanism",
+        "problem": "The mechanism section reports that the pre-specified corpus proxy is null, that a post-hoc coverage proxy is null at country level, that development clears the threshold, that the two are collinear at rho=0.86 and cannot be separated, and that the pre-specified proxy is itself defective because it assigns the English Wikipedia to nine countries. This is four findings and one instrument defect in two pages, and the reader is left with no mechanism at all. The Discussion then says the result 'is narrower than the gradient it superficially resembles' and that 'the exposure which clears the threshold is the one the pre-specified mechanism was meant to rule out' — which is a finding, but it is stated as a caveat.",
+        "fix": "Restructure H4 around the one positive result: development predicts the country-specificity deficit, coverage does not clear the threshold, and the two cannot be separated in this sample. State the proxy defect as a separate, clearly labelled methodological note with its implication for other studies, rather than as a fifth result inside the mechanism subsection."
+      },
+      {
+        "severity": "minor",
+        "location": "Methods, Sample expansion",
+        "problem": "The manuscript reports the 25-country sample throughout, with the pre-specified 15 in the supplement, and repeatedly notes that no pre-specified conclusion is revised on the extension alone. But the extension added six Global North countries and four native-pair countries, which is exactly the composition that would move a North/South contrast and an H2 estimate. The reader is told the extension is a robustness check but is not told, in the Methods, what the pre-specified sample alone concluded on each hypothesis. That information is in the supplement, but the Methods should not require the reader to leave the paper to learn whether the headline results survive on the locked sample.",
+        "fix": "Add one sentence to the Sample expansion subsection stating, for each of H1, H2, H3 and H6, whether the pre-specified 15-country result agrees in sign and significance with the 25-country result."
+      },
+      {
+        "severity": "minor",
+        "location": "Methods, Ground truth",
+        "problem": "The T1 registry is described as having no human-validator field and no per-document hash, with verification 'documentary, by the authors, against the primary text'. The Discussion then reports that two entries (UK, Bangladesh) were wrong until an external reader caught them, and that the Bangladesh correction moved a Global South country's accuracy from 0.39 to a lower value. The Methods do not flag that the registry is known to have contained errors, and the reader meets this only in the Discussion.",
+        "fix": "Add one sentence to the Ground truth subsection noting that two entries were corrected during review and that the released registry carries a content hash so that any reported number can be tied to a registry version."
+      },
+      {
+        "severity": "minor",
+        "location": "Throughout",
+        "problem": "The prose is dense with hedges that accumulate into unreadability. 'The point estimates order themselves by how much the answer depends on a fact about the country, which is the pattern the paper's argument predicts, and the conditional model returns narrow intervals for each of them. But the conditional interval is an interval for a within-country, within-model contrast...' is one sentence pair that a reader must parse three times. Similar constructions recur in every Results subsection.",
+        "fix": "Pass over the Results and Discussion with a single rule: one claim per sentence, and no sentence that contains both a finding and its caveat. Move caveats to the following sentence."
+      }
+    ],
+    "opportunities": [
+      {
+        "what": "Report the H2 penalty separately for the three tasks that carry a register value (T1, T2, T4) and the two that do not (T3, T5), using the code verdict where available.",
+        "payoff": "The paper's practical claim is that the language penalty falls hardest where the answer is a checkable national fact. The data to test this are already collected and scored; the split would convert a composite-level average into a task-level statement an agency can act on."
+      },
+      {
+        "what": "Report the tier gap and the H2 penalty separately for the four access tiers already in the roster (open-weight frontier, open-weight mid, open-weight small/regional, closed-accessible, closed-frontier).",
+        "payoff": "An agency choosing a model is the audience for this paper, and the roster already spans the procurement space. If the gap is concentrated in one tier, that is a procurement finding; if it is uniform, that is a stronger statement about the class of systems."
+      },
+      {
+        "what": "Report the country-level accuracy ranking (Figure 3) alongside each country's HDI and UNCTAD classification in a single table, with the country-specificity deficit as a second column.",
+        "payoff": "The paper's most striking observation is that India tops the ranking while Canada and France sit low. A reader can see this in the figure but cannot see whether the outliers share any covariate. The table costs nothing and makes the heterogeneity legible."
+      },
+      {
+        "what": "State explicitly, in the Discussion, what the released protocol allows a regulator to do that the paper did not do: run the same task suite against a candidate model on their own country's register before procurement.",
+        "payoff": "This is the transferable contribution the paper claims in the Introduction but never demonstrates in the Discussion. One paragraph naming the steps (select tasks, build the registry from the national instrument, run the code scorer) would make the protocol usable rather than merely described."
+      }
+    ],
+    "readability": "A public-administration reader will follow the Introduction, the task taxonomy and the H2 result, and will lose the thread in the Methods and never recover it. The Introduction is well built: it states the domain, the stakes, the three gaps and the three objectives in plain language, and the task table is the clearest object in the paper. The Methods then introduce six scoring regimes, two sample waves, a judge panel with a confounded collection judge, a defective corpus proxy and a pre-specified-then-extended design, without a single orienting table, and the reader who does not already know what a mixed model with crossed random intercepts is will not be able to evaluate any number that follows. The Results are honest to a fault: every finding is immediately qualified, and the qualifications are longer than the findings. The Discussion recovers somewhat, particularly the section on the three failing remedies, which is the part a practitioner will read and cite. The Conclusion is clear. The paper would be substantially more readable if the Methods opened with a design table, the Results led each hypothesis with a plain verdict sentence, and the abstract stated one finding rather than five.",
+    "verdict": "A methodologically careful and unusually honest study whose transferable contribution (the auditing protocol and the ground-truth-key lesson) is real, but which is written for a machine-learning audience and hedges its own findings so heavily that a GIQ reader cannot tell from the abstract or the Results what the paper establishes.",
+    "lente": "orientador",
+    "auditor": "deepseek_v3"
+  },
+  {
+    "score": 7,
+    "score_rationale": "The paper is unusually disciplined about the gap between what its numbers show and what it claims: the tier gap is reported on the judge-free code outcome with the country as the unit, the per-task decomposition is explicitly labelled exploratory with every country-level interval including 1, the pre-specified corpus mechanism is declared not established, and the gradient is reported as a null rather than spun. It loses points because the central H2 claim rests on three languages and a single Hindi country, the abstract and conclusion still state the language penalty more flatly than the body's own caveats license, and the results section is dense enough that a GIQ reader will lose the through-line before reaching the honest qualifications.",
+    "weaknesses": [
+      {
+        "severity": "critical",
+        "location": "Abstract and Conclusion vs. Section 4.4 (H2)",
+        "problem": "The abstract states 'Asking in the country's own language lowers accuracy by \\nnativa{} percentage points' and the conclusion repeats it as a headline finding, but the body's own evidence is that the effect is carried by three languages, that Spanish and Portuguese penalties are indistinguishable despite very different corpora, that the Hindi penalty is confounded with regression to the mean in a single country, and that the mechanism is 'descriptive' with three languages. The abstract's 'negative in \\nhtwocneg{} of nine countries' is the only hedge, and it is buried. A reader who reads only the abstract takes away a generalisable multilingual claim the design cannot support.",
+        "fix": "Add one clause to the abstract and conclusion naming the scope: 'across the three native languages tested (Spanish, Portuguese, Hindi)' and note that the mechanism rests on three languages."
+      },
+      {
+        "severity": "major",
+        "location": "Section 4.4 (H2), the code-verdict paragraph",
+        "problem": "The paper reports that the Portuguese penalty on the code verdict is significant while the Spanish one is not, and that the overall code-adjudicated penalty is significant, then explains that the code subset 'conditions on the model having produced a value in both languages and selects away the severest failure mode.' This is a selection-on-the-outcome argument that cuts against the reported code-verdict numbers, yet those numbers are still presented as supporting the penalty. The reader is told the subset is biased and then shown its estimate as evidence.",
+        "fix": "State explicitly which estimate is the primary H2 outcome (the judge-free verifiable-value rate, which is not conditioned on producing a value) and demote the code-verdict subset to a secondary, selection-limited check."
+      },
+      {
+        "severity": "major",
+        "location": "Section 4.6 (H1), composite gap paragraph",
+        "problem": "The composite tier gap is reported as \\ntiergap pp with a bootstrap interval and permutation p, then immediately qualified: the balanced-prompt subset includes zero, the mixed model is marginal, and the E-value is \\nevalue at the point estimate and \\nevaluelim at the confidence limit. The paragraph still opens by presenting the gap as established and only later concedes it is 'marginal under two' specifications. The ordering lets a reader absorb the claim before the caveat.",
+        "fix": "Lead the paragraph with the code-adjudicated contrast as the finding and present the composite gap as a secondary outcome whose significance depends on unbalanced cells, rather than the reverse."
+      },
+      {
+        "severity": "major",
+        "location": "Section 3.3 (Sample expansion) and throughout Results",
+        "problem": "The sample was extended from 15 to 25 countries after observing the initial results, and the manuscript reports the 25-country sample throughout while stating that no pre-specified conclusion is revised on the extension alone. But the extension adds six Global North references and four native-pair countries, which is exactly the composition that would move a North/South gap and an H2 penalty. The paper reports the pre-specified-15 recomputation in the supplement but does not, in the main text, state whether the headline H2 and tier-gap point estimates are larger or smaller on the locked 15. A reader cannot tell whether the extension strengthened or manufactured the effects.",
+        "fix": "Add one sentence to the Results sample note giving the pre-specified-15 point estimates for the two headline effects alongside the 25-country ones."
+      },
+      {
+        "severity": "minor",
+        "location": "Section 4.4 (H2), translation audit",
+        "problem": "The back-translation audit reports 90/90 fidelity on country and requested quantity, and the H2 restriction to faithful prompts is reported as unchanged. But the audit was run by language models on language-model translations, and the paper elsewhere is careful that model judges carry biases. The audit is treated as settling the translation objection without the same scepticism applied to the scoring judges.",
+        "fix": "Add a clause noting the audit is model-performed and therefore bounds, rather than eliminates, the translation-quality objection."
+      },
+      {
+        "severity": "minor",
+        "location": "Section 4.6 (H1), Table 3 caption and text",
+        "problem": "The table reports conditional and raw odds ratios that 'differ by roughly a factor of five in width,' and the text explains this is because country intercepts are far from exchangeable. The explanation is correct but arrives after the numbers, and a public-administration reader will not know which column to trust. The caption says the country-level interval 'is the honest measure' but the table still leads with the conditional column.",
+        "fix": "Reorder the table columns so the raw country-level estimate and interval come first, and move the conditional column to the right with a one-line gloss."
+      },
+      {
+        "severity": "minor",
+        "location": "Section 3.9 (Measures), duplication rules",
+        "problem": "The paper reports that 21.9% of (model, prompt, replicate) keys have more than one stored answer and that the first in run-file order enters the analysis, with a sensitivity check reported in the supplement. Choosing the first stored answer is an analytic choice made after seeing that duplicates exist, and the text says the rule 'was fixed on methodological grounds and does not depend on the result' without showing that the alternative rule leaves the headline effects intact in the main text.",
+        "fix": "Move the \\ndupchange and \\ndupmean sensitivity numbers into the main text sentence that states the rule."
+      }
+    ],
+    "opportunities": [
+      {
+        "what": "Report the H2 penalty separately for the two prompt types where the official instrument is in the prompt language (Brazil, Portugal, Spanish-speaking countries) versus where it is not (India, whose standards are published in English).",
+        "payoff": "The paper already notes that the Hindi condition asks in a language the official text does not use. Splitting the penalty this way would let the reader see whether the effect is about the user's language or about the language of the register, which is the mechanism question the paper raises and cannot currently answer."
+      },
+      {
+        "what": "Present the verifiable-value rate (the judge-free outcome) as the primary H2 outcome throughout, with the composite penalty as secondary.",
+        "payoff": "This outcome involves no judge, is not conditioned on the model producing a value, and is the one the paper itself says 'settles the point.' Making it primary would align the headline claim with the strongest evidence and remove the selection concern in the code-verdict subset."
+      },
+      {
+        "what": "Add a per-task breakdown of the H2 penalty to the existing Table 2, showing the penalty on T1 and T2 separately from T3-T5.",
+        "payoff": "The paper claims the penalty 'appears in every task' but does not show it. Since the recall floor is the administratively consequential finding, showing whether the language penalty compounds it on the same tasks would connect the two headline results."
+      },
+      {
+        "what": "Report the tier gap and the H2 penalty on the pre-specified 15 countries in the main results tables, not only the supplement.",
+        "payoff": "Given that the extension was post hoc and added mostly Global North countries, showing the locked-sample estimates alongside the 25-country ones in the main text would let a reader judge the extension's contribution directly rather than trusting the statement that no conclusion is revised."
+      }
+    ],
+    "readability": "A public-administration reader can follow the argument, but only with effort, and the paper makes that effort harder than it needs to. The introduction and discussion are well written and the stakes are clear. The results section is where the reader will struggle: it is organised by hypothesis number (H2, H6, H1, H4, H5) rather than by finding, so a reader must hold the hypothesis list in mind while reading, and the H1 section in particular runs the tier gap, the gradient, the per-task decomposition, the balanced-subset caveat, the E-value, and the UNCTAD-versus-HDI comparison together in a way that makes it hard to see which claim is the finding and which is the qualification. The paper is admirably honest about what it cannot show, but the honesty is often placed after the claim rather than before it, so a reader skimming will take away stronger conclusions than the body supports. The tables are dense and the conditional-versus-raw odds ratio distinction will lose most readers. A GIQ reader will get the practical message (the three fixes fail, verify against the gazette) but will not easily reconstruct why the tier gap is established and the gradient is not.",
+    "verdict": "A methodologically careful and unusually honest paper whose central multilingual claim is stated more strongly in the abstract than the three-language evidence supports, and whose results section would benefit from being reorganised around findings rather than hypothesis numbers.",
+    "lente": "senior-scientist",
+    "auditor": "deepseek_v3"
+  },
+  {
+    "score": 6,
+    "score_rationale": "The statistical craft is unusually high for this venue — pseudo-replication is explicitly collapsed, the country is used as the unit where the design demands it, judge-free outcomes arbitrate the judge-dependent ones, and the paper openly reports where its own intervals include 1 or zero — but the results section is written for a methods reader rather than a GIQ reader, and several headline numbers (the H2 penalty, the tier gap, the recall floor) are asserted with p-values and intervals whose construction is never explained in the text, so a public-administration scholar cannot verify or even follow the inferential logic without the code.",
+    "weaknesses": [
+      {
+        "severity": "critical",
+        "location": "04_results.tex, Section 4.4 (H2) and Table 2",
+        "problem": "The H2 headline is reported as a Wilcoxon signed-rank test over 839 paired cells, and the text itself concedes that 'that test treats cells as independent, and they are nested in nine countries and fourteen models.' The paper then reports the mixed-model and country-level alternatives, but the abstract-level claim ('native-language prompting lowers mean composite accuracy by X pp, p=...') is the cell-level test, which is anticonservative by construction. The code (freeze_all_effects.py, efeitos()) computes nativa_p = wilcoxon_p(pares) on the pooled pair list with no clustering, so the reported p is the one the text admits is wrong.",
+        "fix": "Promote the country-level (n=9) or mixed-model estimate to the headline number in the text and table, and demote the cell-level Wilcoxon to a supporting line, exactly as the paper already does for the tier gap."
+      },
+      {
+        "severity": "critical",
+        "location": "04_results.tex, Section 4.6 (H1) and Table 3",
+        "problem": "The per-task odds-ratio table reports a 'conditional OR' from a binomial mixed model with crossed random intercepts for country and model, and a 'raw OR' with a country-level bootstrap interval, and states that 'every country-level interval includes 1.' But the table's p column is the permutation p of the tier label with the country as the unit, which is a different test from either OR. A reader cannot tell which of the three numbers is the inferential claim, and the text then says the pooled code-adjudicated contrast 'is the finding' while the table's own intervals do not support any per-task contrast. The conditional OR is also described as 'an interval for a within-country, within-model contrast,' which is not what a public-administration reader will take an odds ratio to mean.",
+        "fix": "Add one sentence to the table caption stating explicitly that the p column belongs to the raw OR, that the conditional OR is a within-country contrast and not a population statement, and that no per-task contrast is claimed as a finding."
+      },
+      {
+        "severity": "major",
+        "location": "04_results.tex, Section 4.3 (recall floor)",
+        "problem": "The recall floor is reported as 'Mann-Whitney p≈0 on cells, Cliff's δ=...' and then as a model-level and country-level Wilcoxon. The cell-level Mann-Whitney pools T1 and T2 against T3–T5 across all models, countries and replicates, which is the same pseudo-replication the paper elsewhere takes pains to avoid; the code (freeze_all_effects.py) computes cliff_piso on the pooled response list with no clustering. The text presents the cell-level test first and the clustered tests as confirmations, inverting the correct order of evidence.",
+        "fix": "Report the model-level and country-level tests as the primary evidence for the floor and move the cell-level Mann-Whitney to a parenthetical, as is done for H2."
+      },
+      {
+        "severity": "major",
+        "location": "04_results.tex, Section 4.4 (H2), 'Nor is it silence' paragraph",
+        "problem": "The sign test on the verifiable-value outcome is computed in robustness_h2.py as a two-sided binomial over discordant pairs only (nz), which is correct, but the text reports it as 'a paired difference of X pp, with the native version worse in Y of Z discordant pairs (sign test p=...)' without saying that the test conditions on discordance. A reader will read the p as a test of the paired difference, which it is not; the paired difference is tested by the Wilcoxon on all pairs, and the two can disagree.",
+        "fix": "State in the text that the sign test is conditional on discordant pairs and is a test of direction, not of the size of the paired difference."
+      },
+      {
+        "severity": "major",
+        "location": "04_results.tex, Section 4.6 (H1), gradient paragraph",
+        "problem": "The power claim ('the design has X% power at ρ=0.55') is computed in robustness_extra.py by simulating bivariate normals and testing with p_from_r, which assumes the Pearson-to-p formula applied to a Spearman rho. For n=25 the Spearman null distribution is not the Pearson one, so the simulated power is approximate and the minimum detectable effect inherits that approximation. The text presents both as if exact.",
+        "fix": "Add 'approximate' to the power and MDE statements, or simulate the Spearman null directly by permuting ranks."
+      },
+      {
+        "severity": "major",
+        "location": "04_results.tex, Section 4.6 (H1), 'Where the gap lives'",
+        "problem": "The T1 odds ratio is reported as holding 'under the two objections its composition invites,' with a conditional estimate excluding the three no-standard countries and a pre-specified-fifteen estimate. Both are conditional ORs from the mixed model, whose interval the paper elsewhere says is a within-country contrast; the text uses them to answer a composition objection about countries, which is a country-level question. The country-level interval for the excluded estimate is not given.",
+        "fix": "Report the country-level bootstrap interval alongside the conditional one for the two robustness estimates, or state that only the conditional estimate is available for them."
+      },
+      {
+        "severity": "minor",
+        "location": "04_results.tex, Section 4.4 (H2), final paragraph",
+        "problem": "The three-way split by scoring instrument (code, panel, collection judge) reports three penalties with three p-values and no multiplicity adjustment, and the text draws a substantive conclusion ('where the language is scarce the model is less likely to return a checkable number at all') from the pattern across them. With three tests on overlapping subsets this is a descriptive pattern presented as a finding.",
+        "fix": "Label the three-way split explicitly as descriptive, as the paper already does for the per-task decomposition."
+      },
+      {
+        "severity": "minor",
+        "location": "04_results.tex, Section 4.6 (H1), final paragraph",
+        "problem": "'Under Bonferroni-Holm across the primary family {H1-gradient, H4, H6}, no test rejects its null' is stated without giving the adjusted p-values or the raw p-values being adjusted. A reader cannot check the claim, and the family definition excludes H2 and H3, which are the supported findings, without saying why.",
+        "fix": "Give the raw and adjusted p-values in a footnote and state the rule by which H2 and H3 are outside the family."
+      },
+      {
+        "severity": "minor",
+        "location": "04_results.tex, Section 4.1 (sample and scoring)",
+        "problem": "The self-favouring check for DeepSeek-V3 reports three numbers ('-0.177' against '-0.123 to -0.160') with no test and no interval, and the conclusion ('it scores its own outputs more harshly') rests on a difference that may be within noise. The same paragraph reports ICC(2,1)=0.56 and ICC(2,3)=0.79 without saying on how many items or with what interval.",
+        "fix": "Add the n and a confidence interval to the ICCs, and either test the self-favouring difference or state it as a descriptive check."
+      }
+    ],
+    "opportunities": [
+      {
+        "what": "Report the H2 penalty and the recall floor with the country as the unit as the headline, and the cell-level tests as supporting, in the same way the tier gap is already handled.",
+        "payoff": "Makes the paper's three supported findings internally consistent in their inferential logic, which is the single largest readability gain available without new data."
+      },
+      {
+        "what": "Add a short 'how to read the numbers' paragraph at the start of Section 4 defining the composite, the code verdict, the panel mean, and the difference between a cell-level and a country-level test.",
+        "payoff": "A GIQ reader who is not a methodologist can then follow the rest of the section; currently the first encounter with Cliff's delta, ICC(2,3) and a conditional odds ratio is unexplained."
+      },
+      {
+        "what": "Move the per-task odds-ratio decomposition (Table 3) to an appendix and keep only the pooled code-adjudicated contrast in the main text.",
+        "payoff": "The decomposition is exploratory, every country-level interval includes 1, and it currently competes for attention with the finding it is meant to support."
+      },
+      {
+        "what": "State the E-value interpretation in plain language next to the tier gap, rather than only in the robustness subsection.",
+        "payoff": "The E-value is the paper's own honest statement of how fragile the gap is; putting it where the gap is first claimed prevents a reader from over-reading the permutation p."
+      },
+      {
+        "what": "Give the pre-specified-fifteen results in the main tables alongside the twenty-five-country results, not only in supplementary material.",
+        "payoff": "The paper's central claim is that the extension does not revise any pre-specified conclusion; showing the two side by side is the cheapest way to make that claim checkable."
+      }
+    ],
+    "readability": "A public-administration reader can follow the argument's shape — models are worse on country-specific facts, worse in the local language, and the North/South gap is real in the aggregate but not a smooth gradient — but will lose the thread repeatedly inside Section 4. The section opens with a sample note dense in notation (ncells, ncodecovtone, ICC(2,1) vs ICC(2,3)) before any result is stated; the H2 subsection runs to five paragraphs of robustness before the reader is told what the finding is; and the H1 subsection alternates between cell-level, country-level, conditional and raw estimates without a stable convention for which number is the claim. The prose is often excellent at the sentence level ('Arithmetic belongs to code') and the qualitative failure modes are vivid, but the inferential apparatus is written for a referee who will read the code, not for a GIQ reader who will not. The fix is editorial, not statistical: lead each subsection with the finding and its unit of inference, and push the specification comparisons to a clearly labelled robustness paragraph.",
+    "verdict": "A statistically careful and unusually honest paper whose findings are defensible but whose results section is written for a methods audience and needs a substantial editorial pass before a GIQ reader can follow it.",
+    "lente": "statistician",
+    "auditor": "deepseek_v3"
+  },
+  {
+    "score": 5,
+    "score_rationale": "The engineering is unusually careful — the substitution rule is stated once and reused, the deduplication and tie-break policies are documented and defended, and the robustness scripts genuinely try to kill the headline finding rather than confirm it. But the code as written contains at least one bug that changes a reported number (the H2 pairing in freeze_all_effects.py drops the replicate index, so the 'matched' comparison is not matched), and the manuscript's central claim rests on a translation-fidelity audit whose decisive downstream test (h2_faithful_subset) is referenced but not present in the reviewed code, leaving the through-line incomplete for a GIQ reader.",
+    "weaknesses": [
+      {
+        "severity": "critical",
+        "location": "code/analysis/freeze_all_effects.py, efeitos(), H2 block (media_por_celula / nat_idx)",
+        "problem": "The H2 pairing collapses replicates by (prompt_id, modelo) and then pairs native against English on (base_prompt, modelo). But the English side is built from `ing`, which is filtered by `'_AP_' in r['prompt_id']`, while the native side is built from all rows. If any native prompt id does not contain '_AP_' (or if the English base id and the native base id differ in any way other than the language suffix), the pair silently fails to match and the pair is dropped rather than flagged. The docstring claims 'celulas CASADAS (modelo, prompt, replicata)' but the code pairs on (prompt, modelo) only — the replicate index is gone. The comment even says replicates are collapsed 'before pairing', which contradicts the docstring's claim that the pairing is on replicate. A reader cannot tell from the output whether n_pares reflects the intended matched design or a silently reduced one.",
+        "fix": "Either restore replicate_idx into the pairing key (and state that the unit is the cell-replicate), or, if collapsing is intended, assert that the set of (base, modelo) keys on the native side is a subset of the English side and print the number of unmatched native cells; also fix the docstring to match the code."
+      },
+      {
+        "severity": "critical",
+        "location": "code/analysis/back_translation_audit.py, module docstring vs. body",
+        "problem": "The docstring says 'O teste decisivo vem depois, em h2_faithful_subset: se o efeito de lingua persiste entre os prompts verificadamente fieis, a traducao nao o explica.' That script is not in the reviewed set, and the audit itself only writes FAITHFUL/DIVERGENT labels. If h2_faithful_subset does not exist or is not run, the manuscript's central claim (H2) is supported only by an audit that classifies prompts, not by the test that the docstring says decides the paper. This is the single largest threat to the paper's through-line.",
+        "fix": "Either include h2_faithful_subset.py in the reviewed code and report its result alongside the audit, or remove the claim from the docstring and downgrade the audit to a descriptive limitation in the manuscript."
+      },
+      {
+        "severity": "major",
+        "location": "code/analysis/score_numeric.py, extract_t1()",
+        "problem": "The context-window logic uses `last_pos(CTX_ANNUAL, before)` and `last_pos(CTX_DAILY, before)` and then compares `pa > pd`. When neither marker appears in `before`, both are -1 and `pa > pd` is False, so the candidate is classified as non-annual. When only a daily marker appears, pd >= 0 and pa = -1, so annual is False — correct. But when an annual marker appears earlier in the sentence and a daily marker appears later (e.g. 'the annual standard is 15, but the 24-hour standard is 35'), the daily marker wins for the first number, which is the opposite of what the comment says ('Um marcador de periodo so descreve o numero de que esta mais perto'). The `after` override sets pa or pd to len(before)+1, which is a sentinel that can tie with a real position; ties are resolved by `>` so annual loses. This can flip T1 verdicts for prompts that mention both averaging periods.",
+        "fix": "Replace the sentinel with a large finite value and use `>=` for the after-window override, or compute a single 'nearest marker' distance for each candidate and compare distances rather than positions."
+      },
+      {
+        "severity": "major",
+        "location": "code/analysis/robustness_h2.py, block 7 (teste de sinais)",
+        "problem": "The sign test computes `p_sinais` as a two-sided binomial tail using `math.comb` over `len(nz)` discordant pairs, but `nz` is built from `dif` which is `a - b` where a is native and b is English. The code then counts `neg = sum(1 for x in nz if x < 0)`, i.e. native worse. That is correct in direction, but the tail sum `range(0, min(neg, len(nz)-neg)+1)` is the standard two-sided exact binomial only when the null is p=0.5 and the test is symmetric; it is, so the formula is fine. The real problem is that `nz` drops ties (`if x`), which is correct for a sign test, but the printed denominator `len(nz)` is then not the number of pairs, and the reader cannot tell how many ties were dropped. More importantly, the block claims to be 'sem juiz nenhum' but T1's `t1_val` is derived from `numeric_scores_T1.jsonl`, which is produced by score_numeric.py — a code extractor, not a judge, so the claim holds; however T2/T3's `fonte == 'code'` is set by export_corrected_scores.py, which only marks a cell 'code' when the code produced a verdict, so the subset is conditioned on the code having resolved the cell. The block acknowledges this in prose but the printed numbers do not carry the conditioning.",
+        "fix": "Print the number of ties dropped and the number of pairs entering the sign test, and add a one-line note in the output that the T2/T3 subset is conditioned on code resolution."
+      },
+      {
+        "severity": "major",
+        "location": "code/analysis/export_corrected_scores.py, main()",
+        "problem": "The tie-break policy averages `composite` and each subcomponent across duplicate rows, but the `score_source` field is then set from the *first* row's key (`r = dict(grupo[0])`), and the code/panel substitution is applied on top of the averaged values. If a cell has one row from the original judge and one from the panel, the averaged composite is a blend, but `score_source` will be 'original' or 'code' depending on which row happened to be first in the file. The docstring says the policy is 'media, nao primeira em ordem alfabetica', but the provenance label still depends on file order. This does not change the composite, but it changes the `fonte` field that robustness_h2.py block 4 uses to partition the sample.",
+        "fix": "Set `score_source` to a value that reflects the blend (e.g. 'mixed' when the group contains rows from more than one source), or compute provenance from the group rather than from grupo[0]."
+      },
+      {
+        "severity": "minor",
+        "location": "code/analysis/freeze_all_effects.py, linhas()",
+        "problem": "The `dedup` branch collapses by (prompt_id, modelo, rep) and averages `v`, but the `trocados` counter is incremented inside the pre-dedup loop, so the printed 'celulas com escore substituido' counts rows, not cells. The manuscript's claim about how many cells were substituted will be off by the duplication factor.",
+        "fix": "Move the counter increment after deduplication, or relabel the printed number as 'rows substituted'."
+      },
+      {
+        "severity": "minor",
+        "location": "code/analysis/robustness_extra.py, duplicadas()",
+        "problem": "The function is called with `acc_base` but never uses it; the duplicate analysis is purely descriptive and does not actually re-run any effect under the alternative policies, despite the docstring saying 'medimos o quanto ela move os efeitos'. The docstring then admits the sensitivity 'exige repontuar cada politica', which contradicts the opening claim. A reader will expect a number and get a paragraph.",
+        "fix": "Either implement the sensitivity by re-weighting the existing scores under each policy, or rewrite the docstring to say the block measures exposure, not effect movement."
+      },
+      {
+        "severity": "minor",
+        "location": "code/analysis/score_numeric.py, extract_deaths()",
+        "problem": "The population guard uses `POP_M.get(iso, 100)` with a default of 100 million. For a country not in POP_M, the ceiling is 1% of 100M = 1M deaths, which is plausible for large countries but not for small ones. The registry covers 25 countries and POP_M covers 24 (UK is listed as 'UK' but the ISO3 in the data may be 'GBR'), so a mismatch would silently apply the default ceiling. This is a guard, not a reported number, but it can flip a verdict from INCORRECT to UNRESOLVED.",
+        "fix": "Assert that every ISO3 in the registry has an entry in POP_M, or derive the ceiling from a registry field rather than a hard-coded table."
+      }
+    ],
+    "opportunities": [
+      {
+        "what": "Report the H2 effect separately for the FAITHFUL subset and the DIVERGENT subset from back_translation_audit.jsonl, using the same matched-cell design as the main analysis.",
+        "payoff": "This is the test the docstring promises and the one a GIQ reviewer will ask for. If the effect persists among faithful prompts, the translation objection is closed; if it does not, the paper's framing must change. Either way the paper becomes defensible."
+      },
+      {
+        "what": "Add a per-language breakdown of the tier gap and the H1 gradient, not just the pooled effect.",
+        "payoff": "A public-administration reader wants to know whether the North-South gap is driven by Hindi, Portuguese, or Spanish, because the policy implication differs. The data already exist; only the aggregation is missing."
+      },
+      {
+        "what": "Report the leave-one-model-out and leave-one-country-out results for H2 alongside the main estimate, in the same table as the point estimate.",
+        "payoff": "The robustness_h2.py script already computes these; surfacing them in the manuscript turns a single number into a defensible range and pre-empts the 'one model drives it' objection."
+      },
+      {
+        "what": "State explicitly, in the methods, that the unit of analysis is the cell (prompt, model, replicate) and that replicates are collapsed by mean, and show the sensitivity to that choice.",
+        "payoff": "The code makes this choice deliberately and defends it in comments; the manuscript should carry the same defense so a reader does not have to reverse-engineer it from the code."
+      }
+    ],
+    "readability": "A public-administration reader can follow the argument's shape — ask in the local language, accuracy drops, and the drop is not explained by country wealth or model choice — but will lose the thread in three places. First, the substitution rule (code for T1/T2/T3, panel for the rest) is stated in code comments and only gestured at in the manuscript; without it the numbers in the tables look arbitrary. Second, the H2 pairing is described as 'matched' but the code pairs on prompt and model only, so a reader who checks will find the description and the implementation disagree. Third, the back-translation audit is presented as the decisive test but its decisive downstream step is not in the reviewed code, so the reader reaches the end of the methods without knowing whether the central claim survived its own hardest test. The prose is otherwise clear and the robustness sections are unusually well motivated; the fix is to move the code's own justifications into the manuscript and to close the H2 audit loop.",
+    "verdict": "A carefully engineered analysis with a genuine bug in the headline pairing and an unfinished decisive test; fix those two and the paper is publishable at GIQ, leave them and a careful reviewer will find both.",
+    "lente": "code-reviewer",
+    "auditor": "deepseek_v3"
+  },
+  {
+    "score": 6,
+    "score_rationale": "The paper is methodologically careful, unusually honest about its own failures, and squarely aimed at a public-administration readership through its framing of deployable agency fixes and official-register ground truth; that earns it a place above the median GIQ submission. But it is written in a compressed, self-referential register that assumes the reader has already read the results section, leans on a dense apparatus of pre-registration caveats and judge-panel bookkeeping, and states several headline numbers as bare macros without explaining what they mean, so a GIQ reader will struggle to follow the through-line from abstract to conclusion.",
+    "weaknesses": [
+      {
+        "severity": "critical",
+        "location": "Abstract and Introduction",
+        "problem": "The abstract and introduction are written for a reader who already knows the paper. The abstract opens with a vignette, then immediately reports 'none of the three fixes works' and 'the most intuitive one harms' without ever naming the three fixes or saying what 'harms' means; the introduction's contribution list is a dense enumeration of design features (UNCTAD split, Joshi taxonomy, corpus proxy, content hash) rather than a statement of what a GIQ reader should do differently. A public-administration reader reaching the end of page one cannot say what the paper found.",
+        "fix": "Rewrite the abstract so that the three tested remedies are named in plain terms (persona framing, native-language prompting, a regionally fine-tuned open model) and the headline finding is stated as a sentence a manager could repeat, before any numbers appear; move the design vocabulary to the introduction."
+      },
+      {
+        "severity": "critical",
+        "location": "Introduction, 'Objectives and scope' and 'Contributions'",
+        "problem": "The scope section spends more words disclaiming what the study does not do (no retrieval, no fine-tuning, no human-in-the-loop, no causal identification, not pre-registered, exploratory throughout) than establishing what it does. For a GIQ reader this reads as a paper apologising for itself before it has made its case, and it obscures the one thing the venue cares about: a transferable protocol for auditing regulatory information that an agency can run.",
+        "fix": "Lead the scope section with the protocol and the three deployable fixes, then compress the disclaimers into a single short paragraph that points to the limitations section."
+      },
+      {
+        "severity": "major",
+        "location": "Abstract, Discussion, Conclusion",
+        "problem": "Headline numbers are reported as bare macros with no interpretive gloss: 'lowers accuracy by \\nnativa percentage points', '\\ncodegap points less often', '\\ntasktoneshort against \\nfloorrestshort'. The reader is told the magnitude but not what it means in practice — is a 12-point drop the difference between a usable and an unusable answer, or between two nearly identical error rates? The paper never anchors its effect sizes to a decision-relevant scale.",
+        "fix": "Add one sentence per headline effect translating the point estimate into a concrete comparison (e.g. 'roughly the difference between the best- and worst-performing model in the roster'), and state the base rate the percentage points are computed against."
+      },
+      {
+        "severity": "major",
+        "location": "Discussion, 'The mechanism, and why it is not established'",
+        "problem": "This subsection is the hardest part of the paper for a non-specialist. It reports that the pre-specified corpus proxy is defective, that development predicts the country-specificity deficit but coverage does not, that the two are collinear at \\nrhocobhdi, and that the language-corpus channel is excluded — all in the space of two paragraphs, with no plain-language statement of what the reader should now believe about why Global South countries are worse served. The methodological lesson (the key matters more than the sample) is buried at the end of the section rather than foregrounded.",
+        "fix": "Open the subsection with one sentence stating the bottom line ('we can show a tier difference but cannot attribute it to corpus size, development, or language with this design'), then present the evidence; promote the ground-truth-key lesson to its own short subsection."
+      },
+      {
+        "severity": "major",
+        "location": "Methods (referenced throughout but not shown in this excerpt) and Discussion",
+        "problem": "The paper repeatedly refers to 'the three-vendor judge panel', 'collection judges', 'the composite', 'T1 cells', 'the extractor's manual audit', and 'the pre-specified fifteen' without, in the sections shown, defining these terms for a reader who has not read the methods. A GIQ reader encountering 'the four non-factual subcomponents of a T1 cell are still the collection judge's' in the limitations will not know what a T1 cell is or why its subcomponents matter.",
+        "fix": "Add a short 'How responses were scored' box or paragraph at the start of the discussion that defines the task types, the composite, and the judge panel in two or three sentences, and use those terms consistently."
+      },
+      {
+        "severity": "minor",
+        "location": "Title",
+        "problem": "The title 'Whose Regulation Does the Model Know? Reliability of LLM-Recalled Regulatory Information for Public Environmental Management in 25 Countries' is long, uses 'LLM-Recalled' (a term the paper itself has to explain), and buries the public-administration hook. GIQ titles tend to name the governance problem, not the method.",
+        "fix": "Shorten to something like 'Whose Regulation Does the Model Know? Auditing LLM Reliability for Environmental Agencies in 25 Countries', dropping 'LLM-Recalled' and 'Public Environmental Management'."
+      },
+      {
+        "severity": "minor",
+        "location": "Conclusion",
+        "problem": "The conclusion restates the discussion almost verbatim, including the same caveats about India pointing the other way and the same list of three failing fixes. It adds no forward-looking statement for the GIQ readership — no recommendation for how agencies should procure or govern these systems beyond 'treat outputs as drafts'.",
+        "fix": "Cut the recap by half and add two or three sentences of concrete governance implication: what an agency should write into a procurement specification or an internal AI-use policy on the basis of this evidence."
+      },
+      {
+        "severity": "minor",
+        "location": "Throughout",
+        "problem": "The prose is dense with hedges and self-qualifications ('as far as the design allows', 'we claim no causal identification', 'the interpretation remains an interpretation', 'the defensible claim is the narrow one'). Individually each is warranted; cumulatively they make the paper read as defensive and slow the reader down.",
+        "fix": "Consolidate the hedging into the limitations section and state findings directly in the results and discussion, trusting the limitations to bound them."
+      }
+    ],
+    "opportunities": [
+      {
+        "what": "Add a short 'what an agency should do on Monday' paragraph to the discussion, translating the three failed fixes into a procurement and workflow recommendation (e.g. do not switch to the local language for register lookups; do not rely on persona framing; verify binding values against the gazette).",
+        "payoff": "GIQ readers are practitioners and policy scholars; a concrete action statement is what makes the paper citable in a governance context rather than only in an ML-audit context."
+      },
+      {
+        "what": "Report the per-task and per-language results as a small decision table (task type x language x tier, with the register-value accuracy and the interval) rather than only in prose.",
+        "payoff": "Lets a reader see at a glance where the reliability floor sits, which is the paper's most actionable finding and currently requires reconstructing from scattered sentences."
+      },
+      {
+        "what": "State explicitly, in the introduction, that the protocol transfers to any regulated domain with a published register (water quality, food safety, vaccine schedules), and give one worked example of how the five task types would map onto a second domain.",
+        "payoff": "Converts the paper from a single-domain audit into a reusable method, which is the contribution the venue is most likely to reward."
+      },
+      {
+        "what": "Foreground the ground-truth-key lesson (defective keys add structured noise concentrated where official texts are hardest to obtain) as a standalone contribution with a named implication for how the field should audit geographic-bias claims.",
+        "payoff": "This is the paper's most generalisable methodological finding and is currently buried in the discussion; elevating it gives the paper a second audience in evaluation methodology."
+      }
+    ],
+    "readability": "A public-administration reader will follow the motivation and the practical framing — the vignette about a municipal environmental manager, the three fixes an agency would reach for, the emphasis on official registers — but will lose the thread in the abstract, which reports findings before naming the interventions, and again in the discussion's mechanism subsection, which assumes familiarity with the paper's own scoring apparatus (T1 cells, collection judges, the composite, the pre-specified fifteen). The results section, not shown here, is likely to be the hardest stretch for a non-ML reader because the paper's own prose suggests it reports many effects with heavy qualification. The through-line — protocol, three failed fixes, tier difference without an established mechanism, methodological lesson about the key — is present and coherent, but it is stated in a register that presumes the reader has already absorbed the methods, and the conclusion restates rather than advances it. With a rewritten abstract, a plain-language scoring box, and a decision table, the paper would read cleanly for the GIQ audience.",
+    "verdict": "A methodologically serious and unusually honest audit that belongs at GIQ on scope and contribution, but needs its abstract, scope framing, and mechanism discussion rewritten so that a public-administration reader can follow the argument without first reading the methods.",
+    "lente": "journal-specialist",
+    "auditor": "deepseek_v3"
+  },
+  {
+    "score": 6.5,
+    "score_rationale": "The study is unusually candid about its own defects — the deviation log, the withdrawn seed claim, the corrected Bangladesh and UK keys, and the explicit separation of what 25 countries can and cannot show are exactly what a GIQ reviewer wants to see, and the practical finding (three agency-deployable fixes all fail, one harms) is squarely in the journal's remit. It falls short of a 7+ because the manuscript is internally inconsistent at several load-bearing points — the abstract's 'a third of the wrong answers cite a value from the country's own official ladder' is contradicted by the results' own ladder analysis, the abstract's 'every per-task interval includes 1' is contradicted by the T5 row and by the conditional intervals, and the headline native-language penalty is quoted as three different numbers across abstract, results and supplement — and because a public-administration reader will lose the thread in the H4 and robustness sections, where the prose reports the failure of its own instruments at a level of detail that obscures the argument.",
+    "weaknesses": [
+      {
+        "severity": "critical",
+        "location": "Abstract vs. Results §H1 (ladder analysis) and §Ground-truth provenance",
+        "problem": "The abstract states 'a third of the wrong answers cite a value from the country's own official ladder', and the Results repeat this ('more than a third of the wrong T1 answers (\\nladderhit{} of \\nincorrectn)'). But the ladder analysis in §sec:results:t1 then says that scoring any ladder value as correct raises Global North T1 accuracy from \\nstrictgn{} to \\nladdergn{} and Global South only from \\nstrictgs{} to \\nladdergs{}, 'because the staged instruments are mostly in the North'. If ladder-citing answers were a third of all wrong answers and were concentrated in the North, the ladder-tolerant rescoring should raise the North far more than the South — which it does — but the abstract presents the ladder-citation rate as a general property of wrong answers, not as a North-concentrated one. The two claims are in tension and the reader cannot tell which population the 'third' describes.",
+        "fix": "In the abstract and in §sec:results:task, state the ladder-citation rate separately for Global North and Global South wrong answers, or state explicitly that the third is a pooled figure dominated by Northern countries, and cross-reference the ladder analysis."
+      },
+      {
+        "severity": "critical",
+        "location": "Abstract vs. Results §H1 (Table 5, T5 row) and §sec:results:h1",
+        "problem": "The abstract says 'every per-task interval includes~1'. Table 5 shows T5 as 'at ceiling in both tiers; no contrast estimable', and the text says 'no contrast is estimable there'. An interval that does not exist cannot include 1. The abstract also says 'the point estimates are largest where the answer is a national fact', but Table 5 orders T1 (national) below T4 (national) and T3 (international) above T2 (national) on the raw OR, so the ordering claim is not what the table shows.",
+        "fix": "Change the abstract to 'every estimable per-task interval includes 1' and either drop the ordering claim or restate it as the conditional-model ordering, which is the one the text actually defends."
+      },
+      {
+        "severity": "critical",
+        "location": "Abstract, Results §H2, Discussion §5.1, Conclusion, Supplement Table S3",
+        "problem": "The headline native-language penalty is quoted inconsistently. The abstract gives \\nnativa{} pp; §H2 gives \\nnativa{} pp for the Wilcoxon test but \\nhtwomixedcountry{} pp for the mixed model with a country random intercept and \\nhtwocmean{} pp with the country as the unit; the Discussion and Conclusion both quote \\nnativa{} pp as 'the' effect; the Supplement's robustness table lists \\nnativasigned{} pp. Four different numbers (\\nnativa, \\nhtwomixedcountry, \\nhtwocmean, \\nnativasigned) are presented as the same finding without a stated rule for which is the headline. A reader cannot tell which number the paper is claiming.",
+        "fix": "Designate one number as the headline (the country-level mixed-model estimate is the defensible choice given the nesting argument) and use it in the abstract, discussion and conclusion; report the others explicitly as alternative estimators of the same quantity."
+      },
+      {
+        "severity": "major",
+        "location": "Methods §sec:methods (Research design) vs. Supplement §S1 and Table S14",
+        "problem": "The Methods say the design 'crosses 15 countries ... with two stochastic replications per cell' and that the protocol 'fixed, before collection, the hypotheses, primary models, persona protocol, exclusion criteria and multiple-comparison corrections'. The Supplement's deviation table says the delivered scope is 27.5% of the planned response count, that the rubric pilot was not run, that the registry has no human validator, that the country sample was extended post hoc, and that the scoring instrument was changed. The Methods section does not flag any of this; a reader of the Methods alone would believe the pre-specified design was executed. The 'pre-specified' framing in the Methods is contradicted by the Supplement's own accounting.",
+        "fix": "Add one sentence to §sec:methods stating that the delivered design departs from the plan on response count, pilot, registry validation and scoring instrument, with a pointer to Table S14, so the Methods does not overstate what was executed."
+      },
+      {
+        "severity": "major",
+        "location": "Results §sec:results:h1 vs. Supplement Table S2 (primary family)",
+        "problem": "The main text says 'Under Bonferroni-Holm across the primary family {H1-gradient, H4, H6}, no test rejects its null.' The Supplement's Table S2 reports the same family and agrees. But the main text also reports the tier gap as a supported finding ('the gap is real in the aggregate') while the Supplement's Table S2 lists the tier gap as a row in the same table with p=\\ntiergapperm{} and does not include it in the Bonferroni-Holm family. The reader is left unsure whether the tier gap is a primary test (and therefore corrected) or a sensitivity analysis (and therefore not). The Methods say the binary contrast was 'pre-specified as a sensitivity analysis of H1', which resolves it, but the Results' summary table (Table 6) lists H1 tier gap under 'Supported' alongside H2 and H3 without noting the correction status.",
+        "fix": "Add a footnote to Table 6 stating which rows are in the Bonferroni-Holm family and which are not, and state in §sec:results:h1 that the tier gap is not part of the corrected family."
+      },
+      {
+        "severity": "major",
+        "location": "Results §sec:results:h2 (verifiable-value check) vs. Supplement Table S3",
+        "problem": "The main text says 'English prompts yield a verifiable value \\nverifen\\% of the time and native-language prompts \\nverifnat\\%, a paired difference of \\nverifdiff\\~pp, with the native version worse in \\nverifworse{} of the \\nverifdisc{} discordant pairs'. The Supplement's robustness table reports the same analysis but does not give \\nverifen, \\nverifnat or \\nverifdisc, so the reader cannot check the arithmetic. More seriously, the main text says 'Portuguese, the best-resourced of the three, shows no such loss (\\nverifpt\\~pp)' while the code-verdict analysis immediately after says 'the Portuguese penalty is \\nhtwocodept\\~pp (\\n=\\nhtwocodeptn, p=\\nhtwocodeptp)'. If Portuguese shows no loss in verifiable-value production but a significant loss in code verdict, the two sentences need to be explicitly reconciled; as written they read as a contradiction.",
+        "fix": "Add the raw counts (\\nverifen, \\nverifnat, \\nverifdisc) to the Supplement table, and add one sentence in §H2 stating that Portuguese loses on the code verdict but not on value production, which is the point the paragraph is making."
+      },
+      {
+        "severity": "major",
+        "location": "Results §sec:results:h4 vs. Discussion §5.4 and Conclusion",
+        "problem": "The Results say 'the development interaction as the one country-level mechanism result that clears 0.05' and report \\nhfourhdialonebeta{} with p=\\nhfourhdialoneclp. The Discussion says 'the deficit on country-specific tasks is predicted by development (\\beta=\\nhfourhdialonebeta, p=\\nhfourhdialoneclp clustered; \\rho=\\nhfourctryrhohdi, p=\\nhfourctryphdi across the 25 deficits)'. The Conclusion says 'what predicts the country-specificity deficit at the country level is development rather than encyclopedic coverage'. But the Results also say 'Entered together the two are uninformative, because they correlate at \\rho=\\nrhocobhdi and neither survives (coverage \\beta=\\nhfourjcob, p=\\nhfourjcobclp; HDI \\beta=\\nhfourjhdi, p=\\nhfourjhdiclp)'. So the 'development clears 0.05' claim holds only in the model without coverage; the Conclusion's phrasing ('is development rather than coverage') overstates what the joint model shows.",
+        "fix": "In the Conclusion, change 'is development rather than encyclopedic coverage' to 'is development in the model without coverage, and the two cannot be separated when entered together', matching the Results' own caveat."
+      },
+      {
+        "severity": "major",
+        "location": "Results §sec:results:model (H3) vs. Discussion §5.1 and Supplement §S8",
+        "problem": "The Results say 'Re-served on the same 30 Portuguese items, Cabra and the base model it was fine-tuned from return the register value at \\ncabsanitycabra\\% and \\ncabsanitybase\\%'. The Supplement says 'Cabra returns the register value on \\ncabsanitycabra\\% (\\ncabsanityn{} factual verdicts; \\ncabsanityorig\\% in the original collection), the base model on \\ncabsanitybase\\% and Llama~3.1~8B on \\ncabsanityllama\\%'. The Discussion says 'Cabra returns the value in force \\ncabsanitycabra\\% of the time and its base model \\ncabsanitybase\\%'. The three agree on the two headline numbers, but the Results do not report \\ncabsanityllama\\% or \\ncabsanityn, and the Discussion does not report \\ncabsanityorig\\%. More importantly, the Results say 'the composite margin against Llama~3.1~8B comes from the judged tasks and subcomponents rather than from the values the code checks' — but the Supplement's serving check reports Llama's code-verdict rate, which the Results do not cite. If Llama's code-verdict rate is higher than Cabra's, the Results' claim is supported; if not, it is not. The reader cannot tell.",
+        "fix": "Report \\ncabsanityllama\\% and \\ncabsanityn{} in the Results paragraph, and state explicitly whether Llama's code-verdict rate exceeds Cabra's, which is what the 'comes from the judged tasks' claim requires."
+      },
+      {
+        "severity": "major",
+        "location": "Results §sec:results:reliability vs. Supplement Table S7",
+        "problem": "The Results say 'Krippendorff's \\alpha=\\nalpha, single-judge ICC(2,1)=\\nicc, and ... ICC(2,3)=\\niccpanel'. The Supplement's Table S7 gives \\alpha=0.527, ICC(2,1)=0.558, ICC(2,3)=0.791. The Supplement's deviation table says the plan required \\alpha\\geq0.70 and that the delivered \\alpha=0.527 is 'below the threshold the plan had set'. The Results do not mention that the reliability falls below the pre-specified threshold; they present \\alpha=\\nalpha{} as if it were adequate. A reader of the Results alone would not know the rubric failed its own reliability bar.",
+        "fix": "Add one sentence to §sec:results:reliability stating that \\alpha=\\nalpha{} is below the 0.70 the plan required, and that the panel-mean ICC(2,3) is the operative quantity for that reason."
+      },
+      {
+        "severity": "minor",
+        "location": "Methods §sec:groundtruth (T1) vs. Results §sec:results:gt",
+        "problem": "The Methods say 'Twenty-one countries have a numeric key. Three (Angola, Argentina, Nigeria) have no national PM2.5 standard ... Egypt has no key'. That is 21+3+1=25. The Results' sample note says 'the T1 ground truth is anchored to the national instrument in force for 24 countries and has no key for Egypt'. 24+1=25, but the 24 includes the three no-standard countries, whose 'key' is the absence of a standard rather than a value. The two statements are consistent only if 'anchored to the national instrument' is read loosely to include the no-standard cases. The Supplement says 'Three countries have no national PM2.5 standard ... One entry has no value: Egypt'. The reader has to reconcile three phrasings.",
+        "fix": "Use one phrasing throughout: '21 countries have a numeric key, three have a no-standard key, and Egypt has no key'."
+      },
+      {
+        "severity": "minor",
+        "location": "Results §sec:results:sample vs. Supplement preamble",
+        "problem": "The Results say 'the analysed corpus comprises \\ncells{} scored cells ... of which \\ncellsen{} are English-prompt responses'. The Supplement says 'the analysed main corpus comprises \\ncells{} scored cells (\\ncellsen{} English-prompt; 1,671 native-language)'. The Supplement's arithmetic (\\ncellsen + 1,671 = \\ncells) is checkable; the Results' is not, because the Results do not give the native-language count. If \\ncellsen + 1,671 \\neq \\ncells, one of the two is wrong.",
+        "fix": "Add the native-language count to the Results sentence so the arithmetic is checkable in both places."
+      },
+      {
+        "severity": "minor",
+        "location": "Results §sec:results:qual vs. Supplement Box 1",
+        "problem": "The Results say 'in \\nnsfab{} of the \\nnscells{} scored T1 cells for Angola, Argentina and Nigeria the answer asserts a specific national value, in \\nnsabst{} it correctly states that none exists, and in \\nnsdk{} it declines to answer'. The Supplement's Box 1 gives verbatim examples (Gemini 2.5 Flash asserting 25 and 15 for Angola; GPT-5 asserting 15 for Nigeria) but does not give the counts. The reader cannot check whether \\nnsfab + \\nnsabst + \\nnsdk = \\nnscells.",
+        "fix": "Add the three counts to Box 1 or to the Supplement's failure-mode section."
+      },
+      {
+        "severity": "minor",
+        "location": "Methods §sec:collection vs. Supplement §S2 (Determinism and seed handling)",
+        "problem": "The Methods say 'no seed was sent to any provider, an earlier draft having stated otherwise'. The Supplement says 'an earlier version of this supplement described a per-call seed_status field, but the collection client never set a seed and the released run metadata carry no such field'. The two agree, but the Methods' phrasing ('an earlier draft') and the Supplement's ('an earlier version of this supplement') refer to different documents. A reader may wonder whether the manuscript or the supplement is the one that was wrong.",
+        "fix": "Say 'an earlier version of this manuscript and supplement' in both places, or drop the reference to the earlier draft from the Methods and leave it to the deviation log."
+      },
+      {
+        "severity": "minor",
+        "location": "Results §sec:results:h6 vs. Supplement §S8 (Persona manipulation check)",
+        "problem": "The Results say 'A manipulation check finds that 50.2% of persona-condition responses explicitly acknowledge the role frame'. The Supplement says 'Across 4,349 persona-condition responses, \\nmanip\\% explicitly acknowledge the public-manager role frame'. If \\nmanip = 50.2, the two agree; if not, they disagree. The Results give the percentage but not the denominator; the Supplement gives the denominator but not the percentage.",
+        "fix": "Give both the percentage and the denominator in the Results sentence."
+      },
+      {
+        "severity": "minor",
+        "location": "Results §sec:results:h1 (EU-as-one-unit) vs. Supplement Table S3",
+        "problem": "The Results say 'Treating the four European Union members in the sample (Germany, France, Italy, Portugal) as a single unit ... leaves it at \\ngapeu\\~pp \\ngapeuci{} (p=\\ngapeup, \\ngapeuunits{} Northern units against 15)'. The Supplement's cluster table reports the same analysis but does not give \\ngapeuunits. If \\ngapeuunits = 7 (10 GN countries minus 4 EU plus 1 EU unit), the arithmetic is checkable; if not, the reader cannot verify it.",
+        "fix": "State \\ngapeuunits explicitly in the Supplement table."
+      },
+      {
+        "severity": "minor",
+        "location": "Introduction §1.1 (Objectives and scope) vs. Methods §sec:methods",
+        "problem": "The Introduction says 'Hypotheses, sampling and analysis plan were fixed before data collection ... for 15 countries and then extended to 25; the plan was never deposited publicly, so we do not claim pre-registration, and the study is reported as exploratory throughout.' The Methods say 'The study is a pre-specified, factorial, multi-country benchmark experiment'. The two are in tension: the Introduction disclaims pre-registration and says the study is exploratory; the Methods call it pre-specified. The Supplement resolves this by distinguishing the pre-specified plan from the delivered scope, but the Methods do not.",
+        "fix": "Change the Methods' opening to 'a pre-specified design whose delivered scope departs from the plan (Table S14), reported as exploratory throughout'."
+      },
+      {
+        "severity": "minor",
+        "location": "Results §sec:results:task vs. Supplement Table S3",
+        "problem": "The Results say 'T2 was originally scored against a placeholder key and rises from 0.368 to 0.473 once each returned concentration is compared with the authorised range by code. T1 always had an official key but was scored by two collection judges of different severity, and moving its factual verdict to code raises it from 0.367 to \\ntasktone'. The Supplement's robustness table does not report the 0.368, 0.473 or 0.367 figures, so the reader cannot check them against the released artefacts.",
+        "fix": "Add the before-and-after figures to the Supplement's deviation table or to a dedicated scoring-change table."
+      },
+      {
+        "severity": "minor",
+        "location": "Discussion §5.5 vs. Results §sec:results:gt",
+        "problem": "The Discussion says 'the United Kingdom entry carried a 2040 target in place of the limit in force, and the Bangladesh entry carried the 2005 value after the 2022 Rules had raised it'. The Results say 'Bangladesh's entry carried the 15 of its 2005 gazette until an external reader pointed to the 2022 Rules, which set 35'. The Discussion does not mention the UK correction date or the external reader; the Results do not mention the UK correction. The two together give the full picture, but neither alone does.",
+        "fix": "Cross-reference the two passages, or consolidate the key-correction narrative in one place."
+      }
+    ],
+    "opportunities": [
+      {
+        "what": "Report the ladder-citation rate separately by tier and by task, and add a small table showing, for each country with a staged instrument, the value in force, the modal model answer, and whether the modal answer is a ladder value.",
+        "payoff": "This is the study's most policy-relevant finding — models know the ladder and not which rung binds — and it is currently buried in a single sentence. A table would let a public-administration reader see at a glance which countries' binding values are most often missed and by how much, which is directly actionable for an agency deciding whether to trust a model's citation."
+      },
+      {
+        "what": "Add a short subsection that translates the composite accuracy numbers into the decision terms of Table 1: for each task, what fraction of answers would have produced a wrong licence condition, a wrong baseline, a wrong budget justification, a wrong agency identification, or a wrong episode response.",
+        "payoff": "GIQ readers are practitioners and public-administration scholars, not ML researchers. The composite is an abstraction; the decision consequences are not. This would make the recall floor concrete and would let a reader judge whether the effect sizes matter for their own workflow."
+      },
+      {
+        "what": "Report the per-country, per-task code-verdict rates for the 21 countries with a numeric T1 key in a single appendix table, with the value in force and the modal answer beside each.",
+        "payoff": "The paper's central claim is that reliability differs by country. A reader who wants to know whether their own country is well or badly served currently has to reconstruct it from figures and prose. A single table would make the finding usable and would let a reader check the tier gap against their own jurisdiction."
+      },
+      {
+        "what": "State explicitly, in the Methods, which of the three agency-deployable fixes is cheapest to test in a given agency's own setting, and give the prompt template for each so an agency can run the comparison on its own register.",
+        "payoff": "The paper's contribution is a protocol that transfers. Making the transfer concrete — here is the prompt, here is the register entry, here is the comparison — would let a public body reproduce the audit on its own domain without re-reading the methods. This is what 'the protocol is the contribution that transfers' should mean in practice."
+      },
+      {
+        "what": "Add a one-paragraph 'what an agency should do on Monday' box that states the operational recommendation in plain terms: verify binding values against the gazette, do not switch to the local language as a fix, do not expect a persona frame to help, and do not expect a regionally tuned small model to recover national facts.",
+        "payoff": "The paper's practical message is currently spread across the Discussion and Conclusion. A single boxed recommendation would be the most-cited part of the paper for the GIQ readership and would make the negative findings actionable rather than merely reported."
+      }
+    ],
+    "readability": "A public-administration reader can follow the first half of this paper well. The Introduction states the problem in terms a manager recognises, the task taxonomy in Table 1 is exemplary — each task is tied to a decision and a consequence — and the H2 and H6 results are reported in prose that explains what the numbers mean. The paper loses that reader in three places. First, the H4 section: the prose reports the failure of its own instruments ('the pre-specified corpus proxy assigns the English Wikipedia to every sample country with English as an official language') at a level of detail that requires the reader to hold four exposures, three units of analysis and two collinearity structures in mind simultaneously, and the section's own conclusion ('the development interaction as the one country-level mechanism result that clears 0.05') is stated in a vocabulary the reader has not been given. Second, the robustness section: seven attacks, each with its own statistic, are reported without a summary sentence telling the reader which attacks matter and which are formalities. Third, the per-task odds-ratio table: the distinction between conditional and raw intervals is explained in the caption and again in the text, but the reader is left to work out which one to believe, and the answer ('the country-level interval is the honest measure') is stated only in the Supplement. The abstract is dense but accurate; the conclusion is clear. The middle third of the paper is where a GIQ reader will put it down.",
+    "verdict": "A candid, well-designed audit with a genuinely useful negative finding, undermined by internal inconsistencies in its headline numbers and by a mechanism section that reports its own failure more clearly than it reports its result.",
+    "lente": "qa-reviewer",
+    "auditor": "deepseek_v3"
+  },
+  {
+    "score": 6,
+    "score_rationale": "The ethics and compliance apparatus is unusually thorough and mostly honest — the AI-use declaration is exemplary, the deviations table is candid, and the data/code release promises are specific and internally consistent — but the manuscript simultaneously claims a 'confirmatory' pipeline flag and a 'confirmatory_PRIVATE' data path while declaring the study exploratory, and it discloses that the pre-specified design was abandoned at 27.5% delivery with no human validation layer anywhere, which a GIQ editor will read as a study whose protocol was not honoured rather than one that transparently deviated.",
+    "weaknesses": [
+      {
+        "severity": "critical",
+        "location": "Data and code availability / Study protocol / Supplement S7",
+        "problem": "The availability statement promises release 'on publication' of 'the anonymised LLM responses' and 'the per-response records that every reported effect is computed from', but the supplement repeatedly points to inputs under 'data/confirmatory_PRIVATE/' and the pipeline flag is '--confirmatory'. A reader cannot tell whether the released artefact is the private directory, a redacted copy, or something else, and 'anonymised' is undefined for LLM responses that contain no human subjects. This is the single promise a GIQ editor will test first.",
+        "fix": "State explicitly what the released directory contains, whether 'confirmatory_PRIVATE' is renamed or shipped as-is, and drop 'anonymised' (or define it) since no human subjects are involved."
+      },
+      {
+        "severity": "critical",
+        "location": "Declaration of generative AI in the writing process",
+        "problem": "The declaration is more candid than Elsevier's policy requires, but it discloses that Gemini 2.5 Pro, DeepSeek-V3 and GPT-5.2-pro were used as 'independent reviewers of the manuscript's claims and prose'. Elsevier's policy covers AI use in writing and editing; using models as pre-submission peer reviewers is not covered and, combined with the statement that each was 'run from a vendor other than the one that drafted the passage', reads as an attempt to launder the drafting model's output through a second model. It also sits awkwardly beside the competing-interests declaration of 'no competing interests' when three of the evaluated vendors' models are named as manuscript reviewers.",
+        "fix": "Either remove the 'independent reviewers' sentence or reframe it as internal quality assurance, and add one sentence to the competing-interests declaration noting that no vendor had any role in or knowledge of the review."
+      },
+      {
+        "severity": "major",
+        "location": "Study protocol statement and Supplement S7 (Deviations)",
+        "problem": "The manuscript says the plan 'was not deposited in a public registry, so readers cannot verify its timing independently of the repository history, and we do not claim pre-registration', yet the supplement repeatedly calls the design 'pre-specified', 'locked', and 'the pre-specified 15-country sample', and the pipeline flag is '--confirmatory'. The supplement's own deviation table shows the 15% ceiling was exceeded (27.5% delivered), the rubric pilot was never run, no human annotator exists anywhere, and the country sample was extended after the pre-specified analysis. Calling anything 'pre-specified' when the timing is unverifiable and the ceiling was breached is a claim the record does not support.",
+        "fix": "Replace 'pre-specified' with 'planned' or 'protocol-specified' throughout, and add one sentence to the Study protocol statement stating that no element of the design is claimed as pre-registered."
+      },
+      {
+        "severity": "major",
+        "location": "Author contributions (CRediT)",
+        "problem": "Lucas Rover is credited with Conceptualization, Methodology, Software, Data Curation, Formal Analysis, Investigation, Visualization, Writing – Original Draft and Project Administration, while the four co-authors collectively receive Data Curation, Software, Formal Analysis, two Writing – Original Draft, three Writing – Review & Editing, and two Validation/Supervision. No co-author is credited with Conceptualization or Methodology. For a paper whose central claim is a methodological audit, a CRediT statement in which a single author owns every substantive contribution is a coherence problem the senior colleagues will notice.",
+        "fix": "Either redistribute Conceptualization and Methodology across the co-authors who in fact shaped the design, or add one sentence explaining why the contribution is concentrated."
+      },
+      {
+        "severity": "major",
+        "location": "Declaration of interests",
+        "problem": "'The authors declare no competing interests' is asserted without qualification, but the Acknowledgements state that inference costs were paid by the authors and 'no vendor provided credits, discounts, or in-kind support'. That is a funding statement, not a competing-interests statement, and it does not address the more relevant interest: the authors evaluated 14 commercial model stacks, three of whose vendors' models also served as manuscript reviewers and judges. The declaration as written is true but incomplete.",
+        "fix": "Expand to two sentences: one on funding (already in Acknowledgements), one stating that no author has a financial or advisory relationship with any evaluated vendor."
+      },
+      {
+        "severity": "major",
+        "location": "Supplement S5 (Ground-truth registry) and S7 (Deviations)",
+        "problem": "The registry is described as anchored 'to an official primary source by documentary audit' with 'the value read verbatim', but the deviation table concedes that T2, T3 and T4 'were built in a later revision from single international sources' and that 'no human validator field exists'. Two T1 entries were corrected after external review (UK, Bangladesh), and Angola's no-standard status rests on a World Bank/WHO note rather than a national instrument. The registry is therefore not the uniform, primary-source-anchored artefact the Methods describe.",
+        "fix": "Add one sentence to the Methods stating that T1 is primary-source anchored and T2–T4 are single-international-source, and that no human validator field exists for any task."
+      },
+      {
+        "severity": "minor",
+        "location": "Supplement S7, 'Seed' row and S2 'Determinism and seed handling'",
+        "problem": "The supplement withdraws an earlier claim that a per-call 'seed_status' field existed, and states that 'the collection client never set a seed'. This is the right correction, but it is buried in a deviations table and a paragraph that also discusses temperature and reasoning effort. A reader who only reads the Methods will not learn that no seed was sent.",
+        "fix": "Move the no-seed statement into the Methods section proper, not only the supplement."
+      },
+      {
+        "severity": "minor",
+        "location": "Supplement S7, 'Duplicates' paragraph",
+        "problem": "The paragraph reports that 22.0% of unique keys have more than one stored response, that earlier drafts reported 4,976 and 1,003 'figures that predate the extension to 25 countries and that we could not reproduce from the released artefacts', and that the analysis uses 'the first stored in run-file order'. This is honest but reads as an unresolved reproducibility defect: the released artefacts cannot reproduce a number the authors previously published.",
+        "fix": "Add one sentence stating whether the earlier figures were withdrawn from any prior version and confirming that no number in the present manuscript depends on them."
+      },
+      {
+        "severity": "minor",
+        "location": "Supplement S6 (Judge-panel reliability)",
+        "problem": "Krippendorff's α = 0.527 is reported and the text notes it is 'below the threshold the plan had set' (0.70), but the manuscript does not state what the consequence is for the reported effects. The panel-mean ICC(2,3) = 0.791 is offered as the operative quantity, which is defensible, but a reader will want to know whether any headline conclusion would change at α ≥ 0.70.",
+        "fix": "Add one sentence stating whether any headline effect is sensitive to the reliability level, or that none is."
+      }
+    ],
+    "opportunities": [
+      {
+        "what": "Report the tier gap and the native-language penalty separately for the pre-specified 15-country sample and the 10-country extension, as the supplement already does for the primary family, in the main text rather than only in Table S3.",
+        "payoff": "Lets a reader see whether the extension changed the substantive conclusion or only the precision, which is the question the deviation table raises and does not fully answer in the main text."
+      },
+      {
+        "what": "State explicitly, in the Methods, which of the five tasks are code-adjudicated and which are panel-scored, with the coverage percentages (already computed: T1, T2, T3 code coverage) in the main text.",
+        "payoff": "The single strongest defence of the study against the judge-reliability concern is that most factual verdicts are computed, not judged; a GIQ reader should not have to find this in the supplement."
+      },
+      {
+        "what": "Add a short paragraph in the Discussion on what an agency can actually do with these findings — e.g. that code-adjudicated register lookups are the deployable mitigation, and that native-language prompts should be treated as a separate reliability regime.",
+        "payoff": "The paper's declared scope is a protocol for auditing regulatory information; naming the deployable mitigation converts a measurement paper into a governance paper, which is what GIQ publishes."
+      },
+      {
+        "what": "Report the per-country and per-model coverage matrix in the main text as a small figure rather than only in the supplement.",
+        "payoff": "Coverage is non-uniform and the paper's central claim is about country-level reliability; a reader cannot assess the claim without seeing which countries are thinly covered."
+      }
+    ],
+    "readability": "A public-administration reader can follow the argument, but only with effort, and the effort is concentrated in the wrong places. The Introduction and Discussion are written for a policy audience and the framing (whose regulation does the model know) is clear. The Methods, however, are written for an ML reviewer: temperature, reasoning effort, token budgets, Modelfile templates, Q4_K_M quantisation, and a paragraph on why two confidence intervals differ all appear before the reader has been told what the five tasks are or why they matter. The supplement is worse — it is a deviations log with a paper attached, and a reader who opens it first will conclude the study failed rather than that it was honestly reported. The single biggest readability fix is to move the task definitions and the code-versus-panel scoring split into the Methods proper, and to demote the serving configuration to the supplement. The second is to state the headline finding in the first paragraph of the Results in plain language before any statistic appears.",
+    "verdict": "A methodologically serious and unusually honest audit whose compliance apparatus is largely sound, but which needs to stop calling an abandoned protocol 'pre-specified', resolve the confirmatory/exploratory contradiction in its own file paths and flags, and move its task definitions and scoring split into the main text before it can be read as a GIQ paper rather than an ML benchmark.",
+    "lente": "legal-ethics",
+    "auditor": "deepseek_v3"
+  },
+  {
+    "score": 6.5,
+    "score_rationale": "The study is unusually honest about its own inferential limits and the code-adjudicated, country-level contrasts are a real contribution to GIQ's applied audience; but the results section is written for a methodologist rather than a public-administration reader, with dense unglossed statistics, a results narrative that repeatedly reverses itself, and several AI-writing tells that make the through-line hard to hold. It is solid-with-work for this venue, not yet among its better papers.",
+    "weaknesses": [
+      {
+        "severity": "critical",
+        "location": "Results, H1 (sec:results:h1) and Robustness (sec:results:robust)",
+        "problem": "The tier gap is asserted, hedged, re-asserted and re-hedged across four passages, so a reader cannot tell what the paper's finding actually is. The text says 'The finding is the pooled code-adjudicated contrast' and then, two paragraphs later, 'The gap is therefore supported on the code-only outcome and on the composite by permutation, and marginal under the mixed model and on the balanced subset', while the abstract says 'Global South countries return the register value \\ncodegapabs{} points less often ... but every per-task interval includes~1.' The reader is left to adjudicate the paper's own claim.",
+        "fix": "State the tier-gap finding once, in one place, as a single sentence with its unit of inference and its interval, and make every later mention a pointer to it rather than a re-litigation."
+      },
+      {
+        "severity": "critical",
+        "location": "Results, H2 (sec:results:h2)",
+        "problem": "The H2 subsection is a wall of nested robustness checks (leave-one-out, trimmed, weighting, empty-response, verifiability, back-translation, instrument-split) presented at equal weight, so the central claim is buried. A public-administration reader will not reach 'The applied implication runs against intuition' with any confidence about which number is the effect.",
+        "fix": "Lead with the headline estimate and its country-level interval, then move the seven attacks into a compact table with one row each, keeping only the judge-free verifiability check in the prose."
+      },
+      {
+        "severity": "major",
+        "location": "Results, H4 (sec:results:h4) and Discussion (sec:discussion)",
+        "problem": "The H4 subsection is the least readable in the paper: it reports a response-level interaction, then says 'That response-level $p$-value is not the evidence', then reports clustered SEs, then country-level correlations, then a joint model, then an anglophone subset, without ever telling the reader what the takeaway is until the final paragraph. The reader cannot follow which exposure is doing the work.",
+        "fix": "Open the subsection with the one-sentence conclusion ('development, not coverage, predicts the country-specificity deficit, and the two cannot be separated at n=25'), then present the evidence in that order."
+      },
+      {
+        "severity": "major",
+        "location": "Results, H1 (sec:results:h1), final paragraph",
+        "problem": "The sentence 'Under Bonferroni-Holm across the primary family $\\{$H1-gradient, H4, H6$\\}$, no test rejects its null' appears without any prior statement of what the family is, why those three are in it, or what the correction does to the reader's interpretation. It reads as a compliance gesture rather than a result.",
+        "fix": "Either move the multiplicity correction to Methods with a one-line statement of the family and its rationale, or delete it and let the per-hypothesis intervals carry the inference."
+      },
+      {
+        "severity": "major",
+        "location": "Results, H1 (sec:results:h1), 'Where the gap lives'",
+        "problem": "The paragraph explains the difference between the conditional and raw odds ratios twice, in nearly the same words: 'The binomial mixed model with crossed random intercepts for country and model returns a conditional odds ratio with a narrow interval; the country-level bootstrap of the raw odds ratio ... returns a wider one' and then 'the conditional interval is an interval for a within-country, within-model contrast ... a reader who wants a statement about countries needs the country-level interval.' This is redundancy that costs the reader the thread.",
+        "fix": "Keep the second explanation, which is the clearer one, and cut the first to a single clause."
+      },
+      {
+        "severity": "major",
+        "location": "Abstract and Results, H2",
+        "problem": "The abstract states 'Asking in the country's own language lowers accuracy by \\nnativa{} percentage points (mixed model with a random intercept per country, $p=\\nhtwomixedcountryp$; negative in \\nhtwocneg{} of nine countries)' but the Results report that the country-as-unit test is 'negative in \\nhtwocneg{} of nine' with a $t$-test, while the model-as-unit test is 'negative in \\nhtwomneg{} of fourteen (Wilcoxon $p=\\nhtwomwp$)'. The abstract's parenthetical mixes the two units, so the reader cannot tell which test the headline $p$ belongs to.",
+        "fix": "In the abstract, report the country-level estimate and its interval, and drop the mixed-model $p$ or label it explicitly as the model-level test."
+      },
+      {
+        "severity": "minor",
+        "location": "Results, Sample and scoring (sec:results:sample)",
+        "problem": "The sentence 'One panel member (DeepSeek-V3) is also an evaluated model, so we checked for self-favouring: it scores its own outputs more harshly relative to the other two judges ($-0.177$) than it scores any other model's ($-0.123$ to $-0.160$)' reports three numbers without units or a scale, so the reader cannot judge whether the difference is material.",
+        "fix": "Add the scale (composite points on [0,1]) and one clause stating whether the difference is within noise."
+      },
+      {
+        "severity": "minor",
+        "location": "Discussion, 'Why the domain matters'",
+        "problem": "The paragraph opens with global burden-of-disease framing ('Fine particulate matter is among the leading environmental risk factors for premature mortality') and then immediately disclaims the relevance of that framing ('We do not claim the model is least reliable where consequences are greatest, because we did not measure it'). The framing does no work and the disclaimer undercuts it.",
+        "fix": "Cut the burden-of-disease sentence and open with the disclaimer, which is the honest and more useful statement."
+      },
+      {
+        "severity": "minor",
+        "location": "Results, H6 (sec:results:h6)",
+        "problem": "The sentence 'A manipulation check finds that $50.2\\%$ of persona-condition responses explicitly acknowledge the role frame, so the null is not an artefact of the frame being ignored' asserts a threshold ('explicitly acknowledge') without saying how acknowledgement was coded or by whom, so the reader cannot assess the check.",
+        "fix": "Add one clause naming the coder (code, judge, or human) and the criterion."
+      },
+      {
+        "severity": "minor",
+        "location": "Discussion, 'Three intuitive remedies'",
+        "problem": "The paragraph 'Practitioners deploy all three as fixes. One does active damage, one is equivalent to doing nothing, and one adds nothing to the model it started from. For Global South environmental agencies, no cheap prompt- or model-level workaround substitutes for verifying the binding value against the official source' restates the preceding three paragraphs without adding information. This is the AI-writing tell of a summary paragraph that asserts importance rather than demonstrating it.",
+        "fix": "Cut the first two sentences and keep the third, which is the actual applied implication."
+      },
+      {
+        "severity": "minor",
+        "location": "Discussion, 'What this study contributes'",
+        "problem": "The final paragraph restates the three failing remedies and the methodological lesson already stated in the two preceding subsections, closing with 'And the design separates what 25 countries can demonstrate from what they cannot, reporting the second set as open rather than as supported.' The reader has read this three times.",
+        "fix": "Replace the paragraph with two sentences naming the single contribution a GIQ reader should carry away, or delete the subsection."
+      }
+    ],
+    "opportunities": [
+      {
+        "what": "Add a short 'How to read the numbers' box at the start of Results, defining the composite, the code verdict, the panel mean, the country-level bootstrap interval, and the difference between conditional and raw odds ratios in plain language.",
+        "payoff": "A public-administration reader can then follow the results without a statistics glossary, which is the single largest barrier to the paper's reach in GIQ."
+      },
+      {
+        "what": "Consolidate the seven robustness attacks on H2 and the seven on the tier gap into two compact tables, one row per attack with the estimate and interval, and keep only the judge-free verifiability check in the prose.",
+        "payoff": "The central claims become visible at a glance, and the paper stops reading as a sequence of defensive asides."
+      },
+      {
+        "what": "Add a one-page 'what an agency should do' table mapping each of the three tested remedies to its measured effect and the recommended alternative (verify against the official register), with the register URL pattern.",
+        "payoff": "This is the deliverable a GIQ practitioner audience will cite, and it is entirely within the study's declared scope."
+      },
+      {
+        "what": "Report the per-task tier decomposition as a single figure with the country-level intervals and a clear label that the ordering is exploratory, rather than as a table with two odds-ratio columns.",
+        "payoff": "The pattern of point estimates, which is the paper's most interesting exploratory result, becomes legible without the reader having to reconcile two inferential frameworks."
+      },
+      {
+        "what": "State explicitly, in the H2 subsection, that the penalty is measured on the user's language and not the register's language, and note which of the three countries publish their instrument in English.",
+        "payoff": "Pre-empts the most likely misreading of the headline result by a policy audience, and sharpens the mechanism claim."
+      }
+    ],
+    "readability": "A public-administration reader can follow the abstract and the discussion, which are written in plain prose and state the applied stakes clearly, but will lose the thread in the Results. The H2 subsection is the worst offender: the headline estimate is stated once and then buried under seven robustness checks of equal visual weight, so the reader cannot tell which number is the effect. The H1 subsection compounds this by asserting the tier gap, hedging it, re-asserting it and re-hedging it across four passages, and by explaining the conditional-versus-raw odds-ratio distinction twice. The H4 subsection is the least readable in the paper, reporting five levels of analysis before stating its conclusion in the final paragraph. The Discussion recovers the through-line, but a reader who skips Results will not know which of the paper's own claims survived.",
+    "verdict": "A scientifically careful and unusually honest paper whose central claims are sound but whose Results section is written for a methodologist rather than a GIQ reader, and needs a structural rewrite before it goes to senior colleagues.",
+    "lente": "academic-writer",
+    "auditor": "deepseek_v3"
+  },
+  {
+    "score": 6,
+    "score_rationale": "The paper's core contribution — an auditable protocol keyed to official registers, with three agency-deployable mitigations tested as pre-specified factors — is genuinely well-matched to GIQ's readership and the related-work section is unusually disciplined about what each cited benchmark can and cannot support. But the framing overstates the gap ('no benchmark targets regulatory information with official ground truth' is too strong given legal-hallucination and policy-recommendation work the paper itself cites), several references are dated 2026 with DOIs that cannot yet resolve, and the introduction leans on undefined LaTeX macros and unstated numbers that will lose a public-administration reader before Section 3.",
+    "weaknesses": [
+      {
+        "severity": "critical",
+        "location": "Section 1, 'Three gaps organise the study' and Section 2.4",
+        "problem": "The claimed gap is not fully open. The paper itself cites dahl2024legal (verifiable questions against US federal case law with official ground truth) and lecoz2025policymaking (policy recommendations with expert comparison), then asserts 'None isolates a single applied domain with verifiable official ground truth.' Dahl does exactly that in a regulated domain; the honest gap is narrower — no benchmark uses *environmental/air-quality regulatory registers* with *cross-country equity stratification* and *persona as a factor*. As written, a GIQ reviewer who knows the legal-hallucination literature will read the gap claim as overstated.",
+        "fix": "Rewrite the gap sentence to concede dahl2024legal as the closest precedent (as Section 2.3 already does) and state the residual gap precisely: cross-national equity of recall against environmental registers, plus persona as a pre-specified lever."
+      },
+      {
+        "severity": "critical",
+        "location": "references.bib, entries dated 2026 (alba2026, amalia2026, opuszko2026unraveling, kerche2026silicon, kozlakidis2026medical, robinson2026opensource, choroszewicz2026crumple, kim2026genai, anthropic2026systemprompts, openai2026promptengineering, google2026promptingstrategies, xai2026chatguide, who2026gho_air41, zenodo2026dataset)",
+        "problem": "A large fraction of the bibliography carries 2026 publication years and DOIs (e.g. 10.1016/j.giq.2026.102133, 10.48550/arXiv.2603.26516, 10.3389/fdgth.2026.1736616). arXiv identifiers of the form 2603.xxxxx cannot exist yet, and Elsevier GIQ volume 43 (2026) issues are unlikely to be assigned. The bib comment claims all were 'verificadas via Crossref API em 2026-08-19', which is not credible for these entries. This is the single most damaging thing a reviewer can find: it makes every citation in the paper suspect, including the ones that are real.",
+        "fix": "Audit every 2026 entry against a live DOI resolver; delete or replace any that do not resolve, and remove the verification comment. If the paper is being written in 2026, state the access date and confirm each DOI resolves at submission."
+      },
+      {
+        "severity": "major",
+        "location": "Section 1, Contributions list and throughout",
+        "problem": "The introduction is written with unresolved LaTeX macros (\\nnativa, \\nrho, \\nhfive) that render as literal control sequences. A reader cannot evaluate the headline claims — 'lowers accuracy by \\nnativa percentage points', 'cut the development gradient from rho=0.51 to \\nrho' — because the numbers are missing. This is not a cosmetic issue: the three contributions are quantitative claims and the reader is asked to accept them on faith.",
+        "fix": "Resolve all macros to actual numbers before circulation, or replace with placeholders explicitly marked TODO so the senior colleagues know what is pending."
+      },
+      {
+        "severity": "major",
+        "location": "Section 1, paragraph 3 and Section 2.1",
+        "problem": "The corpus-representation mechanism is introduced as a distinction between 'the size of the language corpus' and 'the breadth of country coverage', but the paper never explains to a public-administration reader why these are different constructs or how each is operationalised. The Wikipedia proxy is mentioned only in the contributions list ('assigns the English Wikipedia to every sample country with English as an official language'), which is a striking methodological admission buried in a bullet.",
+        "fix": "Add two or three sentences in Section 1 or 2.1 defining the two channels and naming the proxies, and move the Wikipedia-proxy failure into the methods section where it can be discussed properly."
+      },
+      {
+        "severity": "major",
+        "location": "Section 2.2, persona paragraph",
+        "problem": "The persona literature is cited accurately (zheng2024helpful, mollick2025personas) but the framing 'Whether persona conditioning helps or harms factual reliability in high-stakes domains is therefore unsettled' is too generous to the paper's own position. Two large negative results plus vendor advice is not 'unsettled' — it is a well-supported prior that persona does not help. The paper should say so and frame its contribution as testing whether the *equity* effect differs from the *mean* effect, which is the genuinely open question.",
+        "fix": "Reframe: 'The mean effect is well established as null-to-negative; what is untested is whether persona changes the *distribution* of errors across countries.'"
+      },
+      {
+        "severity": "minor",
+        "location": "Section 2.3, final paragraph",
+        "problem": "The GIQ-specific citations (robinson2026opensource, choroszewicz2026crumple, kim2026genai, cordella2024regulating, aoki2024explainable) are assembled in a single paragraph that reads as venue-targeting rather than argument. Each is summarised in one clause and none is used again. A GIQ editor will notice this.",
+        "fix": "Either integrate one or two of these into the argument (e.g. use cordella2024regulating to motivate why prompt-level fixes are the right unit of analysis) or cut the paragraph to two sentences."
+      },
+      {
+        "severity": "minor",
+        "location": "Section 1, 'Objectives and scope'",
+        "problem": "The scope paragraph is admirably honest about what is not tested (retrieval, fine-tuning, human-in-the-loop) but the sentence 'the plan was never deposited publicly, so we do not claim pre-registration, and the study is reported as exploratory throughout' sits awkwardly against the repeated use of 'pre-specified' in the contributions. A reader will ask: pre-specified to whom, if not deposited?",
+        "fix": "Add one clause explaining where the pre-specification lives (internal document, deviation log) and cite the deviation log as a released artefact."
+      },
+      {
+        "severity": "minor",
+        "location": "references.bib, oecd2024governing",
+        "problem": "The key is oecd2024governing but the entry year is 2025. Minor, but in a bibliography already under suspicion for date problems, it compounds.",
+        "fix": "Rename the key or correct the year."
+      }
+    ],
+    "opportunities": [
+      {
+        "what": "Use dahl2024legal explicitly as the template the protocol generalises, and state what changes when the register is environmental rather than judicial (multi-country, multi-language, values that update annually).",
+        "payoff": "Converts an overstated gap claim into a defensible incremental contribution and gives the reader a familiar anchor."
+      },
+      {
+        "what": "Report the persona result as a distributional finding (does persona compress or widen the country-level spread?) rather than only as a mean effect.",
+        "payoff": "This is the genuinely novel question in the persona literature and it is answerable with data already collected."
+      },
+      {
+        "what": "Add a short subsection in Section 2 on why prompt-level mitigations are the administratively relevant class, citing cordella2024regulating and robinson2026opensource.",
+        "payoff": "Turns the GIQ citations from decoration into argument and pre-empts the 'why not just use RAG?' reviewer question."
+      },
+      {
+        "what": "Make the Wikipedia-proxy failure a named finding rather than a bullet — it is a methodological contribution about how this literature measures corpus representation.",
+        "payoff": "Gives the paper a second transferable contribution beyond the protocol, and it is the kind of negative methodological result GIQ publishes."
+      }
+    ],
+    "readability": "A public-administration reader can follow the argument's shape — the introduction states the question, the three objectives, and the five contributions clearly, and the related-work section is organised by thread with explicit statements of what each cited study cannot show. But the reader will stumble in three places. First, the unresolved macros mean the headline numbers are literally absent, so the contributions cannot be evaluated. Second, the corpus-representation mechanism is introduced in the introduction as a two-channel distinction that is never defined for a non-ML reader, and the Wikipedia proxy — which is the most interesting methodological point in the paper — appears only as a parenthetical in a bullet. Third, Section 2.3's GIQ paragraph reads as a citation dump and will make an editor suspect venue-targeting. The through-line from 'agencies need reliable regulatory recall' to 'here is a protocol and here is what the three available fixes do' is sound and would survive a careful rewrite; it does not currently survive the missing numbers and the buried mechanism discussion.",
+    "verdict": "A well-conceived and unusually honest study whose contribution is real but whose framing overstates the gap, whose bibliography contains entries that cannot be verified and may be fabricated, and whose introduction is not yet readable because the numbers are missing.",
+    "lente": "literature-analyst",
+    "auditor": "deepseek_v3"
+  }
+]

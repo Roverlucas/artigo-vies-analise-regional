@@ -121,8 +121,14 @@ $\ntasktone$ while keeping it the hardest task; the code verdict also shows
 what the judges could not, that more than a third of the wrong T1 answers
 (\nladderhit{} of \nincorrectn) cite a value that sits on the country's
 official ladder, a superseded value or a future stage, rather than a fabricated
-one (Section~\ref{sec:results:t1}). The floor is shallower than first reported
-and concentrated in normative recall.
+one. That pooled figure hides the asymmetry that matters: \nladdershgn\% of
+the wrong Northern answers are ladder values (\nladderhitgn{} of
+\nincorrectgn) against \nladdershgs\% of the wrong Southern ones
+(\nladderhitgs{} of \nincorrectgs). When a model errs about a Northern
+standard it is usually confused about which stage binds; when it errs about a
+Southern one it is usually not on the ladder at all
+(Section~\ref{sec:results:t1}). The floor is shallower than first reported and
+concentrated in normative recall.
 
 \begin{table}[h]
 \centering
@@ -145,14 +151,15 @@ For the nine countries with a target native language, each prompt is rendered
 in both English and the native language with content held fixed, so that the
 contrast is within-country and within-model. Replicates are averaged within
 each (model, prompt) cell before pairing, since pairing replicate to replicate
-would inflate $n$. Across the 839 matched cells, native-language prompting
-lowers mean composite accuracy by \nnativa{} percentage points (Wilcoxon
-signed-rank $p=\nnativap$). That test treats cells as independent, and they are
-nested in nine countries and fourteen models, so we also report the inference
-that respects the nesting: a mixed model on the paired differences with a
-random intercept per country gives $\nhtwomixedcountry$~pp (SE
-$\nhtwomixedcountryse$, $p=\nhtwomixedcountryp$), with a random intercept per
-model $\nhtwomixedmodel$~pp ($p=\nhtwomixedmodelp$); with the country as the
+would inflate $n$. The headline estimate is the one that respects the
+nesting: a mixed model on the paired differences with a random intercept per
+country gives $\nhtwomixedcountry$~pp (SE $\nhtwomixedcountryse$,
+$p=\nhtwomixedcountryp$), and it is the number the abstract, the discussion and
+the conclusion quote. The remaining estimators of the same quantity agree.
+Across the 839 matched cells a Wilcoxon signed-rank test gives \nnativa{}~pp
+($p=\nnativap$), anticonservative because it treats cells as independent when
+they are nested in nine countries and fourteen models; a random intercept per
+model gives $\nhtwomixedmodel$~pp ($p=\nhtwomixedmodelp$); with the country as the
 unit ($n=9$) the penalty is negative in \nhtwocneg{} of nine and averages
 $\nhtwocmean\pm\nhtwocse$~pp ($t=\nhtwoct$, $p=\nhtwoctp$); with the model as
 the unit ($n=14$) it is negative in \nhtwomneg{} of fourteen (Wilcoxon
@@ -369,11 +376,15 @@ resolvable part of T2 and T3), the panel or judge score otherwise, so for T5,
 which has no register value, it is the judge's factual rating. Conditional OR
 from a binomial mixed model with crossed random intercepts for country and
 model, an interval for a within-country, within-model contrast; raw OR with its
-95\% country-level bootstrap interval and the permutation $p$ of the tier label
-with the country as the unit. The two differ by roughly a factor of five in
-width because the country intercepts are far from exchangeable (variance
-components in Supplementary Material). Every country-level interval includes~1;
-the decomposition is exploratory and is read as a pattern of point estimates.}
+95\% country-level bootstrap interval; the $p$ column belongs to the raw
+estimate and is the permutation of the tier label with the country as the unit.
+The conditional estimate answers a within-country, within-model question and is
+not a statement about the 25 countries as they are; the raw estimate is. The two
+differ by roughly a factor of five in width because the country intercepts are
+far from exchangeable (variance components in Supplementary Material). Every
+estimable country-level interval includes~1, so no per-task contrast is claimed
+as a finding; the decomposition is exploratory and is read as a pattern of point
+estimates.}
 \label{tab:tier-by-task}
 \scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -390,6 +401,13 @@ T5 recommendation (no register value) & \nortfivegn\% & \nortfivegs\% & \multico
 \bottomrule
 \end{tabular}
 \end{table}
+
+Two sentences fix what each column means. The conditional estimate answers:
+within a given country and a given model, how much less often does the Global
+South answer return the value in force? The raw estimate answers: across the 25
+countries as they actually are, how much less often? The paper's claim is the
+second, and only in the pooled form above; the first is reported because it is
+the estimate a reader of the mixed-model literature will expect.
 
 \begin{figure}[h]
 \centering

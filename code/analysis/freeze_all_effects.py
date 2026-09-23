@@ -181,9 +181,28 @@ def perm_p(a, b, n=10000, semente=20260822):
     return (extremos + 1) / (n + 1)
 
 
+
+NATIVAS_SUF = ("_pt", "_es", "_hi")
+
+
+def _base(pid: str) -> str:
+    """O id em ingles correspondente a um prompt nativo."""
+    for suf in NATIVAS_SUF:
+        if pid.endswith(suf):
+            return pid[:-len(suf)]
+    return pid
+
 def efeitos(rows):
     ing = [r for r in rows if not r["nativa"] and "_AP_" in r["prompt_id"]]
     out = {}
+    # Uma celula nativa sem contraparte em ingles era descartada em silencio.
+    # Sao poucas (a auditoria independente de 2026-09-22 achou uma), mas "poucas"
+    # so se sabe contando: o numero entra no congelamento e qualquer aumento
+    # aparece na proxima rodada em vez de sumir dentro do n.
+    _ing_k = {(r["prompt_id"], r["modelo"]) for r in ing}
+    _sem_par = {(r["prompt_id"].rsplit("_", 1)[0] if False else _base(r["prompt_id"]), r["modelo"])
+                for r in rows if r["nativa"]}
+    out["h2_nativas_sem_par"] = sum(1 for k in _sem_par if k not in _ing_k)
 
     # tier gap Norte/Sul, sobre a media por pais (como no manuscrito)
     por_pais = collections.defaultdict(list)

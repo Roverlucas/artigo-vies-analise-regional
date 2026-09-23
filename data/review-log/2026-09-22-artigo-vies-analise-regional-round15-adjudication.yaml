@@ -1,0 +1,191 @@
+critical_review:
+  lens: round-15 — auditoria independente em DeepSeek-V3 (11 lentes do squad), pedida pelo autor
+  role: >-
+    R7: quem gera nao fecha. Todo o material foi produzido em Claude, entao a
+    validacao rodou em outro fornecedor. R3: o parecer e E3 — hipotese. Cada achado
+    critico foi conferido na fonte (codigo, JSON, Crossref, DataCite, arXiv) antes de
+    virar edicao, e os rejeitados estao aqui com a medicao que os rejeita.
+  artifact_id: artigo-vies-analise-regional
+  date: 2026-09-22
+  auditor: deepseek_v3 · 11 lentes · notas 5,0 a 7,0 (mediana 6,5) · 21 achados criticos
+  verdict: >-
+    revisions-applied — 12 UPHELD (um deles achado proprio e grave: a declaracao de IA
+    afirmava uma execucao que nunca ocorreu), 4 REJECTED_FALSE_PREMISE com medicao,
+    5 PONTUAL de apresentacao aplicados. A auditoria na OpenAI nao rodou: conta sem
+    credito, preflight barra em 3s.
+  gates_run:
+    - consistency_gate · validate_numbers · check_highlights · pytest 10/10 · build_blind sem vazamento
+    - os 5 PDFs compilam sem referencia indefinida e sem overfull no corpo
+  findings:
+    # ---------------- achado proprio, o mais grave da rodada ----------------
+    - id: R15-0
+      source: lente legal-ethics apontou a frase por OUTRO motivo (risco de parecer "lavagem" de revisao); a conferencia revelou que ela era FALSA
+      premise_checked: >-
+        A declaracao de IA dizia que Gemini 2.5 Pro, DeepSeek-V3 e GPT-5.2-pro atuaram
+        como "revisores independentes das afirmacoes e da prosa". Medido:
+        squad_audit.json tem 14 pareceres validos de gemini_2_5_pro e deepseek_v3;
+        squad_audit_openai.json tem 0 validos e 8 HTTP 429 "no credits", e o mesmo
+        arquivo ja estava assim no commit 9ebfd2b. GPT-5.2-pro NUNCA produziu parecer.
+      verdict: UPHELD (com achado proprio)
+      severity: MUST
+      status: resolved
+      resolution: >-
+        Declaracao corrigida em EN e PT: nomeia apenas os dois modelos que de fato
+        rodaram, declara que a execucao em GPT-5.2-pro foi tentada e nunca aconteceu
+        por falta de credito, aponta para o artefato da tentativa falha, e reenquadra
+        as passagens como garantia de qualidade interna e nao revisao por pares, com a
+        regra de que todo achado foi conferido na fonte antes de qualquer edicao.
+        Viola a regra de integridade "nada nao-executado no manuscrito" — era metodo
+        declarado sem execucao.
+    # ---------------- UPHELD ----------------
+    - id: R15-1
+      source: qa-reviewer
+      issue: '"every per-task interval includes 1" — mas T5 nao tem intervalo estimavel (teto 99,6 vs 99,7)'
+      verdict: UPHELD
+      severity: MUST
+      status: resolved
+      resolution: '"every estimable per-task interval" no abstract, no corpo e na legenda, EN e PT.'
+    - id: R15-2
+      source: qa-reviewer
+      issue: >-
+        O "um terco das respostas erradas cita a escada" e agrupado, mas a propria analise
+        da escada diz que os instrumentos escalonados estao no Norte. As duas afirmacoes
+        descrevem populacoes diferentes e o leitor nao sabe qual.
+      premise_checked: 'Medido por tier: GN 153/273 = 56%; GS 131/490 = 27%; agrupado 37%.'
+      verdict: UPHELD
+      severity: MUST
+      status: resolved
+      resolution: >-
+        Reportado por tier no corpo (macros laddershgn/laddershgs). O numero afia o
+        argumento em vez de so o qualificar: quando o modelo erra um padrao do Norte
+        geralmente confunde a etapa; quando erra um do Sul, o valor nem esta na escada.
+    - id: R15-3
+      source: statistician
+      issue: A manchete de H2 era o Wilcoxon no nivel da celula, que o proprio texto admite ser anticonservador.
+      verdict: UPHELD
+      severity: MUST
+      status: resolved
+      resolution: >-
+        O modelo misto com intercepto por pais passa a ser a estimativa-manchete e e o
+        numero citado no abstract, na discussao e na conclusao; o Wilcoxon fica como
+        estimador alternativo, declarado anticonservador. EN e PT.
+    - id: R15-4
+      source: code-reviewer
+      issue: >-
+        No pareamento de H2, uma celula nativa sem contraparte em ingles e descartada em
+        silencio; e o docstring promete pareamento por replicata que o codigo nao faz.
+      premise_checked: 'Medido: 1 chave nativa sem par (COL_AP_T3_N01_public_manager_env x gpt_oss_120b) em 840; nenhuma celula nativa sem "_AP_" no id, entao a assimetria do filtro nao tem efeito.'
+      verdict: UPHELD
+      severity: MUST
+      status: resolved
+      resolution: >-
+        freeze_all_effects passa a contar e publicar h2_nativas_sem_par; o numero entra
+        no congelamento e no texto (macro htwosempar), de modo que um aumento aparece
+        na proxima rodada em vez de sumir dentro do n. Nao muda nenhum resultado.
+    - id: R15-5
+      source: literature-analyst
+      issue: '"None isolates a single applied domain with verifiable official ground truth" — mas o proprio artigo cita Dahl 2024, que faz exatamente isso.'
+      verdict: UPHELD
+      severity: MUST
+      status: resolved
+      resolution: >-
+        Lacuna reenquadrada em EN e PT: Dahl 2024 e o precedente mais proximo e e
+        citado como tal ja na Introducao; a lacuna residual e a versao transnacional,
+        estratificada para equidade, com chaves que sao instrumentos nacionais.
+    - id: R15-6
+      source: legal-ethics
+      issue: '"anonymised LLM responses" e indefinido sem sujeitos humanos; e o leitor nao sabe o que sai de data/confirmatory_PRIVATE.'
+      verdict: UPHELD
+      status: resolved
+      resolution: >-
+        A declaracao de disponibilidade agora diz o que e publicado (o mesmo diretorio,
+        renomeado para data/responses/, sem nada removido), por que nao ha redacao a
+        fazer e por que nao chamamos os registros de anonimizados.
+    - id: R15-7
+      source: legal-ethics
+      issue: 'Interesses: tres fornecedores avaliados sao nomeados como revisores do manuscrito.'
+      verdict: UPHELD
+      status: resolved
+      resolution: Declaracao de interesses passa a dizer que nenhum fornecedor financiou, revisou ou teve conhecimento do estudo, nem papel no desenho, na analise ou na decisao de publicar.
+    - id: R15-8
+      source: orientador
+      issue: 'Seis regimes de pontuacao distintos reconstruidos em prosa por tres subsecoes; o leitor nao consegue sustentar todos.'
+      verdict: UPHELD
+      status: resolved
+      resolution: Tabela nova no inicio de Medidas (uma linha por tarefa, quem decide o veredito factual, quem decide os outros quatro, se entra no desfecho primario) e a prosa que a duplicava foi cortada. EN e PT.
+    - id: R15-9
+      source: journal-specialist, didatica
+      issue: O abstract nunca nomeia as tres correcoes em termos simples.
+      verdict: UPHELD
+      status: resolved
+      resolution: 'As tres passam a ser nomeadas na primeira frase apos o metodo, com o status de cada uma. 249 palavras, dentro do teto.'
+    - id: R15-10
+      source: statistician
+      issue: 'A coluna de p da Tabela 5 nao diz a qual estimativa pertence.'
+      verdict: UPHELD
+      status: resolved
+      resolution: Legenda declara que o p pertence a estimativa bruta, que a condicional nao e afirmacao sobre os 25 paises, e que nenhum contraste por tarefa e reivindicado como achado.
+    - id: R15-11
+      source: didatica
+      issue: 'O leitor de administracao publica nao decodifica "conditional OR" vs "raw OR".'
+      verdict: UPHELD
+      status: resolved
+      resolution: Duas frases em linguagem simples apos a tabela, dizendo a pergunta que cada estimativa responde e qual delas e a afirmacao do artigo. EN e PT.
+    # ---------------- REJECTED ----------------
+    - id: R15-12
+      source: literature-analyst — "o achado mais danoso que um revisor pode encontrar"
+      objection: >-
+        Boa parte da bibliografia tem ano 2026 e DOIs que "nao podem existir"; arXiv
+        2603.xxxxx e impossivel; a nota de verificacao via Crossref nao e criivel.
+      verdict: REJECTED_FALSE_PREMISE
+      status: closed
+      resolution: >-
+        Conferido ao vivo em 2026-09-22: das 8 entradas com DOI e ano 2026, 6 resolvem
+        no Crossref (titulo e periodico batendo, tres delas na propria GIQ) e 2 sao DOIs
+        arXiv 10.48550, que o Crossref nao indexa por construcao — resolvem no DataCite
+        e na API do arXiv, com titulos identicos aos do .bib e data de 27/03/2026. A
+        premissa vem do corte de treino do auditor, que trata 2026 como futuro.
+    - id: R15-13
+      source: code-reviewer — "a maior ameaca a linha do artigo"
+      objection: h2_faithful_subset.py nao esta no conjunto revisado; se nao existe, H2 se apoia so numa classificacao de prompts.
+      verdict: REJECTED_FALSE_PREMISE
+      status: closed
+      resolution: O script existe, roda no pipeline e seus numeros estao no manuscrito (macros faithful/faithfuln/faithfulp e a permutacao fiel-divergente). A lente nao recebeu o arquivo no material.
+    - id: R15-14
+      source: qa-reviewer
+      objection: Quatro numeros diferentes sao apresentados como a mesma grandeza em H2.
+      verdict: REJECTED_FALSE_PREMISE
+      status: closed
+      resolution: 'Os quatro imprimem o mesmo valor: nativa 5,0 · nativasigned -5,0 · mixedcountry -5,0 · htwocmean -5,0. O que faltava era dizer qual e o estimador-manchete, e isso foi feito (R15-3).'
+    - id: R15-15
+      source: qa-reviewer
+      objection: 'A ordenacao "estimativas maiores onde a resposta e um fato nacional" nao e o que a tabela mostra.'
+      verdict: REJECTED_FALSE_PREMISE
+      status: closed
+      resolution: 'A tabela mostra exatamente isso: T1 0,44 e T4 0,50 e T2 0,59 (nacionais) contra T3 0,76 (internacional). Razao menor = desvantagem maior.'
+    # ---------------- DEFERRED ----------------
+    - id: R15-16
+      source: academic-writer
+      issue: 'Os sete ataques de H2 apresentados em prosa com peso igual soterram o achado central.'
+      verdict: DEFERRED
+      status: open
+      resolution: Converter em tabela compacta serviria tambem ao corte de 25-30% que o editor pediu, mas e decisao de apresentacao do autor junto com o corte.
+    - id: R15-17
+      source: journal-specialist
+      issue: A secao de escopo gasta mais palavras com o que o estudo nao faz do que com o que faz.
+      verdict: DEFERRED
+      status: open
+      resolution: Entra no mesmo corte. Registrado.
+  refutations:
+    - id: REF-15-1
+      objection: "Referencias de 2026 e arXiv 2603.xxxxx nao podem existir; a bibliografia e suspeita."
+      answer: >-
+        8/8 DOIs de 2026 resolvem em 22/09/2026: 6 no Crossref (incl. tres na GIQ) e 2 no
+        DataCite/arXiv (ALBA 2603.26516 e AMALIA 2603.26511, ambos de 27/03/2026, titulos
+        identicos aos do .bib). Objecao originada em corte de treino do auditor.
+    - id: REF-15-2
+      objection: "H2 se apoia apenas numa auditoria que classifica prompts; o teste decisivo nao existe."
+      answer: 'h2_faithful_subset.py existe, roda no pipeline e seus resultados estao no manuscrito: -4,8 pp entre os prompts verificados como fieis (n=541), contra os divergentes, com permutacao p=0,80 para a diferenca entre os dois blocos.'
+  open_items_at_log_time:
+    - Auditoria na OpenAI: conta sem credito; preflight barra em 3s sem gastar. Roda quando houver saldo.
+    - Autor: dois avaliadores para as 150 respostas; snapshot anonimizado; corte de 25-30% (leva junto R15-16 e R15-17).

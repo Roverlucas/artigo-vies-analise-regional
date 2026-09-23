@@ -348,7 +348,9 @@ def main() -> None:
     preflight(fornecedores)
     tarefas = []
     for nome, (instr, mat) in LENTES.items():
-        alvos = FORNECEDORES if nome in CRITICAS else (FORNECEDORES[1],)
+        # Com um unico fornecedor na lista, FORNECEDORES[1] estourava IndexError:
+        # a duplicata das lentes criticas so faz sentido quando ha dois.
+        alvos = FORNECEDORES if (nome in CRITICAS and len(FORNECEDORES) > 1) else (FORNECEDORES[-1],)
         for f in alvos:
             tarefas.append((nome, instr, mat, f))
     print(f"auditoria independente · {len(LENTES)} lentes · {len(tarefas)} pareceres")
@@ -372,9 +374,10 @@ def main() -> None:
                 print(f"  {rot:<38} nota {r.get('score','?'):<5} "
                       f"{len(w)} fraquezas {sev} · {len(o)} oportunidades", flush=True)
 
-    SAIDA.parent.mkdir(parents=True, exist_ok=True)
-    SAIDA.write_text(json.dumps(resultados, indent=2, ensure_ascii=False), encoding="utf-8")
-    print(f"\nescrito: {SAIDA}")
+    saida = pathlib.Path(args.saida)
+    saida.parent.mkdir(parents=True, exist_ok=True)
+    saida.write_text(json.dumps(resultados, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"\nescrito: {saida}")
 
 
 if __name__ == "__main__":

@@ -342,7 +342,32 @@ Material.
 
 \subsection{Measures}
 
-Scoring assigns each task the most reliable instrument it admits.
+Scoring assigns each task the most reliable instrument it admits, which means
+the paper carries more than one scoring regime at once.
+Table~\ref{tab:scoring} is the whole architecture on one page; the paragraphs
+that follow give the reasons behind it.
+
+\begin{table}[h]
+\centering
+\caption{Who decides what, per task. ``Factual verdict'' is the subcomponent
+carrying weight $0.30$ in the composite; the other four subcomponents are always
+a judge's. The primary tier outcome uses only the code column.}
+\label{tab:scoring}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}ll>{\raggedright\arraybackslash}p{3.1cm}>{\raggedright\arraybackslash}p{3.0cm}c@{}}
+\toprule
+Task & The answer is & Factual verdict & Other four subcomponents & In primary outcome \\
+\midrule
+T1 & a national value        & code, against the register & collection judge & yes \\
+T2 & a national value        & code where extractable, else panel & panel or collection judge & yes \\
+T3 & an international estimate & code where extractable, else panel & panel or collection judge & yes \\
+T4 & national instruments    & three-vendor panel & three-vendor panel & no \\
+T5 & no register value       & collection judge & collection judge & no \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 Where the answer is a number in an official register, code decides. For T1, T2
 and T3 the returned value is extracted and compared with the registry by a
@@ -364,14 +389,11 @@ countries, code scores whether the answer states that no national standard
 exists (correct), asserts a value (fabricated) or declines to answer (neither),
 and the tier comparison is reported with and without them.
 
-The code verdict replaces one subcomponent of the composite, factual accuracy
-(weight $0.30$); the other four subcomponents of a T1, T2 or T3 cell remain
-those assigned by the judge that scored it. For T1 that judge is the collection
-judge, so the composite on T1 still carries the judge-and-tier confound
-described below in $0.70$ of its weight. For that reason the primary outcome
-for the tier comparison on the register-valued tasks is the binary code verdict
-itself, whether the answer returned the value in force, and the composite is
-reported as the secondary outcome (Section~\ref{sec:results:h1}).
+The composite on T1 therefore still carries, in $0.70$ of its weight, the
+judge-and-tier confound described below. That is why the primary outcome for the
+tier comparison is the binary code verdict itself, whether the answer returned
+the value in force, with the composite as the secondary outcome
+(Section~\ref{sec:results:h1}).
 
 Where judgement is required, a three-vendor panel decides by its mean. The
 residual of T2 and T3, with all of T4, is scored by Gemini~2.5~Pro, Claude

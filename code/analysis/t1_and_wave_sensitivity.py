@@ -73,6 +73,26 @@ def frame(sel, ladder=False):
             y = 1.0
         recs.append({"y": int(y), "country": r["country_iso3"], "model": r["model_id"], "is_south": int(r["country_iso3"] not in GN)})
     return pd.DataFrame(recs)
+# escada por tier (auditoria DeepSeek, rodada 15): o "um terco" agrupado esconde
+# que a confusao de degrau e um modo de falha do NORTE — e o Norte e que tem
+# instrumentos escalonados. Sem separar, o numero do abstract descreve uma
+# populacao que nao existe.
+_esc_por, _esc_hit = collections.Counter(), collections.Counter()
+for _k, _g in t1_code.items():
+    _f = next((x for x in _g if x["verdict"] in FACTUAL), None)
+    if not _f or _f["verdict"] != "INCORRECT":
+        continue
+    _t = "GN" if _f["country"] in GN else "GS"
+    _esc_por[_t] += 1
+    _esc_hit[_t] += bool(_f.get("ladder_hit"))
+out["ladder_by_tier"] = {t: {"incorrect": _esc_por[t], "ladder_hit": _esc_hit[t],
+                             "share": _esc_hit[t] / _esc_por[t] if _esc_por[t] else None}
+                         for t in ("GN", "GS")}
+print("\nA2. Escada por tier — que fracao das respostas ERRADAS de T1 cita um degrau oficial")
+for _t in ("GN", "GS"):
+    _d = out["ladder_by_tier"][_t]
+    print(f"  {_t}: {_d['ladder_hit']}/{_d['incorrect']} = {100*_d['share']:.0f}%")
+
 out["A"] = {
     "all_keyed": or_model(frame(t1), "todos os países com chave (24; EGY fora)"),
     "excl_nonstandard": or_model(frame([r for r in t1 if r["country_iso3"] not in NONSTD]), "sem AGO/ARG/NGA (sem padrão) → 21 países"),

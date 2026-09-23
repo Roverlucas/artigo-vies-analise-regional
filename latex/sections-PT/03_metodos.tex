@@ -351,7 +351,32 @@ exclusão para cada déficit, está no material suplementar.
 
 \subsection{Medidas}
 
-A pontuação atribui a cada tarefa o instrumento mais confiável que ela admite.
+A pontuação atribui a cada tarefa o instrumento mais confiável que ela admite,
+o que significa que o artigo carrega mais de um regime de pontuação ao mesmo
+tempo. A Tabela~\ref{tab:pontuacao} traz a arquitetura inteira em uma página; os
+parágrafos seguintes dão as razões por trás dela.
+
+\begin{table}[h]
+\centering
+\caption{Quem decide o quê, por tarefa. O ``veredito factual'' é o subcomponente
+de peso $0,30$ no composto; os outros quatro são sempre de um juiz. O desfecho
+primário de tier usa apenas a coluna do código.}
+\label{tab:pontuacao}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}ll>{\raggedright\arraybackslash}p{3.1cm}>{\raggedright\arraybackslash}p{3.0cm}c@{}}
+\toprule
+Tarefa & A resposta é & Veredito factual & Outros quatro subcomponentes & No desfecho primário \\
+\midrule
+T1 & um valor nacional        & código, contra o registro & juiz da coleta & sim \\
+T2 & um valor nacional        & código onde extraível, senão painel & painel ou juiz da coleta & sim \\
+T3 & estimativa internacional & código onde extraível, senão painel & painel ou juiz da coleta & sim \\
+T4 & instrumentos nacionais   & painel de três fornecedores & painel de três fornecedores & não \\
+T5 & sem valor de registro    & juiz da coleta & juiz da coleta & não \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 Onde a resposta é um número em registro oficial, o código decide. Para T1, T2 e
 T3 o valor devolvido é extraído e comparado com o registro por um pontuador
@@ -374,14 +399,10 @@ padrão, o código pontua se a resposta afirma que não existe padrão nacional
 (correto), afirma um valor (fabricado) ou declina de responder (nenhum dos
 dois), e a comparação de tier é relatada com e sem eles.
 
-O veredito de código substitui um subcomponente do composto, a acurácia factual
-(peso $0,30$); os outros quatro subcomponentes de uma célula de T1, T2 ou T3
-continuam sendo os atribuídos pelo juiz que a pontuou. Para T1 esse juiz é o
-juiz da coleta, de modo que o composto em T1 ainda carrega o confundimento
-entre juiz e tier descrito abaixo em $0,70$ do seu peso. Por essa razão, o
-desfecho primário para a comparação de tier nas tarefas com valor de registro é
-o próprio veredito binário de código, se a resposta devolveu o valor em vigor,
-e o composto é relatado como desfecho secundário (Seção~\ref{sec:res:h1}).
+O composto em T1 carrega, portanto, em $0,70$ do seu peso, o confundimento entre
+juiz e tier descrito abaixo. É por isso que o desfecho primário da comparação de
+tier é o próprio veredito binário de código, se a resposta devolveu o valor em
+vigor, com o composto como desfecho secundário (Seção~\ref{sec:res:h1}).
 
 Onde é preciso julgamento, um painel de três fornecedores decide pela média. O
 resíduo de T2 e T3, com toda a T4, é pontuado por Gemini~2.5~Pro, Claude

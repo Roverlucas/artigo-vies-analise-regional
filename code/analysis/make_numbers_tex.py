@@ -181,6 +181,12 @@ M["floorbyctry"] = pp(K["F"]["floor_by_country"]["mean_pp"]); M["floorbyctryp"] 
 M["hthreebyctry"] = pp(K["F"]["h3_by_country"]["mean_pp"]); M["hthreebyctryp"] = pexp(K["F"]["h3_by_country"]["wilcoxon_p"]); M["hthreebyctryneg"] = str(K["F"]["h3_by_country"]["neg"])
 M["hthreenarrow"] = pp(K["F"]["h3_narrow_by_prompt"]["mean_pp"]); M["hthreenarrowp"] = pexp(K["F"]["h3_narrow_by_prompt"]["wilcoxon_p"]); M["hthreenarrowneg"] = str(K["F"]["h3_narrow_by_prompt"]["neg"]); M["hthreenarrown"] = str(K["F"]["h3_narrow_by_prompt"]["n"])
 M["rhocilo"] = f"{K['G']['ci25'][0]:+.2f}"; M["rhocihi"] = f"{K['G']['ci25'][1]:+.2f}"; M["rhoprecilo"] = f"{K['G']['ci15'][0]:+.2f}"; M["rhoprecihi"] = f"{K['G']['ci15'][1]:+.2f}"
+LT = S["ladder_by_tier"]
+M["laddershgn"] = f"{100*LT['GN']['share']:.0f}"; M["laddershgs"] = f"{100*LT['GS']['share']:.0f}"
+M["ladderhitgn"] = str(LT["GN"]["ladder_hit"]); M["ladderhitgs"] = str(LT["GS"]["ladder_hit"])
+M["incorrectgn"] = str(LT["GN"]["incorrect"]); M["incorrectgs"] = str(LT["GS"]["incorrect"])
+M["h2mixedcountryabs"] = f"{abs(float(M['h2mixedcountry'])):.1f}"  # o abstract cita o modulo
+M["htwosempar"] = str(c.get("h2_nativas_sem_par", 0))
 M["hfourctryrhohdi"] = f"{K['A']['country_level']['rho_hdi']:+.2f}"; M["hfourctryphdi"] = f"{K['A']['country_level']['p_hdi']:.3f}"
 M["htwonoempty"] = pp(K["J"]["excl_empty"]["pp"], 2); M["htwonoemptyn"] = str(K["J"]["excl_empty"]["n"]); M["htwonoemptyp"] = pexp(K["J"]["excl_empty"]["p"])
 M["emptycells"] = f"{K['J']['empty_cells']:,}".replace(",", "{,}"); M["emptycellspt"] = f"{K['J']['empty_cells']:,}".replace(",", ".")

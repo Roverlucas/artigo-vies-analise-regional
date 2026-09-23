@@ -11,21 +11,21 @@ says whether it matches the official register. We propose a protocol for that
 check and report what it finds. Answers are scored against official registers,
 by code wherever the correct answer is a published value and by a three-vendor
 judge panel elsewhere, across 25 countries, 14 deployment stacks and four
-languages (\ncells{} scored cells). None of the three fixes an agency can
-deploy without building anything works, and the most intuitive one harms.
-Asking in the country's own language lowers accuracy by \nnativa{} percentage
-points (mixed model with a random intercept per country,
-$p=\nhtwomixedcountryp$; negative in \nhtwocneg{} of nine countries) and makes
-the model \nverifdiffabs{} points less likely to return a register-checkable
-value at all. Declaring the official role is equivalent to declaring nothing
-within two percentage points. Regional instruction tuning at 7B does not
-improve on the base model it was tuned from. Accuracy is lowest on the task
+languages (\ncells{} scored cells). An agency can do three things without building
+anything: prefix the official role to the prompt, ask in the national language,
+or run a regionally fine-tuned open model. None works, and the most intuitive
+one harms. Asking in the country's own language lowers the composite score by
+\nhtwomixedcountryabs{} percentage points (mixed model with a random intercept
+per country, $p=\nhtwomixedcountryp$; negative in \nhtwocneg{} of the nine
+countries with a native-language pair) and makes the model \nverifdiffabs{}
+points less likely to return a register-checkable value at all, in each of the
+three languages tested. The official role is equivalent to no role within two
+percentage points, and regional tuning at 7B recalls the value in force no more
+often than the base model it was tuned from. Accuracy is lowest on the task
 that carries administrative consequence, recalling the binding value
 (\ntasktoneshort{} against \nfloorrestshort{} for synthesis and
-recommendation), and a third of the wrong answers cite a value from the
-country's own official ladder. Global South countries return the register
-value \ncodegapabs{} points less often than Global North ones with the country
-as the unit; the point estimates are largest where the answer is a national
-fact, but every per-task interval includes~1.
+recommendation). Global South countries return the register value
+\ncodegapabs{} points less often than Global North ones with the country as the
+unit, and every estimable per-task interval includes~1.
 
 \end{abstract}

@@ -9,21 +9,20 @@ corresponde ao registro oficial. Propomos um protocolo para essa conferência e
 relatamos o que ele encontra. As respostas são pontuadas contra registros
 oficiais, por código sempre que a resposta correta é um valor publicado e por um
 painel de juízes de três fornecedores nos demais casos, em 25 países, 14
-configurações de acesso e quatro idiomas (\ncellspt{} células pontuadas).
-Nenhuma das três mitigações que um órgão consegue implantar sem construir nada
-funciona, e a mais intuitiva prejudica. Perguntar no idioma do próprio país
-reduz a acurácia em \nnativa{} pontos percentuais (modelo misto com intercepto
-aleatório por país, $p=\nhtwomixedcountryp$; negativa em \nhtwocneg{} de nove
-países) e torna o modelo \nverifdiffabs{} pontos menos propenso a devolver
-qualquer valor conferível contra o registro. Declarar o papel oficial equivale a
-não declarar nada, em até dois pontos percentuais. O ajuste regional de
-instrução em 7B não melhora o modelo-base de que partiu. A acurácia é mais baixa
-na tarefa com consequência administrativa, recordar o valor vinculante
-(\ntasktoneshort{} contra \nfloorrestshort{} para síntese e recomendação), e um
-terço das respostas erradas cita um valor da própria escada oficial do país. Os
-países do Sul Global devolvem o valor do registro \ncodegapabs{} pontos menos
-vezes que os do Norte com o país como unidade; as estimativas pontuais são
-maiores onde a resposta é um fato nacional, mas todo intervalo por tarefa
-inclui~1.
+configurações de acesso e quatro idiomas (\ncellspt{} células pontuadas). Um órgão consegue fazer três coisas sem
+construir nada: antepor o papel oficial ao prompt, perguntar no idioma nacional
+ou rodar um modelo aberto com ajuste regional. Nenhuma funciona, e a mais
+intuitiva prejudica. Perguntar no idioma do próprio país reduz o composto em
+\nhtwomixedcountryabs{} pontos percentuais (modelo misto com intercepto
+aleatório por país, $p=\nhtwomixedcountryp$; negativa em \nhtwocneg{} dos nove
+países com par nativo) e torna o modelo \nverifdiffabs{} pontos menos propenso a
+devolver qualquer valor conferível contra o registro, em cada um dos três
+idiomas testados. O papel oficial equivale a nenhum papel em até dois pontos
+percentuais, e o ajuste regional em 7B recorda o valor em vigor com a mesma
+frequência do modelo-base de que partiu. A acurácia é mais baixa na tarefa com
+consequência administrativa, recordar o valor vinculante (\ntasktoneshort{}
+contra \nfloorrestshort{} para síntese e recomendação). Os países do Sul Global
+devolvem o valor do registro \ncodegapabs{} pontos menos vezes que os do Norte
+com o país como unidade, e todo intervalo estimável por tarefa inclui~1.
 
 \end{abstract}

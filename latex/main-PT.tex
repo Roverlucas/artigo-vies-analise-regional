@@ -106,13 +106,19 @@ multilíngue; governo digital; Sul Global
 \section*{Disponibilidade de dados e código}
 
 O protocolo completo, os prompts, o código de análise, os registros de gabarito e
-as respostas anonimizadas dos modelos serão liberados na publicação em
+as respostas completas dos modelos serão liberados na publicação em
 \href{https://github.com/Roverlucas/artigo-vies-analise-regional}{github.com/Roverlucas/artigo-vies-analise-regional},
 sob licenças MIT (código) e CC-BY-4.0 (dados, prompts, documentação). A liberação
 inclui os registros por resposta a partir dos quais cada efeito relatado é
 calculado, de modo que todo número deste artigo pode ser recomputado do dado
 bruto em vez de aceito por confiança. O pipeline de análise roda de ponta a ponta
-com \texttt{python code/run\_all.py --confirmatory}.
+com \texttt{python code/run\_all.py --confirmatory}. Concretamente, o diretório
+que o pipeline lê como \texttt{data/confirmatory\_PRIVATE/} é publicado inteiro
+sob o nome \texttt{data/responses/}: os mesmos arquivos, renomeados, sem nada
+removido. Nenhuma redação é necessária e nenhuma é aplicada, porque os registros
+contêm saídas de modelos a perguntas públicas de política e nenhum dado de
+sujeito humano; pela mesma razão não os descrevemos como anonimizados. O nome do
+flag \texttt{--confirmatory} vem do protocolo fechado.
 
 \section*{Protocolo do estudo}
 
@@ -175,9 +181,14 @@ código, não por modelo.
 autores usaram o Claude, da Anthropic (via Claude Code), para auxiliar na redação
 e edição do texto e na implementação do código de análise; o Codex CLI, da
 OpenAI, para rodar uma auditoria adversarial do manuscrito, do suplemento e do
-código contra suas fontes; e, por API, o Gemini~2.5~Pro, o DeepSeek-V3 e o
-GPT-5.2-pro como revisores independentes das afirmações e da prosa do manuscrito,
-cada um rodado em fornecedor diferente do que redigiu o trecho revisado. Após
+código contra suas fontes; e, por API, o Gemini~2.5~Pro e o DeepSeek-V3 para
+garantia de qualidade interna das afirmações e da prosa do manuscrito, rodados em
+fornecedor diferente do que redigiu o trecho revisado. Uma execução equivalente
+no GPT-5.2-pro foi tentada e nunca aconteceu, porque a conta estava sem crédito;
+a tentativa falha está nos artefatos liberados e nenhuma saída desse modelo está
+neste artigo. São passagens de garantia de qualidade, não revisão por pares: todo
+achado que voltou foi conferido na fonte antes de qualquer edição, e os que
+rejeitamos estão registrados com o motivo. Após
 usar essas ferramentas, os autores
 revisaram e editaram o conteúdo conforme necessário e assumem responsabilidade
 integral pelo conteúdo da publicação. Nenhum modelo de linguagem consta como
@@ -186,7 +197,10 @@ decisões sobre o que a evidência sustenta.
 
 \section*{Declaração de interesses}
 
-Os autores declaram não haver conflitos de interesse.
+Os autores declaram não haver conflitos de interesse. Os modelos aqui avaliados
+foram acessados por camadas de API pagas ou gratuitas comuns; nenhum fornecedor
+financiou, revisou ou teve qualquer conhecimento deste estudo, e nenhum teve
+papel no desenho, na análise ou na decisão de publicar.
 
 \bibliography{references}
 

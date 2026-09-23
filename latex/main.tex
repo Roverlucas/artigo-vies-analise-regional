@@ -123,14 +123,20 @@ digital government \sep Global South
 \section*{Data and code availability}
 
 The full protocol, prompts, analysis code, ground-truth registries, and the
-anonymised LLM responses will be released on publication at\\
+complete model responses will be released on publication at\\
 \href{https://github.com/Roverlucas/artigo-vies-analise-regional}%
 {\texttt{github.com/Roverlucas/}\allowbreak\texttt{artigo-vies-analise-regional}}\\
 under MIT (code) and CC-BY-4.0 (data, prompts, documentation) licenses. The
 release includes the per-response records that every reported effect is computed
 from, so each number in this paper can be recomputed from the raw data rather
-than taken on trust. The analysis pipeline runs end-to-end via
-\texttt{python code/run\_all.py --confirmatory}.
+than taken on trust. Concretely, the directory the pipeline reads as
+\texttt{data/confirmatory\_PRIVATE/} is published in full under the name
+\texttt{data/responses/}: the same files, renamed, with nothing removed. No
+redaction is needed and none is applied, because the records contain model
+outputs to public policy questions and no human-subject data; for the same
+reason we do not describe them as anonymised. The analysis pipeline runs
+end-to-end via \texttt{python code/run\_all.py --confirmatory}, a flag name
+kept from the locked protocol.
 
 \section*{Study protocol}
 
@@ -194,16 +200,24 @@ computed by code rather than by a model.
 authors used Anthropic's Claude (via Claude Code) to assist with drafting and
 editing the text and implementing analysis code; OpenAI's Codex CLI to audit
 the manuscript, supplement and code against their sources; and, through their
-APIs, Gemini~2.5~Pro, DeepSeek-V3 and GPT-5.2-pro as independent reviewers of the
-manuscript's claims and prose, each run from a vendor other than the one that
-drafted the passage under review. After using these tools, the authors reviewed and edited the content as needed and take full
+APIs, Gemini~2.5~Pro and DeepSeek-V3 for internal quality assurance on the
+manuscript's claims and prose, run from a vendor other than the one that drafted
+the passage under review. An equivalent run on GPT-5.2-pro was attempted and
+never executed, because the account had no credit; the failed attempt is in the
+released artefacts and no output of that model is in this paper. These are
+quality-assurance passes, not peer review: every finding they returned was
+checked against the source before any edit, and the ones we rejected are logged
+with the reason. After using these tools, the authors reviewed and edited the content as needed and take full
 responsibility for the content of the publication. No language model is listed as
 an author, and no model contributed the interpretation of findings or the
 decisions about what the evidence supports.
 
 \section*{Declaration of interests}
 
-The authors declare no competing interests.
+The authors declare no competing interests. The models evaluated here were
+accessed through ordinary paid or free API tiers; no vendor funded, reviewed, or
+had any knowledge of this study, and none had any role in the design, the
+analysis, or the decision to publish.
 
 \bibliographystyle{elsarticle-harv}
 \bibliography{references}

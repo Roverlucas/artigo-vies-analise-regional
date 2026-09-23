@@ -120,8 +120,13 @@ $\ntasktone$ mantendo-a como a tarefa mais difícil; o veredito de código tamb�
 mostra o que os juízes não podiam mostrar, que mais de um terço das respostas
 erradas de T1 (\nladderhit{} de \nincorrectn) cita um valor que está na escada
 oficial do país, um valor superado ou uma etapa futura, e não um valor
-fabricado (Seção~\ref{sec:res:t1}). O piso é mais raso do que o relatado
-inicialmente e concentrado na recordação normativa.
+fabricado. Esse número agrupado esconde a assimetria que importa:
+\nladdershgn\% das respostas erradas do Norte são valores da escada
+(\nladderhitgn{} de \nincorrectgn) contra \nladdershgs\% das do Sul
+(\nladderhitgs{} de \nincorrectgs). Quando o modelo erra um padrão do Norte,
+geralmente está confuso sobre qual etapa vincula; quando erra um do Sul,
+geralmente o valor não está na escada (Seção~\ref{sec:res:t1}). O piso é mais
+raso do que o relatado inicialmente e concentrado na recordação normativa.
 
 \begin{table}[h]
 \centering
@@ -144,14 +149,16 @@ Para os nove países com idioma nativo alvo, cada prompt é apresentado em ingl�
 e no idioma nativo com o conteúdo mantido fixo, de modo que o contraste é dentro
 do país e dentro do modelo. As réplicas são tiradas em média dentro de cada
 célula (modelo, prompt) antes do pareamento, já que parear réplica com réplica
-inflaria o $n$. Nas 839 células pareadas, o prompt em idioma nativo reduz a
-acurácia composta média em \nnativa{} pontos percentuais (Wilcoxon pareado
-$p=\nnativap$). Esse teste trata as células como independentes, e elas estão
-aninhadas em nove países e catorze modelos, de modo que relatamos também a
-inferência que respeita o aninhamento: um modelo misto sobre as diferenças
-pareadas com intercepto aleatório por país dá $\nhtwomixedcountry$~pp (EP
-$\nhtwomixedcountryse$, $p=\nhtwomixedcountryp$), com intercepto aleatório por
-modelo $\nhtwomixedmodel$~pp ($p=\nhtwomixedmodelp$); com o país como unidade
+inflaria o $n$; \nhtwosempar{} célula nativa não tem contraparte em inglês e é
+relatada, em vez de descartada em silêncio. A estimativa-manchete é a que respeita o aninhamento: um
+modelo misto sobre as diferenças pareadas com intercepto aleatório por país dá
+$\nhtwomixedcountry$~pp (EP $\nhtwomixedcountryse$,
+$p=\nhtwomixedcountryp$), e é o número que o resumo, a discussão e a conclusão
+citam. Os demais estimadores da mesma grandeza concordam. Nas 839 células
+pareadas, um teste de Wilcoxon dá \nnativa{}~pp ($p=\nnativap$),
+anticonservador porque trata as células como independentes quando elas estão
+aninhadas em nove países e catorze modelos; com intercepto aleatório por modelo
+são $\nhtwomixedmodel$~pp ($p=\nhtwomixedmodelp$); com o país como unidade
 ($n=9$) a penalidade é negativa em \nhtwocneg{} de nove e tem média
 $\nhtwocmean\pm\nhtwocse$~pp ($t=\nhtwoct$, $p=\nhtwoctp$); com o modelo como
 unidade ($n=14$) é negativa em \nhtwomneg{} de catorze (Wilcoxon
@@ -371,11 +378,14 @@ do juiz nos demais casos, de modo que para T5, que não tem valor de registro,
 é a nota factual do juiz. RC condicional de um modelo binomial misto com
 interceptos aleatórios cruzados para país e modelo, intervalo de um contraste
 dentro do país e dentro do modelo; RC bruta com seu intervalo bootstrap de 95\%
-por país e o $p$ de permutação do rótulo de tier com o país como unidade. Os
-dois diferem por cerca de um fator de cinco em largura porque os interceptos de
-país estão longe de ser permutáveis (componentes de variância no material
-suplementar). Todo intervalo por país inclui~1; a decomposição é exploratória e
-é lida como um padrão de estimativas pontuais.}
+por país; a coluna de $p$ pertence à estimativa bruta e é a permutação do rótulo
+de tier com o país como unidade. A estimativa condicional responde a uma pergunta
+dentro do país e dentro do modelo, e não é uma afirmação sobre os 25 países como
+eles são; a bruta é. As duas diferem por cerca de um fator de cinco em largura
+porque os interceptos de país estão longe de ser permutáveis (componentes de
+variância no material suplementar). Todo intervalo estimável por país inclui~1,
+de modo que nenhum contraste por tarefa é reivindicado como achado; a
+decomposição é exploratória e é lida como um padrão de estimativas pontuais.}
 \label{tab:camada-por-tarefa}
 \scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -392,6 +402,13 @@ T5 recomendação (sem valor de registro) & \nortfivegn\% & \nortfivegs\% & \mul
 \bottomrule
 \end{tabular}
 \end{table}
+
+Duas frases fixam o que cada coluna significa. A estimativa condicional
+responde: dentro de um dado país e de um dado modelo, quanto menos vezes a
+resposta do Sul Global devolve o valor em vigor? A bruta responde: nos 25 países
+como eles de fato são, quanto menos vezes? A afirmação do artigo é a segunda, e
+só na forma agrupada acima; a primeira é relatada porque é a estimativa que um
+leitor da literatura de modelos mistos espera.
 
 \begin{figure}[h]
 \centering

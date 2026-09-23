@@ -9,9 +9,9 @@
 
 | arquivo | conteúdo | pp |
 |---|---|---|
-| `...MANUSCRITO-EN` | manuscrito completo, inglês (idioma de submissão), `elsarticle [review]`, espaçamento duplo | 76 |
+| `...MANUSCRITO-EN` | manuscrito completo, inglês (idioma de submissão), `elsarticle [review]`, espaçamento duplo | 79 |
 | `...SUPLEMENTAR-EN` | material suplementar, inglês | 21 |
-| `...MANUSCRITO-PT` | versão de leitura em português | 40 |
+| `...MANUSCRITO-PT` | versão de leitura em português | 41 |
 | `...SUPLEMENTAR-PT` | suplemento em português | 18 |
 | `CEGO_*` | versão anonimizada, gerada por script, para submissão double-blind | — |
 | `validacao-humana/` | as três planilhas de avaliação e o LEIA-ME de quem for pontuar | — |
@@ -55,6 +55,56 @@ texto afirma.**
    **nunca havia gerado um PDF**: o script deixava uma chave órfã ao remover o
    bloco de autores. Consertado; os dois PDFs cegos estão no pacote e passam pela
    varredura de 11 termos identificadores.
+
+## Auditoria independente em DeepSeek-V3 (rodada 15)
+
+Rodei as 11 lentes do squad em **outro fornecedor**, porque quem gera não fecha.
+Notas de 5,0 a 7,0 (mediana 6,5) e 21 achados críticos. Conferi cada um na fonte
+antes de mexer no texto; **12 procedem, 4 são falsos e 5 são de apresentação.**
+
+**O mais grave a auditoria encontrou por acidente, e era nosso.** A declaração de
+IA dizia que Gemini 2.5 Pro, DeepSeek-V3 e **GPT-5.2-pro** atuaram como revisores
+do manuscrito. Fui conferir: `squad_audit_openai.json` tem **zero pareceres
+válidos e oito HTTP 429 "no credits"**, e já estava assim no commit de agosto. O
+GPT-5.2-pro nunca produziu uma linha sobre este artigo. Era método declarado sem
+execução — exatamente o que não pode existir num manuscrito. Corrigido em EN e
+PT: a declaração agora nomeia só quem rodou, diz que a execução na OpenAI foi
+tentada e não aconteceu, aponta para o artefato da falha, e reenquadra as
+passagens como garantia de qualidade interna, não revisão por pares.
+
+**O que mais procede e já está aplicado:**
+
+- **"Todo intervalo por tarefa inclui 1"** era falso para T5, que está no teto e
+  não tem intervalo. Agora: "todo intervalo **estimável**".
+- **O "um terço cita a escada" escondia o que importa.** Medi por grupo: **56%
+  das respostas erradas do Norte** citam um degrau oficial contra **27% das do
+  Sul**. Quando o modelo erra um padrão do Norte, confunde a etapa; quando erra um
+  do Sul, o valor nem está na escada. Isso afia o argumento, não o enfraquece.
+- **A manchete de H2 era o teste errado.** Era o Wilcoxon por célula, que o
+  próprio texto admitia ser anticonservador. Agora a manchete é o modelo misto com
+  intercepto por país, e é esse número que abstract, discussão e conclusão citam.
+- **Havia um descarte silencioso** no pareamento de H2: uma célula nativa sem par
+  em inglês sumia sem aviso. São 1 em 840 e não muda nada — mas "não muda nada" só
+  se sabe contando, então o número passa a ser publicado.
+- **A lacuna estava exagerada.** Dizíamos que ninguém havia feito benchmark de
+  informação regulatória com gabarito oficial, citando Dahl 2024, que fez
+  exatamente isso. A lacuna real é a versão transnacional, e agora é essa que o
+  texto reivindica.
+- Mais: tabela nova com os regimes de pontuação (quem decide o quê, por tarefa),
+  duas frases em português claro explicando a diferença entre as duas estimativas
+  da Tabela 5, e a declaração de dados dizendo o que de fato é publicado.
+
+**O que rejeitei, com a medição que rejeita.** O auditor disse que a bibliografia
+era o achado mais danoso possível: referências de 2026 e arXiv `2603.xxxxx` que
+"não podem existir". Conferi ao vivo: das 8 entradas de 2026, **6 resolvem no
+Crossref** (três delas na própria GIQ) e **2 no DataCite/arXiv**, com títulos
+idênticos aos do `.bib`. O modelo tem corte de treino anterior a 2026 e trata o
+presente como futuro. Também rejeitei a acusação de que o teste decisivo de H2
+não existiria (existe, roda e está no artigo) e a de que haveria quatro números
+diferentes para o mesmo efeito (os quatro imprimem −5,0).
+
+A auditoria na OpenAI **não rodou**: a conta está sem crédito. O caminho está
+implementado e o preflight barra em três segundos sem gastar nada.
 
 ## O que o artigo afirma agora, em uma página
 
